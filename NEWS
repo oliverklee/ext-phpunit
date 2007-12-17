@@ -5,6 +5,10 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
+17. December 2007: Version 3.2.1 - The 'Remember PEAR file structure!' release.
+	* Moved files in PHPUnit-3.2.6 directory to a PHPUnit sub-directory. Closes http://bugs.typo3.org/view.php?id=6994
+	~ Updated News part of manual.
+
 17. December 2007: Version 3.2.0 - The 'There is money to be made' release!
 	~ Bumped version number, since phpunit now ships with PHPUnit version 3.2.6
 	+ Added a NEWS file, which holds the info which was previously in the Changelog file.
