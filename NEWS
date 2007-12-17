@@ -1,0 +1,81 @@
+
+Legend:
+ + Means 'Added ...'
+ - Means 'Removed ...'
+ ~ Means 'Changed ...'
+ * Means 'Corrected ...'
+
+17. December 2007: Version 3.2.0 - The 'There is money to be made' release!
+	~ Bumped version number, since phpunit now ships with PHPUnit version 3.2.6
+	+ Added a NEWS file, which holds the info which was previously in the Changelog file.
+	~ Changed the Changelog file to hold Subversion commits. This is meant to be added by a pre-commit hook on svn, when extension development is moved to typo3xdev.sf.net.
+
+22. October 2007: Version 3.1.15
+	~ Extension test selector now groups the tests under the test suite they are part of (Usability request from Elmar Hinz of the ECT).
+
+17. October 2007: Version 3.1.14
+	+ Added German translation, thanks to Mario Rimann :-)
+
+17. October 2007: Version 3.1.13
+	+ Option to use extension pear as default. If PHPUnit is not installed via pear, then phpunit uses its own PHPUnit version as fallback. (proposal from Extension Coordination Team, ECT). 
+	+ Added info to 'About' if 'use pear' is set, but pear is not loaded. Defaults to phpunit provided PHPunit in that case (instead of just aborting).
+	~ Updated manual to mention pear integration and made the Changelog current (and updated index).
+
+17. October 2007: Version 3.1.12
+	+ Added 'Exclude extensions' option in extension manager setup. This allows you to set extension that phpunit should never search for tests (also applies to 'out of line'-paths).
+	+ Added info about currently excluded extensions to 'About phpunit BE' submodule.
+
+17. October 2007: Version 3.1.11
+	* Two identically named tests in different testsuites are now distinguished.
+	* Having the same extension installed as both local and global now works: Tests in the active one is run.
+
+15. October 2007: Version 3.1.10
+	+ Added 'out-of-line' tests: These are tests that are now in the extension itself, but found on a path you give in the extension manager.
+	+ Added information notice to eAccelerator 0.9.5.1 users about optimizer bug in eAccelerator.
+	+ Added 'Contributors' section to About box.
+	+ Fully translated into danish (except for the texts coming from PHPUnit).
+	+ Added stylesheet file, phpunit-be.css.
+	~ Changed layout of test runs to make them more easily readable.
+	~ Changed the two failing tests, that comes with phpunit: Now they give a message that they are meant to fail.
+	~ Factored out inline styles on elements (now controllable from phpunit-be.css).
+	* Corrected display of failure notices from failed tests: Assertion types/values are shown again.
+	* Corrected logo image display in About box.
+	
+
+10. October 2007: Version 3.1.9
+	+ Added 'include_path' output to the 'About' sub-module. This can be used to check where the extension is looking for PHPUnit.
+	+ Added extension manager configuration option to point to another PHPUnit, than the one provided by the extension (could be a PEAR installed PHPUnit).
+	+ Added PHPUnit version 3.1.9
+	+ Added PHPUnit version 3.0.6: You must provide the absolute path to it in the extension manager conf (including ending slash) to use this version.
+	- Removed PHPUnit version 3.0.5
+	~ Changed to using Typo3 v. 4.1.x feature of mod.php for the backend module, cf.  http://typo3.org/documentation/document-library/core-documentation/doc_core_inside/4.1.0/view/3/5/#id3561091
+	~ Changed version number to 3.1.9.
+	~ Changed state to beta.
+	~ Changed ChangeLog Legend and updated the complete file to reflect this.
+	* Corrected the way the lib is found: Now you only have do do it in one place. Note that PHPUnit is expected to be in a sub-directory called 'PHPUnit' of the place you write.
+	* Corrected the progressbar, so now it stays within the browser window (Thanks to Mikkel Ricky for the fix :-)
+	* Corrected a bug, where an error about class tx_t3unit_testcase was spewed (Thanks to Mario Rimann for pointing out and Mikkel Ricky for fixing).
+
+13. March 2007: Version 3.0.52
+	+ Added class tx_t3unit_testcase for providing backwards compatibility with t3unit (suggested by Robert Lemke).
+	+ Added t3unit and pear_phpunit2 to conflicts in file ext_emconf.php (suggested by Robert Lemke).
+	~ Changed version number in file ext_emconf.php to 3.0.52.
+	* Corrected depends in file ext_emconf.php (suggested by Robert Lemke)
+		from: 'php' => '5.2.1-0.0.0', 'typo3' => '4.1-0.0.0', 
+		to: 'php' => '5.2.1-', 'typo3' => '4.1-',
+	* Corrected paragraph in manual about version numbering convention to match reality (I hope!).
+
+11. March 2007: Version 3.0.51
+	+ Added tests/ directory to phpunit itself.
+	+ Added test file in tests/ directory (test file includes only dummy tests).
+	+ Added 'Legend' to Changelog file.
+	~ Bumped version number to 3.0.5.1.
+
+11. March 2007: Version 3.0.5
+	+ Merged T3Unit and PEAR_phpunit.
+	+ Upgraded to PHPUnit 3.0.5.
+	+ Revised documentation (still needs a lot of work).
+	+ Marked as experimental.
+	+ Set version to 3.0.5.
+	+ Upload to TER.
+    * Corrected EM Conf. so extension is not marked as shy.
