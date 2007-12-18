@@ -5,8 +5,10 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
-XX. December 2007: Version 3.2.2
-	* Removed white background from phpunit-be.css. 
+19. December 2007: Version 3.2.2
+	~ Changed header in BE module: It now writes the version string from the PHPUnit currently in use. This makes it easier to verify that the correct version is used. Closes http://bugs.typo3.org/view.php?id=6985
+	* Removed white background from phpunit-be.css.
+	* Changed path in ext_localconf.php to uppercase. Solves problem, where using the shipped PHPUnit did not work on systems where upper case / lower case is respected (e.g. Linux systems).
 
 17. December 2007: Version 3.2.1 - The 'Remember PEAR file structure!' release.
 	* Moved files in PHPUnit-3.2.6 directory to a PHPUnit sub-directory. Closes http://bugs.typo3.org/view.php?id=6994

@@ -27,8 +27,6 @@ Longer term goals:
 
 - Make sure phpunit works with latest Typo3 4.2. http://bugs.typo3.org/view.php?id=6984
 
-- Write PHPUnit version in headline. http://bugs.typo3.org/view.php?id=6985
-
 - Make it possible to filter on success/failure/error and maybe also testsuite/groups. http://bugs.typo3.org/view.php?id=6986
 
 - Implement choosing of testsuites / groups. http://bugs.typo3.org/view.php?id=6965

@@ -72,6 +72,7 @@ require_once (PATH_t3lib.'class.t3lib_scbase.php');
 
 require_once (t3lib_extMgm::extPath('phpunit').'class.tx_phpunit_testlistener.php');
 require_once (t3lib_extMgm::extPath('phpunit').'class.tx_phpunit_testcase.php');
+require_once ('PHPUnit/Runner/Version.php'); // Included for PHPUnit versionstring.
 
 define('PATH_tslib', t3lib_extMgm::extPath('cms').'tslib/');
 
@@ -142,10 +143,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			');
 
 			echo $this->doc->startPage(self::getLL('title'));
-			echo $this->doc->header(self::getLL('title'));
-//			echo $this->doc->spacer(5);
+			echo $this->doc->header(PHPUnit_Runner_Version::getVersionString());
 			echo $this->doc->section('',$this->doc->funcMenu('', t3lib_BEfunc::getFuncMenu($this->id,'SET[function]',$this->MOD_SETTINGS['function'],$this->MOD_MENU['function']).$this->openNewWindowLink()));
-//			echo $this->doc->divider(5);
 
 				// Render content:
 			switch ($this->MOD_SETTINGS['function']) {
