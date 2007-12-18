@@ -1,9 +1,5 @@
 @CHARSET "ISO-8859-1";
 
-body {
-	background-color: white;
-}
-
 .progress-bar-wrap {
 	height: 2em;
 	margin-bottom : 1em;

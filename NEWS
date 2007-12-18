@@ -5,6 +5,9 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
+XX. December 2007: Version 3.2.2
+	* Removed white background from phpunit-be.css. 
+
 17. December 2007: Version 3.2.1 - The 'Remember PEAR file structure!' release.
 	* Moved files in PHPUnit-3.2.6 directory to a PHPUnit sub-directory. Closes http://bugs.typo3.org/view.php?id=6994
 	~ Updated News part of manual.
