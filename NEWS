@@ -5,6 +5,13 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
+18. March 2008: Version 3.2.3
+	+ New helper functions in tx_phpunit_testcase: You can now use the Typo3 database from your tests. E.g. for creating new tables for your tests. Reminder: Never run tests in a production environment.
+	+ Tests for new helper functions added in class database_testcase. Note: You will need to manually install the four extensions named 'aaa', 'bbb', 'ccc' and 'ddd' (they can be found in tests/res/).
+	~ Upgraded PHPUnit from 3.2.6 to 3.2.15.
+	~ ext_emconf now states in description that the phpunit extension is based on PHPUnit 3.2 (instead of just PHPUnit 3).
+	* (Temporary) fix for issue #7631, http://bugs.typo3.org/view.php?id=7631#c19761, courtesy Mario Rimann.
+
 19. December 2007: Version 3.2.2
 	~ Changed header in BE module: It now writes the version string from the PHPUnit currently in use. This makes it easier to verify that the correct version is used. Closes http://bugs.typo3.org/view.php?id=6985
 	* Removed white background from phpunit-be.css.

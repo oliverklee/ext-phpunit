@@ -76,3 +76,8 @@
 	margin: 0.3em 0 0.3em 0;
 	background-color: #fff1f1;
 }
+
+/* Temporary bugfix for issue http://bugs.typo3.org/view.php?id=7631 */
+body#typo3-mod-php {
+    overflow: auto;
+}

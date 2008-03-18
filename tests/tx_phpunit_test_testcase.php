@@ -51,7 +51,7 @@ class tx_phpunit_test_testcase extends tx_phpunit_testcase {
 		$fixture = array();
 
 		// Assert that the size of the Array fixture is 0.
-		$this->assertEquals(1, sizeof($fixture), "This test is made deliberately to fail :-).");
+		$this->assertEquals(1, sizeof($fixture), "This test is deliberately made to fail :-).");
 	}
 	public function testNewArrayIsEmpty3()
 	{

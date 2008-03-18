@@ -12,10 +12,10 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'PHPUnit',
-	'description' => 'TYPO3 unit testing UI based on PHPUnit ver. 3 by Sebastian Bergmann. Part of the ECT effort (Extension Coordination Team).',
+	'description' => 'TYPO3 unit testing UI based on PHPUnit ver. 3.2 by Sebastian Bergmann. Part of the ECT effort (Extension Coordination Team).',
 	'category' => 'module',
 	'shy' => 0,
-	'version' => '3.2.2',
+	'version' => '3.2.3',
 	'dependencies' => '',
 	'conflicts' => '',
 	'priority' => '',
