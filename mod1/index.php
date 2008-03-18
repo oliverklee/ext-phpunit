@@ -497,11 +497,11 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$onClick = "phpunitbeWin=window.open('".$url."','phpunitbe','width=790,status=0,menubar=1,resizable=1,location=0,scrollbars=1,toolbar=0');phpunitbeWin.focus();return false;";
 		$content = '
 			<a id="opennewwindow" href="#" onclick="'.htmlspecialchars($onClick).'">
-				<img'.t3lib_iconWorks::skinImg ($BACK_PATH,'gfx/open_in_new_window.gif','width="19" height="14"').' title="'.$this->sL('LLL:EXT:lang/locallang_core.xml:labels.openInNewWindow',1).'" class="absmiddle" '.$addAttrib.' alt="" />
+				<img'.t3lib_iconWorks::skinImg ($BACK_PATH,'gfx/open_in_new_window.gif','width="19" height="14"').' title="'.$this->sL('LLL:EXT:lang/locallang_core.xml:labels.openInNewWindow',1).'" class="absmiddle" alt="" />
 			</a>
 			<script language="JavaScript"> if(window.name=="phpunitbe") { document.getElementById("opennewwindow").style.display = "none"; } </script>
 		';
-// 				<img'.t3lib_iconWorks::skinImg ($BACK_PATH,'gfx/open_in_new_window.gif','width="19" height="14"').' title="'.$this->getsL('LLL:EXT:lang/locallang_core.php:labels.openInNewWindow',1).'" class="absmiddle" '.$addAttrib.' alt="" />
+// 				<img'.t3lib_iconWorks::skinImg ($BACK_PATH,'gfx/open_in_new_window.gif','width="19" height="14"').' title="'.$this->getsL('LLL:EXT:lang/locallang_core.php:labels.openInNewWindow',1).'" class="absmiddle" alt="" />
 
 		return $content;
 	}
