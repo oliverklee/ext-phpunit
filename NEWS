@@ -12,6 +12,7 @@ XX. March 2008: Version 3.2.4
 	~ Upgraded PHPUnit from 3.2.15 to 3.2.16. Changelog: http://www.phpunit.de/wiki/ChangeLog32#PHPUnit3.2.1622-Mar-2008.
 	~ Use t3lib_div::trimExplode in various places, where it was appropriate.
 	~ ext_emconf.php: 'Namespace' variables better (in typo3confvars).
+	~ Added array type hint to function getFirstNonPHPUnitTrace in class tx_phpunit_testlistener.
 
 18. March 2008: Version 3.2.3
 	+ New helper functions in tx_phpunit_testcase: You can now use the Typo3 database from your tests. E.g. for creating new tables for your tests. Reminder: Never run tests in a production environment.

@@ -65,6 +65,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
     	echo '
 			<script>setClass("progress-bar","hadFailure");</script>
 			<script>setClass("testCaseNum-'.$this->currentTestNumber.'","testCaseFailure");</script>
+			<script>setClass("tx_phpunit_testcase_nr_'.$this->currentTestNumber.'","testCaseFailure");</script>
 			<strong><span class="hadFailure">!</span> Failure</strong> in test case <em>'.$test->getName().'</em>
 			<br />File: <em>'.$fileName.'</em>
 			<br />Line: <em>'.$testCaseTraceArr['line'].'</em>:
@@ -139,6 +140,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
     public function startTest(PHPUnit_Framework_Test $test) {
     	set_time_limit(30); // A sinlge test has to take less than this or else PHP will timeout.    	
 		echo '<div id="testCaseNum-'.$this->currentTestNumber.'" class="testcaseOutput">';
+		echo '<script>setClass("tx_phpunit_testcase_nr_'.$this->currentTestNumber.'","wasSuccessful");</script>';
   		echo 'Test: <strong class"testName">'.$test->getName().'</strong><br />'; 
     }
 

@@ -355,7 +355,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$extensionKeysToProcess = array($this->MOD_SETTINGS['extSel']);
 		}
 
-		$this->runTests_renderInfoAndProgressbar();
 
 		// Load the files containing test cases from extensions:
 		foreach ($extensionKeysToProcess as $extensionKey) {
@@ -397,6 +396,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		} else {
 			//???:
 			$testListener->totalNumberOfTestCases = $testSuite->count();
+			$this->runTests_renderInfoAndProgressbar($testListener->totalNumberOfTestCases);
 			$result = $testSuite->run($testResult);
 		}
 
@@ -434,13 +434,18 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * @return	void
 	 * @access	protected
 	 */
-	protected function runTests_renderInfoAndProgressbar() {
+	protected function runTests_renderInfoAndProgressbar($tests = 1) {
 		echo '
 			<div class="progress-bar-wrap">
 				<span id="progress-bar">&nbsp;</span>
 				<span id="transparent-bar">&nbsp;</span>
 			</div>
 		';
+		echo '<div class="progress-bar-wrap">';
+		for ($i = 0; $i < $tests; $i++) {
+			echo '<span id="tx_phpunit_testcase_nr_'.$i.'" class="tx_phpunit_testcase_progressbox" title="'.$i.'">#</span>';
+		}
+		echo '</div>';
 	}
 	
 	/**

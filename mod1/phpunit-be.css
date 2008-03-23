@@ -77,6 +77,11 @@
 	background-color: #fff1f1;
 }
 
+.tx_phpunit_testcase_progressbox {
+	width : 100%;
+	border : 1px solid black;
+}
+
 /* Temporary bugfix for issue http://bugs.typo3.org/view.php?id=7631 */
 body#typo3-mod-php {
     overflow: auto;
