@@ -6,3 +6,6 @@ excludeextensions =
 usepear = 1
   # cat=basic; type=string; label=Path to PHPUnit (overrides 'Use pear'): The PHPUnit-lib must be in a sub-directory named 'PHPUnit'. Point to directory just above that. Setting this will have preference over a PHPUnit from pear, even if pear is set. Remember that you can check the includepath used by phpunit in the 'About PHPUnit BE' drop-down in the PHPUnit module. 
 phpunitlib = 
+  # cat=basic; type=boolean; label=Collect code coverage information: Non-functional! Slows down! Do not use! Requires XDebug!
+collectCodeCoverageInformation = 0
+

@@ -73,6 +73,7 @@ require_once (PATH_t3lib.'class.t3lib_scbase.php');
 require_once (t3lib_extMgm::extPath('phpunit').'class.tx_phpunit_testlistener.php');
 require_once (t3lib_extMgm::extPath('phpunit').'class.tx_phpunit_testcase.php');
 require_once ('PHPUnit/Runner/Version.php'); // Included for PHPUnit versionstring.
+require_once ('PHPUnit/Util/Report.php'); // Included for PHPUnit versionstring.
 
 define('PATH_tslib', t3lib_extMgm::extPath('cms').'tslib/');
 
@@ -373,6 +374,15 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$testListener = new tx_phpunit_testlistener;
 
 		$testResult = new PHPUnit_Framework_TestResult;
+		
+		// Set to collect code coverage information.
+		if (//(isset($arguments['coverageXML']) ||
+            // isset($arguments['metricsXML'])  ||
+            // isset($arguments['pmdXML'])) &&
+             extension_loaded('xdebug')) {
+            $testResult->collectCodeCoverageInformation(TRUE);
+        }
+        
 		$testResult->addListener ($testListener);
 
 		if (t3lib_div::GPvar('testname')) {
@@ -403,6 +413,9 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		}
 		$testStatistics .= $testResult->count().' '.self::getLL('tests_total').', '.$testResult->failureCount().' '.self::getLL('tests_failures').', '.$testResult->errorCount().' '.self::getLL('tests_errors').'<br />';
 		echo $testStatistics; 
+		
+		// Code coverage output.
+		//echo PHPUnit_Util_Report::render($result, '/tmp/coverage/');
 		
 		echo '
 			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="POST" >
@@ -439,10 +452,9 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	protected function about_render() {
 
 		echo '<img src="'.t3lib_extMgm::extRelPath('phpunit').'mod1/phpunit.gif" width="94" height="80" alt="PHPUnit" title="PHPUnit" style="float:right; margin-left:10px;" />';
-		$extConfArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['phpunit']);
-		$blanksRemoved = preg_replace("/\s/",'',$extConfArr['excludeextensions']);
+		$excludeExtensions = t3lib_div::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['excludeextensions']);
 		echo self::eAccelerator0951OptimizerHelp();
-		if ($extConfArr['usepear'] && !t3lib_extMgm::isLoaded('pear')) {
+		if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['usepear'] && !t3lib_extMgm::isLoaded('pear')) {
 			echo '<h2>Extension pear is not loaded</h2>
 			The option for phpunit to use pear is set in the extension manager, but the pear extension is not loaded.<p>
 			As a fall back phpunit uses the PHPUnit that is provided with it.<p>
@@ -461,8 +473,16 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		<pre>'.join("\n",explode(PATH_SEPARATOR,get_include_path())).'</pre>
 		<h2>Currently excluded extension</h2>
 		The following extensions are excluded from being searched for tests:<p>
-		<pre>'.join("\n",array_unique(explode(',',$blanksRemoved))).'</pre>
+		<pre>'.join("\n",$excludeExtensions).'</pre>
 		<p>Note: The extension exclusion list can be changed in the extension manager.
+		<h2>Is XDebug PHP extension loaded?</h2>
+		<p>To get code coverage reporting, PHPUnit needs the PHP extension <a target="_blank" href="http://www.xdebug.org"><em>XDebug</em></a>.</p>
+		<p>On this PHP installation, XDebug is '.(extension_loaded('xdebug') ? '' : '<em>not</em>').' loaded 
+		<h2>This extension has bugs...</h2>
+		<p><a target="_blank" href="http://bugs.typo3.org/search.php?project_id=79&sticky_issues=on&sortby=last_updated&dir=DESC&hide_status_id=90">Click to see the list of issues for this extension</a></p>
+		<p>You can report an issue by following the above link. An issue can be e.g. a bug or an improvement/enhancement.</p>
+		<h2>Browse code in Subversion repository</h2>
+		<p><a target="_blank" href="http://typo3xdev.svn.sourceforge.net/viewvc/typo3xdev/tx_phpunit/">The code repository for the phpunit extension can be browsed here</a></p>
 		<h2>Licence and copyright</h2>
 		PHPUnit is released under the terms of the PHP License as free software.<br />
 		PHPUnit Copyright &copy; 2001 - 2007 Sebastian Bergmann
@@ -472,7 +492,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		<h2>Contributors</h2>
 		The following people have contributed by testing, bugfixing, suggesting new features etc.
 		<p>
-		Robert Lemke, Mario Rimann, Oliver Klee and Mikkel Ricky.<p>
+		Robert Lemke, Mario Rimann, Oliver Klee, Søren Soltveit and Mikkel Ricky.<p>
 		';
 	}
 
@@ -513,11 +533,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 */
 	protected function getExtensionsWithTestSuites() {
 		// Fetch extension manager configuration options
-		$extConfArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['phpunit']);
-		$blanksRemoved = preg_replace("/\s/",'',$extConfArr['excludeextensions']);
-		$excludeExtensions = explode(',',$blanksRemoved);
-		$excludeExtensions = explode(',',$extConfArr['excludeextensions']);
-		$outOfLineTestCases = $this->traversePathForTestCases ($extConfArr['outoflinetestspath']);
+		$excludeExtensions = t3lib_div::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['excludeextensions']);
+		$outOfLineTestCases = $this->traversePathForTestCases ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['outoflinetestspath']);
 		
 		// Get list of loaded extensions
 		$extList = explode(',', $GLOBALS['TYPO3_CONF_VARS']['EXT']['extList']);

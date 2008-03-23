@@ -25,8 +25,10 @@
 ***************************************************************/
 
 /**
- * This class exists for the only reason that TYPO3 testcase inherit
- * a class called "tx_phpunitbe_testcase" instead of "PHPUnit_Framework_TestCase".
+ * This class provides helper functions, that might be convenient when testing in
+ * Typo3. It extends PHPUnit_Framework_TestCase, so you have access to all of that 
+ * class too.
+ * 
  */
 require_once('PHPUnit/Framework/TestCase.php');
 require_once(PATH_t3lib.'class.t3lib_install.php');
@@ -50,7 +52,12 @@ class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
 		$this->testDatabase = TYPO3_db.'_test';
 	}
 
-
+	/*
+	 * Accesses the Typo3 database object, and uses it to fetch the list of databases. Then
+	 * checks whether to a test database is already setup; if not, then creates it.
+	 * 
+	 * @return void
+	 */
 	protected function createDatabase() {
 		$db = $GLOBALS['TYPO3_DB'];
 		$databaseNames = $db->admin_get_dbs();
@@ -68,7 +75,6 @@ class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
 	 */
 	protected function cleanDatabase() {
 		$db = $GLOBALS['TYPO3_DB'];
-
 		$databaseNames = $db->admin_get_dbs();
 
 		if (in_array($this->testDatabase, $databaseNames)) {
@@ -130,11 +136,7 @@ class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
 	 * 
 	 * @return void
 	 */
-	protected function importExtensions($extensions, $importDependencies=false, &$skipDependencies=array()) {
-		if (!is_array($extensions)) {
-			return;
-		}
-
+	protected function importExtensions(array $extensions, $importDependencies=false, array &$skipDependencies=array()) {
 		$this->useTestDatabase();
 
 		foreach ($extensions as $extensionName) {
@@ -251,8 +253,12 @@ class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
 			$dependencies = $EM_CONF[$_EXTKEY]['constraints']['depends'];
 
 			// remove php and typo3 extension (not real extensions)
-			if ($dependencies['php'])	unset($dependencies['php']);
-			if ($dependencies['typo3'])	unset($dependencies['typo3']);
+			if (isset($dependencies['php'])) {
+				unset($dependencies['php']);
+			}
+			if (isset($dependencies['typo3'])) {
+				unset($dependencies['typo3']);
+			}
 
 			return array_keys($dependencies);
 		}

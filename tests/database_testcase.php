@@ -12,8 +12,8 @@
 
 class database_testcase extends tx_phpunit_testcase {
 
-	public function testNull() {
-		debug(mysql_real_escape_string(null));
+	public function testNullToEmptyString() {
+		$this->assertEquals('', mysql_real_escape_string(null));
 	}
 
 

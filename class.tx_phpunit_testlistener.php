@@ -137,6 +137,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
     * @access public
     */
     public function startTest(PHPUnit_Framework_Test $test) {
+    	set_time_limit(30); // A sinlge test has to take less than this or else PHP will timeout.    	
 		echo '<div id="testCaseNum-'.$this->currentTestNumber.'" class="testcaseOutput">';
   		echo 'Test: <strong class"testName">'.$test->getName().'</strong><br />'; 
     }
@@ -165,7 +166,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
      * @return	array	Trace information
      * @access 	protected
      */
-	protected function getFirstNonPHPUnitTrace ($traceArr) {
+	protected function getFirstNonPHPUnitTrace (array $traceArr) {
 		$testCaseTraceArr = array();
 		foreach ($traceArr as $singleTraceArr) {
 			if (!stristr ($singleTraceArr['file'], 'Framework/Assert.php')) {
