@@ -373,11 +373,9 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$testListener = new tx_phpunit_testlistener;
 
 		$testResult = new PHPUnit_Framework_TestResult;
-		
+
 		// Set to collect code coverage information.
-		if (//(isset($arguments['coverageXML']) ||
-            // isset($arguments['metricsXML'])  ||
-            // isset($arguments['pmdXML'])) &&
+		if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['collectCodeCoverageInformation'] &&
              extension_loaded('xdebug')) {
             $testResult->collectCodeCoverageInformation(TRUE);
         }
@@ -400,7 +398,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$result = $testSuite->run($testResult);
 		}
 
-			// Display test statistics:
+		// Display test statistics:
 		$testStatistics = '';
 		if ($testResult->wasSuccessful()) {
 	    	$testStatistics = '
@@ -416,6 +414,13 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		
 		// Code coverage output.
 		//echo PHPUnit_Util_Report::render($result, '/tmp/coverage/');
+		if ($testResult->getCollectCodeCoverageInformation()) {
+			$jsonCodeCoverage = json_encode($testResult->getCodeCoverageInformation());
+			// echo $jsonCodeCoverage;
+		    PHPUnit_Util_Report::render($testResult, t3lib_extMgm::extPath('phpunit').'codecoverage/');
+		    echo '<a target="_blank" href="'.t3lib_extMgm::extRelPath('phpunit').'codecoverage/typo3conf_ext.html">Click here to access the Code Coverage report</a><br/>';
+		    echo 'Memory peak usage: '.ceil(memory_get_peak_usage()/(1024*1024)).' MB<br/>';
+		}
 		
 		echo '
 			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="POST" >
@@ -441,11 +446,15 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				<span id="transparent-bar">&nbsp;</span>
 			</div>
 		';
-		echo '<div class="progress-bar-wrap">';
-		for ($i = 0; $i < $tests; $i++) {
-			echo '<span id="tx_phpunit_testcase_nr_'.$i.'" class="tx_phpunit_testcase_progressbox" title="'.$i.'">#</span>';
+		
+		if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['experimentalProgressBar']) {
+			echo '<div style="width : 100%; height: auto;">';
+			$width = 100 / $tests;
+			for ($i = 0; $i < $tests; $i++) {
+				echo '<a href="#testCaseNum-'.$i.'" style="width : '.$width.'%;" id="tx_phpunit_testcase_nr_'.$i.'" class="tx_phpunit_testcase_progressbox" title="'.$i.'">&nbsp;</a>';
+			}
+			echo '</div>';
 		}
-		echo '</div>';
 	}
 	
 	/**
@@ -482,7 +491,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		<p>Note: The extension exclusion list can be changed in the extension manager.
 		<h2>Is XDebug PHP extension loaded?</h2>
 		<p>To get code coverage reporting, PHPUnit needs the PHP extension <a target="_blank" href="http://www.xdebug.org"><em>XDebug</em></a>.</p>
-		<p>On this PHP installation, XDebug is '.(extension_loaded('xdebug') ? '' : '<em>not</em>').' loaded 
+		<p>On this PHP installation, XDebug is '.(extension_loaded('xdebug') ? '' : '<em>not</em>').' loaded</p>
+		<h2>Current memory limit</h2>
+		<p>When using XDebug to collect code coverage data, you will need the memory limit to be set rather high. Something like 256MB will probably be needed.</p>
+		<p>On this PHP installation the memory limit is currently set to: '.ini_get('memory_limit').' 
 		<h2>This extension has bugs...</h2>
 		<p><a target="_blank" href="http://bugs.typo3.org/search.php?project_id=79&sticky_issues=on&sortby=last_updated&dir=DESC&hide_status_id=90">Click to see the list of issues for this extension</a></p>
 		<p>You can report an issue by following the above link. An issue can be e.g. a bug or an improvement/enhancement.</p>
@@ -490,10 +502,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		<p><a target="_blank" href="http://typo3xdev.svn.sourceforge.net/viewvc/typo3xdev/tx_phpunit/">The code repository for the phpunit extension can be browsed here</a></p>
 		<h2>Licence and copyright</h2>
 		PHPUnit is released under the terms of the PHP License as free software.<br />
-		PHPUnit Copyright &copy; 2001 - 2007 Sebastian Bergmann
+		PHPUnit Copyright &copy; 2001 - 2008 Sebastian Bergmann
 		<p>
 		PHPUnit BE is released under the GPL Licence and is part of the TYPO3 Framework.<br />
-		PHPUnit BE Copyright &copy; 2005-2007 <a href="mailto:kasperligaard@gmail.com">Kasper Ligaard</a>
+		PHPUnit BE Copyright &copy; 2005-2008 <a href="mailto:kasperligaard@gmail.com">Kasper Ligaard</a>
 		<h2>Contributors</h2>
 		The following people have contributed by testing, bugfixing, suggesting new features etc.
 		<p>

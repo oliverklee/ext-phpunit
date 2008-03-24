@@ -8,4 +8,5 @@ usepear = 1
 phpunitlib = 
   # cat=basic; type=boolean; label=Collect code coverage information: Non-functional! Slows down! Do not use! Requires XDebug!
 collectCodeCoverageInformation = 0
-
+  # cat=basic; type=boolean; label=Experimental progress bar: Trying to solve issue #6972 and #6975
+experimentalProgressBar = 0

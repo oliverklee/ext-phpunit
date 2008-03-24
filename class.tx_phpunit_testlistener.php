@@ -39,10 +39,15 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	 */
     public function addError(PHPUnit_Framework_Test $test, Exception $e, $time) {
     	$testCaseTraceArr = $this->getFirstNonPHPUnitTrace ($e->getTrace());
-		$fileName = str_replace (PATH_site, '', $testCaseTraceArr['file']);		
+		$fileName = str_replace (PATH_site, '', $testCaseTraceArr['file']);
+		
+		echo '<script>setClass("tx_phpunit_testcase_nr_'.$this->currentTestNumber.'","hadError");</script>';
+			
     	echo '
 			<script>setClass("progress-bar","hadError");</script>
-			<span class="hadFailures">!</span> <strong>Error</strong> in test case <em>'.$test->getName().'</em>
+			<script>setClass("tx_phpunit_testcase_nr_'.$this->currentTestNumber.'","hadError");</script>
+			<script>setClass("testCaseNum-'.$this->currentTestNumber.'","testCaseError");</script>
+			<strong><span class="hadError">!</span> Error</strong> in test case <em>'.$test->getName().'</em>
 			<br />in file<em> '.$fileName.'</em>
 			<br />on line<em> '.$testCaseTraceArr['line'].'</em>:
 			<div class="message">Message:<br>'.htmlspecialchars($e->getMessage()).'</div>';
@@ -61,11 +66,13 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
     	//$result = $test->createResult();
     	$testCaseTraceArr = $this->getFirstNonPHPUnitTrace ($e->getTrace());
 		$fileName = str_replace (PATH_site, '', $testCaseTraceArr['file']);
+		
+		echo '<script>setClass("tx_phpunit_testcase_nr_'.$this->currentTestNumber.'","hadFailure");</script>';
 
     	echo '
 			<script>setClass("progress-bar","hadFailure");</script>
+			<script>setClass("tx_phpunit_testcase_nr_'.$this->currentTestNumber.'","hadFailure");</script>
 			<script>setClass("testCaseNum-'.$this->currentTestNumber.'","testCaseFailure");</script>
-			<script>setClass("tx_phpunit_testcase_nr_'.$this->currentTestNumber.'","testCaseFailure");</script>
 			<strong><span class="hadFailure">!</span> Failure</strong> in test case <em>'.$test->getName().'</em>
 			<br />File: <em>'.$fileName.'</em>
 			<br />Line: <em>'.$testCaseTraceArr['line'].'</em>:
