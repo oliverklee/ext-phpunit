@@ -5,7 +5,10 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
-XX. March 2008: Version 3.2.4
+27. March 2008: Version 3.2.5
+	+ Added new UI for running tests: You will need to set the new option ' Experimental test interface' in the Extension Manager (EM).  This adresses issue #6965, http://bugs.typo3.org/view.php?id=6965. Thanks to Mikkel Ricky who provided the new implementation. 
+
+24. March 2008: Version 3.2.4
 	+ Experimental support for Code Coverage reporting. Turned of by default, since you need to setup XDebug and it slows down unit testing considerably!
 	+ Previously there was a total timelimit of 30 seconds. Now the timelimit is per testcase; this is done by inserting a call to set_time_limit(30) in the testlistener.
 	+ Expanded 'About PHPUnit BE': Added links to bugs.typo3.org and phpunit on typo3xdev.sf.net. Added Søren Soltveit to contributor list. Added test for XDebug extension (needed for code coverage) and test for memory limit, which should be set to something like 256MB, when using code coverage!

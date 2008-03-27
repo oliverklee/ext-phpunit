@@ -1,0 +1,18 @@
+@import "phpunit-be.css";
+
+table.testcontrols {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+table.testcontrols td {
+	padding: 5px 20px;
+}
+
+table.testcontrols td select {
+	width: 100%;
+}
+
+.running td {
+	background-color: #e3e3e3;
+}
