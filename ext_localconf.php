@@ -15,7 +15,7 @@ if (!$TYPO3_CONF_VARS['EXTCONF'][$_EXTKEY]['usepear'] || !t3lib_extMgm::isLoaded
 	) {
 	// If all above fails, then fall back to use own provided version of PHPUnit:
 	// TODO: Automatically detect current version, see http://bugs.typo3.org/view.php?id=6969
-	$phpunitlib .= t3lib_extMgm::extPath('phpunit').'PHPUnit-3.2.16/';
+	$phpunitlib .= t3lib_extMgm::extPath('phpunit').'PHPUnit-3.2.17/';
 }
 
 define (TX_PHPUNITLIB_EXTPATH, $phpunitlib);
