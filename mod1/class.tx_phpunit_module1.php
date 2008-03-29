@@ -6,6 +6,13 @@
  * @package TYPO3
  * @subpackage tx_phpunit
  */
+
+require_once 'PHPUnit/Util/Log/JSON.php';
+require_once 'PHPUnit/Util/Log/Metrics.php';
+require_once 'PHPUnit/Util/Log/PMD.php';
+require_once 'PHPUnit/Util/Log/CPD.php';
+require_once 'PHPUnit/Util/Log/GraphViz.php';
+
 class tx_phpunit_module1 extends t3lib_SCbase {
 
 	private static function getLL ($index) {
@@ -80,9 +87,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			}
 
 				// ShortCut
-//			echo $this->doc->spacer(20).$this->doc->section('',$this->doc->makeShortcutIcon('id',implode(',',array_keys($this->MOD_MENU)),$this->MCONF['name']));
 			echo $this->doc->section('',$this->doc->makeShortcutIcon('id',implode(',',array_keys($this->MOD_MENU)),$this->MCONF['name']));
-//			echo $this->doc->spacer(10);
 
 		} else {
 
@@ -91,16 +96,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 			echo $this->doc->startPage(self::getLL('title'));
 			echo $this->doc->header(self::getLL('title'));
-//			echo $this->doc->spacer(5);
-//			echo $this->doc->spacer(10);
 			echo self::getLL('admin_rights_needed');
 		}
 		echo $this->doc->endPage();
 	}
-
-
-
-
 
 	/*********************************************************
 	 *
@@ -166,16 +165,22 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 		$selected = strcmp('uuall',$this->MOD_SETTINGS['extSel']) ? '' : ' selected="selected"';
 		$extensionsOptionsArr[] = '<option class="alltests" value="uuall"'.$selected.'>'.self::getLL('all_extensions').'</option>';
-
+		
 		foreach($extensionsWithTestSuites as $dirName => $dummy)		{
+			$style = 'background-image: url('.t3lib_extMgm::extRelPath($dirName).'/ext_icon.gif); background-repeat: no-repeat; background-position: 3px 50%; padding: 1px; padding-left: 24px;';
 			$selected = strcmp($dirName,$this->MOD_SETTINGS['extSel']) ? '' : ' selected="selected"';
-			$extensionsOptionsArr[]='<option value="'.htmlspecialchars($dirName).'"'.$selected.'>'.htmlspecialchars($dirName).'</option>';
+			if ($selected) {
+				$currentExtName = $dirName;
+			}
+			$extensionsOptionsArr[]='<option style="'.$style.'" value="'.htmlspecialchars($dirName).'"'.$selected.'>'.$icon.htmlspecialchars($dirName).'</option>';
 		}
-
+		
+		$style = 'background-image: url('.t3lib_extMgm::extRelPath($currentExtName).'/ext_icon.gif); background-repeat: no-repeat; background-position: 3px 50%; padding: 1px; padding-left: 24px;';
+		
 		$output = self::eAccelerator0951OptimizerHelp();
 		$output .= '
 			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="POST">
-                <select name="SET[extSel]" onchange="jumpToUrl(\''.htmlspecialchars($this->MCONF['_']).'&SET[extSel]=\'+this.options[this.selectedIndex].value,this);">'.implode('',$extensionsOptionsArr).'</select>
+                <select style="'.$style.'" name="SET[extSel]" onchange="jumpToUrl(\''.htmlspecialchars($this->MCONF['_']).'&SET[extSel]=\'+this.options[this.selectedIndex].value,this);">'.implode('',$extensionsOptionsArr).'</select>
 				<input type="submit" value="'.self::getLL('run_all_tests').'" />
 				<input type="hidden" name="command" value="runalltests" />
 			</form>
@@ -219,7 +224,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		}
 
 		$testsOptionsArr = array();
-
+		
 		foreach ($testSuite->tests() as $testCases) {
 			foreach ($testCases->tests() as $test) {
 				$selected = $test->toString() == t3lib_div::GPvar('testname') ? ' selected="selected"' : '';
@@ -228,6 +233,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				$testsOptionsArr[$testSuiteName][] = '<option value="'.$test->toString().'"'.$selected.'>'.htmlspecialchars($test->getName()).'</option>';
 			}
 		}
+		
+		$currentStyle = 'background-image: url('.t3lib_extMgm::extRelPath($extensionKey).'/ext_icon.gif); background-repeat: no-repeat; background-position: 3px 50%; padding: 1px; padding-left: 24px;';
 		
 		// build options for select (incl. option groups for test suites)
 		$testOptionsHtml = ''; 
@@ -239,9 +246,11 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$testOptionsHtml .= '</optgroup>';
 		}
 
+		$style = 'background-image: url('.t3lib_extMgm::extRelPath($extensionKey).'/ext_icon.gif); background-repeat: no-repeat; background-position: 3px 50%; padding: 1px; padding-left: 24px;';
+		
 		$output = '
 			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="post">
-				<select name="testname">
+				<select style="'.$currentStyle.'" name="testname">
 				<option value="">'.self::getLL('select_tests').'</option>'.
 				$testOptionsHtml.
 				'</select>
@@ -292,7 +301,9 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		}
 
 			// Create a listener and run the tests:
-		$testListener = new tx_phpunit_testlistener;
+		$testListener = new tx_phpunit_testlistener();
+		$jsonListener = new PHPUnit_Util_Log_JSON();
+        $graphVizListener = new PHPUnit_Util_Log_GraphViz();
 
 		$testResult = new PHPUnit_Framework_TestResult;
 
@@ -302,14 +313,22 @@ class tx_phpunit_module1 extends t3lib_SCbase {
             $testResult->collectCodeCoverageInformation(TRUE);
         }
         
-		$testResult->addListener ($testListener);
+		$testResult->addListener($testListener);
+		
+		/* TODO: Create json based interface.
+		$testResult->addListener($jsonListener);
+		*/
+		
+		/* TODO: Add nice call graphs in code coderage report.
+		$testResult->addListener($graphVizListener);
+		*/
 
 		if (t3lib_div::GPvar('testname')) {
 			$testListener->totalNumberOfTestCases = 1;
 			foreach ($testSuite->tests() as $testCases) {
 				foreach ($testCases->tests() as $test) {
 					if ($test->toString() == t3lib_div::GPvar('testname')) {
-						$result = $test->run ($testResult);
+						$result = $test->run($testResult);
 					}
 				}
 			}
@@ -318,7 +337,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$testListener->totalNumberOfTestCases = $testSuite->count();
 			$this->runTests_renderInfoAndProgressbar($testListener->totalNumberOfTestCases);
 			$result = $testSuite->run($testResult);
-		}
+		}            
 
 		// Display test statistics:
 		$testStatistics = '';
@@ -334,6 +353,14 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$testStatistics .= $testResult->count().' '.self::getLL('tests_total').', '.$testResult->failureCount().' '.self::getLL('tests_failures').', '.$testResult->errorCount().' '.self::getLL('tests_errors').'<br />';
 		echo $testStatistics; 
 		
+		echo '
+			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="POST" >
+				<input type="submit" value="'.self::getLL('run_again').'" tabindex="100" />
+				<input name="command" type="hidden" value="'.t3lib_div::_GP('command').'" />
+				<input name="testname" type="hidden" value="'.t3lib_div::_GP('testname').'" />
+			</form>
+		';
+		
 		// Code coverage output.
 		//echo PHPUnit_Util_Report::render($result, '/tmp/coverage/');
 		if ($testResult->getCollectCodeCoverageInformation()) {
@@ -342,15 +369,22 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		    PHPUnit_Util_Report::render($testResult, t3lib_extMgm::extPath('phpunit').'codecoverage/');
 		    echo '<a target="_blank" href="'.t3lib_extMgm::extRelPath('phpunit').'codecoverage/typo3conf_ext.html">Click here to access the Code Coverage report</a><br/>';
 		    echo 'Memory peak usage: '.ceil(memory_get_peak_usage()/(1024*1024)).' MB<br/>';
-		}
+		    
+		    /* TODO: Add metrics UI presentation
+		    $logMetricsWriter = new PHPUnit_Util_Log_Metrics();
+			$logMetricsWriter->process($testResult);
+			*/
 		
-		echo '
-			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="POST" >
-				<input type="submit" value="'.self::getLL('run_again').'" tabindex="100" />
-				<input name="command" type="hidden" value="'.t3lib_div::_GP('command').'" />
-				<input name="testname" type="hidden" value="'.t3lib_div::_GP('testname').'" />
-			</form>
-		';
+		    /* TODO: Add Project Mess Detector (PMD) statistics
+        	$logPmdWriter = new PHPUnit_Util_Log_PMD();
+        	$logPmdWriter->process($testResult);
+			*/
+
+		    /* TODO: Add Code Duplication Detection (CPD) statistics.
+        	$logCpdWriter = new PHPUnit_Util_Log_CPD();
+        	$logCpdWriter->process($testResult);
+			*/
+		}
 	}
 
 	/**
