@@ -334,7 +334,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$testListener->totalNumberOfTestCases = 1;
 			foreach ($testSuite->tests() as $testCases) {
 				foreach ($testCases->tests() as $test) {
-					if ($test->toString() == t3lib_div::GPvar('testname')) {
+					if ($test->toString() === t3lib_div::GPvar('testname')) {
 						$result = $test->run($testResult);
 					}
 				}
@@ -348,7 +348,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 		// Display test statistics:
 		$testStatistics = '';
-		if ($testResult->wasSuccessful()) {
+		if ($result->wasSuccessful()) {
 	    	$testStatistics = '
 				<script>setClass("progress-bar","wasSuccessful");</script>
 				<h2 class="wasSuccessful">'.self::getLL('testing_success').'</h2>';
@@ -357,7 +357,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				<script>setClass("progress-bar","hadFailure");</script>
 				<h2 class="hadFailure">Failures!</h2>';
 		}
-		$testStatistics .= $testResult->count().' '.self::getLL('tests_total').', '.$testResult->failureCount().' '.self::getLL('tests_failures').', '.$testResult->errorCount().' '.self::getLL('tests_errors').'<br />';
+		$testStatistics .= $result->count().' '.self::getLL('tests_total').', '.$result->failureCount().' '.self::getLL('tests_failures').', '.$testResult->errorCount().' '.self::getLL('tests_errors').'<br />';
 		echo $testStatistics; 
 		
 		echo '
@@ -370,10 +370,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		
 		// Code coverage output.
 		//echo PHPUnit_Util_Report::render($result, '/tmp/coverage/');
-		if ($testResult->getCollectCodeCoverageInformation()) {
-			$jsonCodeCoverage = json_encode($testResult->getCodeCoverageInformation());
+		if (!t3lib_div::GPvar('testname') && $result->getCollectCodeCoverageInformation()) {
+			$jsonCodeCoverage = json_encode($result->getCodeCoverageInformation());
 			// echo $jsonCodeCoverage;
-		    PHPUnit_Util_Report::render($testResult, t3lib_extMgm::extPath('phpunit').'codecoverage/');
+		    PHPUnit_Util_Report::render($result, t3lib_extMgm::extPath('phpunit').'codecoverage/');
 		    echo '<a target="_blank" href="'.t3lib_extMgm::extRelPath('phpunit').'codecoverage/typo3conf_ext.html">Click here to access the Code Coverage report</a><br/>';
 		    echo 'Memory peak usage: '.ceil(memory_get_peak_usage()/(1024*1024)).' MB<br/>';
 		    
