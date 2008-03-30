@@ -84,6 +84,13 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 		} else {
 			echo '<div class="message">'.htmlspecialchars($e->getMessage()).'</div>';
 		}
+		
+		/*
+		echo '<br /><strong>Stack trace (filtered)</strong>';
+		echo '<div class="message">';
+		var_dump(PHPUnit_Util_Filter::getFilteredStacktrace($e,TRUE,FALSE));
+		echo '</div>';
+		*/
 		flush();
     }
 

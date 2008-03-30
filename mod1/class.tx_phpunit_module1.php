@@ -62,6 +62,9 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$this->doc->styleSheetFile2 = t3lib_extMgm::extRelPath('phpunit').'mod1/phpunit-be.css';
 
 				// JavaScript
+			$this->doc->loadJavascriptLib('contrib/prototype/prototype.js');
+			$this->doc->loadJavascriptLib('js/common.js');
+			$this->doc->loadJavascriptLib(t3lib_extMgm::extRelPath('phpunit').'mod1/tx_phpunit_module1.js');
 			$this->doc->JScode = $this->doc->wrapScriptTags('
 					script_ended = 0;
 					function jumpToUrl(URL)	{	//

@@ -76,14 +76,17 @@ require_once ('PHPUnit/Runner/Version.php'); // Included for PHPUnit versionstri
 require_once ('PHPUnit/Util/Report.php'); // Included for PHPUnit versionstring.
 require_once ('class.tx_phpunit_module1.php');
 require_once ('class.tx_phpunit_module1_mikkelricky.php');
+require_once ('class.tx_phpunit_module1_ajax.php');
 
 define('PATH_tslib', t3lib_extMgm::extPath('cms').'tslib/');
 
 // Which instance interface to create?
 if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['experimentalTestSuiteUI']) {
-	$SOBE = new tx_phpunit_module1_mikkelricky;
+	$SOBE = new tx_phpunit_module1_mikkelricky();
+} else if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['experimentalAjaxUI']) {
+	$SOBE = new tx_phpunit_module1_ajax();
 } else {
-	$SOBE = new tx_phpunit_module1;
+	$SOBE = new tx_phpunit_module1();
 }
 $SOBE->init();
 $SOBE->main();
