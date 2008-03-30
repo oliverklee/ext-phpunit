@@ -5,6 +5,9 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
+30. March 2008: Version 3.2.7
+	* Bug fix release. Fixes #7964, http://bugs.typo3.org/view.php?id=7964
+
 29. March 2008: Version 3.2.6
 	+ Added extension icons to selector boxes (note: not working with Opera).
 	+ Added PHPUnit 3.2.17, see Changelog at http://phpunit.de/wiki/ChangeLog32#PHPUnit3.2.1729-Mar-2008
