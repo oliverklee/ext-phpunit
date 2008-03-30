@@ -19,9 +19,11 @@ var tx_phpunit_module1 = {
 	}
 };
 
+/*
 document.observe("dom:loaded", function() {
 	p = $$('h2');
 	alert(p.length);
 	p[0].style.cursor = 'move';
 	p[0].observe('click', tx_phpunit_module1.load);
 });
+*/

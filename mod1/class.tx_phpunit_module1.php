@@ -178,12 +178,16 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$extensionsOptionsArr[]='<option style="'.$style.'" value="'.htmlspecialchars($dirName).'"'.$selected.'>'.$icon.htmlspecialchars($dirName).'</option>';
 		}
 		
-		$style = 'background-image: url('.t3lib_extMgm::extRelPath($currentExtName).'/ext_icon.gif); background-repeat: no-repeat; background-position: 3px 50%; padding: 1px; padding-left: 24px;';
+		if (t3lib_extMgm::isLoaded($currentExtName)) {
+			$style = 'style="background-image: url('.t3lib_extMgm::extRelPath($currentExtName).'/ext_icon.gif); background-repeat: no-repeat; background-position: 3px 50%; padding: 1px; padding-left: 24px;"';
+		} else {
+			$style = '';
+		}
 		
 		$output = self::eAccelerator0951OptimizerHelp();
 		$output .= '
 			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="POST">
-                <select style="'.$style.'" name="SET[extSel]" onchange="jumpToUrl(\''.htmlspecialchars($this->MCONF['_']).'&SET[extSel]=\'+this.options[this.selectedIndex].value,this);">'.implode('',$extensionsOptionsArr).'</select>
+                <select '.$style.' name="SET[extSel]" onchange="jumpToUrl(\''.htmlspecialchars($this->MCONF['_']).'&SET[extSel]=\'+this.options[this.selectedIndex].value,this);">'.implode('',$extensionsOptionsArr).'</select>
 				<input type="submit" value="'.self::getLL('run_all_tests').'" />
 				<input type="hidden" name="command" value="runalltests" />
 			</form>
