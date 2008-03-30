@@ -9,7 +9,7 @@
  * @author Kasper Ligaard <kasperligaard@gmail.com>
  */
 
-class tx_phpunit_module1_ajax {
+class tx_phpunit_module1_ajax extends tx_phpunit_module1 {
 	
 	
 	/**********************************
