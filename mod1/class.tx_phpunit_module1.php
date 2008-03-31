@@ -62,9 +62,9 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$this->doc->styleSheetFile2 = t3lib_extMgm::extRelPath('phpunit').'mod1/phpunit-be.css';
 
 				// JavaScript
-			$this->doc->loadJavascriptLib('contrib/prototype/prototype.js');
-			$this->doc->loadJavascriptLib('js/common.js');
-			$this->doc->loadJavascriptLib(t3lib_extMgm::extRelPath('phpunit').'mod1/tx_phpunit_module1.js');
+			//$this->doc->loadJavascriptLib('contrib/prototype/prototype.js');
+			//$this->doc->loadJavascriptLib('js/common.js');
+			//$this->doc->loadJavascriptLib(t3lib_extMgm::extRelPath('phpunit').'mod1/tx_phpunit_module1.js');
 			$this->doc->JScode = $this->doc->wrapScriptTags('
 					script_ended = 0;
 					function jumpToUrl(URL)	{	//
@@ -170,7 +170,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$extensionsOptionsArr[] = '<option class="alltests" value="uuall"'.$selected.'>'.self::getLL('all_extensions').'</option>';
 		
 		foreach($extensionsWithTestSuites as $dirName => $dummy)		{
-			$style = 'background-image: url('.t3lib_extMgm::extRelPath($dirName).'/ext_icon.gif); background-repeat: no-repeat; background-position: 3px 50%; padding: 1px; padding-left: 24px;';
+			$style = 'background-image: url('.t3lib_extMgm::extRelPath($dirName).'ext_icon.gif); background-repeat: no-repeat; background-position: 3px 50%; padding: 1px; padding-left: 24px;';
 			$selected = strcmp($dirName,$this->MOD_SETTINGS['extSel']) ? '' : ' selected="selected"';
 			if ($selected) {
 				$currentExtName = $dirName;
@@ -179,7 +179,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		}
 		
 		if (t3lib_extMgm::isLoaded($currentExtName)) {
-			$style = 'style="background-image: url('.t3lib_extMgm::extRelPath($currentExtName).'/ext_icon.gif); background-repeat: no-repeat; background-position: 3px 50%; padding: 1px; padding-left: 24px;"';
+			$style = 'style="background-image: url('.t3lib_extMgm::extRelPath($currentExtName).'ext_icon.gif); background-repeat: no-repeat; background-position: 3px 50%; padding: 1px; padding-left: 24px;"';
 		} else {
 			$style = '';
 		}
@@ -253,7 +253,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$testOptionsHtml .= '</optgroup>';
 		}
 
-		$style = 'background-image: url('.t3lib_extMgm::extRelPath($extensionKey).'/ext_icon.gif); background-repeat: no-repeat; background-position: 3px 50%; padding: 1px; padding-left: 24px;';
+		$style = 'background-image: url('.t3lib_extMgm::extRelPath($extensionKey).'ext_icon.gif); background-repeat: no-repeat; background-position: 3px 50%; padding: 1px; padding-left: 24px;';
 		
 		$output = '
 			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="post">
