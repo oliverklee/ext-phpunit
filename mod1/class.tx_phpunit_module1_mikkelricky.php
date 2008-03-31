@@ -59,7 +59,7 @@ class tx_phpunit_module1_mikkelricky extends tx_phpunit_module1 {
 			foreach ($newClasses as $class) {
 				$reflectionClass = new ReflectionClass($class);
 				if ($reflectionClass->isSubclassOf('PHPUnit_Framework_TestSuite')) {
-					$testSuite = new PHPUnit_Framework_TestSuite($reflectionClass);
+					$testSuite = $reflectionClass->newInstance();
 
 					$testListener = new tx_phpunit_testlistener;
 					$testListener->totalNumberOfTestCases = $testSuite->count();
@@ -70,6 +70,7 @@ class tx_phpunit_module1_mikkelricky extends tx_phpunit_module1 {
 			}
 		}
 	}
+
 
 	private static function printProgressBar() {
 		echo '

@@ -5,6 +5,10 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
+31. March 2008: Version 3.2.11
+	+ Added test file for test suite in tests/class.tx_phpunit_testsuite.php
+	~ Improvement to test suite finding in Experimental UI, courtesy of Mikkel Ricky.
+
 31. March 2008: Version 3.2.10
 	* Using strtolower() on database names in tx_phpunit_database_testcase->__construct().
 	* Fixed Experimental UI to work on Windows.
