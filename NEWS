@@ -5,6 +5,13 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
+31. March 2008: Version 3.2.9
+	~ Moved database tests out of class tx_phpunit_testcase and into tx_phpunit_database_testcase.
+	* Drops database in createDatabase() before trying to create it.
+
+31. March 2008: Version 3.2.8
+	* Bug fix release. Removed call in mod1/class.tx_phpunit_module1.php to Typo3 4.2 specific function loadJavascriptLib().
+	
 30. March 2008: Version 3.2.7
 	* Bug fix release. Fixes #7964, http://bugs.typo3.org/view.php?id=7964
 

@@ -10,19 +10,17 @@
  */
 
 
-class database_testcase extends tx_phpunit_testcase {
+class database_testcase extends tx_phpunit_database_testcase {
 
 	public function testNullToEmptyString() {
 		$this->assertEquals('', mysql_real_escape_string(null));
 	}
-
 
 	public function tearDown() {
 		// insures that test database always is dropped
 		// even when testcases fails
 		$this->dropDatabase();
 	}
-
 
 	public function testCreatingTestDatabase() {
 		$this->dropDatabase();
@@ -34,7 +32,6 @@ class database_testcase extends tx_phpunit_testcase {
 
 		$this->assertContains($this->testDatabase, $databaseNames);
 	}
-
 
 	public function testDroppingTestDatabase() {
 		$db = $GLOBALS['TYPO3_DB'];
@@ -51,7 +48,6 @@ class database_testcase extends tx_phpunit_testcase {
 		$this->assertNotContains($this->testDatabase, $databaseNames);
 	}
 
-
 	public function testCleaningDatabase() {
 		$this->createDatabase();
 		$this->importExtensions(array('tsconfig_help'));
@@ -67,7 +63,6 @@ class database_testcase extends tx_phpunit_testcase {
 		$this->assertEquals(0, $rows);
 	}
 
-
 	public function testImportingExtension() {
 		$this->createDatabase();
 		$db = $this->useTestDatabase();
@@ -78,7 +73,6 @@ class database_testcase extends tx_phpunit_testcase {
 
 		$this->assertNotEquals(0, $rows);
 	}
-
 
 	public function testExtensionAlteringTable() {
 		$this->createDatabase();
@@ -94,7 +88,6 @@ class database_testcase extends tx_phpunit_testcase {
 		$this->assertContains('tx_bbb_test', array_keys($columns));
 	}
 
-
 	public function testRecursiveImportingExtensions() {
 		$this->createDatabase();
 		$db = $this->useTestDatabase();
@@ -106,7 +99,6 @@ class database_testcase extends tx_phpunit_testcase {
 		$this->assertContains('tx_bbb_test', $tableNames, 'Check that extension bbb is installed. The extension can be found in tests/res/.');
 		$this->assertContains('tx_aaa_test', $tableNames, 'Check that extension aaa is installed. The extension can be found in tests/res/.');
 	}
-
 
 	public function testSkippingDependencyExtensions() {
 		$this->createDatabase();
@@ -122,7 +114,6 @@ class database_testcase extends tx_phpunit_testcase {
 		$this->assertNotContains('tx_bbb_test', $tableNames);
 		$this->assertNotContains('tx_aaa_test', $tableNames);
 	}
-
 
 	public function testImportingDataSet() {
 		$this->createDatabase();
@@ -146,6 +137,5 @@ class database_testcase extends tx_phpunit_testcase {
 		$this->assertEquals(1, $result[1]['uid_local']);
 		$this->assertEquals(2, $result[1]['uid_foreign']);
 	}
-
 }
 ?>

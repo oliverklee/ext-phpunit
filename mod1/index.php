@@ -72,6 +72,7 @@ require_once (PATH_t3lib.'class.t3lib_scbase.php');
 
 require_once (t3lib_extMgm::extPath('phpunit').'class.tx_phpunit_testlistener.php');
 require_once (t3lib_extMgm::extPath('phpunit').'class.tx_phpunit_testcase.php');
+require_once (t3lib_extMgm::extPath('phpunit').'class.tx_phpunit_database_testcase.php');
 require_once ('PHPUnit/Runner/Version.php'); // Included for PHPUnit versionstring.
 require_once ('PHPUnit/Util/Report.php'); // Included for PHPUnit versionstring.
 require_once ('class.tx_phpunit_module1.php');
