@@ -31,7 +31,6 @@
  * 
  */
 require_once('PHPUnit/Framework/TestCase.php');
-require_once(PATH_t3lib.'class.t3lib_install.php');
 
 class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
 }

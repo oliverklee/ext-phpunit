@@ -1,5 +1,6 @@
 <?php
 require_once 'class.tx_phpunit_testcase.php';
+require_once(PATH_t3lib.'class.t3lib_install.php');
 
 class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	
@@ -17,7 +18,7 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	public function __construct($name = null) {
 		parent::__construct($name);
 
-		$this->testDatabase = TYPO3_db.'_test';
+		$this->testDatabase = strtolower(TYPO3_db.'_test');
 	}
 
 	/*

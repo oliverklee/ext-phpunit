@@ -5,6 +5,10 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
+31. March 2008: Version 3.2.10
+	* Using strtolower() on database names in tx_phpunit_database_testcase->__construct().
+	* Fixed Experimental UI to work on Windows.
+
 31. March 2008: Version 3.2.9
 	~ Moved database tests out of class tx_phpunit_testcase and into tx_phpunit_database_testcase.
 	* Drops database in createDatabase() before trying to create it.

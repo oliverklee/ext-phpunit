@@ -6,7 +6,7 @@ class tx_phpunit_module1_mikkelricky extends tx_phpunit_module1 {
 		$this->doc = t3lib_div::makeInstance('bigDoc');
 		$this->doc->backPath = $BACK_PATH;
 		$this->doc->styleSheetFile2 = t3lib_extMgm::extRelPath('phpunit').'mod1/styles.css';
-			$this->doc->JScode = $this->doc->wrapScriptTags('
+		$this->doc->JScode = $this->doc->wrapScriptTags('
 					script_ended = 0;
 					function jumpToUrl(URL)	{	//
 						document.location = URL;
@@ -230,59 +230,65 @@ class tx_phpunit_module1_mikkelricky extends tx_phpunit_module1 {
 		// debug($allTestSuites, __METHOD__);
 
 		switch ($action) {
-		case 'extkey':
-			$extKey = t3lib_div::_POST($action);
-			$testCases = $allTestInfo[$extKey]['testcases'];
-			self::runTestCases($testCases);
-			break;
-		case 'package':
-			$package = t3lib_div::_POST('package');
-			list($extKey, $name) = explode('|', $package);
-			$testCases = $allTestInfo[$extKey]['packages'][$name];
-			self::runTestCases($testCases);
-			break;
-		case 'testcase':
-			$testCase = t3lib_div::_POST('testcase');
-			list($extKey, $name) = explode('|', $testCase);
-			$testCases = null;
-			foreach ($allTestInfo[$extKey]['testcases'] as $testCase) {
-				if ($testCase['name'] == $name) {
-					$testCases = array($testCase);
-					break;
+			case 'extkey':
+				$extKey = t3lib_div::_POST($action);
+				$testCases = $allTestInfo[$extKey]['testcases'];
+				self::runTestCases($testCases);
+				break;
+			case 'package':
+				$package = t3lib_div::_POST('package');
+				list($extKey, $name) = explode('|', $package);
+				$testCases = $allTestInfo[$extKey]['packages'][$name];
+				self::runTestCases($testCases);
+				break;
+			case 'testcase':
+				$testCase = t3lib_div::_POST('testcase');
+				list($extKey, $name) = explode('|', $testCase);
+				$testCases = null;
+				foreach ($allTestInfo[$extKey]['testcases'] as $testCase) {
+					if ($testCase['name'] == $name) {
+						$testCases = array($testCase);
+						break;
+					}
 				}
-			}
-			self::runTestCases($testCases);
-			break;
-		case 'suite':
-			$suite = t3lib_div::_POST('suite');
-			list($extKey, $name) = explode('|', $suite);
-			$testSuite = null;
-			foreach ($allTestInfo[$extKey]['suites'] as $t) {
-				if ($t['name'] == $name) {
-					$testSuite = $t;
-					break;
+				self::runTestCases($testCases);
+				break;
+			case 'suite':
+				$suite = t3lib_div::_POST('suite');
+				list($extKey, $name) = explode('|', $suite);
+				$testSuite = null;
+				foreach ($allTestInfo[$extKey]['suites'] as $t) {
+					if ($t['name'] == $name) {
+						$testSuite = $t;
+						break;
+					}
 				}
-			}
-			self::runTestSuite($testSuite);
-			break;
+				self::runTestSuite($testSuite);
+				break;
 		}
 	}
 
- 	private function getTestInfo($path) {
+	private function getTestInfo($path) {
 		$info = null;
 		if (is_dir($path)) {
-			$path = realpath($path).DIRECTORY_SEPARATOR;
+			$path = realpath($path).'/';
 			$testCaseFilenames = array();
 			$filenames = t3lib_div::getAllFilesAndFoldersInPath(array(), $path, 'php');
 			$filenames = array_values($filenames);
 
+			// Fix all Windows paths in order to make the following trics easier!
+			if (TYPO3_OS == 'WIN') {
+				$path = t3lib_div::fixWindowsFilePath($path);
+				$filenames = array_map(array('t3lib_div', 'fixWindowsFilePath'), $filenames);
+			}
+
 			$info = array();
 			foreach ($filenames as $filename) {
-				$pattern = '|'.preg_quote($path, '|').'(?:(?:class\.)?(.+)'.DIRECTORY_SEPARATOR.')?([^'.DIRECTORY_SEPARATOR.']+)_testcase\.php$|';
+				$pattern = '|'.preg_quote($path, '|').'(?:(?:class\.)?(.+)/)?([^/]+)_testcase\.php$|';
 				if (preg_match($pattern, $filename, $matches)) {
 					$testCase = array('name' => $matches[2],
-														'filename' => $filename,
-														);
+                                                       'filename' => $filename,
+					);
 					if ($package = $matches[1]) {
 						if (!array_key_exists('packages', $info)) {
 							$info['packages'] = array();
@@ -295,13 +301,13 @@ class tx_phpunit_module1_mikkelricky extends tx_phpunit_module1 {
 					$info['testcases'][] = $testCase;
 				}
 
-				$pattern = '|'.preg_quote($path, '|').'(?:(.+)'.DIRECTORY_SEPARATOR.')?([^'.DIRECTORY_SEPARATOR.']+)_testsuite\.php$|';
+				$pattern = '|'.preg_quote($path, '|').'(?:(.+)/)?([^/]+)_testsuite\.php$|';
 				if (preg_match($pattern, $filename, $matches)) {
 					$testSuite = array(//'path' => $path.$matches[1],
-														 //'filename' => $matches[2],
-														 'name' => $matches[2],
-														 'filename' => $filename,
-														 );
+					//'filename' => $matches[2],
+                                                        'name' => $matches[2],
+                                                        'filename' => $filename,
+					);
 					if (!array_key_exists('suites', $info)) {
 						$info['suites'] = array();
 					}
