@@ -159,7 +159,10 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 		echo '<div id="testCaseNum-'.$this->currentTestNumber.'" class="testcaseOutput">';
 		
 		echo '<script>setClass("tx_phpunit_testcase_nr_'.$this->currentTestNumber.'","wasSuccessful");</script>';
-  		echo $this->getReRunLink($test->getName()).' <strong class"testName">'.$test->getName().'</strong><br />'; 
+		if ($this->totalNumberOfTestCases !== 1) {
+			echo $this->getReRunLink($test->getName());
+		}
+  		echo ' <strong class"testName">'.$test->getName().'</strong><br />'; 
     }
 
     /**
