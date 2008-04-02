@@ -10,6 +10,7 @@ xx. April 2008: 3.2.12
 	+ Added option 'alwaysSimulateFrontendEnvironment' which defaults to true, since that is backwards compatible.
 	+ Added method 'simulateFrontendEnvironment()' to tx_phpunit_testcase class. Call this method to load a (simple) simulation of the FE environment.
 	+ Added lib/ directory. Might be removed later, let's see...
+	- Removed clear.gif.
 
 31. March 2008: Version 3.2.11
 	+ Added test file for test suite in tests/class.tx_phpunit_testsuite.php
