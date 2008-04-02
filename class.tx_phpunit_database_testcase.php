@@ -52,7 +52,7 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 
 			// drop all tables
 			$tables = $this->getDatabaseTables();
-			foreach($tables as $tableName) {
+			foreach ($tables as $tableName) {
 				$db->admin_query('DROP TABLE '. $tableName);
 			}
 		}
@@ -159,7 +159,7 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 		$install = new t3lib_install;
 		$FDfile = $install->getFieldDefinitions_sqlContent($fileContent);
 
-		if (count($FDfile))	{
+		if (count($FDfile)) {
 			// find statements to query
 			$FDdatabase = $install->getFieldDefinitions_sqlContent($this->getTestDatabaseSchema());
 			$diff = $install->getDatabaseExtra($FDfile, $FDdatabase);
@@ -169,7 +169,7 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 
 			foreach ($updateTypes as $updateType) {
 				if (array_key_exists($updateType, $updateStatements)) {
-					foreach((array)$updateStatements[$updateType] as $string) {
+					foreach ((array)$updateStatements[$updateType] as $string) {
 						$GLOBALS['TYPO3_DB']->admin_query($string);
 					}
 				}
@@ -219,7 +219,7 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 		$_EXTKEY = $extKey;
 		include($path);
 
-		if(is_array($EM_CONF[$_EXTKEY]['constraints']['depends'])) {
+		if (is_array($EM_CONF[$_EXTKEY]['constraints']['depends'])) {
 			$dependencies = $EM_CONF[$_EXTKEY]['constraints']['depends'];
 
 			// remove php and typo3 extension (not real extensions)
@@ -258,11 +258,9 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 				if (isset($column['ref'])) {
 					list($tableName, $elementID) = explode('#', $column['ref']);
 					$columnValue = $foreignKeys[$tableName][$elementID];
-				}
-				elseif (isset($column['is-null']) && $column['is-null']=='yes') {
+				} else if (isset($column['is-null']) && $column['is-null']=='yes') {
 					$columnValue = null;
-				}
-				else {
+				} else {
 					$columnValue = $table->$columnName;
 				}
 

@@ -1,6 +1,6 @@
 <?php
 class tx_phpunit_module1_mikkelricky extends tx_phpunit_module1 {
-	public function main()	{
+	public function main() {
 		global $BACK_PATH, $BE_USER, $LANG;
 
 		$this->doc = t3lib_div::makeInstance('bigDoc');
@@ -112,7 +112,7 @@ class tx_phpunit_module1_mikkelricky extends tx_phpunit_module1 {
 		$key = 'extkey';
 		$id = uniqid($key);
 
-		$content .= '<tr'.($action == $key ? ' class="running"' : '').'>';
+		$content .= '<tr'.(($action == $key) ? ' class="running"' : '').'>';
 		$content .= '<td>';
 		$content .= '<label for="'.$id.'">'.'Extension'.'</label>';
 		$content .= '</td>';
@@ -137,7 +137,7 @@ class tx_phpunit_module1_mikkelricky extends tx_phpunit_module1 {
 		$key = 'package';
 		$id = uniqid($key);
 
-		$content .= '<tr'.($action == $key ? ' class="running"' : '').'>';
+		$content .= '<tr'.(($action == $key) ? ' class="running"' : '').'>';
 		$content .= '<td>';
 		$content .= '<label for="'.$id.'">'.'Package'.'</label>';
 		$content .= '</td>';
@@ -169,7 +169,7 @@ class tx_phpunit_module1_mikkelricky extends tx_phpunit_module1 {
 		$key = 'testcase';
 		$id = uniqid($key);
 
-		$content .= '<tr'.($action == $key ? ' class="running"' : '').'>';
+		$content .= '<tr'.(($action == $key) ? ' class="running"' : '').'>';
 		$content .= '<td>';
 		$content .= '<label for="'.$id.'">'.'Test Case'.'</label>';
 		$content .= '</td>';
@@ -203,7 +203,7 @@ class tx_phpunit_module1_mikkelricky extends tx_phpunit_module1 {
 		$key = 'suite';
 		$id = uniqid($key);
 
-		$content .= '<tr'.($action == $key ? ' class="running"' : '').'>';
+		$content .= '<tr'.(($action == $key) ? ' class="running"' : '').'>';
 		$content .= '<td>';
 		$content .= '<label for="'.$id.'">'.'Suite'.'</label>';
 		$content .= '</td>';

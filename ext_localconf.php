@@ -1,5 +1,4 @@
-<?php
-if (!defined ('TYPO3_MODE')) die ('Access denied.');
+<?php defined('TYPO3_MODE') || die ('Access denied.');
 
 $TYPO3_CONF_VARS['EXTCONF'][$_EXTKEY] = unserialize($_EXTCONF);
 
@@ -22,6 +21,6 @@ if (!$TYPO3_CONF_VARS['EXTCONF'][$_EXTKEY]['usepear'] || !t3lib_extMgm::isLoaded
 $TYPO3_CONF_VARS['BE']['AJAX']['tx_phpunit_module1_ajax'] = 'typo3conf/ext/phpunit/mod1/class.tx_phpunit_module1_ajax.php:tx_phpunit_module1_ajax->ajaxBroker';
 
 
-define (TX_PHPUNITLIB_EXTPATH, $phpunitlib);
+define(TX_PHPUNITLIB_EXTPATH, $phpunitlib);
 set_include_path(TX_PHPUNITLIB_EXTPATH . PATH_SEPARATOR . get_include_path());
 ?>

@@ -37,46 +37,44 @@ require_once (PATH_t3lib.'class.t3lib_tcemain.php');
 
 class tx_t3unit_test_testcase extends tx_t3unit_testcase {
 
-	public function testNewArrayIsEmpty1()
-	{
+	public function testNewArrayIsEmpty1() {
 		// Create the Array fixture.
 		$fixture = array();
 
 		// Assert that the size of the Array fixture is 0.
 		$this->assertEquals(0, sizeof($fixture));
 	}
-	public function testAssertTrueIsFalse()
-	{
+	
+	public function testAssertTrueIsFalse() {
 		// Create the Array fixture.
 		$fixture = FALSE;
 
 		// Assert that the size of the Array fixture is 0.
 		$this->assertTrue($fixture, "This test is deliberately made to fail :-).");
 	}
-	public function testNewArrayIsEmpty3()
-	{
+	
+	public function testNewArrayIsEmpty3() {
 		// Create the Array fixture.
 		$fixture = array();
 
 		// Assert that the size of the Array fixture is 0.
 		$this->assertEquals(0, sizeof($fixture));
 	}
-	public function testNewArrayIsEmpty4()
-	{
+	
+	public function testNewArrayIsEmpty4() {
 		// Create the Array fixture.
 		$fixture = array();
 
 		// Assert that the size of the Array fixture is 0.
 		$this->assertEquals(0, sizeof($fixture));
 	}
-	public function testNewArrayIsEmpty5()
-	{
+	
+	public function testNewArrayIsEmpty5() {
 		// Create the Array fixture.
 		$fixture = array();
 
 		// Assert that the size of the Array fixture is 0.
 		$this->assertEquals(0, sizeof($fixture));
 	}
-
 }
 ?>

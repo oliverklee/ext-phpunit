@@ -31,7 +31,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * @return	void
 	 * @access	public
 	 */
-	public function menuConfig()	{
+	public function menuConfig() {
 		$this->MOD_MENU = Array (
 			'function' => Array (
 				'runtests' => self::getLL('function_runtests'),
@@ -49,7 +49,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * @return	void
 	 * @access	public
 	 */
-	public function main()	{
+	public function main() {
 		global $BE_USER,$BACK_PATH,$TCA_DESCR,$TCA,$CLIENT,$TYPO3_CONF_VARS;
 
 		if ($BE_USER->user['admin']) {
@@ -77,7 +77,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 			echo $this->doc->startPage(self::getLL('title'));
 			echo $this->doc->header(PHPUnit_Runner_Version::getVersionString());
-			echo $this->doc->section('',$this->doc->funcMenu('', t3lib_BEfunc::getFuncMenu($this->id,'SET[function]',$this->MOD_SETTINGS['function'],$this->MOD_MENU['function']).$this->openNewWindowLink()));
+			echo $this->doc->section('', $this->doc->funcMenu('', t3lib_BEfunc::getFuncMenu($this->id, 'SET[function]', $this->MOD_SETTINGS['function'], $this->MOD_MENU['function']).$this->openNewWindowLink()));
 
 				// Render content:
 			switch ($this->MOD_SETTINGS['function']) {
@@ -90,7 +90,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			}
 
 				// ShortCut
-			echo $this->doc->section('',$this->doc->makeShortcutIcon('id',implode(',',array_keys($this->MOD_MENU)),$this->MCONF['name']));
+			echo $this->doc->section('', $this->doc->makeShortcutIcon('id', implode(',', array_keys($this->MOD_MENU)), $this->MCONF['name']));
 
 		} else {
 
@@ -140,7 +140,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$output = '';
 
 		$extensionsWithTestSuites = $this->getExtensionsWithTestSuites();
-		if (is_array($extensionsWithTestSuites))	{
+		if (is_array($extensionsWithTestSuites)) {
 			ksort($extensionsWithTestSuites);
 
 			$output = $this->runTests_renderIntro_renderExtensionSelector($extensionsWithTestSuites);
@@ -166,12 +166,12 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$extensionsOptionsArr =array();
 		$extensionsOptionsArr[] = '<option value="">'.self::getLL('select_extension').'</option>';
 
-		$selected = strcmp('uuall',$this->MOD_SETTINGS['extSel']) ? '' : ' selected="selected"';
+		$selected = strcmp('uuall', $this->MOD_SETTINGS['extSel']) ? '' : ' selected="selected"';
 		$extensionsOptionsArr[] = '<option class="alltests" value="uuall"'.$selected.'>'.self::getLL('all_extensions').'</option>';
 		
-		foreach($extensionsWithTestSuites as $dirName => $dummy)		{
+		foreach ($extensionsWithTestSuites as $dirName => $dummy) {
 			$style = 'background-image: url('.t3lib_extMgm::extRelPath($dirName).'ext_icon.gif); background-repeat: no-repeat; background-position: 3px 50%; padding: 1px; padding-left: 24px;';
-			$selected = strcmp($dirName,$this->MOD_SETTINGS['extSel']) ? '' : ' selected="selected"';
+			$selected = strcmp($dirName, $this->MOD_SETTINGS['extSel']) ? '' : ' selected="selected"';
 			if ($selected) {
 				$currentExtName = $dirName;
 			}
@@ -187,7 +187,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$output = self::eAccelerator0951OptimizerHelp();
 		$output .= '
 			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="POST">
-                <select '.$style.' name="SET[extSel]" onchange="jumpToUrl(\''.htmlspecialchars($this->MCONF['_']).'&SET[extSel]=\'+this.options[this.selectedIndex].value,this);">'.implode('',$extensionsOptionsArr).'</select>
+                <select '.$style.' name="SET[extSel]" onchange="jumpToUrl(\''.htmlspecialchars($this->MCONF['_']).'&SET[extSel]=\'+this.options[this.selectedIndex].value,this);">'.implode('', $extensionsOptionsArr).'</select>
 				<input type="submit" value="'.self::getLL('run_all_tests').'" />
 				<input type="hidden" name="command" value="runalltests" />
 			</form>
@@ -222,12 +222,12 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		// Add all classes to the test suite which end with "testcase", except the two special classes used as super-classes.
 		foreach (get_declared_classes() as $class) {
 			$classReflection = new ReflectionClass($class);
-			if (substr ($class, -8, 8) == 'testcase' &&
+			if (substr($class, -8, 8) == 'testcase' &&
 				$classReflection->isSubclassOf('PHPUnit_Framework_TestCase') && 
 				$class !== 'tx_phpunit_testcase'	&& 
 				$class !== 'tx_t3unit_testcase' &&
 				$class !== 'tx_phpunit_database_testcase') {
-				$testSuite->addTestSuite ($class);
+				$testSuite->addTestSuite($class);
 			}
 		}
 
@@ -236,8 +236,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		foreach ($testSuite->tests() as $testCases) {
 			foreach ($testCases->tests() as $test) {
 				$selected = $test->toString() == t3lib_div::GPvar('testname') ? ' selected="selected"' : '';
-				$testSuiteName = strstr($test->toString(),'(');
-				$testSuiteName = trim($testSuiteName,'()');
+				$testSuiteName = strstr($test->toString(), '(');
+				$testSuiteName = trim($testSuiteName, '()');
 				$testsOptionsArr[$testSuiteName][] = '<option value="'.$test->toString().'"'.$selected.'>'.htmlspecialchars($test->getName()).'</option>';
 			}
 		}
@@ -286,7 +286,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$extensionsWithTestSuites = $this->getExtensionsWithTestSuites();
 		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
 		$extensionKeysToProcess = array();
-		if($this->MOD_SETTINGS['extSel']=='uuall') {
+		if ($this->MOD_SETTINGS['extSel']=='uuall') {
 			echo '<h3>'.self::getLL('testing_all_extensions').'</h3>';
 			$extensionKeysToProcess = array_keys($extensionsWithTestSuites);
 		} else {
@@ -306,8 +306,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		
 			// Add all classes to the test suite which end with "testcase"
 		foreach (get_declared_classes() as $class) {
-			if (substr ($class, -8, 8) == 'testcase' && $class != 'tx_phpunit_testcase' && $class != 'tx_phpunit_database_testcase' && $class != 'tx_t3unit_testcase') {
-				$testSuite->addTestSuite ($class);
+			if (substr($class, -8, 8) == 'testcase' && $class != 'tx_phpunit_testcase' && $class != 'tx_phpunit_database_testcase' && $class != 'tx_t3unit_testcase') {
+				$testSuite->addTestSuite($class);
 			}
 		}
 
@@ -486,10 +486,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		<h2>Current include path</h2>
 		Below are the paths of the includepath that phpunit currently uses to locate PHPUnit:
 		<p>
-		<pre>'.join("\n",explode(PATH_SEPARATOR,get_include_path())).'</pre>
+		<pre>'.join("\n", explode(PATH_SEPARATOR, get_include_path())).'</pre>
 		<h2>Currently excluded extension</h2>
 		The following extensions are excluded from being searched for tests:<p>
-		<pre>'.join("\n",$excludeExtensions).'</pre>
+		<pre>'.join("\n", $excludeExtensions).'</pre>
 		<p>Note: The extension exclusion list can be changed in the extension manager.
 		<h2>Is XDebug PHP extension loaded?</h2>
 		<p>To get code coverage reporting, PHPUnit needs the PHP extension <a target="_blank" href="http://www.xdebug.org"><em>XDebug</em></a>.</p>
@@ -533,7 +533,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * @return	string
 	 * @access	protected
 	 */
-	protected function openNewWindowLink()	{
+	protected function openNewWindowLink() {
 		global $BACK_PATH;
 
 		// FIXME: Needs to take mod.php into account, when generating URL here. Otherwise 'Open link in new window' will not work (gives error: Value "" for "M" was not found as a module).
@@ -541,7 +541,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$onClick = "phpunitbeWin=window.open('".$url."','phpunitbe','width=790,status=0,menubar=1,resizable=1,location=0,scrollbars=1,toolbar=0');phpunitbeWin.focus();return false;";
 		$content = '
 			<a id="opennewwindow" href="#" onclick="'.htmlspecialchars($onClick).'">
-				<img'.t3lib_iconWorks::skinImg ($BACK_PATH,'gfx/open_in_new_window.gif','width="19" height="14"').' title="'.$this->sL('LLL:EXT:lang/locallang_core.xml:labels.openInNewWindow',1).'" class="absmiddle" alt="" />
+				<img'.t3lib_iconWorks::skinImg($BACK_PATH, 'gfx/open_in_new_window.gif', 'width="19" height="14"').' title="'.$this->sL('LLL:EXT:lang/locallang_core.xml:labels.openInNewWindow', 1).'" class="absmiddle" alt="" />
 			</a>
 			<script language="JavaScript"> if(window.name=="phpunitbe") { document.getElementById("opennewwindow").style.display = "none"; } </script>
 		';
@@ -558,7 +558,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	protected function getExtensionsWithTestSuites() {
 		// Fetch extension manager configuration options
 		$excludeExtensions = t3lib_div::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['excludeextensions']);
-		$outOfLineTestCases = $this->traversePathForTestCases ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['outoflinetestspath']);
+		$outOfLineTestCases = $this->traversePathForTestCases($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['outoflinetestspath']);
 		
 		// Get list of loaded extensions
 		$extList = explode(',', $GLOBALS['TYPO3_CONF_VARS']['EXT']['extList']);
@@ -571,10 +571,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			}
 		}
 
-		$totalTestsArr = array_merge_recursive($outOfLineTestCases,$extensionsOwnTestCases);
+		$totalTestsArr = array_merge_recursive($outOfLineTestCases, $extensionsOwnTestCases);
 		
 		// Exclude extensions according to extension manager config
-		$returnTestsArr = array_diff_key($totalTestsArr,array_flip($excludeExtensions));
+		$returnTestsArr = array_diff_key($totalTestsArr, array_flip($excludeExtensions));
 		return $returnTestsArr;
 	}
 
@@ -586,12 +586,12 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 */
 	private function traversePathForTestCases($path) {
 		$extensionsArr = array();
-		if (@is_dir($path))	{
+		if (@is_dir($path)) {
 			$dirs = t3lib_div::get_dirs($path);
-			if (is_array($dirs))	{
+			if (is_array($dirs)) {
 				sort($dirs);
-				foreach($dirs as $dirName) {
-					if (t3lib_extMgm::isLoaded ($dirName)) {
+				foreach ($dirs as $dirName) {
+					if (t3lib_extMgm::isLoaded($dirName)) {
 						$testsPath = $path.$dirName.'/tests/';
 						$extensionsArr[$dirName] = $this->findTestCasesInDir($testsPath);
 					}
@@ -605,10 +605,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$extensionsArr = array();
 		if (is_dir($dir)) {
 			$testCaseFileNames = array ();
-			$fileNamesArr = t3lib_div::getFilesInDir($dir, $extensionList='php');
-			if (is_array ($fileNamesArr)) {
+			$fileNamesArr = t3lib_div::getFilesInDir($dir, $extensionList = 'php');
+			if (is_array($fileNamesArr)) {
 				foreach ($fileNamesArr as $fileName) {
-					if (substr ($fileName, -12, 12) == 'testcase.php') {
+					if (substr($fileName, -12, 12) === 'testcase.php') {
 						$testCaseFileNames[] = $fileName;
 					}
 				}
@@ -620,7 +620,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	
 	private static function eAccelerator0951OptimizerHelp () {
 		$retval = '';
-		if (extension_loaded('eaccelerator') && version_compare(phpversion('eaccelerator'),'0.9.5.2','<')) {
+		if (extension_loaded('eaccelerator') && version_compare(phpversion('eaccelerator'), '0.9.5.2', '<')) {
 			$retval .= '<h2>IMPORTANT NOTICE ABOUT eAccelerator!</h2>';
 			$retval .= 'eAccelerator '.phpversion('eaccelerator').' is loaded. This version of eAccelerator is known to crash phpunit when the optimizer is turned on.<p>';
 			$retval .= 'You should either upgrade to eAccelerator version 0.9.5.2 (or later) or turn off the eAccelerator optimizer (in php.ini set: <code>eaccelerator.optimizer = "0"</code>) when running phpunit.<p>';

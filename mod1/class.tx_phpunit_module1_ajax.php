@@ -32,7 +32,7 @@ class tx_phpunit_module1_ajax extends tx_phpunit_module1 {
 		$jsonalike = join(' ', $params);
 		if (false) {
 			$ajaxObj->setError('Det er noget lort.');
-		} else	{
+		} else {
 			$ajaxObj->addContent('ligaardHelloWorld', $jsonalike);
 		}
 	}

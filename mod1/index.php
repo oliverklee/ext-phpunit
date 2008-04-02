@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2004-2007 Kasper Ligaard (ligaard@daimi.au.dk)
+*  (c) 2004-2008 Kasper Ligaard (kasperligaard@gmail.com)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -55,11 +55,6 @@
  * (This index is automatically created/updated by the extension "extdeveval")
  *
  */
-
-# next four lines commented out because we now dispatch to mod.php
-#unset($MCONF);
-#require ('conf.php');
-#require ($BACK_PATH.'template.php');
 
 $LANG->includeLLFile('EXT:phpunit/mod1/locallang.xml');
 

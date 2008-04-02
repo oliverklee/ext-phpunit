@@ -38,8 +38,8 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	 *	@access public
 	 */
     public function addError(PHPUnit_Framework_Test $test, Exception $e, $time) {
-    	$testCaseTraceArr = $this->getFirstNonPHPUnitTrace ($e->getTrace());
-		$fileName = str_replace (PATH_site, '', $testCaseTraceArr['file']);
+    	$testCaseTraceArr = $this->getFirstNonPHPUnitTrace($e->getTrace());
+		$fileName = str_replace(PATH_site, '', $testCaseTraceArr['file']);
 		
 		echo '<script>setClass("tx_phpunit_testcase_nr_'.$this->currentTestNumber.'","hadError");</script>';
 			
@@ -64,8 +64,8 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
      */
     public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time) {
     	//$result = $test->createResult();
-    	$testCaseTraceArr = $this->getFirstNonPHPUnitTrace ($e->getTrace());
-		$fileName = str_replace (PATH_site, '', $testCaseTraceArr['file']);
+    	$testCaseTraceArr = $this->getFirstNonPHPUnitTrace($e->getTrace());
+		$fileName = str_replace(PATH_site, '', $testCaseTraceArr['file']);
 		
 		echo '<script>setClass("tx_phpunit_testcase_nr_'.$this->currentTestNumber.'","hadFailure");</script>';
 
@@ -166,7 +166,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
      */
     public function endTest(PHPUnit_Framework_Test $test, $time) {
     	$this->currentTestNumber++;
-    	$percentDone = intval (($this->currentTestNumber / $this->totalNumberOfTestCases) * 100);
+    	$percentDone = intval(($this->currentTestNumber / $this->totalNumberOfTestCases) * 100);
 
     	echo '</div>';
     	echo '<script>document.getElementById("progress-bar").style.width = "'.$percentDone.'%";</script>';
@@ -185,7 +185,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	protected function getFirstNonPHPUnitTrace (array $traceArr) {
 		$testCaseTraceArr = array();
 		foreach ($traceArr as $singleTraceArr) {
-			if (!stristr ($singleTraceArr['file'], 'Framework/Assert.php')) {
+			if (!stristr($singleTraceArr['file'], 'Framework/Assert.php')) {
 				$testCaseTraceArr = $singleTraceArr;
 				break;	
 			}
