@@ -3,7 +3,7 @@ require_once 'class.tx_phpunit_testcase.php';
 require_once(PATH_t3lib.'class.t3lib_install.php');
 
 class tx_phpunit_database_testcase extends tx_phpunit_testcase {
-	
+
 	protected $backupGlobals = false;
 
 
@@ -24,7 +24,7 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	/*
 	 * Accesses the Typo3 database object, and uses it to fetch the list of databases. Then
 	 * checks whether to a test database is already setup; if not, then creates it.
-	 * 
+	 *
 	 * @return void
 	 */
 	protected function createDatabase() {
@@ -103,7 +103,7 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	 * @param array $extensions Array containing extension keys
 	 * @param boolean $importDependencies Wether to import dependency extensions
 	 * @param array $skipDependencies Array containing extension keys to skip
-	 * 
+	 *
 	 * @return void
 	 */
 	protected function importExtensions(array $extensions, $importDependencies=false, array &$skipDependencies=array()) {

@@ -19,12 +19,12 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		global $LANG;
 		return $LANG->getLL($index);
 	}
-	
+
 	private static function sL ($input) {
 		global $LANG;
 		return $LANG->sL($input);
 	}
-	
+
 	/**
 	 * Create configuration for the function selector box
 	 *
@@ -57,7 +57,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				// Draw the header.
 			$this->doc = t3lib_div::makeInstance('bigDoc');
 			$this->doc->backPath = $BACK_PATH;
-			
+
 				// Stylesheet for back-end module.
 			$this->doc->styleSheetFile2 = t3lib_extMgm::extRelPath('phpunit').'mod1/phpunit-be.css';
 
@@ -70,6 +70,13 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 					function jumpToUrl(URL)	{	//
 						document.location = URL;
 					}
+
+	/**
+	 * [Describe function...]
+	 *
+	 * @param	[type]		$id,className: ...
+	 * @return	[type]		...
+	 */
 					function setClass(id,className) {
 						document.getElementById(id).className = className;
 					}
@@ -168,7 +175,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 		$selected = strcmp('uuall', $this->MOD_SETTINGS['extSel']) ? '' : ' selected="selected"';
 		$extensionsOptionsArr[] = '<option class="alltests" value="uuall"'.$selected.'>'.self::getLL('all_extensions').'</option>';
-		
+
 		foreach ($extensionsWithTestSuites as $dirName => $dummy) {
 			$style = 'background-image: url('.t3lib_extMgm::extRelPath($dirName).'ext_icon.gif); background-repeat: no-repeat; background-position: 3px 50%; padding: 1px; padding-left: 24px;';
 			$selected = strcmp($dirName, $this->MOD_SETTINGS['extSel']) ? '' : ' selected="selected"';
@@ -177,13 +184,13 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			}
 			$extensionsOptionsArr[]='<option style="'.$style.'" value="'.htmlspecialchars($dirName).'"'.$selected.'>'.htmlspecialchars($dirName).'</option>';
 		}
-		
+
 		if (t3lib_extMgm::isLoaded($currentExtName)) {
 			$style = 'style="background-image: url('.t3lib_extMgm::extRelPath($currentExtName).'ext_icon.gif); background-repeat: no-repeat; background-position: 3px 50%; padding: 1px; padding-left: 24px;"';
 		} else {
 			$style = '';
 		}
-		
+
 		$output = self::eAccelerator0951OptimizerHelp();
 		$output .= '
 			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="POST">
@@ -210,7 +217,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 		// Load the files containing test cases from extensions:
 		$paths = $extensionsWithTestSuites[$extensionKey];
-		
+
 		if (isset($paths)) {
 			foreach ($paths as $path => $fileNames) {
 				foreach ($fileNames as $fileName) {
@@ -223,8 +230,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		foreach (get_declared_classes() as $class) {
 			$classReflection = new ReflectionClass($class);
 			if (substr($class, -8, 8) == 'testcase' &&
-				$classReflection->isSubclassOf('PHPUnit_Framework_TestCase') && 
-				$class !== 'tx_phpunit_testcase'	&& 
+				$classReflection->isSubclassOf('PHPUnit_Framework_TestCase') &&
+				$class !== 'tx_phpunit_testcase'	&&
 				$class !== 'tx_t3unit_testcase' &&
 				$class !== 'tx_phpunit_database_testcase') {
 				$testSuite->addTestSuite($class);
@@ -232,7 +239,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		}
 
 		$testsOptionsArr = array();
-		
+
 		foreach ($testSuite->tests() as $testCases) {
 			foreach ($testCases->tests() as $test) {
 				$selected = $test->toString() == t3lib_div::GPvar('testname') ? ' selected="selected"' : '';
@@ -241,11 +248,11 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				$testsOptionsArr[$testSuiteName][] = '<option value="'.$test->toString().'"'.$selected.'>'.htmlspecialchars($test->getName()).'</option>';
 			}
 		}
-		
+
 		$currentStyle = 'background-image: url('.t3lib_extMgm::extRelPath($extensionKey).'/ext_icon.gif); background-repeat: no-repeat; background-position: 3px 50%; padding: 1px; padding-left: 24px;';
-		
+
 		// build options for select (incl. option groups for test suites)
-		$testOptionsHtml = ''; 
+		$testOptionsHtml = '';
 		foreach ($testsOptionsArr as $suiteName => $testArr) {
 			$testOptionsHtml .= '<optgroup label="'.$suiteName.'">';
 			foreach ($testArr as $testHtml) {
@@ -255,7 +262,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		}
 
 		$style = 'background-image: url('.t3lib_extMgm::extRelPath($extensionKey).'ext_icon.gif); background-repeat: no-repeat; background-position: 3px 50%; padding: 1px; padding-left: 24px;';
-		
+
 		$output = '
 			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="post">
 				<select style="'.$currentStyle.'" name="testname">
@@ -278,7 +285,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * @access	protected
 	 */
 	protected function runTests_renderRunningTest() {
-		
+
 		if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['alwaysSimulateFrontendEnvironment']) {
 			$this->simulateFrontendEnviroment();
 		}
@@ -303,7 +310,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$paths = $extensionsWithTestSuites[$extensionKey];
 			self::loadRequiredTestClasses($paths);
 		}
-		
+
 			// Add all classes to the test suite which end with "testcase"
 		foreach (get_declared_classes() as $class) {
 			if (substr($class, -8, 8) == 'testcase' && $class != 'tx_phpunit_testcase' && $class != 'tx_phpunit_database_testcase' && $class != 'tx_t3unit_testcase') {
@@ -323,13 +330,13 @@ class tx_phpunit_module1 extends t3lib_SCbase {
              extension_loaded('xdebug')) {
             $testResult->collectCodeCoverageInformation(TRUE);
         }
-        
+
 		$testResult->addListener($testListener);
-		
+
 		/* TODO: Create json based interface.
 		$testResult->addListener($jsonListener);
 		*/
-		
+
 		/* TODO: Add nice call graphs in code coderage report.
 		$testResult->addListener($graphVizListener);
 		*/
@@ -348,7 +355,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$testListener->totalNumberOfTestCases = $testSuite->count();
 			$this->runTests_renderInfoAndProgressbar($testListener->totalNumberOfTestCases);
 			$result = $testSuite->run($testResult);
-		}            
+		}
 
 		// Display test statistics:
 		$testStatistics = '';
@@ -362,8 +369,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				<h2 class="hadFailure">Failures!</h2>';
 		}
 		$testStatistics .= $result->count().' '.self::getLL('tests_total').', '.$result->failureCount().' '.self::getLL('tests_failures').', '.$testResult->errorCount().' '.self::getLL('tests_errors').'<br />';
-		echo $testStatistics; 
-		
+		echo $testStatistics;
+
 		echo '
 			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="POST" >
 				<input type="submit" value="'.self::getLL('run_again').'" tabindex="100" />
@@ -371,7 +378,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				<input name="testname" type="hidden" value="'.t3lib_div::_GP('testname').'" />
 			</form>
 		';
-		
+
 		// Code coverage output.
 		//echo PHPUnit_Util_Report::render($result, '/tmp/coverage/');
 		if (!t3lib_div::GPvar('testname') && $result->getCollectCodeCoverageInformation()) {
@@ -380,12 +387,12 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		    PHPUnit_Util_Report::render($result, t3lib_extMgm::extPath('phpunit').'codecoverage/');
 		    echo '<a target="_blank" href="'.t3lib_extMgm::extRelPath('phpunit').'codecoverage/typo3conf_ext.html">Click here to access the Code Coverage report</a><br/>';
 		    echo 'Memory peak usage: '.ceil(memory_get_peak_usage()/(1024*1024)).' MB<br/>';
-		    
+
 		    /* TODO: Add metrics UI presentation
 		    $logMetricsWriter = new PHPUnit_Util_Log_Metrics();
 			$logMetricsWriter->process($testResult);
 			*/
-		
+
 		    /* TODO: Add Project Mess Detector (PMD) statistics
         	$logPmdWriter = new PHPUnit_Util_Log_PMD();
         	$logPmdWriter->process($testResult);
@@ -413,7 +420,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				<span id="transparent-bar">&nbsp;</span>
 			</div>
 		';
-		
+
 		if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['experimentalProgressBar']) {
 			echo '<div style="width : 100%; height: auto;">';
 			$width = 100 / $tests;
@@ -423,7 +430,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			echo '</div>';
 		}
 	}
-	
+
 	/**
 	 * Roughly simulates the frontend although being in the backend.
 	 *
@@ -458,7 +465,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$TSFE->config = array();		// Must be filled with actual config!
 
 	}
-	
+
 	/**
 	 * Renders the "About" screen
 	 *
@@ -496,7 +503,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		<p>On this PHP installation, XDebug is '.(extension_loaded('xdebug') ? '' : '<em>not</em>').' loaded</p>
 		<h2>Current memory limit</h2>
 		<p>When using XDebug to collect code coverage data, you will need the memory limit to be set rather high. Something like 256MB will probably be needed.</p>
-		<p>On this PHP installation the memory limit is currently set to: '.ini_get('memory_limit').' 
+		<p>On this PHP installation the memory limit is currently set to: '.ini_get('memory_limit').'
 		<h2>This extension has bugs...</h2>
 		<p><a target="_blank" href="http://bugs.typo3.org/search.php?project_id=79&sticky_issues=on&sortby=last_updated&dir=DESC&hide_status_id=90">Click to see the list of issues for this extension</a></p>
 		<p>You can report an issue by following the above link. An issue can be e.g. a bug or an improvement/enhancement.</p>
@@ -559,10 +566,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		// Fetch extension manager configuration options
 		$excludeExtensions = t3lib_div::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['excludeextensions']);
 		$outOfLineTestCases = $this->traversePathForTestCases($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['outoflinetestspath']);
-		
+
 		// Get list of loaded extensions
 		$extList = explode(',', $GLOBALS['TYPO3_CONF_VARS']['EXT']['extList']);
-		
+
 		$extensionsOwnTestCases = array();
 		foreach ($extList as $extKey) {
 			$testCasesArr = $this->findTestCasesInDir(t3lib_extMgm::extPath($extKey).'/tests/');
@@ -572,7 +579,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		}
 
 		$totalTestsArr = array_merge_recursive($outOfLineTestCases, $extensionsOwnTestCases);
-		
+
 		// Exclude extensions according to extension manager config
 		$returnTestsArr = array_diff_key($totalTestsArr, array_flip($excludeExtensions));
 		return $returnTestsArr;
@@ -617,7 +624,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		}
 		return $extensionsArr;
 	}
-	
+
 	private static function eAccelerator0951OptimizerHelp () {
 		$retval = '';
 		if (extension_loaded('eaccelerator') && version_compare(phpversion('eaccelerator'), '0.9.5.2', '<')) {

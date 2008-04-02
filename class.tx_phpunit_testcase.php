@@ -3,7 +3,7 @@
 *  Copyright notice
 *  
 *  (c) 2005 Robert Lemke (robert@typo3.org)
-*  (c) 2007 Kasper Ligaard (kli@systime.dk)
+*  (c) 2008 Kasper Ligaard (kli@systime.dk)
 *  (c) 2008 Soren Soltveit (sso@systime.dk)
 *  All rights reserved
 *
@@ -33,14 +33,6 @@
 require_once('PHPUnit/Framework/TestCase.php');
 
 class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
-}
-
-
-/**
- * This class is provided for backwards compatibility with the extension t3unit
- * t3unit is based on PHPUnit version 2 (known as PHPUnit2)
- */
-class tx_t3unit_testcase extends PHPUnit_Framework_TestCase {
 	/**
 	 * Roughly simulates the frontend although being in the backend.
 	 *
@@ -48,7 +40,6 @@ class tx_t3unit_testcase extends PHPUnit_Framework_TestCase {
 	 * @todo	This is a quick hack, needs proper implementation
 	 */
 	protected function simulateFrontendEnviroment() {
-
 		global $TSFE, $TYPO3_CONF_VARS;
 
 			// FIXME: Currently bad workaround which only initializes a few things, not really what you'd call a frontend enviroment
@@ -73,8 +64,16 @@ class tx_t3unit_testcase extends PHPUnit_Framework_TestCase {
 			);
 		$TSFE->connectToDB();
 		$TSFE->config = array();		// Must be filled with actual config!
-
 	}
+}
+
+
+/**
+ * This class is provided for backwards compatibility with the extension t3unit
+ * t3unit is based on PHPUnit version 2 (known as PHPUnit2)
+ */
+class tx_t3unit_testcase extends PHPUnit_Framework_TestCase {
+
 }
 
 ?>
