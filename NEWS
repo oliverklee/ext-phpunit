@@ -17,8 +17,8 @@ xx. April 2008: 3.2.12
 	~ Improvement to test suite finding in Experimental UI, courtesy of Mikkel Ricky.
 
 31. March 2008: Version 3.2.10
-	* Using strtolower() on database names in tx_phpunit_database_testcase->__construct().
-	* Fixed Experimental UI to work on Windows.
+	* Using strtolower() on database names in tx_phpunit_database_testcase->__construct(), courtesy of Mikkel Ricky, Morten Lovbjerg and Soren Soltveit.
+	* Fixed Experimental UI to work on Windows, courtesy of Mikkel Ricky.
 
 31. March 2008: Version 3.2.9
 	~ Moved database tests out of class tx_phpunit_testcase and into tx_phpunit_database_testcase.
