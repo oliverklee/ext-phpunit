@@ -2,25 +2,26 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2004 Robert Lemke (robert@typo3.org)
-*  All rights reserved
-*
-*  This script is part of the TYPO3 project. The TYPO3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-* 
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-* 
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
+ *  (c) 2004 Robert Lemke <robert@typo3.org>
+ *  (c) 2008 Kasper Ligaard <kasperligaard@gmail.com>
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
 
 require_once ('PHPUnit/Framework/TestListener.php');
 
@@ -28,7 +29,8 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 
 	protected	$resultArr = array();
 	public		$totalNumberOfTestCases = 0;				// Set from outside
-	protected	$currentTestNumber = 0;						// For counting the tests		
+	protected	$currentTestNumber = 0;						// For counting the tests
+	private $currentTestCaseName;
 	
 	/**
 	 *	An error occurred.
@@ -42,8 +44,8 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 		$fileName = str_replace(PATH_site, '', $testCaseTraceArr['file']);
 		
 		echo '<script>setClass("tx_phpunit_testcase_nr_'.$this->currentTestNumber.'","hadError");</script>';
-			
-    	echo '
+
+		echo '
 			<script>setClass("progress-bar","hadError");</script>
 			<script>setClass("tx_phpunit_testcase_nr_'.$this->currentTestNumber.'","hadError");</script>
 			<script>setClass("testCaseNum-'.$this->currentTestNumber.'","testCaseError");</script>
@@ -130,6 +132,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
     * @access public
     */
     public function startTestSuite(PHPUnit_Framework_TestSuite $suite) {
+    	$this->currentTestCaseName = $suite->getName();
     	if ($suite->getName() !== 'tx_phpunit_basetestsuite') {
 			echo '<h2 class="testSuiteName">Testsuite: '.$suite->getName().'</h2>';
 			echo '<script>setClass("progress-bar","wasSuccessful");</script>';
@@ -154,8 +157,9 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
     public function startTest(PHPUnit_Framework_Test $test) {
     	set_time_limit(30); // A sinlge test has to take less than this or else PHP will timeout.    	
 		echo '<div id="testCaseNum-'.$this->currentTestNumber.'" class="testcaseOutput">';
+		
 		echo '<script>setClass("tx_phpunit_testcase_nr_'.$this->currentTestNumber.'","wasSuccessful");</script>';
-  		echo 'Test: <strong class"testName">'.$test->getName().'</strong><br />'; 
+  		echo $this->getReRunLink($test->getName()).' <strong class"testName">'.$test->getName().'</strong><br />'; 
     }
 
     /**
@@ -167,7 +171,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
     public function endTest(PHPUnit_Framework_Test $test, $time) {
     	$this->currentTestNumber++;
     	$percentDone = intval(($this->currentTestNumber / $this->totalNumberOfTestCases) * 100);
-
+		
     	echo '</div>';
     	echo '<script>document.getElementById("progress-bar").style.width = "'.$percentDone.'%";</script>';
     	echo '<script>document.getElementById("transparent-bar").style.width = "'.(100-$percentDone).'%";</script>';
@@ -192,7 +196,16 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 		}
 		return $testCaseTraceArr;
 	}
+
+	private function getReRunLink ($testName) {
+		$iconImg = '<img style="vertical-align: middle; border: 1px solid #fff;" src="'.t3lib_extMgm::extRelPath('phpunit').'/mod1/runner.gif" >';
+		return '<a href="'.$this->getReRunUrl($testName).'" title="Run this test only">'.$iconImg.'</a>';
+	}
+	
+	private function getReRunUrl ($testName) {
+		$baseUrl = 'mod.php?M=tools_txphpunitbeM1';
+		$options = 'command=runsingletest&testname='.$testName.'('.$this->currentTestCaseName.')';
+		return $baseUrl.'&'.$options;
+	}
 }
-
-
 ?>

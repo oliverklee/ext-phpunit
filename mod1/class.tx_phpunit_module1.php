@@ -71,12 +71,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 						document.location = URL;
 					}
 
-	/**
-	 * [Describe function...]
-	 *
-	 * @param	[type]		$id,className: ...
-	 * @return	[type]		...
-	 */
 					function setClass(id,className) {
 						document.getElementById(id).className = className;
 					}
