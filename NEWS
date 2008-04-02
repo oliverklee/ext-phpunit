@@ -11,6 +11,7 @@ Legend:
 	+ Added method 'simulateFrontendEnvironment()' to tx_phpunit_testcase class. Call this method to load a (simple) simulation of the FE environment.
 	+ Added lib/ directory. Might be removed later, let's see...
 	- Removed clear.gif.
+	+ Added icon mod1/runner.gif
 	* Made all files follow the GT3 coding conventions (a derivative of Typo3 CGL, but not a subset).
 
 31. March 2008: Version 3.2.11
