@@ -5,7 +5,7 @@ Legend:
  * Means 'Corrected ...'
 
 02. April 2008: 3.2.12
-	+ Added re-run icon to each test: Clicking it, will re-run that test only. Closes issue #6972, http://bugs.typo3.org/view.php?id=6972
+	+ Added re-run icon to each test: Clicking it, will re-run that test only. Closes issue #6972, http://bugs.typo3.org/view.php?id=6972 (does not work with Experimental UI).
 	+ Added NEWS file to end of 'About PHPUnit BE', to make it easier to access.
 	+ Added option 'alwaysSimulateFrontendEnvironment' which defaults to true, since that is backwards compatible.
 	+ Added method 'simulateFrontendEnvironment()' to tx_phpunit_testcase class. Call this method to load a (simple) simulation of the FE environment.
