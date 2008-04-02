@@ -82,6 +82,8 @@ class tx_phpunit_module1_mikkelricky extends tx_phpunit_module1 {
 	}
 
 	private function printModuleContent() {
+		$addEmptyOptions = true;
+
 		$extKeys = t3lib_div::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXT']['extList']);
 
 		$allTestsInfo = array();
@@ -116,7 +118,9 @@ class tx_phpunit_module1_mikkelricky extends tx_phpunit_module1 {
 		$content .= '</td>';
 		$content .= '<td>';
 		$content .= '<select id="'.$id.'" name="'.$key.'">';
-		// $content .= '<option/>';
+		if ($addEmptyOptions) {
+			$content .= '<option/>';
+		}
 		foreach ($allTestInfo as $extKey => $testInfo) {
 			$value = htmlspecialchars($extKey);
 			$selected = t3lib_div::_POST($key) == $value ? ' selected="selected"' : '';
@@ -139,7 +143,9 @@ class tx_phpunit_module1_mikkelricky extends tx_phpunit_module1 {
 		$content .= '</td>';
 		$content .= '<td>';
 		$content .= '<select id="'.$id.'" name="package">';
-		// $content .= '<option/>';
+		if ($addEmptyOptions) {
+			$content .= '<option/>';
+		}
 		foreach ($allTestInfo as $extKey => $testInfo) {
 			if (array_key_exists('packages', $testInfo)) {
 				$content .= '<optgroup label="'.$extKey.'">';
@@ -169,7 +175,9 @@ class tx_phpunit_module1_mikkelricky extends tx_phpunit_module1 {
 		$content .= '</td>';
 		$content .= '<td>';
 		$content .= '<select id="'.$id.'" name="testcase">';
-		// $content .= '<option/>';
+		if ($addEmptyOptions) {
+			$content .= '<option/>';
+		}
 		foreach ($allTestInfo as $extKey => $testInfo) {
 			if (array_key_exists('testcases', $testInfo)) {
 				$content .= '<optgroup label="'.$extKey.'">';
@@ -201,7 +209,9 @@ class tx_phpunit_module1_mikkelricky extends tx_phpunit_module1 {
 		$content .= '</td>';
 		$content .= '<td>';
 		$content .= '<select id="'.$id.'" name="suite">';
-		// $content .= '<option/>';
+		if ($addEmptyOptions) {
+			$content .= '<option/>';
+		}
 		foreach ($allTestInfo as $extKey => $testInfo) {
 			if (array_key_exists('suites', $testInfo)) {
 				$content .= '<optgroup label="'.$extKey.'">';
@@ -233,38 +243,46 @@ class tx_phpunit_module1_mikkelricky extends tx_phpunit_module1 {
 		switch ($action) {
 			case 'extkey':
 				$extKey = t3lib_div::_POST($action);
-				$testCases = $allTestInfo[$extKey]['testcases'];
-				self::runTestCases($testCases);
+				if ($extKey) {
+					$testCases = $allTestInfo[$extKey]['testcases'];
+					self::runTestCases($testCases);
+				}
 				break;
 			case 'package':
 				$package = t3lib_div::_POST('package');
-				list($extKey, $name) = explode('|', $package);
-				$testCases = $allTestInfo[$extKey]['packages'][$name];
-				self::runTestCases($testCases);
+				if ($package) {
+					list($extKey, $name) = explode('|', $package);
+					$testCases = $allTestInfo[$extKey]['packages'][$name];
+					self::runTestCases($testCases);
+				}
 				break;
 			case 'testcase':
 				$testCase = t3lib_div::_POST('testcase');
-				list($extKey, $name) = explode('|', $testCase);
-				$testCases = null;
-				foreach ($allTestInfo[$extKey]['testcases'] as $testCase) {
-					if ($testCase['name'] == $name) {
-						$testCases = array($testCase);
-						break;
+				if ($testCase) {
+					list($extKey, $name) = explode('|', $testCase);
+					$testCases = null;
+					foreach ($allTestInfo[$extKey]['testcases'] as $testCase) {
+						if ($testCase['name'] == $name) {
+							$testCases = array($testCase);
+							break;
+						}
 					}
+					self::runTestCases($testCases);
 				}
-				self::runTestCases($testCases);
 				break;
 			case 'suite':
 				$suite = t3lib_div::_POST('suite');
-				list($extKey, $name) = explode('|', $suite);
-				$testSuite = null;
-				foreach ($allTestInfo[$extKey]['suites'] as $t) {
-					if ($t['name'] == $name) {
-						$testSuite = $t;
-						break;
+				if ($suite) {
+					list($extKey, $name) = explode('|', $suite);
+					$testSuite = null;
+					foreach ($allTestInfo[$extKey]['suites'] as $t) {
+						if ($t['name'] == $name) {
+							$testSuite = $t;
+							break;
+						}
 					}
+					self::runTestSuite($testSuite);
 				}
-				self::runTestSuite($testSuite);
 				break;
 		}
 	}

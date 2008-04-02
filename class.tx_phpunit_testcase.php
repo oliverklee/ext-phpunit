@@ -41,6 +41,40 @@ class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
  * t3unit is based on PHPUnit version 2 (known as PHPUnit2)
  */
 class tx_t3unit_testcase extends PHPUnit_Framework_TestCase {
+	/**
+	 * Roughly simulates the frontend although being in the backend.
+	 *
+	 * @return	void
+	 * @todo	This is a quick hack, needs proper implementation
+	 */
+	protected function simulateFrontendEnviroment() {
+
+		global $TSFE, $TYPO3_CONF_VARS;
+
+			// FIXME: Currently bad workaround which only initializes a few things, not really what you'd call a frontend enviroment
+
+		require_once(PATH_tslib.'class.tslib_fe.php');
+		require_once(PATH_t3lib.'class.t3lib_page.php');
+		require_once(PATH_t3lib.'class.t3lib_userauth.php');
+		require_once(PATH_tslib.'class.tslib_feuserauth.php');
+		require_once(PATH_t3lib.'class.t3lib_tstemplate.php');
+		require_once(PATH_t3lib.'class.t3lib_cs.php');
+
+		$temp_TSFEclassName = t3lib_div::makeInstanceClassName('tslib_fe');
+		$TSFE = new $temp_TSFEclassName(
+				$TYPO3_CONF_VARS,
+				t3lib_div::_GP('id'),
+				t3lib_div::_GP('type'),
+				t3lib_div::_GP('no_cache'),
+				t3lib_div::_GP('cHash'),
+				t3lib_div::_GP('jumpurl'),
+				t3lib_div::_GP('MP'),
+				t3lib_div::_GP('RDCT')
+			);
+		$TSFE->connectToDB();
+		$TSFE->config = array();		// Must be filled with actual config!
+
+	}
 }
 
 ?>

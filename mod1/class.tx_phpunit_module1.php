@@ -175,7 +175,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			if ($selected) {
 				$currentExtName = $dirName;
 			}
-			$extensionsOptionsArr[]='<option style="'.$style.'" value="'.htmlspecialchars($dirName).'"'.$selected.'>'.$icon.htmlspecialchars($dirName).'</option>';
+			$extensionsOptionsArr[]='<option style="'.$style.'" value="'.htmlspecialchars($dirName).'"'.$selected.'>'.htmlspecialchars($dirName).'</option>';
 		}
 		
 		if (t3lib_extMgm::isLoaded($currentExtName)) {
@@ -278,7 +278,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * @access	protected
 	 */
 	protected function runTests_renderRunningTest() {
-		$this->simulateFrontendEnviroment();
+		
+		if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['alwaysSimulateFrontendEnvironment']) {
+			$this->simulateFrontendEnviroment();
+		}
 
 		$extensionsWithTestSuites = $this->getExtensionsWithTestSuites();
 		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
@@ -422,6 +425,41 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	}
 	
 	/**
+	 * Roughly simulates the frontend although being in the backend.
+	 *
+	 * @return	void
+	 * @todo	This is a quick hack, needs proper implementation
+	 */
+	protected function simulateFrontendEnviroment() {
+
+		global $TSFE, $TYPO3_CONF_VARS;
+
+			// FIXME: Currently bad workaround which only initializes a few things, not really what you'd call a frontend enviroment
+
+		require_once(PATH_tslib.'class.tslib_fe.php');
+		require_once(PATH_t3lib.'class.t3lib_page.php');
+		require_once(PATH_t3lib.'class.t3lib_userauth.php');
+		require_once(PATH_tslib.'class.tslib_feuserauth.php');
+		require_once(PATH_t3lib.'class.t3lib_tstemplate.php');
+		require_once(PATH_t3lib.'class.t3lib_cs.php');
+
+		$temp_TSFEclassName = t3lib_div::makeInstanceClassName('tslib_fe');
+		$TSFE = new $temp_TSFEclassName(
+				$TYPO3_CONF_VARS,
+				t3lib_div::_GP('id'),
+				t3lib_div::_GP('type'),
+				t3lib_div::_GP('no_cache'),
+				t3lib_div::_GP('cHash'),
+				t3lib_div::_GP('jumpurl'),
+				t3lib_div::_GP('MP'),
+				t3lib_div::_GP('RDCT')
+			);
+		$TSFE->connectToDB();
+		$TSFE->config = array();		// Must be filled with actual config!
+
+	}
+	
+	/**
 	 * Renders the "About" screen
 	 *
 	 * @return	void
@@ -475,6 +513,11 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		<p>
 		Robert Lemke, Mario Rimann, Oliver Klee, Søren Soltveit and Mikkel Ricky.<p>
 		';
+		echo '<h2>News file</h2>';
+		echo '<div class="tx_phpunit-newsfile">';
+		$newsfile = file_get_contents(t3lib_extMgm::extRelPath('phpunit').'NEWS');
+		echo nl2br($newsfile);
+		echo '</div>';
 	}
 
 
@@ -573,41 +616,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			}
 		}
 		return $extensionsArr;
-	}
-	
-	/**
-	 * Roughly simulates the frontend although being in the backend.
-	 *
-	 * @return	void
-	 * @todo	This is a quick hack, needs proper implementation
-	 */
-	protected function simulateFrontendEnviroment() {
-
-		global $TSFE, $TYPO3_CONF_VARS;
-
-			// FIXME: Currently bad workaround which only initializes a few things, not really what you'd call a frontend enviroment
-
-		require_once(PATH_tslib.'class.tslib_fe.php');
-		require_once(PATH_t3lib.'class.t3lib_page.php');
-		require_once(PATH_t3lib.'class.t3lib_userauth.php');
-		require_once(PATH_tslib.'class.tslib_feuserauth.php');
-		require_once(PATH_t3lib.'class.t3lib_tstemplate.php');
-		require_once(PATH_t3lib.'class.t3lib_cs.php');
-
-		$temp_TSFEclassName = t3lib_div::makeInstanceClassName('tslib_fe');
-		$TSFE = new $temp_TSFEclassName(
-				$TYPO3_CONF_VARS,
-				t3lib_div::_GP('id'),
-				t3lib_div::_GP('type'),
-				t3lib_div::_GP('no_cache'),
-				t3lib_div::_GP('cHash'),
-				t3lib_div::_GP('jumpurl'),
-				t3lib_div::_GP('MP'),
-				t3lib_div::_GP('RDCT')
-			);
-		$TSFE->connectToDB();
-		$TSFE->config = array();		// Must be filled with actual config!
-
 	}
 	
 	private static function eAccelerator0951OptimizerHelp () {
