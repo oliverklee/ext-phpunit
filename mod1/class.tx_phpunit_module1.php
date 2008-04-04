@@ -467,7 +467,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * @access	protected
 	 */
 	protected function about_render() {
-
+		if ($codeCoverageDir['exists'] = file_exists(t3lib_extMgm::extRelPath('phpunit').'codecoverage')) {
+			$codeCoverageDir['writeable'] = is_writeable(t3lib_extMgm::extRelPath('phpunit').'codecoverage');
+			$codeCoverageDir['readable'] = is_readable(t3lib_extMgm::extRelPath('phpunit').'codecoverage');
+		}
 		echo '<img src="'.t3lib_extMgm::extRelPath('phpunit').'mod1/phpunit.gif" width="94" height="80" alt="PHPUnit" title="PHPUnit" style="float:right; margin-left:10px;" />';
 		$excludeExtensions = t3lib_div::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['excludeextensions']);
 		echo self::eAccelerator0951OptimizerHelp();
@@ -514,6 +517,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		<p>
 		Robert Lemke, Mario Rimann, Oliver Klee, Søren Soltveit and Mikkel Ricky.<p>
 		';
+		
 		echo '<h2>News file</h2>';
 		echo '<div class="tx_phpunit-newsfile">';
 		$newsfile = file_get_contents(t3lib_extMgm::extRelPath('phpunit').'NEWS');
