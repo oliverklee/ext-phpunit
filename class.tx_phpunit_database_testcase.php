@@ -4,9 +4,6 @@ require_once(PATH_t3lib.'class.t3lib_install.php');
 
 class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 
-	protected $backupGlobals = false;
-
-
 	/**
 	 * Test database name
 	 *

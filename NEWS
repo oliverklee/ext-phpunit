@@ -4,6 +4,9 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
+04. April 2008: 3.2.13
+	* Bugfix: Moved setting of $backupGlobals from tx_phpunit_database_testcase.php to tx_phpunit_testcase.php. This fixes a 'Fatal Error' on Windows. Thanks goes to Morten Lovbjerg.
+
 02. April 2008: 3.2.12
 	+ Added re-run icon to each test: Clicking it, will re-run that test only. Closes issue #6972, http://bugs.typo3.org/view.php?id=6972 (does not work with Experimental UI).
 	+ Added NEWS file to end of 'About PHPUnit BE', to make it easier to access.
