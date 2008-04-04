@@ -4,6 +4,12 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
+04. April 2008: 3.2.14
+	+ Added PHPUnit 3.2.18, see Changelog at http://www.phpunit.de/wiki/ChangeLog32#PHPUnit3.2.1804-Apr-2008
+	- Removed PHPUnit 3.2.17.
+	* Changes to stylesheet, to mitigate some of the most glaring usability issues in the Typo3 4 default skin.
+	~ Tweaked NEWS file.
+
 04. April 2008: 3.2.13
 	* Bugfix: Moved setting of $backupGlobals from tx_phpunit_database_testcase.php to tx_phpunit_testcase.php. This fixes a 'Fatal Error' on Windows. Thanks goes to Morten Lovbjerg.
 
@@ -48,8 +54,9 @@ Legend:
 	+ Previously there was a total timelimit of 30 seconds. Now the timelimit is per testcase; this is done by inserting a call to set_time_limit(30) in the testlistener.
 	+ Expanded 'About PHPUnit BE': Added links to bugs.typo3.org and phpunit on typo3xdev.sf.net. Added Søren Soltveit to contributor list. Added test for XDebug extension (needed for code coverage) and test for memory limit, which should be set to something like 256MB, when using code coverage!
 	+ New (experimental) progressbar: First stab at bugs #6972 and #6975. Turned off by default. Works badly: Overflows to the right, when there are many tests.
+	+ Added PHPUnit 3.2.16, see Changelog at http://www.phpunit.de/wiki/ChangeLog32#PHPUnit3.2.1622-Mar-2008.
+	+ Removed PHPUnit 3.2.15.
 	- Removed variable addAttrib in SVN revision 8639. Solves issue #7011, http://bugs.typo3.org/view.php?id=7011
-	~ Upgraded PHPUnit from 3.2.15 to 3.2.16. Changelog: http://www.phpunit.de/wiki/ChangeLog32#PHPUnit3.2.1622-Mar-2008.
 	~ Use t3lib_div::trimExplode in various places, where it was appropriate.
 	~ ext_emconf.php: 'Namespace' variables better (in typo3confvars).
 	~ Added array type hint to function getFirstNonPHPUnitTrace in class tx_phpunit_testlistener.

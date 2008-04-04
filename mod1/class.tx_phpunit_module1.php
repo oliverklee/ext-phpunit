@@ -65,7 +65,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			//$this->doc->loadJavascriptLib('contrib/prototype/prototype.js');
 			//$this->doc->loadJavascriptLib('js/common.js');
 			//$this->doc->loadJavascriptLib(t3lib_extMgm::extRelPath('phpunit').'mod1/tx_phpunit_module1.js');
-			$this->doc->JScode = $this->doc->wrapScriptTags('
+			$this->doc->JScode = '<link rel="stylesheet" type="text/css" href="../typo3conf/ext/phpunit/mod1/phpunit-be.css" />'.$this->doc->wrapScriptTags('
 					script_ended = 0;
 					function jumpToUrl(URL)	{	//
 						document.location = URL;
@@ -482,7 +482,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			';
 		}
 		echo '
-		<h2>About PHPUnit Backend Module</h2>
+		<h1>About PHPUnit Backend Module</h2>
 		PHPUnit BE is a <a href="http://en.wikipedia.org/wiki/Unit_testing">unit testing</a> framework based on <a href="http://www.phpunit.de/" target="_new">PHPUnit</a> by Sebastian Bergmann. It offers smooth integration
 		of the PHPUnit framework into TYPO3 and offers an API and many functions which make unit testing of TYPO3 extensions easy and comfortable.<br />
 		<h2>Get test-infected!</h2>

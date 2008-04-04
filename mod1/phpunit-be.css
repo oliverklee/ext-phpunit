@@ -1,5 +1,32 @@
 @CHARSET "ISO-8859-1";
 
+/* Section to remedy to idiocy of web-fools having created the Typo3 4 default skin */
+a {
+	color : blue;
+}
+
+a:hover {
+	color : blue;
+	text-decoration : underline;	
+}
+
+p, div, body, input, select, textarea, .defstyle {
+	color : black;
+}
+
+h1, h2, h3, h4 {
+	background-color : transparent;
+	color : black;
+	text-align: left;
+}
+
+/* Temporary bugfix for issue http://bugs.typo3.org/view.php?id=7631 */
+body#typo3-mod-php {
+    overflow: auto;
+}
+
+/* Now we have a somewhat sane setup. Let's style get to work styling. */
+
 .progress-bar-wrap {
 	height: 2em;
 	margin-bottom : 1em;
@@ -82,7 +109,3 @@
 	float: left;
 }
 
-/* Temporary bugfix for issue http://bugs.typo3.org/view.php?id=7631 */
-body#typo3-mod-php {
-    overflow: auto;
-}
