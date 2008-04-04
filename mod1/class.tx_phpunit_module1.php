@@ -482,7 +482,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			';
 		}
 		echo '
-		<h1>About PHPUnit Backend Module</h2>
+		<h1>About PHPUnit Backend Module</h1>
 		PHPUnit BE is a <a href="http://en.wikipedia.org/wiki/Unit_testing">unit testing</a> framework based on <a href="http://www.phpunit.de/" target="_new">PHPUnit</a> by Sebastian Bergmann. It offers smooth integration
 		of the PHPUnit framework into TYPO3 and offers an API and many functions which make unit testing of TYPO3 extensions easy and comfortable.<br />
 		<h2>Get test-infected!</h2>
