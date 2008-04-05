@@ -9,6 +9,7 @@
 			<label index="all_extensions">All extensions</label>
 			<label index="could_not_find_exts_with_tests">Could not find any extension with unit tests.</label>
 			<label index="function_about">About PHPUnit BE</label>
+			<label index="function_news">News &amp; Changes List</label>
 			<label index="function_runtests">Run tests</label>
 			<label index="run_again">Run again</label>
 			<label index="run_all_tests">Run all tests</label>
@@ -27,6 +28,7 @@
 			<label index="all_extensions">Alle extensions</label>
 			<label index="could_not_find_exts_with_tests">Der blev ikke fundet extensions med unit tests.</label>
 			<label index="function_about">Om PHPUnit BE</label>
+			<label index="function_news">Nyt og ændret liste</label>
 			<label index="function_runtests">Kør tests</label>
 			<label index="run_again">Kør igen</label>
 			<label index="run_all_tests">Kør alle tests</label>
@@ -101,45 +103,8 @@
 		<languageKey index="fo"></languageKey>
 		<languageKey index="fa"></languageKey>
 		<languageKey index="sr"></languageKey>
+		<languageKey index="sq"></languageKey>
+		<languageKey index="ge"></languageKey>
+		<languageKey index="ga"></languageKey>
 	</data>
-	<orig_hash type="array">
-		<languageKey index="de" type="array">
-			<label index="admin_rights_needed" type="integer">195260803</label>
-			<label index="all_extensions" type="integer">66417136</label>
-			<label index="could_not_find_exts_with_tests" type="integer">99997652</label>
-			<label index="function_about" type="integer">98185528</label>
-			<label index="function_runtests" type="integer">159366163</label>
-			<label index="run_again" type="integer">130532274</label>
-			<label index="run_all_tests" type="integer">23665408</label>
-			<label index="run_single_test" type="integer">52987544</label>
-			<label index="select_extension" type="integer">211646115</label>
-			<label index="select_tests" type="integer">121209135</label>
-			<label index="testing_all_extensions" type="integer">142888754</label>
-			<label index="testing_extension" type="integer">224421733</label>
-			<label index="tests_errors" type="integer">7476128</label>
-			<label index="tests_failures" type="integer">79480291</label>
-			<label index="tests_total" type="integer">190949077</label>
-			<label index="title" type="integer">94470161</label>
-		</languageKey>
-	</orig_hash>
-	<orig_text type="array">
-		<languageKey index="de" type="array">
-			<label index="admin_rights_needed">You need administrator rights in order to use PHPUnit back-end module.</label>
-			<label index="all_extensions">All extensions</label>
-			<label index="could_not_find_exts_with_tests">Could not find any extension with unit tests.</label>
-			<label index="function_about">About PHPUnit BE</label>
-			<label index="function_runtests">Run tests</label>
-			<label index="run_again">Run again</label>
-			<label index="run_all_tests">Run all tests</label>
-			<label index="run_single_test">Run single test</label>
-			<label index="select_extension">Select extension</label>
-			<label index="select_tests">Select test</label>
-			<label index="testing_all_extensions">Testing all extensions</label>
-			<label index="testing_extension">Testing extension</label>
-			<label index="tests_errors">errors</label>
-			<label index="tests_failures">failures</label>
-			<label index="tests_total">tests</label>
-			<label index="title">PHPUnit BE</label>
-		</languageKey>
-	</orig_text>
 </T3locallang>

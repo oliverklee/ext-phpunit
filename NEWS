@@ -4,6 +4,10 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
+xx. April 2008: 3.2.15
+	- Removed setting $backupGlobals=false. This should be unnecessary after PHPUnit issue #421 was solved, http://www.phpunit.de/ticket/421.
+	~ Moved NEWS file from 'About PHPUnit BE' to an entry of its own in the dropdown selector.
+
 04. April 2008: 3.2.14
 	+ Added PHPUnit 3.2.18, see Changelog at http://www.phpunit.de/wiki/ChangeLog32#PHPUnit3.2.1804-Apr-2008
 	- Removed PHPUnit 3.2.17.
