@@ -11,7 +11,7 @@ require_once 'PHPUnit/Util/Log/JSON.php';
 require_once 'PHPUnit/Util/Log/Metrics.php';
 require_once 'PHPUnit/Util/Log/PMD.php';
 require_once 'PHPUnit/Util/Log/CPD.php';
-require_once 'PHPUnit/Util/Log/GraphViz.php';
+//require_once 'PHPUnit/Util/Log/GraphViz.php';
 
 class tx_phpunit_module1 extends t3lib_SCbase {
 
@@ -63,19 +63,22 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$this->doc->styleSheetFile2 = t3lib_extMgm::extRelPath('phpunit').'mod1/phpunit-be.css';
 
 				// JavaScript
-			//$this->doc->loadJavascriptLib('contrib/prototype/prototype.js');
-			//$this->doc->loadJavascriptLib('js/common.js');
-			//$this->doc->loadJavascriptLib(t3lib_extMgm::extRelPath('phpunit').'mod1/tx_phpunit_module1.js');
-			$this->doc->JScode = '<link rel="stylesheet" type="text/css" href="../typo3conf/ext/phpunit/mod1/phpunit-be.css" />'.$this->doc->wrapScriptTags('
-					script_ended = 0;
-					function jumpToUrl(URL)	{	//
-						document.location = URL;
-					}
+			// @todo: Use Typo3 4.2 $this->doc->loadJavascriptLib() function in the future.
+			$t3_41_compatibility = '<script type="text/javascript" src="contrib/prototype/prototype.js"></script>';
+			$t3_41_compatibility .= '<script type="text/javascript" src="js/common.js"></script>';
+			$t3_41_compatibility .= '<script type="text/javascript" src="'.t3lib_extMgm::extRelPath('phpunit').'mod1/tx_phpunit_module1.js"></script>';
 
-					function setClass(id,className) {
-						document.getElementById(id).className = className;
-					}
-			');
+			$this->doc->JScode = $t3_41_compatibility . 
+				'<link rel="stylesheet" type="text/css" href="../typo3conf/ext/phpunit/mod1/phpunit-be.css" />'.$this->doc->wrapScriptTags('
+				script_ended = 0;
+				function jumpToUrl(URL)	{	//
+					document.location = URL;
+				}
+
+				function setClass(id,className) {
+					document.getElementById(id).className = className;
+				}
+				');
 
 			echo $this->doc->startPage(self::getLL('title'));
 			echo $this->doc->header(PHPUnit_Runner_Version::getVersionString());
@@ -319,7 +322,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			// Create a listener and run the tests:
 		$testListener = new tx_phpunit_testlistener();
 		$jsonListener = new PHPUnit_Util_Log_JSON();
-        $graphVizListener = new PHPUnit_Util_Log_GraphViz();
+        //$graphVizListener = new PHPUnit_Util_Log_GraphViz();
 
 		$testResult = new PHPUnit_Framework_TestResult;
 
