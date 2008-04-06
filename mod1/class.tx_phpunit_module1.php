@@ -15,12 +15,12 @@ require_once 'PHPUnit/Util/Log/CPD.php';
 
 class tx_phpunit_module1 extends t3lib_SCbase {
 
-	private static function getLL ($index) {
+	protected static function getLL ($index) {
 		global $LANG;
 		return $LANG->getLL($index);
 	}
 
-	private static function sL ($input) {
+	protected static function sL ($input) {
 		global $LANG;
 		return $LANG->sL($input);
 	}
@@ -77,7 +77,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 				function setClass(id,className) {
 					document.getElementById(id).className = className;
-					parent.window.document.getElementById(id).className = className;
 				}
 				');
 
@@ -276,10 +275,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			</form>
 		';
 
-		$output .= '<script type="text/javascript">function rundaphpunit () { document.getElementById("testframe").src = "http://gt3/t3/typo3/mod.php?M=tools_txphpunitbeM1&command=runalltests&SET[extSel]=phpunit"; }</script>';
-		$output .= '<a href="#" onclick="rundaphpunit();">Run PHPUnit tests</a>';
-		$output .= '<iframe id="testframe" width="100%" height="400px" marginwidth="0" frameborder="1" ></iframe>';
-			
 		return $output;
 	}
 
