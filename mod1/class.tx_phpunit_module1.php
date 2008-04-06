@@ -527,7 +527,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		echo '<img src="'.t3lib_extMgm::extRelPath('phpunit').'mod1/phpunit.gif" width="94" height="80" alt="PHPUnit" title="PHPUnit" style="float:right; margin-left:10px;" />';
 		echo '<h1>News & Changes from one version to another</h1>';
 		echo '<p>Below you see the NEWS file for this extension. It lists notable changes from one version to the next.</p>';
-		echo '<p>If you experience problems after an upgrade, then check this list for changes that has happended since you previously installed version.</p>';
+		echo '<p>If you experience problems after an upgrade, then check this list for changes that has happended since your previously installed version.</p>';
 		echo '<h2>NEWS file</h2>';
 		echo '<div class="tx_phpunit-newsfile">';
 		$newsfile = file_get_contents(t3lib_extMgm::extRelPath('phpunit').'NEWS');
