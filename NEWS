@@ -9,6 +9,9 @@ Legend:
 	* Bugfix: Commented out calls to Graphviz. This is a future feature, that had sneaked in prematurely, causing fatal error for users. Closes issue #8037, http://bugs.typo3.org/view.php?id=8037.
 	~ Moved NEWS file from 'About PHPUnit BE' to an entry of its own in the dropdown selector.
 
+xx. April 2008: 3.2.15
+	* Made two private methods, getLL() and getSL(), protected.
+
 04. April 2008: 3.2.14
 	+ Added PHPUnit 3.2.18, see Changelog at http://www.phpunit.de/wiki/ChangeLog32#PHPUnit3.2.1804-Apr-2008
 	- Removed PHPUnit 3.2.17.
