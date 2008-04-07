@@ -62,8 +62,6 @@ require_once (PATH_t3lib.'class.t3lib_scbase.php');
 /* FIXME: This should be made configurable, i.e. easily choose among the phpunit
 *         version, that comes with this extension, or using PEAR installed phpunit.  
 */ 
-// require_once (t3lib_extMgm::extPath('phpunit').'phpunit-3.0.5/Framework/TestSuite.php');
-//require_once (t3lib_extMgm::extPath('phpunit').'phpunit-3.1.9/Framework/TestSuite.php');
 
 require_once (t3lib_extMgm::extPath('phpunit').'class.tx_phpunit_testlistener.php');
 require_once (t3lib_extMgm::extPath('phpunit').'class.tx_phpunit_testcase.php');
@@ -77,7 +75,11 @@ require_once ('class.tx_phpunit_module1_ajax.php');
 define('PATH_tslib', t3lib_extMgm::extPath('cms').'tslib/');
 
 // Which instance interface to create?
-if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['experimentalTestSuiteUI']) {
+if (isset($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][t3lib_extMgm::extRelPath('phpunit').'mod1/class.tx_phpunit_module1.php']['main'])) {
+    $classRef = $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][t3lib_extMgm::extRelPath('phpunit').'mod1/class.tx_phpunit_module1.php']['main'];
+    // Class needs to implement init() and main().
+	$SOBE = &t3lib_div::getUserObj($classRef);
+} else if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['experimentalTestSuiteUI']) {
 	$SOBE = new tx_phpunit_module1_mikkelricky();
 } else if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['experimentalAjaxUI']) {
 	$SOBE = new tx_phpunit_module1_ajax();

@@ -34,6 +34,8 @@ require_once('PHPUnit/Framework/TestCase.php');
 
 class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
 	
+	protected $backupGlobals = false;
+	
 	/**
 	 * Roughly simulates the frontend although being in the backend.
 	 *

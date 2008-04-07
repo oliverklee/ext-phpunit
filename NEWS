@@ -4,6 +4,10 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
+07. April 2008: 3.2.16
+	+ Added possibility to 'hook' which class to run. You will need to implement two methods, init() and main().
+	~ Re-inserted $backupGlobals = false. 
+
 06. April 2008: 3.2.15
 	- Removed setting $backupGlobals=false. This should be unnecessary after PHPUnit issue #421 was solved, http://www.phpunit.de/ticket/421.
 	* Bugfix: Commented out calls to Graphviz. This is a future feature, that had sneaked in prematurely, causing fatal error for users. Closes issue #8037, http://bugs.typo3.org/view.php?id=8037.
