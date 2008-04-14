@@ -3,6 +3,10 @@ Legend:
  - Means 'Removed ...'
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
+ 
+14. April 2008: 3.2.17
+	+ Added extension 'oelib' as a suggested install: It provides helper classes for writing unit tests for Typo3.
+	~ Updated manual to include a section about Typo3 unit testing helper classes (specifically: oelib).
 
 07. April 2008: 3.2.16
 	+ Added possibility to 'hook' which class to run. You will need to implement two methods, init() and main().
