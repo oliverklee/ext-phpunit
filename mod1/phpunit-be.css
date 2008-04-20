@@ -1,5 +1,9 @@
 @CHARSET "ISO-8859-1";
 
+p {
+	margin-bottom: 8px;
+}
+
 /* Section to remedy to idiocy of web-fools having created the Typo3 4 default skin */
 a {
 	color : blue;
@@ -7,7 +11,7 @@ a {
 
 a:hover {
 	color : blue;
-	text-decoration : underline;	
+	text-decoration : underline;
 }
 
 p, div, body, input, select, textarea, .defstyle {
@@ -35,7 +39,7 @@ body#typo3-mod-php {
 	width : 100%;
 }
 
-#progress-bar, 
+#progress-bar,
 #transparent-bar  {
 	border : 0;
 	height : 100%;
@@ -51,8 +55,8 @@ body#typo3-mod-php {
 }
 
 .alltests {
-	border-top : 1px solid #999999;	
-	border-bottom : 1px solid #999999;	
+	border-top : 1px solid #999999;
+	border-bottom : 1px solid #999999;
 }
 
 .wasSuccessful {
@@ -64,11 +68,11 @@ body#typo3-mod-php {
 }
 
 .hadError {
-	background-color: red;	
+	background-color: red;
 }
-	
+
 .inCompleteTest {
-	color: grey;	
+	color: grey;
 }
 
 .message {
@@ -85,7 +89,7 @@ body#typo3-mod-php {
 	padding : 0.2em 0 0.2em 0;
 	padding-left : 0.3em;
 	margin: 0.3em 0 0.3em 0;
-	background-color: #f1fff1;	
+	background-color: #f1fff1;
 }
 
 .testcaseFailure {

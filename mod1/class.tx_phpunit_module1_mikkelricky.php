@@ -5,14 +5,19 @@ class tx_phpunit_module1_mikkelricky extends tx_phpunit_module1 {
 
 		$this->doc = t3lib_div::makeInstance('bigDoc');
 		$this->doc->backPath = $BACK_PATH;
+		$this->doc->docType = 'xhtml_strict';
+
 		$this->doc->styleSheetFile2 = t3lib_extMgm::extRelPath('phpunit').'mod1/styles.css';
 		$this->doc->JScode = $this->doc->wrapScriptTags('
 					script_ended = 0;
 					function jumpToUrl(URL)	{	//
 						document.location = URL;
 					}
-					function setClass(id,className) {
-						document.getElementById(id).className = className;
+					function setClass(id, className) {
+						element = document.getElementById(id);
+						if (element) {
+								element.className = className;
+						}
 					}
 			');
 
@@ -237,9 +242,6 @@ class tx_phpunit_module1_mikkelricky extends tx_phpunit_module1 {
 
 		echo $content;
 
-		// debug($allTestCases, __METHOD__);
-		// debug($allTestSuites, __METHOD__);
-
 		switch ($action) {
 			case 'extkey':
 				$extKey = t3lib_div::_POST($action);
@@ -322,10 +324,9 @@ class tx_phpunit_module1_mikkelricky extends tx_phpunit_module1 {
 
 				$pattern = '|'.preg_quote($path, '|').'(?:(.+)/)?([^/]+)_testsuite\.php$|';
 				if (preg_match($pattern, $filename, $matches)) {
-					$testSuite = array(//'path' => $path.$matches[1],
-					//'filename' => $matches[2],
-                                                        'name' => $matches[2],
-                                                        'filename' => $filename,
+					$testSuite = array(
+                        'name' => $matches[2],
+                        'filename' => $filename,
 					);
 					if (!array_key_exists('suites', $info)) {
 						$info['suites'] = array();

@@ -31,7 +31,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	public		$totalNumberOfTestCases = 0;				// Set from outside
 	protected	$currentTestNumber = 0;						// For counting the tests
 	private $currentTestCaseName;
-	
+
 	/**
 	 *	An error occurred.
 	 *
@@ -42,18 +42,17 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
     public function addError(PHPUnit_Framework_Test $test, Exception $e, $time) {
     	$testCaseTraceArr = $this->getFirstNonPHPUnitTrace($e->getTrace());
 		$fileName = str_replace(PATH_site, '', $testCaseTraceArr['file']);
-		
+
 		echo '<script>setClass("tx_phpunit_testcase_nr_'.$this->currentTestNumber.'","hadError");</script>';
 
 		echo '
-			<script>setClass("progress-bar","hadError");</script>
-			<script>setClass("tx_phpunit_testcase_nr_'.$this->currentTestNumber.'","hadError");</script>
-			<script>setClass("testCaseNum-'.$this->currentTestNumber.'","testCaseError");</script>
+			<script type="text/javascript">setClass("progress-bar","hadError");</script>
+			<script type="text/javascript">setClass("tx_phpunit_testcase_nr_'.$this->currentTestNumber.'","hadError");</script>
+			<script type="text/javascript">setClass("testCaseNum-'.$this->currentTestNumber.'","testCaseError");</script>
 			<strong><span class="hadError">!</span> Error</strong> in test case <em>'.$test->getName().'</em>
 			<br />in file<em> '.$fileName.'</em>
 			<br />on line<em> '.$testCaseTraceArr['line'].'</em>:
 			<div class="message">Message:<br>'.htmlspecialchars($e->getMessage()).'</div>';
-		//	<div class="message">Trace:<br>'.htmlspecialchars($e->getTrace()).'</div>';
     	flush();
     }
 
@@ -68,31 +67,25 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
     	//$result = $test->createResult();
     	$testCaseTraceArr = $this->getFirstNonPHPUnitTrace($e->getTrace());
 		$fileName = str_replace(PATH_site, '', $testCaseTraceArr['file']);
-		
+
 		echo '<script>setClass("tx_phpunit_testcase_nr_'.$this->currentTestNumber.'","hadFailure");</script>';
 
     	echo '
-			<script>setClass("progress-bar","hadFailure");</script>
-			<script>setClass("tx_phpunit_testcase_nr_'.$this->currentTestNumber.'","hadFailure");</script>
-			<script>setClass("testCaseNum-'.$this->currentTestNumber.'","testCaseFailure");</script>
+			<script type="text/javascript">setClass("progress-bar","hadFailure");</script>
+			<script type="text/javascript">setClass("tx_phpunit_testcase_nr_'.$this->currentTestNumber.'","hadFailure");</script>
+			<script type="text/javascript">setClass("testCaseNum-'.$this->currentTestNumber.'","testCaseFailure");</script>
 			<strong><span class="hadFailure">!</span> Failure</strong> in test case <em>'.$test->getName().'</em>
 			<br />File: <em>'.$fileName.'</em>
 			<br />Line: <em>'.$testCaseTraceArr['line'].'</em>:
 			<br /><strong>Description</strong>
 			';
-    	
+
 		if (method_exists($e, 'getDescription')) {
 			echo '<div class="message">'.htmlspecialchars($e->getDescription()).'</div>';
 		} else {
 			echo '<div class="message">'.htmlspecialchars($e->getMessage()).'</div>';
 		}
-		
-		/*
-		echo '<br /><strong>Stack trace (filtered)</strong>';
-		echo '<div class="message">';
-		var_dump(PHPUnit_Util_Filter::getFilteredStacktrace($e,TRUE,FALSE));
-		echo '</div>';
-		*/
+
 		flush();
     }
 
@@ -111,7 +104,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 		flush();
     }
 
-    
+
     /**
      * Skipped test.
      *
@@ -124,7 +117,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
     public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
     	// TODO: Implement addSkippedTest
     }
-    
+
     /**
     * A testsuite started.
     *
@@ -135,7 +128,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
     	$this->currentTestCaseName = $suite->getName();
     	if ($suite->getName() !== 'tx_phpunit_basetestsuite') {
 			echo '<h2 class="testSuiteName">Testsuite: '.$suite->getName().'</h2>';
-			echo '<script>setClass("progress-bar","wasSuccessful");</script>';
+			echo '<script type="text/javascript">setClass("progress-bar","wasSuccessful");</script>';
     	}
     }
 
@@ -155,14 +148,14 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
     * @access public
     */
     public function startTest(PHPUnit_Framework_Test $test) {
-    	set_time_limit(30); // A sinlge test has to take less than this or else PHP will timeout.    	
+    	set_time_limit(30); // A sinlge test has to take less than this or else PHP will timeout.
 		echo '<div id="testCaseNum-'.$this->currentTestNumber.'" class="testcaseOutput">';
-		
-		echo '<script>setClass("tx_phpunit_testcase_nr_'.$this->currentTestNumber.'","wasSuccessful");</script>';
+
+		echo '<script type="text/javascript">setClass("tx_phpunit_testcase_nr_'.$this->currentTestNumber.'","wasSuccessful");</script>';
 		if ($this->totalNumberOfTestCases !== 1) {
 			echo $this->getReRunLink($test->getName());
 		}
-  		echo ' <strong class"testName">'.$test->getName().'</strong><br />'; 
+  		echo ' <strong class="testName">'.$test->getName().'</strong><br />';
     }
 
     /**
@@ -174,10 +167,10 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
     public function endTest(PHPUnit_Framework_Test $test, $time) {
     	$this->currentTestNumber++;
     	$percentDone = intval(($this->currentTestNumber / $this->totalNumberOfTestCases) * 100);
-		
+
     	echo '</div>';
-    	echo '<script>document.getElementById("progress-bar").style.width = "'.$percentDone.'%";</script>';
-    	echo '<script>document.getElementById("transparent-bar").style.width = "'.(100-$percentDone).'%";</script>';
+    	echo '<script type="text/javascript">document.getElementById("progress-bar").style.width = "'.$percentDone.'%";</script>';
+    	echo '<script type="text/javascript">document.getElementById("transparent-bar").style.width = "'.(100-$percentDone).'%";</script>';
      	flush();
     }
 
@@ -194,21 +187,21 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 		foreach ($traceArr as $singleTraceArr) {
 			if (!stristr($singleTraceArr['file'], 'Framework/Assert.php')) {
 				$testCaseTraceArr = $singleTraceArr;
-				break;	
+				break;
 			}
 		}
 		return $testCaseTraceArr;
 	}
 
 	private function getReRunLink ($testName) {
-		$iconImg = '<img style="vertical-align: middle; border: 1px solid #fff;" src="'.t3lib_extMgm::extRelPath('phpunit').'/mod1/runner.gif" >';
+		$iconImg = '<img style="vertical-align: middle; border: 1px solid #fff;" src="'.t3lib_extMgm::extRelPath('phpunit').'mod1/runner.gif" alt="Run this test only" />';
 		return '<a href="'.$this->getReRunUrl($testName).'" title="Run this test only">'.$iconImg.'</a>';
 	}
-	
+
 	private function getReRunUrl ($testName) {
 		$baseUrl = 'mod.php?M=tools_txphpunitbeM1';
-		$options = 'command=runsingletest&testname='.$testName.'('.$this->currentTestCaseName.')';
-		return $baseUrl.'&'.$options;
+		$options = 'command=runsingletest&amp;testname='.$testName.'('.$this->currentTestCaseName.')';
+		return $baseUrl.'&amp;'.$options;
 	}
 }
 ?>

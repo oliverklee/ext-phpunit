@@ -11,7 +11,6 @@ require_once 'PHPUnit/Util/Log/JSON.php';
 require_once 'PHPUnit/Util/Log/Metrics.php';
 require_once 'PHPUnit/Util/Log/PMD.php';
 require_once 'PHPUnit/Util/Log/CPD.php';
-//require_once 'PHPUnit/Util/Log/GraphViz.php';
 
 class tx_phpunit_module1 extends t3lib_SCbase {
 
@@ -58,6 +57,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				// Draw the header.
 			$this->doc = t3lib_div::makeInstance('bigDoc');
 			$this->doc->backPath = $BACK_PATH;
+			$this->doc->docType = 'xhtml_strict';
 
 				// Stylesheet for back-end module.
 			$this->doc->styleSheetFile2 = t3lib_extMgm::extRelPath('phpunit').'mod1/phpunit-be.css';
@@ -68,15 +68,18 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$t3_41_compatibility .= '<script type="text/javascript" src="js/common.js"></script>';
 			$t3_41_compatibility .= '<script type="text/javascript" src="'.t3lib_extMgm::extRelPath('phpunit').'mod1/tx_phpunit_module1.js"></script>';
 
-			$this->doc->JScode = $t3_41_compatibility . 
+			$this->doc->JScode = $t3_41_compatibility .
 				'<link rel="stylesheet" type="text/css" href="../typo3conf/ext/phpunit/mod1/phpunit-be.css" />'.$this->doc->wrapScriptTags('
 				script_ended = 0;
 				function jumpToUrl(URL)	{	//
 					document.location = URL;
 				}
 
-				function setClass(id,className) {
-					document.getElementById(id).className = className;
+				function setClass(id, className) {
+					element = document.getElementById(id);
+					if (element) {
+							element.className = className;
+					}
 				}
 				');
 
@@ -194,12 +197,13 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 		$output = self::eAccelerator0951OptimizerHelp();
 		$output .= '
-			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="POST">
-                <select '.$style.' name="SET[extSel]" onchange="jumpToUrl(\''.htmlspecialchars($this->MCONF['_']).'&SET[extSel]=\'+this.options[this.selectedIndex].value,this);">'.implode('', $extensionsOptionsArr).'</select>
-				<input type="submit" value="'.self::getLL('run_all_tests').'" />
-				<input type="hidden" name="command" value="runalltests" />
+			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="post">
+				<p>
+                	<select '.$style.' name="SET[extSel]" onchange="jumpToUrl(\''.htmlspecialchars($this->MCONF['_']).'&SET[extSel]=\'+this.options[this.selectedIndex].value,this);">'.implode('', $extensionsOptionsArr).'</select>
+					<input type="submit" value="'.self::getLL('run_all_tests').'" />
+					<input type="hidden" name="command" value="runalltests" />
+				</p>
 			</form>
-			<br />
 		';
 
 		return $output;
@@ -266,12 +270,14 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 		$output = '
 			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="post">
-				<select style="'.$currentStyle.'" name="testname">
-				<option value="">'.self::getLL('select_tests').'</option>'.
-				$testOptionsHtml.
-				'</select>
-				<input type="submit" value="'.self::getLL('run_single_test').'" />
-				<input type="hidden" name="command" value="runsingletest" />
+				<p>
+					<select style="'.$currentStyle.'" name="testname">
+					<option value="">'.self::getLL('select_tests').'</option>'.
+					$testOptionsHtml.
+					'</select>
+					<input type="submit" value="'.self::getLL('run_single_test').'" />
+					<input type="hidden" name="command" value="runsingletest" />
+				</p>
 			</form>
 		';
 
@@ -322,7 +328,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			// Create a listener and run the tests:
 		$testListener = new tx_phpunit_testlistener();
 		$jsonListener = new PHPUnit_Util_Log_JSON();
-        //$graphVizListener = new PHPUnit_Util_Log_GraphViz();
 
 		$testResult = new PHPUnit_Framework_TestResult;
 
@@ -362,32 +367,32 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$testStatistics = '';
 		if ($result->wasSuccessful()) {
 	    	$testStatistics = '
-				<script>setClass("progress-bar","wasSuccessful");</script>
+				<script type="text/javascript">setClass("progress-bar","wasSuccessful");</script>
 				<h2 class="wasSuccessful">'.self::getLL('testing_success').'</h2>';
 		} else {
 	    	$testStatistics = '
-				<script>setClass("progress-bar","hadFailure");</script>
+				<script type="text/javascript">setClass("progress-bar","hadFailure");</script>
 				<h2 class="hadFailure">Failures!</h2>';
 		}
-		$testStatistics .= $result->count().' '.self::getLL('tests_total').', '.$result->failureCount().' '.self::getLL('tests_failures').', '.$testResult->errorCount().' '.self::getLL('tests_errors').'<br />';
+		$testStatistics .= '<p>'.$result->count().' '.self::getLL('tests_total').', '.$result->failureCount().' '.self::getLL('tests_failures').', '.$testResult->errorCount().' '.self::getLL('tests_errors').'</p>';
 		echo $testStatistics;
 
 		echo '
-			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="POST" >
-				<input type="submit" value="'.self::getLL('run_again').'" tabindex="100" />
-				<input name="command" type="hidden" value="'.t3lib_div::_GP('command').'" />
-				<input name="testname" type="hidden" value="'.t3lib_div::_GP('testname').'" />
+			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="post" >
+				<p>
+					<input type="submit" value="'.self::getLL('run_again').'" tabindex="100" />
+					<input name="command" type="hidden" value="'.t3lib_div::_GP('command').'" />
+					<input name="testname" type="hidden" value="'.t3lib_div::_GP('testname').'" />
+				</p>
 			</form>
 		';
 
 		// Code coverage output.
-		//echo PHPUnit_Util_Report::render($result, '/tmp/coverage/');
 		if (!t3lib_div::GPvar('testname') && $result->getCollectCodeCoverageInformation()) {
 			$jsonCodeCoverage = json_encode($result->getCodeCoverageInformation());
-			// echo $jsonCodeCoverage;
 		    PHPUnit_Util_Report::render($result, t3lib_extMgm::extPath('phpunit').'codecoverage/');
-		    echo '<a target="_blank" href="'.t3lib_extMgm::extRelPath('phpunit').'codecoverage/typo3conf_ext.html">Click here to access the Code Coverage report</a><br/>';
-		    echo 'Memory peak usage: '.ceil(memory_get_peak_usage()/(1024*1024)).' MB<br/>';
+		    echo '<p><a target="_blank" href="'.t3lib_extMgm::extRelPath('phpunit').'codecoverage/typo3conf_ext.html">Click here to access the Code Coverage report</a></p>';
+		    echo '<p>Memory peak usage: '.ceil(memory_get_peak_usage()/(1024*1024)).' MB<p/>';
 
 		    /* TODO: Add metrics UI presentation
 		    $logMetricsWriter = new PHPUnit_Util_Log_Metrics();
@@ -490,43 +495,40 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		}
 		echo '
 		<h1>About PHPUnit Backend Module</h1>
-		PHPUnit BE is a <a href="http://en.wikipedia.org/wiki/Unit_testing">unit testing</a> framework based on <a href="http://www.phpunit.de/" target="_new">PHPUnit</a> by Sebastian Bergmann. It offers smooth integration
-		of the PHPUnit framework into TYPO3 and offers an API and many functions which make unit testing of TYPO3 extensions easy and comfortable.<br />
+		<p>PHPUnit BE is a <a href="http://en.wikipedia.org/wiki/Unit_testing">unit testing</a> framework based on <a href="http://www.phpunit.de/" target="_new">PHPUnit</a> by Sebastian Bergmann. It offers smooth integration
+		of the PHPUnit framework into TYPO3 and offers an API and many functions which make unit testing of TYPO3 extensions easy and comfortable.</p>
 		<h2>Get test-infected!</h2>
-		If you think writing tests are dull, then try it. <a href="http://junit.sourceforge.net/doc/testinfected/testing.htm">You might become test-infected</a>!
+		<p>If you think writing tests are dull, then try it. <a href="http://junit.sourceforge.net/doc/testinfected/testing.htm">You might become test-infected</a>!</p>
 		<h2>Current include path</h2>
-		Below are the paths of the includepath that phpunit currently uses to locate PHPUnit:
-		<p>
-		<pre>'.join("\n", explode(PATH_SEPARATOR, get_include_path())).'</pre>
+		<p>Below are the paths of the includepath that phpunit currently uses to locate PHPUnit:</p>
+		<pre>'.join(chr(10), explode(PATH_SEPARATOR, get_include_path())).'</pre>
 		<h2>Currently excluded extension</h2>
-		The following extensions are excluded from being searched for tests:<p>
-		<pre>'.join("\n", $excludeExtensions).'</pre>
-		<p>Note: The extension exclusion list can be changed in the extension manager.
+		<p>The following extensions are excluded from being searched for tests:</p>
+		<pre>'.join(chr(10), $excludeExtensions).'</pre>
+		<p>Note: The extension exclusion list can be changed in the extension manager.</p>
 		<h2>Is XDebug PHP extension loaded?</h2>
 		<p>To get code coverage reporting, PHPUnit needs the PHP extension <a target="_blank" href="http://www.xdebug.org"><em>XDebug</em></a>.</p>
-		<p>On this PHP installation, XDebug is '.(extension_loaded('xdebug') ? '' : '<em>not</em>').' loaded</p>
+		<p>On this PHP installation, XDebug is '.(extension_loaded('xdebug') ? '' : '<em>not</em>').' loaded.</p>
 		<h2>Current memory limit</h2>
 		<p>When using XDebug to collect code coverage data, you will need the memory limit to be set rather high. Something like 256MB will probably be needed.</p>
-		<p>On this PHP installation the memory limit is currently set to: '.ini_get('memory_limit').'
+		<p>On this PHP installation the memory limit is currently set to: '.ini_get('memory_limit').'</p>
 		<h2>This extension has bugs...</h2>
-		<p><a target="_blank" href="http://bugs.typo3.org/search.php?project_id=79&sticky_issues=on&sortby=last_updated&dir=DESC&hide_status_id=90">Click to see the list of issues for this extension</a></p>
+		<p><a target="_blank" href="http://bugs.typo3.org/search.php?project_id=79&amp;sticky_issues=on&amp;sortby=last_updated&amp;dir=DESC&amp;hide_status_id=90">Click to see the list of issues for this extension</a></p>
 		<p>You can report an issue by following the above link. An issue can be e.g. a bug or an improvement/enhancement.</p>
 		<h2>Browse code in Subversion repository</h2>
 		<p><a target="_blank" href="http://typo3xdev.svn.sourceforge.net/viewvc/typo3xdev/tx_phpunit/">The code repository for the phpunit extension can be browsed here</a></p>
 		<h2>Licence and copyright</h2>
-		PHPUnit is released under the terms of the PHP License as free software.<br />
-		PHPUnit Copyright &copy; 2001 - 2008 Sebastian Bergmann
-		<p>
-		PHPUnit BE is released under the GPL Licence and is part of the TYPO3 Framework.<br />
-		PHPUnit BE Copyright &copy; 2005-2008 <a href="mailto:kasperligaard@gmail.com">Kasper Ligaard</a>
+		<p>PHPUnit is released under the terms of the PHP License as free software.</p>
+		<p>PHPUnit Copyright &copy; 2001&#8211;2008 Sebastian Bergmann</p>
+		<p>PHPUnit BE is released under the GPL Licence and is part of the TYPO3 Framework.</p>
+		<p>PHPUnit BE Copyright &copy; 2005&#8211;2008 <a href="mailto:kasperligaard@gmail.com">Kasper Ligaard</a></p>
 		<h2>Contributors</h2>
-		The following people have contributed by testing, bugfixing, suggesting new features etc.
-		<p>
-		Robert Lemke, Mario Rimann, Oliver Klee, Søren Soltveit and Mikkel Ricky.<p>
+		<p>The following people have contributed by testing, bugfixing, suggesting new features etc.</p>
+		<p>Robert Lemke, Mario Rimann, Oliver Klee, Søren Soltveit and Mikkel Ricky.</p>
 		';
 	}
-	
-	private function news_render() {		
+
+	private function news_render() {
 		echo '<img src="'.t3lib_extMgm::extRelPath('phpunit').'mod1/phpunit.gif" width="94" height="80" alt="PHPUnit" title="PHPUnit" style="float:right; margin-left:10px;" />';
 		echo '<h1>News & Changes from one version to another</h1>';
 		echo '<p>Below you see the NEWS file for this extension. It lists notable changes from one version to the next.</p>';
@@ -561,9 +563,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			<a id="opennewwindow" href="#" onclick="'.htmlspecialchars($onClick).'">
 				<img'.t3lib_iconWorks::skinImg($BACK_PATH, 'gfx/open_in_new_window.gif', 'width="19" height="14"').' title="'.$this->sL('LLL:EXT:lang/locallang_core.xml:labels.openInNewWindow', 1).'" class="absmiddle" alt="" />
 			</a>
-			<script language="JavaScript"> if(window.name=="phpunitbe") { document.getElementById("opennewwindow").style.display = "none"; } </script>
+			<script type="text/javascript">if (window.name == "phpunitbe") { document.getElementById("opennewwindow").style.display = "none"; }</script>
 		';
-// 				<img'.t3lib_iconWorks::skinImg ($BACK_PATH,'gfx/open_in_new_window.gif','width="19" height="14"').' title="'.$this->getsL('LLL:EXT:lang/locallang_core.php:labels.openInNewWindow',1).'" class="absmiddle" alt="" />
 
 		return $content;
 	}
