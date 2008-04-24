@@ -537,7 +537,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		echo '<div class="tx_phpunit-newsfile">';
 		$newsfile = file_get_contents(t3lib_extMgm::extRelPath('phpunit').'NEWS');
 		echo nl2br($newsfile);
-		echo 'Matched: '.$matched.'</div>';
+		echo '</div>';
 	}
 
 
