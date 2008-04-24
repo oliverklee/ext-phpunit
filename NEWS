@@ -4,6 +4,10 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
+24. April 2008: 3.2.19
+	+ Added PHPUnit 3.2.19, see Changelog at http://www.phpunit.de/wiki/ChangeLog32#PHPUnit3.2.1924-Apr-2008
+	- Removed PHPUnit 3.2.18.
+
 20. April 2008: 3.2.18
 	~ Switched to xhtml-rendering, fixes issue #8173, http://bugs.typo3.org/view.php?id=8173, Thanks to Oliver Klee.
 	* Fixed some typos, code-beautification, fixes issue #8173, http://bugs.typo3.org/view.php?id=8173, Thanks to Oliver Klee
