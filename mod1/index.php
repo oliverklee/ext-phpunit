@@ -75,8 +75,8 @@ require_once ('class.tx_phpunit_module1_ajax.php');
 define('PATH_tslib', t3lib_extMgm::extPath('cms').'tslib/');
 
 // Which instance interface to create?
-if (isset($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][t3lib_extMgm::extRelPath('phpunit').'mod1/class.tx_phpunit_module1.php']['main'])) {
-    $classRef = $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][t3lib_extMgm::extRelPath('phpunit').'mod1/class.tx_phpunit_module1.php']['main'];
+if (isset($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['phpunit']['mod1/class.tx_phpunit_module1.php']['main'])) {
+    $classRef = $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['phpunit']['mod1/class.tx_phpunit_module1.php']['main'];
     // Class needs to implement init() and main().
 	$SOBE = &t3lib_div::getUserObj($classRef);
 } else if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['experimentalTestSuiteUI']) {

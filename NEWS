@@ -3,6 +3,9 @@ Legend:
  - Means 'Removed ...'
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
+ 
+06. May 2008: 3.2.20
+	~ Changed hook key in mod1/index.php (by request).
 
 24. April 2008: 3.2.19
 	+ Added PHPUnit 3.2.19, see Changelog at http://www.phpunit.de/wiki/ChangeLog32#PHPUnit3.2.1924-Apr-2008
