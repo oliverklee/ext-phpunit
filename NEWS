@@ -3,12 +3,20 @@ Legend:
  - Means 'Removed ...'
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
+
+08. September 2008: 3.2.21
+	+ Added PHPUnit 3.2.21, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog32#PHPUnit3.2.2116-Jun-2008.
+	+ Added benchmarking single tests. Solves Forge issue #1317, http://forge.typo3.org/issues/show/1317. Thanks to Oliver Klee.
+	~ Changed manual.sxw to use latest documentation template (EXT:doc_template version 1.2.5).
+	~ Fixed some validation issues. Solves Forge issue #1316, http://forge.typo3.org/issues/show/1316. Thanks to Oliver Klee.
+	- Removed line including non-existant file 'common.js'. Solves Forge issue #1320, http://forge.typo3.org/issues/show/1317. Thanks goes to Niels Pardon.
+	- Removed PHPUnit 3.2.19 (btw. there never was a release with PHPUnit 3.2.20). 
  
 06. May 2008: 3.2.20
 	~ Changed hook key in mod1/index.php (by request).
 
 24. April 2008: 3.2.19
-	+ Added PHPUnit 3.2.19, see Changelog at http://www.phpunit.de/wiki/ChangeLog32#PHPUnit3.2.1924-Apr-2008
+	+ Added PHPUnit 3.2.19, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog32#PHPUnit3.2.1924-Apr-2008
 	- Removed PHPUnit 3.2.18.
 
 20. April 2008: 3.2.18

@@ -13,7 +13,6 @@ require_once 'PHPUnit/Util/Log/PMD.php';
 require_once 'PHPUnit/Util/Log/CPD.php';
 
 class tx_phpunit_module1 extends t3lib_SCbase {
-
 	protected static function getLL ($index) {
 		global $LANG;
 		return $LANG->getLL($index);
@@ -65,7 +64,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				// JavaScript
 			// @todo: Use Typo3 4.2 $this->doc->loadJavascriptLib() function in the future.
 			$t3_41_compatibility = '<script type="text/javascript" src="contrib/prototype/prototype.js"></script>';
-			$t3_41_compatibility .= '<script type="text/javascript" src="js/common.js"></script>';
 			$t3_41_compatibility .= '<script type="text/javascript" src="'.t3lib_extMgm::extRelPath('phpunit').'mod1/tx_phpunit_module1.js"></script>';
 
 			$this->doc->JScode = $t3_41_compatibility .
@@ -292,7 +290,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * @access	protected
 	 */
 	protected function runTests_renderRunningTest() {
-
 		if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['alwaysSimulateFrontendEnvironment']) {
 			$this->simulateFrontendEnviroment();
 		}
@@ -347,6 +344,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$testResult->addListener($graphVizListener);
 		*/
 
+		$startTime = microtime(true);
+
 		if (t3lib_div::GPvar('testname')) {
 			$testListener->totalNumberOfTestCases = 1;
 			foreach ($testSuite->tests() as $testCases) {
@@ -363,6 +362,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$result = $testSuite->run($testResult);
 		}
 
+		$timeSpent = microtime(true) - $startTime;
+
 		// Display test statistics:
 		$testStatistics = '';
 		if ($result->wasSuccessful()) {
@@ -374,7 +375,11 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				<script type="text/javascript">setClass("progress-bar","hadFailure");</script>
 				<h2 class="hadFailure">Failures!</h2>';
 		}
-		$testStatistics .= '<p>'.$result->count().' '.self::getLL('tests_total').', '.$result->failureCount().' '.self::getLL('tests_failures').', '.$testResult->errorCount().' '.self::getLL('tests_errors').'</p>';
+		$testStatistics .= '<p>' . $result->count() . ' ' .	self::getLL('tests_total') . ', ' .
+			$result->failureCount() . ' ' . self::getLL('tests_failures') .	', ' .
+			$testResult->errorCount() . ' ' . self::getLL('tests_errors') . ', ' .
+			'<span title="'.$timeSpent . '&nbsp;' . self::getLL('tests_seconds').'">'.round($timeSpent, 3) . '&nbsp;' . self::getLL('tests_seconds').'</span>' .
+			'</p>';
 		echo $testStatistics;
 
 		echo '
@@ -488,9 +493,9 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		echo self::eAccelerator0951OptimizerHelp();
 		if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['usepear'] && !t3lib_extMgm::isLoaded('pear')) {
 			echo '<h2>Extension pear is not loaded</h2>
-			The option for phpunit to use pear is set in the extension manager, but the pear extension is not loaded.<p>
-			As a fall back phpunit uses the PHPUnit that is provided with it.<p>
-			If you wish to use a pear provided PHPUnit, then load/install pear from the extension manager and fetch PHPUnit with the pear manager.<p>
+			<p>The option for phpunit to use pear is set in the extension manager, but the pear extension is not loaded.</p>
+			<p>As a fall back phpunit uses the PHPUnit that is provided with it.</p>
+			<p>If you wish to use a pear provided PHPUnit, then load/install pear from the extension manager and fetch PHPUnit with the pear manager.</p>
 			';
 		}
 		echo '
@@ -641,12 +646,12 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$retval = '';
 		if (extension_loaded('eaccelerator') && version_compare(phpversion('eaccelerator'), '0.9.5.2', '<')) {
 			$retval .= '<h2>IMPORTANT NOTICE ABOUT eAccelerator!</h2>';
-			$retval .= 'eAccelerator '.phpversion('eaccelerator').' is loaded. This version of eAccelerator is known to crash phpunit when the optimizer is turned on.<p>';
-			$retval .= 'You should either upgrade to eAccelerator version 0.9.5.2 (or later) or turn off the eAccelerator optimizer (in php.ini set: <code>eaccelerator.optimizer = "0"</code>) when running phpunit.<p>';
-			$vars = ini_get_all('eaccelerator');
-			$retval .= 'Current local value of <code>eaccelerator.optimizer</code>: '.$vars['eaccelerator.optimizer']['local_value'].'<br>';
-			$retval .= 'Current global value of <code>eaccelerator.optimizer</code>: '.$vars['eaccelerator.optimizer']['global_value'].'<br>';
-			$retval .= 'Confer <a href="http://eaccelerator.net/ticket/242">eAccelerator ticket 242 for more info</a>';
+			$retval .= '<p>eAccelerator '.phpversion('eaccelerator').' is loaded. This version of eAccelerator is known to crash phpunit when the optimizer is turned on.</p>';
+			$retval .= '<p>You should either upgrade to eAccelerator version 0.9.5.2 (or later) or turn off the eAccelerator optimizer (in php.ini set: <code>eaccelerator.optimizer = &quot;0&quot;</code>) when running phpunit.</p>';
+			$vars = @ini_get_all('eaccelerator');
+			$retval .= '<p>Current local value of <code>eaccelerator.optimizer</code>: '.$vars['eaccelerator.optimizer']['local_value'].'</p>';
+			$retval .= '<p>Current global value of <code>eaccelerator.optimizer</code>: '.$vars['eaccelerator.optimizer']['global_value'].'</p>';
+			$retval .= '<p>Confer <a href="http://eaccelerator.net/ticket/242">eAccelerator ticket 242 for more info</a></p>';
 		}
 		return $retval;
 	}

@@ -6,7 +6,7 @@ $TYPO3_CONF_VARS['EXTCONF'][$_EXTKEY] = unserialize($_EXTCONF);
 clearstatcache();
 $phpunitlib = '';
 if (is_dir($TYPO3_CONF_VARS['EXTCONF'][$_EXTKEY]['phpunitlib'])) {
-	$phpunitlib .= $TYPO3_CONF_VARS['EXTCONF'][$_EXTKEY]['phpunitlib'] . PATH_SEPARATOR;	
+	$phpunitlib .= $TYPO3_CONF_VARS['EXTCONF'][$_EXTKEY]['phpunitlib'] . PATH_SEPARATOR;
 }
 
 if (!$TYPO3_CONF_VARS['EXTCONF'][$_EXTKEY]['usepear'] || !t3lib_extMgm::isLoaded('pear') ||
@@ -14,7 +14,7 @@ if (!$TYPO3_CONF_VARS['EXTCONF'][$_EXTKEY]['usepear'] || !t3lib_extMgm::isLoaded
 	) {
 	// If all above fails, then fall back to use own provided version of PHPUnit:
 	// TODO: Automatically detect current version, see http://bugs.typo3.org/view.php?id=6969
-	$phpunitlib .= t3lib_extMgm::extPath('phpunit').'PHPUnit-3.2.19/';
+	$phpunitlib .= t3lib_extMgm::extPath('phpunit').'PHPUnit-3.2.21/';
 }
 
 // Typo3 4.2 AJAX feature. See e.g. manual attached to issue #7096, http://bugs.typo3.org/view.php?id=7096
