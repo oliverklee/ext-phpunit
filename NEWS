@@ -9,9 +9,11 @@ Legend:
 	+ Added benchmarking single tests. Solves Forge issue #1317, http://forge.typo3.org/issues/show/1317. Thanks to Oliver Klee.
 	~ Changed manual.sxw to use latest documentation template (EXT:doc_template version 1.2.5).
 	~ Fixed some validation issues. Solves Forge issue #1316, http://forge.typo3.org/issues/show/1316. Thanks to Oliver Klee.
+	~ Changed default in ext_conf_template.txt for field 'excludeextensions': Now extension keys 'lib' and 'div' are per default excluded, since their testsuites try to load extension key 't3unit', which probably does not exist on peoples machines.
 	- Removed line including non-existant file 'common.js'. Solves Forge issue #1320, http://forge.typo3.org/issues/show/1317. Thanks goes to Niels Pardon.
-	- Removed PHPUnit 3.2.19 (btw. there never was a release with PHPUnit 3.2.20). 
- 
+	- Removed PHPUnit 3.2.19 (btw. there never was a release phpunit release including PHPUnit 3.2.20).
+	* Fixed bug where phpunit could get stuck with 'Extension not loaded [...]'. Now, instead phpunit will default to extension key 'phpunit', if the chosen key does not exist anymore (which can happen if the extension is removed).
+
 06. May 2008: 3.2.20
 	~ Changed hook key in mod1/index.php (by request).
 

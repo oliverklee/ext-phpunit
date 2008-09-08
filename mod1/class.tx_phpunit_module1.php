@@ -126,8 +126,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * @access	protected
 	 */
 	protected function runTests_render() {
+		if (!t3lib_extMgm::isLoaded($this->MOD_SETTINGS['extSel'])) {
+			$this->MOD_SETTINGS['extSel'] = 'phpunit'; // We know that phpunit must be loaded
+		}
 		$command = $this->MOD_SETTINGS['extSel'] ? t3lib_div::_GP('command') : '';
-
 		switch ($command) {
 			case 'runalltests':
 			case 'runsingletest':
