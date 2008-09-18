@@ -4,6 +4,10 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
+18. September 2008: 3.3.0
+	+ Added PHPUnit 3.3.0, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.015-Sep-2008
+	- Removed PHPUnit 3.2.21.
+
 08. September 2008: 3.2.21
 	+ Added PHPUnit 3.2.21, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog32#PHPUnit3.2.2116-Jun-2008.
 	+ Added benchmarking single tests. Solves Forge issue #1317, http://forge.typo3.org/issues/show/1317. Thanks to Oliver Klee.
