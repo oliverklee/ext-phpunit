@@ -520,10 +520,12 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		<p>When using XDebug to collect code coverage data, you will need the memory limit to be set rather high. Something like 256MB will probably be needed.</p>
 		<p>On this PHP installation the memory limit is currently set to: '.ini_get('memory_limit').'</p>
 		<h2>This extension has bugs...</h2>
-		<p><a target="_blank" href="http://bugs.typo3.org/search.php?project_id=79&amp;sticky_issues=on&amp;sortby=last_updated&amp;dir=DESC&amp;hide_status_id=90">Click to see the list of issues for this extension</a></p>
+		<P><a target="_blank" href="http://forge.typo3.org/projects/extension-phpunit/issues">Issues can be seen and posted by clicking this link, http://forge.typo3.org/projects/extension-phpunit/issues</a>.</p>
 		<p>You can report an issue by following the above link. An issue can be e.g. a bug or an improvement/enhancement.</p>
+		<p>Older issues: <a target="_blank" href="http://bugs.typo3.org/search.php?project_id=79&amp;sticky_issues=on&amp;sortby=last_updated&amp;dir=DESC&amp;hide_status_id=90">Click to see the list of (preferably older) issues for this extension</a>.</p>
 		<h2>Browse code in Subversion repository</h2>
-		<p><a target="_blank" href="http://typo3xdev.svn.sourceforge.net/viewvc/typo3xdev/tx_phpunit/">The code repository for the phpunit extension can be browsed here</a></p>
+		<p><a target="_blank" href="http://forge.typo3.org/repositories/show/extension-phpunit">The code repository for the phpunit extension can be browsed here, http://forge.typo3.org/repositories/show/extension-phpunit</a>.</p>
+		<p>Previously, <a target="_blank" href="http://typo3xdev.svn.sourceforge.net/viewvc/typo3xdev/tx_phpunit/">the code was hosted at sourceforge</a>.</p>
 		<h2>Licence and copyright</h2>
 		<p>PHPUnit is released under the terms of the PHP License as free software.</p>
 		<p>PHPUnit Copyright &copy; 2001&#8211;2008 Sebastian Bergmann</p>

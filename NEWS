@@ -4,6 +4,10 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
+xx. September 2008: 3.3.2
+	+ Added links to forge.typo3.org.
+	~ Moved text around at little bit to have added links more prominent, compared to the old links (which are left for completeness).
+
 24. September 2008: 3.3.1
 	+ Added PHPUnit 3.3.1, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.123-Sep-2008
 	- Removed PHPUnit 3.3.0.
