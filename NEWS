@@ -4,6 +4,10 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
+24. September 2008: 3.3.1
+	+ Added PHPUnit 3.3.1, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.123-Sep-2008
+	- Removed PHPUnit 3.3.0.
+
 18. September 2008: 3.3.0
 	+ Added PHPUnit 3.3.0, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.015-Sep-2008
 	- Removed PHPUnit 3.2.21.
