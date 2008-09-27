@@ -4,9 +4,13 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
-xx. September 2008: 3.3.2
+27. September 2008: 3.3.2
 	+ Added links to forge.typo3.org.
 	~ Moved text around at little bit to have added links more prominent, compared to the old links (which are left for completeness).
+	* Add the colored bar even when executing single tests. Closes forge #1594, thanks goes to Oliver Klee.
+	* Javascript for experimental progress bar executed although the option is disabled. Closes forge #1595, thanks goes to Oliver Klee.
+	* Error when calling non-existing test. Closes #1596, thanks goes to Oliver Klee.
+	* Message flows out of box. Closes forge # 1597, thanks goes to Oliver Klee.
 
 24. September 2008: 3.3.1
 	+ Added PHPUnit 3.3.1, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.123-Sep-2008

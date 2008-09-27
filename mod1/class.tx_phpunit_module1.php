@@ -75,9 +75,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 				function setClass(id, className) {
 					element = document.getElementById(id);
-					if (element) {
-							element.className = className;
-					}
+					element.className = className;
 				}
 				');
 
@@ -158,6 +156,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			if ($this->MOD_SETTINGS['extSel'] && $this->MOD_SETTINGS['extSel']!='uuall') {
 				$output .= $this->runTests_renderIntro_renderTestSelector($extensionsWithTestSuites, $this->MOD_SETTINGS['extSel']);
 			}
+
 		} else {
 			$output = self::getLL('could_not_find_exts_with_tests');
 		}
@@ -326,6 +325,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 			// Create a listener and run the tests:
 		$testListener = new tx_phpunit_testlistener();
+		if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['experimentalProgressBar']) {
+			$testListener->enableExperimentalProgressBar();
+		}
+
 		$jsonListener = new PHPUnit_Util_Log_JSON();
 
 		$testResult = new PHPUnit_Framework_TestResult;
@@ -346,10 +349,12 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$testResult->addListener($graphVizListener);
 		*/
 
+		$result = null;
 		$startTime = microtime(true);
 
 		if (t3lib_div::GPvar('testname')) {
 			$testListener->totalNumberOfTestCases = 1;
+			$this->runTests_renderInfoAndProgressbar(1);
 			foreach ($testSuite->tests() as $testCases) {
 				foreach ($testCases->tests() as $test) {
 					if ($test->toString() === t3lib_div::GPvar('testname')) {
@@ -357,10 +362,18 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 					}
 				}
 			}
+			if (!is_object($result)) {
+				echo '<h2 class="hadError">Error</h2>' .
+					'<p>The test <strong> ' .
+					htmlspecialchars(t3lib_div::GPvar('testname')) .
+					'</strong> could not be found.</p>';
+				return;
+			}
 		} else {
-			//???:
 			$testListener->totalNumberOfTestCases = $testSuite->count();
-			$this->runTests_renderInfoAndProgressbar($testListener->totalNumberOfTestCases);
+			$this->runTests_renderInfoAndProgressbar(
+				$testListener->totalNumberOfTestCases
+			);
 			$result = $testSuite->run($testResult);
 		}
 
