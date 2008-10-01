@@ -4,6 +4,9 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
+01. October 2008: 3.3.3
+	+ Display the leaked memory after the tests. Closes forge #1627. Note that this measurement is only indicative; it will be tried out now, but is the utility is limited, then it will be removed or turned into an option.
+ 
 27. September 2008: 3.3.2
 	+ Added links to forge.typo3.org.
 	~ Moved text around at little bit to have added links more prominent, compared to the old links (which are left for completeness).

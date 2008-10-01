@@ -350,6 +350,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		*/
 
 		$result = null;
+		$startMemory = memory_get_usage();
 		$startTime = microtime(true);
 
 		if (t3lib_div::GPvar('testname')) {
@@ -378,6 +379,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		}
 
 		$timeSpent = microtime(true) - $startTime;
+		$leakedMemory = memory_get_usage() - $startMemory;
 
 		// Display test statistics:
 		$testStatistics = '';
@@ -393,7 +395,9 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$testStatistics .= '<p>' . $result->count() . ' ' .	self::getLL('tests_total') . ', ' .
 			$result->failureCount() . ' ' . self::getLL('tests_failures') .	', ' .
 			$testResult->errorCount() . ' ' . self::getLL('tests_errors') . ', ' .
-			'<span title="'.$timeSpent . '&nbsp;' . self::getLL('tests_seconds').'">'.round($timeSpent, 3) . '&nbsp;' . self::getLL('tests_seconds').'</span>' .
+			'<span title="'.$timeSpent . '&nbsp;' . self::getLL('tests_seconds').'">'.round($timeSpent, 3) . '&nbsp;' . self::getLL('tests_seconds').', </span>' .
+			t3lib_div::formatSize($leakedMemory) . ' (' . $leakedMemory .
+			'&nbsp;B) ' . self::getLL('tests_leaks') .
 			'</p>';
 		echo $testStatistics;
 
