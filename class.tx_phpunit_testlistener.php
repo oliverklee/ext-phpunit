@@ -162,7 +162,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
     * @access public
     */
     public function startTest(PHPUnit_Framework_Test $test) {
-    	set_time_limit(30); // A sinlge test has to take less than this or else PHP will timeout.
+    	set_time_limit(30); // A single test has to take less than this or else PHP will timeout.
 		echo '<div id="testCaseNum-'.$this->currentTestNumber.'" class="testcaseOutput">';
 
 		if ($this->useExperimentalProgressBar) {
