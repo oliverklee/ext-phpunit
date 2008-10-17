@@ -98,10 +98,12 @@ body#typo3-mod-php {
 
 .testcaseFailure {
 	border-left : 2px solid yellow;
+	background-color: #fffec3;
 }
 
 .testcaseError {
 	border-left : 2px solid red;
+	background-color: ffc3c3;
 }
 
 .tx_phpunit_testcase_progressbox {

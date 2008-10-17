@@ -7,6 +7,7 @@
  * @subpackage tx_phpunit
  */
 
+require_once (PATH_t3lib.'class.t3lib_scbase.php');
 require_once 'PHPUnit/Util/Log/JSON.php';
 require_once 'PHPUnit/Util/Log/Metrics.php';
 require_once 'PHPUnit/Util/Log/PMD.php';
@@ -23,6 +24,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		return $LANG->sL($input);
 	}
 
+	public function __construct() {
+		parent::init();
+	}
+
 	/**
 	 * Create configuration for the function selector box
 	 *
@@ -37,6 +42,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				'news' => self::getLL('function_news'),
 			),
 			'extSel' => '',
+			'noget' => '',
+			'failure' => '',
+			'success' => '',
+			'error' => ''
 		);
 		parent::menuConfig();
 	}
@@ -52,32 +61,18 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		global $BE_USER,$BACK_PATH,$TCA_DESCR,$TCA,$CLIENT,$TYPO3_CONF_VARS;
 
 		if ($BE_USER->user['admin']) {
-
 				// Draw the header.
 			$this->doc = t3lib_div::makeInstance('bigDoc');
 			$this->doc->backPath = $BACK_PATH;
 			$this->doc->docType = 'xhtml_strict';
 
-				// Stylesheet for back-end module.
-			$this->doc->styleSheetFile2 = t3lib_extMgm::extRelPath('phpunit').'mod1/phpunit-be.css';
-
 				// JavaScript
-			// @todo: Use Typo3 4.2 $this->doc->loadJavascriptLib() function in the future.
-			$t3_41_compatibility = '<script type="text/javascript" src="contrib/prototype/prototype.js"></script>';
-			$t3_41_compatibility .= '<script type="text/javascript" src="'.t3lib_extMgm::extRelPath('phpunit').'mod1/tx_phpunit_module1.js"></script>';
+			$this->doc->loadJavascriptLib('contrib/prototype/prototype.js');
+			$this->doc->loadJavascriptLib(t3lib_extMgm::extRelPath('phpunit').'PHPUnit-3.3.1/PHPUnit/Util/Report/Template/yahoo-dom-event.js');
+			$this->doc->loadJavascriptLib(t3lib_extMgm::extRelPath('phpunit').'mod1/tx_phpunit_module1.js');
 
-			$this->doc->JScode = $t3_41_compatibility .
-				'<link rel="stylesheet" type="text/css" href="../typo3conf/ext/phpunit/mod1/phpunit-be.css" />'.$this->doc->wrapScriptTags('
-				script_ended = 0;
-				function jumpToUrl(URL)	{	//
-					document.location = URL;
-				}
-
-				function setClass(id, className) {
-					element = document.getElementById(id);
-					element.className = className;
-				}
-				');
+				// Mis-using JScode to insert CSS _after_ skin.
+			$this->doc->JScode = '<link rel="stylesheet" type="text/css" href="../typo3conf/ext/phpunit/mod1/phpunit-be.css" />';
 
 			echo $this->doc->startPage(self::getLL('title'));
 			echo $this->doc->header(PHPUnit_Runner_Version::getVersionString());
@@ -280,6 +275,18 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			</form>
 		';
 
+		// Experimental: Buttons for turning failures, errors or success on/off
+		$output .= '<p>';
+		$output .= '<form action="'.htmlspecialchars($this->MCONF['_']).'" method="post">';
+		$failureState = $this->MOD_SETTINGS['failure'] === 'on' ? 'checked="checked"' : '';
+		$errorState = $this->MOD_SETTINGS['error'] === 'on' ? 'checked="checked"' : '';
+		$successState = $this->MOD_SETTINGS['success'] === 'on' ? 'checked="checked"' : '';
+		$output .= '<label for="SET[success]"><input type="checkbox" id="SET[success]" name="SET[success]" '.$successState.'>Success</label>';
+		$output .= '<label for="SET[failure]"><input type="checkbox" id="SET[failure]" name="SET[failure]" '.$failureState.'">Failure</label>';
+		$output .= '<label for="SET[error]"><input type="checkbox" id="SET[error]"name="SET[error]" '.$errorState.'>Error</label>';
+		$output .= '</form>';
+		$output .= '</p>';
+
 		return $output;
 	}
 
@@ -396,7 +403,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$result->failureCount() . ' ' . self::getLL('tests_failures') .	', ' .
 			$testResult->errorCount() . ' ' . self::getLL('tests_errors') . ', ' .
 			'<span title="'.$timeSpent . '&nbsp;' . self::getLL('tests_seconds').'">'.round($timeSpent, 3) . '&nbsp;' . self::getLL('tests_seconds').', </span>' .
-			t3lib_div::formatSize($leakedMemory) . ' (' . $leakedMemory .
+			t3lib_div::formatSize($leakedMemory) . ' (' . $leakedMemory .' - '. $testListener->totalLeakedMemory .
 			'&nbsp;B) ' . self::getLL('tests_leaks') .
 			'</p>';
 		echo $testStatistics;

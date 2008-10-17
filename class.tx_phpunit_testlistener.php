@@ -31,6 +31,9 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	public		$totalNumberOfTestCases = 0;				// Set from outside
 	protected	$currentTestNumber = 0;						// For counting the tests
 	private $currentTestCaseName;
+	private $memoryUsageStartOfTest = 0;
+	private $memoryUsageEndOfTest = 0;
+	public $totalLeakedMemory = 0;
 
 	/**
 	 * @var boolean  whether the experimental progress bar should be used
@@ -61,7 +64,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 
 		echo '
 			<script type="text/javascript">setClass("progress-bar","hadError");</script>
-			<script type="text/javascript">setClass("testCaseNum-'.$this->currentTestNumber.'","testCaseError");</script>
+			<script type="text/javascript">setClass("testcaseNum-'.$this->currentTestNumber.'","testcaseError");</script>
 			<strong><span class="hadError">!</span> Error</strong> in test case <em>'.$test->getName().'</em>
 			<br />in file<em> '.$fileName.'</em>
 			<br />on line<em> '.$testCaseTraceArr['line'].'</em>:
@@ -87,7 +90,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 
     	echo '
 			<script type="text/javascript">setClass("progress-bar","hadFailure");</script>
-			<script type="text/javascript">setClass("testCaseNum-'.$this->currentTestNumber.'","testCaseFailure");</script>
+			<script type="text/javascript">setClass("testcaseNum-'.$this->currentTestNumber.'","testcaseFailure");</script>
 			<strong><span class="hadFailure">!</span> Failure</strong> in test case <em>'.$test->getName().'</em>
 			<br />File: <em>'.$fileName.'</em>
 			<br />Line: <em>'.$testCaseTraceArr['line'].'</em>:
@@ -163,7 +166,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
     */
     public function startTest(PHPUnit_Framework_Test $test) {
     	set_time_limit(30); // A single test has to take less than this or else PHP will timeout.
-		echo '<div id="testCaseNum-'.$this->currentTestNumber.'" class="testcaseOutput">';
+		echo '<div id="testcaseNum-'.$this->currentTestNumber.'" class="testcaseOutput testcaseSuccess">';
 
 		if ($this->useExperimentalProgressBar) {
 			echo '<script type="text/javascript">setClass("tx_phpunit_testcase_nr_' . $this->currentTestNumber . '", "wasSuccessful");</script>';
@@ -173,6 +176,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 			echo $this->getReRunLink($test->getName());
 		}
   		echo ' <strong class="testName">'.$test->getName().'</strong><br />';
+  		$this->memoryUsageStartOfTest = memory_get_usage();
     }
 
     /**
@@ -182,13 +186,17 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
      * @access public
      */
     public function endTest(PHPUnit_Framework_Test $test, $time) {
+  		$this->memoryUsageEndOfTest = memory_get_usage();
     	$this->currentTestNumber++;
     	$percentDone = intval(($this->currentTestNumber / $this->totalNumberOfTestCases) * 100);
-
+    	$leakedMemory = $this->memoryUsageEndOfTest-$this->memoryUsageStartOfTest;
+    	$this->totalLeakedMemory += $leakedMemory;
+    	// echo '<div class="memory-usage">'.t3lib_div::formatSize($leakedMemory).'B</div>';
+    	// echo '<div class="time-usage">'.$time.'</div>';
     	echo '</div>';
     	echo '<script type="text/javascript">document.getElementById("progress-bar").style.width = "'.$percentDone.'%";</script>';
     	echo '<script type="text/javascript">document.getElementById("transparent-bar").style.width = "'.(100-$percentDone).'%";</script>';
-     	flush();
+     	flush(); // TODO: Should fflush() from PHPUnit be used here?
     }
 
     /**

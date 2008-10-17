@@ -58,35 +58,26 @@
 
 $LANG->includeLLFile('EXT:phpunit/mod1/locallang.xml');
 
-require_once (PATH_t3lib.'class.t3lib_scbase.php');
-/* FIXME: This should be made configurable, i.e. easily choose among the phpunit
-*         version, that comes with this extension, or using PEAR installed phpunit.  
-*/ 
-
 require_once (t3lib_extMgm::extPath('phpunit').'class.tx_phpunit_testlistener.php');
 require_once (t3lib_extMgm::extPath('phpunit').'class.tx_phpunit_testcase.php');
 require_once (t3lib_extMgm::extPath('phpunit').'class.tx_phpunit_database_testcase.php');
-require_once ('PHPUnit/Runner/Version.php'); // Included for PHPUnit versionstring.
-require_once ('PHPUnit/Util/Report.php'); // Included for PHPUnit versionstring.
+require_once ('PHPUnit/Runner/Version.php'); // Included for PHPUnit version string.
+require_once ('PHPUnit/Util/Report.php'); // Included for PHPUnit version string.
 require_once ('class.tx_phpunit_module1.php');
-require_once ('class.tx_phpunit_module1_mikkelricky.php');
-require_once ('class.tx_phpunit_module1_ajax.php');
 
-define('PATH_tslib', t3lib_extMgm::extPath('cms').'tslib/');
+if (!defined('PATH_tslib')) {
+	define('PATH_tslib', t3lib_extMgm::extPath('cms').'tslib/');
+}
 
 // Which instance interface to create?
 if (isset($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['phpunit']['mod1/class.tx_phpunit_module1.php']['main'])) {
     $classRef = $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['phpunit']['mod1/class.tx_phpunit_module1.php']['main'];
-    // Class needs to implement init() and main().
+    // Class must implement main(). What was previously init() should now happen in __construct().
 	$SOBE = &t3lib_div::getUserObj($classRef);
-} else if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['experimentalTestSuiteUI']) {
-	$SOBE = new tx_phpunit_module1_mikkelricky();
-} else if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['experimentalAjaxUI']) {
-	$SOBE = new tx_phpunit_module1_ajax();
 } else {
 	$SOBE = new tx_phpunit_module1();
 }
-$SOBE->init();
+// Now run our Script Object Back-End (SOBE)
 $SOBE->main();
 
 ?>
