@@ -10,8 +10,6 @@ phpunitlib =
 collectCodeCoverageInformation = 0
   # cat=basic; type=boolean; label=Experimental progress bar: Trying to solve issue #6972 and #6975
 experimentalProgressBar = 0
-  # cat=basic; type=boolean; label=Experimental test interface: Trying to solve issue #6965, Add selector for test suites. Does not support code coverage, nor the experimental progress bar.  
-experimentalTestSuiteUI = 0
   # cat=basic; type=boolean; label=Non-functional runner interface: Trying to solve issue #6965, Add selector for test suites. Does not support code coverage, nor the experimental progress bar.  
 experimentalAjaxUI = 0
   # cat=basic; type=boolean; label=Always load (simple) FE environment:  
