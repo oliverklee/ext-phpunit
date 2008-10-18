@@ -56,13 +56,13 @@ function setClass(id, className) {
 			checkbox = 'success';
 			break;
 		default:
+			// Nothing here.
 			break;
 		}
-		console.log('Target id: '+target.id, 'State: '+state, 'Checkbox: '+checkbox);
 	
 		var transaction = YAHOO.util.Connect.asyncRequest('POST', 'ajax.php', 
-			{	success: function (obj) { console.log('Success', obj); },
-				failure: function (obj) { console.log('Failure', obj); }
+			{	success: function (responseObj) { console.log('Success', responseObj); },
+				failure: function (responseObj) { console.log('Failure', responseObj); }
 			},
 			'ajaxID=tx_phpunit_module1_ajax&state='+state+'&checkbox='+checkbox
 		);
@@ -89,9 +89,9 @@ function setClass(id, className) {
 	}
 	
 	Event.onDOMReady(function () {
-		var toggleButtonsIds = ['SET[failure]', 'SET[success]', 'SET[error]'];
+		var toggleButtonsIds = Dom.get(['SET[failure]', 'SET[success]', 'SET[error]']);
 		for (var i = 0; i < toggleButtonsIds.length; i += 1) {
-			var elm = document.getElementById(toggleButtonsIds[i]);
+			var elm = toggleButtonsIds[i];
 			var display = elm.checked ? 'block' : 'none';
 			var className = mapClasses(elm.name);
 			Dom.setStyle(Dom.getElementsByClassName(className), 'display', display);
