@@ -12,67 +12,60 @@ function setClass(id, className) {
 }
 
 /*
- * This is Prototype (shipped with Typo3 Core)
- */
-(function () {
-	// Using the Typo3 4.2 AJAX approach.
-	var tx_phpunit_module1 = {
-		thisScript: 'ajax.php',
-		ajaxID: 'tx_phpunit_module1_ajax',
-		load: function(event) {
-			var target = event.element();
-			var state = target.checked;
-			var checkbox;
-			switch (target.id) {
-			case 'SET[failure]':
-				checkbox = 'failure';
-				break;
-			case 'SET[error]':
-				checkbox = 'error';
-				break;
-			case 'SET[success]':
-				checkbox = 'success';
-				break;
-			default:
-				// Yikes!
-				break;
-			}
-			var xhr = new Ajax.Request('ajax.php', {
-				method: 'post',
-				parameters: {
-					ajaxID: 'tx_phpunit_module1_ajax',
-					state: state, 
-					checkbox: checkbox
-				},
-				onComplete: function(xhr) { console.log(xhr.responseText); }.bind(this),
-				onT3Error: function(xhr) { 
-					// if this is not a valid ajax response, the whole page gets refreshed
-					console.log(xhr.responseText);
-				}.bind(this)
-			});
-		}
-	};
-
-	document.observe("dom:loaded", function() {
-		p = $$('input[type="checkbox"]');
-		for (var i = 0; i < p.length; i += 1) {
-			p[i].observe('click', tx_phpunit_module1.load);
-		}
-	});
-})();
-
-/*
  * This is using YUI! 2.6.0, cf. http://developer.yahoo.com/yui/
  * We can safely use YUI! since PHPUnit includes yahoo-dom-event.js 
  */
 (function () {
+	YAHOO.namespace('phpunit');
+
+	// Convenience shortcuts
 	var Dom = YAHOO.util.Dom,
-		Event = YAHOO.util.Event;
+		Event = YAHOO.util.Event,
+		Connect = YAHOO.util.Connection,
+		phpunit = YAHOO.phpunit;
+
+	/*
+	 * Constructor function for TestRunner instances 
+	 */
+	phpunit.TestRunner = function () {
+		var secret = 55;
+		var secretObj = { nr: 10 };
+		
+		return {
+			getSecret: function () { return secret },
+			getSecretObj: function () { return secretObj },
+			incrementSecret: function (val) { secret += val },
+			decrementSecret: function (val) { secret -= val }
+		}
+	}
 
 	var toggle = function (event) {
 		var target = Event.getTarget(event);
 		var display = target.checked ? 'block' : 'none';
 		var className = mapClasses(target.name);
+		var state = target.checked;
+		var checkbox;
+		switch (target.id) {
+		case 'SET[failure]':
+			checkbox = 'failure';
+			break;
+		case 'SET[error]':
+			checkbox = 'error';
+			break;
+		case 'SET[success]':
+			checkbox = 'success';
+			break;
+		default:
+			break;
+		}
+		console.log('Target id: '+target.id, 'State: '+state, 'Checkbox: '+checkbox);
+	
+		var transaction = YAHOO.util.Connect.asyncRequest('POST', 'ajax.php', 
+			{	success: function (obj) { console.log('Success', obj); },
+				failure: function (obj) { console.log('Failure', obj); }
+			},
+			'ajaxID=tx_phpunit_module1_ajax&state='+state+'&checkbox='+checkbox
+		);
 		Dom.setStyle(Dom.getElementsByClassName(className), 'display', display);
 	}
 	
