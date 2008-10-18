@@ -8,12 +8,18 @@
  */
 
 require_once (PATH_t3lib.'class.t3lib_scbase.php');
+/*
+ * currently unused classes
 require_once 'PHPUnit/Util/Log/JSON.php';
 require_once 'PHPUnit/Util/Log/Metrics.php';
 require_once 'PHPUnit/Util/Log/PMD.php';
 require_once 'PHPUnit/Util/Log/CPD.php';
+*/
 
 class tx_phpunit_module1 extends t3lib_SCbase {
+	const EXTKEY = 'phpunit';
+	protected $extRelPath;
+
 	protected static function getLL ($index) {
 		global $LANG;
 		return $LANG->getLL($index);
@@ -26,6 +32,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 	public function __construct() {
 		parent::init();
+		$this->extRelPath = t3lib_extMgm::extRelPath(self::EXTKEY);
 	}
 
 	/**
@@ -42,10 +49,12 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				'news' => self::getLL('function_news'),
 			),
 			'extSel' => '',
-			'noget' => '',
 			'failure' => '',
 			'success' => '',
-			'error' => ''
+			'error' => '',
+			'codeCoverage',
+			'excludedExtensions',
+			'outOfLineTests'
 		);
 		parent::menuConfig();
 	}
@@ -61,19 +70,20 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		global $BE_USER,$BACK_PATH,$TCA_DESCR,$TCA,$CLIENT,$TYPO3_CONF_VARS;
 
 		if ($BE_USER->user['admin']) {
-				// Draw the header.
+			// Draw the header.
 			$this->doc = t3lib_div::makeInstance('bigDoc');
 			$this->doc->backPath = $BACK_PATH;
 			$this->doc->docType = 'xhtml_strict';
 
-				// JavaScript
+			// JavaScript Libraries
 			$this->doc->loadJavascriptLib('contrib/prototype/prototype.js');
-			$this->doc->loadJavascriptLib(t3lib_extMgm::extRelPath('phpunit').'mod1/yui/yahoo-dom-event.js');
-			$this->doc->loadJavascriptLib(t3lib_extMgm::extRelPath('phpunit').'mod1/yui/connection-min.js');
-			$this->doc->loadJavascriptLib(t3lib_extMgm::extRelPath('phpunit').'mod1/tx_phpunit_module1.js');
+			$this->doc->loadJavascriptLib($this->extRelPath.'mod1/yui/yahoo-dom-event.js');
+			$this->doc->loadJavascriptLib($this->extRelPath.'mod1/yui/connection-min.js');
+			$this->doc->loadJavascriptLib($this->extRelPath.'mod1/yui/json-min.js');
+			$this->doc->loadJavascriptLib($this->extRelPath.'mod1/tx_phpunit_module1.js');
 
-				// Mis-using JScode to insert CSS _after_ skin.
-			$this->doc->JScode = '<link rel="stylesheet" type="text/css" href="../typo3conf/ext/phpunit/mod1/phpunit-be.css" />';
+			// Mis-using JScode to insert CSS _after_ skin.
+			$this->doc->JScode = '<link rel="stylesheet" type="text/css" href="'.$this->extRelPath.'mod1/phpunit-be.css" />';
 
 			echo $this->doc->startPage(self::getLL('title'));
 			echo $this->doc->header(PHPUnit_Runner_Version::getVersionString());
@@ -242,7 +252,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 		foreach ($testSuite->tests() as $testCases) {
 			foreach ($testCases->tests() as $test) {
-				$selected = $test->toString() == t3lib_div::GPvar('testname') ? ' selected="selected"' : '';
+				$selected = $test->toString() == t3lib_div::_POST('testname') ? ' selected="selected"' : '';
 				$testSuiteName = strstr($test->toString(), '(');
 				$testSuiteName = trim($testSuiteName, '()');
 				$testsOptionsArr[$testSuiteName][] = '<option value="'.$test->toString().'"'.$selected.'>'.htmlspecialchars($test->getName()).'</option>';
@@ -331,50 +341,35 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			}
 		}
 
-			// Create a listener and run the tests:
-		$testListener = new tx_phpunit_testlistener();
-		if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['experimentalProgressBar']) {
-			$testListener->enableExperimentalProgressBar();
-		}
-
-		$jsonListener = new PHPUnit_Util_Log_JSON();
-
-		$testResult = new PHPUnit_Framework_TestResult;
+		// Create a result object and configure it.
+		$result = new PHPUnit_Framework_TestResult();
 
 		// Set to collect code coverage information.
 		if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['collectCodeCoverageInformation'] &&
              extension_loaded('xdebug')) {
-            $testResult->collectCodeCoverageInformation(TRUE);
+            $result->collectCodeCoverageInformation(TRUE);
         }
 
-		$testResult->addListener($testListener);
+		$testListener = new tx_phpunit_testlistener();
+		$result->addListener($testListener);
 
-		/* TODO: Create json based interface.
-		$testResult->addListener($jsonListener);
-		*/
-
-		/* TODO: Add nice call graphs in code coderage report.
-		$testResult->addListener($graphVizListener);
-		*/
-
-		$result = null;
 		$startMemory = memory_get_usage();
 		$startTime = microtime(true);
 
-		if (t3lib_div::GPvar('testname')) {
+		if (t3lib_div::_POST('testname')) {
 			$testListener->totalNumberOfTestCases = 1;
 			$this->runTests_renderInfoAndProgressbar(1);
 			foreach ($testSuite->tests() as $testCases) {
 				foreach ($testCases->tests() as $test) {
-					if ($test->toString() === t3lib_div::GPvar('testname')) {
-						$result = $test->run($testResult);
+					if ($test->toString() === t3lib_div::_POST('testname')) {
+						$test->run($result);
 					}
 				}
 			}
 			if (!is_object($result)) {
 				echo '<h2 class="hadError">Error</h2>' .
 					'<p>The test <strong> ' .
-					htmlspecialchars(t3lib_div::GPvar('testname')) .
+					htmlspecialchars(t3lib_div::_POST('testname')) .
 					'</strong> could not be found.</p>';
 				return;
 			}
@@ -383,7 +378,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$this->runTests_renderInfoAndProgressbar(
 				$testListener->totalNumberOfTestCases
 			);
-			$result = $testSuite->run($testResult);
+			$testSuite->run($result);
 		}
 
 		$timeSpent = microtime(true) - $startTime;
@@ -402,7 +397,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		}
 		$testStatistics .= '<p>' . $result->count() . ' ' .	self::getLL('tests_total') . ', ' .
 			$result->failureCount() . ' ' . self::getLL('tests_failures') .	', ' .
-			$testResult->errorCount() . ' ' . self::getLL('tests_errors') . ', ' .
+			$result->errorCount() . ' ' . self::getLL('tests_errors') . ', ' .
 			'<span title="'.$timeSpent . '&nbsp;' . self::getLL('tests_seconds').'">'.round($timeSpent, 3) . '&nbsp;' . self::getLL('tests_seconds').', </span>' .
 			t3lib_div::formatSize($leakedMemory) . ' (' . $leakedMemory .' - '. $testListener->totalLeakedMemory .
 			'&nbsp;B) ' . self::getLL('tests_leaks') .
@@ -420,10 +415,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		';
 
 		// Code coverage output.
-		if (!t3lib_div::GPvar('testname') && $result->getCollectCodeCoverageInformation()) {
+		if (!t3lib_div::_POST('testname') && $result->getCollectCodeCoverageInformation()) {
 			$jsonCodeCoverage = json_encode($result->getCodeCoverageInformation());
 		    PHPUnit_Util_Report::render($result, t3lib_extMgm::extPath('phpunit').'codecoverage/');
-		    echo '<p><a target="_blank" href="'.t3lib_extMgm::extRelPath('phpunit').'codecoverage/typo3conf_ext.html">Click here to access the Code Coverage report</a></p>';
+		    echo '<p><a target="_blank" href="'.$this->extRelPath.'codecoverage/typo3conf_ext.html">Click here to access the Code Coverage report</a></p>';
 		    echo '<p>Memory peak usage: '.ceil(memory_get_peak_usage()/(1024*1024)).' MB<p/>';
 
 		    /* TODO: Add metrics UI presentation
@@ -511,11 +506,11 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * @access	protected
 	 */
 	protected function about_render() {
-		if ($codeCoverageDir['exists'] = file_exists(t3lib_extMgm::extRelPath('phpunit').'codecoverage')) {
-			$codeCoverageDir['writeable'] = is_writeable(t3lib_extMgm::extRelPath('phpunit').'codecoverage');
-			$codeCoverageDir['readable'] = is_readable(t3lib_extMgm::extRelPath('phpunit').'codecoverage');
+		if ($codeCoverageDir['exists'] = file_exists($this->extRelPath.'codecoverage')) {
+			$codeCoverageDir['writeable'] = is_writeable($this->extRelPath.'codecoverage');
+			$codeCoverageDir['readable'] = is_readable($this->extRelPath.'codecoverage');
 		}
-		echo '<img src="'.t3lib_extMgm::extRelPath('phpunit').'mod1/phpunit.gif" width="94" height="80" alt="PHPUnit" title="PHPUnit" style="float:right; margin-left:10px;" />';
+		echo '<img src="'.$this->extRelPath.'mod1/phpunit.gif" width="94" height="80" alt="PHPUnit" title="PHPUnit" style="float:right; margin-left:10px;" />';
 		$excludeExtensions = t3lib_div::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['excludeextensions']);
 		echo self::eAccelerator0951OptimizerHelp();
 		if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['usepear'] && !t3lib_extMgm::isLoaded('pear')) {
@@ -563,13 +558,13 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	}
 
 	private function news_render() {
-		echo '<img src="'.t3lib_extMgm::extRelPath('phpunit').'mod1/phpunit.gif" width="94" height="80" alt="PHPUnit" title="PHPUnit" style="float:right; margin-left:10px;" />';
+		echo '<img src="'.$this->extRelPath.'mod1/phpunit.gif" width="94" height="80" alt="PHPUnit" title="PHPUnit" style="float:right; margin-left:10px;" />';
 		echo '<h1>News & Changes from one version to another</h1>';
 		echo '<p>Below you see the NEWS file for this extension. It lists notable changes from one version to the next.</p>';
 		echo '<p>If you experience problems after an upgrade, then check this list for changes that has happended since your previously installed version.</p>';
 		echo '<h2>NEWS file</h2>';
 		echo '<div class="tx_phpunit-newsfile">';
-		$newsfile = file_get_contents(t3lib_extMgm::extRelPath('phpunit').'NEWS');
+		$newsfile = file_get_contents($this->extRelPath.'NEWS');
 		echo nl2br($newsfile);
 		echo '</div>';
 	}
