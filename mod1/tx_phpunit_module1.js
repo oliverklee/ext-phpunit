@@ -37,9 +37,13 @@ function setClass(id, className) {
 				// Yikes!
 				break;
 			}
-			new Ajax.Request('ajax.php', {
+			var xhr = new Ajax.Request('ajax.php', {
 				method: 'post',
-				parameters: 'ajaxID=tx_phpunit_module1_ajax&state='+state+'&checkbox='+checkbox,
+				parameters: {
+					ajaxID: 'tx_phpunit_module1_ajax',
+					state: state, 
+					checkbox: checkbox
+				},
 				onComplete: function(xhr) { console.log(xhr.responseText); }.bind(this),
 				onT3Error: function(xhr) { 
 					// if this is not a valid ajax response, the whole page gets refreshed

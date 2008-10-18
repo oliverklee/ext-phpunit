@@ -68,7 +68,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 				// JavaScript
 			$this->doc->loadJavascriptLib('contrib/prototype/prototype.js');
-			$this->doc->loadJavascriptLib(t3lib_extMgm::extRelPath('phpunit').'PHPUnit-3.3.1/PHPUnit/Util/Report/Template/yahoo-dom-event.js');
+			$this->doc->loadJavascriptLib(t3lib_extMgm::extRelPath('phpunit').'mod1/yui/yahoo-dom-event.js');
+			$this->doc->loadJavascriptLib(t3lib_extMgm::extRelPath('phpunit').'mod1/yui/connection-min.js');
 			$this->doc->loadJavascriptLib(t3lib_extMgm::extRelPath('phpunit').'mod1/tx_phpunit_module1.js');
 
 				// Mis-using JScode to insert CSS _after_ skin.
