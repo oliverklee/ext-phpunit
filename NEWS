@@ -4,6 +4,18 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
+19. October 2008: 3.3.4
+	+ Added keyboard short-cuts.
+	+ Added select YUI! 2.6.0 files. 
+	- Removed old cruft files: and options.
+	~ Upped requirements to Typo3 4.2.x (from 4.1) since phpunit now uses loadJavascriptLib() from template.php.
+	~ Re-factored JavaScript Prototype parts to use YUI!
+	~ Moved 'Collect code coverage' from Extension Manager to a per user setup, done from inside phpunit (point'n'click).
+	~ Changed header of page.
+	~ Misc. other stuff. See Subversion history, revisions #12953 to #13145.
+	* Fixed 'suggest' when installing and also upped version number on suggested extensions: pear 2.3.6 (up from 2.3.5), oelib 0.4.2 (up from 0.4.0).
+	* Fixed opening in new window.
+
 01. October 2008: 3.3.3
 	+ Display the leaked memory after the tests. Closes forge #1627. Note that this measurement is only indicative; it will be tried out now, but is the utility is limited, then it will be removed or turned into an option.
  
