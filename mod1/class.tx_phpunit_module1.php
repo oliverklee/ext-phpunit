@@ -571,7 +571,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		echo '<p>If you experience problems after an upgrade, then check this list for changes that has happended since your previously installed version.</p>';
 		echo '<h2>NEWS file</h2>';
 		echo '<div class="tx_phpunit-newsfile">';
-		$newsfile = file_get_contents($this->extRelPath.'NEWS');
+		$newsfile = file_get_contents(t3lib_extMgm::extPath(self::EXTKEY).'NEWS');
 		echo nl2br($newsfile);
 		echo '</div>';
 	}
