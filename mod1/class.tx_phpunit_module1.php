@@ -8,13 +8,6 @@
  */
 
 require_once (PATH_t3lib.'class.t3lib_scbase.php');
-/*
- * currently unused classes
-require_once 'PHPUnit/Util/Log/JSON.php';
-require_once 'PHPUnit/Util/Log/Metrics.php';
-require_once 'PHPUnit/Util/Log/PMD.php';
-require_once 'PHPUnit/Util/Log/CPD.php';
-*/
 
 class tx_phpunit_module1 extends t3lib_SCbase {
 	const EXTKEY = 'phpunit';
@@ -52,9 +45,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			'failure' => '',
 			'success' => '',
 			'error' => '',
-			'codeCoverage',
-			'excludedExtensions',
-			'outOfLineTests'
+			'codeCoverage'
 		);
 		parent::menuConfig();
 	}
