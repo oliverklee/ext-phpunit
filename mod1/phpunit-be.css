@@ -31,6 +31,10 @@ h1, h2, h3, h4 {
 	text-align: left;
 }
 
+.access-key {
+	text-decoration: underline;	
+}
+
 /* Temporary bugfix for issue http://bugs.typo3.org/view.php?id=7631 */
 body#typo3-mod-php {
     overflow: auto;
@@ -114,7 +118,10 @@ body#typo3-mod-php {
 }
 
 .tx_phpunit_testcase_progressbox {
-	border : 1px solid black;
+	background-color: aqua;
+	width: 100%;
+	height: 100%;
+	border: 1px solid black;
 	float: left;
 }
 

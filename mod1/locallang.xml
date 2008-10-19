@@ -13,9 +13,9 @@
 			<label index="function_about">About PHPUnit BE</label>
 			<label index="function_news">News &amp; Changes List</label>
 			<label index="function_runtests">Run tests</label>
-			<label index="run_again">Run again</label>
-			<label index="run_all_tests">Run all tests</label>
-			<label index="run_single_test">Run single test</label>
+			<label index="run_again"><![CDATA[<span class="access-key">R</span>e-run]]></label>
+			<label index="run_all_tests"><![CDATA[Run <span class="access-key">a</span>ll tests]]></label>
+			<label index="run_single_test"><![CDATA[Run <span class="access-key">s</span>ingle test]]></label>
 			<label index="select_extension">Select extension</label>
 			<label index="select_tests">Select test</label>
 			<label index="testing_all_extensions">Testing all extensions</label>
@@ -26,6 +26,8 @@
 			<label index="tests_seconds">seconds</label>
 			<label index="tests_leaks">memory leaks</label>
 			<label index="title">PHPUnit BE</label>
+			<label index="testing_success">Success!</label>
+			<label index="testing_failure">Failures!</label>
 		</languageKey>
 		<languageKey index="dk" type="array">
 			<label index="admin_rights_needed">Der kræves administrator-rettigheder, for at må bruge PHPUnit back-end modulet.</label>
@@ -34,9 +36,9 @@
 			<label index="function_about">Om PHPUnit BE</label>
 			<label index="function_news">Nyt og ændret liste</label>
 			<label index="function_runtests">Kør tests</label>
-			<label index="run_again">Kør igen</label>
-			<label index="run_all_tests">Kør alle tests</label>
-			<label index="run_single_test">Kør enkelt test</label>
+			<label index="run_again"><![CDATA[Kø<span class="access-key">r</span> igen]]></label>
+			<label index="run_all_tests"><![CDATA[Kør <span class="access-key">a</span>lle tests]]></label>
+			<label index="run_single_test"><![CDATA[Kør enkelt te<span class="access-key">s</span>t]]></label>
 			<label index="select_extension">Vælg extension</label>
 			<label index="select_tests">Vælg test</label>
 			<label index="testing_all_extensions">Tester alle extensions</label>
@@ -45,6 +47,8 @@
 			<label index="tests_failures">mislykkedes</label>
 			<label index="tests_total">tests</label>
 			<label index="title">PHPUnit BE</label>
+			<label index="testing_success">Success!</label>
+			<label index="testing_failure">Mislykkedes!</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="admin_rights_needed">Du brauchst Admin-Rechte um das PHPUnit Back-End Modul zu benutzen.</label>
@@ -53,9 +57,9 @@
 			<label index="function_about">Über PHPUnit BE</label>
 			<label index="function_news">Neuigkeiten und Änderungen</label>
 			<label index="function_runtests">Run tests</label>
-			<label index="run_again">Test erneut ausführen</label>
-			<label index="run_all_tests">Alle Tests ausführen</label>
-			<label index="run_single_test">Einzelnen Test ausführen</label>
+			<label index="run_again"><![CDATA[Test e<span class="access-key">r</span>neut ausführen]]></label>
+			<label index="run_all_tests"><![CDATA[<span class="access-key">A</span>lle Tests ausführen]]></label>
+			<label index="run_single_test"><![CDATA[Einzelnen Te<span class="access-key">s</span>t ausführen]]></label>
 			<label index="select_extension">Extension auswählen</label>
 			<label index="select_tests">Test auswählen</label>
 			<label index="testing_all_extensions">Teste Extensions</label>

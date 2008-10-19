@@ -80,7 +80,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$this->doc->JScode .= '<link rel="stylesheet" type="text/css" href="'.$this->extRelPath.'mod1/phpunit-be.css" />';
 
 			echo $this->doc->startPage(self::getLL('title'));
-			echo $this->doc->section('', $this->doc->funcMenu(PHPUnit_Runner_Version::getVersionString(), t3lib_BEfunc::getFuncMenu($this->id, 'SET[function]', $this->MOD_SETTINGS['function'], $this->MOD_MENU['function']).$this->openNewWindowLink()));
+			echo $this->doc->section('', $this->doc->funcMenu(PHPUnit_Runner_Version::getVersionString(), t3lib_BEfunc::getFuncMenu($this->id, 'SET[function]', $this->MOD_SETTINGS['function'], $this->MOD_MENU['function'])));
 
 				// Render content:
 			switch ($this->MOD_SETTINGS['function']) {
@@ -95,9 +95,17 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 					break;
 			}
 
-				// ShortCut
-			echo $this->doc->section('', $this->doc->makeShortcutIcon('id', implode(',', array_keys($this->MOD_MENU)), $this->MCONF['name']));
-
+			echo $this->doc->section('Keyboard shortcuts', '
+			<p>PHPUnit supports short-cut keys. Use "a" for running all tests, use "s" for running a single test and
+			use "r" to re-run the latest tests; to open phpunit in a new window, use "n".</p>
+			<p>Depending on your browser and system you will need to press some
+			modifier keys.</p>
+			<ul>
+			<li>Safari, IE and Firefox 1.x: Use "Alt" button on Windows, "Cmd" on Macs.</li>
+			<li>Firefox 2.x and 3.x: Use "Alt-Shift" on Windows, "Cmd-Shift" on Macs</li>
+			</ul>
+			');
+			echo $this->doc->section('', $this->openNewWindowLink());
 		} else {
 
 			$this->doc = t3lib_div::makeInstance('mediumDoc');
@@ -198,7 +206,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="post">
 				<p>
                 	<select '.$style.' name="SET[extSel]" onchange="jumpToUrl(\''.htmlspecialchars($this->MCONF['_']).'&SET[extSel]=\'+this.options[this.selectedIndex].value,this);">'.implode('', $extensionsOptionsArr).'</select>
-					<input type="submit" value="'.self::getLL('run_all_tests').'" />
+					<button type="submit" name="bingo" value="run" accesskey="a">'.self::getLL('run_all_tests').'</button>
 					<input type="hidden" name="command" value="runalltests" />
 				</p>
 			</form>
@@ -273,20 +281,20 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 					<option value="">'.self::getLL('select_tests').'</option>'.
 					$testOptionsHtml.
 					'</select>
-					<input type="submit" value="'.self::getLL('run_single_test').'" />
+					<button type="submit" name="bingo" value="run" accesskey="s">'.self::getLL('run_single_test').'</button>
 					<input type="hidden" name="command" value="runsingletest" />
 				</p>
 			</form>
 		';
 
 		// Experimental: Buttons for turning failures, errors or success on/off
-		$output .= '<p>';
+		$output .= '<div class="phpunit-controls">';
 		$output .= '<form action="'.htmlspecialchars($this->MCONF['_']).'" method="post">';
 		$failureState = $this->MOD_SETTINGS['failure'] === 'on' ? 'checked="checked"' : '';
 		$errorState = $this->MOD_SETTINGS['error'] === 'on' ? 'checked="checked"' : '';
 		$successState = $this->MOD_SETTINGS['success'] === 'on' ? 'checked="checked"' : '';
 		$output .= '<label for="SET[success]"><input type="checkbox" id="SET[success]" name="SET[success]" '.$successState.'>Success</label>';
-		$output .= '<label for="SET[failure]"><input type="checkbox" id="SET[failure]" name="SET[failure]" '.$failureState.'">Failure</label>';
+		$output .= '<label for="SET[failure]"><input type="checkbox" id="SET[failure]" name="SET[failure]" '.$failureState.'>Failure</label>';
 		$output .= '<label for="SET[error]"><input type="checkbox" id="SET[error]"name="SET[error]" '.$errorState.'>Error</label>';
 
         $codecoverageDisable = '';
@@ -298,7 +306,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$codeCoverageState = $this->MOD_SETTINGS['codeCoverage'] === 'on' ? 'checked="checked"' : '';
        	$output .= '<label for="SET[codeCoverage]"'.$codecoverageForLabelWhenDisabled.'><input type="checkbox" id="SET[codeCoverage]"name="SET[codeCoverage]"'.$codecoverageDisable.' '.$codeCoverageState.'>Collect code-coverage data</label>';
 		$output .= '</form>';
-		$output .= '</p>';
+		$output .= '</div>';
 
 		return $output;
 	}
@@ -377,9 +385,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			}
 		} else {
 			$testListener->totalNumberOfTestCases = $testSuite->count();
-			$this->runTests_renderInfoAndProgressbar(
-				$testListener->totalNumberOfTestCases
-			);
+			$this->runTests_renderInfoAndProgressbar($testListener->totalNumberOfTestCases);
 			$testSuite->run($result);
 		}
 
@@ -395,21 +401,20 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		} else {
 	    	$testStatistics = '
 				<script type="text/javascript">setClass("progress-bar","hadFailure");</script>
-				<h2 class="hadFailure">Failures!</h2>';
+				<h2 class="hadFailure">'.self::getLL('testing_failure').'</h2>';
 		}
 		$testStatistics .= '<p>' . $result->count() . ' ' .	self::getLL('tests_total') . ', ' .
 			$result->failureCount() . ' ' . self::getLL('tests_failures') .	', ' .
 			$result->errorCount() . ' ' . self::getLL('tests_errors') . ', ' .
 			'<span title="'.$timeSpent . '&nbsp;' . self::getLL('tests_seconds').'">'.round($timeSpent, 3) . '&nbsp;' . self::getLL('tests_seconds').', </span>' .
-			t3lib_div::formatSize($leakedMemory) . ' (' . $leakedMemory .' - '. $testListener->totalLeakedMemory .
-			'&nbsp;B) ' . self::getLL('tests_leaks') .
+			t3lib_div::formatSize($leakedMemory) . 'B (' . $leakedMemory .' B) ' . self::getLL('tests_leaks') .
 			'</p>';
 		echo $testStatistics;
 
 		echo '
 			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="post" >
 				<p>
-					<input type="submit" value="'.self::getLL('run_again').'" tabindex="100" />
+					<button type="submit" name="bingo" value="run" accesskey="r">'.self::getLL('run_again').'</button>
 					<input name="command" type="hidden" value="'.t3lib_div::_GP('command').'" />
 					<input name="testname" type="hidden" value="'.t3lib_div::_GP('testname').'" />
 				</p>
@@ -421,7 +426,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$jsonCodeCoverage = json_encode($result->getCodeCoverageInformation());
 		    PHPUnit_Util_Report::render($result, t3lib_extMgm::extPath('phpunit').'codecoverage/');
 		    echo '<p><a target="_blank" href="'.$this->extRelPath.'codecoverage/typo3conf_ext.html">Click here to access the Code Coverage report</a></p>';
-		    echo '<p>Memory peak usage: '.ceil(memory_get_peak_usage()/(1024*1024)).' MB<p/>';
+		    echo '<p>Memory peak usage: '.t3lib_div::formatSize(memory_get_peak_usage()).'B<p/>';
 
 		    /* TODO: Add metrics UI presentation
 		    $logMetricsWriter = new PHPUnit_Util_Log_Metrics();
@@ -456,14 +461,14 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			</div>
 		';
 
-		if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['experimentalProgressBar']) {
-			echo '<div style="width : 100%; height: auto;">';
-			$width = 100 / $tests;
-			for ($i = 0; $i < $tests; $i++) {
-				echo '<a href="#testCaseNum-'.$i.'" style="width : '.$width.'%;" id="tx_phpunit_testcase_nr_'.$i.'" class="tx_phpunit_testcase_progressbox" title="'.$i.'">&nbsp;</a>';
-			}
-			echo '</div>';
+		/*
+		echo '<div style="width : 100%;">';
+		$width = 100 / $tests;
+		for ($i = 0; $i < $tests; $i++) {
+			echo '<div style="float: left; width : '.$width.'%; height:20px;"><a href="#testCaseNum-'.$i.'" id="tx_phpunit_testcase_nr_'.$i.'" class="tx_phpunit_testcase_progressbox" title="'.$i.'"></a></div>';
 		}
+		echo '</div>';
+		*/
 	}
 
 	/**
@@ -591,8 +596,9 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$url = t3lib_div::getIndpEnv('TYPO3_REQUEST_SCRIPT').'?M=tools_txphpunitbeM1';
 		$onClick = "phpunitbeWin=window.open('".$url."','phpunitbe','width=790,status=0,menubar=1,resizable=1,location=0,scrollbars=1,toolbar=0');phpunitbeWin.focus();return false;";
 		$content = '
-			<a id="opennewwindow" href="" onclick="'.htmlspecialchars($onClick).'">
+			<a id="opennewwindow" href="" onclick="'.htmlspecialchars($onClick).'" accesskey="n">
 				<img'.t3lib_iconWorks::skinImg($BACK_PATH, 'gfx/open_in_new_window.gif', 'width="19" height="14"').' title="'.$this->sL('LLL:EXT:lang/locallang_core.xml:labels.openInNewWindow', 1).'" class="absmiddle" alt="" />
+				Ope<span class="access-key">n</span> in separate window.
 			</a>
 			<script type="text/javascript">if (window.name == "phpunitbe") { document.getElementById("opennewwindow").style.display = "none"; }</script>
 		';
