@@ -347,7 +347,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$result = new PHPUnit_Framework_TestResult();
 
 		// Set to collect code coverage information.
-		if ($GLOBALS['BE_USER']->uc['moduleData']['tools_txphpunitM1']['codeCoverage'] &&
+		if ($GLOBALS['BE_USER']->uc['moduleData']['tools_txphpunitM1']['codeCoverage'] === 'on' &&
              extension_loaded('xdebug')) {
             $result->collectCodeCoverageInformation(TRUE);
         }
