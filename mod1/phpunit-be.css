@@ -18,6 +18,13 @@ p, div, body, input, select, textarea, .defstyle {
 	color : black;
 }
 
+/* Safari hack, http://dustinbrewer.com/css-hackgetting-safari-to-behave/ */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	form select {
+		text-indent: 18px;
+	}
+}
+
 h1, h2, h3, h4 {
 	background-color : transparent;
 	color : black;
