@@ -60,13 +60,24 @@ function setClass(id, className) {
 			break;
 		}
 	
-		var transaction = YAHOO.util.Connect.asyncRequest('POST', 'ajax.php', 
+		YAHOO.util.Connect.asyncRequest('POST', 'ajax.php', 
 			{	success: function (responseObj) { console.log('Success', responseObj); },
 				failure: function (responseObj) { console.log('Failure', responseObj); }
 			},
 			'ajaxID=tx_phpunit_module1_ajax&state='+state+'&checkbox='+checkbox
 		);
 		Dom.setStyle(Dom.getElementsByClassName(className), 'display', display);
+	}
+	
+	var toggleCodeCoverage = function (event) {
+		var target = Event.getTarget(event);
+		var state = target.checked;
+		YAHOO.util.Connect.asyncRequest('POST', 'ajax.php', 
+				{	success: function (responseObj) { console.log('Success', responseObj); },
+					failure: function (responseObj) { console.log('Failure', responseObj); }
+				},
+				'ajaxID=tx_phpunit_module1_ajax&state='+state+'&checkbox=codeCoverage'
+			);
 	}
 	
 	var mapClasses = function (buttonId) {
@@ -97,5 +108,6 @@ function setClass(id, className) {
 			Dom.setStyle(Dom.getElementsByClassName(className), 'display', display);
 		}
 		Event.addListener(toggleButtonsIds, 'click', toggle, this, true);
+		Event.addListener('SET[codeCoverage]', 'click', toggleCodeCoverage, this, true);
 	}, this, true);
 })();

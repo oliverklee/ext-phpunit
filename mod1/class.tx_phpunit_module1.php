@@ -74,6 +74,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$this->doc = t3lib_div::makeInstance('bigDoc');
 			$this->doc->backPath = $BACK_PATH;
 			$this->doc->docType = 'xhtml_strict';
+			$this->doc->bodyTagAdditions = 'id="doc3"';
 
 			// JavaScript Libraries
 			$this->doc->loadJavascriptLib('contrib/prototype/prototype.js');
@@ -83,11 +84,12 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$this->doc->loadJavascriptLib($this->extRelPath.'mod1/tx_phpunit_module1.js');
 
 			// Mis-using JScode to insert CSS _after_ skin.
-			$this->doc->JScode = '<link rel="stylesheet" type="text/css" href="'.$this->extRelPath.'mod1/phpunit-be.css" />';
+			$this->doc->JScode = '<link rel="stylesheet" type="text/css" href="'.$this->extRelPath.'mod1/yui/reset-fonts-grids.css" />';
+			$this->doc->JScode .= '<link rel="stylesheet" type="text/css" href="'.$this->extRelPath.'mod1/yui/base-min.css" />';
+			$this->doc->JScode .= '<link rel="stylesheet" type="text/css" href="'.$this->extRelPath.'mod1/phpunit-be.css" />';
 
 			echo $this->doc->startPage(self::getLL('title'));
-			echo $this->doc->header(PHPUnit_Runner_Version::getVersionString());
-			echo $this->doc->section('', $this->doc->funcMenu('', t3lib_BEfunc::getFuncMenu($this->id, 'SET[function]', $this->MOD_SETTINGS['function'], $this->MOD_MENU['function']).$this->openNewWindowLink()));
+			echo $this->doc->section('', $this->doc->funcMenu(PHPUnit_Runner_Version::getVersionString(), t3lib_BEfunc::getFuncMenu($this->id, 'SET[function]', $this->MOD_SETTINGS['function'], $this->MOD_MENU['function']).$this->openNewWindowLink()));
 
 				// Render content:
 			switch ($this->MOD_SETTINGS['function']) {
@@ -295,6 +297,15 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$output .= '<label for="SET[success]"><input type="checkbox" id="SET[success]" name="SET[success]" '.$successState.'>Success</label>';
 		$output .= '<label for="SET[failure]"><input type="checkbox" id="SET[failure]" name="SET[failure]" '.$failureState.'">Failure</label>';
 		$output .= '<label for="SET[error]"><input type="checkbox" id="SET[error]"name="SET[error]" '.$errorState.'>Error</label>';
+
+        $codecoverageDisable = '';
+        $codecoverageForLabelWhenDisabled = '';
+		if (!extension_loaded('xdebug')) {
+        	$codecoverageDisable = ' disabled="disabled"';
+        	$codecoverageForLabelWhenDisabled = ' title="Code coverage requires XDebug to be installed."';
+        }
+		$codeCoverageState = $this->MOD_SETTINGS['codeCoverage'] === 'on' ? 'checked="checked"' : '';
+       	$output .= '<label for="SET[codeCoverage]"'.$codecoverageForLabelWhenDisabled.'><input type="checkbox" id="SET[codeCoverage]"name="SET[codeCoverage]"'.$codecoverageDisable.' '.$codeCoverageState.'>Collect code-coverage data</label>';
 		$output .= '</form>';
 		$output .= '</p>';
 
@@ -345,7 +356,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$result = new PHPUnit_Framework_TestResult();
 
 		// Set to collect code coverage information.
-		if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['collectCodeCoverageInformation'] &&
+		if ($GLOBALS['BE_USER']->uc['moduleData']['tools_txphpunitM1']['codeCoverage'] &&
              extension_loaded('xdebug')) {
             $result->collectCodeCoverageInformation(TRUE);
         }
@@ -586,10 +597,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		global $BACK_PATH;
 
 		// FIXME: Needs to take mod.php into account, when generating URL here. Otherwise 'Open link in new window' will not work (gives error: Value "" for "M" was not found as a module).
-		$url = t3lib_div::getIndpEnv('TYPO3_REQUEST_SCRIPT');
+		$url = t3lib_div::getIndpEnv('TYPO3_REQUEST_SCRIPT').'?M=tools_txphpunitbeM1';
 		$onClick = "phpunitbeWin=window.open('".$url."','phpunitbe','width=790,status=0,menubar=1,resizable=1,location=0,scrollbars=1,toolbar=0');phpunitbeWin.focus();return false;";
 		$content = '
-			<a id="opennewwindow" href="#" onclick="'.htmlspecialchars($onClick).'">
+			<a id="opennewwindow" href="" onclick="'.htmlspecialchars($onClick).'">
 				<img'.t3lib_iconWorks::skinImg($BACK_PATH, 'gfx/open_in_new_window.gif', 'width="19" height="14"').' title="'.$this->sL('LLL:EXT:lang/locallang_core.xml:labels.openInNewWindow', 1).'" class="absmiddle" alt="" />
 			</a>
 			<script type="text/javascript">if (window.name == "phpunitbe") { document.getElementById("opennewwindow").style.display = "none"; }</script>

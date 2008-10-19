@@ -26,6 +26,7 @@ class tx_phpunit_module1_ajax {
 			case 'failure':
 			case 'success':
 			case 'error':
+			case 'codeCoverage':
 				break;
 			default:
 				$checkbox = false;
