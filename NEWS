@@ -4,6 +4,12 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
+20. October 2008: 3.3.5
+	+ Added PHPUnit 3.3.2, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.220-Oct-2008
+	- Removed PHPUnit 3.3.1.
+	~ Comment out JavaScript calls to console.log().
+	* Fix forge #1698: Showing NEWS file from drop-down menu breaks with symlinks. Cf. http://forge.typo3.org/issues/show/1698
+
 19. October 2008: 3.3.4
 	+ Added keyboard short-cuts.
 	+ Added select YUI! 2.6.0 files. 

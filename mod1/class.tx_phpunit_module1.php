@@ -96,10 +96,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			}
 
 			echo $this->doc->section('Keyboard shortcuts', '
-			<p>PHPUnit supports short-cut keys. Use "a" for running all tests, use "s" for running a single test and
+			<p>Use "a" for running all tests, use "s" for running a single test and
 			use "r" to re-run the latest tests; to open phpunit in a new window, use "n".</p>
 			<p>Depending on your browser and system you will need to press some
-			modifier keys.</p>
+			modifier keys:</p>
 			<ul>
 			<li>Safari, IE and Firefox 1.x: Use "Alt" button on Windows, "Cmd" on Macs.</li>
 			<li>Firefox 2.x and 3.x: Use "Alt-Shift" on Windows, "Cmd-Shift" on Macs</li>
