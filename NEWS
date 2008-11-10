@@ -4,6 +4,11 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
+10. November 2008: 3.3.6
+	+ Added PHPUnit 3.3.4, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.408-Nov-2008 and http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.303-Nov-2008
+	- Removed PHPUnit 3.3.2.
+	~ Fix forge bug #1828, http://forge.typo3.org/issues/show/1828	
+
 20. October 2008: 3.3.5
 	+ Added PHPUnit 3.3.2, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.220-Oct-2008
 	- Removed PHPUnit 3.3.1.
