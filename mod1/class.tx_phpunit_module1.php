@@ -253,7 +253,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 		foreach ($testSuite->tests() as $testCases) {
 			foreach ($testCases->tests() as $test) {
-				$selected = $test->toString() == t3lib_div::_POST('testname') ? ' selected="selected"' : '';
+				$selected = $test->toString() == t3lib_div::_GP('testname') ? ' selected="selected"' : '';
 				$testSuiteName = strstr($test->toString(), '(');
 				$testSuiteName = trim($testSuiteName, '()');
 				$testsOptionsArr[$testSuiteName][] = '<option value="'.$test->toString().'"'.$selected.'>'.htmlspecialchars($test->getName()).'</option>';
@@ -366,12 +366,12 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$startMemory = memory_get_usage();
 		$startTime = microtime(true);
 
-		if (t3lib_div::_POST('testname')) {
+		if (t3lib_div::_GP('testname')) {
 			$testListener->totalNumberOfTestCases = 1;
 			$this->runTests_renderInfoAndProgressbar(1);
 			foreach ($testSuite->tests() as $testCases) {
 				foreach ($testCases->tests() as $test) {
-					if ($test->toString() === t3lib_div::_POST('testname')) {
+					if ($test->toString() === t3lib_div::_GP('testname')) {
 						$test->run($result);
 					}
 				}
@@ -379,7 +379,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			if (!is_object($result)) {
 				echo '<h2 class="hadError">Error</h2>' .
 					'<p>The test <strong> ' .
-					htmlspecialchars(t3lib_div::_POST('testname')) .
+					htmlspecialchars(t3lib_div::_GP('testname')) .
 					'</strong> could not be found.</p>';
 				return;
 			}
@@ -422,7 +422,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		';
 
 		// Code coverage output.
-		if (!t3lib_div::_POST('testname') && $result->getCollectCodeCoverageInformation()) {
+		if (!t3lib_div::_GP('testname') && $result->getCollectCodeCoverageInformation()) {
 			$jsonCodeCoverage = json_encode($result->getCodeCoverageInformation());
 		    PHPUnit_Util_Report::render($result, t3lib_extMgm::extPath('phpunit').'codecoverage/');
 		    echo '<p><a target="_blank" href="'.$this->extRelPath.'codecoverage/typo3conf_ext.html">Click here to access the Code Coverage report</a></p>';
