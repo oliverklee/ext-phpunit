@@ -101,8 +101,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			<p>Depending on your browser and system you will need to press some
 			modifier keys:</p>
 			<ul>
-			<li>Safari, IE and Firefox 1.x: Use "Alt" button on Windows, "Cmd" on Macs.</li>
-			<li>Firefox 2.x and 3.x: Use "Alt-Shift" on Windows, "Cmd-Shift" on Macs</li>
+			<li>Safari, IE and Firefox 1.x: Use "Alt" button on Windows, "Ctrl" on Macs.</li>
+			<li>Firefox 2.x and 3.x: Use "Alt-Shift" on Windows, "Ctrl-Shift" on Macs</li>
 			</ul>
 			');
 			echo $this->doc->section('', $this->openNewWindowLink());

@@ -4,6 +4,11 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
+21. November 2008: 3.3.7
+	+ Added PHPUnit 3.3.5, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.523-Nov-2008
+	- Removed PHPUnit 3.3.4.
+	* Corrected instructions for keyboard shortcut on Macs: It is Ctrl (and not Meta) that should be depressed.
+
 10. November 2008: 3.3.6
 	+ Added PHPUnit 3.3.4, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.408-Nov-2008 and http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.303-Nov-2008
 	- Removed PHPUnit 3.3.2.
