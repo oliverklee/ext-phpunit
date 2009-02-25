@@ -44,4 +44,8 @@ class tx_phpunit_module1_ajax {
 		}
 	}
 }
+
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/phpunit/mod1/class.tx_phpunit_module1_ajax.php']) {
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/phpunit/mod1/class.tx_phpunit_module1_ajax.php']);
+}
 ?>

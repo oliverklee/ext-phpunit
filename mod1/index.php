@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2004-2008 Kasper Ligaard (kasperligaard@gmail.com)
+*  (c) 2004-2009 Kasper Ligaard (kasperligaard@gmail.com)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -21,63 +21,38 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
+
 /**
  * Module 'PHPUnit' for the 'phpunit' extension.
  *
  * @author	Kasper Ligaard <ligaard@daimi.au.dk>
  */
 
-/**
- * [CLASS/FUNCTION INDEX of SCRIPT]
- *
- *
- *
- *   85: class tx_phpunitt3_module1 extends t3lib_SCbase
- *   93:     public function menuConfig()
- *  112:     public function main()
- *
- *              SECTION: Screen render functions
- *  179:     protected function runTests_render()
- *  200:     protected function runTests_renderIntro()
- *  223:     protected function runTests_renderIntro_renderExtensionSelector($extensionsWithTestSuites)
- *  258:     protected function runTests_renderIntro_renderTestSelector($extensionsWithTestSuites, $extensionKey)
- *  303:     protected function runTests_renderRunningTest()
- *  387:     protected function runTests_renderInfoAndProgressbar()
- *  403:     protected function about_render()
- *
- *              SECTION: Helper functions
- *  437:     protected function openNewWindowLink()
- *  456:     protected function getExtensionsWithTestSuites()
- *  466:     protected function traversePathForTestCases($path)
- *  502:     protected function simulateFrontendEnviroment()
- *
- * TOTAL FUNCTIONS: 13
- * (This index is automatically created/updated by the extension "extdeveval")
- *
- */
-
 $LANG->includeLLFile('EXT:phpunit/mod1/locallang.xml');
 
-require_once (t3lib_extMgm::extPath('phpunit').'class.tx_phpunit_testlistener.php');
-require_once (t3lib_extMgm::extPath('phpunit').'class.tx_phpunit_testcase.php');
-require_once (t3lib_extMgm::extPath('phpunit').'class.tx_phpunit_database_testcase.php');
-require_once ('PHPUnit/Runner/Version.php'); // Included for PHPUnit version string.
-require_once ('PHPUnit/Util/Report.php'); // Included for PHPUnit version string.
-require_once ('class.tx_phpunit_module1.php');
+require_once(t3lib_extMgm::extPath('phpunit') . 'class.tx_phpunit_testlistener.php');
+require_once(t3lib_extMgm::extPath('phpunit') . 'class.tx_phpunit_testcase.php');
+require_once(t3lib_extMgm::extPath('phpunit') . 'class.tx_phpunit_database_testcase.php');
+// included for PHPUnit version string
+require_once('PHPUnit/Runner/Version.php');
+// included for PHPUnit version string
+require_once('PHPUnit/Util/Report.php');
+require_once('class.tx_phpunit_module1.php');
 
 if (!defined('PATH_tslib')) {
-	define('PATH_tslib', t3lib_extMgm::extPath('cms').'tslib/');
+	define('PATH_tslib', t3lib_extMgm::extPath('cms') . 'tslib/');
 }
 
 // Which instance interface to create?
 if (isset($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['phpunit']['mod1/class.tx_phpunit_module1.php']['main'])) {
     $classRef = $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['phpunit']['mod1/class.tx_phpunit_module1.php']['main'];
     // Class must implement main(). What was previously init() should now happen in __construct().
-	$SOBE = &t3lib_div::getUserObj($classRef);
+	$SOBE = t3lib_div::getUserObj($classRef);
 } else {
 	$SOBE = new tx_phpunit_module1();
 }
-// Now run our Script Object Back-End (SOBE)
+
+// runs our Script Object Back-End (SOBE)
 $SOBE->main();
 
 ?>

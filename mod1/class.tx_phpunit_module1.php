@@ -1,61 +1,89 @@
 <?php
+/***************************************************************
+* Copyright notice
+*
+* (c) 2008-2009 Kasper Ligaard <ligaard@daimi.au.dk>
+* All rights reserved
+*
+* This script is part of the TYPO3 project. The TYPO3 project is
+* free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or
+* (at your option) any later version.
+*
+* The GNU General Public License can be found at
+* http://www.gnu.org/copyleft/gpl.html.
+*
+* This script is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* This copyright notice MUST APPEAR in all copies of the script!
+***************************************************************/
+
+require_once (PATH_t3lib . 'class.t3lib_scbase.php');
+
 /**
  * Module 'PHPUnit' for the 'phpunit' extension.
  *
- * @author	Kasper Ligaard <ligaard@daimi.au.dk>
+ * @author Kasper Ligaard <ligaard@daimi.au.dk>
+ *
  * @package TYPO3
  * @subpackage tx_phpunit
  */
-
-require_once (PATH_t3lib.'class.t3lib_scbase.php');
-
 class tx_phpunit_module1 extends t3lib_SCbase {
-	const EXTKEY = 'phpunit';
-	protected $extRelPath;
+	/**
+	 * @var string the extension key
+	 */
+	const EXTENSION_KEY = 'phpunit';
+	/**
+	 * @var string the relative path to this extension
+	 */
+	protected $extensionPath;
 
-	protected static function getLL ($index) {
-		global $LANG;
-		return $LANG->getLL($index);
-	}
-
-	protected static function sL ($input) {
-		global $LANG;
-		return $LANG->sL($input);
-	}
-
-	public function __construct() {
-		parent::init();
-		$this->extRelPath = t3lib_extMgm::extRelPath(self::EXTKEY);
+	/**
+	 * Returns the localized string for the key $key.
+	 *
+	 * @param string the key of the string to retrieve, must not be empty
+	 *
+	 * @return string the localized string for the key $key
+	 */
+	private function getLL($key) {
+		return $GLOBALS['LANG']->getLL($key);
 	}
 
 	/**
-	 * Create configuration for the function selector box
-	 *
-	 * @return	void
-	 * @access	public
+	 * The constructor.
+	 */
+	public function __construct() {
+		parent::init();
+
+		$this->extensionPath = t3lib_extMgm::extRelPath(self::EXTENSION_KEY);
+	}
+
+	/**
+	 * Creates the configuration for the function selector box.
 	 */
 	public function menuConfig() {
-		$this->MOD_MENU = Array (
-			'function' => Array (
-				'runtests' => self::getLL('function_runtests'),
-				'about' => self::getLL('function_about'),
-				'news' => self::getLL('function_news'),
+		$this->MOD_MENU = array(
+			'function' => array(
+				'runtests' => $this->getLL('function_runtests'),
+				'about' => $this->getLL('function_about'),
+				'news' => $this->getLL('function_news'),
 			),
 			'extSel' => '',
 			'failure' => '',
 			'success' => '',
 			'error' => '',
-			'codeCoverage'
+			'codeCoverage' => '',
 		);
 		parent::menuConfig();
 	}
 
 	/**
-	 * Main function of the module. All content is echoed directly instead of collecting it and
-	 * doing the output later.
-	 *
-	 * @return	void
-	 * @access	public
+	 * Main function of the module. Outputs all content directly using echo
+	 * instead of collecting it and doing the output later.
 	 */
 	public function main() {
 		global $BE_USER,$BACK_PATH,$TCA_DESCR,$TCA,$CLIENT,$TYPO3_CONF_VARS;
@@ -69,18 +97,22 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 			// JavaScript Libraries
 			$this->doc->loadJavascriptLib('contrib/prototype/prototype.js');
-			$this->doc->loadJavascriptLib($this->extRelPath.'mod1/yui/yahoo-dom-event.js');
-			$this->doc->loadJavascriptLib($this->extRelPath.'mod1/yui/connection-min.js');
-			$this->doc->loadJavascriptLib($this->extRelPath.'mod1/yui/json-min.js');
-			$this->doc->loadJavascriptLib($this->extRelPath.'mod1/tx_phpunit_module1.js');
+			$this->doc->loadJavascriptLib($this->extensionPath.'mod1/yui/yahoo-dom-event.js');
+			$this->doc->loadJavascriptLib($this->extensionPath.'mod1/yui/connection-min.js');
+			$this->doc->loadJavascriptLib($this->extensionPath.'mod1/yui/json-min.js');
+			$this->doc->loadJavascriptLib($this->extensionPath.'mod1/tx_phpunit_module1.js');
 
 			// Mis-using JScode to insert CSS _after_ skin.
-			$this->doc->JScode = '<link rel="stylesheet" type="text/css" href="'.$this->extRelPath.'mod1/yui/reset-fonts-grids.css" />';
-			$this->doc->JScode .= '<link rel="stylesheet" type="text/css" href="'.$this->extRelPath.'mod1/yui/base-min.css" />';
-			$this->doc->JScode .= '<link rel="stylesheet" type="text/css" href="'.$this->extRelPath.'mod1/phpunit-be.css" />';
+			$this->doc->JScode = '<link rel="stylesheet" type="text/css" href="'.$this->extensionPath.'mod1/yui/reset-fonts-grids.css" />';
+			$this->doc->JScode .= '<link rel="stylesheet" type="text/css" href="'.$this->extensionPath.'mod1/yui/base-min.css" />';
+			$this->doc->JScode .= '<link rel="stylesheet" type="text/css" href="'.$this->extensionPath.'mod1/phpunit-be.css" />';
 
-			echo $this->doc->startPage(self::getLL('title'));
+			echo $this->doc->startPage($this->getLL('title'));
 			echo $this->doc->section('', $this->doc->funcMenu(PHPUnit_Runner_Version::getVersionString(), t3lib_BEfunc::getFuncMenu($this->id, 'SET[function]', $this->MOD_SETTINGS['function'], $this->MOD_MENU['function'])));
+
+			// disables output buffering so the result of each test is visible
+			// immediately
+			ob_end_flush();
 
 				// Render content:
 			switch ($this->MOD_SETTINGS['function']) {
@@ -111,9 +143,9 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$this->doc = t3lib_div::makeInstance('mediumDoc');
 			$this->doc->backPath = $BACK_PATH;
 
-			echo $this->doc->startPage(self::getLL('title'));
-			echo $this->doc->header(self::getLL('title'));
-			echo self::getLL('admin_rights_needed');
+			echo $this->doc->startPage($this->getLL('title'));
+			echo $this->doc->header($this->getLL('title'));
+			echo $this->getLL('admin_rights_needed');
 		}
 		echo $this->doc->endPage();
 	}
@@ -131,7 +163,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * @access	protected
 	 */
 	protected function runTests_render() {
-		if (!t3lib_extMgm::isLoaded($this->MOD_SETTINGS['extSel'])) {
+		if (!$this->isExtensionLoaded($this->MOD_SETTINGS['extSel'])) {
 			$this->MOD_SETTINGS['extSel'] = 'phpunit'; // We know that phpunit must be loaded
 		}
 		$command = $this->MOD_SETTINGS['extSel'] ? t3lib_div::_GP('command') : '';
@@ -165,7 +197,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			}
 
 		} else {
-			$output = self::getLL('could_not_find_exts_with_tests');
+			$output = $this->getLL('could_not_find_exts_with_tests');
 		}
 
 		echo $output;
@@ -181,23 +213,23 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	protected function runTests_renderIntro_renderExtensionSelector($extensionsWithTestSuites) {
 
 		$extensionsOptionsArr =array();
-		$extensionsOptionsArr[] = '<option value="">'.self::getLL('select_extension').'</option>';
+		$extensionsOptionsArr[] = '<option value="">'.$this->getLL('select_extension').'</option>';
 
 		$selected = strcmp('uuall', $this->MOD_SETTINGS['extSel']) ? '' : ' selected="selected"';
-		$extensionsOptionsArr[] = '<option class="alltests" value="uuall"'.$selected.'>'.self::getLL('all_extensions').'</option>';
+		$extensionsOptionsArr[] = '<option class="alltests" value="uuall"'.$selected.'>'.$this->getLL('all_extensions').'</option>';
 
-		foreach ($extensionsWithTestSuites as $dirName => $dummy) {
-			$style = 'background-image: url('.t3lib_extMgm::extRelPath($dirName).'ext_icon.gif); background-repeat: no-repeat; background-position: 3px 50%; padding: 1px; padding-left: 24px;';
+		foreach (array_keys($extensionsWithTestSuites) as $dirName) {
+			$style = $this->createIconStyle($dirName);
 			$selected = strcmp($dirName, $this->MOD_SETTINGS['extSel']) ? '' : ' selected="selected"';
-			if ($selected) {
+			if ($selected != '') {
 				$currentExtName = $dirName;
 			}
 			$extensionsOptionsArr[]='<option style="'.$style.'" value="'.htmlspecialchars($dirName).'"'.$selected.'>'.htmlspecialchars($dirName).'</option>';
 		}
 
-		if (t3lib_extMgm::isLoaded($currentExtName)) {
-			$style = 'style="background-image: url('.t3lib_extMgm::extRelPath($currentExtName).'ext_icon.gif); background-repeat: no-repeat; background-position: 3px 50%; padding: 1px; padding-left: 24px;"';
-		} else {
+		try {
+			$style = $this->createIconStyle($currentExtName);
+		} catch (Exception $exception) {
 			$style = '';
 		}
 
@@ -205,8 +237,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$output .= '
 			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="post">
 				<p>
-                	<select '.$style.' name="SET[extSel]" onchange="jumpToUrl(\''.htmlspecialchars($this->MCONF['_']).'&SET[extSel]=\'+this.options[this.selectedIndex].value,this);">'.implode('', $extensionsOptionsArr).'</select>
-					<button type="submit" name="bingo" value="run" accesskey="a">'.self::getLL('run_all_tests').'</button>
+                	<select style="' . $style . '" name="SET[extSel]" onchange="jumpToUrl(\''.htmlspecialchars($this->MCONF['_']).'&SET[extSel]=\'+this.options[this.selectedIndex].value,this);">'.implode('', $extensionsOptionsArr).'</select>
+					<button type="submit" name="bingo" value="run" accesskey="a">'.$this->getLL('run_all_tests').'</button>
 					<input type="hidden" name="command" value="runalltests" />
 				</p>
 			</form>
@@ -260,7 +292,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			}
 		}
 
-		$currentStyle = 'background-image: url('.t3lib_extMgm::extRelPath($extensionKey).'/ext_icon.gif); background-repeat: no-repeat; background-position: 3px 50%; padding: 1px; padding-left: 24px;';
+		$currentStyle = $this->createIconStyle($extensionKey);
 
 		// build options for select (incl. option groups for test suites)
 		$testOptionsHtml = '';
@@ -272,16 +304,16 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$testOptionsHtml .= '</optgroup>';
 		}
 
-		$style = 'background-image: url('.t3lib_extMgm::extRelPath($extensionKey).'ext_icon.gif); background-repeat: no-repeat; background-position: 3px 50%; padding: 1px; padding-left: 24px;';
+		$currentStyle = $this->createIconStyle($extensionKey);
 
 		$output = '
 			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="post">
 				<p>
 					<select style="'.$currentStyle.'" name="testname">
-					<option value="">'.self::getLL('select_tests').'</option>'.
+					<option value="">'.$this->getLL('select_tests').'</option>'.
 					$testOptionsHtml.
 					'</select>
-					<button type="submit" name="bingo" value="run" accesskey="s">'.self::getLL('run_single_test').'</button>
+					<button type="submit" name="bingo" value="run" accesskey="s">'.$this->getLL('run_single_test').'</button>
 					<input type="hidden" name="command" value="runsingletest" />
 				</p>
 			</form>
@@ -327,10 +359,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
 		$extensionKeysToProcess = array();
 		if ($this->MOD_SETTINGS['extSel']=='uuall') {
-			echo '<h3>'.self::getLL('testing_all_extensions').'</h3>';
+			echo '<h3>'.$this->getLL('testing_all_extensions').'</h3>';
 			$extensionKeysToProcess = array_keys($extensionsWithTestSuites);
 		} else {
-			echo '<h3>'.self::getLL('testing_extension').': '.htmlspecialchars($this->MOD_SETTINGS['extSel']).'</h3>';
+			echo '<h3>'.$this->getLL('testing_extension').': '.htmlspecialchars($this->MOD_SETTINGS['extSel']).'</h3>';
 			$extInfo = $extensionsWithTestSuites[$this->MOD_SETTINGS['extSel']];
 			$extensionsWithTestSuites = array();
 			$extensionsWithTestSuites[$this->MOD_SETTINGS['extSel']] = $extInfo;
@@ -397,24 +429,24 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		if ($result->wasSuccessful()) {
 	    	$testStatistics = '
 				<script type="text/javascript">setClass("progress-bar","wasSuccessful");</script>
-				<h2 class="wasSuccessful">'.self::getLL('testing_success').'</h2>';
+				<h2 class="wasSuccessful">'.$this->getLL('testing_success').'</h2>';
 		} else {
 	    	$testStatistics = '
 				<script type="text/javascript">setClass("progress-bar","hadFailure");</script>
-				<h2 class="hadFailure">'.self::getLL('testing_failure').'</h2>';
+				<h2 class="hadFailure">'.$this->getLL('testing_failure').'</h2>';
 		}
-		$testStatistics .= '<p>' . $result->count() . ' ' .	self::getLL('tests_total') . ', ' .
-			$result->failureCount() . ' ' . self::getLL('tests_failures') .	', ' .
-			$result->errorCount() . ' ' . self::getLL('tests_errors') . ', ' .
-			'<span title="'.$timeSpent . '&nbsp;' . self::getLL('tests_seconds').'">'.round($timeSpent, 3) . '&nbsp;' . self::getLL('tests_seconds').', </span>' .
-			t3lib_div::formatSize($leakedMemory) . 'B (' . $leakedMemory .' B) ' . self::getLL('tests_leaks') .
+		$testStatistics .= '<p>' . $result->count() . ' ' .	$this->getLL('tests_total') . ', ' .
+			$result->failureCount() . ' ' . $this->getLL('tests_failures') .	', ' .
+			$result->errorCount() . ' ' . $this->getLL('tests_errors') . ', ' .
+			'<span title="'.$timeSpent . '&nbsp;' . $this->getLL('tests_seconds').'">'.round($timeSpent, 3) . '&nbsp;' . $this->getLL('tests_seconds').', </span>' .
+			t3lib_div::formatSize($leakedMemory) . 'B (' . $leakedMemory .' B) ' . $this->getLL('tests_leaks') .
 			'</p>';
 		echo $testStatistics;
 
 		echo '
 			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="post" >
 				<p>
-					<button type="submit" name="bingo" value="run" accesskey="r">'.self::getLL('run_again').'</button>
+					<button type="submit" name="bingo" value="run" accesskey="r">'.$this->getLL('run_again').'</button>
 					<input name="command" type="hidden" value="'.t3lib_div::_GP('command').'" />
 					<input name="testname" type="hidden" value="'.t3lib_div::_GP('testname').'" />
 				</p>
@@ -425,7 +457,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		if (!t3lib_div::_GP('testname') && $result->getCollectCodeCoverageInformation()) {
 			$jsonCodeCoverage = json_encode($result->getCodeCoverageInformation());
 		    PHPUnit_Util_Report::render($result, t3lib_extMgm::extPath('phpunit').'codecoverage/');
-		    echo '<p><a target="_blank" href="'.$this->extRelPath.'codecoverage/typo3conf_ext.html">Click here to access the Code Coverage report</a></p>';
+		    echo '<p><a target="_blank" href="'.$this->extensionPath.'codecoverage/typo3conf_ext.html">Click here to access the Code Coverage report</a></p>';
 		    echo '<p>Memory peak usage: '.t3lib_div::formatSize(memory_get_peak_usage()).'B<p/>';
 
 		    /* TODO: Add metrics UI presentation
@@ -472,38 +504,48 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	}
 
 	/**
-	 * Roughly simulates the frontend although being in the backend.
+	 * Roughly simulates the front end although being in the back end.
 	 *
-	 * @return	void
-	 * @todo	This is a quick hack, needs proper implementation
+	 * @todo	This is a quick hack, needs proper implementation.
 	 */
 	protected function simulateFrontendEnviroment() {
+		require_once(PATH_t3lib . 'class.t3lib_timetrack.php');
+		require_once(PATH_tslib . 'class.tslib_fe.php');
+		require_once(PATH_t3lib . 'class.t3lib_page.php');
+		require_once(PATH_t3lib . 'class.t3lib_userauth.php');
+		require_once(PATH_tslib . 'class.tslib_feuserauth.php');
+		require_once(PATH_t3lib . 'class.t3lib_tstemplate.php');
+		require_once(PATH_t3lib . 'class.t3lib_cs.php');
 
-		global $TSFE, $TYPO3_CONF_VARS;
-
-			// FIXME: Currently bad workaround which only initializes a few things, not really what you'd call a frontend enviroment
-
-		require_once(PATH_tslib.'class.tslib_fe.php');
-		require_once(PATH_t3lib.'class.t3lib_page.php');
-		require_once(PATH_t3lib.'class.t3lib_userauth.php');
-		require_once(PATH_tslib.'class.tslib_feuserauth.php');
-		require_once(PATH_t3lib.'class.t3lib_tstemplate.php');
-		require_once(PATH_t3lib.'class.t3lib_cs.php');
-
-		$temp_TSFEclassName = t3lib_div::makeInstanceClassName('tslib_fe');
-		$TSFE = new $temp_TSFEclassName(
-				$TYPO3_CONF_VARS,
-				t3lib_div::_GP('id'),
-				t3lib_div::_GP('type'),
-				t3lib_div::_GP('no_cache'),
-				t3lib_div::_GP('cHash'),
-				t3lib_div::_GP('jumpurl'),
-				t3lib_div::_GP('MP'),
-				t3lib_div::_GP('RDCT')
+		if (isset($GLOBALS['TSFE']) && is_object($GLOBALS['TSFE'])) {
+			// avoids some memory leaks
+			unset(
+				$GLOBALS['TSFE']->tmpl, $GLOBALS['TSFE']->sys_page,
+				$GLOBALS['TSFE']->fe_user, $GLOBALS['TSFE']->TYPO3_CONF_VARS,
+				$GLOBALS['TSFE']->config, $GLOBALS['TSFE']->TCAcachedExtras,
+				$GLOBALS['TSFE']->imagesOnPage, $GLOBALS['TSFE']->cObj,
+				$GLOBALS['TSFE']->csConvObj, $GLOBALS['TSFE']->pagesection_lockObj,
+				$GLOBALS['TSFE']->pages_lockObj
 			);
-		$TSFE->connectToDB();
-		$TSFE->config = array();		// Must be filled with actual config!
+			$GLOBALS['TSFE'] = null;
+			$GLOBALS['TT'] = null;
+		}
 
+		$GLOBALS['TT'] = t3lib_div::makeInstance('t3lib_timeTrack');
+
+		$className = t3lib_div::makeInstanceClassName('tslib_fe');
+		$frontEnd = new $className(
+			$GLOBALS['TYPO3_CONF_VARS'], $pageUid, 0
+		);
+
+		// simulates a normal FE without any logged-in FE or BE user
+		$frontEnd->beUserLogin = false;
+		$frontEnd->workspacePreview = '';
+		// $frontEnd->getConfigArray() doesn't work here because the dummy FE
+		// is not required to have a template.
+		$frontEnd->config = array();
+
+		$GLOBALS['TSFE'] = $frontEnd;
 	}
 
 	/**
@@ -513,11 +555,11 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * @access	protected
 	 */
 	protected function about_render() {
-		if ($codeCoverageDir['exists'] = file_exists($this->extRelPath.'codecoverage')) {
-			$codeCoverageDir['writeable'] = is_writeable($this->extRelPath.'codecoverage');
-			$codeCoverageDir['readable'] = is_readable($this->extRelPath.'codecoverage');
+		if ($codeCoverageDir['exists'] = file_exists($this->extensionPath.'codecoverage')) {
+			$codeCoverageDir['writeable'] = is_writeable($this->extensionPath.'codecoverage');
+			$codeCoverageDir['readable'] = is_readable($this->extensionPath.'codecoverage');
 		}
-		echo '<img src="'.$this->extRelPath.'mod1/phpunit.gif" width="94" height="80" alt="PHPUnit" title="PHPUnit" style="float:right; margin-left:10px;" />';
+		echo '<img src="'.$this->extensionPath.'mod1/phpunit.gif" width="94" height="80" alt="PHPUnit" title="PHPUnit" style="float:right; margin-left:10px;" />';
 		$excludeExtensions = t3lib_div::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['excludeextensions']);
 		echo self::eAccelerator0951OptimizerHelp();
 		if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['usepear'] && !t3lib_extMgm::isLoaded('pear')) {
@@ -565,13 +607,13 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	}
 
 	private function news_render() {
-		echo '<img src="'.$this->extRelPath.'mod1/phpunit.gif" width="94" height="80" alt="PHPUnit" title="PHPUnit" style="float:right; margin-left:10px;" />';
+		echo '<img src="'.$this->extensionPath.'mod1/phpunit.gif" width="94" height="80" alt="PHPUnit" title="PHPUnit" style="float:right; margin-left:10px;" />';
 		echo '<h1>News & Changes from one version to another</h1>';
 		echo '<p>Below you see the NEWS file for this extension. It lists notable changes from one version to the next.</p>';
 		echo '<p>If you experience problems after an upgrade, then check this list for changes that has happended since your previously installed version.</p>';
 		echo '<h2>NEWS file</h2>';
 		echo '<div class="tx_phpunit-newsfile">';
-		$newsfile = file_get_contents(t3lib_extMgm::extPath(self::EXTKEY).'NEWS');
+		$newsfile = file_get_contents(t3lib_extMgm::extPath(self::EXTENSION_KEY).'NEWS');
 		echo nl2br($newsfile);
 		echo '</div>';
 	}
@@ -597,7 +639,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$onClick = "phpunitbeWin=window.open('".$url."','phpunitbe','width=790,status=0,menubar=1,resizable=1,location=0,scrollbars=1,toolbar=0');phpunitbeWin.focus();return false;";
 		$content = '
 			<a id="opennewwindow" href="" onclick="'.htmlspecialchars($onClick).'" accesskey="n">
-				<img'.t3lib_iconWorks::skinImg($BACK_PATH, 'gfx/open_in_new_window.gif', 'width="19" height="14"').' title="'.$this->sL('LLL:EXT:lang/locallang_core.xml:labels.openInNewWindow', 1).'" class="absmiddle" alt="" />
+				<img'.t3lib_iconWorks::skinImg($BACK_PATH, 'gfx/open_in_new_window.gif', 'width="19" height="14"').' title="'.$GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.openInNewWindow', 1).'" class="absmiddle" alt="" />
 				Ope<span class="access-key">n</span> in separate window.
 			</a>
 			<script type="text/javascript">if (window.name == "phpunitbe") { document.getElementById("opennewwindow").style.display = "none"; }</script>
@@ -621,13 +663,25 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 		$extensionsOwnTestCases = array();
 		foreach ($extList as $extKey) {
-			$testCasesArr = $this->findTestCasesInDir(t3lib_extMgm::extPath($extKey).'/tests/');
+			$testCasesArr = $this->findTestCasesInDir(
+				t3lib_extMgm::extPath($extKey) . 'tests/'
+			);
 			if (!empty($testCasesArr)) {
 				$extensionsOwnTestCases[$extKey] = $testCasesArr;
 			}
 		}
 
-		$totalTestsArr = array_merge_recursive($outOfLineTestCases, $extensionsOwnTestCases);
+		$coreTestCases = array();
+		$coreTestsDirectory = PATH_site . 'typo3_src/tests/';
+		if (@is_dir($coreTestsDirectory)) {
+			$coreTestCases['typo3'] = $this->findTestCasesInDir(
+				$coreTestsDirectory
+			);
+		}
+
+		$totalTestsArr = array_merge_recursive(
+			$outOfLineTestCases, $extensionsOwnTestCases, $coreTestCases
+		);
 
 		// Exclude extensions according to extension manager config
 		$returnTestsArr = array_diff_key($totalTestsArr, array_flip($excludeExtensions));
@@ -641,36 +695,56 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * @return	array		Array of paths / filenames
 	 */
 	private function traversePathForTestCases($path) {
+		if (!is_dir($path)) {
+			return array();
+		}
+
 		$extensionsArr = array();
-		if (@is_dir($path)) {
-			$dirs = t3lib_div::get_dirs($path);
-			if (is_array($dirs)) {
-				sort($dirs);
-				foreach ($dirs as $dirName) {
-					if (t3lib_extMgm::isLoaded($dirName)) {
-						$testsPath = $path.$dirName.'/tests/';
-						$extensionsArr[$dirName] = $this->findTestCasesInDir($testsPath);
-					}
+		$dirs = t3lib_div::get_dirs($path);
+		if (is_array($dirs)) {
+			sort($dirs);
+			foreach ($dirs as $dirName) {
+				if ($this->isExtensionLoaded($dirName)) {
+					$testsPath = $path . $dirName . 'tests/';
+					$extensionsArr[$dirName] = $this->findTestCasesInDir($testsPath);
 				}
 			}
 		}
+
 		return $extensionsArr;
 	}
 
+	/**
+	 * Recursively finds all test case files in the directory $dir.
+	 *
+	 * @param string the absolute path of the directory in which to look for
+	 *               test cases
+	 * @return array files names of the test cases in the directory $dir and all
+	 *               its subdirectories relative to $dir, will be empty if no
+	 *               test cases have been found
+	 */
 	private function findTestCasesInDir($dir) {
-		$extensionsArr = array();
-		if (is_dir($dir)) {
-			$testCaseFileNames = array ();
-			$fileNamesArr = t3lib_div::getFilesInDir($dir, $extensionList = 'php');
-			if (is_array($fileNamesArr)) {
-				foreach ($fileNamesArr as $fileName) {
-					if (substr($fileName, -12, 12) === 'testcase.php') {
-						$testCaseFileNames[] = $fileName;
-					}
-				}
-			$extensionsArr = array($dir => $testCaseFileNames);
+		if (!is_dir($dir)) {
+			return array();
+		}
+
+		$pathLength = strlen($dir);
+		$fileNames = t3lib_div::getAllFilesAndFoldersInPath(
+			array(), $dir, 'php'
+		);
+
+		$testCaseFileNames = array ();
+		foreach ($fileNames as $fileName) {
+			if (substr($fileName, -12) == 'testcase.php') {
+				$testCaseFileNames[] = substr($fileName, $pathLength);;
 			}
 		}
+
+		$extensionsArr = array();
+		if (!empty($testCaseFileNames)) {
+			$extensionsArr[$dir] = $testCaseFileNames;
+		}
+
 		return $extensionsArr;
 	}
 
@@ -697,5 +771,57 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			}
 		}
 	}
+
+	/**
+	 * Checks whether a extension is valid and the extension is loaded.
+	 *
+	 * "typo3" is considered as a valid extension key for this purpose, too.
+	 *
+	 * @param string the key of the extension to test, may be empty
+	 *
+	 * @return boolean true if an extension with the key $extensionKey is
+	 *                 loaded, false otherwise
+	 */
+	private function isExtensionLoaded($extensionKey) {
+		if ($extensionKey == '') {
+			return false;
+		}
+
+		return ($extensionKey == 'typo3')
+			|| t3lib_extMgm::isLoaded($extensionKey);
+	}
+
+	/**
+	 * Creates the CSS style attribute content for an icon for the extension
+	 * $extensionKey.
+	 *
+	 * @param string the key of a loaded extension, may also be "typo3"
+	 *
+	 * @return string the content for the "style" attribute, will not be empty
+	 */
+	private function createIconStyle($extensionKey) {
+		if (!$this->isExtensionLoaded($extensionKey)) {
+			throw new Exception(
+				'The extension ' . $extensionKey . ' is not loaded.'
+			);
+		}
+
+		$result = 'background: no-repeat ';
+
+		if ($extensionKey == 'typo3') {
+			$result .= 'url(gfx/typo3logo_mini.png) -41px 50%;';
+		} else {
+			$result .= 'url(' . t3lib_extMgm::extRelPath($extensionKey) .
+				'ext_icon.gif) 3px 50%;';
+		}
+
+		$result .= ' padding: 1px 1px 1px 24px;';
+
+		return $result;
+	}
+}
+
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/phpunit/mod1/class.tx_phpunit_module1.php']) {
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/phpunit/mod1/class.tx_phpunit_module1.php']);
 }
 ?>
