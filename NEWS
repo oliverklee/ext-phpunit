@@ -4,12 +4,15 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
-25. February 2009: 3.3.8
+25. February 2009: 3.3.8. A big thank you to Oliver Klee, who did all the heavy lifting for this release.
+    + Feature #2503 (Resolved): Allow running unit tests for the TYPO3 core, http://forge.typo3.org/issues/show/2503
     + Added PHPUnit 3.3.15, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.1524-Feb-2009
     - Removed PHPUnit 3.3.5.
     ~ Task #2640 (Resolved): Static variables should not be backuped, http://forge.typo3.org/issues/show/2640
-    * Two fixes for upcoming Typo3 4.3: 
-
+    * Two fixes for upcoming Typo3 4.3:
+        * Bug #2512 (Resolved): Fatal error: Call to a member function push() on a non-object in class.tsli..., http://forge.typo3.org/issues/show/2512
+        * BE output is buffered with current TYPO3 4.2 branch, http://forge.typo3.org/issues/show/2348
+    * Task #2499 (Resolved): Clean up the code, http://forge.typo3.org/issues/show/2499
 
 21. November 2008: 3.3.7
 	+ Added PHPUnit 3.3.5, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.523-Nov-2008

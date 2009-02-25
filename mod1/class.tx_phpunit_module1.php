@@ -597,9 +597,9 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		<p>Previously, <a target="_blank" href="http://typo3xdev.svn.sourceforge.net/viewvc/typo3xdev/tx_phpunit/">the code was hosted at sourceforge</a>.</p>
 		<h2>Licence and copyright</h2>
 		<p>PHPUnit is released under the terms of the PHP License as free software.</p>
-		<p>PHPUnit Copyright &copy; 2001&#8211;2008 Sebastian Bergmann</p>
+		<p>PHPUnit Copyright &copy; 2001&#8211;2009 Sebastian Bergmann</p>
 		<p>PHPUnit BE is released under the GPL Licence and is part of the TYPO3 Framework.</p>
-		<p>PHPUnit BE Copyright &copy; 2005&#8211;2008 <a href="mailto:kasperligaard@gmail.com">Kasper Ligaard</a></p>
+		<p>PHPUnit BE Copyright &copy; 2005&#8211;2009 <a href="mailto:kasperligaard@gmail.com">Kasper Ligaard</a></p>
 		<h2>Contributors</h2>
 		<p>The following people have contributed by testing, bugfixing, suggesting new features etc.</p>
 		<p>Robert Lemke, Mario Rimann, Oliver Klee, Søren Soltveit and Mikkel Ricky.</p>
