@@ -742,6 +742,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 		$extensionsArr = array();
 		if (!empty($testCaseFileNames)) {
+			sort($testCaseFileNames);
 			$extensionsArr[$dir] = $testCaseFileNames;
 		}
 
@@ -806,7 +807,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			);
 		}
 
-		$result = 'background: no-repeat ';
+		$result = 'background: white no-repeat ';
 
 		if ($extensionKey == 'typo3') {
 			$result .= 'url(gfx/typo3logo_mini.png) -41px 50%;';

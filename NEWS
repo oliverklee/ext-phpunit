@@ -4,6 +4,10 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
+XX. March 2009: 3.3.9.
+    ~ Sorting unittests by their classnames for a better overview, http://bugs.typo3.org/view.php?id=10584
+    * Background color of selectors is grey but was white, http://forge.typo3.org/issues/show/2718
+
 25. February 2009: 3.3.8. A big thank you to Oliver Klee, who did all the heavy lifting for this release.
     + Feature #2503 (Resolved): Allow running unit tests for the TYPO3 core, http://forge.typo3.org/issues/show/2503
     + Added PHPUnit 3.3.15, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.1524-Feb-2009
