@@ -269,10 +269,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			}
 		}
 
-		// Add all classes to the test suite which end with "testcase", except the two special classes used as super-classes.
+		// Add all classes to the test suite which end with "testcase" (case-insensitive), except the two special classes used as super-classes.
 		foreach (get_declared_classes() as $class) {
 			$classReflection = new ReflectionClass($class);
-			if (substr($class, -8, 8) == 'testcase' &&
+			if (strtolower(substr($class, -8, 8)) == 'testcase' &&
 				$classReflection->isSubclassOf('PHPUnit_Framework_TestCase') &&
 				$class !== 'tx_phpunit_testcase'	&&
 				$class !== 'tx_t3unit_testcase' &&
