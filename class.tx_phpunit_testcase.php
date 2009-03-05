@@ -73,6 +73,9 @@ class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
 				t3lib_div::_GP('RDCT')
 			);
 		$TSFE->connectToDB();
+		$TSFE->initTemplate();
+		$TSFE->sys_page = t3lib_div::makeInstance('t3lib_pageSelect');
+		$TSFE->sys_page->init(true);
 		$TSFE->config = array();		// Must be filled with actual config!
 	}
 }

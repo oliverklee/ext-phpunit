@@ -4,6 +4,9 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
+06. March 2009: 3.3.11.
+    ~ Initialize content object (tslib_cObj) on demand, http://forge.typo3.org/issues/show/2767
+
 05. March 2009: 3.3.10.
     ~ Test cases can not end in "TestCase", but always must end in "testcase", http://forge.typo3.org/issues/show/2753    
 
