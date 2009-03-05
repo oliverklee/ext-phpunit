@@ -4,8 +4,10 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
+05. March 2009: 3.3.10.
+    ~ Test cases can not end in "TestCase", but always must end in "testcase", http://forge.typo3.org/issues/show/2753    
+
 03. March 2009: 3.3.9.
-    ~ Test cases can not end in "TestCase", but always must end in "testcase", http://forge.typo3.org/issues/show/2753
     ~ Sorting unittests by their classnames for a better overview, http://bugs.typo3.org/view.php?id=10584
     * Background color of selectors is grey but was white, http://forge.typo3.org/issues/show/2718
 

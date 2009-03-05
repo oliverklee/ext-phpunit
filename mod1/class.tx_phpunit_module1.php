@@ -378,7 +378,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 			// Add all classes to the test suite which end with "testcase"
 		foreach (get_declared_classes() as $class) {
-			if (substr($class, -8, 8) == 'testcase' && $class != 'tx_phpunit_testcase' && $class != 'tx_phpunit_database_testcase' && $class != 'tx_t3unit_testcase') {
+			if (strtolower(substr($class, -8, 8)) == 'testcase' && $class != 'tx_phpunit_testcase' && $class != 'tx_phpunit_database_testcase' && $class != 'tx_t3unit_testcase') {
 				$testSuite->addTestSuite($class);
 			}
 		}
