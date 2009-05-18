@@ -11,7 +11,6 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	 */
 	protected $testDatabase;
 
-
 	public function __construct($name = null) {
 		parent::__construct($name);
 
@@ -55,7 +54,6 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 		}
 	}
 
-
 	/**
 	 * Drops test database
 	 *
@@ -72,7 +70,6 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 		}
 	}
 
-
 	/**
 	 * Changes current database to test database
 	 *
@@ -82,17 +79,12 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	protected function useTestDatabase($databaseName = null) {
 		$db = $GLOBALS['TYPO3_DB'];
 
-		if ($databaseName) {
-			$database = $databaseName;
-		} else {
-			$database = $this->testDatabase;
+		if ( $db->sql_select_db($databaseName ? $databaseName : $this->testDatabase) !== true ) {
+			$this->markTestSkipped('This test is skipped because the test database is not available!');
 		}
-
-		$db->sql_select_db($database);
 
 		return $db;
 	}
-
 
 	/**
 	 * Import ext_tables.sql statements
