@@ -107,20 +107,21 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
     }
 
     /**
-    * Incomplete test.
-    *
-    * @param  PHPUnit_Framework_Test $test
-    * @param  Exception               $e
-    * @access public
-    */
+     * Incomplete test.
+     *
+     * @param  PHPUnit_Framework_Test $test
+     * @param  Exception               $e
+     * @access public
+     */
     public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
     	echo '
+    		<script type="text/javascript">setClass("progress-bar","hadNotImplemented");</script>
+    		<script type="text/javascript">setClass("testcaseNum-'.$this->currentTestNumber.'","testcaseNotImplemented");</script>
 			<span class="inCompleteTest">!</span> <strong>Incomplete test</strong> <em>'.$test->getName().'</em> in file <em>'.$e->getFile().'</em> line <em>'.$e->getLine().'</em>:<br />
 			'.$e->getMessage().'<br />
 		';
 		flush();
     }
-
 
     /**
      * Skipped test.
@@ -132,7 +133,13 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
      * @since  Method available since Release 3.0.0
      */
     public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
-    	// TODO: Implement addSkippedTest
+    	echo '
+    		<script type="text/javascript">setClass("progress-bar","hadSkipped");</script>
+    		<script type="text/javascript">setClass("testcaseNum-'.$this->currentTestNumber.'","testcaseSkipped");</script>
+			<span class="inSkippedTest">!</span> <strong>Skipped test</strong> <em>'.$test->getName().'</em> in file <em>'.$e->getFile().'</em> line <em>'.$e->getLine().'</em>:<br />
+			'.$e->getMessage().'<br />
+		';
+		flush();
     }
 
     /**

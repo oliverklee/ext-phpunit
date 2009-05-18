@@ -45,12 +45,12 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	/**
 	 * Returns the localized string for the key $key.
 	 *
-	 * @param string the key of the string to retrieve, must not be empty
-	 *
+	 * @param string $key The key of the string to retrieve, must not be empty
+	 * @param string $default OPTIONAL default language value
 	 * @return string the localized string for the key $key
 	 */
-	private function getLL($key) {
-		return $GLOBALS['LANG']->getLL($key);
+	private function getLL($key, $default = '') {
+		return $GLOBALS['LANG']->getLL($key, $default);
 	}
 
 	/**
@@ -324,10 +324,14 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$output .= '<form action="'.htmlspecialchars($this->MCONF['_']).'" method="post">';
 		$failureState = $this->MOD_SETTINGS['failure'] === 'on' ? 'checked="checked"' : '';
 		$errorState = $this->MOD_SETTINGS['error'] === 'on' ? 'checked="checked"' : '';
+		$skippedState = $this->MOD_SETTINGS['skipped'] === 'on' ? 'checked="checked"' : '';
 		$successState = $this->MOD_SETTINGS['success'] === 'on' ? 'checked="checked"' : '';
+		$notImplementedState = $this->MOD_SETTINGS['notimplemented'] === 'on' ? 'checked="checked"' : '';
 		$output .= '<label for="SET[success]"><input type="checkbox" id="SET[success]" name="SET[success]" '.$successState.'>Success</label>';
 		$output .= '<label for="SET[failure]"><input type="checkbox" id="SET[failure]" name="SET[failure]" '.$failureState.'>Failure</label>';
+		$output .= '<label for="SET[skipped]"><input type="checkbox" id="SET[skipped]"name="SET[skipped]" '.$skippedState.'>Skipped</label>';
 		$output .= '<label for="SET[error]"><input type="checkbox" id="SET[error]"name="SET[error]" '.$errorState.'>Error</label>';
+		$output .= '<label for="SET[notimplemented]"><input type="checkbox" id="SET[notimplemented]"name="SET[notimplemented]" '.$notImplementedState.'>Not implemented</label>';
 
         $codecoverageDisable = '';
         $codecoverageForLabelWhenDisabled = '';
@@ -437,6 +441,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		}
 		$testStatistics .= '<p>' . $result->count() . ' ' .	$this->getLL('tests_total') . ', ' .
 			$result->failureCount() . ' ' . $this->getLL('tests_failures') .	', ' .
+			$result->skippedCount() . ' ' . $this->getLL('tests_skipped') .	', ' .
+			$result->notImplementedCount() . ' ' . $this->getLL('tests_notimplemented') .	', ' .
 			$result->errorCount() . ' ' . $this->getLL('tests_errors') . ', ' .
 			'<span title="'.$timeSpent . '&nbsp;' . $this->getLL('tests_seconds').'">'.round($timeSpent, 3) . '&nbsp;' . $this->getLL('tests_seconds').', </span>' .
 			t3lib_div::formatSize($leakedMemory) . 'B (' . $leakedMemory .' B) ' . $this->getLL('tests_leaks') .

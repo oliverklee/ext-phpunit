@@ -44,7 +44,7 @@ class tx_phpunit_test_testcase extends tx_phpunit_testcase {
 		// Assert that the size of the Array fixture is 0.
 		$this->assertEquals(0, sizeof($fixture));
 	}
-	
+
 	public function testNewArrayIsEmpty2() {
 		// Create the Array fixture.
 		$fixture = array();
@@ -52,7 +52,7 @@ class tx_phpunit_test_testcase extends tx_phpunit_testcase {
 		// Assert that the size of the Array fixture is 0.
 		$this->assertEquals(1, sizeof($fixture), "This test is deliberately made to fail :-).");
 	}
-	
+
 	public function testNewArrayIsEmpty3() {
 		// Create the Array fixture.
 		$fixture = array();
@@ -60,7 +60,7 @@ class tx_phpunit_test_testcase extends tx_phpunit_testcase {
 		// Assert that the size of the Array fixture is 0.
 		$this->assertEquals(0, sizeof($fixture));
 	}
-	
+
 	public function testNewArrayIsEmpty4() {
 		// Create the Array fixture.
 		$fixture = array();
@@ -74,6 +74,14 @@ class tx_phpunit_test_testcase extends tx_phpunit_testcase {
 
 		// Assert that the size of the Array fixture is 0.
 		$this->assertEquals(0, sizeof($fixture));
+	}
+
+	public function testThatThisCaseIsMarkedAsSkipped() {
+		$this->markTestSkipped('This test is skipped while testing.');
+	}
+
+	public function testThatThisCaseIsMarkedAsNotImplemented() {
+		$this->markTestIncomplete('This test as incomplete while not implemented for testing.');
 	}
 
 }

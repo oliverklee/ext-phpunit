@@ -1,0 +1,3 @@
+12.05.2009 Michael Klapper <michael.klapper@aoemedia.de>
+	* Add support for "skipped" and "not implemented" to "tx_phpunit_testlistener" and extend the user interface.
+	

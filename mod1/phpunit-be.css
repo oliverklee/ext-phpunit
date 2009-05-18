@@ -86,6 +86,16 @@ body#typo3-mod-php {
 	background-color: yellow;
 }
 
+/*
+.hadSkipped {
+	background-color: darkgrey;
+}
+
+.hadNotImplemented {
+	background-color: lightgrey;
+}
+*/
+
 .hadError {
 	background-color: red;
 }
@@ -123,6 +133,16 @@ body#typo3-mod-php {
 .testcaseError {
 	border-left : 2px solid red;
 	background-color: ffc3c3;
+}
+
+.testcaseNotImplemented {
+	border-left : 2px solid #CCC;
+	background-color: #EEE;
+}
+
+.testcaseSkipped {
+	border-left : 2px solid #CCC;
+	background-color: #EEE;
 }
 
 .tx_phpunit_testcase_progressbox {

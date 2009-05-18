@@ -21,6 +21,8 @@
 			<label index="testing_all_extensions">Testing all extensions</label>
 			<label index="testing_extension">Testing extension</label>
 			<label index="tests_errors">errors</label>
+			<label index="tests_skipped">skipped</label>
+			<label index="tests_notimplemented">not implemented</label>
 			<label index="tests_failures">failures</label>
 			<label index="tests_total">tests</label>
 			<label index="tests_seconds">seconds</label>
