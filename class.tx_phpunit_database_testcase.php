@@ -144,9 +144,40 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 		$sqlFilename = t3lib_div::getFileAbsFileName(t3lib_extMgm::extPath($extensionName).'ext_tables.sql');
 		$fileContent = t3lib_div::getUrl($sqlFilename);
 
+		$this->importDBDefinitions($fileContent);
+	}
+
+	/**
+	 * Import stddb tables.sql file
+	 *
+	 * Example/intended usage:
+	 * public function setUp() {
+	 *     $this->createDatabase();
+	 *     $db = $this->useTestDatabase();
+	 *     $this->importStdDB();
+	 *     $this->importExtensions(array('cms','static_info_tables','templavoila'));
+	 * }
+	 *
+	 * @return void
+	 */
+	protected function importStdDB() {
+		// read sql file content
+		$sqlFilename = t3lib_div::getFileAbsFileName(PATH_t3lib.'stddb/tables.sql');
+		$fileContent = t3lib_div::getUrl($sqlFilename);
+
+		$this->importDBDefinitions($fileContent);
+	}
+
+	/**
+	* import sql definitions from (ext_)tables.sql
+	*
+	* @param string $definitionContent
+	* @return void
+	*/
+	private function importDBdefinitions($definitionContent) {
 		// find definitions
 		$install = new t3lib_install;
-		$FDfile = $install->getFieldDefinitions_sqlContent($fileContent);
+		$FDfile = $install->getFieldDefinitions_sqlContent($definitionContent);
 
 		if (count($FDfile)) {
 			// find statements to query
