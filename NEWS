@@ -4,13 +4,23 @@ Legend:
  ~ Means 'Changed ...'
  * Means 'Corrected ...'
 
-XX. May 2009: 3.3.12.
+23. May 2009: 3.3.12.
     + Added PHPUnit 3.3.16, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.1610-Apr-2009
     - Removed PHPUnit 3.3.15.
-    + Issue #2762: Make it possible to run all tests of a testcase, http://forge.typo3.org/issues/show/2762
-    + Issue #3367: Display test case name as human readable text, http://forge.typo3.org/issues/show/3367
-    + Issue #3431: Add total count of assertions to the user interface, http://forge.typo3.org/issues/show/3431
-    + Issue #3408: Import StdDB-feature for database tests, http://forge.typo3.org/issues/show/3408
+    + Issue #2762: Make it possible to run all tests of a testcase, http://forge.typo3.org/issues/show/2762. Thanks to Michael Klapper.
+    + Issue #3367: Display test case name as human readable text, http://forge.typo3.org/issues/show/3367. Thanks to Michael Klapper.
+    + Issue #3431: Add total count of assertions to the user interface, http://forge.typo3.org/issues/show/3431. Thanks to Michael Klapper.
+    + Issue #3408: Import StdDB-feature for database tests, http://forge.typo3.org/issues/show/3408. Thanks goes to Tolleiv Nietsch.
+    ~ Updated the included YUI! files to version 2.7.0. The changes from 2.6 to 2.7 can be found here:
+        http://developer.yahoo.com/yui/releasenotes/README.base,
+        http://developer.yahoo.com/yui/releasenotes/README.connection,
+        http://developer.yahoo.com/yui/releasenotes/README.json,
+        http://developer.yahoo.com/yui/releasenotes/README.reset,
+        http://developer.yahoo.com/yui/releasenotes/README.fonts,
+        http://developer.yahoo.com/yui/releasenotes/README.grids,
+        http://developer.yahoo.com/yui/releasenotes/README.yahoo,
+        http://developer.yahoo.com/yui/releasenotes/README.dom,
+        http://developer.yahoo.com/yui/releasenotes/README.event.
 
 06. March 2009: 3.3.11.
     ~ Initialize content object (tslib_cObj) on demand, http://forge.typo3.org/issues/show/2767
