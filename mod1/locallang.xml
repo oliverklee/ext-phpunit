@@ -26,6 +26,7 @@
 			<label index="tests_notimplemented">not implemented</label>
 			<label index="tests_failures">failures</label>
 			<label index="tests_total">tests</label>
+			<label index="assertions_total">assertions</label>
 			<label index="tests_seconds">seconds</label>
 			<label index="tests_leaks">memory leaks</label>
 			<label index="title">PHPUnit BE</label>

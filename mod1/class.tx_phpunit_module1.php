@@ -483,6 +483,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				<h2 class="hadFailure">'.$this->getLL('testing_failure').'</h2>';
 		}
 		$testStatistics .= '<p>' . $result->count() . ' ' .	$this->getLL('tests_total') . ', ' .
+			$testListener->assertionCount() . ' ' . $this->getLL('assertions_total') . ', ' .
 			$result->failureCount() . ' ' . $this->getLL('tests_failures') .	', ' .
 			$result->skippedCount() . ' ' . $this->getLL('tests_skipped') .	', ' .
 			$result->notImplementedCount() . ' ' . $this->getLL('tests_notimplemented') .	', ' .

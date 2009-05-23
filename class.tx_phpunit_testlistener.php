@@ -36,6 +36,11 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
  	private $memoryUsageEndOfTest = 0;
  	public $totalLeakedMemory = 0;
 
+	/**
+	 * @var    integer
+	 */
+	protected $testAssertions = 0;
+
  	/**
 	 * Indicate that the "testdox" format is used to display test case names
 	 *
@@ -220,25 +225,30 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
   		$this->memoryUsageStartOfTest = memory_get_usage();
     }
 
-    /**
-     * A test ended.
-     *
-     * @param  PHPUnit_Framework_Test $test
-     * @access public
-     */
-    public function endTest(PHPUnit_Framework_Test $test, $time) {
-  		$this->memoryUsageEndOfTest = memory_get_usage();
-    	$this->currentTestNumber++;
-    	$percentDone = intval(($this->currentTestNumber / $this->totalNumberOfTestCases) * 100);
-    	$leakedMemory = $this->memoryUsageEndOfTest-$this->memoryUsageStartOfTest;
-    	$this->totalLeakedMemory += $leakedMemory;
-    	// echo '<div class="memory-usage">'.t3lib_div::formatSize($leakedMemory).'B</div>';
-    	// echo '<div class="time-usage">'.$time.'</div>';
-    	echo '</div>';
-    	echo '<script type="text/javascript">document.getElementById("progress-bar").style.width = "'.$percentDone.'%";</script>';
-    	echo '<script type="text/javascript">document.getElementById("transparent-bar").style.width = "'.(100-$percentDone).'%";</script>';
-     	flush(); // TODO: Should fflush() from PHPUnit be used here?
-    }
+	/**
+	 * A test ended.
+	 *
+	 * @param  PHPUnit_Framework_Test $test
+	 * @access public
+	 */
+	public function endTest(PHPUnit_Framework_Test $test, $time) {
+		$this->memoryUsageEndOfTest = memory_get_usage();
+		$this->currentTestNumber++;
+		$percentDone = intval(($this->currentTestNumber / $this->totalNumberOfTestCases) * 100);
+		$leakedMemory = $this->memoryUsageEndOfTest-$this->memoryUsageStartOfTest;
+		$this->totalLeakedMemory += $leakedMemory;
+
+		if ($test instanceof PHPUnit_Framework_TestCase) {
+			$this->testAssertions += $test->getNumAssertions();
+		}
+
+		// echo '<div class="memory-usage">'.t3lib_div::formatSize($leakedMemory).'B</div>';
+		// echo '<div class="time-usage">'.$time.'</div>';
+		echo '</div>';
+		echo '<script type="text/javascript">document.getElementById("progress-bar").style.width = "'.$percentDone.'%";</script>';
+		echo '<script type="text/javascript">document.getElementById("transparent-bar").style.width = "'.(100-$percentDone).'%";</script>';
+		flush(); // TODO: Should fflush() from PHPUnit be used here?
+	}
 
     /**
      * Returns the first trace information which is not caused by the PHPUnit file
@@ -315,5 +325,16 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 
     	return $content;
     }
+
+	/**
+	 * Retrieve the collected amount of processed assertions.
+	 *
+	 * @access public
+	 * @return integer
+	 * @author Michael Klapper <michael.klapper@aoemedia.de>
+	 */
+	public function assertionCount() {
+		return $this->testAssertions;
+	}
 }
 ?>
