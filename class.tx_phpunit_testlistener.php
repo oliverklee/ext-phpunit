@@ -23,22 +23,56 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-require_once ('PHPUnit/Framework/TestListener.php');
+require_once 'PHPUnit/Framework/TestListener.php';
+require_once 'PHPUnit/Util/TestDox/NamePrettifier.php';
 
 class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 
-	protected	$resultArr = array();
-	public		$totalNumberOfTestCases = 0;				// Set from outside
-	protected	$currentTestNumber = 0;						// For counting the tests
-	private $currentTestCaseName;
-	private $memoryUsageStartOfTest = 0;
-	private $memoryUsageEndOfTest = 0;
-	public $totalLeakedMemory = 0;
+	protected $resultArr = array();
+	public $totalNumberOfTestCases = 0;				// Set from outside
+	protected $currentTestNumber = 0;						// For counting the tests
+ 	private $currentTestCaseName;
+ 	private $memoryUsageStartOfTest = 0;
+ 	private $memoryUsageEndOfTest = 0;
+ 	public $totalLeakedMemory = 0;
+
+ 	/**
+	 * Indicate that the "testdox" format is used to display test case names
+	 *
+	 * @var boolean
+	 */
+	private $useHumanReadableTextFormat = false;
 
 	/**
-	 * @var boolean  whether the experimental progress bar should be used
+	 * @var PHPUnit_Util_TestDox_NamePrettifier
 	 */
-	private $useExperimentalProgressBar = false;
+	private $NamePrettifier = null;
+
+	/**
+ 	 * @var boolean  whether the experimental progress bar should be used
+ 	 */
+ 	private $useExperimentalProgressBar = false;
+
+
+	/**
+	 * Init the testlistener
+	 *
+	 * @access public
+	 * @return void
+	 * @author Michael Klapper <michael.klapper@aoemedia.de>
+	 */
+	public function __construct() {
+		$this->NamePrettifier = new PHPUnit_Util_TestDox_NamePrettifier;
+	}
+
+	/**
+	* @access public
+	* @return void
+    * @author Michael Klapper <michael.klapper@aoemedia.de>
+    */
+    public function useHumanReadableTextFormat() {
+        $this->useHumanReadableTextFormat = true;
+    }
 
 	/**
 	 * Enables the experimental progress bar.
@@ -151,7 +185,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
     public function startTestSuite(PHPUnit_Framework_TestSuite $suite) {
     	$this->currentTestCaseName = $suite->getName();
     	if ($suite->getName() !== 'tx_phpunit_basetestsuite') {
-			echo '<h2 class="testSuiteName">Testsuite: '.$suite->getName().'</h2>';
+			echo '<h2 class="testSuiteName">Testsuite: ' . $this->prettifyTestClass($suite->getName()) . '</h2>';
 			echo '<script type="text/javascript">setClass("progress-bar","wasSuccessful");</script>';
     	}
     }
@@ -182,7 +216,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 		if ($this->totalNumberOfTestCases !== 1) {
 			echo $this->getReRunLink($test->getName());
 		}
-  		echo ' <strong class="testName">'.$test->getName().'</strong><br />';
+  		echo ' <strong class="testName">' . $this->prettifyTestMethod($test->getName()) . '</strong><br />';
   		$this->memoryUsageStartOfTest = memory_get_usage();
     }
 
@@ -235,5 +269,51 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 		$options = 'command=runsingletest&amp;testname='.$testName.'('.$this->currentTestCaseName.')';
 		return $baseUrl.'&amp;'.$options;
 	}
+
+    /**
+     * Prettifies the name of a test method.
+     *
+     * @param  string  $testName
+     * @return string
+     * @author Michael Klapper <michael.klapper@aoemedia.de>
+     */
+    protected function prettifyTestMethod($testName) {
+		$content = '';
+
+		if ($this->useHumanReadableTextFormat) {
+			$this->NamePrettifier->setPrefix('test');
+			$this->NamePrettifier->setSuffix(null);
+			$content = $this->NamePrettifier->prettifyTestMethod (
+				str_replace('test_', '', $testName) // this is required because the "setPrefix" work not very well with the prefix "test_"
+			);
+    	} else {
+    		$content = $testName;
+    	}
+
+    	return $content;
+    }
+
+    /**
+     * Prettifies the name of a test class.
+     *
+     * @param  string  $testClass
+     * @return string
+     * @author Michael Klapper <michael.klapper@aoemedia.de>
+     */
+    protected function prettifyTestClass($testClass) {
+		$content = '';
+
+		if ($this->useHumanReadableTextFormat) {
+			$this->NamePrettifier->setPrefix('tx');
+			$this->NamePrettifier->setSuffix('testcase');
+			$content = $this->NamePrettifier->prettifyTestClass (
+				str_replace('_', ' ', $testClass)
+			);
+    	} else {
+    		$content = $testClass;
+    	}
+
+    	return $content;
+    }
 }
 ?>

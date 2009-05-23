@@ -28,6 +28,7 @@ class tx_phpunit_module1_ajax {
 			case 'error':
 			case 'skipped':
 			case 'notimplemented':
+			case 'testdox':
 			case 'codeCoverage':
 				break;
 			default:

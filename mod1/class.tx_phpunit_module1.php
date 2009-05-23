@@ -169,6 +169,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$command = $this->MOD_SETTINGS['extSel'] ? t3lib_div::_GP('command') : '';
 		switch ($command) {
 			case 'runalltests':
+			case 'runTestCaseFile':
 			case 'runsingletest':
 				$this->runTests_renderIntro();
 				$this->runTests_renderRunningTest();
@@ -281,21 +282,29 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			}
 		}
 
-		$testsOptionsArr = array();
 
+			// testCaseFile
+		$testCaseFileOptionsArray = array();
+		foreach ($testSuite->tests() as $testCases) {
+				$selected = $testCases->toString() == t3lib_div::_GP('testCaseFile') ? ' selected="selected"' : '';
+				$testCaseFileOptionsArray[] = '<option value="'.$testCases->toString().'"'.$selected.'>'.htmlspecialchars($testCases->getName()).'</option>';
+		}
+			// single test case
+		$testsOptionsArr = array();
 		foreach ($testSuite->tests() as $testCases) {
 			foreach ($testCases->tests() as $test) {
 				$selected = $test->toString() == t3lib_div::_GP('testname') ? ' selected="selected"' : '';
 				$testSuiteName = strstr($test->toString(), '(');
 				$testSuiteName = trim($testSuiteName, '()');
-				$testsOptionsArr[$testSuiteName][] = '<option value="'.$test->toString().'"'.$selected.'>'.htmlspecialchars($test->getName()).'</option>';
+				$testsOptionsArr[$testSuiteName][] .= '<option value="'.$test->toString().'"'.$selected.'>'.htmlspecialchars($test->getName()).'</option>';
 			}
 		}
 
 		$currentStyle = $this->createIconStyle($extensionKey);
 
+
 		// build options for select (incl. option groups for test suites)
-		$testOptionsHtml = '';
+		$testOptionsHtml         = '';
 		foreach ($testsOptionsArr as $suiteName => $testArr) {
 			$testOptionsHtml .= '<optgroup label="'.$suiteName.'">';
 			foreach ($testArr as $testHtml) {
@@ -307,6 +316,18 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$currentStyle = $this->createIconStyle($extensionKey);
 
 		$output = '
+			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="post">
+				<p>
+					<select style="'.$currentStyle.'" name="testCaseFile">
+					<option value="">'.$this->getLL('select_tests').'</option>'
+					 . implode('\n', $testCaseFileOptionsArray) .
+					'</select>
+					<button type="submit" name="bingo" value="run" accesskey="f">'.$this->getLL('runTestCaseFile').'</button>
+					<input type="hidden" name="command" value="runTestCaseFile" />
+				</p>
+			</form>
+		';
+		$output .= '
 			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="post">
 				<p>
 					<select style="'.$currentStyle.'" name="testname">
@@ -327,10 +348,12 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$skippedState = $this->MOD_SETTINGS['skipped'] === 'on' ? 'checked="checked"' : '';
 		$successState = $this->MOD_SETTINGS['success'] === 'on' ? 'checked="checked"' : '';
 		$notImplementedState = $this->MOD_SETTINGS['notimplemented'] === 'on' ? 'checked="checked"' : '';
+		$testdoxState = $this->MOD_SETTINGS['testdox'] === 'on' ? 'checked="checked"' : '';
 		$output .= '<label for="SET[success]"><input type="checkbox" id="SET[success]" name="SET[success]" '.$successState.'>Success</label>';
 		$output .= '<label for="SET[failure]"><input type="checkbox" id="SET[failure]" name="SET[failure]" '.$failureState.'>Failure</label>';
 		$output .= '<label for="SET[skipped]"><input type="checkbox" id="SET[skipped]"name="SET[skipped]" '.$skippedState.'>Skipped</label>';
 		$output .= '<label for="SET[error]"><input type="checkbox" id="SET[error]"name="SET[error]" '.$errorState.'>Error</label>';
+		$output .= '<label for="SET[testdox]"><input type="checkbox" id="SET[testdox]"name="SET[testdox]" ' . $testdoxState . '>Show as human readable</label>';
 		$output .= '<label for="SET[notimplemented]"><input type="checkbox" id="SET[notimplemented]"name="SET[notimplemented]" '.$notImplementedState.'>Not implemented</label>';
 
         $codecoverageDisable = '';
@@ -397,6 +420,9 @@ class tx_phpunit_module1 extends t3lib_SCbase {
         }
 
 		$testListener = new tx_phpunit_testlistener();
+		if ( $this->MOD_SETTINGS['testdox'] == 'on')
+			$testListener->useHumanReadableTextFormat();
+
 		$result->addListener($testListener);
 
 		$startMemory = memory_get_usage();
@@ -408,6 +434,23 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			foreach ($testSuite->tests() as $testCases) {
 				foreach ($testCases->tests() as $test) {
 					if ($test->toString() === t3lib_div::_GP('testname')) {
+						$test->run($result);
+					}
+				}
+			}
+			if (!is_object($result)) {
+				echo '<h2 class="hadError">Error</h2>' .
+					'<p>The test <strong> ' .
+					htmlspecialchars(t3lib_div::_GP('testCaseFile')) .
+					'</strong> could not be found.</p>';
+				return;
+			}
+		} elseif (t3lib_div::_GP('testCaseFile')) {
+			$testListener->totalNumberOfTestCases = 1;
+			$this->runTests_renderInfoAndProgressbar(1);
+			foreach ($testSuite->tests() as $testCases) {
+				foreach ($testCases->tests() as $test) {
+					if (get_class($test) === t3lib_div::_GP('testCaseFile')) {
 						$test->run($result);
 					}
 				}
@@ -455,6 +498,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 					<button type="submit" name="bingo" value="run" accesskey="r">'.$this->getLL('run_again').'</button>
 					<input name="command" type="hidden" value="'.t3lib_div::_GP('command').'" />
 					<input name="testname" type="hidden" value="'.t3lib_div::_GP('testname').'" />
+					<input name="testCaseFile" type="hidden" value="'.t3lib_div::_GP('testCaseFile').'" />
 				</p>
 			</form>
 		';
@@ -608,7 +652,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		<p>PHPUnit BE Copyright &copy; 2005&#8211;2009 <a href="mailto:kasperligaard@gmail.com">Kasper Ligaard</a></p>
 		<h2>Contributors</h2>
 		<p>The following people have contributed by testing, bugfixing, suggesting new features etc.</p>
-		<p>Robert Lemke, Mario Rimann, Oliver Klee, Søren Soltveit and Mikkel Ricky.</p>
+		<p>Robert Lemke, Mario Rimann, Oliver Klee, SÃ¸ren Soltveit and Mikkel Ricky.</p>
 		';
 	}
 

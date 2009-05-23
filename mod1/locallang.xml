@@ -16,6 +16,7 @@
 			<label index="run_again"><![CDATA[<span class="access-key">R</span>e-run]]></label>
 			<label index="run_all_tests"><![CDATA[Run <span class="access-key">a</span>ll tests]]></label>
 			<label index="run_single_test"><![CDATA[Run <span class="access-key">s</span>ingle test]]></label>
+			<label index="runTestCaseFile"><![CDATA[Run test case <span class="access-key">f</span>ile]]></label>
 			<label index="select_extension">Select extension</label>
 			<label index="select_tests">Select test</label>
 			<label index="testing_all_extensions">Testing all extensions</label>

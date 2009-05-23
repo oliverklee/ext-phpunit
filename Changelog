@@ -1,3 +1,6 @@
+19.05.2009 Michael Klapper <michael.klapper@aoemedia.de>
+	* Add feature #2762: it's not possible to run all tests of a testcase
+
 12.05.2009 Michael Klapper <michael.klapper@aoemedia.de>
 	* Add support for "skipped" and "not implemented" to "tx_phpunit_testlistener" and extend the user interface.
 	

@@ -61,6 +61,9 @@ function setClass(id, className) {
 		case 'SET[notimplemented]':
 			checkbox = 'notimplemented';
 			break;
+		case 'SET[testdox]':
+			checkbox = 'testdox';
+			break;
 		default:
 			// Nothing here.
 			break;
@@ -112,7 +115,7 @@ function setClass(id, className) {
 	}
 	
 	Event.onDOMReady(function () {
-		var toggleButtonsIds = Dom.get(['SET[failure]', 'SET[success]', 'SET[error]', 'SET[skipped]', 'SET[notimplemented]']);
+		var toggleButtonsIds = Dom.get(['SET[failure]', 'SET[success]', 'SET[error]', 'SET[skipped]', 'SET[notimplemented]', 'SET[testdox]']);
 		for (var i = 0; i < toggleButtonsIds.length; i += 1) {
 			var elm = toggleButtonsIds[i];
 			var display = elm.checked ? 'block' : 'none';
