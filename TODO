@@ -2,19 +2,13 @@ Have a closer look at http://phpunit.de/ticket/75
 
 set_error_handler (lib/div extensions , dam).
 
-'open in new window' does not work as it should. http://bugs.typo3.org/view.php?id=6971
-
 Widget to choose tests from. http://bugs.typo3.org/view.php?id=6973
-
-Add button '[(re-) run this test only]'. http://bugs.typo3.org/view.php?id=6972
 
 Write current test and test-suite in/at progress-bar. http://bugs.typo3.org/view.php?id=6974
 
 Show result of each test in each step in the progress-bar. http://bugs.typo3.org/view.php?id=6975
 
 Have a progress-bar for each test-suite..? http://bugs.typo3.org/view.php?id=6976
-
-Mark errors red. http://bugs.typo3.org/view.php?id=6977
 
 Add in the manual that pear 2.3.5 or higher is needed. Make sure ext_emconf.php suggests pear extension (min. version 2.3.5). Create test for it in 'About'. http://bugs.typo3.org/view.php?id=6978
 
@@ -27,11 +21,8 @@ Longer term goals:
 
 - Straighten out the code, so that it is less of a mess! http://bugs.typo3.org/view.php?id=6983
 
-- Make sure phpunit works with latest Typo3 4.2. http://bugs.typo3.org/view.php?id=6984
+- Make it possible to filter on testsuite/groups.
 
-- Make it possible to filter on success/failure/error and maybe also testsuite/groups. http://bugs.typo3.org/view.php?id=6986
-
-- Implement choosing of testsuites / groups. http://bugs.typo3.org/view.php?id=6965
 -----------------------
 Elmar Hinz: http://bugs.typo3.org/view.php?id=6987
 
