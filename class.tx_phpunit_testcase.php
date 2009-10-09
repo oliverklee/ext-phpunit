@@ -44,6 +44,17 @@ class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
 	protected $backupStaticAttributes = false;
 
 	/**
+	 * Constructs a test case with the given name.
+	 *
+	 * @param  string $name
+	 * @param  array  $data
+	 * @param  string $dataName
+	 */
+	public function __construct($name = NULL, array $data = array(), $dataName = '') {
+		parent::__construct($name, $data, $dataName);
+	}
+
+	/**
 	 * Roughly simulates the frontend although being in the backend.
 	 *
 	 * @return	void

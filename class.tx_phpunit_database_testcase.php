@@ -11,9 +11,15 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	 */
 	protected $testDatabase;
 
-	public function __construct($name = null) {
-		parent::__construct($name);
-
+	/**
+	 * Constructs a test case with the given name.
+	 *
+	 * @param  string $name
+	 * @param  array  $data
+	 * @param  string $dataName
+	 */
+	public function __construct($name = NULL, array $data = array(), $dataName = '') {
+		parent::__construct($name, $data, $dataName);
 		$this->testDatabase = strtolower(TYPO3_db.'_test');
 	}
 

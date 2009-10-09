@@ -1,3 +1,6 @@
+09.10.2009 Michael Klapper <michael.klapper@aoemedia.de>
+	* Fixed Bug #3838: Test with data provider fails if test or parent class extends PHPUnit_Framework_TestCase constructor
+
 24.05.2009 Kasper Ligaard <kasperligaard@gmail.com>
     * (Trying) to address upper/lower case problem with new extbase conventions, confer to http://forge.typo3.org/issues/show/3424
 
