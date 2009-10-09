@@ -270,10 +270,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			}
 		}
 
-		// Add all classes to the test suite which end with "testcase" (case-insensitive), except the two special classes used as super-classes.
+		// Add all classes to the test suite which end with "testcase" (case-insensitive) or "Test", except the two special classes used as super-classes.
 		foreach (get_declared_classes() as $class) {
 			$classReflection = new ReflectionClass($class);
-			if (strtolower(substr($class, -8, 8)) == 'testcase' &&
+			if ((strtolower(substr($class, -8,8)) == 'testcase' || substr($class, -4,4) == 'Test') &&
 				$classReflection->isSubclassOf('PHPUnit_Framework_TestCase') &&
 				$class !== 'tx_phpunit_testcase'	&&
 				$class !== 'tx_t3unit_testcase' &&
@@ -396,8 +396,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$extensionKeysToProcess = array($this->MOD_SETTINGS['extSel']);
 		}
 
-
-		// Load the files containing test cases from extensions:
+			// Load the files containing test cases from extensions:
 		foreach ($extensionKeysToProcess as $extensionKey) {
 			$paths = $extensionsWithTestSuites[$extensionKey];
 			self::loadRequiredTestClasses($paths);
@@ -405,7 +404,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 			// Add all classes to the test suite which end with "testcase"
 		foreach (get_declared_classes() as $class) {
-			if (strtolower(substr($class, -8, 8)) == 'testcase' && $class != 'tx_phpunit_testcase' && $class != 'tx_phpunit_database_testcase' && $class != 'tx_t3unit_testcase') {
+			$classReflection = new ReflectionClass($class);
+			if ($classReflection->isSubclassOf('tx_phpunit_testcase') && (strtolower(substr($class, -8, 8)) == 'testcase' || substr($class, -4, 4) == 'Test') && $class != 'tx_phpunit_testcase' && $class != 'tx_phpunit_database_testcase' && $class != 'tx_t3unit_testcase') {
 				$testSuite->addTestSuite($class);
 			}
 		}
