@@ -732,7 +732,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		}
 
 		$coreTestCases = array();
-		$coreTestsDirectory = PATH_site . 'typo3_src/tests/';
+		$coreTestsDirectory = file_exists(PATH_site . 'tests/') ? PATH_site . 'tests/' : PATH_site . 'typo3_src/tests/';
 		if (@is_dir($coreTestsDirectory)) {
 			$coreTestCases['typo3'] = $this->findTestCasesInDir(
 				$coreTestsDirectory

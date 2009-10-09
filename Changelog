@@ -5,6 +5,7 @@
 	* Add Feature #4455: show the time and memory usage of each test
 	* Major Feature #3340: Add PHPUnit to cli_dispatch (Thanks to Axel Jung)
 	* Fixed Bug #4815: EXT:phpunit does not work together with PHPUnit-3.4.0
+	* Bug #3349: hardcoded typo3_src source for core tests
 
 24.05.2009 Kasper Ligaard <kasperligaard@gmail.com>
     * (Trying) to address upper/lower case problem with new extbase conventions, confer to http://forge.typo3.org/issues/show/3424
