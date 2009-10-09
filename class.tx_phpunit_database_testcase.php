@@ -105,11 +105,13 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 		$this->useTestDatabase();
 
 		foreach ($extensions as $extensionName) {
-			// skip importing unloaded extensions and specified dependencies
-			if (!t3lib_extMgm::isLoaded($extensionName) || in_array($extensionName, $skipDependencies)) {
+				// skip importing unloaded extensions and specified dependencies
+			if (!t3lib_extMgm::isLoaded($extensionName)) {
+				$this->markTestSkipped('This test is skipped because the extension ' . $extensionName . ' which was marked for import is not loaded on your system!');
+			} elseif (in_array($extensionName, $skipDependencies)) {
 				continue;
 			}
-
+			
 			$skipDependencies = array_merge($skipDependencies, array($extensionName));
 
 			if ($importDependencies) {
