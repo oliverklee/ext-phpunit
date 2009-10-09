@@ -30,7 +30,7 @@
  * class too.
  *
  */
-require_once('PHPUnit/Framework/TestCase.php');
+require_once('PHPUnit/Framework.php');
 
 class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
 	/**

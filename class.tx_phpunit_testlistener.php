@@ -23,7 +23,7 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-require_once 'PHPUnit/Framework/TestListener.php';
+require_once 'PHPUnit/Framework.php';
 require_once 'PHPUnit/Util/TestDox/NamePrettifier.php';
 
 class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
