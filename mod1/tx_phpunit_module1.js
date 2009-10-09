@@ -13,7 +13,7 @@ function setClass(id, className) {
 
 /*
  * This is using YUI! 2.6.0, cf. http://developer.yahoo.com/yui/
- * We can safely use YUI! since PHPUnit includes yahoo-dom-event.js 
+ * We can safely use YUI! since PHPUnit includes yahoo-dom-event.js
  */
 (function () {
 	YAHOO.namespace('phpunit');
@@ -25,12 +25,12 @@ function setClass(id, className) {
 		phpunit = YAHOO.phpunit;
 
 	/*
-	 * Constructor function for TestRunner instances 
+	 * Constructor function for TestRunner instances
 	 */
 	phpunit.TestRunner = function () {
 		var secret = 55;
 		var secretObj = { nr: 10 };
-		
+
 		return {
 			getSecret: function () { return secret },
 			getSecretObj: function () { return secretObj },
@@ -64,12 +64,15 @@ function setClass(id, className) {
 		case 'SET[testdox]':
 			checkbox = 'testdox';
 			break;
+		case 'SET[showMemoryAndTime]':
+			checkbox = 'showMemoryAndTime';
+			break;
 		default:
 			// Nothing here.
 			break;
 		}
-	
-		YAHOO.util.Connect.asyncRequest('POST', 'ajax.php', 
+
+		YAHOO.util.Connect.asyncRequest('POST', 'ajax.php',
 			{	success: function (responseObj) { /* console.log('Success', responseObj); */ },
 				failure: function (responseObj) { /* console.log('Failure', responseObj); */}
 			},
@@ -77,18 +80,18 @@ function setClass(id, className) {
 		);
 		Dom.setStyle(Dom.getElementsByClassName(className), 'display', display);
 	}
-	
+
 	var toggleCodeCoverage = function (event) {
 		var target = Event.getTarget(event);
 		var state = target.checked;
-		YAHOO.util.Connect.asyncRequest('POST', 'ajax.php', 
+		YAHOO.util.Connect.asyncRequest('POST', 'ajax.php',
 				{	success: function (responseObj) { /* console.log('Success', responseObj); */ },
 					failure: function (responseObj) { /* console.log('Failure', responseObj); */ }
 				},
 				'ajaxID=tx_phpunit_module1_ajax&state='+state+'&checkbox=codeCoverage'
 			);
 	}
-	
+
 	var mapClasses = function (buttonId) {
 		var className;
 		switch (buttonId) {
@@ -107,15 +110,21 @@ function setClass(id, className) {
 		case 'SET[notimplemented]':
 			className = 'testcaseNotImplemented';
 			break;
+		case 'SET[testdox]':
+			checkbox = 'testdox';
+			break;
+		case 'SET[showMemoryAndTime]':
+			className = 'showMemoryAndTime';
+			break;
 		default:
 			// Yikes!
 			break;
 		}
 		return className;
 	}
-	
+
 	Event.onDOMReady(function () {
-		var toggleButtonsIds = Dom.get(['SET[failure]', 'SET[success]', 'SET[error]', 'SET[skipped]', 'SET[notimplemented]', 'SET[testdox]']);
+		var toggleButtonsIds = Dom.get(['SET[failure]', 'SET[success]', 'SET[error]', 'SET[skipped]', 'SET[notimplemented]', 'SET[testdox]', 'SET[showMemoryAndTime]']);
 		for (var i = 0; i < toggleButtonsIds.length; i += 1) {
 			var elm = toggleButtonsIds[i];
 			var display = elm.checked ? 'block' : 'none';

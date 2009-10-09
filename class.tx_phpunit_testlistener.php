@@ -58,6 +58,10 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
  	 */
  	private $useExperimentalProgressBar = false;
 
+ 	/**
+ 	 * @var false
+ 	 */
+ 	private $enableShowMemoryAndTime = false;
 
 	/**
 	 * Init the testlistener
@@ -71,10 +75,22 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	}
 
 	/**
-	* @access public
-	* @return void
-    * @author Michael Klapper <michael.klapper@aoemedia.de>
-    */
+	 * Enable the option to show the memory leak and time usage of an test.
+	 *
+	 * @access public
+	 * @return void
+	 *
+	 * @author Michael Klapper <michael.klapper@aoemedia.de>
+	 */
+	public function enableShowMenoryAndTime() {
+		$this->enableShowMemoryAndTime = true;
+	}
+
+	/**
+	 * @access public
+	 * @return void
+     * @author Michael Klapper <michael.klapper@aoemedia.de>
+     */
     public function useHumanReadableTextFormat() {
         $this->useHumanReadableTextFormat = true;
     }
@@ -242,8 +258,10 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 			$this->testAssertions += $test->getNumAssertions();
 		}
 
-		// echo '<div class="memory-usage">'.t3lib_div::formatSize($leakedMemory).'B</div>';
-		// echo '<div class="time-usage">'.$time.'</div>';
+		if ($this->enableShowMemoryAndTime === true) {
+			echo '<span class="memory-leak small-font"><strong>Memory leak:</strong> '.t3lib_div::formatSize($leakedMemory).'B </span>';
+			echo '<span class="time-usages small-font"><strong>Time:</strong> '.sprintf('%.4f', $time).' sec.</span><br />';
+		}
 		echo '</div>';
 		echo '<script type="text/javascript">document.getElementById("progress-bar").style.width = "'.$percentDone.'%";</script>';
 		echo '<script type="text/javascript">document.getElementById("transparent-bar").style.width = "'.(100-$percentDone).'%";</script>';

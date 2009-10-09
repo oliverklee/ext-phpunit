@@ -30,6 +30,7 @@ class tx_phpunit_module1_ajax {
 			case 'notimplemented':
 			case 'testdox':
 			case 'codeCoverage':
+			case 'showMemoryAndTime':
 				break;
 			default:
 				$checkbox = false;

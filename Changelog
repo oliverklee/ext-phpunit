@@ -2,6 +2,7 @@
 	* Fixed Bug #3838: Test with data provider fails if test or parent class extends PHPUnit_Framework_TestCase constructor
 	* Fixed Bug #4239: marktTestSkipped - If an extension to import not installed.
 	* Add Feature #4793: Enable suffix "Test" for classes and filenames
+	* Add Feature #4455: show the time and memory usage of each test
 
 24.05.2009 Kasper Ligaard <kasperligaard@gmail.com>
     * (Trying) to address upper/lower case problem with new extbase conventions, confer to http://forge.typo3.org/issues/show/3424
