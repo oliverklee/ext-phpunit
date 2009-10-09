@@ -111,7 +111,7 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 			} elseif (in_array($extensionName, $skipDependencies)) {
 				continue;
 			}
-			
+
 			$skipDependencies = array_merge($skipDependencies, array($extensionName));
 
 			if ($importDependencies) {
@@ -122,6 +122,17 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 			}
 
 			$this->importExtension($extensionName);
+		}
+//!FIXME The hook should be replaced by real clean up and rebuild the whole
+//       "TYPO3_CONF_VARS" in order to have a clean testing environment.
+			// hook to load additional files
+		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['importExtensions_additionalDatabaseFiles'])) {
+			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['importExtensions_additionalDatabaseFiles'] as $file) {
+				$sqlFilename = t3lib_div::getFileAbsFileName($file);
+				$fileContent = t3lib_div::getUrl($sqlFilename);
+
+				$this->importDBDefinitions($fileContent);
+			}
 		}
 	}
 
