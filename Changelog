@@ -1,3 +1,6 @@
+12.10.2009 Michael Klapper <michael.klapper@aoemedia.de>
+	* Add Feature #4775: Support Data Providers 
+
 11.10.2009 Michael Klapper <michael.klapper@aoemedia.de>
 	* Fixed Bug #3423: having many tests the select is "unhandy"
 

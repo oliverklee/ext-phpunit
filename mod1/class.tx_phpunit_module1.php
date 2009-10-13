@@ -286,8 +286,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			// testCaseFile
 		$testCaseFileOptionsArray = array();
 		foreach ($testSuite->tests() as $testCases) {
-				$selected = $testCases->toString() == t3lib_div::_GP('testCaseFile') ? ' selected="selected"' : '';
-				$testCaseFileOptionsArray[] = '<option value="'.$testCases->toString().'"'.$selected.'>'.htmlspecialchars($testCases->getName()).'</option>';
+			$selected = $testCases->toString() == t3lib_div::_GP('testCaseFile') ? ' selected="selected"' : '';
+			$testCaseFileOptionsArray[] = '<option value="'.$testCases->toString().'"'.$selected.'>'.htmlspecialchars($testCases->getName()).'</option>';
 		}
 			// single test case
 		$testsOptionsArr = array();
@@ -297,10 +297,17 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				continue;
 			}
 			foreach ($testCases->tests() as $test) {
-				$selected = $test->toString() == t3lib_div::_GP('testname') ? ' selected="selected"' : '';
-				$testSuiteName = strstr($test->toString(), '(');
-				$testSuiteName = trim($testSuiteName, '()');
-				$testsOptionsArr[$testSuiteName][] .= '<option value="'.$test->toString().'"'.$selected.'>'.htmlspecialchars($test->getName()).'</option>';
+				if ($test instanceof PHPUnit_Framework_TestSuite) {
+					list($testSuiteName, $testName) = explode('::', $test->getName());
+					$testIdentifier = $testName . '(' . $testSuiteName . ')';
+				} else {
+					$testName = $test->getName();
+					$testIdentifier = $test->toString();
+					$testSuiteName = strstr($testIdentifier, '(');
+					$testSuiteName = trim($testSuiteName, '()');
+				}
+				$selected = $testIdentifier == t3lib_div::_GP('testname') ? ' selected="selected"' : '';
+				$testsOptionsArr[$testSuiteName][] .= '<option value="'.$testIdentifier.'"'.$selected.'>'.htmlspecialchars($testName).'</option>';
 			}
 		}
 
@@ -443,7 +450,13 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$this->runTests_renderInfoAndProgressbar(1);
 			foreach ($testSuite->tests() as $testCases) {
 				foreach ($testCases->tests() as $test) {
-					if ($test->toString() === t3lib_div::_GP('testname')) {
+					if ($test instanceof PHPUnit_Framework_TestSuite) {
+						list($testSuiteName, $testName) = explode('::', $test->getName());
+						$testIdentifier = $testName . '(' . $testSuiteName . ')';
+					} else {
+						$testIdentifier = $test->toString();
+					}
+					if ($testIdentifier === t3lib_div::_GP('testname')) {
 						$test->run($result);
 					}
 				}
@@ -460,7 +473,12 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$this->runTests_renderInfoAndProgressbar(1);
 			foreach ($testSuite->tests() as $testCases) {
 				foreach ($testCases->tests() as $test) {
-					if (get_class($test) === t3lib_div::_GP('testCaseFile')) {
+					if ($test instanceof PHPUnit_Framework_TestSuite) {
+						list($testIdentifier, $testName) = explode('::', $test->getName());
+					} else {
+						$testIdentifier = get_class($test);
+					}
+					if ($testIdentifier === t3lib_div::_GP('testCaseFile')) {
 						$test->run($result);
 					}
 				}
