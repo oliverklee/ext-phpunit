@@ -291,7 +291,11 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		}
 			// single test case
 		$testsOptionsArr = array();
+		$testCaseFile = t3lib_div::_GP('testCaseFile');
 		foreach ($testSuite->tests() as $testCases) {
+			if ( ! is_null($testCaseFile) && $testCases->getName() !== $testCaseFile ) {
+				continue;
+			}
 			foreach ($testCases->tests() as $test) {
 				$selected = $test->toString() == t3lib_div::_GP('testname') ? ' selected="selected"' : '';
 				$testSuiteName = strstr($test->toString(), '(');
@@ -336,6 +340,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 					'</select>
 					<button type="submit" name="bingo" value="run" accesskey="s">'.$this->getLL('run_single_test').'</button>
 					<input type="hidden" name="command" value="runsingletest" />
+					<input type="hidden" name="testCaseFile" value="' . $testCaseFile . '" />
 				</p>
 			</form>
 		';

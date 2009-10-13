@@ -1,3 +1,6 @@
+11.10.2009 Michael Klapper <michael.klapper@aoemedia.de>
+	* Fixed Bug #3423: having many tests the select is "unhandy"
+
 09.10.2009 Michael Klapper <michael.klapper@aoemedia.de>
 	* Fixed Bug #3838: Test with data provider fails if test or parent class extends PHPUnit_Framework_TestCase constructor
 	* Fixed Bug #4239: marktTestSkipped - If an extension to import not installed.
