@@ -2,6 +2,8 @@
 require_once 'class.tx_phpunit_testcase.php';
 require_once(PATH_t3lib.'class.t3lib_install.php');
 
+PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
+
 class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 
 	/**

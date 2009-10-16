@@ -26,6 +26,8 @@
 require_once 'PHPUnit/Framework.php';
 require_once 'PHPUnit/Util/TestDox/NamePrettifier.php';
 
+PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
+
 class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 
 	protected $resultArr = array();

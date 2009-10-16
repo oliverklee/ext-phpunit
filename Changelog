@@ -1,3 +1,6 @@
+16.10.2009 Michael Klapper <michael.klapper@aoemedia.de>
+	* Add PHPUnit_Util_Filter::addFileToFilter to tx_phpunit_* classes
+
 12.10.2009 Michael Klapper <michael.klapper@aoemedia.de>
 	* Add Feature #4775: Support Data Providers 
 

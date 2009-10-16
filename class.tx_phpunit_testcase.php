@@ -32,6 +32,8 @@
  */
 require_once('PHPUnit/Framework.php');
 
+PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
+
 class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
 	/**
 	 * @var boolean

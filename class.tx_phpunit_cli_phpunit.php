@@ -15,6 +15,8 @@ require_once PATH_t3lib . 'class.t3lib_cli.php';
 require_once t3lib_extMgm::extPath('phpunit') . 'class.tx_phpunit_testcase.php';
 require_once t3lib_extMgm::extPath('phpunit') . 'class.tx_phpunit_database_testcase.php';
 
+PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
+
 /**
  * class to run phpuniit
  */
