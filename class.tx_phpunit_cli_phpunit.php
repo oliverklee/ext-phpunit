@@ -65,8 +65,6 @@ class tx_phpunit_cli_phpunit extends t3lib_cli {
 	 * @param array $argv array contains the arguments, which were post via CLI
 	 */
 	public function cli_main() {
-		$this->cli_validateArgs();
-
 		require_once 'PHPUnit/Util/Filter.php';
 		PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
 		require 'PHPUnit/TextUI/Command.php';
