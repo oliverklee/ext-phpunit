@@ -1,3 +1,6 @@
+26.10.2009 Michael Klapper <michael.klapper@aoemedia.de>
+	* Update PHPUnit to version 3.4.2
+
 20.10.2009 Michael Klapper <michael.klapper@aoemedia.de>
 	* Remove $this->cli_validateArgs() from the tx_phpunit_cli_phpunit because the PHPUnit validate the params by it self.
 
