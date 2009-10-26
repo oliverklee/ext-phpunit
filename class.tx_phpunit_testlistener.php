@@ -254,7 +254,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 		$this->memoryUsageEndOfTest = memory_get_usage();
 		$this->currentTestNumber++;
 		$percentDone = intval(($this->currentTestNumber / $this->totalNumberOfTestCases) * 100);
-		$leakedMemory = $this->memoryUsageEndOfTest-$this->memoryUsageStartOfTest;
+		$leakedMemory = ($this->memoryUsageEndOfTest - $this->memoryUsageStartOfTest);
 		$this->totalLeakedMemory += $leakedMemory;
 
 		if ($test instanceof PHPUnit_Framework_TestCase) {
