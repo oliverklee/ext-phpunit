@@ -29,6 +29,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'lockType' => '',
 	'author' => 'Kasper Ligaard',
 	'author_email' => 'kasperligaard@gmail.com',
+	'doNotLoadInFE' => 1,
 	'author_company' => 'GT3',
 	'CGLcompliance' => '',
 	'CGLcompliance_note' => '',
