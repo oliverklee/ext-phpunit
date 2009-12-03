@@ -1,22 +1,22 @@
-30.11.2009 Michael Klapper <michael.klapper@aoemedia.de>
+2009-11-30 Michael Klapper <michael.klapper@aoemedia.de>
 	*  Fixed bug: Add missing flag 'doNotLoadInFE' to ext_emconf.php
 
-26.10.2009 Michael Klapper <michael.klapper@aoemedia.de>
+2009-10-26 Michael Klapper <michael.klapper@aoemedia.de>
 	* Update PHPUnit to version 3.4.2
 
-20.10.2009 Michael Klapper <michael.klapper@aoemedia.de>
+2009-10-20 Michael Klapper <michael.klapper@aoemedia.de>
 	* Remove $this->cli_validateArgs() from the tx_phpunit_cli_phpunit because the PHPUnit validate the params by it self.
 
-16.10.2009 Michael Klapper <michael.klapper@aoemedia.de>
+2009-10-16 Michael Klapper <michael.klapper@aoemedia.de>
 	* Add PHPUnit_Util_Filter::addFileToFilter to tx_phpunit_* classes
 
-12.10.2009 Michael Klapper <michael.klapper@aoemedia.de>
-	* Add Feature #4775: Support Data Providers 
+2009-10-12 Michael Klapper <michael.klapper@aoemedia.de>
+	* Add Feature #4775: Support Data Providers
 
-11.10.2009 Michael Klapper <michael.klapper@aoemedia.de>
+2009-10-11 Michael Klapper <michael.klapper@aoemedia.de>
 	* Fixed Bug #3423: having many tests the select is "unhandy"
 
-09.10.2009 Michael Klapper <michael.klapper@aoemedia.de>
+2009-10-09 Michael Klapper <michael.klapper@aoemedia.de>
 	* Fixed Bug #3838: Test with data provider fails if test or parent class extends PHPUnit_Framework_TestCase constructor
 	* Fixed Bug #4239: marktTestSkipped - If an extension to import not installed.
 	* Add Feature #4793: Enable suffix "Test" for classes and filenames
@@ -26,14 +26,14 @@
 	* Bug #3349: hardcoded typo3_src source for core tests
 	* Update PHPUnit vertion to 3.4.0
 
-24.05.2009 Kasper Ligaard <kasperligaard@gmail.com>
+2009-05-24 Kasper Ligaard <kasperligaard@gmail.com>
     * (Trying) to address upper/lower case problem with new extbase conventions, confer to http://forge.typo3.org/issues/show/3424
 
-22.05.2009 Michael Klapper <michael.klapper@aoemedia.de>
+2009-05-22 Michael Klapper <michael.klapper@aoemedia.de>
     * Add feature #: Add total count of assertions to the user interface
 
-19.05.2009 Michael Klapper <michael.klapper@aoemedia.de>
+2009-05-19 Michael Klapper <michael.klapper@aoemedia.de>
 	* Add feature #2762: it's not possible to run all tests of a testcase
 
-12.05.2009 Michael Klapper <michael.klapper@aoemedia.de>
+2009-05-12 Michael Klapper <michael.klapper@aoemedia.de>
 	* Add support for "skipped" and "not implemented" to "tx_phpunit_testlistener" and extend the user interface.
