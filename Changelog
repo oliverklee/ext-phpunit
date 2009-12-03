@@ -1,5 +1,5 @@
 2009-11-30 Michael Klapper <michael.klapper@aoemedia.de>
-	*  Fixed bug: Add missing flag 'doNotLoadInFE' to ext_emconf.php
+	* Fixed bug #5581: Add missing flag 'doNotLoadInFE' to ext_emconf.php
 
 2009-10-26 Michael Klapper <michael.klapper@aoemedia.de>
 	* Update PHPUnit to version 3.4.2
