@@ -788,7 +788,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			sort($dirs);
 			foreach ($dirs as $dirName) {
 				if ($this->isExtensionLoaded($dirName)) {
-					$testsPath = $path . $dirName . 'tests/';
+					$testsPath = $path . $dirName . '/tests/';
 					$extensionsArr[$dirName] = $this->findTestCasesInDir($testsPath);
 				}
 			}
