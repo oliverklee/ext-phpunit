@@ -107,12 +107,9 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$this->doc->JScode .= '<link rel="stylesheet" type="text/css" href="'.$this->extensionPath.'mod1/yui/base-min.css" />';
 			$this->doc->JScode .= '<link rel="stylesheet" type="text/css" href="'.$this->extensionPath.'mod1/phpunit-be.css" />';
 
+			$this->cleanOutputBuffers();
 			echo $this->doc->startPage($this->getLL('title'));
 			echo $this->doc->section('', $this->doc->funcMenu(PHPUnit_Runner_Version::getVersionString(), t3lib_BEfunc::getFuncMenu($this->id, 'SET[function]', $this->MOD_SETTINGS['function'], $this->MOD_MENU['function'])));
-
-			// disables output buffering so the result of each test is visible
-			// immediately
-			ob_end_flush();
 
 				// Render content:
 			switch ($this->MOD_SETTINGS['function']) {
@@ -148,6 +145,25 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			echo $this->getLL('admin_rights_needed');
 		}
 		echo $this->doc->endPage();
+	}
+
+	/**
+	 * Cleans all output buffers.
+	 *
+	 * In TYPO3 >= 4.3, this is a wrapper for t3lib_div::cleanOutputBuffers.
+	 *
+	 * @see t3lib_div::cleanOutputBuffers
+	 */
+	private function cleanOutputBuffers() {
+		if (t3lib_div::int_from_ver(TYPO3_version) > 4002999) {
+			t3lib_div::cleanOutputBuffers();
+			return;
+		}
+
+		while (ob_get_level()) {
+			ob_end_clean();
+		}
+		header('Content-Encoding: None', TRUE);
 	}
 
 	/*********************************************************

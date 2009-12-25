@@ -1,4 +1,5 @@
 2009-12-25 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #5258: Blank page with BE output compression (thanks to Steffen Gebert)
 	* Fixed Bug #4198: Calculation of progress bar width broken
 	* Fixed Bug #5543: There are some literal \n between the options in the testcase drop-down
 	* Fixed Bug #5549: Use real access modifiers and drop the @access annotations
