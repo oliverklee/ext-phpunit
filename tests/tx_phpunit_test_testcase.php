@@ -30,9 +30,6 @@
  *
  * @author	Kasper Ligaard <ligaard@daimi.au.dk>
  */
-
-
-// require_once (t3lib_extMgm::extPath('phpunit').'class.tx_phpunit_test.php');
 require_once (PATH_t3lib.'class.t3lib_tcemain.php');
 
 class tx_phpunit_test_testcase extends tx_phpunit_testcase {

@@ -538,21 +538,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		    PHPUnit_Util_Report::render($result, t3lib_extMgm::extPath('phpunit').'codecoverage/');
 		    echo '<p><a target="_blank" href="'.$this->extensionPath.'codecoverage/typo3conf_ext.html">Click here to access the Code Coverage report</a></p>';
 		    echo '<p>Memory peak usage: '.t3lib_div::formatSize(memory_get_peak_usage()).'B<p/>';
-
-		    /* TODO: Add metrics UI presentation
-		    $logMetricsWriter = new PHPUnit_Util_Log_Metrics();
-			$logMetricsWriter->process($testResult);
-			*/
-
-		    /* TODO: Add Project Mess Detector (PMD) statistics
-        	$logPmdWriter = new PHPUnit_Util_Log_PMD();
-        	$logPmdWriter->process($testResult);
-			*/
-
-		    /* TODO: Add Code Duplication Detection (CPD) statistics.
-        	$logCpdWriter = new PHPUnit_Util_Log_CPD();
-        	$logCpdWriter->process($testResult);
-			*/
 		}
 	}
 
@@ -571,15 +556,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				<span id="transparent-bar">&nbsp;</span>
 			</div>
 		';
-
-		/*
-		echo '<div style="width : 100%;">';
-		$width = 100 / $tests;
-		for ($i = 0; $i < $tests; $i++) {
-			echo '<div style="float: left; width : '.$width.'%; height:20px;"><a href="#testCaseNum-'.$i.'" id="tx_phpunit_testcase_nr_'.$i.'" class="tx_phpunit_testcase_progressbox" title="'.$i.'"></a></div>';
-		}
-		echo '</div>';
-		*/
 	}
 
 	/**

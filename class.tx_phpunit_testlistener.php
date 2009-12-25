@@ -137,7 +137,6 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
      * @access public
      */
     public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time) {
-    	//$result = $test->createResult();
     	$testCaseTraceArr = $this->getFirstNonPHPUnitTrace($e->getTrace());
 		$fileName = str_replace(PATH_site, '', $testCaseTraceArr['file']);
 
