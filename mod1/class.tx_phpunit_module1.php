@@ -441,7 +441,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$startTime = microtime(true);
 
 		if (t3lib_div::_GP('testname')) {
-			$testListener->totalNumberOfTestCases = 1;
+			$testListener->setTotalNumberOfTests(1);
 			$this->runTests_renderInfoAndProgressbar();
 			foreach ($testSuite->tests() as $testCases) {
 				foreach ($testCases->tests() as $test) {
@@ -464,8 +464,22 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				return;
 			}
 		} elseif (t3lib_div::_GP('testCaseFile')) {
-			$testListener->totalNumberOfTestCases = 1;
+			$totalNumberOfTestCases = 0;
+			foreach ($testSuite->tests() as $testCases) {
+				foreach ($testCases->tests() as $test) {
+					if ($test instanceof PHPUnit_Framework_TestSuite) {
+						list($testIdentifier, $testName) = explode('::', $test->getName());
+					} else {
+						$testIdentifier = get_class($test);
+					}
+					if ($testIdentifier === t3lib_div::_GP('testCaseFile')) {
+						$totalNumberOfTestCases++;
+					}
+				}
+			}
+			$testListener->setTotalNumberOfTests($totalNumberOfTestCases);
 			$this->runTests_renderInfoAndProgressbar();
+
 			foreach ($testSuite->tests() as $testCases) {
 				foreach ($testCases->tests() as $test) {
 					if ($test instanceof PHPUnit_Framework_TestSuite) {
@@ -486,7 +500,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				return;
 			}
 		} else {
-			$testListener->totalNumberOfTestCases = $testSuite->count();
+			$testListener->setTotalNumberOfTests($testSuite->count());
 			$this->runTests_renderInfoAndProgressbar();
 			$testSuite->run($result);
 		}
@@ -498,7 +512,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$testStatistics = '';
 		if ($result->wasSuccessful()) {
 	    	$testStatistics = '
-				<script type="text/javascript">setClass("progress-bar","wasSuccessful");</script>
 				<h2 class="wasSuccessful">'.$this->getLL('testing_success').'</h2>';
 		} else {
 	    	$testStatistics = '
@@ -545,7 +558,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	protected function runTests_renderInfoAndProgressbar() {
 		echo '
 			<div class="progress-bar-wrap">
-				<span id="progress-bar">&nbsp;</span>
+				<span id="progress-bar" class="wasSuccessful">&nbsp;</span>
 				<span id="transparent-bar">&nbsp;</span>
 			</div>
 		';

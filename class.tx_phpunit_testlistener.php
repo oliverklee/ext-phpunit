@@ -31,8 +31,13 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
 class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 
 	protected $resultArr = array();
-	public $totalNumberOfTestCases = 0;				// Set from outside
-	protected $currentTestNumber = 0;						// For counting the tests
+	/**
+	 * the total number of tests to run
+	 *
+	 * @var integer
+	 */
+	protected $totalNumberOfTests = 0;
+	protected $currentTestNumber = 0;
  	private $currentTestCaseName;
  	private $memoryUsageStartOfTest = 0;
  	private $memoryUsageEndOfTest = 0;
@@ -73,6 +78,17 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	 */
 	public function __construct() {
 		$this->NamePrettifier = new PHPUnit_Util_TestDox_NamePrettifier;
+	}
+
+	/**
+	 * Sets the total number of tests to run (used for displaying the progress
+	 * bar).
+	 *
+	 * @param integer $totalNumberOfTests
+	 *        the total number of tests to run, must be >= 0
+	 */
+	public function setTotalNumberOfTests($totalNumberOfTests) {
+		$this->totalNumberOfTests = $totalNumberOfTests;
 	}
 
 	/**
@@ -200,7 +216,6 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 
     	if (! $suite instanceOf PHPUnit_Framework_TestSuite_DataProvider && $suite->getName() !== 'tx_phpunit_basetestsuite') {
 			echo '<h2 class="testSuiteName">Testsuite: ' . $this->prettifyTestClass($suite->getName()) . '</h2>';
-			echo '<script type="text/javascript">setClass("progress-bar","wasSuccessful");</script>';
     	}
     }
 
@@ -225,7 +240,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 			echo '<script type="text/javascript">setClass("tx_phpunit_testcase_nr_' . $this->currentTestNumber . '", "wasSuccessful");</script>';
     	}
 
-		if ($this->totalNumberOfTestCases !== 1) {
+		if ($this->totalNumberOfTests !== 1) {
 			echo $this->getReRunLink($test->getName());
 		}
   		echo ' <strong class="testName">' . $this->prettifyTestMethod($test->getName()) . '</strong><br />';
@@ -240,7 +255,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	public function endTest(PHPUnit_Framework_Test $test, $time) {
 		$this->memoryUsageEndOfTest = memory_get_usage();
 		$this->currentTestNumber++;
-		$percentDone = intval(($this->currentTestNumber / $this->totalNumberOfTestCases) * 100);
+		$percentDone = intval(($this->currentTestNumber / $this->totalNumberOfTests) * 100);
 		$leakedMemory = ($this->memoryUsageEndOfTest - $this->memoryUsageStartOfTest);
 		$this->totalLeakedMemory += $leakedMemory;
 
