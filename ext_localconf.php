@@ -1,4 +1,7 @@
-<?php defined('TYPO3_MODE') || die ('Access denied.');
+<?php
+if (!defined('TYPO3_MODE')) {
+	die ('Access denied.');
+}
 
 $TYPO3_CONF_VARS['EXTCONF'][$_EXTKEY] = unserialize($_EXTCONF);
 

@@ -82,7 +82,7 @@ class database_testcase extends tx_phpunit_database_testcase {
 		$tableNames = $this->getDatabaseTables();
 		$this->assertContains('tx_bbb_test', $tableNames, 'Check that extension bbb is installed. The extension can be found in tests/res/.');
 		$this->assertContains('tx_aaa_test', $tableNames, 'Check that extension aaa is installed. The extension can be found in tests/res/.');
-		
+
 		// extension BBB extends an AAA table
 		$columns = $db->admin_get_fields('tx_aaa_test');
 		$this->assertContains('tx_bbb_test', array_keys($columns));
@@ -90,7 +90,7 @@ class database_testcase extends tx_phpunit_database_testcase {
 
 	public function testRecursiveImportingExtensions() {
 		$this->createDatabase();
-		$db = $this->useTestDatabase();
+		$this->useTestDatabase();
 		$this->importExtensions(array('ccc', 'aaa'), true);
 
 		$tableNames = $this->getDatabaseTables();
@@ -102,7 +102,7 @@ class database_testcase extends tx_phpunit_database_testcase {
 
 	public function testSkippingDependencyExtensions() {
 		$this->createDatabase();
-		$db = $this->useTestDatabase();
+		$this->useTestDatabase();
 
 		$toSkip = array('bbb');
 		$this->importExtensions(array('ccc', 'ddd'), true, $toSkip);

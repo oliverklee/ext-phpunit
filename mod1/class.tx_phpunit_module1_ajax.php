@@ -40,7 +40,6 @@ class tx_phpunit_module1_ajax {
 			$ajaxObj->setContentFormat('json');
 			$GLOBALS['BE_USER']->uc['moduleData']['tools_txphpunitM1'][$checkbox] = $state;
 			$GLOBALS['BE_USER']->writeUC();
-			$userConfiguration = $GLOBALS['BE_USER']->getModuleData('tools_txphpunitM1');
 			$ajaxObj->addContent('success', true);
 		} else {
 			$ajaxObj->setContentFormat('plain');

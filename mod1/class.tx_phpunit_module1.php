@@ -86,7 +86,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * instead of collecting it and doing the output later.
 	 */
 	public function main() {
-		global $BE_USER,$BACK_PATH,$TCA_DESCR,$TCA,$CLIENT,$TYPO3_CONF_VARS;
+		global $BE_USER,$BACK_PATH;
 
 		if ($BE_USER->user['admin']) {
 			// Draw the header.
@@ -447,7 +447,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 		if (t3lib_div::_GP('testname')) {
 			$testListener->totalNumberOfTestCases = 1;
-			$this->runTests_renderInfoAndProgressbar(1);
+			$this->runTests_renderInfoAndProgressbar();
 			foreach ($testSuite->tests() as $testCases) {
 				foreach ($testCases->tests() as $test) {
 					if ($test instanceof PHPUnit_Framework_TestSuite) {
@@ -470,7 +470,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			}
 		} elseif (t3lib_div::_GP('testCaseFile')) {
 			$testListener->totalNumberOfTestCases = 1;
-			$this->runTests_renderInfoAndProgressbar(1);
+			$this->runTests_renderInfoAndProgressbar();
 			foreach ($testSuite->tests() as $testCases) {
 				foreach ($testCases->tests() as $test) {
 					if ($test instanceof PHPUnit_Framework_TestSuite) {
@@ -492,7 +492,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			}
 		} else {
 			$testListener->totalNumberOfTestCases = $testSuite->count();
-			$this->runTests_renderInfoAndProgressbar($testListener->totalNumberOfTestCases);
+			$this->runTests_renderInfoAndProgressbar();
 			$testSuite->run($result);
 		}
 
@@ -534,7 +534,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 		// Code coverage output.
 		if (!t3lib_div::_GP('testname') && $result->getCollectCodeCoverageInformation()) {
-			$jsonCodeCoverage = json_encode($result->getCodeCoverageInformation());
 		    PHPUnit_Util_Report::render($result, t3lib_extMgm::extPath('phpunit').'codecoverage/');
 		    echo '<p><a target="_blank" href="'.$this->extensionPath.'codecoverage/typo3conf_ext.html">Click here to access the Code Coverage report</a></p>';
 		    echo '<p>Memory peak usage: '.t3lib_div::formatSize(memory_get_peak_usage()).'B<p/>';
@@ -549,7 +548,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * @return	void
 	 * @access	protected
 	 */
-	protected function runTests_renderInfoAndProgressbar($tests = 1) {
+	protected function runTests_renderInfoAndProgressbar() {
 		echo '
 			<div class="progress-bar-wrap">
 				<span id="progress-bar">&nbsp;</span>
@@ -590,7 +589,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 		$className = t3lib_div::makeInstanceClassName('tslib_fe');
 		$frontEnd = new $className(
-			$GLOBALS['TYPO3_CONF_VARS'], $pageUid, 0
+			$GLOBALS['TYPO3_CONF_VARS'], 0, 0
 		);
 
 		// simulates a normal FE without any logged-in FE or BE user
@@ -610,7 +609,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * @access	protected
 	 */
 	protected function about_render() {
-		if ($codeCoverageDir['exists'] = file_exists($this->extensionPath.'codecoverage')) {
+		$codeCoverageDir['exists'] = file_exists($this->extensionPath.'codecoverage');
+		if ($codeCoverageDir['exists']) {
 			$codeCoverageDir['writeable'] = is_writeable($this->extensionPath.'codecoverage');
 			$codeCoverageDir['readable'] = is_readable($this->extensionPath.'codecoverage');
 		}
