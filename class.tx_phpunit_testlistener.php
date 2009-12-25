@@ -215,7 +215,9 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
     	$this->currentTestCaseName = $suite->getName();
 
     	if (! $suite instanceOf PHPUnit_Framework_TestSuite_DataProvider && $suite->getName() !== 'tx_phpunit_basetestsuite') {
-			echo '<h2 class="testSuiteName">Testsuite: ' . $this->prettifyTestClass($suite->getName()) . '</h2>';
+			echo '<h2 class="testSuiteName">Testsuite: ' .
+				$this->prettifyTestClass($suite->getName()) . '</h2>';
+			echo '<script type="text/javascript">setClass("progress-bar","wasSuccessful");</script>';
     	}
     }
 

@@ -1,4 +1,5 @@
 2009-12-25 Oliver Klee <typo3-coding@oliverklee.de>
+	* Add Feature #5559: When running a testcase or a single test, display the name of the test suite
 	* Fixed bug #5548: "Run this test only" icon/link is broken
 	* Fixed Bug #5258: Blank page with BE output compression (thanks to Steffen Gebert)
 	* Fixed Bug #4198: Calculation of progress bar width broken

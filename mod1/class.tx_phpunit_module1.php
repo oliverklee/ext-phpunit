@@ -411,10 +411,11 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
 		$extensionKeysToProcess = array();
 		if ($this->MOD_SETTINGS['extSel']=='uuall') {
-			echo '<h3>'.$this->getLL('testing_all_extensions').'</h3>';
+			echo '<h1>' . $this->getLL('testing_all_extensions') . '</h1>';
 			$extensionKeysToProcess = array_keys($extensionsWithTestSuites);
 		} else {
-			echo '<h3>'.$this->getLL('testing_extension').': '.htmlspecialchars($this->MOD_SETTINGS['extSel']).'</h3>';
+			echo '<h1>' . $this->getLL('testing_extension') . ': ' .
+				htmlspecialchars($this->MOD_SETTINGS['extSel']) . '</h1>';
 			$extInfo = $extensionsWithTestSuites[$this->MOD_SETTINGS['extSel']];
 			$extensionsWithTestSuites = array();
 			$extensionsWithTestSuites[$this->MOD_SETTINGS['extSel']] = $extInfo;
@@ -468,6 +469,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 						$testIdentifier = $test->toString();
 					}
 					if ($testIdentifier === t3lib_div::_GP('testname')) {
+						echo '<h2 class="testSuiteName">Testsuite: ' .
+							$testCases->getName() . '</h2>';
 						$test->run($result);
 					}
 				}
@@ -480,6 +483,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				return;
 			}
 		} elseif (t3lib_div::_GP('testCaseFile')) {
+			$suiteNameHasBeenDisplayed = FALSE;
 			$totalNumberOfTestCases = 0;
 			foreach ($testSuite->tests() as $testCases) {
 				foreach ($testCases->tests() as $test) {
@@ -504,6 +508,11 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 						$testIdentifier = get_class($test);
 					}
 					if ($testIdentifier === t3lib_div::_GP('testCaseFile')) {
+						if (!$suiteNameHasBeenDisplayed) {
+							echo '<h2 class="testSuiteName">Testsuite: ' .
+								$testIdentifier . '</h2>';
+							$suiteNameHasBeenDisplayed = TRUE;
+						}
 						$test->run($result);
 					}
 				}
