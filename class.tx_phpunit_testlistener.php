@@ -240,8 +240,8 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 			echo '<script type="text/javascript">setClass("tx_phpunit_testcase_nr_' . $this->currentTestNumber . '", "wasSuccessful");</script>';
     	}
 
-		if ($this->totalNumberOfTests !== 1) {
-			echo $this->getReRunLink($test->getName());
+		if ($this->totalNumberOfTestCases !== 1) {
+			echo $this->createReRunLink($test);
 		}
   		echo ' <strong class="testName">' . $this->prettifyTestMethod($test->getName()) . '</strong><br />';
   		$this->memoryUsageStartOfTest = memory_get_usage();
@@ -291,15 +291,36 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 		return $testCaseTraceArr;
 	}
 
-	private function getReRunLink ($testName) {
-		$iconImg = '<img style="vertical-align: middle; border: 1px solid #fff;" src="'.t3lib_extMgm::extRelPath('phpunit').'mod1/runner.gif" alt="Run this test only" />';
-		return '<a href="'.$this->getReRunUrl($testName).'" title="Run this test only">'.$iconImg.'</a>';
+	/**
+	 * Creates the link (including an icon) to re-run a certain test.
+	 *
+	 * @param PHPUnit_Framework_TestSuite $test
+	 *        the test for which to create the re-run link
+	 *
+	 * @return string the link to re-run the given test, will not be empty
+	 */
+	private function createReRunLink(PHPUnit_Framework_TestCase $test) {
+		$iconImageTag =
+			'<img style="vertical-align: middle; border: 1px solid #fff;" src="' .
+			t3lib_extMgm::extRelPath('phpunit') .
+			'mod1/runner.gif" alt="Run this test only" />';
+		return '<a href="' . $this->createReRunUrl($test) .
+			'" title="Run this test only">' . $iconImageTag . '</a>';
 	}
 
-	private function getReRunUrl ($testName) {
+	/**
+	 * Creates the URL to re-run a certain test.
+	 *
+	 * @param PHPUnit_Framework_TestSuite $test
+	 *        the test for which to create the re-run URL
+	 *
+	 * @return string the URL to re-run the given test, will not be empty
+	 */
+	private function createReRunUrl(PHPUnit_Framework_TestCase $test) {
 		$baseUrl = 'mod.php?M=tools_txphpunitbeM1';
-		$options = 'command=runsingletest&amp;testname='.$testName.'('.$this->currentTestCaseName.')';
-		return $baseUrl.'&amp;'.$options;
+		$options = 'command=runsingletest&amp;' .
+			'testname=' . $this->currentTestCaseName . '::' .$test->getName();
+		return $baseUrl . '&amp;' . $options;
 	}
 
     /**
