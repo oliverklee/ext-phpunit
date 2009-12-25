@@ -160,7 +160,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * Renders the screens for function "Run tests"
 	 *
 	 * @return	void
-	 * @access	protected
 	 */
 	protected function runTests_render() {
 		if (!$this->isExtensionLoaded($this->MOD_SETTINGS['extSel'])) {
@@ -183,7 +182,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * Renders the intro screen for the function "Run tests"
 	 *
 	 * @return	void
-	 * @access	protected
 	 */
 	protected function runTests_renderIntro() {
 		$output = '';
@@ -209,7 +207,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 *
 	 * @param	array		$extensionsWithTestSuites: Array of extension keys for which test suites exist
 	 * @return	string		HTML code for the selectorbox and a surrounding form
-	 * @access	protected
 	 */
 	protected function runTests_renderIntro_renderExtensionSelector($extensionsWithTestSuites) {
 
@@ -254,7 +251,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * @param	array		$extensionsWithTestSuites: Array of extension keys for which test suites exist
 	 * @param	string		$extensionKey: Extension key of the extensino to run single test for
 	 * @return	string		HTML code with the selectorbox and a surrounding form
-	 * @access	protected
 	 */
 	protected function runTests_renderIntro_renderTestSelector($extensionsWithTestSuites, $extensionKey) {
 		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
@@ -389,7 +385,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * runs the actual unit tests
 	 *
 	 * @return	void
-	 * @access	protected
 	 */
 	protected function runTests_renderRunningTest() {
 		if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['alwaysSimulateFrontendEnvironment']) {
@@ -546,7 +541,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * the test runs.
 	 *
 	 * @return	void
-	 * @access	protected
 	 */
 	protected function runTests_renderInfoAndProgressbar() {
 		echo '
@@ -606,7 +600,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * Renders the "About" screen
 	 *
 	 * @return	void
-	 * @access	protected
 	 */
 	protected function about_render() {
 		$codeCoverageDir['exists'] = file_exists($this->extensionPath.'codecoverage');
@@ -684,7 +677,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * Renders a link which opens the current screen in a new window
 	 *
 	 * @return	string
-	 * @access	protected
 	 */
 	protected function openNewWindowLink() {
 		global $BACK_PATH;

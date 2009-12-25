@@ -68,7 +68,6 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	/**
 	 * Init the testlistener
 	 *
-	 * @access public
 	 * @return void
 	 * @author Michael Klapper <michael.klapper@aoemedia.de>
 	 */
@@ -79,7 +78,6 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	/**
 	 * Enable the option to show the memory leak and time usage of an test.
 	 *
-	 * @access public
 	 * @return void
 	 *
 	 * @author Michael Klapper <michael.klapper@aoemedia.de>
@@ -89,7 +87,6 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	}
 
 	/**
-	 * @access public
 	 * @return void
      * @author Michael Klapper <michael.klapper@aoemedia.de>
      */
@@ -109,7 +106,6 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	 *
 	 *	@param  PHPUnit_Framework_Test $test
 	 *	@param  Exception               $e
-	 *	@access public
 	 */
     public function addError(PHPUnit_Framework_Test $test, Exception $e, $time) {
     	$testCaseTraceArr = $this->getFirstNonPHPUnitTrace($e->getTrace());
@@ -134,7 +130,6 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
      *
      * @param  PHPUnit_Framework_Test                 $test
      * @param  PHPUnit_Framework_AssertionFailedError $e
-     * @access public
      */
     public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time) {
     	$testCaseTraceArr = $this->getFirstNonPHPUnitTrace($e->getTrace());
@@ -167,7 +162,6 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
      *
      * @param  PHPUnit_Framework_Test $test
      * @param  Exception               $e
-     * @access public
      */
     public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
     	echo '
@@ -185,8 +179,6 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
      * @param  PHPUnit_Framework_Test $test
      * @param  Exception              $e
      * @param  float                  $time
-     * @access public
-     * @since  Method available since Release 3.0.0
      */
     public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
     	echo '
@@ -202,7 +194,6 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
     * A testsuite started.
     *
     * @param  PHPUnit_Framework_TestSuite $suite
-    * @access public
     */
     public function startTestSuite(PHPUnit_Framework_TestSuite $suite) {
     	$this->currentTestCaseName = $suite->getName();
@@ -217,7 +208,6 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
     * A testsuite ended.
     *
     * @param  PHPUnit_Framework_TestSuite $suite
-    * @access public
     */
     public function endTestSuite(PHPUnit_Framework_TestSuite $suite) {
     }
@@ -226,7 +216,6 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
     * A test started.
     *
     * @param  PHPUnit_Framework_Test $test
-    * @access public
     */
     public function startTest(PHPUnit_Framework_Test $test) {
     	set_time_limit(30); // A single test has to take less than this or else PHP will timeout.
@@ -247,7 +236,6 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	 * A test ended.
 	 *
 	 * @param  PHPUnit_Framework_Test $test
-	 * @access public
 	 */
 	public function endTest(PHPUnit_Framework_Test $test, $time) {
 		$this->memoryUsageEndOfTest = memory_get_usage();
@@ -276,7 +264,6 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
      *
      * @param 	array	$traceArr: The trace array
      * @return	array	Trace information
-     * @access 	protected
      */
 	protected function getFirstNonPHPUnitTrace (array $traceArr) {
 		$testCaseTraceArr = array();
@@ -349,7 +336,6 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	/**
 	 * Retrieve the collected amount of processed assertions.
 	 *
-	 * @access public
 	 * @return integer
 	 * @author Michael Klapper <michael.klapper@aoemedia.de>
 	 */

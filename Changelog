@@ -1,4 +1,5 @@
 2009-12-25 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #5549: Use real access modifiers and drop the @access annotations
 	* Fixed bug #5552: Update the "about" section in the BE module with the new contributors
 	* Fixed Bug #5537: Update ext_emconf.php with the new team structure
 	* Fixed Bug #5547: Remove unused variables
