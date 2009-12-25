@@ -235,7 +235,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$output .= '
 			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="post">
 				<p>
-                	<select style="' . $style . '" name="SET[extSel]" onchange="jumpToUrl(\''.htmlspecialchars($this->MCONF['_']).'&SET[extSel]=\'+this.options[this.selectedIndex].value,this);">'.implode('', $extensionsOptionsArr).'</select>
+                	<select style="' . $style . '" name="SET[extSel]" onchange="jumpToUrl(\''.htmlspecialchars($this->MCONF['_']).'&amp;SET[extSel]=\'+this.options[this.selectedIndex].value,this);">'.implode('', $extensionsOptionsArr).'</select>
 					<button type="submit" name="bingo" value="run" accesskey="a">'.$this->getLL('run_all_tests').'</button>
 					<input type="hidden" name="command" value="runalltests" />
 				</p>
@@ -327,7 +327,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				<p>
 					<select style="'.$currentStyle.'" name="testCaseFile">
 					<option value="">'.$this->getLL('select_tests').'</option>'
-					 . implode('\n', $testCaseFileOptionsArray) .
+					 . implode(chr(10), $testCaseFileOptionsArray) .
 					'</select>
 					<button type="submit" name="bingo" value="run" accesskey="f">'.$this->getLL('runTestCaseFile').'</button>
 					<input type="hidden" name="command" value="runTestCaseFile" />
@@ -349,8 +349,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		';
 
 		// Experimental: Buttons for turning failures, errors or success on/off
-		$output .= '<div class="phpunit-controls">';
 		$output .= '<form action="'.htmlspecialchars($this->MCONF['_']).'" method="post">';
+		$output .= '<div class="phpunit-controls">';
 		$failureState = $this->MOD_SETTINGS['failure'] === 'on' ? 'checked="checked"' : '';
 		$errorState = $this->MOD_SETTINGS['error'] === 'on' ? 'checked="checked"' : '';
 		$skippedState = $this->MOD_SETTINGS['skipped'] === 'on' ? 'checked="checked"' : '';
@@ -358,13 +358,13 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$notImplementedState = $this->MOD_SETTINGS['notimplemented'] === 'on' ? 'checked="checked"' : '';
 		$showMemoryAndTime = $this->MOD_SETTINGS['showMemoryAndTime'] === 'on' ? 'checked="checked"' : '';
 		$testdoxState = $this->MOD_SETTINGS['testdox'] === 'on' ? 'checked="checked"' : '';
-		$output .= '<label for="SET[success]"><input type="checkbox" id="SET[success]" name="SET[success]" '.$successState.'>Success</label>';
-		$output .= ' <label for="SET[failure]"><input type="checkbox" id="SET[failure]" name="SET[failure]" '.$failureState.'>Failure</label>';
-		$output .= ' <label for="SET[skipped]"><input type="checkbox" id="SET[skipped]"name="SET[skipped]" '.$skippedState.'>Skipped</label>';
-		$output .= ' <label for="SET[error]"><input type="checkbox" id="SET[error]"name="SET[error]" '.$errorState.'>Error</label>';
-		$output .= ' <label for="SET[testdox]"><input type="checkbox" id="SET[testdox]"name="SET[testdox]" ' . $testdoxState . '>Show as human readable</label>';
-		$output .= ' <label for="SET[notimplemented]"><input type="checkbox" id="SET[notimplemented]"name="SET[notimplemented]" '.$notImplementedState.'>Not implemented</label>';
-		$output .= ' <label for="SET[showMemoryAndTime]"><input type="checkbox" id="SET[showMemoryAndTime]"name="SET[showMemoryAndTime]" '.$showMemoryAndTime.'>Show memory & time</label>';
+		$output .= '<input type="checkbox" id="SET[success]" name="SET[success]" ' . $successState . ' /><label for="SET[success]">Success</label>';
+		$output .= ' <input type="checkbox" id="SET[failure]" name="SET[failure]" ' . $failureState . ' /><label for="SET[failure]">Failure</label>';
+		$output .= ' <input type="checkbox" id="SET[skipped]"name="SET[skipped]" ' . $skippedState . ' /><label for="SET[skipped]">Skipped</label>';
+		$output .= ' <input type="checkbox" id="SET[error]"name="SET[error]" ' . $errorState . ' /><label for="SET[error]">Error</label>';
+		$output .= ' <input type="checkbox" id="SET[testdox]"name="SET[testdox]" ' . $testdoxState . ' /><label for="SET[testdox]">Show as human readable</label>';
+		$output .= ' <input type="checkbox" id="SET[notimplemented]"name="SET[notimplemented]" ' . $notImplementedState . ' /><label for="SET[notimplemented]">Not implemented</label>';
+		$output .= ' <input type="checkbox" id="SET[showMemoryAndTime]"name="SET[showMemoryAndTime]" ' . $showMemoryAndTime . '/><label for="SET[showMemoryAndTime]">Show memory & time</label>';
 
         $codecoverageDisable = '';
         $codecoverageForLabelWhenDisabled = '';
@@ -373,9 +373,9 @@ class tx_phpunit_module1 extends t3lib_SCbase {
         	$codecoverageForLabelWhenDisabled = ' title="Code coverage requires XDebug to be installed."';
         }
 		$codeCoverageState = $this->MOD_SETTINGS['codeCoverage'] === 'on' ? 'checked="checked"' : '';
-       	$output .= ' <label for="SET[codeCoverage]"'.$codecoverageForLabelWhenDisabled.'><input type="checkbox" id="SET[codeCoverage]"name="SET[codeCoverage]"'.$codecoverageDisable.' '.$codeCoverageState.'>Collect code-coverage data</label>';
-		$output .= '</form>';
+       	$output .= ' <input type="checkbox" id="SET[codeCoverage]"name="SET[codeCoverage]"' . $codecoverageDisable . ' ' . $codeCoverageState . ' /><label for="SET[codeCoverage]"' . $codecoverageForLabelWhenDisabled . '>Collect code-coverage data</label>';
 		$output .= '</div>';
+		$output .= '</form>';
 
 		return $output;
 	}
