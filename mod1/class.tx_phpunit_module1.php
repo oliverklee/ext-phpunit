@@ -657,7 +657,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		<p>PHPUnit BE Copyright &copy; 2005&#8211;2009 <a href="mailto:kasperligaard@gmail.com">Kasper Ligaard</a></p>
 		<h2>Contributors</h2>
 		<p>The following people have contributed by testing, bugfixing, suggesting new features etc.</p>
-		<p>Robert Lemke, Mario Rimann, Oliver Klee, SÃ¸ren Soltveit and Mikkel Ricky.</p>
+		<p>Kasper Ligaard, Robert Lemke, Mario Rimann, Oliver Klee, S&oslash;ren Soltveit, Mikkel Ricky and Michael Klapper.</p>
 		';
 	}
 
