@@ -1,3 +1,6 @@
+2010-01-05 Oliver Klee <typo3-coding@oliverklee.de>
+    * Release version 3.4.3
+
 2009-12-25 Oliver Klee <typo3-coding@oliverklee.de>
 	* Add Feature #5559: When running a testcase or a single test, display the name of the test suite
 	* Fixed bug #5548: "Run this test only" icon/link is broken
