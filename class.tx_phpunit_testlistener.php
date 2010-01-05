@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2004 Robert Lemke <robert@typo3.org>
- *  (c) 2008 Kasper Ligaard <kasperligaard@gmail.com>
+ *  (c) 2008-2010 Kasper Ligaard <kasperligaard@gmail.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is

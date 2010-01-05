@@ -3,8 +3,8 @@
 *  Copyright notice
 *
 *  (c) 2005 Robert Lemke (robert@typo3.org)
-*  (c) 2008-2009 Kasper Ligaard (kli@systime.dk)
-*  (c) 2008-2009 Soren Soltveit (sso@systime.dk)
+*  (c) 2008-2010 Kasper Ligaard (kli@systime.dk)
+*  (c) 2008-2010 Soren Soltveit (sso@systime.dk)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
