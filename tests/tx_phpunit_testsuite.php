@@ -22,6 +22,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+require_once('PHPUnit/Framework/TestSuite.php');
+
 /**
  * Test case for checking the PHPUnit 3.1.9
  *
@@ -30,9 +32,6 @@
  *
  * @author    Kasper Ligaard <ligaard@daimi.au.dk<mailto:ligaard@daimi.au.dk>>
  */
-
-require_once('PHPUnit/Framework/TestSuite.php');
-
 class tx_phpunit_test_testsuite extends PHPUnit_Framework_TestSuite {
 	public function __construct() {
 		$this->addTestFile(dirname(__FILE__).'/tx_phpunit_test_testcase.php');

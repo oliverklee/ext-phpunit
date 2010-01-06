@@ -1,5 +1,4 @@
 <?php
-
 /**
  * These testcases requires that the following extensions are installed
  *  1. aaa
@@ -8,21 +7,24 @@
  *  4. ddd (depends on bbb)
  *
  */
-
-
 class database_testcase extends tx_phpunit_database_testcase {
-
-	public function testNullToEmptyString() {
-		$this->assertEquals('', mysql_real_escape_string(null));
-	}
-
 	public function tearDown() {
 		// insures that test database always is dropped
 		// even when testcases fails
 		$this->dropDatabase();
 	}
 
-	public function testCreatingTestDatabase() {
+	/**
+	 * @test
+	 */
+	public function nullToEmptyString() {
+		$this->assertEquals('', mysql_real_escape_string(null));
+	}
+
+	/**
+	 * @test
+	 */
+	public function creatingTestDatabase() {
 		$this->dropDatabase();
 		$this->createDatabase();
 
@@ -33,7 +35,10 @@ class database_testcase extends tx_phpunit_database_testcase {
 		$this->assertContains($this->testDatabase, $databaseNames);
 	}
 
-	public function testDroppingTestDatabase() {
+	/**
+	 * @test
+	 */
+	public function droppingTestDatabase() {
 		$db = $GLOBALS['TYPO3_DB'];
 		$databaseNames = $db->admin_get_dbs();
 
@@ -48,7 +53,10 @@ class database_testcase extends tx_phpunit_database_testcase {
 		$this->assertNotContains($this->testDatabase, $databaseNames);
 	}
 
-	public function testCleaningDatabase() {
+	/**
+	 * @test
+	 */
+	public function cleaningDatabase() {
 		$this->createDatabase();
 		$this->importExtensions(array('tsconfig_help'));
 
@@ -63,7 +71,10 @@ class database_testcase extends tx_phpunit_database_testcase {
 		$this->assertEquals(0, $rows);
 	}
 
-	public function testImportingExtension() {
+	/**
+	 * @test
+	 */
+	public function importingExtension() {
 		$this->createDatabase();
 		$db = $this->useTestDatabase();
 		$this->importExtensions(array('tsconfig_help'));
@@ -74,7 +85,10 @@ class database_testcase extends tx_phpunit_database_testcase {
 		$this->assertNotEquals(0, $rows);
 	}
 
-	public function testExtensionAlteringTable() {
+	/**
+	 * @test
+	 */
+	public function extensionAlteringTable() {
 		$this->createDatabase();
 		$db = $this->useTestDatabase();
 		$this->importExtensions(array('bbb'), true);
@@ -88,7 +102,10 @@ class database_testcase extends tx_phpunit_database_testcase {
 		$this->assertContains('tx_bbb_test', array_keys($columns));
 	}
 
-	public function testRecursiveImportingExtensions() {
+	/**
+	 * @test
+	 */
+	public function recursiveImportingExtensions() {
 		$this->createDatabase();
 		$this->useTestDatabase();
 		$this->importExtensions(array('ccc', 'aaa'), true);
@@ -100,7 +117,10 @@ class database_testcase extends tx_phpunit_database_testcase {
 		$this->assertContains('tx_aaa_test', $tableNames, 'Check that extension aaa is installed. The extension can be found in tests/res/.');
 	}
 
-	public function testSkippingDependencyExtensions() {
+	/**
+	 * @test
+	 */
+	public function skippingDependencyExtensions() {
 		$this->createDatabase();
 		$this->useTestDatabase();
 
@@ -115,7 +135,10 @@ class database_testcase extends tx_phpunit_database_testcase {
 		$this->assertNotContains('tx_aaa_test', $tableNames);
 	}
 
-	public function testImportingDataSet() {
+	/**
+	 * @test
+	 */
+	public function importingDataSet() {
 		$this->createDatabase();
 		$db = $this->useTestDatabase();
 		$this->importExtensions(array('ccc'));

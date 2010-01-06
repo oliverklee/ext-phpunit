@@ -22,6 +22,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+require_once (PATH_t3lib . 'class.t3lib_tcemain.php');
+
 /**
  * Test case for checking the PHPUnit 3.1.9
  *
@@ -30,11 +32,11 @@
  *
  * @author	Kasper Ligaard <ligaard@daimi.au.dk>
  */
-require_once (PATH_t3lib.'class.t3lib_tcemain.php');
-
 class tx_phpunit_test_testcase extends tx_phpunit_testcase {
-
-	public function testNewArrayIsEmpty1() {
+	/**
+	 * @test
+	 */
+	public function newArrayIsEmpty1() {
 		// Create the Array fixture.
 		$fixture = array();
 
@@ -42,7 +44,10 @@ class tx_phpunit_test_testcase extends tx_phpunit_testcase {
 		$this->assertEquals(0, sizeof($fixture));
 	}
 
-	public function testNewArrayIsEmpty2() {
+	/**
+	 * @test
+	 */
+	public function newArrayIsEmpty2() {
 		// Create the Array fixture.
 		$fixture = array();
 
@@ -50,7 +55,10 @@ class tx_phpunit_test_testcase extends tx_phpunit_testcase {
 		$this->assertEquals(1, sizeof($fixture), "This test is deliberately made to fail :-).");
 	}
 
-	public function testNewArrayIsEmpty3() {
+	/**
+	 * @test
+	 */
+	public function newArrayIsEmpty3() {
 		// Create the Array fixture.
 		$fixture = array();
 
@@ -58,14 +66,21 @@ class tx_phpunit_test_testcase extends tx_phpunit_testcase {
 		$this->assertEquals(0, sizeof($fixture));
 	}
 
-	public function testNewArrayIsEmpty4() {
+	/**
+	 * @test
+	 */
+	public function newArrayIsEmpty4() {
 		// Create the Array fixture.
 		$fixture = array();
 
 		// Assert that the size of the Array fixture is 0.
 		$this->assertEquals(0, sizeof($fixture));
 	}
-	public function testNewArrayIsEmpty5() {
+
+	/**
+	 * @test
+	 */
+	public function newArrayIsEmpty5() {
 		// Create the Array fixture.
 		$fixture = array();
 
@@ -73,13 +88,18 @@ class tx_phpunit_test_testcase extends tx_phpunit_testcase {
 		$this->assertEquals(0, sizeof($fixture));
 	}
 
-	public function testThatThisCaseIsMarkedAsSkipped() {
+	/**
+	 * @test
+	 */
+	public function thisCaseIsMarkedAsSkipped() {
 		$this->markTestSkipped('This test is skipped while testing.');
 	}
 
-	public function testThatThisCaseIsMarkedAsNotImplemented() {
+	/**
+	 * @test
+	 */
+	public function thisCaseIsMarkedAsNotImplemented() {
 		$this->markTestIncomplete('This test as incomplete while not implemented for testing.');
 	}
-
 }
 ?>

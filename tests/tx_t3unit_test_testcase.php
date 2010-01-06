@@ -22,6 +22,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+require_once (PATH_t3lib . 'class.t3lib_tcemain.php');
+
 /**
  * Test case for checking the PHPUnit 3.0.5
  *
@@ -30,11 +32,11 @@
  *
  * @author	Kasper Ligaard <ligaard@daimi.au.dk>
  */
-require_once (PATH_t3lib.'class.t3lib_tcemain.php');
-
 class tx_t3unit_test_testcase extends tx_t3unit_testcase {
-
-	public function testNewArrayIsEmpty1() {
+	/**
+	 * @test
+	 */
+	public function newArrayIsEmpty1() {
 		// Create the Array fixture.
 		$fixture = array();
 
@@ -42,7 +44,10 @@ class tx_t3unit_test_testcase extends tx_t3unit_testcase {
 		$this->assertEquals(0, sizeof($fixture));
 	}
 
-	public function testAssertTrueIsFalse() {
+	/**
+	 * @test
+	 */
+	public function assertTrueIsFalse() {
 		// Create the Array fixture.
 		$fixture = FALSE;
 
@@ -50,7 +55,10 @@ class tx_t3unit_test_testcase extends tx_t3unit_testcase {
 		$this->assertTrue($fixture, "This test is deliberately made to fail :-).");
 	}
 
-	public function testNewArrayIsEmpty3() {
+	/**
+	 * @test
+	 */
+	public function newArrayIsEmpty3() {
 		// Create the Array fixture.
 		$fixture = array();
 
@@ -58,7 +66,10 @@ class tx_t3unit_test_testcase extends tx_t3unit_testcase {
 		$this->assertEquals(0, sizeof($fixture));
 	}
 
-	public function testNewArrayIsEmpty4() {
+	/**
+	 * @test
+	 */
+	public function newArrayIsEmpty4() {
 		// Create the Array fixture.
 		$fixture = array();
 
@@ -66,7 +77,10 @@ class tx_t3unit_test_testcase extends tx_t3unit_testcase {
 		$this->assertEquals(0, sizeof($fixture));
 	}
 
-	public function testNewArrayIsEmpty5() {
+	/**
+	 * @test
+	 */
+	public function newArrayIsEmpty5() {
 		// Create the Array fixture.
 		$fixture = array();
 
