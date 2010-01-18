@@ -26,19 +26,29 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	}
 
 	/*
-	 * Accesses the Typo3 database object, and uses it to fetch the list of databases. Then
-	 * checks whether to a test database is already setup; if not, then creates it.
+	 * Accesses the Typo3 database object, and uses it to fetch the list of
+	 * databases. Then checks whether to a test database is already setup; if
+	 * not, then creates it.
 	 *
-	 * @return void
+	 * @return boolean TRUE if the database has been created successfully,
+	 *                 FALSE otherwise
 	 */
 	protected function createDatabase() {
+		$success = TRUE;
+
 		$this->dropDatabase();
 		$db = $GLOBALS['TYPO3_DB'];
 		$databaseNames = $db->admin_get_dbs();
 
 		if (!in_array($this->testDatabase, $databaseNames)) {
-			$db->admin_query('CREATE DATABASE '.$this->testDatabase);
+			if ($db->admin_query(
+				'CREATE DATABASE ' . $this->testDatabase
+			) === FALSE) {
+				$success = FALSE;
+			}
 		}
+
+		return $success;
 	}
 
 
@@ -63,19 +73,26 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	}
 
 	/**
-	 * Drops test database
+	 * Drops the test database.
 	 *
-	 * @return void
+	 * @return boolean TRUE if the database has been dropped successfully,
+	 *                 FALSE otherwise
 	 */
 	protected function dropDatabase() {
+		$success = TRUE;
+
 		$db = $GLOBALS['TYPO3_DB'];
 
 		$databaseNames = $db->admin_get_dbs();
 
 		if (in_array($this->testDatabase, $databaseNames)) {
 			$db->sql_select_db($this->testDatabase);
-			$db->admin_query('DROP DATABASE '.$this->testDatabase);
+			if ($db->admin_query('DROP DATABASE ' . $this->testDatabase) === FALSE) {
+				$success = FALSE;
+			}
 		}
+
+		return $success;
 	}
 
 	/**

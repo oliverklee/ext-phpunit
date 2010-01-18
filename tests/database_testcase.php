@@ -5,11 +5,10 @@
  *  2. bbb (depends on aaa and alters aaa' tables)
  *  3. ccc (depends on bbb)
  *  4. ddd (depends on bbb)
- *
  */
 class database_testcase extends tx_phpunit_database_testcase {
 	public function tearDown() {
-		// insures that test database always is dropped
+		// ensures that test database always is dropped
 		// even when testcases fails
 		$this->dropDatabase();
 	}
@@ -25,8 +24,12 @@ class database_testcase extends tx_phpunit_database_testcase {
 	 * @test
 	 */
 	public function creatingTestDatabase() {
-		$this->dropDatabase();
-		$this->createDatabase();
+		if (!$this->dropDatabase() || !$this->createDatabase()) {
+			$this->markTestSkipped(
+				'This test can only be run if the current DB user has the ' .
+					'permissions to CREATE and DROP databases.'
+			);
+		}
 
 		$db = $GLOBALS['TYPO3_DB'];
 
@@ -43,12 +46,22 @@ class database_testcase extends tx_phpunit_database_testcase {
 		$databaseNames = $db->admin_get_dbs();
 
 		if (!in_array($this->testDatabase, $databaseNames)) {
-			$this->createDatabase();
+			if (!$this->createDatabase()) {
+				$this->markTestSkipped(
+					'This test can only be run if the current DB user has the ' .
+						'permissions to CREATE and DROP databases.'
+				);
+			}
 			$databaseNames = $db->admin_get_dbs();
 			$this->assertContains($this->testDatabase, $databaseNames);
 		}
 
-		$this->dropDatabase();
+		if (!$this->dropDatabase()) {
+			$this->markTestSkipped(
+				'This test can only be run if the current DB user has the ' .
+					'permissions to CREATE and DROP databases.'
+			);
+		}
 		$databaseNames = $db->admin_get_dbs();
 		$this->assertNotContains($this->testDatabase, $databaseNames);
 	}
@@ -57,7 +70,12 @@ class database_testcase extends tx_phpunit_database_testcase {
 	 * @test
 	 */
 	public function cleaningDatabase() {
-		$this->createDatabase();
+		if (!$this->createDatabase()) {
+			$this->markTestSkipped(
+				'This test can only be run if the current DB user has the ' .
+					'permissions to CREATE and DROP databases.'
+			);
+		}
 		$this->importExtensions(array('tsconfig_help'));
 
 		$db = $this->useTestDatabase();
@@ -75,7 +93,12 @@ class database_testcase extends tx_phpunit_database_testcase {
 	 * @test
 	 */
 	public function importingExtension() {
-		$this->createDatabase();
+		if (!$this->createDatabase()) {
+			$this->markTestSkipped(
+				'This test can only be run if the current DB user has the ' .
+					'permissions to CREATE and DROP databases.'
+			);
+		}
 		$db = $this->useTestDatabase();
 		$this->importExtensions(array('tsconfig_help'));
 
@@ -89,7 +112,19 @@ class database_testcase extends tx_phpunit_database_testcase {
 	 * @test
 	 */
 	public function extensionAlteringTable() {
-		$this->createDatabase();
+		if (!t3lib_extMgm::isLoaded('aaa') || !t3lib_extMgm::isLoaded('bbb')) {
+			$this->markTestSkipped(
+				'This test can only be run if the extensions aaa and bbb ' .
+					'from tests/res are installed.'
+			);
+		}
+
+		if (!$this->createDatabase()) {
+			$this->markTestSkipped(
+				'This test can only be run if the current DB user has the ' .
+					'permissions to CREATE and DROP databases.'
+			);
+		}
 		$db = $this->useTestDatabase();
 		$this->importExtensions(array('bbb'), true);
 
@@ -106,7 +141,21 @@ class database_testcase extends tx_phpunit_database_testcase {
 	 * @test
 	 */
 	public function recursiveImportingExtensions() {
-		$this->createDatabase();
+		if (!t3lib_extMgm::isLoaded('aaa') || !t3lib_extMgm::isLoaded('bbb')
+			|| !t3lib_extMgm::isLoaded('ccc')
+		) {
+			$this->markTestSkipped(
+				'This test can only be run if the extensions aaa, bbb and ccc ' .
+					'from tests/res are installed.'
+			);
+		}
+
+		if (!$this->createDatabase()) {
+			$this->markTestSkipped(
+				'This test can only be run if the current DB user has the ' .
+					'permissions to CREATE and DROP databases.'
+			);
+		}
 		$this->useTestDatabase();
 		$this->importExtensions(array('ccc', 'aaa'), true);
 
@@ -121,7 +170,21 @@ class database_testcase extends tx_phpunit_database_testcase {
 	 * @test
 	 */
 	public function skippingDependencyExtensions() {
-		$this->createDatabase();
+		if (!t3lib_extMgm::isLoaded('aaa') || !t3lib_extMgm::isLoaded('bbb')
+			|| !t3lib_extMgm::isLoaded('ccc') || !t3lib_extMgm::isLoaded('ddd')
+		) {
+			$this->markTestSkipped(
+				'This test can only be run if the extensions aaa, bbb, ccc ' .
+					'and ddd from tests/res are installed.'
+			);
+		}
+
+		if (!$this->createDatabase()) {
+			$this->markTestSkipped(
+				'This test can only be run if the current DB user has the ' .
+					'permissions to CREATE and DROP databases.'
+			);
+		}
 		$this->useTestDatabase();
 
 		$toSkip = array('bbb');
@@ -139,7 +202,19 @@ class database_testcase extends tx_phpunit_database_testcase {
 	 * @test
 	 */
 	public function importingDataSet() {
-		$this->createDatabase();
+		if (!t3lib_extMgm::isLoaded('ccc')) {
+			$this->markTestSkipped(
+				'This test can only be run if the extension ccc from ' .
+					'tests/res is installed.'
+			);
+		}
+
+		if (!$this->createDatabase()) {
+			$this->markTestSkipped(
+				'This test can only be run if the current DB user has the ' .
+					'permissions to CREATE and DROP databases.'
+			);
+		}
 		$db = $this->useTestDatabase();
 		$this->importExtensions(array('ccc'));
 		$this->importDataSet(dirname(__FILE__). '/database_testcase_dataset.xml');
