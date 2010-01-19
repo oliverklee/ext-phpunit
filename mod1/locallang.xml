@@ -11,7 +11,6 @@
 			<label index="all_extensions">All extensions</label>
 			<label index="could_not_find_exts_with_tests">Could not find any extension with unit tests.</label>
 			<label index="function_about">About PHPUnit BE</label>
-			<label index="function_news">News &amp; Changes List</label>
 			<label index="function_runtests">Run tests</label>
 			<label index="run_again"><![CDATA[<span class="access-key">R</span>e-run]]></label>
 			<label index="run_all_tests"><![CDATA[Run <span class="access-key">a</span>ll tests]]></label>
@@ -38,7 +37,6 @@
 			<label index="all_extensions">Alle extensions</label>
 			<label index="could_not_find_exts_with_tests">Der blev ikke fundet extensions med unit tests.</label>
 			<label index="function_about">Om PHPUnit BE</label>
-			<label index="function_news">Nyt og ændret liste</label>
 			<label index="function_runtests">Kør tests</label>
 			<label index="run_again"><![CDATA[Kø<span class="access-key">r</span> igen]]></label>
 			<label index="run_all_tests"><![CDATA[Kør <span class="access-key">a</span>lle tests]]></label>
@@ -59,7 +57,6 @@
 			<label index="all_extensions">Alle Extensions</label>
 			<label index="could_not_find_exts_with_tests">Es konnte keine Extension mit Unit Tests gefunden werden</label>
 			<label index="function_about">Über PHPUnit BE</label>
-			<label index="function_news">Neuigkeiten und Änderungen</label>
 			<label index="function_runtests">Run tests</label>
 			<label index="run_again"><![CDATA[Test e<span class="access-key">r</span>neut ausführen]]></label>
 			<label index="run_all_tests"><![CDATA[<span class="access-key">A</span>lle Tests ausführen]]></label>
@@ -141,7 +138,6 @@
 			<label index="tests_total" type="integer">190949077</label>
 			<label index="tests_seconds" type="integer">126085346</label>
 			<label index="title" type="integer">94470161</label>
-			<label index="function_news" type="integer">217108613</label>
 			<label index="tests_leaks" type="integer">101762851</label>
 		</languageKey>
 	</orig_hash>
@@ -164,7 +160,6 @@
 			<label index="tests_total">tests</label>
 			<label index="tests_seconds">seconds</label>
 			<label index="title">PHPUnit BE</label>
-			<label index="function_news">News &amp; Changes List</label>
 			<label index="tests_leaks">memory leaks</label>
 		</languageKey>
 	</orig_text>

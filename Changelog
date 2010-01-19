@@ -1,4 +1,5 @@
 2010-01-19 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #5557: Drop the display of the changelog
 	* Fixed bug #5900: Update PHPUnit to 3.4.7
 	* Fixed Bug #5555: Register all classes for the autoloader
 	* Fixed Bug #5950: Remove the mentioning of the ECT from the extension description
