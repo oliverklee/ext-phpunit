@@ -615,14 +615,25 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 		$GLOBALS['TT'] = t3lib_div::makeInstance('t3lib_timeTrack');
 
-		$className = t3lib_div::makeInstanceClassName('tslib_fe');
-		$frontEnd = new $className(
-			$GLOBALS['TYPO3_CONF_VARS'], 0, 0
-		);
+		if (t3lib_div::int_from_ver(TYPO3_version) >= 4003000) {
+			$frontEnd = t3lib_div::makeInstance(
+				'tslib_fe', $GLOBALS['TYPO3_CONF_VARS'], 0, 0
+			);
+		} else {
+			$className = t3lib_div::makeInstanceClassName('tslib_fe');
+			$frontEnd = new $className(
+				$GLOBALS['TYPO3_CONF_VARS'], 0, 0
+			);
+		}
 
 		// simulates a normal FE without any logged-in FE or BE user
-		$frontEnd->beUserLogin = false;
+		$frontEnd->beUserLogin = FALSE;
 		$frontEnd->workspacePreview = '';
+
+		$frontEnd->sys_page = t3lib_div::makeInstance('t3lib_pageSelect');
+		$frontEnd->sys_page->init(TRUE);
+		$frontEnd->initTemplate();
+
 		// $frontEnd->getConfigArray() doesn't work here because the dummy FE
 		// is not required to have a template.
 		$frontEnd->config = array();

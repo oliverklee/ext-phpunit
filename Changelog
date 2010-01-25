@@ -1,3 +1,6 @@
+2010-01-25 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #5836: Don't use makeInstanceClassName in TYPO3 4.3
+
 2010-01-19 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #5557: Drop the display of the changelog
 	* Fixed bug #5900: Update PHPUnit to 3.4.7

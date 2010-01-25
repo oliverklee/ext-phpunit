@@ -57,39 +57,59 @@ class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Roughly simulates the frontend although being in the backend.
+	 * Roughly simulates the front end although being in the back end.
 	 *
-	 * @return	void
-	 * @todo	This is a quick hack, needs proper implementation
+	 * @todo	This is a quick hack, needs proper implementation.
 	 */
 	protected function simulateFrontendEnviroment() {
-		global $TSFE, $TYPO3_CONF_VARS;
+		require_once(PATH_t3lib . 'class.t3lib_timetrack.php');
+		require_once(PATH_tslib . 'class.tslib_fe.php');
+		require_once(PATH_t3lib . 'class.t3lib_page.php');
+		require_once(PATH_t3lib . 'class.t3lib_userauth.php');
+		require_once(PATH_tslib . 'class.tslib_feuserauth.php');
+		require_once(PATH_t3lib . 'class.t3lib_tstemplate.php');
+		require_once(PATH_t3lib . 'class.t3lib_cs.php');
 
-			// FIXME: Currently bad workaround which only initializes a few things, not really what you'd call a frontend enviroment
-
-		require_once(PATH_tslib.'class.tslib_fe.php');
-		require_once(PATH_t3lib.'class.t3lib_page.php');
-		require_once(PATH_t3lib.'class.t3lib_userauth.php');
-		require_once(PATH_tslib.'class.tslib_feuserauth.php');
-		require_once(PATH_t3lib.'class.t3lib_tstemplate.php');
-		require_once(PATH_t3lib.'class.t3lib_cs.php');
-
-		$temp_TSFEclassName = t3lib_div::makeInstanceClassName('tslib_fe');
-		$TSFE = new $temp_TSFEclassName(
-				$TYPO3_CONF_VARS,
-				t3lib_div::_GP('id'),
-				t3lib_div::_GP('type'),
-				t3lib_div::_GP('no_cache'),
-				t3lib_div::_GP('cHash'),
-				t3lib_div::_GP('jumpurl'),
-				t3lib_div::_GP('MP'),
-				t3lib_div::_GP('RDCT')
+		if (isset($GLOBALS['TSFE']) && is_object($GLOBALS['TSFE'])) {
+			// avoids some memory leaks
+			unset(
+				$GLOBALS['TSFE']->tmpl, $GLOBALS['TSFE']->sys_page,
+				$GLOBALS['TSFE']->fe_user, $GLOBALS['TSFE']->TYPO3_CONF_VARS,
+				$GLOBALS['TSFE']->config, $GLOBALS['TSFE']->TCAcachedExtras,
+				$GLOBALS['TSFE']->imagesOnPage, $GLOBALS['TSFE']->cObj,
+				$GLOBALS['TSFE']->csConvObj, $GLOBALS['TSFE']->pagesection_lockObj,
+				$GLOBALS['TSFE']->pages_lockObj
 			);
-		$TSFE->connectToDB();
-		$TSFE->initTemplate();
-		$TSFE->sys_page = t3lib_div::makeInstance('t3lib_pageSelect');
-		$TSFE->sys_page->init(true);
-		$TSFE->config = array();		// Must be filled with actual config!
+			$GLOBALS['TSFE'] = null;
+			$GLOBALS['TT'] = null;
+		}
+
+		$GLOBALS['TT'] = t3lib_div::makeInstance('t3lib_timeTrack');
+
+		if (t3lib_div::int_from_ver(TYPO3_version) >= 4003000) {
+			$frontEnd = t3lib_div::makeInstance(
+				'tslib_fe', $GLOBALS['TYPO3_CONF_VARS'], 0, 0
+			);
+		} else {
+			$className = t3lib_div::makeInstanceClassName('tslib_fe');
+			$frontEnd = new $className(
+				$GLOBALS['TYPO3_CONF_VARS'], 0, 0
+			);
+		}
+
+		// simulates a normal FE without any logged-in FE or BE user
+		$frontEnd->beUserLogin = FALSE;
+		$frontEnd->workspacePreview = '';
+
+		$frontEnd->sys_page = t3lib_div::makeInstance('t3lib_pageSelect');
+		$frontEnd->sys_page->init(TRUE);
+		$frontEnd->initTemplate();
+
+		// $frontEnd->getConfigArray() doesn't work here because the dummy FE
+		// is not required to have a template.
+		$frontEnd->config = array();
+
+		$GLOBALS['TSFE'] = $frontEnd;
 	}
 }
 
