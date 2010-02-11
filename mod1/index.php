@@ -45,8 +45,8 @@ if (!defined('PATH_tslib')) {
 
 // Which instance interface to create?
 if (isset($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['phpunit']['mod1/class.tx_phpunit_module1.php']['main'])) {
-    $classRef = $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['phpunit']['mod1/class.tx_phpunit_module1.php']['main'];
-    // Class must implement main(). What was previously init() should now happen in __construct().
+	$classRef = $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['phpunit']['mod1/class.tx_phpunit_module1.php']['main'];
+	// Class must implement main(). What was previously init() should now happen in __construct().
 	$SOBE = t3lib_div::getUserObj($classRef);
 } else {
 	$SOBE = new tx_phpunit_module1();

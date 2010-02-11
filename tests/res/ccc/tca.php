@@ -12,7 +12,7 @@ $TCA["tx_ccc_test"] = array (
 			'exclude' => 1,
 			'label'   => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
 			'config'  => array (
-				'type'    => 'check',
+				'type'	=> 'check',
 				'default' => '0'
 			)
 		),
@@ -38,7 +38,7 @@ $TCA["tx_ccc_data"] = array (
 			'exclude' => 1,
 			'label'   => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
 			'config'  => array (
-				'type'    => 'check',
+				'type'	=> 'check',
 				'default' => '0'
 			)
 		),

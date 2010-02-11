@@ -65,11 +65,11 @@ class tx_phpunit_cli_phpunit extends t3lib_cli {
 		parent::t3lib_cli();
 		$this->cli_options = array_merge($this->cli_options, array());
 		$this->cli_help = array_merge($this->cli_help, array(
-			'name'        => 'tx_phpunit_cli_phpunit',
-			'synopsis'    => $this->extKey . ' command [clientId] ###OPTIONS###',
+			'name' => 'tx_phpunit_cli_phpunit',
+			'synopsis' => $this->extKey . ' command [clientId] ###OPTIONS###',
 			'description' => 'This script can update a list of several caches (per CLI-call can one cache be updated)',
-			'examples'    => 'typo3/cli_dispatch.phpsh',
-			'author'      => '(c) 2009 AOE media GmbH <dev@aoemedia.de>',
+			'examples' => 'typo3/cli_dispatch.phpsh',
+			'author' => '(c) 2009 AOE media GmbH <dev@aoemedia.de>',
 		));
 	}
 

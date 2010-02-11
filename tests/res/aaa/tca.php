@@ -12,7 +12,7 @@ $TCA["tx_aaa_test"] = array (
 			'exclude' => 1,
 			'label'   => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
 			'config'  => array (
-				'type'    => 'check',
+				'type'	=> 'check',
 				'default' => '0'
 			)
 		),

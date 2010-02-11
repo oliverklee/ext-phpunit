@@ -45,7 +45,7 @@ h1, h2, h3, h4 {
 
 /* Temporary bugfix for issue http://bugs.typo3.org/view.php?id=7631 */
 body#typo3-mod-php {
-    overflow: auto;
+	overflow: auto;
 }
 
 /* Now we have a somewhat sane setup. Let's style get to work styling. */

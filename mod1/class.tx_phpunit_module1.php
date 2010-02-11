@@ -247,7 +247,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$output .= '
 			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="post">
 				<p>
-                	<select style="' . $style . '" name="SET[extSel]" onchange="jumpToUrl(\''.htmlspecialchars($this->MCONF['_']).'&amp;SET[extSel]=\'+this.options[this.selectedIndex].value,this);">'.implode('', $extensionsOptionsArr).'</select>
+					<select style="' . $style . '" name="SET[extSel]" onchange="jumpToUrl(\''.htmlspecialchars($this->MCONF['_']).'&amp;SET[extSel]=\'+this.options[this.selectedIndex].value,this);">'.implode('', $extensionsOptionsArr).'</select>
 					<button type="submit" name="bingo" value="run" accesskey="a">'.$this->getLL('run_all_tests').'</button>
 					<input type="hidden" name="command" value="runalltests" />
 				</p>
@@ -323,7 +323,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 
 		// build options for select (incl. option groups for test suites)
-		$testOptionsHtml         = '';
+		$testOptionsHtml = '';
 		foreach ($testsOptionsArr as $suiteName => $testArr) {
 			$testOptionsHtml .= '<optgroup label="'.$suiteName.'">';
 			foreach ($testArr as $testHtml) {
@@ -378,14 +378,14 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$output .= ' <input type="checkbox" id="SET[notimplemented]"name="SET[notimplemented]" ' . $notImplementedState . ' /><label for="SET[notimplemented]">Not implemented</label>';
 		$output .= ' <input type="checkbox" id="SET[showMemoryAndTime]"name="SET[showMemoryAndTime]" ' . $showMemoryAndTime . '/><label for="SET[showMemoryAndTime]">Show memory & time</label>';
 
-        $codecoverageDisable = '';
-        $codecoverageForLabelWhenDisabled = '';
+		$codecoverageDisable = '';
+		$codecoverageForLabelWhenDisabled = '';
 		if (!extension_loaded('xdebug')) {
-        	$codecoverageDisable = ' disabled="disabled"';
-        	$codecoverageForLabelWhenDisabled = ' title="Code coverage requires XDebug to be installed."';
-        }
+			$codecoverageDisable = ' disabled="disabled"';
+			$codecoverageForLabelWhenDisabled = ' title="Code coverage requires XDebug to be installed."';
+		}
 		$codeCoverageState = $this->MOD_SETTINGS['codeCoverage'] === 'on' ? 'checked="checked"' : '';
-       	$output .= ' <input type="checkbox" id="SET[codeCoverage]"name="SET[codeCoverage]"' . $codecoverageDisable . ' ' . $codeCoverageState . ' /><label for="SET[codeCoverage]"' . $codecoverageForLabelWhenDisabled . '>Collect code-coverage data</label>';
+	   	$output .= ' <input type="checkbox" id="SET[codeCoverage]"name="SET[codeCoverage]"' . $codecoverageDisable . ' ' . $codeCoverageState . ' /><label for="SET[codeCoverage]"' . $codecoverageForLabelWhenDisabled . '>Collect code-coverage data</label>';
 		$output .= '</div>';
 		$output .= '</form>';
 
@@ -437,9 +437,9 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 		// Set to collect code coverage information.
 		if ($GLOBALS['BE_USER']->uc['moduleData']['tools_txphpunitM1']['codeCoverage'] === 'on' &&
-             extension_loaded('xdebug')) {
-            $result->collectCodeCoverageInformation(TRUE);
-        }
+			 extension_loaded('xdebug')) {
+			$result->collectCodeCoverageInformation(TRUE);
+		}
 
 		$testListener = new tx_phpunit_testlistener();
 		if ( $this->MOD_SETTINGS['testdox'] == 'on')
@@ -532,10 +532,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		// Display test statistics:
 		$testStatistics = '';
 		if ($result->wasSuccessful()) {
-	    	$testStatistics = '
+			$testStatistics = '
 				<h2 class="wasSuccessful">'.$this->getLL('testing_success').'</h2>';
 		} else {
-	    	$testStatistics = '
+			$testStatistics = '
 				<script type="text/javascript">setClass("progress-bar","hadFailure");</script>
 				<h2 class="hadFailure">'.$this->getLL('testing_failure').'</h2>';
 		}
@@ -563,9 +563,9 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 		// Code coverage output.
 		if (!t3lib_div::_GP('testname') && $result->getCollectCodeCoverageInformation()) {
-		    PHPUnit_Util_Report::render($result, t3lib_extMgm::extPath('phpunit').'codecoverage/');
-		    echo '<p><a target="_blank" href="'.$this->extensionPath.'codecoverage/typo3conf_ext.html">Click here to access the Code Coverage report</a></p>';
-		    echo '<p>Memory peak usage: '.t3lib_div::formatSize(memory_get_peak_usage()).'B<p/>';
+			PHPUnit_Util_Report::render($result, t3lib_extMgm::extPath('phpunit').'codecoverage/');
+			echo '<p><a target="_blank" href="'.$this->extensionPath.'codecoverage/typo3conf_ext.html">Click here to access the Code Coverage report</a></p>';
+			echo '<p>Memory peak usage: '.t3lib_div::formatSize(memory_get_peak_usage()).'B<p/>';
 		}
 	}
 
@@ -746,10 +746,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$extPath = t3lib_extMgm::extPath($extKey);
 			// Tests and tests directory (lower case 't' and upper case 'T').
 			// See http://forge.typo3.org/issues/show/3424 for reason.
-            $testCasesArr = array_merge(
-                $this->findTestCasesInDir($extPath . 'tests/'),
-                $this->findTestCasesInDir($extPath . 'Tests/')
-            );
+			$testCasesArr = array_merge(
+				$this->findTestCasesInDir($extPath . 'tests/'),
+				$this->findTestCasesInDir($extPath . 'Tests/')
+			);
 			if (!empty($testCasesArr)) {
 				$extensionsOwnTestCases[$extKey] = $testCasesArr;
 			}

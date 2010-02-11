@@ -30,7 +30,7 @@ require_once('PHPUnit/Framework/TestSuite.php');
  * WARNING: Never ever run a unit test like this on a live site!
  *
  *
- * @author    Kasper Ligaard <ligaard@daimi.au.dk<mailto:ligaard@daimi.au.dk>>
+ * @author	Kasper Ligaard <ligaard@daimi.au.dk<mailto:ligaard@daimi.au.dk>>
  */
 class tx_phpunit_test_testsuite extends PHPUnit_Framework_TestSuite {
 	public function __construct() {
