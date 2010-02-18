@@ -1,4 +1,5 @@
 2010-02-18 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #6452: Update PHPUnit version 3.4.7 to 3.4.11
 	* Fixed Bug #5511: Show a warning if PHP comments are stripped
 
 2010-01-25 Oliver Klee <typo3-coding@oliverklee.de>
