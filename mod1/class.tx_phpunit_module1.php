@@ -28,6 +28,7 @@ require_once (PATH_t3lib . 'class.t3lib_scbase.php');
  * Module 'PHPUnit' for the 'phpunit' extension.
  *
  * @author Kasper Ligaard <ligaard@daimi.au.dk>
+ * @author Oliver Klee <typo3-coding@oliverklee.de>
  *
  * @package TYPO3
  * @subpackage tx_phpunit
@@ -174,6 +175,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * @return	void
 	 */
 	protected function runTests_render() {
+		echo $this->checkPhpComments();
+
 		if (!$this->isExtensionLoaded($this->MOD_SETTINGS['extSel'])) {
 			$this->MOD_SETTINGS['extSel'] = 'phpunit'; // We know that phpunit must be loaded
 		}
@@ -188,6 +191,30 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			default:
 				$this->runTests_renderIntro();
 			}
+	}
+
+	/**
+	 * Checks that PHP comments are retained.
+	 *
+	 * @return string an empty string if everything is okay, an HTML-formatted
+	 *         error message if PHP comments are stripped
+	 */
+	protected function checkPhpComments() {
+		$status = '';
+
+		$method = new ReflectionMethod('tx_phpunit_module1', 'checkPhpComments');
+		if (strlen($method->getDocComment()) == 0) {
+			$status = '<div class="hadError">' .
+				'<h2>' . $GLOBALS['LANG']->sL(
+					'LLL:EXT:phpunit/report/locallang.xml:status_phpComments'
+				) . '</h2>' .
+				'<p>' .  $GLOBALS['LANG']->sL(
+					'LLL:EXT:phpunit/report/locallang.xml:status_phpComments_stripped_verbose'
+				) . '</p>' .
+				'</div>';
+		}
+
+		return $status;
 	}
 
 	/**

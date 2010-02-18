@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for the PHPUnit status reports</description>
+		<labelContext type="array">
+		</labelContext>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="status_phpComments">PHP Comments</label>
+			<label index="status_phpComments_stripped_short">stripped</label>
+			<label index="status_phpComments_stripped_verbose">PHP Comments get stripped on your installation. This will cause PHPUnit to not find tests using the @test annotation. Please either disable your PHP accelerator or configure your PHP accelerator to not strip PHP comments.</label>
+			<label index="status_phpComments_present_short">OK</label>
+			<label index="status_phpComments_present_verbose">PHP Comments are retained on your installation.</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="status_phpComments">PHP-Kommentare</label>
+			<label index="status_phpComments_stripped_short">entfernt</label>
+			<label index="status_phpComments_stripped_verbose">PHP-Kommentare werden bei Ihrer Installation entfernt, so dass PHPUnit Tests mit der @test-Annotation nicht findet. Bitte schalten Sie Ihren PHP-Beschleuniger aus oder konfigurieren Sie Ihren PHP-Beschleuniger so, dass er PHP-Kommentare nicht entfernt.</label>
+			<label index="status_phpComments_present_short">OK</label>
+			<label index="status_phpComments_present_verbose">PHP-Kommentare bleiben bei Ihrer Installation erhalten.</label>
+		</languageKey>
+	</data>
+	<orig_hash type="array">
+		<languageKey index="de" type="array">
+			<label index="status_phpComments" type="integer">148981715</label>
+			<label index="status_phpComments_stripped_short" type="integer">17607112</label>
+			<label index="status_phpComments_stripped_verbose" type="integer">21256072</label>
+			<label index="status_phpComments_present_short" type="integer">235577377</label>
+			<label index="status_phpComments_present_verbose" type="integer">36712388</label>
+		</languageKey>
+	</orig_hash>
+	<orig_text type="array">
+		<languageKey index="de" type="array">
+			<label index="status_phpComments">PHP Comments</label>
+			<label index="status_phpComments_stripped_short">stripped</label>
+			<label index="status_phpComments_stripped_verbose">PHP Comments get stripped on your installation. This will cause PHPUnit to not find tests using the @test annotation. Please either disable your PHP accelerator or configure your PHP accelerator to not strip PHP comments.</label>
+			<label index="status_phpComments_present_short">OK</label>
+			<label index="status_phpComments_present_verbose">PHP Comments are retained on your installation.</label>
+		</languageKey>
+	</orig_text>
+</T3locallang>
