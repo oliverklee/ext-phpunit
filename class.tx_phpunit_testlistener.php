@@ -131,12 +131,12 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 		$fileName = str_replace(PATH_site, '', $testCaseTraceArr['file']);
 
 		if ($this->useExperimentalProgressBar) {
-			echo '<script type="text/javascript">setClass("tx_phpunit_testcase_nr_' . $this->currentTestNumber . '", "hadError");</script>';
+			echo '<script type="text/javascript">/*<![CDATA[*/setClass("tx_phpunit_testcase_nr_' . $this->currentTestNumber . '", "hadError");/*]]>*/</script>';
 		}
 
 		echo '
-			<script type="text/javascript">setClass("progress-bar","hadError");</script>
-			<script type="text/javascript">setClass("testcaseNum-'.$this->currentTestNumber.'","testcaseError");</script>
+			<script type="text/javascript">/*<![CDATA[*/setClass("progress-bar","hadError");/*]]>*/</script>
+			<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-'.$this->currentTestNumber.'","testcaseError");/*]]>*/</script>
 			<strong><span class="hadError">!</span> Error</strong> in test case <em>'.$test->getName().'</em>
 			<br />in file<em> '.$fileName.'</em>
 			<br />on line<em> '.$testCaseTraceArr['line'].'</em>:
@@ -155,12 +155,12 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 		$fileName = str_replace(PATH_site, '', $testCaseTraceArr['file']);
 
 		if ($this->useExperimentalProgressBar) {
-			echo '<script type="text/javascript">setClass("tx_phpunit_testcase_nr_' . $this->currentTestNumber . '", "hadFailure");</script>';
+			echo '<script type="text/javascript">/*<![CDATA[*/setClass("tx_phpunit_testcase_nr_' . $this->currentTestNumber . '", "hadFailure");/*]]>*/</script>';
 		}
 
 		echo '
-			<script type="text/javascript">setClass("progress-bar","hadFailure");</script>
-			<script type="text/javascript">setClass("testcaseNum-'.$this->currentTestNumber.'","testcaseFailure");</script>
+			<script type="text/javascript">/*<![CDATA[*/setClass("progress-bar","hadFailure");/*]]>*/</script>
+			<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-'.$this->currentTestNumber.'","testcaseFailure");/*]]>*/</script>
 			<strong><span class="hadFailure">!</span> Failure</strong> in test case <em>'.$test->getName().'</em>
 			<br />File: <em>'.$fileName.'</em>
 			<br />Line: <em>'.$testCaseTraceArr['line'].'</em>:
@@ -184,8 +184,8 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	 */
 	public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
 		echo '
-			<script type="text/javascript">setClass("progress-bar","hadNotImplemented");</script>
-			<script type="text/javascript">setClass("testcaseNum-'.$this->currentTestNumber.'","testcaseNotImplemented");</script>
+			<script type="text/javascript">/*<![CDATA[*/setClass("progress-bar","hadNotImplemented");/*]]>*/</script>
+			<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-'.$this->currentTestNumber.'","testcaseNotImplemented");/*]]>*/</script>
 			<span class="inCompleteTest">!</span> <strong>Incomplete test</strong> <em>'.$test->getName().'</em> in file <em>'.$e->getFile().'</em> line <em>'.$e->getLine().'</em>:<br />
 			'.$e->getMessage().'<br />
 		';
@@ -201,8 +201,8 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	 */
 	public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
 		echo '
-			<script type="text/javascript">setClass("progress-bar","hadSkipped");</script>
-			<script type="text/javascript">setClass("testcaseNum-'.$this->currentTestNumber.'","testcaseSkipped");</script>
+			<script type="text/javascript">/*<![CDATA[*/setClass("progress-bar","hadSkipped");/*]]>*/</script>
+			<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-'.$this->currentTestNumber.'","testcaseSkipped");/*]]>*/</script>
 			<span class="inSkippedTest">!</span> <strong>Skipped test</strong> <em>'.$test->getName().'</em> in file <em>'.$e->getFile().'</em> line <em>'.$e->getLine().'</em>:<br />
 			'.$e->getMessage().'<br />
 		';
@@ -220,7 +220,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 		if (! $suite instanceOf PHPUnit_Framework_TestSuite_DataProvider && $suite->getName() !== 'tx_phpunit_basetestsuite') {
 			echo '<h2 class="testSuiteName">Testsuite: ' .
 				$this->prettifyTestClass($suite->getName()) . '</h2>';
-			echo '<script type="text/javascript">setClass("progress-bar","wasSuccessful");</script>';
+			echo '<script type="text/javascript">/*<![CDATA[*/setClass("progress-bar","wasSuccessful");/*]]>*/</script>';
 		}
 	}
 
@@ -242,7 +242,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 		echo '<div id="testcaseNum-'.$this->currentTestNumber.'" class="testcaseOutput testcaseSuccess">';
 
 		if ($this->useExperimentalProgressBar) {
-			echo '<script type="text/javascript">setClass("tx_phpunit_testcase_nr_' . $this->currentTestNumber . '", "wasSuccessful");</script>';
+			echo '<script type="text/javascript">/*<![CDATA[*/setClass("tx_phpunit_testcase_nr_' . $this->currentTestNumber . '", "wasSuccessful");/*]]>*/</script>';
 		}
 
 		if ($this->totalNumberOfTestCases !== 1) {
@@ -273,8 +273,8 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 			echo '<span class="time-usages small-font"><strong>Time:</strong> '.sprintf('%.4f', $time).' sec.</span><br />';
 		}
 		echo '</div>';
-		echo '<script type="text/javascript">document.getElementById("progress-bar").style.width = "'.$percentDone.'%";</script>';
-		echo '<script type="text/javascript">document.getElementById("transparent-bar").style.width = "'.(100-$percentDone).'%";</script>';
+		echo '<script type="text/javascript">/*<![CDATA[*/document.getElementById("progress-bar").style.width = "'.$percentDone.'%";/*]]>*/</script>';
+		echo '<script type="text/javascript">/*<![CDATA[*/document.getElementById("transparent-bar").style.width = "'.(100-$percentDone).'%";/*]]>*/</script>';
 		flush(); // TODO: Should fflush() from PHPUnit be used here?
 	}
 

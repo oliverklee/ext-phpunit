@@ -564,7 +564,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				<h2 class="wasSuccessful">'.$this->getLL('testing_success').'</h2>';
 		} else {
 			$testStatistics = '
-				<script type="text/javascript">setClass("progress-bar","hadFailure");</script>
+				<script type="text/javascript">/*<![CDATA[*/setClass("progress-bar","hadFailure");/*]]>*/</script>
 				<h2 class="hadFailure">'.$this->getLL('testing_failure').'</h2>';
 		}
 		$testStatistics .= '<p>' . $result->count() . ' ' .	$this->getLL('tests_total') . ', ' .
@@ -750,7 +750,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				<img'.t3lib_iconWorks::skinImg($BACK_PATH, 'gfx/open_in_new_window.gif', 'width="19" height="14"').' title="'.$GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.openInNewWindow', 1).'" class="absmiddle" alt="" />
 				Ope<span class="access-key">n</span> in separate window.
 			</a>
-			<script type="text/javascript">if (window.name == "phpunitbe") { document.getElementById("opennewwindow").style.display = "none"; }</script>
+			<script type="text/javascript">/*<![CDATA[*/if (window.name == "phpunitbe") { document.getElementById("opennewwindow").style.display = "none"; }/*]]>*/</script>
 		';
 
 		return $content;
