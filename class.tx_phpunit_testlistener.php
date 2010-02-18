@@ -1,36 +1,48 @@
 <?php
 /***************************************************************
- *  Copyright notice
+ * Copyright notice
  *
- *  (c) 2004 Robert Lemke <robert@typo3.org>
- *  (c) 2008-2010 Kasper Ligaard <kasperligaard@gmail.com>
- *  All rights reserved
+ * (c) 2004-2010 Robert Lemke <robert@typo3.org>
+ * All rights reserved
  *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * This script is part of the TYPO3 project. The TYPO3 project is
+ * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
  *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  This copyright notice MUST APPEAR in all copies of the script!
+ * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-require_once 'PHPUnit/Framework.php';
-require_once 'PHPUnit/Util/TestDox/NamePrettifier.php';
+require_once('PHPUnit/Framework.php');
+require_once('PHPUnit/Util/TestDox/NamePrettifier.php');
 
 PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
 
+/**
+ * Class tx_phpunit_testlistener for the "phpunit" extension.
+ *
+ * This class renders the output of the single tests in the phpunit BE module.
+ *
+ * @package TYPO3
+ * @subpackage tx_phpunit
+ *
+ * @author Robert Lemke <robert@typo3.org>
+ * @author Kasper Ligaard <kasperligaard@gmail.com>
+ * @author Michael Klapper <michael.klapper@aoemedia.de>
+ * @author Oliver Klee <typo3-coding@oliverklee.de>
+ */
 class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
-
 	protected $resultArr = array();
+
 	/**
 	 * the total number of tests to run
 	 *
@@ -71,10 +83,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
  	private $enableShowMemoryAndTime = false;
 
 	/**
-	 * Init the testlistener
-	 *
-	 * @return void
-	 * @author Michael Klapper <michael.klapper@aoemedia.de>
+	 * Initializes the test listener.
 	 */
 	public function __construct() {
 		$this->NamePrettifier = new PHPUnit_Util_TestDox_NamePrettifier;
@@ -93,18 +102,12 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 
 	/**
 	 * Enable the option to show the memory leak and time usage of an test.
-	 *
-	 * @return void
-	 *
-	 * @author Michael Klapper <michael.klapper@aoemedia.de>
 	 */
 	public function enableShowMenoryAndTime() {
 		$this->enableShowMemoryAndTime = true;
 	}
 
 	/**
-	 * @return void
-	 * @author Michael Klapper <michael.klapper@aoemedia.de>
 	 */
 	public function useHumanReadableTextFormat() {
 		$this->useHumanReadableTextFormat = true;
@@ -328,9 +331,8 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	/**
 	 * Prettifies the name of a test method.
 	 *
-	 * @param  string  $testName
+	 * @param string $testName
 	 * @return string
-	 * @author Michael Klapper <michael.klapper@aoemedia.de>
 	 */
 	protected function prettifyTestMethod($testName) {
 		$content = '';
@@ -351,9 +353,9 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	/**
 	 * Prettifies the name of a test class.
 	 *
-	 * @param  string  $testClass
+	 * @param string $testClass
+	 *
 	 * @return string
-	 * @author Michael Klapper <michael.klapper@aoemedia.de>
 	 */
 	protected function prettifyTestClass($testClass) {
 		$content = '';
@@ -372,10 +374,9 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	}
 
 	/**
-	 * Retrieve the collected amount of processed assertions.
+	 * Retrieves the collected amount of processed assertions.
 	 *
 	 * @return integer
-	 * @author Michael Klapper <michael.klapper@aoemedia.de>
 	 */
 	public function assertionCount() {
 		return $this->testAssertions;

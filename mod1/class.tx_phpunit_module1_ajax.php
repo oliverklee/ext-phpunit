@@ -1,22 +1,50 @@
 <?php
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2008-2010 Kasper Ligaard <kasperligaard@gmail.com>
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is
+ * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
 
-/*
+/**
+ * Class tx_phpunit_module1_ajax for the "phpunit" extension.
+ *
  * This class uses the new ajax broker in Typo3 4.2. Thus a minimum requirement
  * of Typo3 4.2 (and hence PHP 5.2.x) is required.
  *
- * For more on the AJAX classes, and how the interact, see http://bugs.typo3.org/view.php?id=7096
+ * @see http://bugs.typo3.org/view.php?id=7096
+ *
+ * @package TYPO3
+ * @subpackage tx_phpunit
  *
  * @author Kasper Ligaard <kasperligaard@gmail.com>
+ * @author Michael Klapper <michael.klapper@aoemedia.de>
+ * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-
 class tx_phpunit_module1_ajax {
 	/**
 	 * Used to broker incoming requests to other calls.
 	 * Called by typo3/ajax.php
 	 *
-	 * @param	array		$params: additional parameters (not used)
-	 * @param	TYPO3AJAX	&$ajaxObj: reference of the TYPO3AJAX object of this request
-	 * @return	void
+	 * @param array $params additional parameters (not used)
+	 * @param TYPO3AJAX &$ajaxObj
+	 *        reference of the TYPO3AJAX object of this request
 	 */
 	public function ajaxBroker($params, &$ajaxObj) {
 		// Check for legal input ('white-listing').

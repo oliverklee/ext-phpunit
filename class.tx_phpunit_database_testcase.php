@@ -1,13 +1,44 @@
 <?php
-require_once 'class.tx_phpunit_testcase.php';
-require_once(PATH_t3lib.'class.t3lib_install.php');
+/***************************************************************
+ *  Copyright notice
+ *
+ *  (c) 2009-2010 AOE media GmbH <dev@aoemedia.de>
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+require_once('class.tx_phpunit_testcase.php');
+require_once(PATH_t3lib . 'class.t3lib_install.php');
 
 PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
 
+/**
+ * Database testcase base class for the  for the "phpunit" extension.
+ *
+ * @package TYPO3
+ * @subpackage tx_phpunit
+ *
+ * @author Michael Klapper <michael.klapper@aoemedia.de>
+ * @author Oliver Klee <typo3-coding@oliverklee.de>
+ */
 class tx_phpunit_database_testcase extends tx_phpunit_testcase {
-
 	/**
-	 * Test database name
+	 * test database name
 	 *
 	 * @var string
 	 */
@@ -16,9 +47,9 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	/**
 	 * Constructs a test case with the given name.
 	 *
-	 * @param  string $name
-	 * @param  array  $data
-	 * @param  string $dataName
+	 * @param string $name
+	 * @param array $data
+	 * @param string $dataName
 	 */
 	public function __construct($name = NULL, array $data = array(), $dataName = '') {
 		parent::__construct($name, $data, $dataName);

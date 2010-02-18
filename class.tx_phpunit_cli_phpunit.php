@@ -1,54 +1,65 @@
 <?php
 /***************************************************************
-*  Copyright notice
-*
-*  (c) 2009-2010 AOE media GmbH <dev@aoemedia.de>
-*  All rights reserved
-*
-*  This script is part of the TYPO3 project. The TYPO3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-*
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-*
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
+ * Copyright notice
+ *
+ * (c) 2009-2010 AOE media GmbH <dev@aoemedia.de>
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is
+ * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
 
-if (!defined ('TYPO3_cliMode'))
-	die ('Access denied: CLI only.');
+if (!defined('TYPO3_cliMode')) {
+	die('Access denied: CLI only.');
+}
 
-require_once PATH_t3lib . 'class.t3lib_cli.php';
-require_once t3lib_extMgm::extPath('phpunit') . 'class.tx_phpunit_testcase.php';
-require_once t3lib_extMgm::extPath('phpunit') . 'class.tx_phpunit_database_testcase.php';
+require_once(PATH_t3lib . 'class.t3lib_cli.php');
+require_once(t3lib_extMgm::extPath('phpunit') . 'class.tx_phpunit_testcase.php');
+require_once(t3lib_extMgm::extPath('phpunit') . 'class.tx_phpunit_database_testcase.php');
 
 PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
 
 /**
- * class to run phpuniit
+ * Class tx_phpunit_cli_phpunit for the "phpunit" extension.
+ *
+ * This class runs PHPUnit in CLI mode.
+ *
+ * @package TYPO3
+ * @subpackage tx_phpunit
+ *
+ * @author Michael Klapper <michael.klapper@aoemedia.de>
  */
 class tx_phpunit_cli_phpunit extends t3lib_cli {
-
 	/**
+	 * same as class name
+	 *
 	 * @var string
 	 */
-	protected $prefixId = 'tx_phpunit_cli_phpunit'; // Same as class name
+	protected $prefixId = 'tx_phpunit_cli_phpunit';
 
 	/**
-	 * Path to this script relative to the extension dir
+	 * path to this script relative to the extension dir
+	 *
 	 * @var string
 	 */
 	protected $scriptRelPath = 'class.tx_phpunit_cli_phpunit.php';
 
 	/**
 	 * definition of the extension name
+	 *
 	 * @var string
 	 */
 	protected $extKey = 'phpunit_cli';
@@ -59,7 +70,7 @@ class tx_phpunit_cli_phpunit extends t3lib_cli {
 	protected $fileLogger;
 
 	/**
-	 * constructor
+	 * The constructor.
 	 */
 	public function __construct() {
 		parent::t3lib_cli();
@@ -74,7 +85,7 @@ class tx_phpunit_cli_phpunit extends t3lib_cli {
 	}
 
 	/**
-	 * main function which detects the action and call the related methods
+	 * Detects the action and calls the related methods.
 	 *
 	 * @param array $argv array contains the arguments, which were post via CLI
 	 */
