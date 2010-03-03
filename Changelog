@@ -1,4 +1,5 @@
 2010-03-03 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #6672: Files included twice, patch by Ingo Renner
 	* Fixed Bug #6561: Remove the .project file from SVN
 
 2010-02-18 Oliver Klee <typo3-coding@oliverklee.de>

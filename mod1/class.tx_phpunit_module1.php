@@ -772,12 +772,13 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$extensionsOwnTestCases = array();
 		foreach ($extList as $extKey) {
 			$extPath = t3lib_extMgm::extPath($extKey);
-			// Tests and tests directory (lower case 't' and upper case 'T').
-			// See http://forge.typo3.org/issues/show/3424 for reason.
-			$testCasesArr = array_merge(
-				$this->findTestCasesInDir($extPath . 'tests/'),
-				$this->findTestCasesInDir($extPath . 'Tests/')
-			);
+			if (is_dir($extPath . 'Tests/')) {
+				$testCasesDirectory = $extPath . 'Tests/';
+			} else {
+				$testCasesDirectory = $extPath . 'tests/';
+			}
+
+			$testCasesArr = $this->findTestCasesInDir($testCasesDirectory);
 			if (!empty($testCasesArr)) {
 				$extensionsOwnTestCases[$extKey] = $testCasesArr;
 			}
