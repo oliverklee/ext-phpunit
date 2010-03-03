@@ -1,3 +1,6 @@
+2010-03-03 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #6561: Remove the .project file from SVN
+
 2010-02-18 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #5542: Add CDATA for all script tags
 	* Fixed Bug #5569: Add and clean up the class documentation comments
