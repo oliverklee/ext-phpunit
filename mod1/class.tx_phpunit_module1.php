@@ -848,8 +848,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 		$testCaseFileNames = array ();
 		foreach ($fileNames as $fileName) {
-			if (substr($fileName, -12) == 'testcase.php') {
-				$testCaseFileNames[] = substr($fileName, $pathLength);;
+			if ((substr($fileName, -12) === 'testcase.php')
+				|| (substr($fileName, -8) === 'Test.php')
+			) {
+				$testCaseFileNames[] = substr($fileName, $pathLength);
 			}
 		}
 
