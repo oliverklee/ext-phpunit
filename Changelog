@@ -84,3 +84,272 @@
 
 2009-05-12 Michael Klapper <michael.klapper@aoemedia.de>
 	* Add support for "skipped" and "not implemented" to "tx_phpunit_testlistener" and extend the user interface.
+
+23. May 2009: 3.3.12.
+    + Added PHPUnit 3.3.16, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.1610-Apr-2009
+    - Removed PHPUnit 3.3.15.
+    + Issue #2762: Make it possible to run all tests of a testcase, http://forge.typo3.org/issues/show/2762. Thanks to Michael Klapper.
+    + Issue #3367: Display test case name as human readable text, http://forge.typo3.org/issues/show/3367. Thanks to Michael Klapper.
+    + Issue #3431: Add total count of assertions to the user interface, http://forge.typo3.org/issues/show/3431. Thanks to Michael Klapper.
+    + Issue #3408: Import StdDB-feature for database tests, http://forge.typo3.org/issues/show/3408. Thanks goes to Tolleiv Nietsch.
+    ~ Updated the included YUI! files to version 2.7.0. The changes from 2.6 to 2.7 can be found here:
+        http://developer.yahoo.com/yui/releasenotes/README.base,
+        http://developer.yahoo.com/yui/releasenotes/README.connection,
+        http://developer.yahoo.com/yui/releasenotes/README.json,
+        http://developer.yahoo.com/yui/releasenotes/README.reset,
+        http://developer.yahoo.com/yui/releasenotes/README.fonts,
+        http://developer.yahoo.com/yui/releasenotes/README.grids,
+        http://developer.yahoo.com/yui/releasenotes/README.yahoo,
+        http://developer.yahoo.com/yui/releasenotes/README.dom,
+        http://developer.yahoo.com/yui/releasenotes/README.event.
+
+06. March 2009: 3.3.11.
+    ~ Initialize content object (tslib_cObj) on demand, http://forge.typo3.org/issues/show/2767
+
+05. March 2009: 3.3.10.
+    ~ Test cases can not end in "TestCase", but always must end in "testcase", http://forge.typo3.org/issues/show/2753
+
+03. March 2009: 3.3.9.
+    ~ Sorting unittests by their classnames for a better overview, http://bugs.typo3.org/view.php?id=10584
+    * Background color of selectors is grey but was white, http://forge.typo3.org/issues/show/2718
+
+25. February 2009: 3.3.8. A big thank you to Oliver Klee, who did all the heavy lifting for this release.
+    + Feature #2503 (Resolved): Allow running unit tests for the TYPO3 core, http://forge.typo3.org/issues/show/2503
+    + Added PHPUnit 3.3.15, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.1524-Feb-2009
+    - Removed PHPUnit 3.3.5.
+    ~ Task #2640 (Resolved): Static variables should not be backuped, http://forge.typo3.org/issues/show/2640
+    * Two fixes for upcoming Typo3 4.3:
+        * Bug #2512 (Resolved): Fatal error: Call to a member function push() on a non-object in class.tsli..., http://forge.typo3.org/issues/show/2512
+        * BE output is buffered with current TYPO3 4.2 branch, http://forge.typo3.org/issues/show/2348
+    * Task #2499 (Resolved): Clean up the code, http://forge.typo3.org/issues/show/2499
+
+21. November 2008: 3.3.7
+	+ Added PHPUnit 3.3.5, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.523-Nov-2008
+	- Removed PHPUnit 3.3.4.
+	* Corrected instructions for keyboard shortcut on Macs: It is Ctrl (and not Meta) that should be depressed.
+
+10. November 2008: 3.3.6
+	+ Added PHPUnit 3.3.4, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.408-Nov-2008 and http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.303-Nov-2008
+	- Removed PHPUnit 3.3.2.
+	~ Fix forge bug #1828, http://forge.typo3.org/issues/show/1828
+
+20. October 2008: 3.3.5
+	+ Added PHPUnit 3.3.2, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.220-Oct-2008
+	- Removed PHPUnit 3.3.1.
+	~ Comment out JavaScript calls to console.log().
+	* Fix forge #1698: Showing NEWS file from drop-down menu breaks with symlinks. Cf. http://forge.typo3.org/issues/show/1698
+
+19. October 2008: 3.3.4
+	+ Added keyboard short-cuts.
+	+ Added select YUI! 2.6.0 files.
+	- Removed old cruft files: and options.
+	~ Upped requirements to Typo3 4.2.x (from 4.1) since phpunit now uses loadJavascriptLib() from template.php.
+	~ Re-factored JavaScript Prototype parts to use YUI!
+	~ Moved 'Collect code coverage' from Extension Manager to a per user setup, done from inside phpunit (point'n'click).
+	~ Changed header of page.
+	~ Misc. other stuff. See Subversion history, revisions #12953 to #13145.
+	* Fixed 'suggest' when installing and also upped version number on suggested extensions: pear 2.3.6 (up from 2.3.5), oelib 0.4.2 (up from 0.4.0).
+	* Fixed opening in new window.
+
+01. October 2008: 3.3.3
+	+ Display the leaked memory after the tests. Closes forge #1627. Note that this measurement is only indicative; it will be tried out now, but is the utility is limited, then it will be removed or turned into an option.
+
+27. September 2008: 3.3.2
+	+ Added links to forge.typo3.org.
+	~ Moved text around at little bit to have added links more prominent, compared to the old links (which are left for completeness).
+	* Add the colored bar even when executing single tests. Closes forge #1594, thanks goes to Oliver Klee.
+	* Javascript for experimental progress bar executed although the option is disabled. Closes forge #1595, thanks goes to Oliver Klee.
+	* Error when calling non-existing test. Closes #1596, thanks goes to Oliver Klee.
+	* Message flows out of box. Closes forge # 1597, thanks goes to Oliver Klee.
+
+24. September 2008: 3.3.1
+	+ Added PHPUnit 3.3.1, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.123-Sep-2008
+	- Removed PHPUnit 3.3.0.
+
+18. September 2008: 3.3.0
+	+ Added PHPUnit 3.3.0, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.015-Sep-2008
+	- Removed PHPUnit 3.2.21.
+
+08. September 2008: 3.2.21
+	+ Added PHPUnit 3.2.21, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog32#PHPUnit3.2.2116-Jun-2008.
+	+ Added benchmarking single tests. Solves Forge issue #1317, http://forge.typo3.org/issues/show/1317. Thanks to Oliver Klee.
+	~ Changed manual.sxw to use latest documentation template (EXT:doc_template version 1.2.5).
+	~ Fixed some validation issues. Solves Forge issue #1316, http://forge.typo3.org/issues/show/1316. Thanks to Oliver Klee.
+	~ Changed default in ext_conf_template.txt for field 'excludeextensions': Now extension keys 'lib' and 'div' are per default excluded, since their testsuites try to load extension key 't3unit', which probably does not exist on peoples machines.
+	- Removed line including non-existant file 'common.js'. Solves Forge issue #1320, http://forge.typo3.org/issues/show/1317. Thanks goes to Niels Pardon.
+	- Removed PHPUnit 3.2.19 (btw. there never was a release phpunit release including PHPUnit 3.2.20).
+	* Fixed bug where phpunit could get stuck with 'Extension not loaded [...]'. Now, instead phpunit will default to extension key 'phpunit', if the chosen key does not exist anymore (which can happen if the extension is removed).
+
+06. May 2008: 3.2.20
+	~ Changed hook key in mod1/index.php (by request).
+
+24. April 2008: 3.2.19
+	+ Added PHPUnit 3.2.19, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog32#PHPUnit3.2.1924-Apr-2008
+	- Removed PHPUnit 3.2.18.
+
+20. April 2008: 3.2.18
+	~ Switched to xhtml-rendering, fixes issue #8173, http://bugs.typo3.org/view.php?id=8173, Thanks to Oliver Klee.
+	* Fixed some typos, code-beautification, fixes issue #8173, http://bugs.typo3.org/view.php?id=8173, Thanks to Oliver Klee
+
+14. April 2008: 3.2.17
+	+ Added extension 'oelib' as a suggested install: It provides helper classes for writing unit tests for Typo3.
+	~ Updated manual to include a section about Typo3 unit testing helper classes (specifically: oelib).
+
+07. April 2008: 3.2.16
+	+ Added possibility to 'hook' which class to run. You will need to implement two methods, init() and main().
+	~ Re-inserted $backupGlobals = false.
+
+06. April 2008: 3.2.15
+	- Removed setting $backupGlobals=false. This should be unnecessary after PHPUnit issue #421 was solved, http://www.phpunit.de/ticket/421.
+	* Bugfix: Commented out calls to Graphviz. This is a future feature, that had sneaked in prematurely, causing fatal error for users. Closes issue #8037, http://bugs.typo3.org/view.php?id=8037.
+	~ Moved NEWS file from 'About PHPUnit BE' to an entry of its own in the dropdown selector.
+	* Made two private methods, getLL() and getSL(), protected.
+
+04. April 2008: 3.2.14
+	+ Added PHPUnit 3.2.18, see Changelog at http://www.phpunit.de/wiki/ChangeLog32#PHPUnit3.2.1804-Apr-2008
+	- Removed PHPUnit 3.2.17.
+	* Changes to stylesheet, to mitigate some of the most glaring usability issues in the Typo3 4 default skin.
+	~ Tweaked NEWS file.
+
+04. April 2008: 3.2.13
+	* Bugfix: Moved setting of $backupGlobals from tx_phpunit_database_testcase.php to tx_phpunit_testcase.php. This fixes a 'Fatal Error' on Windows. Thanks goes to Morten Lovbjerg.
+
+02. April 2008: 3.2.12
+	+ Added re-run icon to each test: Clicking it, will re-run that test only. Closes issue #6972, http://bugs.typo3.org/view.php?id=6972 (does not work with Experimental UI).
+	+ Added NEWS file to end of 'About PHPUnit BE', to make it easier to access.
+	+ Added option 'alwaysSimulateFrontendEnvironment' which defaults to true, since that is backwards compatible.
+	+ Added method 'simulateFrontendEnvironment()' to tx_phpunit_testcase class. Call this method to load a (simple) simulation of the FE environment.
+	+ Added lib/ directory. Might be removed later, let's see...
+	- Removed clear.gif.
+	+ Added icon mod1/runner.gif
+	* Made all files follow the GT3 coding conventions (a derivative of Typo3 CGL, but not a subset).
+
+31. March 2008: Version 3.2.11
+	+ Added test file for test suite in tests/class.tx_phpunit_testsuite.php
+	~ Improvement to test suite finding in Experimental UI, courtesy of Mikkel Ricky.
+
+31. March 2008: Version 3.2.10
+	* Using strtolower() on database names in tx_phpunit_database_testcase->__construct(), courtesy of Mikkel Ricky, Morten Lovbjerg and Soren Soltveit.
+	* Fixed Experimental UI to work on Windows, courtesy of Mikkel Ricky.
+
+31. March 2008: Version 3.2.9
+	~ Moved database tests out of class tx_phpunit_testcase and into tx_phpunit_database_testcase.
+	* Drops database in createDatabase() before trying to create it.
+
+31. March 2008: Version 3.2.8
+	* Bug fix release. Removed call in mod1/class.tx_phpunit_module1.php to Typo3 4.2 specific function loadJavascriptLib().
+
+30. March 2008: Version 3.2.7
+	* Bug fix release. Fixes #7964, http://bugs.typo3.org/view.php?id=7964
+
+29. March 2008: Version 3.2.6
+	+ Added extension icons to selector boxes (note: not working with Opera).
+	+ Added PHPUnit 3.2.17, see Changelog at http://phpunit.de/wiki/ChangeLog32#PHPUnit3.2.1729-Mar-2008
+	- Removed PHPUnit 3.2.16.
+
+27. March 2008: Version 3.2.5
+	+ Added new UI for running tests: You will need to set the new option ' Experimental test interface' in the Extension Manager (EM).  This adresses issue #6965, http://bugs.typo3.org/view.php?id=6965. Thanks to Mikkel Ricky who provided the new implementation.
+
+24. March 2008: Version 3.2.4
+	+ Experimental support for Code Coverage reporting. Turned of by default, since you need to setup XDebug and it slows down unit testing considerably!
+	+ Previously there was a total timelimit of 30 seconds. Now the timelimit is per testcase; this is done by inserting a call to set_time_limit(30) in the testlistener.
+	+ Expanded 'About PHPUnit BE': Added links to bugs.typo3.org and phpunit on typo3xdev.sf.net. Added Søren Soltveit to contributor list. Added test for XDebug extension (needed for code coverage) and test for memory limit, which should be set to something like 256MB, when using code coverage!
+	+ New (experimental) progressbar: First stab at bugs #6972 and #6975. Turned off by default. Works badly: Overflows to the right, when there are many tests.
+	+ Added PHPUnit 3.2.16, see Changelog at http://www.phpunit.de/wiki/ChangeLog32#PHPUnit3.2.1622-Mar-2008.
+	+ Removed PHPUnit 3.2.15.
+	- Removed variable addAttrib in SVN revision 8639. Solves issue #7011, http://bugs.typo3.org/view.php?id=7011
+	~ Use t3lib_div::trimExplode in various places, where it was appropriate.
+	~ ext_emconf.php: 'Namespace' variables better (in typo3confvars).
+	~ Added array type hint to function getFirstNonPHPUnitTrace in class tx_phpunit_testlistener.
+	* Errors are now marked red (instead of yellow). Solves bug #6977, http://bugs.typo3.org/view.php?id=6977.
+
+18. March 2008: Version 3.2.3
+	+ New helper functions in tx_phpunit_testcase: You can now use the Typo3 database from your tests. E.g. for creating new tables for your tests. Reminder: Never run tests in a production environment.
+	+ Tests for new helper functions added in class database_testcase. Note: You will need to manually install the four extensions named 'aaa', 'bbb', 'ccc' and 'ddd' (they can be found in tests/res/).
+	~ Upgraded PHPUnit from 3.2.6 to 3.2.15. Changelog: http://www.phpunit.de/wiki/ChangeLog32#PHPUnit3.2.1521-Feb-2008
+	~ ext_emconf now states in description that the phpunit extension is based on PHPUnit 3.2 (instead of just PHPUnit 3).
+	* (Temporary) fix for issue #7631, http://bugs.typo3.org/view.php?id=7631#c19761, courtesy Mario Rimann.
+
+19. December 2007: Version 3.2.2
+	~ Changed header in BE module: It now writes the version string from the PHPUnit currently in use. This makes it easier to verify that the correct version is used. Closes http://bugs.typo3.org/view.php?id=6985
+	* Removed white background from phpunit-be.css.
+	* Changed path in ext_localconf.php to uppercase. Solves problem, where using the shipped PHPUnit did not work on systems where upper case / lower case is respected (e.g. Linux systems).
+
+17. December 2007: Version 3.2.1 - The 'Remember PEAR file structure!' release.
+	* Moved files in PHPUnit-3.2.6 directory to a PHPUnit sub-directory. Closes http://bugs.typo3.org/view.php?id=6994
+	~ Updated News part of manual.
+
+17. December 2007: Version 3.2.0 - The 'There is money to be made' release!
+	~ Bumped version number, since phpunit now ships with PHPUnit version 3.2.6
+	+ Added a NEWS file, which holds the info which was previously in the Changelog file.
+	~ Changed the Changelog file to hold Subversion commits. This is meant to be added by a pre-commit hook on svn, when extension development is moved to typo3xdev.sf.net.
+
+22. October 2007: Version 3.1.15
+	~ Extension test selector now groups the tests under the test suite they are part of (Usability request from Elmar Hinz of the ECT).
+
+17. October 2007: Version 3.1.14
+	+ Added German translation, thanks to Mario Rimann :-)
+
+17. October 2007: Version 3.1.13
+	+ Option to use extension pear as default. If PHPUnit is not installed via pear, then phpunit uses its own PHPUnit version as fallback. (proposal from Extension Coordination Team, ECT).
+	+ Added info to 'About' if 'use pear' is set, but pear is not loaded. Defaults to phpunit provided PHPunit in that case (instead of just aborting).
+	~ Updated manual to mention pear integration and made the Changelog current (and updated index).
+
+17. October 2007: Version 3.1.12
+	+ Added 'Exclude extensions' option in extension manager setup. This allows you to set extension that phpunit should never search for tests (also applies to 'out of line'-paths).
+	+ Added info about currently excluded extensions to 'About phpunit BE' submodule.
+
+17. October 2007: Version 3.1.11
+	* Two identically named tests in different testsuites are now distinguished.
+	* Having the same extension installed as both local and global now works: Tests in the active one is run.
+
+15. October 2007: Version 3.1.10
+	+ Added 'out-of-line' tests: These are tests that are now in the extension itself, but found on a path you give in the extension manager.
+	+ Added information notice to eAccelerator 0.9.5.1 users about optimizer bug in eAccelerator.
+	+ Added 'Contributors' section to About box.
+	+ Fully translated into danish (except for the texts coming from PHPUnit).
+	+ Added stylesheet file, phpunit-be.css.
+	~ Changed layout of test runs to make them more easily readable.
+	~ Changed the two failing tests, that comes with phpunit: Now they give a message that they are meant to fail.
+	~ Factored out inline styles on elements (now controllable from phpunit-be.css).
+	* Corrected display of failure notices from failed tests: Assertion types/values are shown again.
+	* Corrected logo image display in About box.
+
+
+10. October 2007: Version 3.1.9
+	+ Added 'include_path' output to the 'About' sub-module. This can be used to check where the extension is looking for PHPUnit.
+	+ Added extension manager configuration option to point to another PHPUnit, than the one provided by the extension (could be a PEAR installed PHPUnit).
+	+ Added PHPUnit version 3.1.9
+	+ Added PHPUnit version 3.0.6: You must provide the absolute path to it in the extension manager conf (including ending slash) to use this version.
+	- Removed PHPUnit version 3.0.5
+	~ Changed to using Typo3 v. 4.1.x feature of mod.php for the backend module, cf.  http://typo3.org/documentation/document-library/core-documentation/doc_core_inside/4.1.0/view/3/5/#id3561091
+	~ Changed version number to 3.1.9.
+	~ Changed state to beta.
+	~ Changed ChangeLog Legend and updated the complete file to reflect this.
+	* Corrected the way the lib is found: Now you only have do do it in one place. Note that PHPUnit is expected to be in a sub-directory called 'PHPUnit' of the place you write.
+	* Corrected the progressbar, so now it stays within the browser window (Thanks to Mikkel Ricky for the fix :-)
+	* Corrected a bug, where an error about class tx_t3unit_testcase was spewed (Thanks to Mario Rimann for pointing out and Mikkel Ricky for fixing).
+
+13. March 2007: Version 3.0.52
+	+ Added class tx_t3unit_testcase for providing backwards compatibility with t3unit (suggested by Robert Lemke).
+	+ Added t3unit and pear_phpunit2 to conflicts in file ext_emconf.php (suggested by Robert Lemke).
+	~ Changed version number in file ext_emconf.php to 3.0.52.
+	* Corrected depends in file ext_emconf.php (suggested by Robert Lemke)
+		from: 'php' => '5.2.1-0.0.0', 'typo3' => '4.1-0.0.0',
+		to: 'php' => '5.2.1-', 'typo3' => '4.1-',
+	* Corrected paragraph in manual about version numbering convention to match reality (I hope!).
+
+11. March 2007: Version 3.0.51
+	+ Added tests/ directory to phpunit itself.
+	+ Added test file in tests/ directory (test file includes only dummy tests).
+	+ Added 'Legend' to Changelog file.
+	~ Bumped version number to 3.0.5.1.
+
+11. March 2007: Version 3.0.5
+	+ Merged T3Unit and PEAR_phpunit.
+	+ Upgraded to PHPUnit 3.0.5.
+	+ Revised documentation (still needs a lot of work).
+	+ Marked as experimental.
+	+ Set version to 3.0.5.
+	+ Upload to TER.
+    * Corrected EM Conf. so extension is not marked as shy.
