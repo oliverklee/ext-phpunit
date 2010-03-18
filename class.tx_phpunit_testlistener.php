@@ -50,6 +50,11 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	 */
 	protected $totalNumberOfTests = 0;
 	protected $currentTestNumber = 0;
+	/**
+	 * the name of the current test case
+	 *
+	 * @var string
+	 */
  	private $currentTestCaseName;
  	private $memoryUsageStartOfTest = 0;
  	private $memoryUsageEndOfTest = 0;
@@ -215,13 +220,25 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	* @param  PHPUnit_Framework_TestSuite $suite
 	*/
 	public function startTestSuite(PHPUnit_Framework_TestSuite $suite) {
-		$this->currentTestCaseName = $suite->getName();
+		$this->setTestSuiteName($suite->getName());
 
-		if (! $suite instanceOf PHPUnit_Framework_TestSuite_DataProvider && $suite->getName() !== 'tx_phpunit_basetestsuite') {
+		if ((!$suite instanceOf PHPUnit_Framework_TestSuite_DataProvider)
+			&& ($suite->getName() !== 'tx_phpunit_basetestsuite')
+		) {
 			echo '<h2 class="testSuiteName">Testsuite: ' .
 				$this->prettifyTestClass($suite->getName()) . '</h2>';
 			echo '<script type="text/javascript">/*<![CDATA[*/setClass("progress-bar","wasSuccessful");/*]]>*/</script>';
 		}
+	}
+
+	/**
+	 * Sets the name of the test suite that is used for creating the re-run
+	 * link.
+	 *
+	 * @param string $name the name of the test suite, must not be empty
+	 */
+	public function setTestSuiteName($name) {
+		$this->currentTestCaseName = $name;
 	}
 
 	/**

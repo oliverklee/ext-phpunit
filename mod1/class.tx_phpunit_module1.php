@@ -507,6 +507,9 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				return;
 			}
 		} elseif (t3lib_div::_GP('testCaseFile')) {
+			$testCaseFileName = t3lib_div::_GP('testCaseFile');
+			$testListener->setTestSuiteName($testCaseFileName);
+
 			$suiteNameHasBeenDisplayed = FALSE;
 			$totalNumberOfTestCases = 0;
 			foreach ($testSuite->tests() as $testCases) {
@@ -516,7 +519,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 					} else {
 						$testIdentifier = get_class($test);
 					}
-					if ($testIdentifier === t3lib_div::_GP('testCaseFile')) {
+					if ($testIdentifier === $testCaseFileName) {
 						$totalNumberOfTestCases++;
 					}
 				}
@@ -531,10 +534,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 					} else {
 						$testIdentifier = get_class($test);
 					}
-					if ($testIdentifier === t3lib_div::_GP('testCaseFile')) {
+					if ($testIdentifier === $testCaseFileName) {
 						if (!$suiteNameHasBeenDisplayed) {
 							echo '<h2 class="testSuiteName">Testsuite: ' .
-								$testIdentifier . '</h2>';
+								$testCaseFileName . '</h2>';
 							$suiteNameHasBeenDisplayed = TRUE;
 						}
 						$test->run($result);

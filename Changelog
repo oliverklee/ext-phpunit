@@ -1,3 +1,6 @@
+2010-03-18 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #5902: Link for running single test doesn't work from within running a testcase
+
 2010-03-03 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #6638: Support for *Test.php names instead of _testcase.php, patch by Sebastian Kurfürst
 	* Fixed Bug #6672: Files included twice, patch by Ingo Renner
