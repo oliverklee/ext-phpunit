@@ -1,3 +1,6 @@
+2010-03-19 Oliver Klee <typo3-coding@oliverklee.de>
+	* Add Feature #5553: Make the PHP comments warning a flash message
+
 2010-03-18 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #5902: Link for running single test doesn't work from within running a testcase
 

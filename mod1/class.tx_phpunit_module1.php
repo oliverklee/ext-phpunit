@@ -201,18 +201,26 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 *         error message if PHP comments are stripped
 	 */
 	protected function checkPhpComments() {
-		$status = '';
-
 		$method = new ReflectionMethod('tx_phpunit_module1', 'checkPhpComments');
-		if (strlen($method->getDocComment()) == 0) {
-			$status = '<div class="hadError">' .
-				'<h2>' . $GLOBALS['LANG']->sL(
-					'LLL:EXT:phpunit/report/locallang.xml:status_phpComments'
-				) . '</h2>' .
-				'<p>' .  $GLOBALS['LANG']->sL(
-					'LLL:EXT:phpunit/report/locallang.xml:status_phpComments_stripped_verbose'
-				) . '</p>' .
-				'</div>';
+		if (strlen($method->getDocComment()) > 0) {
+			return '';
+		}
+
+		$heading = $GLOBALS['LANG']->sL(
+			'LLL:EXT:phpunit/report/locallang.xml:status_phpComments'
+		);
+		$message = $GLOBALS['LANG']->sL(
+			'LLL:EXT:phpunit/report/locallang.xml:status_phpComments_stripped_verbose'
+		);
+
+		if (t3lib_div::int_from_ver(TYPO3_version) >= 4003000) {
+			$status = t3lib_div::makeInstance(
+				't3lib_FlashMessage', $message, $heading,
+				t3lib_FlashMessage::ERROR
+			)->render();
+		} else {
+			$status = '<div class="hadError"><h2>' . $heading . '</h2>' .
+				'<p>' .  $message . '</p></div>';
 		}
 
 		return $status;
