@@ -178,8 +178,11 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	protected function runTests_render() {
 		echo $this->checkPhpComments();
 
-		if (!$this->isExtensionLoaded($this->MOD_SETTINGS['extSel'])) {
-			$this->MOD_SETTINGS['extSel'] = 'phpunit'; // We know that phpunit must be loaded
+		if (($this->MOD_SETTINGS['extSel'] != 'uuall')
+			&& !$this->isExtensionLoaded($this->MOD_SETTINGS['extSel'])
+		) {
+			// We know that phpunit must be loaded.
+			$this->MOD_SETTINGS['extSel'] = 'phpunit';
 		}
 		$command = $this->MOD_SETTINGS['extSel'] ? t3lib_div::_GP('command') : '';
 		switch ($command) {
@@ -239,8 +242,12 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			ksort($extensionsWithTestSuites);
 
 			$output = $this->runTests_renderIntro_renderExtensionSelector($extensionsWithTestSuites);
-			if ($this->MOD_SETTINGS['extSel'] && $this->MOD_SETTINGS['extSel']!='uuall') {
-				$output .= $this->runTests_renderIntro_renderTestSelector($extensionsWithTestSuites, $this->MOD_SETTINGS['extSel']);
+			if ($this->MOD_SETTINGS['extSel']
+				&& ($this->MOD_SETTINGS['extSel'] != 'uuall')
+			) {
+				$output .= $this->runTests_renderIntro_renderTestSelector(
+					$extensionsWithTestSuites, $this->MOD_SETTINGS['extSel']
+				);
 			}
 
 		} else {
@@ -257,12 +264,13 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * @return	string		HTML code for the selectorbox and a surrounding form
 	 */
 	protected function runTests_renderIntro_renderExtensionSelector($extensionsWithTestSuites) {
-
 		$extensionsOptionsArr =array();
 		$extensionsOptionsArr[] = '<option value="">'.$this->getLL('select_extension').'</option>';
 
-		$selected = strcmp('uuall', $this->MOD_SETTINGS['extSel']) ? '' : ' selected="selected"';
-		$extensionsOptionsArr[] = '<option class="alltests" value="uuall"'.$selected.'>'.$this->getLL('all_extensions').'</option>';
+		$selected = strcmp('uuall', $this->MOD_SETTINGS['extSel'])
+			? '' : ' selected="selected"';
+		$extensionsOptionsArr[] = '<option class="alltests" value="uuall"' .
+			$selected . '>' . $this->getLL('all_extensions') . '</option>';
 
 		foreach (array_keys($extensionsWithTestSuites) as $dirName) {
 			$style = $this->createIconStyle($dirName);
@@ -442,7 +450,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$extensionsWithTestSuites = $this->getExtensionsWithTestSuites();
 		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
 		$extensionKeysToProcess = array();
-		if ($this->MOD_SETTINGS['extSel']=='uuall') {
+		if ($this->MOD_SETTINGS['extSel'] == 'uuall') {
 			echo '<h1>' . $this->getLL('testing_all_extensions') . '</h1>';
 			$extensionKeysToProcess = array_keys($extensionsWithTestSuites);
 		} else {
