@@ -37,7 +37,7 @@
  * @author Kasper Ligaard <kasperligaard@gmail.com>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class database_testcase extends tx_phpunit_database_testcase {
+class databaseTest extends tx_phpunit_database_testcase {
 	public function tearDown() {
 		// ensures that test database always is dropped
 		// even when testcases fails

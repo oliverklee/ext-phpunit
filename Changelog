@@ -1,3 +1,6 @@
+2010-04-12 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Task #6922: Rename the test cases from *_testcase to *Test
+
 2010-03-19 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #5550: Convert all locallang files to XML
 	* Add Feature #5553: Make the PHP comments warning a flash message

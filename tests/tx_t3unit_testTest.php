@@ -31,7 +31,7 @@ require_once(PATH_t3lib . 'class.t3lib_tcemain.php');
  *
  * @author	Kasper Ligaard <kasperligaard@gmail.com>
  */
-class tx_t3unit_test_testcase extends tx_t3unit_testcase {
+class tx_t3unit_testTest extends tx_t3unit_testcase {
 	/**
 	 * @test
 	 */
