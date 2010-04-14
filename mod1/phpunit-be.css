@@ -26,7 +26,7 @@ p, div, body, input, select, textarea, .defstyle {
 }
 
 #opennewwindow {
-	text-decoration: none;	
+	text-decoration: none;
 }
 
 #opennewwindow:hover {
@@ -40,7 +40,7 @@ h1, h2, h3, h4 {
 }
 
 .access-key {
-	text-decoration: underline;	
+	text-decoration: underline;
 }
 
 /* Temporary bugfix for issue http://bugs.typo3.org/view.php?id=7631 */
@@ -132,7 +132,7 @@ body#typo3-mod-php {
 
 .testcaseError {
 	border-left : 2px solid red;
-	background-color: ffc3c3;
+	background-color: #ffc3c3;
 }
 
 .testcaseNotImplemented {

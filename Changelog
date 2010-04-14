@@ -1,3 +1,6 @@
+2010-04-14 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #7228: Typo in the CSS file
+
 2010-04-13 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #5560: "All extensions" cannot be selected
 
