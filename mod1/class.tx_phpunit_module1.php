@@ -414,13 +414,13 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$notImplementedState = $this->MOD_SETTINGS['notimplemented'] === 'on' ? 'checked="checked"' : '';
 		$showMemoryAndTime = $this->MOD_SETTINGS['showMemoryAndTime'] === 'on' ? 'checked="checked"' : '';
 		$testdoxState = $this->MOD_SETTINGS['testdox'] === 'on' ? 'checked="checked"' : '';
-		$output .= '<input type="checkbox" id="SET[success]" name="SET[success]" ' . $successState . ' /><label for="SET[success]">Success</label>';
-		$output .= ' <input type="checkbox" id="SET[failure]" name="SET[failure]" ' . $failureState . ' /><label for="SET[failure]">Failure</label>';
-		$output .= ' <input type="checkbox" id="SET[skipped]"name="SET[skipped]" ' . $skippedState . ' /><label for="SET[skipped]">Skipped</label>';
-		$output .= ' <input type="checkbox" id="SET[error]"name="SET[error]" ' . $errorState . ' /><label for="SET[error]">Error</label>';
-		$output .= ' <input type="checkbox" id="SET[testdox]"name="SET[testdox]" ' . $testdoxState . ' /><label for="SET[testdox]">Show as human readable</label>';
-		$output .= ' <input type="checkbox" id="SET[notimplemented]"name="SET[notimplemented]" ' . $notImplementedState . ' /><label for="SET[notimplemented]">Not implemented</label>';
-		$output .= ' <input type="checkbox" id="SET[showMemoryAndTime]"name="SET[showMemoryAndTime]" ' . $showMemoryAndTime . '/><label for="SET[showMemoryAndTime]">Show memory & time</label>';
+		$output .= '<input type="checkbox" id="SET_success" ' . $successState . ' /><label for="SET_success">Success</label>';
+		$output .= ' <input type="checkbox" id="SET_failure" ' . $failureState . ' /><label for="SET_failure">Failure</label>';
+		$output .= ' <input type="checkbox" id="SET_skipped" ' . $skippedState . ' /><label for="SET_skipped">Skipped</label>';
+		$output .= ' <input type="checkbox" id="SET_error" ' . $errorState . ' /><label for="SET_error">Error</label>';
+		$output .= ' <input type="checkbox" id="SET_testdox" ' . $testdoxState . ' /><label for="SET_testdox">Show as human readable</label>';
+		$output .= ' <input type="checkbox" id="SET_notimplemented" ' . $notImplementedState . ' /><label for="SET_notimplemented">Not implemented</label>';
+		$output .= ' <input type="checkbox" id="SET_showMemoryAndTime" ' . $showMemoryAndTime . '/><label for="SET_showMemoryAndTime">Show memory & time</label>';
 
 		$codecoverageDisable = '';
 		$codecoverageForLabelWhenDisabled = '';
@@ -429,7 +429,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$codecoverageForLabelWhenDisabled = ' title="Code coverage requires XDebug to be installed."';
 		}
 		$codeCoverageState = $this->MOD_SETTINGS['codeCoverage'] === 'on' ? 'checked="checked"' : '';
-	   	$output .= ' <input type="checkbox" id="SET[codeCoverage]"name="SET[codeCoverage]"' . $codecoverageDisable . ' ' . $codeCoverageState . ' /><label for="SET[codeCoverage]"' . $codecoverageForLabelWhenDisabled . '>Collect code-coverage data</label>';
+	   	$output .= ' <input type="checkbox" id="SET_codeCoverage" ' . $codecoverageDisable . ' ' . $codeCoverageState . ' /><label for="SET_codeCoverage"' . $codecoverageForLabelWhenDisabled . '>Collect code-coverage data</label>';
 		$output .= '</div>';
 		$output .= '</form>';
 

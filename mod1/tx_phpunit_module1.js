@@ -42,33 +42,32 @@ function setClass(id, className) {
 	var toggle = function (event) {
 		var target = Event.getTarget(event);
 		var display = target.checked ? 'block' : 'none';
-		var className = mapClasses(target.name);
+		var className = mapClasses(target.id);
 		var state = target.checked;
 		var checkbox;
 		switch (target.id) {
-		case 'SET[failure]':
+		case 'SET_failure':
 			checkbox = 'failure';
 			break;
-		case 'SET[error]':
+		case 'SET_error':
 			checkbox = 'error';
 			break;
-		case 'SET[success]':
+		case 'SET_success':
 			checkbox = 'success';
 			break;
-		case 'SET[skipped]':
+		case 'SET_skipped':
 			checkbox = 'skipped';
 			break;
-		case 'SET[notimplemented]':
+		case 'SET_notimplemented':
 			checkbox = 'notimplemented';
 			break;
-		case 'SET[testdox]':
+		case 'SET_testdox':
 			checkbox = 'testdox';
 			break;
-		case 'SET[showMemoryAndTime]':
+		case 'SET_showMemoryAndTime':
 			checkbox = 'showMemoryAndTime';
 			break;
 		default:
-			// Nothing here.
 			break;
 		}
 
@@ -92,46 +91,62 @@ function setClass(id, className) {
 			);
 	}
 
+	/**
+	 * Maps a checkbox ID to a class name for the corresponding test results.
+	 *
+	 * @param string buttonId the ID of a checkbox, e.g. "SET_success"
+	 *
+	 * @return string the corresponding class name, e.g. "testcaseSuccess"
+	 */
 	var mapClasses = function (buttonId) {
 		var className;
 		switch (buttonId) {
-		case 'SET[success]':
+		case 'SET_success':
 			className = 'testcaseSuccess';
 			break;
-		case 'SET[failure]':
+		case 'SET_failure':
 			className = 'testcaseFailure';
 			break;
-		case 'SET[error]':
+		case 'SET_error':
 			className = 'testcaseError';
 			break;
-		case 'SET[skipped]':
+		case 'SET_skipped':
 			className = 'testcaseSkipped';
 			break;
-		case 'SET[notimplemented]':
+		case 'SET_notimplemented':
 			className = 'testcaseNotImplemented';
 			break;
-		case 'SET[testdox]':
+		case 'SET_testdox':
 			checkbox = 'testdox';
 			break;
-		case 'SET[showMemoryAndTime]':
+		case 'SET_showMemoryAndTime':
 			className = 'showMemoryAndTime';
 			break;
 		default:
-			// Yikes!
+			className = '';
 			break;
 		}
 		return className;
 	}
 
+	/**
+	 * Hides/shows the test results depending on states of the test status
+	 * checkboxes. Also adds the JavaScript event handlers to the checkboxes.
+	 */
 	Event.onDOMReady(function () {
-		var toggleButtonsIds = Dom.get(['SET[failure]', 'SET[success]', 'SET[error]', 'SET[skipped]', 'SET[notimplemented]', 'SET[testdox]', 'SET[showMemoryAndTime]']);
-		for (var i = 0; i < toggleButtonsIds.length; i += 1) {
-			var elm = toggleButtonsIds[i];
-			var display = elm.checked ? 'block' : 'none';
-			var className = mapClasses(elm.name);
-			Dom.setStyle(Dom.getElementsByClassName(className), 'display', display);
+		var checkboxes = Dom.get([
+			'SET_failure', 'SET_success', 'SET_error', 'SET_skipped',
+			'SET_notimplemented', 'SET_testdox', 'SET_showMemoryAndTime'
+		]);
+		for (var i = 0; i < checkboxes.length; i++) {
+			var checkbox = checkboxes[i];
+			var display = checkbox.checked ? 'block' : 'none';
+			var className = mapClasses(checkbox.id);
+			Dom.setStyle(
+				Dom.getElementsByClassName(className), 'display', display
+			);
 		}
-		Event.addListener(toggleButtonsIds, 'click', toggle, this, true);
-		Event.addListener('SET[codeCoverage]', 'click', toggleCodeCoverage, this, true);
+		Event.addListener(checkboxes, 'click', toggle, this, true);
+		Event.addListener('SET_codeCoverage', 'click', toggleCodeCoverage, this, true);
 	}, this, true);
 })();
