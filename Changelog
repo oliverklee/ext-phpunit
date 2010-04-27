@@ -1,4 +1,5 @@
 2010-04-27 Oliver Klee <typo3-coding@oliverklee.de>
+	* Release version 3.4.12.
 	* Fixed Bug #7230: Update PHPUnit to the latest version
 	* Fixed Bug #7234: Update some things in the manual
 
