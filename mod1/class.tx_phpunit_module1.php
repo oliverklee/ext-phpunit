@@ -217,12 +217,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			'LLL:EXT:phpunit/report/locallang.xml:status_phpComments_stripped_verbose'
 		);
 
-		if (t3lib_div::int_from_ver(TYPO3_version) >= 4003000) {
-			$status = t3lib_div::makeInstance(
-				't3lib_FlashMessage', $message, $heading,
-				t3lib_FlashMessage::ERROR
-			)->render();
-		} else {
+		if (t3lib_div::int_from_ver(TYPO3_version) < 4003000) {
 			$status = '<div class="hadError"><h2>' . $heading . '</h2>' .
 				'<p>' .  $message . '</p></div>';
 		}
