@@ -534,10 +534,12 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				foreach ($testCases->tests() as $test) {
 					if ($test instanceof PHPUnit_Framework_TestSuite) {
 						list($testSuiteName, $testName) = explode('::', $test->getName());
-						$testSuite->setTestSuiteName($testSuiteName);
+						$testListener->setTestSuiteName($testSuiteName);
 						$testIdentifier = $testName . '(' . $testSuiteName . ')';
 					} else {
 						$testIdentifier = $test->toString();
+						list($testSuiteName, $testName) = explode('::', $testIdentifier);
+						$testListener->setTestSuiteName($testSuiteName);
 					}
 					if ($testIdentifier === t3lib_div::_GP('testname')) {
 						echo '<h2 class="testSuiteName">Testsuite: ' .
