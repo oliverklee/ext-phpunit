@@ -1,10 +1,10 @@
-  # cat=basic; type=string; label=Path to 'out of line'-tests (with ending slash): Point to a directory which have subdirs with extension key names. 
-outoflinetestspath = 
-  # cat=basic; type=string; label=Excluded extensions (comma seperated list of ext. keys): You can exclude extensions from being search for tests by writing it's extension key here. Seperate with comma. 
+  # cat=basic; type=string; label=Path to 'out of line'-tests (with ending slash): Point to a directory which have subdirs with extension key names.
+outoflinetestspath =
+  # cat=basic; type=string; label=Excluded extensions (comma seperated list of ext. keys): You can exclude extensions from being search for tests by writing it's extension key here. Seperate with comma.
 excludeextensions = lib, div
-  # cat=basic; type=boolean; label=Use the pear extension (if available): If the pear extension is installed, then phpunit will load PHPUnit from there. If PHPUnit is not installed through pear, then phpunit will use its own version of PHPUnit.  
+  # cat=basic; type=boolean; label=Use the pear extension (if available): If the pear extension is installed, then phpunit will load PHPUnit from there. If PHPUnit is not installed through pear, then phpunit will use its own version of PHPUnit.
 usepear = 1
-  # cat=basic; type=string; label=Path to PHPUnit (overrides 'Use pear'): The PHPUnit-lib must be in a sub-directory named 'PHPUnit'. Point to directory just above that. Setting this will have preference over a PHPUnit from pear, even if pear is set. Remember that you can check the includepath used by phpunit in the 'About PHPUnit BE' drop-down in the PHPUnit module. 
-phpunitlib = 
-  # cat=basic; type=boolean; label=Always load (simple) FE environment:  
-alwaysSimulateFrontendEnvironment = 1
+  # cat=basic; type=string; label=Path to PHPUnit (overrides 'Use pear'): The PHPUnit-lib must be in a sub-directory named 'PHPUnit'. Point to directory just above that. Setting this will have preference over a PHPUnit from pear, even if pear is set. Remember that you can check the includepath used by phpunit in the 'About PHPUnit BE' drop-down in the PHPUnit module.
+phpunitlib =
+  # cat=basic; type=boolean; label=Always load (simple) FE environment:
+alwaysSimulateFrontendEnvironment = 0
