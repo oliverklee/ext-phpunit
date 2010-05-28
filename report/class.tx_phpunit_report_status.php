@@ -39,29 +39,97 @@ class tx_phpunit_report_status implements tx_reports_StatusProvider  {
 	 * @return array an array of tx_reports_reports_status_Status objects
 	 */
 	public function getStatus() {
-		$reports = array();
+		return array(
+			$this->getReflectionStatus(),
+			$this->getEAcceleratorStatus(),
+		);
+	}
+
+	/**
+	 * Creates a status concerning whether PHP Reflection works correctly.
+	 *
+	 * @return tx_reports_reports_status_Status a status indicating whether
+	 *                                          PHP reflection works correctly
+	 */
+	protected function getReflectionStatus() {
+		$heading = $GLOBALS['LANG']->sL(
+			'LLL:EXT:phpunit/report/locallang.xml:status_phpComments'
+		);
 
 		$method = new ReflectionMethod('tx_phpunit_report_status', 'getStatus');
-
 		if (strlen($method->getDocComment()) > 0) {
-			$reports[] = t3lib_div::makeInstance(
+			$status = t3lib_div::makeInstance(
 				'tx_reports_reports_status_Status',
-				$GLOBALS['LANG']->sL('LLL:EXT:phpunit/report/locallang.xml:status_phpComments'),
+				$heading,
 				$GLOBALS['LANG']->sL('LLL:EXT:phpunit/report/locallang.xml:status_phpComments_present_short'),
 				$GLOBALS['LANG']->sL('LLL:EXT:phpunit/report/locallang.xml:status_phpComments_present_verbose'),
 				tx_reports_reports_status_Status::OK
 			);
 		} else {
-			$reports[] = t3lib_div::makeInstance(
+			$status = t3lib_div::makeInstance(
 				'tx_reports_reports_status_Status',
-				$GLOBALS['LANG']->sL('LLL:EXT:phpunit/report/locallang.xml:status_phpComments'),
+				$heading,
 				$GLOBALS['LANG']->sL('LLL:EXT:phpunit/report/locallang.xml:status_phpComments_stripped_short'),
 				$GLOBALS['LANG']->sL('LLL:EXT:phpunit/report/locallang.xml:status_phpComments_stripped_verbose'),
 				tx_reports_reports_status_Status::ERROR
 			);
 		}
 
-		return $reports;
+		return $status;
+	}
+
+	/**
+	 * Creates a status concerning eAccelerator not crashing phpunit.
+	 *
+	 * @return tx_reports_reports_status_Status a status concerning eAccelerator
+	 *                                          not crashing phpunit
+	 */
+	protected function getEAcceleratorStatus() {
+		$heading = $GLOBALS['LANG']->sL(
+			'LLL:EXT:phpunit/report/locallang.xml:status_eAccelerator'
+		);
+
+		if (!extension_loaded('eaccelerator')) {
+			$status = t3lib_div::makeInstance(
+				'tx_reports_reports_status_Status',
+				$heading,
+				$GLOBALS['LANG']->sL('LLL:EXT:phpunit/report/locallang.xml:status_eAccelerator_notInstalled_short'),
+				'',
+				tx_reports_reports_status_Status::OK
+			);
+		} else {
+			$version = phpversion('eaccelerator');
+
+			if (version_compare($version, '0.9.5.2', '<')) {
+				$verboseMessage = sprintf(
+					$GLOBALS['LANG']->sL('LLL:EXT:phpunit/report/locallang.xml:status_eAccelerator_installedOld_verbose'),
+					$version
+				);
+
+				$status = t3lib_div::makeInstance(
+					'tx_reports_reports_status_Status',
+					$heading,
+					$GLOBALS['LANG']->sL('LLL:EXT:phpunit/report/locallang.xml:status_eAccelerator_installedOld_short'),
+					$verboseMessage,
+					tx_reports_reports_status_Status::ERROR
+				);
+			} else {
+				$verboseMessage = sprintf(
+					$GLOBALS['LANG']->sL('LLL:EXT:phpunit/report/locallang.xml:status_eAccelerator_installedNew_verbose'),
+					$version
+				);
+
+				$status = t3lib_div::makeInstance(
+					'tx_reports_reports_status_Status',
+					$heading,
+					$GLOBALS['LANG']->sL('LLL:EXT:phpunit/report/locallang.xml:status_eAccelerator_installedNew_short'),
+					$verboseMessage,
+					tx_reports_reports_status_Status::OK
+				);
+			}
+		}
+
+		return $status;
 	}
 }
 

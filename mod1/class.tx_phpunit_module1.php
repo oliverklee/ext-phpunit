@@ -177,6 +177,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 */
 	protected function runTests_render() {
 		echo $this->checkPhpComments();
+		echo $this->checkEAccelerator();
 
 		if (($this->MOD_SETTINGS['extSel'] != 'uuall')
 			&& !$this->isExtensionLoaded($this->MOD_SETTINGS['extSel'])
@@ -227,6 +228,41 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		}
 
 		return $status;
+	}
+
+	/**
+	 * Checks that eAccelerator doesn't crash phpunit.
+	 *
+	 * For TYPO3 >= 4.3, this function doesn't return any error message as the
+	 * reports module already contains the same checks.
+	 *
+	 * @return string an empty string if everything is okay, an HTML-formatted
+	 *         error message if a buggy version of eAccelerator is used
+	 */
+	protected function checkEAccelerator() {
+		if (t3lib_div::int_from_ver(TYPO3_version) >= 4003000) {
+			return '';
+		}
+		if (!extension_loaded('eaccelerator')) {
+			return '';
+		}
+		$version = phpversion('eaccelerator');
+		if (!version_compare($version, '0.9.5.2', '<')) {
+			return '';
+		}
+
+		$heading = $GLOBALS['LANG']->sL(
+			'LLL:EXT:phpunit/report/locallang.xml:status_eAccelerator'
+		);
+		$message = sprintf(
+			$GLOBALS['LANG']->sL(
+				'LLL:EXT:phpunit/report/locallang.xml:status_eAccelerator_installedOld_verbose'
+			),
+			$version
+		);
+
+		return '<div class="hadError"><h2>' . $heading . '</h2>' .
+			'<p>' .  $message . '</p></div>';
 	}
 
 	/**
@@ -287,8 +323,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$style = '';
 		}
 
-		$output = self::eAccelerator0951OptimizerHelp();
-		$output .= '
+		$output = '
 			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="post">
 				<p>
 					<select style="' . $style . '" name="SET[extSel]" onchange="jumpToUrl(\''.htmlspecialchars($this->MCONF['_']).'&amp;SET[extSel]=\'+this.options[this.selectedIndex].value,this);">'.implode('', $extensionsOptionsArr).'</select>
@@ -702,7 +737,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		}
 		echo '<img src="'.$this->extensionPath.'mod1/phpunit.gif" width="94" height="80" alt="PHPUnit" title="PHPUnit" style="float:right; margin-left:10px;" />';
 		$excludeExtensions = t3lib_div::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['excludeextensions']);
-		echo self::eAccelerator0951OptimizerHelp();
 		if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['usepear'] && !t3lib_extMgm::isLoaded('pear')) {
 			echo '<h2>Extension pear is not loaded</h2>
 			<p>The option for phpunit to use pear is set in the extension manager, but the pear extension is not loaded.</p>
@@ -882,20 +916,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		}
 
 		return $extensionsArr;
-	}
-
-	private static function eAccelerator0951OptimizerHelp () {
-		$retval = '';
-		if (extension_loaded('eaccelerator') && version_compare(phpversion('eaccelerator'), '0.9.5.2', '<')) {
-			$retval .= '<h2>IMPORTANT NOTICE ABOUT eAccelerator!</h2>';
-			$retval .= '<p>eAccelerator '.phpversion('eaccelerator').' is loaded. This version of eAccelerator is known to crash phpunit when the optimizer is turned on.</p>';
-			$retval .= '<p>You should either upgrade to eAccelerator version 0.9.5.2 (or later) or turn off the eAccelerator optimizer (in php.ini set: <code>eaccelerator.optimizer = &quot;0&quot;</code>) when running phpunit.</p>';
-			$vars = @ini_get_all('eaccelerator');
-			$retval .= '<p>Current local value of <code>eaccelerator.optimizer</code>: '.$vars['eaccelerator.optimizer']['local_value'].'</p>';
-			$retval .= '<p>Current global value of <code>eaccelerator.optimizer</code>: '.$vars['eaccelerator.optimizer']['global_value'].'</p>';
-			$retval .= '<p>Confer <a href="http://eaccelerator.net/ticket/242">eAccelerator ticket 242 for more info</a></p>';
-		}
-		return $retval;
 	}
 
 	private static function loadRequiredTestClasses ($paths) {
