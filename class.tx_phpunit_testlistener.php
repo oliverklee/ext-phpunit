@@ -339,10 +339,14 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	 * @return string the URL to re-run the given test, will not be empty
 	 */
 	private function createReRunUrl(PHPUnit_Framework_TestCase $test) {
-		$baseUrl = 'mod.php?M=tools_txphpunitbeM1';
-		$options = 'command=runsingletest&amp;' .
-			'testname=' . $this->currentTestCaseName . '::' .$test->getName();
-		return $baseUrl . '&amp;' . $options;
+		$options = array(
+			'M=tools_txphpunitbeM1',
+			'command=runsingletest',
+			'testCaseFile=' . $this->currentTestCaseName,
+			'testname=' . $this->currentTestCaseName . '::' .$test->getName()
+		);
+
+		return htmlspecialchars('mod.php?' . implode('&', $options));
 	}
 
 	/**

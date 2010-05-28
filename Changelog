@@ -1,4 +1,5 @@
 2010-05-28 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #6101: Testcase drop-down is empty in single test view
 	* Fixed Task #6924: Drop the warnings from the main page for TYPO3 >= 4.3
 	* Add Feature #6921: Move the eaccelerator warning to the main page and the reports module
 	* Fixed Bug #7609: The fake FE should be off by default
