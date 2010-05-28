@@ -108,6 +108,7 @@ class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
 		// simulates a normal FE without any logged-in FE or BE user
 		$frontEnd->beUserLogin = FALSE;
 		$frontEnd->workspacePreview = '';
+		$frontEnd->gr_list = '0,-1';
 
 		$frontEnd->sys_page = t3lib_div::makeInstance('t3lib_pageSelect');
 		$frontEnd->sys_page->init(TRUE);

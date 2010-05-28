@@ -676,6 +676,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		// simulates a normal FE without any logged-in FE or BE user
 		$frontEnd->beUserLogin = FALSE;
 		$frontEnd->workspacePreview = '';
+		$frontEnd->gr_list = '0,-1';
 
 		$frontEnd->sys_page = t3lib_div::makeInstance('t3lib_pageSelect');
 		$frontEnd->sys_page->init(TRUE);
