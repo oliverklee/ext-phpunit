@@ -1,4 +1,4 @@
-2010-04-27 Oliver Klee <typo3-coding@oliverklee.de>
+2010-05-28 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #7735: Wrong group list if fake TSFE (thanks to Francois Suter)
 
 2010-04-27 Oliver Klee <typo3-coding@oliverklee.de>
