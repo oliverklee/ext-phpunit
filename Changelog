@@ -1,3 +1,6 @@
+2010-09-10 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #9678: Convert all files to UNIX line endings
+
 2010-05-28 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #7963: "Run this test only" link from within running a single test is broken
 	* Fixed Bug #6101: Testcase drop-down is empty in single test view
