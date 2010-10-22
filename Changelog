@@ -1,4 +1,5 @@
 2010-10-22 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #7979: Change Typo3 into TYPO3 in the manual
 	* Fixed Bug #9895: The CLI script needs to set the locale
 
 2010-09-10 Oliver Klee <typo3-coding@oliverklee.de>
