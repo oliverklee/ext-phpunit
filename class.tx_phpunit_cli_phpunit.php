@@ -73,6 +73,8 @@ class tx_phpunit_cli_phpunit extends t3lib_cli {
 	 * The constructor.
 	 */
 	public function __construct() {
+		setlocale(LC_NUMERIC, 'C');
+
 		parent::t3lib_cli();
 		$this->cli_options = array_merge($this->cli_options, array());
 		$this->cli_help = array_merge($this->cli_help, array(
