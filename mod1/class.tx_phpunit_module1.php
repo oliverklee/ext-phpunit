@@ -22,7 +22,7 @@
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-require_once (PATH_t3lib . 'class.t3lib_scbase.php');
+require_once(PATH_t3lib . 'class.t3lib_scbase.php');
 
 /**
  * Module "PHPUnit" for the "phpunit" extension.
@@ -49,6 +49,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 *
 	 * @param string $key The key of the string to retrieve, must not be empty
 	 * @param string $default OPTIONAL default language value
+	 *
 	 * @return string the localized string for the key $key
 	 */
 	private function getLL($key, $default = '') {
@@ -110,7 +111,13 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 			$this->cleanOutputBuffers();
 			echo $this->doc->startPage($this->getLL('title'));
-			echo $this->doc->section('', $this->doc->funcMenu(PHPUnit_Runner_Version::getVersionString(), t3lib_BEfunc::getFuncMenu($this->id, 'SET[function]', $this->MOD_SETTINGS['function'], $this->MOD_MENU['function'])));
+			echo $this->doc->section(
+				'',
+				$this->doc->funcMenu(
+					PHPUnit_Runner_Version::getVersionString(),
+					t3lib_BEfunc::getFuncMenu($this->id, 'SET[function]', $this->MOD_SETTINGS['function'], $this->MOD_MENU['function'])
+				)
+			);
 
 				// Render content:
 			switch ($this->MOD_SETTINGS['function']) {
@@ -122,19 +129,19 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 					break;
 			}
 
-			echo $this->doc->section('Keyboard shortcuts', '
-			<p>Use "a" for running all tests, use "s" for running a single test and
-			use "r" to re-run the latest tests; to open phpunit in a new window, use "n".</p>
-			<p>Depending on your browser and system you will need to press some
-			modifier keys:</p>
-			<ul>
-			<li>Safari, IE and Firefox 1.x: Use "Alt" button on Windows, "Ctrl" on Macs.</li>
-			<li>Firefox 2.x and 3.x: Use "Alt-Shift" on Windows, "Ctrl-Shift" on Macs</li>
-			</ul>
-			');
+			echo $this->doc->section(
+				'Keyboard shortcuts',
+				'<p>Use "a" for running all tests, use "s" for running a single test and
+				use "r" to re-run the latest tests; to open phpunit in a new window, use "n".</p>
+				<p>Depending on your browser and system you will need to press some
+				modifier keys:</p>
+				<ul>
+				<li>Safari, IE and Firefox 1.x: Use "Alt" button on Windows, "Ctrl" on Macs.</li>
+				<li>Firefox 2.x and 3.x: Use "Alt-Shift" on Windows, "Ctrl-Shift" on Macs</li>
+				</ul>'
+			);
 			echo $this->doc->section('', $this->openNewWindowLink());
 		} else {
-
 			$this->doc = t3lib_div::makeInstance('mediumDoc');
 			$this->doc->backPath = $BACK_PATH;
 
@@ -142,6 +149,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			echo $this->doc->header($this->getLL('title'));
 			echo $this->getLL('admin_rights_needed');
 		}
+
 		echo $this->doc->endPage();
 	}
 
@@ -231,8 +239,9 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * For TYPO3 >= 4.3, this function doesn't return any error message as the
 	 * reports module already contains the same checks.
 	 *
-	 * @return string an empty string if everything is okay, an HTML-formatted
-	 *         error message if a buggy version of eAccelerator is used
+	 * @return string
+	 *         an empty string if everything is okay, an HTML-formatted error
+	 *         message if a buggy version of eAccelerator is used
 	 */
 	protected function checkEAccelerator() {
 		if (t3lib_div::int_from_ver(TYPO3_version) >= 4003000) {
@@ -280,7 +289,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 					$extensionsWithTestSuites, $this->MOD_SETTINGS['extSel']
 				);
 			}
-
 		} else {
 			$output = $this->getLL('could_not_find_exts_with_tests');
 		}
@@ -291,7 +299,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	/**
 	 * Renders the extension selectorbox
 	 *
-	 * @param	array		$extensionsWithTestSuites: Array of extension keys for which test suites exist
+	 * @param	array		$extensionsWithTestSuites Array of extension keys for which test suites exist
+	 *
 	 * @return	string		HTML code for the selectorbox and a surrounding form
 	 */
 	protected function runTests_renderIntro_renderExtensionSelector($extensionsWithTestSuites) {
@@ -309,7 +318,9 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			if ($selected != '') {
 				$currentExtName = $dirName;
 			}
-			$extensionsOptionsArr[]='<option style="'.$style.'" value="'.htmlspecialchars($dirName).'"'.$selected.'>'.htmlspecialchars($dirName).'</option>';
+			$extensionsOptionsArr[] = '<option style="' . $style .
+				'" value="' . htmlspecialchars($dirName) . '"' . $selected . '>' .
+				htmlspecialchars($dirName) . '</option>';
 		}
 
 		try {
@@ -318,15 +329,13 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$style = '';
 		}
 
-		$output = '
-			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="post">
+		$output = '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">
 				<p>
-					<select style="' . $style . '" name="SET[extSel]" onchange="jumpToUrl(\''.htmlspecialchars($this->MCONF['_']).'&amp;SET[extSel]=\'+this.options[this.selectedIndex].value,this);">'.implode('', $extensionsOptionsArr).'</select>
-					<button type="submit" name="bingo" value="run" accesskey="a">'.$this->getLL('run_all_tests').'</button>
+					<select style="' . $style . '" name="SET[extSel]" onchange="jumpToUrl(\'' . htmlspecialchars($this->MCONF['_']) . '&amp;SET[extSel]=\'+this.options[this.selectedIndex].value,this);">' . implode('', $extensionsOptionsArr) . '</select>
+					<button type="submit" name="bingo" value="run" accesskey="a">' . $this->getLL('run_all_tests') . '</button>
 					<input type="hidden" name="command" value="runalltests" />
 				</p>
-			</form>
-		';
+			</form>';
 
 		return $output;
 	}
@@ -334,8 +343,9 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	/**
 	 * Renders a selector box for running single tests for the given extension
 	 *
-	 * @param	array		$extensionsWithTestSuites: Array of extension keys for which test suites exist
-	 * @param	string		$extensionKey: Extension key of the extensino to run single test for
+	 * @param	array		$extensionsWithTestSuites Array of extension keys for which test suites exist
+	 * @param	string		$extensionKey Extension key of the extensino to run single test for
+	 *
 	 * @return	string		HTML code with the selectorbox and a surrounding form
 	 */
 	protected function runTests_renderIntro_renderTestSelector($extensionsWithTestSuites, $extensionKey) {
@@ -363,7 +373,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				$testSuite->addTestSuite($class);
 			}
 		}
-
 
 			// testCaseFile
 		$testCaseFileOptionsArray = array();
@@ -395,7 +404,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 		$currentStyle = $this->createIconStyle($extensionKey);
 
-
 		// build options for select (incl. option groups for test suites)
 		$testOptionsHtml = '';
 		foreach ($testsOptionsArr as $suiteName => $testArr) {
@@ -408,26 +416,22 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 		$currentStyle = $this->createIconStyle($extensionKey);
 
-		$output = '
-			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="post">
+		$output = '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">
 				<p>
-					<select style="'.$currentStyle.'" name="testCaseFile">
-					<option value="">'.$this->getLL('select_tests').'</option>'
-					 . implode(chr(10), $testCaseFileOptionsArray) .
+					<select style="' . $currentStyle . '" name="testCaseFile">
+					<option value="">' . $this->getLL('select_tests') . '</option>' .
+						implode(chr(10), $testCaseFileOptionsArray) .
 					'</select>
-					<button type="submit" name="bingo" value="run" accesskey="f">'.$this->getLL('runTestCaseFile').'</button>
+					<button type="submit" name="bingo" value="run" accesskey="f">' . $this->getLL('runTestCaseFile') . '</button>
 					<input type="hidden" name="command" value="runTestCaseFile" />
 				</p>
-			</form>
-		';
-		$output .= '
-			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="post">
+			</form>';
+		$output .= '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">
 				<p>
-					<select style="'.$currentStyle.'" name="testname">
-					<option value="">'.$this->getLL('select_tests').'</option>'.
-					$testOptionsHtml.
-					'</select>
-					<button type="submit" name="bingo" value="run" accesskey="s">'.$this->getLL('run_single_test').'</button>
+					<select style="' . $currentStyle . '" name="testname">
+					<option value="">' . $this->getLL('select_tests') . '</option>' .
+					$testOptionsHtml . '</select>
+					<button type="submit" name="bingo" value="run" accesskey="s">' . $this->getLL('run_single_test') . '</button>
 					<input type="hidden" name="command" value="runsingletest" />
 					<input type="hidden" name="testCaseFile" value="' . $testCaseFile . '" />
 				</p>
@@ -501,7 +505,12 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			// Add all classes to the test suite which end with "testcase"
 		foreach (get_declared_classes() as $class) {
 			$classReflection = new ReflectionClass($class);
-			if ($classReflection->isSubclassOf('tx_phpunit_testcase') && (strtolower(substr($class, -8, 8)) == 'testcase' || substr($class, -4, 4) == 'Test') && $class != 'tx_phpunit_testcase' && $class != 'tx_phpunit_database_testcase' && $class != 'tx_t3unit_testcase') {
+			if ($classReflection->isSubclassOf('tx_phpunit_testcase')
+				&& (strtolower(substr($class, -8, 8)) == 'testcase' || substr($class, -4, 4) == 'Test')
+				&& $class != 'tx_phpunit_testcase'
+				&& $class != 'tx_phpunit_database_testcase'
+				&& $class != 'tx_t3unit_testcase'
+			) {
 				$testSuite->addTestSuite($class);
 			}
 		}
@@ -510,17 +519,20 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$result = new PHPUnit_Framework_TestResult();
 
 		// Set to collect code coverage information.
-		if ($GLOBALS['BE_USER']->uc['moduleData']['tools_txphpunitM1']['codeCoverage'] === 'on' &&
-			 extension_loaded('xdebug')) {
+		if ($GLOBALS['BE_USER']->uc['moduleData']['tools_txphpunitM1']['codeCoverage'] === 'on'
+			&& extension_loaded('xdebug')
+		) {
 			$result->collectCodeCoverageInformation(TRUE);
 		}
 
 		$testListener = new tx_phpunit_testlistener();
-		if ( $this->MOD_SETTINGS['testdox'] == 'on')
+		if ($this->MOD_SETTINGS['testdox'] == 'on') {
 			$testListener->useHumanReadableTextFormat();
+		}
 
-		if ( $this->MOD_SETTINGS['showMemoryAndTime'] == 'on')
+		if ($this->MOD_SETTINGS['showMemoryAndTime'] == 'on') {
 			$testListener->enableShowMenoryAndTime();
+		}
 
 		$result->addListener($testListener);
 
@@ -542,8 +554,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 						$testListener->setTestSuiteName($testSuiteName);
 					}
 					if ($testIdentifier === t3lib_div::_GP('testname')) {
-						echo '<h2 class="testSuiteName">Testsuite: ' .
-							$testCases->getName() . '</h2>';
+						echo '<h2 class="testSuiteName">Testsuite: ' . $testCases->getName() . '</h2>';
 						$test->run($result);
 					}
 				}
@@ -585,8 +596,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 					}
 					if ($testIdentifier === $testCaseFileName) {
 						if (!$suiteNameHasBeenDisplayed) {
-							echo '<h2 class="testSuiteName">Testsuite: ' .
-								$testCaseFileName . '</h2>';
+							echo '<h2 class="testSuiteName">Testsuite: ' . $testCaseFileName . '</h2>';
 							$suiteNameHasBeenDisplayed = TRUE;
 						}
 						$test->run($result);
@@ -595,8 +605,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			}
 			if (!is_object($result)) {
 				echo '<h2 class="hadError">Error</h2>' .
-					'<p>The test <strong> ' .
-					htmlspecialchars(t3lib_div::_GP('testname')) .
+					'<p>The test <strong> ' . htmlspecialchars(t3lib_div::_GP('testname')) .
 					'</strong> could not be found.</p>';
 				return;
 			}
@@ -612,12 +621,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		// Display test statistics:
 		$testStatistics = '';
 		if ($result->wasSuccessful()) {
-			$testStatistics = '
-				<h2 class="wasSuccessful">'.$this->getLL('testing_success').'</h2>';
+			$testStatistics = '<h2 class="wasSuccessful">' . $this->getLL('testing_success') . '</h2>';
 		} else {
-			$testStatistics = '
-				<script type="text/javascript">/*<![CDATA[*/setClass("progress-bar","hadFailure");/*]]>*/</script>
-				<h2 class="hadFailure">'.$this->getLL('testing_failure').'</h2>';
+			$testStatistics = '<script type="text/javascript">/*<![CDATA[*/setClass("progress-bar","hadFailure");/*]]>*/</script>
+				<h2 class="hadFailure">' . $this->getLL('testing_failure') . '</h2>';
 		}
 		$testStatistics .= '<p>' . $result->count() . ' ' .	$this->getLL('tests_total') . ', ' .
 			$testListener->assertionCount() . ' ' . $this->getLL('assertions_total') . ', ' .
@@ -625,18 +632,17 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$result->skippedCount() . ' ' . $this->getLL('tests_skipped') .	', ' .
 			$result->notImplementedCount() . ' ' . $this->getLL('tests_notimplemented') .	', ' .
 			$result->errorCount() . ' ' . $this->getLL('tests_errors') . ', ' .
-			'<span title="'.$timeSpent . '&nbsp;' . $this->getLL('tests_seconds').'">'.round($timeSpent, 3) . '&nbsp;' . $this->getLL('tests_seconds').', </span>' .
+			'<span title="'.$timeSpent . '&nbsp;' . $this->getLL('tests_seconds').'">' . round($timeSpent, 3) . '&nbsp;' . $this->getLL('tests_seconds').', </span>' .
 			t3lib_div::formatSize($leakedMemory) . 'B (' . $leakedMemory .' B) ' . $this->getLL('tests_leaks') .
 			'</p>';
 		echo $testStatistics;
 
-		echo '
-			<form action="'.htmlspecialchars($this->MCONF['_']).'" method="post" >
+		echo '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">
 				<p>
-					<button type="submit" name="bingo" value="run" accesskey="r">'.$this->getLL('run_again').'</button>
-					<input name="command" type="hidden" value="'.t3lib_div::_GP('command').'" />
-					<input name="testname" type="hidden" value="'.t3lib_div::_GP('testname').'" />
-					<input name="testCaseFile" type="hidden" value="'.t3lib_div::_GP('testCaseFile').'" />
+					<button type="submit" name="bingo" value="run" accesskey="r">' . $this->getLL('run_again') . '</button>
+					<input name="command" type="hidden" value="' . t3lib_div::_GP('command') . '" />
+					<input name="testname" type="hidden" value="' . t3lib_div::_GP('testname') . '" />
+					<input name="testCaseFile" type="hidden" value="' . t3lib_div::_GP('testCaseFile') . '" />
 				</p>
 			</form>
 		';
@@ -644,8 +650,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		// Code coverage output.
 		if (!t3lib_div::_GP('testname') && $result->getCollectCodeCoverageInformation()) {
 			PHPUnit_Util_Report::render($result, t3lib_extMgm::extPath('phpunit').'codecoverage/');
-			echo '<p><a target="_blank" href="'.$this->extensionPath.'codecoverage/typo3conf_ext.html">Click here to access the Code Coverage report</a></p>';
-			echo '<p>Memory peak usage: '.t3lib_div::formatSize(memory_get_peak_usage()).'B<p/>';
+			echo '<p><a target="_blank" href="' . $this->extensionPath.'codecoverage/typo3conf_ext.html">Click here to access the Code Coverage report</a></p>';
+			echo '<p>Memory peak usage: ' . t3lib_div::formatSize(memory_get_peak_usage()) . 'B<p/>';
 		}
 	}
 
@@ -657,12 +663,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * @return	void
 	 */
 	protected function runTests_renderInfoAndProgressbar() {
-		echo '
-			<div class="progress-bar-wrap">
+		echo '<div class="progress-bar-wrap">
 				<span id="progress-bar" class="wasSuccessful">&nbsp;</span>
 				<span id="transparent-bar">&nbsp;</span>
-			</div>
-		';
+			</div>';
 	}
 
 	/**
@@ -750,17 +754,17 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		<p>If you think writing tests are dull, then try it. <a href="http://junit.sourceforge.net/doc/testinfected/testing.htm">You might become test-infected</a>!</p>
 		<h2>Current include path</h2>
 		<p>Below are the paths of the includepath that phpunit currently uses to locate PHPUnit:</p>
-		<pre>'.join(chr(10), explode(PATH_SEPARATOR, get_include_path())).'</pre>
+		<pre>' . join(chr(10), explode(PATH_SEPARATOR, get_include_path())) . '</pre>
 		<h2>Currently excluded extension</h2>
 		<p>The following extensions are excluded from being searched for tests:</p>
-		<pre>'.join(chr(10), $excludeExtensions).'</pre>
+		<pre>' . join(chr(10), $excludeExtensions) . '</pre>
 		<p>Note: The extension exclusion list can be changed in the extension manager.</p>
 		<h2>Is XDebug PHP extension loaded?</h2>
 		<p>To get code coverage reporting, PHPUnit needs the PHP extension <a target="_blank" href="http://www.xdebug.org"><em>XDebug</em></a>.</p>
-		<p>On this PHP installation, XDebug is '.(extension_loaded('xdebug') ? '' : '<em>not</em>').' loaded.</p>
+		<p>On this PHP installation, XDebug is ' . (extension_loaded('xdebug') ? '' : '<em>not</em>') . ' loaded.</p>
 		<h2>Current memory limit</h2>
 		<p>When using XDebug to collect code coverage data, you will need the memory limit to be set rather high. Something like 256MB will probably be needed.</p>
-		<p>On this PHP installation the memory limit is currently set to: '.ini_get('memory_limit').'</p>
+		<p>On this PHP installation the memory limit is currently set to: ' . ini_get('memory_limit') . '</p>
 		<h2>This extension has bugs...</h2>
 		<P><a target="_blank" href="http://forge.typo3.org/projects/extension-phpunit/issues">Issues can be seen and posted by clicking this link, http://forge.typo3.org/projects/extension-phpunit/issues</a>.</p>
 		<p>You can report an issue by following the above link. An issue can be e.g. a bug or an improvement/enhancement.</p>
@@ -796,14 +800,13 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 		// FIXME: Needs to take mod.php into account, when generating URL here. Otherwise 'Open link in new window' will not work (gives error: Value "" for "M" was not found as a module).
 		$url = t3lib_div::getIndpEnv('TYPO3_REQUEST_SCRIPT').'?M=tools_txphpunitbeM1';
-		$onClick = "phpunitbeWin=window.open('".$url."','phpunitbe','width=790,status=0,menubar=1,resizable=1,location=0,scrollbars=1,toolbar=0');phpunitbeWin.focus();return false;";
+		$onClick = "phpunitbeWin=window.open('" . $url . "','phpunitbe','width=790,status=0,menubar=1,resizable=1,location=0,scrollbars=1,toolbar=0');phpunitbeWin.focus();return false;";
 		$content = '
-			<a id="opennewwindow" href="" onclick="'.htmlspecialchars($onClick).'" accesskey="n">
-				<img'.t3lib_iconWorks::skinImg($BACK_PATH, 'gfx/open_in_new_window.gif', 'width="19" height="14"').' title="'.$GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.openInNewWindow', 1).'" class="absmiddle" alt="" />
+			<a id="opennewwindow" href="" onclick="' . htmlspecialchars($onClick) . '" accesskey="n">
+				<img' . t3lib_iconWorks::skinImg($BACK_PATH, 'gfx/open_in_new_window.gif', 'width="19" height="14"').' title="' . $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.openInNewWindow', 1) . '" class="absmiddle" alt="" />
 				Ope<span class="access-key">n</span> in separate window.
 			</a>
-			<script type="text/javascript">/*<![CDATA[*/if (window.name == "phpunitbe") { document.getElementById("opennewwindow").style.display = "none"; }/*]]>*/</script>
-		';
+			<script type="text/javascript">/*<![CDATA[*/if (window.name == "phpunitbe") { document.getElementById("opennewwindow").style.display = "none"; }/*]]>*/</script>';
 
 		return $content;
 	}
@@ -916,7 +919,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		return $extensionsArr;
 	}
 
-	private static function loadRequiredTestClasses ($paths) {
+	private static function loadRequiredTestClasses($paths) {
 		if (isset($paths)) {
 			foreach ($paths as $path => $fileNames) {
 				foreach ($fileNames as $fileName) {
@@ -941,8 +944,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			return false;
 		}
 
-		return ($extensionKey == 'typo3')
-			|| t3lib_extMgm::isLoaded($extensionKey);
+		return ($extensionKey == 'typo3') || t3lib_extMgm::isLoaded($extensionKey);
 	}
 
 	/**
