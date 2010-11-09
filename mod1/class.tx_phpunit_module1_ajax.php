@@ -61,14 +61,14 @@ class tx_phpunit_module1_ajax {
 			case 'showMemoryAndTime':
 				break;
 			default:
-				$checkbox = false;
+				$checkbox = FALSE;
 		}
 
 		if ($checkbox) {
 			$ajaxObj->setContentFormat('json');
 			$GLOBALS['BE_USER']->uc['moduleData']['tools_txphpunitM1'][$checkbox] = $state;
 			$GLOBALS['BE_USER']->writeUC();
-			$ajaxObj->addContent('success', true);
+			$ajaxObj->addContent('success', TRUE);
 		} else {
 			$ajaxObj->setContentFormat('plain');
 			$ajaxObj->setError('Illegal input parameters.');

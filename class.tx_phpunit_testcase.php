@@ -46,12 +46,12 @@ class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
 	/**
 	 * @var boolean
 	 */
-	protected $backupGlobals = false;
+	protected $backupGlobals = FALSE;
 
 	/**
 	 * @var boolean
 	 */
-	protected $backupStaticAttributes = false;
+	protected $backupStaticAttributes = FALSE;
 
 	/**
 	 * Constructs a test case with the given name.
@@ -88,8 +88,8 @@ class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
 				$GLOBALS['TSFE']->csConvObj, $GLOBALS['TSFE']->pagesection_lockObj,
 				$GLOBALS['TSFE']->pages_lockObj
 			);
-			$GLOBALS['TSFE'] = null;
-			$GLOBALS['TT'] = null;
+			$GLOBALS['TSFE'] = NULL;
+			$GLOBALS['TT'] = NULL;
 		}
 
 		$GLOBALS['TT'] = t3lib_div::makeInstance('t3lib_timeTrack');

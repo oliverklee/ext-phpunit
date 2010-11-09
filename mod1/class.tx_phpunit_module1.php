@@ -384,7 +384,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$testsOptionsArr = array();
 		$testCaseFile = t3lib_div::_GP('testCaseFile');
 		foreach ($testSuite->tests() as $testCases) {
-			if ( ! is_null($testCaseFile) && $testCases->getName() !== $testCaseFile ) {
+			if (!is_null($testCaseFile) && $testCases->getName() !== $testCaseFile ) {
 				continue;
 			}
 			foreach ($testCases->tests() as $test) {
@@ -537,7 +537,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$result->addListener($testListener);
 
 		$startMemory = memory_get_usage();
-		$startTime = microtime(true);
+		$startTime = microtime(TRUE);
 
 		if (t3lib_div::_GP('testname')) {
 			$testListener->setTotalNumberOfTests(1);
@@ -615,7 +615,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$testSuite->run($result);
 		}
 
-		$timeSpent = microtime(true) - $startTime;
+		$timeSpent = microtime(TRUE) - $startTime;
 		$leakedMemory = memory_get_usage() - $startMemory;
 
 		// Display test statistics:
@@ -693,8 +693,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				$GLOBALS['TSFE']->csConvObj, $GLOBALS['TSFE']->pagesection_lockObj,
 				$GLOBALS['TSFE']->pages_lockObj
 			);
-			$GLOBALS['TSFE'] = null;
-			$GLOBALS['TT'] = null;
+			$GLOBALS['TSFE'] = NULL;
+			$GLOBALS['TT'] = NULL;
 		}
 
 		$GLOBALS['TT'] = t3lib_div::makeInstance('t3lib_timeTrack');
@@ -936,12 +936,12 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 *
 	 * @param string the key of the extension to test, may be empty
 	 *
-	 * @return boolean true if an extension with the key $extensionKey is
-	 *                 loaded, false otherwise
+	 * @return boolean TRUE if an extension with the key $extensionKey is
+	 *                 loaded, FALSE otherwise
 	 */
 	private function isExtensionLoaded($extensionKey) {
 		if ($extensionKey == '') {
-			return false;
+			return FALSE;
 		}
 
 		return ($extensionKey == 'typo3') || t3lib_extMgm::isLoaded($extensionKey);

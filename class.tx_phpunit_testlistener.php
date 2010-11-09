@@ -70,22 +70,22 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	 *
 	 * @var boolean
 	 */
-	private $useHumanReadableTextFormat = false;
+	private $useHumanReadableTextFormat = FALSE;
 
 	/**
 	 * @var PHPUnit_Util_TestDox_NamePrettifier
 	 */
-	private $NamePrettifier = null;
+	private $NamePrettifier = NULL;
 
 	/**
 	 * @var boolean  whether the experimental progress bar should be used
 	 */
-	private $useExperimentalProgressBar = false;
+	private $useExperimentalProgressBar = FALSE;
 
 	/**
-	 * @var false
+	 * @var FALSE
 	 */
-	private $enableShowMemoryAndTime = false;
+	private $enableShowMemoryAndTime = FALSE;
 
 	/**
 	 * Initializes the test listener.
@@ -109,20 +109,20 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	 * Enable the option to show the memory leak and time usage of an test.
 	 */
 	public function enableShowMenoryAndTime() {
-		$this->enableShowMemoryAndTime = true;
+		$this->enableShowMemoryAndTime = TRUE;
 	}
 
 	/**
 	 */
 	public function useHumanReadableTextFormat() {
-		$this->useHumanReadableTextFormat = true;
+		$this->useHumanReadableTextFormat = TRUE;
 	}
 
 	/**
 	 * Enables the experimental progress bar.
 	 */
 	public function enableExperimentalProgressBar() {
-		$this->useExperimentalProgressBar = true;
+		$this->useExperimentalProgressBar = TRUE;
 	}
 
 	/**
@@ -286,7 +286,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 			$this->testAssertions += $test->getNumAssertions();
 		}
 
-		if ($this->enableShowMemoryAndTime === true) {
+		if ($this->enableShowMemoryAndTime === TRUE) {
 			echo '<span class="memory-leak small-font"><strong>Memory leak:</strong> ' .
 				 t3lib_div::formatSize($leakedMemory) . 'B </span>';
 			echo '<span class="time-usages small-font"><strong>Time:</strong> ' .
@@ -363,7 +363,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 
 		if ($this->useHumanReadableTextFormat) {
 			$this->NamePrettifier->setPrefix('test');
-			$this->NamePrettifier->setSuffix(null);
+			$this->NamePrettifier->setSuffix(NULL);
 			// this is required because the "setPrefix" work not very well with the prefix "test_"
 			$content = $this->NamePrettifier->prettifyTestMethod(
 				str_replace('test_', '', $testName)

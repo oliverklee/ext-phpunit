@@ -132,10 +132,10 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	 * @param string $databaseName	Overwrite test database name
 	 * @return object
 	 */
-	protected function useTestDatabase($databaseName = null) {
+	protected function useTestDatabase($databaseName = NULL) {
 		$db = $GLOBALS['TYPO3_DB'];
 
-		if ( $db->sql_select_db($databaseName ? $databaseName : $this->testDatabase) !== true ) {
+		if ($db->sql_select_db($databaseName ? $databaseName : $this->testDatabase) !== TRUE) {
 			$this->markTestSkipped('This test is skipped because the test database is not available!');
 		}
 
@@ -151,7 +151,7 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	 *
 	 * @return void
 	 */
-	protected function importExtensions(array $extensions, $importDependencies=false, array &$skipDependencies=array()) {
+	protected function importExtensions(array $extensions, $importDependencies = FALSE, array &$skipDependencies = array()) {
 		$this->useTestDatabase();
 
 		foreach ($extensions as $extensionName) {
@@ -167,7 +167,7 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 			if ($importDependencies) {
 				$dependencies = $this->findDependencies($extensionName);
 				if (is_array($dependencies)) {
-					$this->importExtensions($dependencies, true, $skipDependencies);
+					$this->importExtensions($dependencies, TRUE, $skipDependencies);
 				}
 			}
 
@@ -187,7 +187,7 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	}
 
 
-	protected function getDatabaseTables($databaseName = null) {
+	protected function getDatabaseTables($databaseName = NULL) {
 		$db = $this->useTestDatabase($databaseName);
 
 		$tableNames = array();
@@ -322,7 +322,7 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 			return array_keys($dependencies);
 		}
 
-		return null;
+		return NULL;
 	}
 
 
@@ -342,13 +342,13 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 
 			foreach ($table->children() as $column) {
 				$columnName = $column->getName();
-				$columnValue = null;
+				$columnValue = NULL;
 
 				if (isset($column['ref'])) {
 					list($tableName, $elementID) = explode('#', $column['ref']);
 					$columnValue = $foreignKeys[$tableName][$elementID];
-				} else if (isset($column['is-null']) && $column['is-null']=='yes') {
-					$columnValue = null;
+				} elseif (isset($column['is-NULL']) && $column['is-NULL'] == 'yes') {
+					$columnValue = NULL;
 				} else {
 					$columnValue = $table->$columnName;
 				}

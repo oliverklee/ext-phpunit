@@ -47,8 +47,8 @@ class databaseTest extends tx_phpunit_database_testcase {
 	/**
 	 * @test
 	 */
-	public function nullToEmptyString() {
-		$this->assertEquals('', mysql_real_escape_string(null));
+	public function NULLToEmptyString() {
+		$this->assertEquals('', mysql_real_escape_string(NULL));
 	}
 
 	/**
@@ -157,7 +157,7 @@ class databaseTest extends tx_phpunit_database_testcase {
 			);
 		}
 		$db = $this->useTestDatabase();
-		$this->importExtensions(array('bbb'), true);
+		$this->importExtensions(array('bbb'), TRUE);
 
 		$tableNames = $this->getDatabaseTables();
 		$this->assertContains('tx_bbb_test', $tableNames, 'Check that extension bbb is installed. The extension can be found in tests/res/.');
@@ -188,7 +188,7 @@ class databaseTest extends tx_phpunit_database_testcase {
 			);
 		}
 		$this->useTestDatabase();
-		$this->importExtensions(array('ccc', 'aaa'), true);
+		$this->importExtensions(array('ccc', 'aaa'), TRUE);
 
 		$tableNames = $this->getDatabaseTables();
 
@@ -219,7 +219,7 @@ class databaseTest extends tx_phpunit_database_testcase {
 		$this->useTestDatabase();
 
 		$toSkip = array('bbb');
-		$this->importExtensions(array('ccc', 'ddd'), true, $toSkip);
+		$this->importExtensions(array('ccc', 'ddd'), TRUE, $toSkip);
 
 		$tableNames = $this->getDatabaseTables();
 
@@ -250,16 +250,16 @@ class databaseTest extends tx_phpunit_database_testcase {
 		$this->importExtensions(array('ccc'));
 		$this->importDataSet(dirname(__FILE__). '/database_testcase_dataset.xml');
 
-		$result = $db->exec_SELECTgetRows('*', 'tx_ccc_test', null);
+		$result = $db->exec_SELECTgetRows('*', 'tx_ccc_test', NULL);
 		$this->assertEquals(2, count($result));
 		$this->assertEquals(1, $result[0]['uid']);
 		$this->assertEquals(2, $result[1]['uid']);
 
-		$result = $db->exec_SELECTgetRows('*', 'tx_ccc_data', null);
+		$result = $db->exec_SELECTgetRows('*', 'tx_ccc_data', NULL);
 		$this->assertEquals(1, count($result));
 		$this->assertEquals(1, $result[0]['uid']);
 
-		$result = $db->exec_SELECTgetRows('*', 'tx_ccc_data_test_mm', null);
+		$result = $db->exec_SELECTgetRows('*', 'tx_ccc_data_test_mm', NULL);
 		$this->assertEquals(2, count($result));
 		$this->assertEquals(1, $result[0]['uid_local']);
 		$this->assertEquals(1, $result[0]['uid_foreign']);
