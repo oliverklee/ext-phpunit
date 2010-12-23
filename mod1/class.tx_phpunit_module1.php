@@ -39,10 +39,20 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * @var string the extension key
 	 */
 	const EXTENSION_KEY = 'phpunit';
+
 	/**
 	 * @var string the relative path to this extension
 	 */
 	protected $extensionPath;
+
+	/**
+	 * The constructor.
+	 */
+	public function __construct() {
+		parent::init();
+
+		$this->extensionPath = t3lib_extMgm::extRelPath(self::EXTENSION_KEY);
+	}
 
 	/**
 	 * Returns the localized string for the key $key.
@@ -54,15 +64,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 */
 	private function getLL($key, $default = '') {
 		return $GLOBALS['LANG']->getLL($key, $default);
-	}
-
-	/**
-	 * The constructor.
-	 */
-	public function __construct() {
-		parent::init();
-
-		$this->extensionPath = t3lib_extMgm::extRelPath(self::EXTENSION_KEY);
 	}
 
 	/**
