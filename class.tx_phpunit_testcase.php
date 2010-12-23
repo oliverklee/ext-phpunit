@@ -94,16 +94,9 @@ class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
 
 		$GLOBALS['TT'] = t3lib_div::makeInstance('t3lib_timeTrack');
 
-		if (t3lib_div::int_from_ver(TYPO3_version) >= 4003000) {
-			$frontEnd = t3lib_div::makeInstance(
-				'tslib_fe', $GLOBALS['TYPO3_CONF_VARS'], 0, 0
-			);
-		} else {
-			$className = t3lib_div::makeInstanceClassName('tslib_fe');
-			$frontEnd = new $className(
-				$GLOBALS['TYPO3_CONF_VARS'], 0, 0
-			);
-		}
+		$frontEnd = t3lib_div::makeInstance(
+			'tslib_fe', $GLOBALS['TYPO3_CONF_VARS'], 0, 0
+		);
 
 		// simulates a normal FE without any logged-in FE or BE user
 		$frontEnd->beUserLogin = FALSE;

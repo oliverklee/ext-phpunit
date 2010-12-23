@@ -126,7 +126,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$this->doc->JScode .= '<link rel="stylesheet" type="text/css" href="'.$this->extensionPath.'mod1/yui/base-min.css" />';
 			$this->doc->JScode .= '<link rel="stylesheet" type="text/css" href="'.$this->extensionPath.'mod1/phpunit-be.css" />';
 
-			$this->cleanOutputBuffers();
+			t3lib_div::cleanOutputBuffers();
 			echo $this->doc->startPage($this->getLL('title'));
 			echo $this->doc->section(
 				'',
@@ -170,24 +170,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		echo $this->doc->endPage();
 	}
 
-	/**
-	 * Cleans all output buffers.
-	 *
-	 * In TYPO3 >= 4.3, this is a wrapper for t3lib_div::cleanOutputBuffers.
-	 *
-	 * @see t3lib_div::cleanOutputBuffers
-	 */
-	private function cleanOutputBuffers() {
-		if (t3lib_div::int_from_ver(TYPO3_version) > 4002999) {
-			t3lib_div::cleanOutputBuffers();
-			return;
-		}
-
-		while (ob_get_level()) {
-			ob_end_clean();
-		}
-		header('Content-Encoding: None', TRUE);
-	}
 
 	/*********************************************************
 	 *
@@ -201,9 +183,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * @return	void
 	 */
 	protected function runTests_render() {
-		echo $this->checkPhpComments();
-		echo $this->checkEAccelerator();
-
 		if (($this->MOD_SETTINGS['extSel'] != 'uuall')
 			&& !$this->isExtensionLoaded($this->MOD_SETTINGS['extSel'])
 		) {
@@ -221,69 +200,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			default:
 				$this->runTests_renderIntro();
 			}
-	}
-
-	/**
-	 * Checks that PHP comments are retained.
-	 *
-	 * @return string an empty string if everything is okay, an HTML-formatted
-	 *         error message if PHP comments are stripped
-	 */
-	protected function checkPhpComments() {
-		$method = new ReflectionMethod('tx_phpunit_module1', 'checkPhpComments');
-		if (strlen($method->getDocComment()) > 0) {
-			return '';
-		}
-
-		$heading = $GLOBALS['LANG']->sL(
-			'LLL:EXT:phpunit/report/locallang.xml:status_phpComments'
-		);
-		$message = $GLOBALS['LANG']->sL(
-			'LLL:EXT:phpunit/report/locallang.xml:status_phpComments_stripped_verbose'
-		);
-
-		if (t3lib_div::int_from_ver(TYPO3_version) < 4003000) {
-			$status = '<div class="hadError"><h2>' . $heading . '</h2>' .
-				'<p>' .  $message . '</p></div>';
-		}
-
-		return $status;
-	}
-
-	/**
-	 * Checks that eAccelerator doesn't crash phpunit.
-	 *
-	 * For TYPO3 >= 4.3, this function doesn't return any error message as the
-	 * reports module already contains the same checks.
-	 *
-	 * @return string
-	 *         an empty string if everything is okay, an HTML-formatted error
-	 *         message if a buggy version of eAccelerator is used
-	 */
-	protected function checkEAccelerator() {
-		if (t3lib_div::int_from_ver(TYPO3_version) >= 4003000) {
-			return '';
-		}
-		if (!extension_loaded('eaccelerator')) {
-			return '';
-		}
-		$version = phpversion('eaccelerator');
-		if (!version_compare($version, '0.9.5.2', '<')) {
-			return '';
-		}
-
-		$heading = $GLOBALS['LANG']->sL(
-			'LLL:EXT:phpunit/report/locallang.xml:status_eAccelerator'
-		);
-		$message = sprintf(
-			$GLOBALS['LANG']->sL(
-				'LLL:EXT:phpunit/report/locallang.xml:status_eAccelerator_installedOld_verbose'
-			),
-			$version
-		);
-
-		return '<div class="hadError"><h2>' . $heading . '</h2>' .
-			'<p>' .  $message . '</p></div>';
 	}
 
 	/**
@@ -715,17 +631,9 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		}
 
 		$GLOBALS['TT'] = t3lib_div::makeInstance('t3lib_timeTrack');
-
-		if (t3lib_div::int_from_ver(TYPO3_version) >= 4003000) {
-			$frontEnd = t3lib_div::makeInstance(
-				'tslib_fe', $GLOBALS['TYPO3_CONF_VARS'], 0, 0
-			);
-		} else {
-			$className = t3lib_div::makeInstanceClassName('tslib_fe');
-			$frontEnd = new $className(
-				$GLOBALS['TYPO3_CONF_VARS'], 0, 0
-			);
-		}
+		$frontEnd = t3lib_div::makeInstance(
+			'tslib_fe', $GLOBALS['TYPO3_CONF_VARS'], 0, 0
+		);
 
 		// simulates a normal FE without any logged-in FE or BE user
 		$frontEnd->beUserLogin = FALSE;
