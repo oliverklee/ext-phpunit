@@ -1,3 +1,6 @@
+2010-12-23 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #11676: Rename the tests/ directory to Tests/
+
 2010-10-22 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #7979: Change Typo3 into TYPO3 in the manual
 	* Fixed Bug #9895: The CLI script needs to set the locale

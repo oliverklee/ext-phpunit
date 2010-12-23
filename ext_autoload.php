@@ -11,7 +11,7 @@ return array(
 	'tx_phpunit_module1' => $extensionPath . 'mod1/class.tx_phpunit_module1.php',
 	'tx_phpunit_module1_ajax' => $extensionPath . 'mod1/class.tx_phpunit_module1_ajax.php',
 	'tx_phpunit_report_status' => $extensionPath . 'report/class.tx_phpunit_report_status.php',
-	'tx_phpunit_test_testcase' => $extensionPath . 'tests/tx_phpunit_test_testcase.php',
-	'tx_phpunit_test_testsuite' => $extensionPath . 'tests/tx_phpunit_testsuite.php',
+	'tx_phpunit_test_testcase' => $extensionPath . 'Tests/tx_phpunit_test_testcase.php',
+	'tx_phpunit_test_testsuite' => $extensionPath . 'Tests/tx_phpunit_testsuite.php',
 );
 ?>
