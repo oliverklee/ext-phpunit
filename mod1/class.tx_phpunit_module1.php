@@ -46,12 +46,28 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	protected $extensionPath;
 
 	/**
+	 * a test finder
+	 *
+	 * @var Tx_Phpunit_Service_TestFinder
+	 */
+	protected $testFinder = NULL;
+
+	/**
 	 * The constructor.
 	 */
 	public function __construct() {
 		parent::init();
 
 		$this->extensionPath = t3lib_extMgm::extRelPath(self::EXTENSION_KEY);
+
+		$this->testFinder = t3lib_div::makeInstance('Tx_Phpunit_Service_TestFinder');
+	}
+
+	/**
+	 * The destructor.
+	 */
+	public function __destruct() {
+		unset($this->testFinder);
 	}
 
 	/**
@@ -841,10 +857,9 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		}
 
 		$coreTestCases = array();
-		$coreTestsDirectory = file_exists(PATH_site . 'tests/') ? PATH_site . 'tests/' : PATH_site . 'typo3_src/tests/';
-		if (@is_dir($coreTestsDirectory)) {
+		if ($this->testFinder->hasCoreTests()) {
 			$coreTestCases['typo3'] = $this->findTestCasesInDir(
-				$coreTestsDirectory
+				$this->testFinder->getAbsoluteCoreTestsPath()
 			);
 		}
 
