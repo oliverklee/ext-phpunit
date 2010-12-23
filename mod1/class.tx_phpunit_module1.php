@@ -620,7 +620,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$GLOBALS['TT'] = NULL;
 		}
 
-		$GLOBALS['TT'] = t3lib_div::makeInstance('t3lib_timeTrack');
+		$GLOBALS['TT'] = t3lib_div::makeInstance('t3lib_TimeTrackNull');
 		$frontEnd = t3lib_div::makeInstance(
 			'tslib_fe', $GLOBALS['TYPO3_CONF_VARS'], 0, 0
 		);
