@@ -22,8 +22,6 @@
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-require_once(PATH_t3lib . 'class.t3lib_scbase.php');
-
 /**
  * Module "PHPUnit" for the "phpunit" extension.
  *
@@ -290,7 +288,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		if (isset($paths)) {
 			foreach ($paths as $path => $fileNames) {
 				foreach ($fileNames as $fileName) {
-					require_once ($path.$fileName);
+					require_once($path . $fileName);
 				}
 			}
 		}
@@ -608,14 +606,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * @todo	This is a quick hack, needs proper implementation.
 	 */
 	protected function simulateFrontendEnviroment() {
-		require_once(PATH_t3lib . 'class.t3lib_timetrack.php');
-		require_once(PATH_tslib . 'class.tslib_fe.php');
-		require_once(PATH_t3lib . 'class.t3lib_page.php');
-		require_once(PATH_t3lib . 'class.t3lib_userauth.php');
-		require_once(PATH_tslib . 'class.tslib_feuserauth.php');
-		require_once(PATH_t3lib . 'class.t3lib_tstemplate.php');
-		require_once(PATH_t3lib . 'class.t3lib_cs.php');
-
 		if (isset($GLOBALS['TSFE']) && is_object($GLOBALS['TSFE'])) {
 			// avoids some memory leaks
 			unset(
@@ -847,7 +837,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		if (isset($paths)) {
 			foreach ($paths as $path => $fileNames) {
 				foreach ($fileNames as $fileName) {
-					require_once (realpath($path.'/'.$fileName));
+					require_once(realpath($path . '/' . $fileName));
 				}
 			}
 		}

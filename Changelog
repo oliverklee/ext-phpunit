@@ -1,4 +1,5 @@
 2010-12-23 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #7240: Rely on the autoloader for TYPO3 >= 4.3
 	* Fixed Bug #10690: Require TYPO3 >= 4.3
 	* Fixed Bug #11570: Add functions to find the relative and absolute path to the Core tests directory
 	* Fixed Bug #11676: Rename the tests/ directory to Tests/

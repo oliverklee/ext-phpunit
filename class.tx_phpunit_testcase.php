@@ -70,14 +70,6 @@ class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
 	 * @todo	This is a quick hack, needs proper implementation.
 	 */
 	protected function simulateFrontendEnviroment() {
-		require_once(PATH_t3lib . 'class.t3lib_timetrack.php');
-		require_once(PATH_tslib . 'class.tslib_fe.php');
-		require_once(PATH_t3lib . 'class.t3lib_page.php');
-		require_once(PATH_t3lib . 'class.t3lib_userauth.php');
-		require_once(PATH_tslib . 'class.tslib_feuserauth.php');
-		require_once(PATH_t3lib . 'class.t3lib_tstemplate.php');
-		require_once(PATH_t3lib . 'class.t3lib_cs.php');
-
 		if (isset($GLOBALS['TSFE']) && is_object($GLOBALS['TSFE'])) {
 			// avoids some memory leaks
 			unset(

@@ -33,14 +33,10 @@
 
 $LANG->includeLLFile('EXT:phpunit/mod1/locallang.xml');
 
-require_once(t3lib_extMgm::extPath('phpunit') . 'class.tx_phpunit_testlistener.php');
-require_once(t3lib_extMgm::extPath('phpunit') . 'class.tx_phpunit_testcase.php');
-require_once(t3lib_extMgm::extPath('phpunit') . 'class.tx_phpunit_database_testcase.php');
 // included for PHPUnit version string
 require_once('PHPUnit/Runner/Version.php');
 // included for PHPUnit version string
 require_once('PHPUnit/Util/Report.php');
-require_once('class.tx_phpunit_module1.php');
 
 if (!defined('PATH_tslib')) {
 	define('PATH_tslib', t3lib_extMgm::extPath('cms') . 'tslib/');
