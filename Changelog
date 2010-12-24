@@ -1,4 +1,5 @@
 2010-12-24 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #11713: Drop the unused JsonPrettyPrinter.php file
 	* Fixed Bug #11711: Drop code for the experimental progress bar
 	* Fixed Bug #10135: phpunit shows green bar, although test execution failed with fatal error
 	* Fixed Bug #5903: Only JavaScript-hide the test contents if all test have completed
