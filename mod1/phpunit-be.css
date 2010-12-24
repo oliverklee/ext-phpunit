@@ -1,10 +1,7 @@
-@CHARSET "ISO-8859-1";
-
 p {
 	margin-bottom: 8px;
 }
 
-/* Section to remedy to idiocy of web-fools having created the Typo3 4 default skin */
 a {
 	color : blue;
 }
@@ -86,16 +83,6 @@ body#typo3-mod-php {
 	background-color: yellow;
 }
 
-/*
-.hadSkipped {
-	background-color: darkgrey;
-}
-
-.hadNotImplemented {
-	background-color: lightgrey;
-}
-*/
-
 .hadError {
 	background-color: red;
 }
@@ -151,6 +138,10 @@ body#typo3-mod-php {
 	height: 100%;
 	border: 1px solid black;
 	float: left;
+}
+
+#testsHaveFinished {
+	display: none;
 }
 
 /*

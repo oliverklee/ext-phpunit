@@ -271,7 +271,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				'&amp;SET[extSel]=\'+this.options[this.selectedIndex].value,this);">' .
 				implode('', $extensionsOptionsArr) .
 				'</select>
-				<button type="submit" name="bingo" value="run" accesskey="a">' . $this->getLL('run_all_tests') . '</button>
+				<button type="submit" name="bingo" value="run" accesskey="a">' .
+				$this->getLL('run_all_tests') . '</button>
 				<input type="hidden" name="command" value="runalltests" />
 				</p>
 			</form>';
@@ -578,8 +579,9 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 					<input name="testname" type="hidden" value="' . t3lib_div::_GP('testname') . '" />
 					<input name="testCaseFile" type="hidden" value="' . t3lib_div::_GP('testCaseFile') . '" />
 				</p>
-			</form>
-		';
+			</form>' .
+			'<div id="testsHaveFinished"></div>'
+		;
 
 		// Code coverage output.
 		if (!t3lib_div::_GP('testname') && $result->getCollectCodeCoverageInformation()) {

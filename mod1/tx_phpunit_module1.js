@@ -148,5 +148,23 @@ function setClass(id, className) {
 		}
 		Event.addListener(checkboxes, 'click', toggle, this, true);
 		Event.addListener('SET_codeCoverage', 'click', toggleCodeCoverage, this, true);
+
+		checkForCrashedTest();
 	}, this, true);
+
+	/**
+	 * Checks whether the last displayed test has crashed. In that case, un-hides it.
+	 *
+	 * @return void
+	 */
+	var checkForCrashedTest = function() {
+		if ($('testsHaveFinished')) {
+			return;
+		}
+
+		var testContainers = Dom.getElementsByClassName('testcaseOutput');
+		var lastTestContainer = testContainers[testContainers.length - 1];
+		lastTestContainer.className = 'testcaseOutput testcaseError';
+		lastTestContainer.style.display = 'block';
+	}
 })();
