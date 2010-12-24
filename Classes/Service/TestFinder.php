@@ -86,5 +86,53 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	public function hasCoreTests() {
 		return ($this->getRelativeCoreTestsPath() !== '');
 	}
+
+	/**
+	 * Finds all files that are named like test files in the directory $directory
+	 * and recursively all its subdirectories.
+	 *
+	 * @param string $directory
+	 *        the absolute path of the directory in which to look for test cases
+	 *
+	 * @return array
+	 *         sorted file names of the testcases in the directory $directory relative
+	 *         to $directory, will be empty if no testcases have been found
+	 */
+	public function findTestCasesInDirectory($directory) {
+		if ($directory === '') {
+			throw new InvalidArgumentException('$directory must not be empty.');
+		}
+		if (!is_dir($directory)) {
+			throw new InvalidArgumentException('The directory '. $directory . ' does not exist.');
+		}
+		if (!is_readable($directory)) {
+			throw new InvalidArgumentException('The directory '. $directory . ' exists, but is not readable.');
+		}
+
+		$directoryLength = strlen($directory);
+
+		$testFiles = array();
+		$allPhpFiles = t3lib_div::getAllFilesAndFoldersInPath(array(), $directory, 'php');
+		foreach ($allPhpFiles as $filePath) {
+			if ($this->isTestCaseFileName($filePath)) {
+				$testFiles[] = substr($filePath, $directoryLength);;
+			}
+		}
+
+		sort($testFiles, SORT_STRING);
+
+		return $testFiles;
+	}
+
+	/**
+	 * Checks whether a file name is named like a testcase file name should be.
+	 *
+	 * @param string $path the absolute path of a file to check
+	 *
+	 * @return boolean TRUE if $fileName is names like a proper testcase, FALSE otherwise
+	 */
+	protected function isTestCaseFileName($path) {
+		return (substr($path, -8) === 'Test.php') || (substr($path, -12) === 'testcase.php');
+	}
 }
 ?>

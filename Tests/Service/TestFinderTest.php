@@ -36,14 +36,63 @@ class Tx_Phpunit_Service_TestFinderTest extends tx_phpunit_testcase {
 	 */
 	private $fixture;
 
+	/**
+	 * the absolute path to the fixtures directory for this testcase
+	 *
+	 * @var string
+	 */
+	private $fixturesPath;
+
 	public function setUp() {
-		$this->fixture = new Tx_Phpunit_Service_TestFinder();
+		$this->fixture = $this->createAccessibleProxy();
+
+		$this->fixturesPath = t3lib_extMgm::extPath('phpunit') . 'Tests/Service/Fixtures/';
 	}
 
 	public function tearDown() {
 		$this->fixture->__destruct();
 		unset($this->fixture);
 	}
+
+
+	/*
+	 * Utility functions
+	 */
+
+	/**
+	 * Creates a subclass Tx_Phpunit_Service_TestFinder with the protected
+	 * functions made public.
+	 *
+	 * @return Tx_Phpunit_Service_TestFinder an accessible proxy
+	 */
+	private function createAccessibleProxy() {
+		$className = 'Tx_Phpunit_Service_TestFinderAccessibleProxy';
+		if (!class_exists($className)) {
+			eval(
+				'class ' . $className . ' extends Tx_Phpunit_Service_TestFinder {' .
+				'  public function isTestCaseFileName($path) {' .
+				'    return parent::isTestCaseFileName($path);' .
+				'  }' .
+				'}'
+			);
+		}
+
+		return new $className();
+	}
+
+	/**
+	 * @test
+	 */
+	public function createAccessibleProxyCreatesTestFinderSubclass() {
+		$this->assertTrue(
+			$this->createAccessibleProxy() instanceof Tx_Phpunit_Service_TestFinder
+		);
+	}
+
+
+	/*
+	 * Unit tests
+	 */
 
 	/**
 	 * @test
@@ -174,6 +223,156 @@ class Tx_Phpunit_Service_TestFinderTest extends tx_phpunit_testcase {
 
 		$this->assertFalse(
 			$this->fixture->hasCoreTests()
+		);
+	}
+
+	/**
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function findTestCasesInDirectoryForEmptyPathThrowsException() {
+		$this->fixture->findTestCasesInDirectory('');
+	}
+
+	/**
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function findTestCasesInDirectoryForInexistentPathThrowsException() {
+		$this->fixture->findTestCasesInDirectory(
+			$this->fixturesPath . 'DoesNotExist/'
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function findTestCasesInDirectoryForEmptyDirectoryReturnsEmptyArray() {
+		$this->assertSame(
+			array(),
+			$this->fixture->findTestCasesInDirectory($this->fixturesPath . 'Empty/')
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function findTestCasesInDirectoryFindsFileWithProperTestcaseFileName() {
+		$path = 'OneTest.php';
+
+		$fixture = $this->getMock(
+			'Tx_Phpunit_Service_TestFinder', array('isTestCaseFileName')
+		);
+		$fixture->expects($this->at(0))->method('isTestCaseFileName')
+			->with($this->fixturesPath . $path)->will($this->returnValue(TRUE));
+
+		$this->assertContains(
+			$path,
+			$fixture->findTestCasesInDirectory($this->fixturesPath)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function findTestCasesInDirectoryNotFindsFileWithNonProperTestcaseFileName() {
+		$path = 'OneTest.php';
+
+		$fixture = $this->getMock(
+			'Tx_Phpunit_Service_TestFinder', array('isTestCaseFileName')
+		);
+		$fixture->expects($this->at(0))->method('isTestCaseFileName')
+			->with($this->fixturesPath . $path)->will($this->returnValue(FALSE));
+
+		$this->assertNotContains(
+			$path,
+			$fixture->findTestCasesInDirectory($this->fixturesPath)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function findTestCasesInDirectoryFindsTestcaseInSubfolder() {
+		$path = 'Subfolder/AnotherTest.php';
+
+		$this->assertContains(
+			$path,
+			$this->fixture->findTestCasesInDirectory($this->fixturesPath)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function findTestCasesInDirectoryAcceptsPathWithTrailingSlash() {
+		$result = $this->fixture->findTestCasesInDirectory($this->fixturesPath);
+
+		$this->assertFalse(
+			empty($result)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function findTestCasesInDirectoryAcceptsPathWithoutTrailingSlash() {
+		$result = $this->fixture->findTestCasesInDirectory(
+			t3lib_extMgm::extPath('phpunit') . 'Tests/Service/Fixtures'
+		);
+
+		$this->assertFalse(
+			empty($result)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function findTestCasesInDirectorySortsFileNamesInAscendingOrder() {
+		$result = $this->fixture->findTestCasesInDirectory($this->fixturesPath);
+
+		$fileName1 = 'OneTest.php';
+		$fileName2 = 'XTest.php';
+
+		$this->assertTrue(
+			array_search($fileName1, $result) < array_search($fileName2, $result)
+		);
+	}
+
+
+	/**
+	 * @test
+	 */
+	public function isTestCaseFileNameForTestSuffixReturnsTrue() {
+		$this->assertTrue(
+			$this->fixture->isTestCaseFileName(
+				$this->fixturesPath . 'OneTest.php'
+			)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function isTestCaseFileNameForTestcaseSuffixReturnsTrue() {
+		$this->assertTrue(
+			$this->fixture->isTestCaseFileName(
+				$this->fixturesPath . 'Another_testcase.php'
+			)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function isTestCaseFileNameForOtherPhpFileReturnsFalse() {
+		$this->assertFalse(
+			$this->fixture->isTestCaseFileName(
+				$this->fixturesPath . 'SomethingDifferent.php'
+			)
 		);
 	}
 }

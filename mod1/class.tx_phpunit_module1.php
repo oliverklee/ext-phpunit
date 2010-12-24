@@ -802,9 +802,9 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * Recursively finds all test case files in the directory $dir.
 	 *
 	 * @param string $dir
-	 *        the absolute path of the directory in which to look fortest cases
+	 *        the absolute path of the directory in which to look for test cases
 	 *
-	 * @return array
+	 * @return array<array><string>
 	 *         files names of the test cases in the directory $dir and all
 	 *         its subdirectories relative to $dir, will be empty if no
 	 *         test cases have been found
@@ -813,20 +813,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		if (!is_dir($dir)) {
 			return array();
 		}
-
-		$pathLength = strlen($dir);
-		$fileNames = t3lib_div::getAllFilesAndFoldersInPath(array(), $dir, 'php');
-
-		$testCaseFileNames = array();
-		foreach ($fileNames as $fileName) {
-			if ((substr($fileName, -12) === 'testcase.php') || (substr($fileName, -8) === 'Test.php')) {
-				$testCaseFileNames[] = substr($fileName, $pathLength);
-			}
-		}
+		$testCaseFileNames = $this->testFinder->findTestCasesInDirectory($dir);
 
 		$extensionsArr = array();
 		if (!empty($testCaseFileNames)) {
-			sort($testCaseFileNames);
 			$extensionsArr[$dir] = $testCaseFileNames;
 		}
 
