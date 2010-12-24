@@ -216,21 +216,19 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * @return void
 	 */
 	protected function runTests_renderIntro() {
-		$output = '';
-
 		$extensionsWithTestSuites = $this->getExtensionsWithTestSuites();
-		if (is_array($extensionsWithTestSuites)) {
-			ksort($extensionsWithTestSuites);
+		if (!is_array($extensionsWithTestSuites)) {
+			return $this->getLL('could_not_find_exts_with_tests');
+		}
 
-			$output = $this->runTests_renderIntro_renderExtensionSelector($extensionsWithTestSuites);
-			if ($this->MOD_SETTINGS['extSel'] && ($this->MOD_SETTINGS['extSel'] != 'uuall')) {
-				$output .= $this->runTests_renderIntro_renderTestSelector(
-					$extensionsWithTestSuites,
-					$this->MOD_SETTINGS['extSel']
-				);
-			}
-		} else {
-			$output = $this->getLL('could_not_find_exts_with_tests');
+		ksort($extensionsWithTestSuites);
+
+		$output = $this->runTests_renderIntro_renderExtensionSelector($extensionsWithTestSuites);
+		if ($this->MOD_SETTINGS['extSel'] && ($this->MOD_SETTINGS['extSel'] != 'uuall')) {
+			$output .= $this->runTests_renderIntro_renderTestSelector(
+				$extensionsWithTestSuites,
+				$this->MOD_SETTINGS['extSel']
+			);
 		}
 
 		echo $output;
@@ -826,11 +824,13 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	}
 
 	private static function loadRequiredTestClasses($paths) {
-		if (isset($paths)) {
-			foreach ($paths as $path => $fileNames) {
-				foreach ($fileNames as $fileName) {
-					require_once(realpath($path . '/' . $fileName));
-				}
+		if (!isset($paths)) {
+			return;
+		}
+
+		foreach ($paths as $path => $fileNames) {
+			foreach ($fileNames as $fileName) {
+				require_once(realpath($path . '/' . $fileName));
 			}
 		}
 	}

@@ -223,12 +223,14 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	 */
 	public function startTestSuite(PHPUnit_Framework_TestSuite $suite) {
 		$this->setTestSuiteName($suite->getName());
-
-		if ((!$suite instanceof PHPUnit_Framework_TestSuite_DataProvider) && (
-			$suite->getName() !== 'tx_phpunit_basetestsuite')) {
-			echo '<h2 class="testSuiteName">Testsuite: ' . $this->prettifyTestClass($suite->getName()) . '</h2>';
-			echo '<script type="text/javascript">/*<![CDATA[*/setClass("progress-bar","wasSuccessful");/*]]>*/</script>';
+		if (($suite instanceof PHPUnit_Framework_TestSuite_DataProvider)
+			|| ($suite->getName() === 'tx_phpunit_basetestsuite')
+		) {
+			return;
 		}
+
+		echo '<h2 class="testSuiteName">Testsuite: ' . $this->prettifyTestClass($suite->getName()) . '</h2>';
+		echo '<script type="text/javascript">/*<![CDATA[*/setClass("progress-bar","wasSuccessful");/*]]>*/</script>';
 	}
 
 	/**
@@ -298,7 +300,6 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 		echo '<script type="text/javascript">/*<![CDATA[*/document.getElementById("transparent-bar").style.width = "' .
 			(100 - $percentDone) . '%";/*]]>*/</script>';
 		flush();
-		// TODO: Should fflush() from PHPUnit be used here?
 	}
 
 	/**
@@ -343,7 +344,9 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	 */
 	private function createReRunUrl(PHPUnit_Framework_TestCase $test) {
 		$options = array(
-			'M=tools_txphpunitbeM1', 'command=runsingletest', 'testCaseFile=' . $this->currentTestCaseName,
+			'M=tools_txphpunitbeM1',
+			'command=runsingletest',
+			'testCaseFile=' . $this->currentTestCaseName,
 			'testname=' . $this->currentTestCaseName . '::' . $test->getName()
 		);
 

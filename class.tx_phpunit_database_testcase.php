@@ -84,16 +84,16 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	 */
 	protected function cleanDatabase() {
 		$db = $GLOBALS['TYPO3_DB'];
-		$databaseNames = $db->admin_get_dbs();
+		if (!in_array($this->testDatabase, $db->admin_get_dbs())) {
+			return;
+		}
 
-		if (in_array($this->testDatabase, $databaseNames)) {
-			$db->sql_select_db($this->testDatabase);
+		$db->sql_select_db($this->testDatabase);
 
-			// drop all tables
-			$tables = $this->getDatabaseTables();
-			foreach ($tables as $tableName) {
-				$db->admin_query('DROP TABLE ' . $tableName);
-			}
+		// drop all tables
+		$tables = $this->getDatabaseTables();
+		foreach ($tables as $tableName) {
+			$db->admin_query('DROP TABLE ' . $tableName);
 		}
 	}
 
@@ -104,20 +104,14 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	 *         TRUE if the database has been dropped successfully, FALSE otherwise
 	 */
 	protected function dropDatabase() {
-		$success = TRUE;
-
 		$db = $GLOBALS['TYPO3_DB'];
-
-		$databaseNames = $db->admin_get_dbs();
-
-		if (in_array($this->testDatabase, $databaseNames)) {
-			$db->sql_select_db($this->testDatabase);
-			if ($db->admin_query('DROP DATABASE ' . $this->testDatabase) === FALSE) {
-				$success = FALSE;
-			}
+		if (!in_array($this->testDatabase, $db->admin_get_dbs())) {
+			return TRUE;
 		}
 
-		return $success;
+		$db->sql_select_db($this->testDatabase);
+
+		return ($db->admin_query('DROP DATABASE ' . $this->testDatabase) !== FALSE);
 	}
 
 	/**
@@ -245,23 +239,24 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 		// find definitions
 		$install = new t3lib_install;
 		$FDfile = $install->getFieldDefinitions_sqlContent($definitionContent);
+		if (empty($FDfile)) {
+			return;
+		}
 
-		if (count($FDfile)) {
-			// find statements to query
-			$FDdatabase = $install->getFieldDefinitions_sqlContent($this->getTestDatabaseSchema());
-			$diff = $install->getDatabaseExtra($FDfile, $FDdatabase);
-			$updateStatements = $install->getUpdateSuggestions($diff);
+		// find statements to query
+		$FDdatabase = $install->getFieldDefinitions_sqlContent($this->getTestDatabaseSchema());
+		$diff = $install->getDatabaseExtra($FDfile, $FDdatabase);
+		$updateStatements = $install->getUpdateSuggestions($diff);
 
-			$updateTypes = array('add', 'change', 'create_table');
+		$updateTypes = array('add', 'change', 'create_table');
 
-			foreach ($updateTypes as $updateType) {
-				if (array_key_exists($updateType, $updateStatements)) {
-					foreach ((array) $updateStatements[$updateType] as $string) {
-						$GLOBALS['TYPO3_DB']->admin_query($string);
-					}
+		foreach ($updateTypes as $updateType) {
+			if (array_key_exists($updateType, $updateStatements)) {
+				foreach ((array) $updateStatements[$updateType] as $string) {
+					$GLOBALS['TYPO3_DB']->admin_query($string);
 				}
 			}
-		}
+			}
 	}
 
 	/**
@@ -296,7 +291,8 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	 * Returns array with extension names (dependencies)
 	 *
 	 * @param string $extKey
-	 * @return array
+	 *
+	 * @return array|NULL
 	 */
 	private function findDependencies($extKey) {
 		$path = t3lib_div::getFileAbsFileName(t3lib_extMgm::extPath($extKey) . 'ext_emconf.php');
@@ -304,21 +300,20 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 		$_EXTKEY = $extKey;
 		include($path);
 
-		if (is_array($EM_CONF[$_EXTKEY]['constraints']['depends'])) {
-			$dependencies = $EM_CONF[$_EXTKEY]['constraints']['depends'];
-
-			// remove php and typo3 extension (not real extensions)
-			if (isset($dependencies['php'])) {
-				unset($dependencies['php']);
-			}
-			if (isset($dependencies['typo3'])) {
-				unset($dependencies['typo3']);
-			}
-
-			return array_keys($dependencies);
+		$dependencies = $EM_CONF[$_EXTKEY]['constraints']['depends'];
+		if (!is_array($dependencies)) {
+			return NULL;
 		}
 
-		return NULL;
+		// remove php and typo3 extension (not real extensions)
+		if (isset($dependencies['php'])) {
+			unset($dependencies['php']);
+		}
+		if (isset($dependencies['typo3'])) {
+			unset($dependencies['typo3']);
+		}
+
+		return array_keys($dependencies);
 	}
 
 	/**
