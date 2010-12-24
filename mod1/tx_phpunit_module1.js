@@ -7,8 +7,18 @@ function jumpToUrl(URL)	{	//
 }
 
 function setClass(id, className) {
-	// Using YUI! to make function a bit more resilient
 	YAHOO.util.Dom.replaceClass(id, 'testcaseSuccess', className);
+}
+
+/**
+ * Sets the CSS class of the progress bar.
+ *
+ * @param string className the class name to set, must not be empty
+ *
+ * @return void
+ */
+function setProgressBarClass(className) {
+	setClass("progress-bar", className);
 }
 
 /*
@@ -161,6 +171,8 @@ function setClass(id, className) {
 		if ($('testsHaveFinished')) {
 			return;
 		}
+
+		setProgressBarClass("hadError")
 
 		var testContainers = Dom.getElementsByClassName('testcaseOutput');
 		var lastTestContainer = testContainers[testContainers.length - 1];

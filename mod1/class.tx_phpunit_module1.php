@@ -559,7 +559,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		if ($result->wasSuccessful()) {
 			$testStatistics = '<h2 class="wasSuccessful">' . $this->getLL('testing_success') . '</h2>';
 		} else {
-			$testStatistics = '<script type="text/javascript">/*<![CDATA[*/setClass("progress-bar","hadFailure");/*]]>*/</script>
+			$testStatistics = '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadFailure");/*]]>*/</script>
 				<h2 class="hadFailure">' . $this->getLL('testing_failure') . '</h2>';
 		}
 		$testStatistics .= '<p>' . $result->count() . ' ' . $this->getLL('tests_total') . ', ' . $testListener->assertionCount() . ' ' .

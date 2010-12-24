@@ -1,4 +1,5 @@
 2010-12-24 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #10135: phpunit shows green bar, although test execution failed with fatal error
 	* Fixed Bug #5903: Only JavaScript-hide the test contents if all test have completed
 	* Fixed Bug #11681: Cleanup: Use guard clauses
 	* Fixed Bug #11685: Drop deprecated classes and functions

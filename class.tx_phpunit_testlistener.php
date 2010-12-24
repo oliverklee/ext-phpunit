@@ -145,7 +145,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 				$this->currentTestNumber . '", "hadError");/*]]>*/</script>';
 		}
 
-		echo '<script type="text/javascript">/*<![CDATA[*/setClass("progress-bar","hadError");/*]]>*/</script>
+		echo '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadError");/*]]>*/</script>
 			<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '","testcaseError");/*]]>*/</script>
 			<strong><span class="hadError">!</span> Error</strong> in test case <em>' . $test->getName() . '</em>
 			<br />in file<em> ' . $fileName . '</em>
@@ -169,7 +169,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 				$this->currentTestNumber . '", "hadFailure");/*]]>*/</script>';
 		}
 
-		echo '<script type="text/javascript">/*<![CDATA[*/setClass("progress-bar","hadFailure");/*]]>*/</script>
+		echo '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadFailure");/*]]>*/</script>
 			<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '","testcaseFailure");/*]]>*/</script>
 			<strong><span class="hadFailure">!</span> Failure</strong> in test case <em>' . $test->getName() . '</em>
 			<br />File: <em>' . $fileName . '</em>
@@ -192,7 +192,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	 * @param Exception $e
 	 */
 	public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
-		echo '<script type="text/javascript">/*<![CDATA[*/setClass("progress-bar","hadNotImplemented");/*]]>*/</script>
+		echo '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadNotImplemented");/*]]>*/</script>
 			<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '","testcaseNotImplemented");/*]]>*/</script>
 			<span class="inCompleteTest">!</span> <strong>Incomplete test</strong> <em>' . $test->getName()
 			 . '</em> in file <em>' . $e->getFile() . '</em> line <em>' . $e->getLine() . '</em>:<br />
@@ -208,7 +208,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	 * @param  float				  $time
 	 */
 	public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
-		echo '<script type="text/javascript">/*<![CDATA[*/setClass("progress-bar","hadSkipped");/*]]>*/</script>
+		echo '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadSkipped");/*]]>*/</script>
 			<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '","testcaseSkipped");/*]]>*/</script>
 			<span class="inSkippedTest">!</span> <strong>Skipped test</strong> <em>' . $test->getName() . '</em> in file <em>'
 			 . $e->getFile() . '</em> line <em>' . $e->getLine() . '</em>:<br />
@@ -230,7 +230,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 		}
 
 		echo '<h2 class="testSuiteName">Testsuite: ' . $this->prettifyTestClass($suite->getName()) . '</h2>';
-		echo '<script type="text/javascript">/*<![CDATA[*/setClass("progress-bar","wasSuccessful");/*]]>*/</script>';
+		echo '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("wasSuccessful");/*]]>*/</script>';
 	}
 
 	/**
