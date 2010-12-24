@@ -83,11 +83,6 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	private $NamePrettifier = NULL;
 
 	/**
-	 * @var boolean  whether the experimental progress bar should be used
-	 */
-	private $useExperimentalProgressBar = FALSE;
-
-	/**
 	 * @var FALSE
 	 */
 	private $enableShowMemoryAndTime = FALSE;
@@ -124,13 +119,6 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	}
 
 	/**
-	 * Enables the experimental progress bar.
-	 */
-	public function enableExperimentalProgressBar() {
-		$this->useExperimentalProgressBar = TRUE;
-	}
-
-	/**
 	 * An error occurred.
 	 *
 	 * @param PHPUnit_Framework_Test $test
@@ -139,11 +127,6 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	public function addError(PHPUnit_Framework_Test $test, Exception $e, $time) {
 		$testCaseTraceArr = $this->getFirstNonPHPUnitTrace($e->getTrace());
 		$fileName = str_replace(PATH_site, '', $testCaseTraceArr['file']);
-
-		if ($this->useExperimentalProgressBar) {
-			echo '<script type="text/javascript">/*<![CDATA[*/setClass("tx_phpunit_testcase_nr_' .
-				$this->currentTestNumber . '", "hadError");/*]]>*/</script>';
-		}
 
 		echo '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadError");/*]]>*/</script>
 			<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '","testcaseError");/*]]>*/</script>
@@ -163,11 +146,6 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time) {
 		$testCaseTraceArr = $this->getFirstNonPHPUnitTrace($e->getTrace());
 		$fileName = str_replace(PATH_site, '', $testCaseTraceArr['file']);
-
-		if ($this->useExperimentalProgressBar) {
-			echo '<script type="text/javascript">/*<![CDATA[*/setClass("tx_phpunit_testcase_nr_' .
-				$this->currentTestNumber . '", "hadFailure");/*]]>*/</script>';
-		}
 
 		echo '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadFailure");/*]]>*/</script>
 			<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '","testcaseFailure");/*]]>*/</script>
@@ -259,11 +237,6 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	public function startTest(PHPUnit_Framework_Test $test) {
 		set_time_limit(30); // A single test has to take less than this or else PHP will timeout.
 		echo '<div id="testcaseNum-' . $this->currentTestNumber . '" class="testcaseOutput testcaseSuccess">';
-
-		if ($this->useExperimentalProgressBar) {
-			echo '<script type="text/javascript">/*<![CDATA[*/setClass("tx_phpunit_testcase_nr_' .
-				$this->currentTestNumber . '", "wasSuccessful");/*]]>*/</script>';
-		}
 
 		if ($this->totalNumberOfTestCases !== 1) {
 			echo $this->createReRunLink($test);
