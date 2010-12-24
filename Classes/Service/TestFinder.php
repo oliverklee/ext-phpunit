@@ -52,7 +52,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 
 		if (file_exists(PATH_site .  $possibleTestsPath1)) {
 			$testsPath = $possibleTestsPath1;
-		} elseif (file_exists(PATH_site . $possibleFixturesPath2)) {
+		} elseif (file_exists(PATH_site . $possibleTestsPath2)) {
 			$testsPath = $possibleTestsPath2;
 		} else {
 			$testsPath = '';
