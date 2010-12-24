@@ -73,21 +73,17 @@ class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
 		if (isset($GLOBALS['TSFE']) && is_object($GLOBALS['TSFE'])) {
 			// avoids some memory leaks
 			unset(
-				$GLOBALS['TSFE']->tmpl, $GLOBALS['TSFE']->sys_page,
-				$GLOBALS['TSFE']->fe_user, $GLOBALS['TSFE']->TYPO3_CONF_VARS,
-				$GLOBALS['TSFE']->config, $GLOBALS['TSFE']->TCAcachedExtras,
-				$GLOBALS['TSFE']->imagesOnPage, $GLOBALS['TSFE']->cObj,
-				$GLOBALS['TSFE']->csConvObj, $GLOBALS['TSFE']->pagesection_lockObj,
-				$GLOBALS['TSFE']->pages_lockObj
+				$GLOBALS['TSFE']->tmpl, $GLOBALS['TSFE']->sys_page, $GLOBALS['TSFE']->fe_user,
+				$GLOBALS['TSFE']->TYPO3_CONF_VARS, $GLOBALS['TSFE']->config, $GLOBALS['TSFE']->TCAcachedExtras,
+				$GLOBALS['TSFE']->imagesOnPage, $GLOBALS['TSFE']->cObj, $GLOBALS['TSFE']->csConvObj,
+				$GLOBALS['TSFE']->pagesection_lockObj, $GLOBALS['TSFE']->pages_lockObj
 			);
 			$GLOBALS['TSFE'] = NULL;
 			$GLOBALS['TT'] = NULL;
 		}
 
 		$GLOBALS['TT'] = t3lib_div::makeInstance('t3lib_TimeTrackNull');
-		$frontEnd = t3lib_div::makeInstance(
-			'tslib_fe', $GLOBALS['TYPO3_CONF_VARS'], 0, 0
-		);
+		$frontEnd = t3lib_div::makeInstance('tslib_fe', $GLOBALS['TYPO3_CONF_VARS'], 0, 0);
 
 		// simulates a normal FE without any logged-in FE or BE user
 		$frontEnd->beUserLogin = FALSE;
@@ -106,13 +102,10 @@ class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
 	}
 }
 
-
 /**
  * This class is provided for backwards compatibility with the extension t3unit
  * t3unit is based on PHPUnit version 2 (known as PHPUnit2)
  */
 class tx_t3unit_testcase extends PHPUnit_Framework_TestCase {
-
 }
-
 ?>

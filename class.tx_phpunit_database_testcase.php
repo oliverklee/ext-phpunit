@@ -50,7 +50,7 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	 */
 	public function __construct($name = NULL, array $data = array(), $dataName = '') {
 		parent::__construct($name, $data, $dataName);
-		$this->testDatabase = strtolower(TYPO3_db.'_test');
+		$this->testDatabase = strtolower(TYPO3_db . '_test');
 	}
 
 	/*
@@ -58,8 +58,8 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	 * databases. Then checks whether to a test database is already setup; if
 	 * not, then creates it.
 	 *
-	 * @return boolean TRUE if the database has been created successfully,
-	 *                 FALSE otherwise
+	 * @return boolean
+	 *         TRUE if the database has been created successfully, FALSE otherwise
 	 */
 	protected function createDatabase() {
 		$success = TRUE;
@@ -69,9 +69,7 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 		$databaseNames = $db->admin_get_dbs();
 
 		if (!in_array($this->testDatabase, $databaseNames)) {
-			if ($db->admin_query(
-				'CREATE DATABASE ' . $this->testDatabase
-			) === FALSE) {
+			if ($db->admin_query('CREATE DATABASE ' . $this->testDatabase) === FALSE) {
 				$success = FALSE;
 			}
 		}
@@ -79,8 +77,7 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 		return $success;
 	}
 
-
- 	/**
+	/**
 	 * Drops tables in test database
 	 *
 	 * @return void
@@ -95,7 +92,7 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 			// drop all tables
 			$tables = $this->getDatabaseTables();
 			foreach ($tables as $tableName) {
-				$db->admin_query('DROP TABLE '. $tableName);
+				$db->admin_query('DROP TABLE ' . $tableName);
 			}
 		}
 	}
@@ -103,8 +100,8 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	/**
 	 * Drops the test database.
 	 *
-	 * @return boolean TRUE if the database has been dropped successfully,
-	 *                 FALSE otherwise
+	 * @return boolean
+	 *         TRUE if the database has been dropped successfully, FALSE otherwise
 	 */
 	protected function dropDatabase() {
 		$success = TRUE;
@@ -148,13 +145,18 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	 *
 	 * @return void
 	 */
-	protected function importExtensions(array $extensions, $importDependencies = FALSE, array &$skipDependencies = array()) {
+	protected function importExtensions(
+		array $extensions, $importDependencies = FALSE, array &$skipDependencies = array()
+	) {
 		$this->useTestDatabase();
 
 		foreach ($extensions as $extensionName) {
-				// skip importing unloaded extensions and specified dependencies
+			// skip importing unloaded extensions and specified dependencies
 			if (!t3lib_extMgm::isLoaded($extensionName)) {
-				$this->markTestSkipped('This test is skipped because the extension ' . $extensionName . ' which was marked for import is not loaded on your system!');
+				$this->markTestSkipped(
+					'This test is skipped because the extension ' . $extensionName .
+						' which was marked for import is not loaded on your system!'
+				);
 			} elseif (in_array($extensionName, $skipDependencies)) {
 				continue;
 			}
@@ -172,7 +174,7 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 		}
 //!FIXME The hook should be replaced by real clean up and rebuild the whole
 // "TYPO3_CONF_VARS" in order to have a clean testing environment.
-			// hook to load additional files
+		// hook to load additional files
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['importExtensions_additionalDatabaseFiles'])) {
 			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['importExtensions_additionalDatabaseFiles'] as $file) {
 				$sqlFilename = t3lib_div::getFileAbsFileName($file);
@@ -182,7 +184,6 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 			}
 		}
 	}
-
 
 	protected function getDatabaseTables($databaseName = NULL) {
 		$db = $this->useTestDatabase($databaseName);
@@ -197,7 +198,6 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 		return $tableNames;
 	}
 
-
 	/**
 	 * Import extension ext_tables.sql file
 	 *
@@ -207,7 +207,7 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	 */
 	private function importExtension($extensionName) {
 		// read sql file content
-		$sqlFilename = t3lib_div::getFileAbsFileName(t3lib_extMgm::extPath($extensionName).'ext_tables.sql');
+		$sqlFilename = t3lib_div::getFileAbsFileName(t3lib_extMgm::extPath($extensionName) . 'ext_tables.sql');
 		$fileContent = t3lib_div::getUrl($sqlFilename);
 
 		$this->importDBDefinitions($fileContent);
@@ -218,28 +218,29 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	 *
 	 * Example/intended usage:
 	 * public function setUp() {
-	 *     $this->createDatabase();
-	 *     $db = $this->useTestDatabase();
-	 *     $this->importStdDB();
-	 *     $this->importExtensions(array('cms','static_info_tables','templavoila'));
+	 *   $this->createDatabase();
+	 *   $db = $this->useTestDatabase();
+	 *   $this->importStdDB();
+	 *   $this->importExtensions(array('cms', 'static_info_tables', 'templavoila'));
 	 * }
 	 *
 	 * @return void
 	 */
 	protected function importStdDB() {
 		// read sql file content
-		$sqlFilename = t3lib_div::getFileAbsFileName(PATH_t3lib.'stddb/tables.sql');
+		$sqlFilename = t3lib_div::getFileAbsFileName(PATH_t3lib . 'stddb/tables.sql');
 		$fileContent = t3lib_div::getUrl($sqlFilename);
 
 		$this->importDBDefinitions($fileContent);
 	}
 
 	/**
-	* import sql definitions from (ext_)tables.sql
-	*
-	* @param string $definitionContent
-	* @return void
-	*/
+	 * import sql definitions from (ext_)tables.sql
+	 *
+	 * @param string $definitionContent
+	 *
+	 * @return void
+	 */
 	private function importDBdefinitions($definitionContent) {
 		// find definitions
 		$install = new t3lib_install;
@@ -255,14 +256,13 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 
 			foreach ($updateTypes as $updateType) {
 				if (array_key_exists($updateType, $updateStatements)) {
-					foreach ((array)$updateStatements[$updateType] as $string) {
+					foreach ((array) $updateStatements[$updateType] as $string) {
 						$GLOBALS['TYPO3_DB']->admin_query($string);
 					}
 				}
 			}
 		}
 	}
-
 
 	/**
 	 * Returns test database schema dump
@@ -274,24 +274,23 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 		$tables = $this->getDatabaseTables();
 
 		// find create statement for every table
-		$linebreak =  chr(10);
+		$linebreak = chr(10);
 		$schema = '';
 		$db->sql_query('SET SQL_QUOTE_SHOW_CREATE = 0');
 		foreach ($tables as $tableName) {
-			$res = $db->sql_query('show create table '. $tableName);
+			$res = $db->sql_query('show create table ' . $tableName);
 			$row = $db->sql_fetch_row($res);
 
 			// modify statement to be accepted by TYPO3
 			$createStatement = preg_replace('/ENGINE.*$/', '', $row[1]);
-			$createStatement = preg_replace('/(CREATE TABLE.*\()/', $linebreak.'\\1'.$linebreak, $createStatement);
-			$createStatement = preg_replace('/\) $/', $linebreak.')', $createStatement);
+			$createStatement = preg_replace('/(CREATE TABLE.*\()/', $linebreak . '\\1' . $linebreak, $createStatement);
+			$createStatement = preg_replace('/\) $/', $linebreak . ')', $createStatement);
 
-			$schema .= $createStatement. ';';
+			$schema .= $createStatement . ';';
 		}
 
 		return $schema;
 	}
-
 
 	/**
 	 * Returns array with extension names (dependencies)
@@ -300,7 +299,7 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	 * @return array
 	 */
 	private function findDependencies($extKey) {
-		$path = t3lib_div::getFileAbsFileName(t3lib_extMgm::extPath($extKey).'ext_emconf.php');
+		$path = t3lib_div::getFileAbsFileName(t3lib_extMgm::extPath($extKey) . 'ext_emconf.php');
 		// $_EXTKEY used as array key in EM_CONF in included file
 		$_EXTKEY = $extKey;
 		include($path);
@@ -321,7 +320,6 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 
 		return NULL;
 	}
-
 
 	/**
 	 * Import dataset into test database

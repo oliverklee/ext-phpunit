@@ -42,9 +42,10 @@ class tx_phpunit_module1_ajax {
 	 * Used to broker incoming requests to other calls.
 	 * Called by typo3/ajax.php
 	 *
-	 * @param array $params additional parameters (not used)
+	 * @param array $params
+	 *        additional parameters (not used)
 	 * @param TYPO3AJAX &$ajaxObj
-	 *        reference of the TYPO3AJAX object of this request
+	 *        the TYPO3AJAX object of this request
 	 */
 	public function ajaxBroker($params, &$ajaxObj) {
 		// Check for legal input ('white-listing').
