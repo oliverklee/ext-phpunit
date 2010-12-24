@@ -235,12 +235,11 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	 * @param  PHPUnit_Framework_Test $test
 	 */
 	public function startTest(PHPUnit_Framework_Test $test) {
-		set_time_limit(30); // A single test has to take less than this or else PHP will timeout.
+		// A single test has to take less than this or else PHP will time out.
+		set_time_limit(30);
 		echo '<div id="testcaseNum-' . $this->currentTestNumber . '" class="testcaseOutput testcaseSuccess">';
 
-		if ($this->totalNumberOfTestCases !== 1) {
-			echo $this->createReRunLink($test);
-		}
+		echo $this->createReRunLink($test);
 		echo ' <strong class="testName">' . $this->prettifyTestMethod($test->getName()) . '</strong><br />';
 		$this->memoryUsageStartOfTest = memory_get_usage();
 	}
