@@ -5,7 +5,6 @@ if (!defined('TYPO3_MODE')) {
 
 $TYPO3_CONF_VARS['EXTCONF'][$_EXTKEY] = unserialize($_EXTCONF);
 
-//$extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['phpunit']);
 clearstatcache();
 $phpunitlib = '';
 if (is_dir($TYPO3_CONF_VARS['EXTCONF'][$_EXTKEY]['phpunitlib'])) {

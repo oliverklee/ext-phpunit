@@ -1,4 +1,5 @@
 2010-12-24 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #11685: Drop deprecated classes and functions
 	* Fixed Bug #9094: Hidden MAC backup files should not be loaded
 	* Fixed Bug #11679: Use the new XCLASS format
 

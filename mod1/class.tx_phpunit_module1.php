@@ -180,6 +180,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		echo $this->doc->endPage();
 	}
 
+
 	/*********************************************************
 	 *
 	 * Screen render functions
@@ -306,8 +307,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		foreach (get_declared_classes() as $class) {
 			$classReflection = new ReflectionClass($class);
 			if ((strtolower(substr($class, -8, 8)) == 'testcase' || substr($class, -4, 4) == 'Test')
-				&& $classReflection->isSubclassOf('PHPUnit_Framework_TestCase') && $class !== 'tx_phpunit_testcase' &&
-				$class !== 'tx_t3unit_testcase' && $class !== 'tx_phpunit_database_testcase') {
+				&& $classReflection->isSubclassOf('PHPUnit_Framework_TestCase') && $class !== 'tx_phpunit_testcase'
+				&& $class !== 'tx_phpunit_database_testcase') {
 				$testSuite->addTestSuite($class);
 			}
 		}
@@ -449,7 +450,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			if ($classReflection->isSubclassOf('tx_phpunit_testcase')
 				&& (strtolower(substr($class, -8, 8)) == 'testcase' || substr($class, -4, 4) == 'Test')
 				&& ($class != 'tx_phpunit_testcase') && ($class != 'tx_phpunit_database_testcase')
-				&& ($class != 'tx_t3unit_testcase')
 			) {
 				$testSuite->addTestSuite($class);
 			}
@@ -700,6 +700,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		<p>Kasper Ligaard, Robert Lemke, Mario Rimann, Oliver Klee, S&oslash;ren Soltveit, Mikkel Ricky and Michael Klapper.</p>
 		';
 	}
+
 
 	/*********************************************************
 	 *

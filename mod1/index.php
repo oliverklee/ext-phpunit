@@ -53,5 +53,4 @@ if (isset($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['phpunit']['mod1/class.tx_ph
 
 // runs our Script Object Back-End (SOBE)
 $SOBE->main();
-
 ?>

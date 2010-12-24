@@ -54,17 +54,6 @@ class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
 	protected $backupStaticAttributes = FALSE;
 
 	/**
-	 * Constructs a test case with the given name.
-	 *
-	 * @param string $name
-	 * @param array $data
-	 * @param string $dataName
-	 */
-	public function __construct($name = NULL, array $data = array(), $dataName = '') {
-		parent::__construct($name, $data, $dataName);
-	}
-
-	/**
 	 * Roughly simulates the front end although being in the back end.
 	 *
 	 * @todo	This is a quick hack, needs proper implementation.
@@ -100,12 +89,5 @@ class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
 
 		$GLOBALS['TSFE'] = $frontEnd;
 	}
-}
-
-/**
- * This class is provided for backwards compatibility with the extension t3unit
- * t3unit is based on PHPUnit version 2 (known as PHPUnit2)
- */
-class tx_t3unit_testcase extends PHPUnit_Framework_TestCase {
 }
 ?>
