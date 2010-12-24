@@ -32,6 +32,15 @@
  */
 class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	/**
+	 * suffixes that indicate that a file is a testcase
+	 *
+	 * @var array<string>
+	 */
+	static protected $testcaseFileSuffixes = array(
+		'Test.php', '_testcase.php'
+	);
+
+	/**
 	 * The destructor.
 	 */
 	public function __destruct() {
@@ -132,7 +141,31 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 * @return boolean TRUE if $fileName is names like a proper testcase, FALSE otherwise
 	 */
 	protected function isTestCaseFileName($path) {
-		return (substr($path, -8) === 'Test.php') || (substr($path, -12) === 'testcase.php');
+		$fileName = basename($path);
+		if ($this->isHiddenMacFile($fileName)) {
+			return FALSE;
+		}
+
+		$isTestCase = FALSE;
+		foreach (self::$testcaseFileSuffixes as $suffix) {
+			if (substr($fileName, - strlen($suffix)) === $suffix) {
+				$isTestCase = TRUE;
+				break;
+			}
+		}
+
+		return $isTestCase;
+	}
+
+	/**
+	 * Checks whether $fileName is a hidden Mac file.
+	 *
+	 * @param string $fileName base name of a file to check
+	 *
+	 * @return TRUE if $fileName is a hidden Mac file, FALSE otherwise
+	 */
+	protected function isHiddenMacFile($fileName) {
+		return (substr($fileName, 0, 2) === '._');
 	}
 }
 ?>

@@ -375,5 +375,18 @@ class Tx_Phpunit_Service_TestFinderTest extends tx_phpunit_testcase {
 			)
 		);
 	}
+
+	/**
+	 * @test
+	 *
+	 * @see http://forge.typo3.org/issues/9094
+	 */
+	public function isTestCaseFileNameForHiddenMacFileReturnsFalse() {
+		$this->assertFalse(
+			$this->fixture->isTestCaseFileName(
+				$this->fixturesPath . '._tx_tendbook_testTest.php'
+			)
+		);
+	}
 }
 ?>
