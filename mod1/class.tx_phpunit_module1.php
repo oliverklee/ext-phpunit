@@ -813,6 +813,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		if (!is_dir($dir)) {
 			return array();
 		}
+
 		$testCaseFileNames = $this->testFinder->findTestCasesInDirectory($dir);
 
 		$extensionsArr = array();
