@@ -34,12 +34,16 @@
  */
 class tx_phpunit_module1 extends t3lib_SCbase {
 	/**
-	 * @var string the extension key
+	 * the extension key
+	 *
+	 * @var string
 	 */
 	const EXTENSION_KEY = 'phpunit';
 
 	/**
-	 * @var string the relative path to this extension
+	 * the relative path to this extension
+	 *
+	 * @var string
 	 */
 	protected $extensionPath;
 
