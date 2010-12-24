@@ -82,8 +82,8 @@ function setProgressBarClass(className) {
 		}
 
 		YAHOO.util.Connect.asyncRequest('POST', 'ajax.php',
-			{	success: function (responseObj) { /* console.log('Success', responseObj); */ },
-				failure: function (responseObj) { /* console.log('Failure', responseObj); */}
+			{	success: function (responseObj) {},
+				failure: function (responseObj) {}
 			},
 			'ajaxID=tx_phpunit_module1_ajax&state='+state+'&checkbox='+checkbox
 		);
@@ -94,10 +94,10 @@ function setProgressBarClass(className) {
 		var target = Event.getTarget(event);
 		var state = target.checked;
 		YAHOO.util.Connect.asyncRequest('POST', 'ajax.php',
-				{	success: function (responseObj) { /* console.log('Success', responseObj); */ },
-					failure: function (responseObj) { /* console.log('Failure', responseObj); */ }
+				{	success: function (responseObj) {},
+					failure: function (responseObj) {}
 				},
-				'ajaxID=tx_phpunit_module1_ajax&state='+state+'&checkbox=codeCoverage'
+				'ajaxID=tx_phpunit_module1_ajax&state=' + state + '&checkbox=codeCoverage'
 			);
 	}
 

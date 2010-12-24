@@ -375,7 +375,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			</form>
 		';
 
-		// Experimental: Buttons for turning failures, errors or success on/off
 		$output .= '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">';
 		$output .= '<div class="phpunit-controls">';
 		$failureState = $this->MOD_SETTINGS['failure'] === 'on' ? 'checked="checked"' : '';
