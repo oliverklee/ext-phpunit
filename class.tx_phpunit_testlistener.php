@@ -125,15 +125,15 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	 * @param Exception $e
 	 */
 	public function addError(PHPUnit_Framework_Test $test, Exception $e, $time) {
-		$testCaseTraceArr = $this->getFirstNonPHPUnitTrace($e->getTrace());
-		$fileName = str_replace(PATH_site, '', $testCaseTraceArr['file']);
+		$fileName = str_replace(PATH_site, '', $e->getFile());
+		$lineNumber = $e->getLine();
 
 		echo '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadError");/*]]>*/</script>
 			<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '","testcaseError");/*]]>*/</script>
 			<strong><span class="hadError">!</span> Error</strong> in test case <em>' . $test->getName() . '</em>
-			<br />in file<em> ' . $fileName . '</em>
-			<br />on line<em> ' . $testCaseTraceArr['line'] . '</em>:
-			<div class="message">Message:<br>' . htmlspecialchars($e->getMessage()) . '</div>';
+			<br />File: <em>' . $fileName . '</em>
+			<br />Line: <em>' . $lineNumber . '</em>' .
+			'<div class="message">Message:<br>' . htmlspecialchars($e->getMessage()) . '</div>';
 		flush();
 	}
 
@@ -151,8 +151,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 			<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '","testcaseFailure");/*]]>*/</script>
 			<strong><span class="hadFailure">!</span> Failure</strong> in test case <em>' . $test->getName() . '</em>
 			<br />File: <em>' . $fileName . '</em>
-			<br />Line: <em>' . $testCaseTraceArr['line'] . '</em>:
-			<br /><strong>Description</strong>';
+			<br />Line: <em>' . $testCaseTraceArr['line'] . '</em>';
 
 		if (method_exists($e, 'getDescription')) {
 			echo '<div class="message">' . htmlspecialchars($e->getDescription()) . '</div>';

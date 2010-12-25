@@ -1,3 +1,6 @@
+2010-12-25 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #11709: Exceptions in tests are displayed with empty line number and file
+
 2010-12-24 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #11712: testlistener::startTest reads a non-existent field
 	* Fixed Bug #11713: Drop the unused JsonPrettyPrinter.php file
