@@ -148,7 +148,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 			<strong><span class="hadError">!</span> Error</strong> in test case <em>' . $test->getName() . '</em>
 			<br />File: <em>' . $fileName . '</em>
 			<br />Line: <em>' . $lineNumber . '</em>' .
-			'<pre class="message">' . htmlspecialchars($e->getMessage()) . '</pre>';
+			'<div class="message">' . nl2br(htmlspecialchars($e->getMessage())) . '</div>';
 		flush();
 	}
 
@@ -174,7 +174,17 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 		} else {
 			$message = $e->getMessage();
 		}
-		echo '<pre class="message">' . htmlspecialchars($message) . '</pre>';
+		echo '<div class="message">' . nl2br(htmlspecialchars($message)) . '</div>';
+
+		if ($e instanceof PHPUnit_Framework_ExpectationFailedException) {
+			$comparisonFailure = $e->getComparisonFailure();
+
+			$expected = htmlspecialchars($comparisonFailure->getExpected());
+			$actual = htmlspecialchars($comparisonFailure->getActual());
+
+			$diff = t3lib_div::makeInstance('t3lib_diff');
+			echo $diff->makeDiffDisplay($actual, $expected, 'pre');
+		};
 
 		flush();
 	}
