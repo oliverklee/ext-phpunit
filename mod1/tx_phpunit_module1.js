@@ -176,6 +176,21 @@ function setProgressBarClass(className) {
 
 		var testContainers = Dom.getElementsByClassName('testcaseOutput');
 		var lastTestContainer = testContainers[testContainers.length - 1];
+
+		var testChildren = Dom.getChildren(lastTestContainer);
+
+		var pre = document.createElement('pre');
+		pre.className = 'message';
+
+		for (var i = 0; i < testChildren.length; i++) {
+			var node = testChildren[i];
+			if (node.tagName !== 'H3') {
+				lastTestContainer.removeChild(node);
+				pre.appendChild(node);
+			}
+		}
+		lastTestContainer.appendChild(pre);
+
 		lastTestContainer.className = 'testcaseOutput testcaseError';
 		lastTestContainer.style.display = 'block';
 	}

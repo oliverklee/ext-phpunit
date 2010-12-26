@@ -148,7 +148,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 			<strong><span class="hadError">!</span> Error</strong> in test case <em>' . $test->getName() . '</em>
 			<br />File: <em>' . $fileName . '</em>
 			<br />Line: <em>' . $lineNumber . '</em>' .
-			'<div class="message">Message:<br>' . htmlspecialchars($e->getMessage()) . '</div>';
+			'<pre class="message">' . htmlspecialchars($e->getMessage()) . '</pre>';
 		flush();
 	}
 
@@ -170,10 +170,11 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 			<br />Line: <em>' . $testCaseTraceArr['line'] . '</em>';
 
 		if (method_exists($e, 'getDescription')) {
-			echo '<div class="message">' . htmlspecialchars($e->getDescription()) . '</div>';
+			$message = $e->getDescription();
 		} else {
-			echo '<div class="message">' . htmlspecialchars($e->getMessage()) . '</div>';
+			$message = $e->getMessage();
 		}
+		echo '<pre class="message">' . htmlspecialchars($message) . '</pre>';
 
 		flush();
 	}
@@ -257,8 +258,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 		echo '<div id="testcaseNum-' . $this->currentTestNumber . '_' . $this->currentDataProviderNumber .
 			'" class="testcaseOutput testcaseSuccess">';
 
-		echo $this->createReRunLink($test);
-		echo ' <strong class="testName">' . $this->prettifyTestMethod($test->getName()) . '</strong><br />';
+		echo '<h3>' . $this->createReRunLink($test) . $this->prettifyTestMethod($test->getName()) . '</h3><div>';
 		$this->memoryUsageStartOfTest = memory_get_usage();
 	}
 
@@ -289,6 +289,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 			$this->testAssertions += $test->getNumAssertions();
 		}
 
+		echo '</div>';
 		if ($this->enableShowMemoryAndTime === TRUE) {
 			echo '<span class="memory-leak small-font"><strong>Memory leak:</strong> ' .
 				t3lib_div::formatSize($leakedMemory) . 'B </span>';
