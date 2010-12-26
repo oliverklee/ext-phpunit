@@ -1,4 +1,6 @@
 2010-12-25 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #11727: Add a link to the bugtracker to the manual
+	* Fixed Bug #11728: Document how to write extbase tests
 	* Fixed Bug #11704: Provide the PHPUnit files via an autoloader
 	* Fixed Bug #11690: Drop the version number from the PHPUnit path
 	* Fixed Bug #7478: Update PHPUnit to the latest version
