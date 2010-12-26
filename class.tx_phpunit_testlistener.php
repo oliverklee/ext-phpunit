@@ -45,14 +45,33 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	 */
 	protected $totalNumberOfTests = 0;
 
+	/**
+	 * the number of the current test (zero-based)
+	 *
+	 * @var integer
+	 */
 	protected $currentTestNumber = 0;
+
+	/**
+	 * the number of the current data provider within a test (zero-based)
+	 *
+	 * @var integer
+	 */
+	protected $currentDataProviderNumber = 0;
 
 	/**
 	 * the name of the current test case
 	 *
 	 * @var string
 	 */
-	private $currentTestCaseName;
+	private $currentTestCaseName = '';
+
+	/**
+	 * the name of the current test
+	 *
+	 * @var string
+	 */
+	private $previousTestName = '';
 
 	private $memoryUsageStartOfTest = 0;
 
@@ -124,7 +143,8 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 		$lineNumber = $e->getLine();
 
 		echo '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadError");/*]]>*/</script>
-			<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '","testcaseError");/*]]>*/</script>
+			<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
+				$this->currentDataProviderNumber . '","testcaseError");/*]]>*/</script>
 			<strong><span class="hadError">!</span> Error</strong> in test case <em>' . $test->getName() . '</em>
 			<br />File: <em>' . $fileName . '</em>
 			<br />Line: <em>' . $lineNumber . '</em>' .
@@ -143,7 +163,8 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 		$fileName = str_replace(PATH_site, '', $testCaseTraceArr['file']);
 
 		echo '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadFailure");/*]]>*/</script>
-			<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '","testcaseFailure");/*]]>*/</script>
+			<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
+				$this->currentDataProviderNumber . '","testcaseFailure");/*]]>*/</script>
 			<strong><span class="hadFailure">!</span> Failure</strong> in test case <em>' . $test->getName() . '</em>
 			<br />File: <em>' . $fileName . '</em>
 			<br />Line: <em>' . $testCaseTraceArr['line'] . '</em>';
@@ -165,7 +186,8 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	 */
 	public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
 		echo '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadNotImplemented");/*]]>*/</script>
-			<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '","testcaseNotImplemented");/*]]>*/</script>
+			<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
+				$this->currentDataProviderNumber . '","testcaseNotImplemented");/*]]>*/</script>
 			<span class="inCompleteTest">!</span> <strong>Incomplete test</strong> <em>' . $test->getName()
 			 . '</em> in file <em>' . $e->getFile() . '</em> line <em>' . $e->getLine() . '</em>:<br />
 			' . $e->getMessage() . '<br />';
@@ -181,7 +203,8 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	 */
 	public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
 		echo '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadSkipped");/*]]>*/</script>
-			<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '","testcaseSkipped");/*]]>*/</script>
+			<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
+				$this->currentDataProviderNumber . '","testcaseSkipped");/*]]>*/</script>
 			<span class="inSkippedTest">!</span> <strong>Skipped test</strong> <em>' . $test->getName() . '</em> in file <em>'
 			 . $e->getFile() . '</em> line <em>' . $e->getLine() . '</em>:<br />
 			' . $e->getMessage() . '<br />';
@@ -231,7 +254,8 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	public function startTest(PHPUnit_Framework_Test $test) {
 		// A single test has to take less than this or else PHP will time out.
 		set_time_limit(30);
-		echo '<div id="testcaseNum-' . $this->currentTestNumber . '" class="testcaseOutput testcaseSuccess">';
+		echo '<div id="testcaseNum-' . $this->currentTestNumber . '_' . $this->currentDataProviderNumber .
+			'" class="testcaseOutput testcaseSuccess">';
 
 		echo $this->createReRunLink($test);
 		echo ' <strong class="testName">' . $this->prettifyTestMethod($test->getName()) . '</strong><br />';
@@ -245,7 +269,18 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	 */
 	public function endTest(PHPUnit_Framework_Test $test, $time) {
 		$this->memoryUsageEndOfTest = memory_get_usage();
-		$this->currentTestNumber++;
+
+		// Tests with the same name are a sign of data provider usage.
+		$testNameParts = explode(' ', $test->getName());
+		$testName = get_class($test) . ':' . $testNameParts[0];
+		if ($testName !== $this->previousTestName) {
+			$this->currentDataProviderNumber = 0;
+			$this->currentTestNumber++;
+			$this->previousTestName = $testName;
+		} else {
+			$this->currentDataProviderNumber++;
+		}
+
 		$percentDone = intval(($this->currentTestNumber / $this->totalNumberOfTests) * 100);
 		$leakedMemory = ($this->memoryUsageEndOfTest - $this->memoryUsageStartOfTest);
 		$this->totalLeakedMemory += $leakedMemory;

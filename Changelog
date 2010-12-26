@@ -1,4 +1,5 @@
-2010-12-25 Oliver Klee <typo3-coding@oliverklee.de>
+2010-12-26 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #7390: bar is too long when using data provides
 	* Fixed Bug #11675: Module background color is different below the "scroll fold"
 	* Fixed Bug #8090: TYPO3 icon in extension drop-down is misaligned in latest TYPO3 trunk
 	* Fixed Bug #7822: Include vfsStream for mocking the filesystem in unit tests
@@ -7,6 +8,8 @@
 	* Fixed Bug #11704: Provide the PHPUnit files via an autoloader
 	* Fixed Bug #11690: Drop the version number from the PHPUnit path
 	* Fixed Bug #7478: Update PHPUnit to the latest version
+
+2010-12-25 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #11709: Exceptions in tests are displayed with empty line number and file
 
 2010-12-24 Oliver Klee <typo3-coding@oliverklee.de>
