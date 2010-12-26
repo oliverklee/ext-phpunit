@@ -14,5 +14,6 @@ return array(
 	'tx_phpunit_test_testcase' => $extensionPath . 'Tests/tx_phpunit_test_testcase.php',
 	'tx_phpunit_test_testsuite' => $extensionPath . 'Tests/tx_phpunit_testsuite.php',
 	'tx_phpunit_service_testfinder' => $extensionPath . 'Classes/Service/TestFinder.php',
+	'vfsstream' => $extensionPath . 'PEAR/vfsStream/vfsStream.php',
 );
 ?>
