@@ -863,8 +863,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 		$result = 'background: white no-repeat ';
 
-		if ($extensionKey == 'typo3') {
-			$result .= 'url(gfx/typo3logo_mini.png) -41px 50%;';
+		if ($extensionKey === 'typo3') {
+			$result .= 'url(' . t3lib_extMgm::extRelPath('phpunit') . 'Resources/Public/Icons/Typo3.png) 3px 50%;';
 		} else {
 			$result .= 'url(' . t3lib_extMgm::extRelPath($extensionKey) . 'ext_icon.gif) 3px 50%;';
 		}
