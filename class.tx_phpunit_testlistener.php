@@ -22,11 +22,6 @@
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-require_once('PHPUnit/Framework.php');
-require_once('PHPUnit/Util/TestDox/NamePrettifier.php');
-
-PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
-
 /**
  * Class tx_phpunit_testlistener for the "phpunit" extension.
  *

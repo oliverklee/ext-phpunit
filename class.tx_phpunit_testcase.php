@@ -22,10 +22,6 @@
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-require_once('PHPUnit/Framework.php');
-
-PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
-
 /**
  * Class tx_phpunit_testcase for the "phpunit" extension.
  *

@@ -26,7 +26,7 @@ if (!defined('TYPO3_cliMode')) {
 	die('Access denied: CLI only.');
 }
 
-PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
+require_once('PHPUnit/Autoload.php');
 
 /**
  * Class tx_phpunit_cli_phpunit for the "phpunit" extension.
@@ -88,9 +88,6 @@ class tx_phpunit_cli_phpunit extends t3lib_cli {
 	 * @param array $argv array contains the arguments, which were post via CLI
 	 */
 	public function cli_main() {
-		require_once 'PHPUnit/Util/Filter.php';
-		PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
-		require 'PHPUnit/TextUI/Command.php';
 		define('PHPUnit_MAIN_METHOD', 'PHPUnit_TextUI_Command::main');
 		PHPUnit_TextUI_Command::main();
 	}

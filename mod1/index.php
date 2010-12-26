@@ -31,26 +31,18 @@
  * @author Kasper Ligaard <kasperligaard@gmail.com>
  */
 
-$LANG->includeLLFile('EXT:phpunit/mod1/locallang.xml');
-
-// included for PHPUnit version string
-require_once('PHPUnit/Runner/Version.php');
-// included for PHPUnit version string
-require_once('PHPUnit/Util/Report.php');
+if (!defined('TYPO3_MODE')) {
+	die ('Access denied.');
+}
 
 if (!defined('PATH_tslib')) {
 	define('PATH_tslib', t3lib_extMgm::extPath('cms') . 'tslib/');
 }
 
-// Which instance interface to create?
-if (isset($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['phpunit']['mod1/class.tx_phpunit_module1.php']['main'])) {
-	$classRef = $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['phpunit']['mod1/class.tx_phpunit_module1.php']['main'];
-	// Class must implement main(). What was previously init() should now happen in __construct().
-	$SOBE = t3lib_div::getUserObj($classRef);
-} else {
-	$SOBE = new tx_phpunit_module1();
-}
+require_once('PHPUnit/Autoload.php');
 
-// runs our Script Object Back-End (SOBE)
+$LANG->includeLLFile('EXT:phpunit/mod1/locallang.xml');
+
+$SOBE = t3lib_div::makeInstance('tx_phpunit_module1');
 $SOBE->main();
 ?>

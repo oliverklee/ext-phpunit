@@ -656,13 +656,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		echo '<img src="' . $this->extensionPath .
 			'mod1/phpunit.gif" width="94" height="80" alt="PHPUnit" title="PHPUnit" style="float:right; margin-left:10px;" />';
 		$excludeExtensions = t3lib_div::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['excludeextensions']);
-		if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['usepear'] && !t3lib_extMgm::isLoaded('pear')) {
-			echo '<h2>Extension pear is not loaded</h2>
-			<p>The option for phpunit to use pear is set in the extension manager, but the pear extension is not loaded.</p>
-			<p>As a fall back phpunit uses the PHPUnit that is provided with it.</p>
-			<p>If you wish to use a pear provided PHPUnit, then load/install pear from the extension manager and fetch PHPUnit with the pear manager.</p>
-			';
-		}
 		echo '
 		<h1>About PHPUnit Backend Module</h1>
 		<p>PHPUnit BE is a <a href="http://en.wikipedia.org/wiki/Unit_testing">unit testing</a> framework based on <a href="http://www.phpunit.de/" target="_new">PHPUnit</a> by Sebastian Bergmann. It offers smooth integration
