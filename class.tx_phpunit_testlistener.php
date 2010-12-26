@@ -348,11 +348,43 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 		$options = array(
 			'M=tools_txphpunitbeM1',
 			'command=runsingletest',
-			'testCaseFile=' . $this->currentTestCaseName,
-			'testname=' . $this->currentTestCaseName . '::' . $test->getName()
+			'testCaseFile=' . $this->getTestCaseName(),
+			'testname=' . $this->createTestId($test),
 		);
 
 		return htmlspecialchars('mod.php?' . implode('&', $options));
+	}
+
+	/**
+	 * Creates a unique string ID for $test that can be used in URLs.
+	 *
+	 * @param PHPUnit_Framework_TestCase $test a test for which to create an ID
+	 *
+	 * @return string a unique ID for $test, not htmlspecialchared or URL-encoded yet
+	 */
+	protected function createTestId(PHPUnit_Framework_TestCase $test) {
+		$testNameParts = explode(' ', $test->getName());
+
+		// This is quite a hack.
+		// @see http://forge.typo3.org/issues/11735
+		if (strpos($this->currentTestCaseName, '::') !== FALSE) {
+			$result = $testNameParts[0] . '(' . $this->getTestCaseName() . ')';
+		} else {
+			$result = $this->getTestCaseName() . '::' . $testNameParts[0];
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Gets the current test case name.
+	 *
+	 * @return string the current test case name, will not be empty
+	 */
+	protected function getTestCaseName() {
+		$testCaseNameParts = explode('::', $this->currentTestCaseName);
+
+		return $testCaseNameParts[0];
 	}
 
 	/**
