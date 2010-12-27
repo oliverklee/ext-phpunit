@@ -1,3 +1,6 @@
+2010-12-27 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #11743: Crash when assertNull, assertNotNull, assertTrue or assertFalse fails
+
 2010-12-26 Oliver Klee <typo3-coding@oliverklee.de>
 	* Release version 3.5.6
 	* Fixed Bug #5270: Improve failed assertEquals with strings as with NUnit

@@ -178,13 +178,14 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 
 		if ($e instanceof PHPUnit_Framework_ExpectationFailedException) {
 			$comparisonFailure = $e->getComparisonFailure();
+			if ($comparisonFailure !== NULL) {
+				$expected = htmlspecialchars($comparisonFailure->getExpected());
+				$actual = htmlspecialchars($comparisonFailure->getActual());
 
-			$expected = htmlspecialchars($comparisonFailure->getExpected());
-			$actual = htmlspecialchars($comparisonFailure->getActual());
-
-			$diff = t3lib_div::makeInstance('t3lib_diff');
-			echo $diff->makeDiffDisplay($actual, $expected, 'pre');
-		};
+				$diff = t3lib_div::makeInstance('t3lib_diff');
+				echo $diff->makeDiffDisplay($actual, $expected, 'pre');
+			}
+		}
 
 		flush();
 	}
