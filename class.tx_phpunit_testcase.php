@@ -23,11 +23,9 @@
  ***************************************************************/
 
 /**
- * Class tx_phpunit_testcase for the "phpunit" extension.
- *
  * This class provides helper functions that might be convenient when testing in
  * TYPO3. It extends PHPUnit_Framework_TestCase, so you have access to all of
- * that class too.
+ * that class as well.
  *
  * @package TYPO3
  * @subpackage tx_phpunit
@@ -38,13 +36,17 @@
  * @author Michael Klapper <michael.klapper@aoemedia.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
+abstract class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
 	/**
+	 * whether global variables should be backuped
+	 *
 	 * @var boolean
 	 */
 	protected $backupGlobals = FALSE;
 
 	/**
+	 * whether static attributes should be backuped
+	 *
 	 * @var boolean
 	 */
 	protected $backupStaticAttributes = FALSE;
@@ -53,6 +55,8 @@ class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
 	 * Roughly simulates the front end although being in the back end.
 	 *
 	 * @todo	This is a quick hack, needs proper implementation.
+	 *
+	 * @return void.
 	 */
 	protected function simulateFrontendEnviroment() {
 		if (isset($GLOBALS['TSFE']) && is_object($GLOBALS['TSFE'])) {
@@ -79,7 +83,7 @@ class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
 		$frontEnd->sys_page->init(TRUE);
 		$frontEnd->initTemplate();
 
-		// $frontEnd->getConfigArray() doesn't work here because the dummy FE
+		// $frontEnd->getConfigArray() doesn't work here because the fake FE
 		// is not required to have a template.
 		$frontEnd->config = array();
 

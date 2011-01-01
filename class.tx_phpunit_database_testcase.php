@@ -23,7 +23,7 @@
  ***************************************************************/
 
 /**
- * Database testcase base class for the  for the "phpunit" extension.
+ * Database testcase base class.
  *
  * @package TYPO3
  * @subpackage tx_phpunit
@@ -31,33 +31,34 @@
  * @author Michael Klapper <michael.klapper@aoemedia.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class tx_phpunit_database_testcase extends tx_phpunit_testcase {
+abstract class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	/**
-	 * test database name
+	 * name of a test database
 	 *
 	 * @var string
 	 */
-	protected $testDatabase;
+	protected $testDatabase = '';
 
 	/**
 	 * Constructs a test case with the given name.
 	 *
-	 * @param string $name
-	 * @param array $data
-	 * @param string $dataName
+	 * @param string $name the name of a testcase
+	 * @param array $data ?
+	 * @param string $dataName ?
 	 */
 	public function __construct($name = NULL, array $data = array(), $dataName = '') {
 		parent::__construct($name, $data, $dataName);
 		$this->testDatabase = strtolower(TYPO3_db . '_test');
 	}
 
-	/*
-	 * Accesses the Typo3 database object, and uses it to fetch the list of
-	 * databases. Then checks whether to a test database is already setup; if
-	 * not, then creates it.
+	/**
+	 * Accesses the TYPO3 database instance and uses it to fetch the list of
+	 * abailable databases. Then this function creates a test database (if none
+	 * has been set up yet).
 	 *
 	 * @return boolean
-	 *         TRUE if the database has been created successfully, FALSE otherwise
+	 *         TRUE if the database has been created successfully (or if there
+	 *         already is a test database), FALSE otherwise
 	 */
 	protected function createDatabase() {
 		$success = TRUE;
@@ -76,7 +77,7 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	}
 
 	/**
-	 * Drops tables in test database
+	 * Drops all tables in the test database.
 	 *
 	 * @return void
 	 */
@@ -88,7 +89,6 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 
 		$db->sql_select_db($this->testDatabase);
 
-		// drop all tables
 		$tables = $this->getDatabaseTables();
 		foreach ($tables as $tableName) {
 			$db->admin_query('DROP TABLE ' . $tableName);
@@ -113,27 +113,36 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	}
 
 	/**
-	 * Changes current database to test database
+	 * Sets the TYPO3 database instance to a test database.
 	 *
-	 * @param string $databaseName	Overwrite test database name
-	 * @return object
+	 * Note: This function does not back up the currenty TYPO3 database instance.
+	 *
+	 * @param string $databaseName
+	 *        the name of the test database to use; if none is provided, the
+	 *        name of the current TYPO3 database plus a suffix "_test" is used
+	 *
+	 * @return t3lib_DB the test database
 	 */
 	protected function useTestDatabase($databaseName = NULL) {
 		$db = $GLOBALS['TYPO3_DB'];
 
 		if ($db->sql_select_db($databaseName ? $databaseName : $this->testDatabase) !== TRUE) {
-			$this->markTestSkipped('This test is skipped because the test database is not available!');
+			$this->markTestSkipped('This test is skipped because the test database is not available.');
 		}
 
 		return $db;
 	}
 
 	/**
-	 * Import ext_tables.sql statements
+	 * Imports the ext_tables.sql statements from the given extensions.
 	 *
-	 * @param array $extensions Array containing extension keys
-	 * @param boolean $importDependencies Wether to import dependency extensions
-	 * @param array $skipDependencies Array containing extension keys to skip
+	 * @param array $extensions
+	 *        keys of the extensions to import, may be empty
+	 * @param boolean $importDependencies
+	 *        whether to import dependency extensions on which the given extensions
+	 *        depend as well
+	 * @param array &$skipDependencies
+	 *        keys of the extensions to skip, may be empty, will be modified
 	 *
 	 * @return void
 	 */
@@ -143,7 +152,6 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 		$this->useTestDatabase();
 
 		foreach ($extensions as $extensionName) {
-			// skip importing unloaded extensions and specified dependencies
 			if (!t3lib_extMgm::isLoaded($extensionName)) {
 				$this->markTestSkipped(
 					'This test is skipped because the extension ' . $extensionName .
@@ -164,8 +172,9 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 
 			$this->importExtension($extensionName);
 		}
-//!FIXME The hook should be replaced by real clean up and rebuild the whole
-// "TYPO3_CONF_VARS" in order to have a clean testing environment.
+
+		// TODO: The hook should be replaced by real clean up and rebuild the whole
+		// "TYPO3_CONF_VARS" in order to have a clean testing environment.
 		// hook to load additional files
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['importExtensions_additionalDatabaseFiles'])) {
 			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['importExtensions_additionalDatabaseFiles'] as $file) {
@@ -177,6 +186,17 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 		}
 	}
 
+	/**
+	 * Gets the names of all tables in the database with the given name.
+	 *
+	 * @param string $databaseName
+	 *        the name of the database from which to retrieve the table names,
+	 *        if none is provided, the name of the current TYPO3 database plus a
+	 *        suffix "_test" is used
+	 *
+	 * return array<string>
+	 *        the names of all tables in the database $databaseName, might be empty
+	 */
 	protected function getDatabaseTables($databaseName = NULL) {
 		$db = $this->useTestDatabase($databaseName);
 
@@ -191,14 +211,15 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	}
 
 	/**
-	 * Import extension ext_tables.sql file
+	 * Imports the ext_tables.sql file of the extension with the given name
+	 * into the test database.
 	 *
 	 * @param string $extensionName
+	 *        the name of the installed extension to import, must not be empty
 	 *
 	 * @return void
 	 */
 	private function importExtension($extensionName) {
-		// read sql file content
 		$sqlFilename = t3lib_div::getFileAbsFileName(t3lib_extMgm::extPath($extensionName) . 'ext_tables.sql');
 		$fileContent = t3lib_div::getUrl($sqlFilename);
 
@@ -206,20 +227,22 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	}
 
 	/**
-	 * Import stddb tables.sql file
+	 * Imports the data from the stddb tables.sql file.
 	 *
 	 * Example/intended usage:
+	 *
+	 * <pre>
 	 * public function setUp() {
 	 *   $this->createDatabase();
 	 *   $db = $this->useTestDatabase();
 	 *   $this->importStdDB();
 	 *   $this->importExtensions(array('cms', 'static_info_tables', 'templavoila'));
 	 * }
+	 * </pre>
 	 *
 	 * @return void
 	 */
 	protected function importStdDB() {
-		// read sql file content
 		$sqlFilename = t3lib_div::getFileAbsFileName(PATH_t3lib . 'stddb/tables.sql');
 		$fileContent = t3lib_div::getUrl($sqlFilename);
 
@@ -227,15 +250,15 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	}
 
 	/**
-	 * import sql definitions from (ext_)tables.sql
+	 * Imports the SQL definitions from a (ext_)tables.sql file.
 	 *
 	 * @param string $definitionContent
+	 *        the SQL to import, must not be empty
 	 *
 	 * @return void
 	 */
 	private function importDBdefinitions($definitionContent) {
-		// find definitions
-		$install = new t3lib_install;
+		$install = t3lib_div::makeInstance('t3lib_install');
 		$FDfile = $install->getFieldDefinitions_sqlContent($definitionContent);
 		if (empty($FDfile)) {
 			return;
@@ -254,30 +277,33 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 					$GLOBALS['TYPO3_DB']->admin_query($string);
 				}
 			}
-			}
+		}
 	}
 
 	/**
-	 * Returns test database schema dump
+	 * Returns an SQL dump of the test database.
 	 *
-	 * @return string
+	 * @return string SQL dump of the test databse, might be empty
 	 */
 	private function getTestDatabaseSchema() {
 		$db = $this->useTestDatabase();
 		$tables = $this->getDatabaseTables();
 
-		// find create statement for every table
-		$linebreak = chr(10);
+		// finds create statement for every table
+		$linefeed = chr(10);
+
 		$schema = '';
 		$db->sql_query('SET SQL_QUOTE_SHOW_CREATE = 0');
 		foreach ($tables as $tableName) {
 			$res = $db->sql_query('show create table ' . $tableName);
 			$row = $db->sql_fetch_row($res);
 
-			// modify statement to be accepted by TYPO3
+			// modifies statement to be accepted by TYPO3
 			$createStatement = preg_replace('/ENGINE.*$/', '', $row[1]);
-			$createStatement = preg_replace('/(CREATE TABLE.*\()/', $linebreak . '\\1' . $linebreak, $createStatement);
-			$createStatement = preg_replace('/\) $/', $linebreak . ')', $createStatement);
+			$createStatement = preg_replace(
+				'/(CREATE TABLE.*\()/', $linefeed . '\\1' . $linefeed, $createStatement
+			);
+			$createStatement = preg_replace('/\) $/', $linefeed . ')', $createStatement);
 
 			$schema .= $createStatement . ';';
 		}
@@ -286,15 +312,16 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	}
 
 	/**
-	 * Returns array with extension names (dependencies)
+	 * Finds all direct dependencies of the extension with the key $extKey.
 	 *
-	 * @param string $extKey
+	 * @param string $extKey the key of an installed extension, must not be empty
 	 *
-	 * @return array|NULL
+	 * @return array<string>|NULL
+	 *         the keys of all extensions on which the given extension depends,
+	 *         will be NULL if the dependencies could not be determined
 	 */
 	private function findDependencies($extKey) {
 		$path = t3lib_div::getFileAbsFileName(t3lib_extMgm::extPath($extKey) . 'ext_emconf.php');
-		// $_EXTKEY used as array key in EM_CONF in included file
 		$_EXTKEY = $extKey;
 		include($path);
 
@@ -315,9 +342,11 @@ class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 	}
 
 	/**
-	 * Import dataset into test database
+	 * Imports a data set into the test database,
 	 *
 	 * @param string $path
+	 *        the absolute path to the XML file containing the data set to load
+	 *
 	 * @return void
 	 */
 	protected function importDataSet($path) {

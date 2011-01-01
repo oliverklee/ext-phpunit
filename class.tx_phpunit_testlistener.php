@@ -23,8 +23,6 @@
  ***************************************************************/
 
 /**
- * Class tx_phpunit_testlistener for the "phpunit" extension.
- *
  * This class renders the output of the single tests in the phpunit BE module.
  *
  * @package TYPO3
@@ -36,8 +34,6 @@
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
-	protected $resultArr = array();
-
 	/**
 	 * the total number of tests to run
 	 *
@@ -73,36 +69,58 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	 */
 	private $previousTestName = '';
 
+	/**
+	 * used memory (in bytes) before the first test is run
+	 *
+	 * @var integer
+	 */
 	private $memoryUsageStartOfTest = 0;
 
+	/**
+	 * used memory (in bytes) after the last test has been run
+	 *
+	 * @var integer
+	 */
 	private $memoryUsageEndOfTest = 0;
 
+	/**
+	 * the number of bytes that have been in use after running the last test
+	 * (relative to the used bytes before starting the first test)
+	 *
+	 * @var integer
+	 */
 	public $totalLeakedMemory = 0;
 
 	/**
+	 * the number of executed assertions
+	 *
 	 * @var integer
 	 */
 	protected $testAssertions = 0;
 
 	/**
-	 * Indicate that the "testdox" format is used to display test case names
+	 * whether to use the "testdox" format to display test case and test names
 	 *
 	 * @var boolean
 	 */
 	private $useHumanReadableTextFormat = FALSE;
 
 	/**
+	 * a name prettifier for creating readable test and test case names
+	 *
 	 * @var PHPUnit_Util_TestDox_NamePrettifier
 	 */
 	private $NamePrettifier = NULL;
 
 	/**
-	 * @var FALSE
+	 * whether to display the used memory and time of each test
+	 *
+	 * @var boolean
 	 */
 	private $enableShowMemoryAndTime = FALSE;
 
 	/**
-	 * Initializes the test listener.
+	 * The constructor.
 	 */
 	public function __construct() {
 		$this->NamePrettifier = new PHPUnit_Util_TestDox_NamePrettifier();
@@ -114,29 +132,39 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	 *
 	 * @param integer $totalNumberOfTests
 	 *        the total number of tests to run, must be >= 0
+	 *
+	 * @return void
 	 */
 	public function setTotalNumberOfTests($totalNumberOfTests) {
 		$this->totalNumberOfTests = $totalNumberOfTests;
 	}
 
 	/**
-	 * Enable the option to show the memory leak and time usage of an test.
+	 * Enables the option to show the memory leaks and time usage of the single tests.
+	 *
+	 * @return void
 	 */
 	public function enableShowMenoryAndTime() {
 		$this->enableShowMemoryAndTime = TRUE;
 	}
 
 	/**
+	 * Enables the option to use human-readable test and test case names.
+	 *
+	 * @return void
 	 */
 	public function useHumanReadableTextFormat() {
 		$this->useHumanReadableTextFormat = TRUE;
 	}
 
 	/**
-	 * An error occurred.
+	 * An error has occurred, i.e. an exception has been thrown when running $test.
 	 *
-	 * @param PHPUnit_Framework_Test $test
-	 * @param Exception $e
+	 * @param PHPUnit_Framework_Test $test the test that had an error
+	 * @param Exception $e the exception that has caused the error
+	 * @param float $time ?
+	 *
+	 * @return void
 	 */
 	public function addError(PHPUnit_Framework_Test $test, Exception $e, $time) {
 		$fileName = str_replace(PATH_site, '', $e->getFile());
@@ -153,10 +181,13 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	}
 
 	/**
-	 * A failure occurred.
+	 * A test has failed.
 	 *
-	 * @param PHPUnit_Framework_Test $test
-	 * @param PHPUnit_Framework_AssertionFailedError $e
+	 * @param PHPUnit_Framework_Test $test the test that has failed
+	 * @param PHPUnit_Framework_AssertionFailedError $e the failed assertion
+	 * @param float $time ?
+	 *
+	 * @return void
 	 */
 	public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time) {
 		$testCaseTraceArr = $this->getFirstNonPHPUnitTrace($e->getTrace());
@@ -191,10 +222,13 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	}
 
 	/**
-	 * Incomplete test.
+	 * A test has been marked as incomplete, i.e. as not implemented yet.
 	 *
-	 * @param PHPUnit_Framework_Test $test
-	 * @param Exception $e
+	 * @param PHPUnit_Framework_Test $test the test that has been marked as incomplete
+	 * @param Exception $e an exception about the incomplete test (?)
+	 * @param float $time ?
+	 *
+	 * @return void
 	 */
 	public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
 		echo '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadNotImplemented");/*]]>*/</script>
@@ -207,11 +241,13 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	}
 
 	/**
-	 * Skipped test.
+	 * A test has been marked as skipped.
 	 *
-	 * @param  PHPUnit_Framework_Test $test
-	 * @param  Exception			  $e
-	 * @param  float				  $time
+	 * @param PHPUnit_Framework_Test $test the test that has been marked as skipped
+	 * @param Exception $e an exception about the skipped test (?)
+	 * @param float $time ?
+	 *
+	 * @return void
 	 */
 	public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
 		echo '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadSkipped");/*]]>*/</script>
@@ -224,9 +260,14 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	}
 
 	/**
-	 * A testsuite started.
+	 * A test suite/case has started.
 	 *
-	 * @param  PHPUnit_Framework_TestSuite $suite
+	 * Note: This function also gets called when a test that uses a data provider
+	 * has started.
+	 *
+	 * @param PHPUnit_Framework_TestSuite $suite the test suite/case that has started
+	 *
+	 * @return void
 	 */
 	public function startTestSuite(PHPUnit_Framework_TestSuite $suite) {
 		$this->setTestSuiteName($suite->getName());
@@ -245,23 +286,32 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	 * link.
 	 *
 	 * @param string $name the name of the test suite, must not be empty
+	 *
+	 * @return void
 	 */
 	public function setTestSuiteName($name) {
 		$this->currentTestCaseName = $name;
 	}
 
 	/**
-	 * A testsuite ended.
+	 * A test suite/case has ended.
 	 *
-	 * @param  PHPUnit_Framework_TestSuite $suite
+	 * Note: This function also gets called when a test that uses a data provider
+	 * has ended.
+	 *
+	 * @param PHPUnit_Framework_TestSuite $suite the test suite/case that has ended
+	 *
+	 * @return void
 	 */
 	public function endTestSuite(PHPUnit_Framework_TestSuite $suite) {
 	}
 
 	/**
-	 * A test started.
+	 * A test has started.
 	 *
-	 * @param  PHPUnit_Framework_Test $test
+	 * @param PHPUnit_Framework_Test $test the test that has started
+	 *
+	 * @return void
 	 */
 	public function startTest(PHPUnit_Framework_Test $test) {
 		// A single test has to take less than this or else PHP will time out.
@@ -274,9 +324,12 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	}
 
 	/**
-	 * A test ended.
+	 * A test has ended.
 	 *
-	 * @param  PHPUnit_Framework_Test $test
+	 * @param PHPUnit_Framework_Test $test the test that has ended
+	 * @param float $time ?
+	 *
+	 * @return void
 	 */
 	public function endTest(PHPUnit_Framework_Test $test, $time) {
 		$this->memoryUsageEndOfTest = memory_get_usage();
@@ -319,7 +372,8 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	 * Returns the first trace information which is not caused by the PHPUnit file
 	 * "Framework/Assert.php".
 	 *
-	 * @param array $traceArr the trace array
+	 * @param array $traceArr the trace data
+	 *
 	 * @return array trace information
 	 */
 	protected function getFirstNonPHPUnitTrace(array $traceArr) {
@@ -334,10 +388,10 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	}
 
 	/**
-	 * Creates the link (including an icon) to re-run a certain test.
+	 * Creates the link (including an icon) to re-run the given single test.
 	 *
 	 * @param PHPUnit_Framework_TestSuite $test
-	 * the test for which to create the re-run link
+	 *        the test for which to create the re-run link
 	 *
 	 * @return string the link to re-run the given test, will not be empty
 	 */
@@ -348,12 +402,12 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	}
 
 	/**
-	 * Creates the URL to re-run a certain test.
+	 * Creates the URL to re-run the given test.
 	 *
 	 * @param PHPUnit_Framework_TestSuite $test
 	 *        the test for which to create the re-run URL
 	 *
-	 * @return string the URL to re-run the given test, will not be empty
+	 * @return string the htmlspecialchared URL to re-run the given test, will not be empty
 	 */
 	private function createReRunUrl(PHPUnit_Framework_TestCase $test) {
 		$options = array(
@@ -401,8 +455,12 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	/**
 	 * Prettifies the name of a test method.
 	 *
-	 * @param string $testName
-	 * @return string
+	 * This method will return $testName unchanged if human-readable names
+	 * are disabled.
+	 *
+	 * @param string $testName a camel-case test name, must not be empty
+	 *
+	 * @return string the prettified test name, will not be empty
 	 */
 	protected function prettifyTestMethod($testName) {
 		$content = '';
@@ -422,9 +480,12 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	/**
 	 * Prettifies the name of a test class.
 	 *
-	 * @param string $testClass
+	 * This method will return $testClass unchanged if human-readable names
+	 * are disabled.
 	 *
-	 * @return string
+	 * @param string $testClass a camel-case test class name, must not be empty
+	 *
+	 * @return string the prettified test class name, will not be empty
 	 */
 	protected function prettifyTestClass($testClass) {
 		$content = '';
@@ -443,7 +504,7 @@ class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
 	/**
 	 * Retrieves the collected amount of processed assertions.
 	 *
-	 * @return integer
+	 * @return integer the number of executed assertions, will be >= 0
 	 */
 	public function assertionCount() {
 		return $this->testAssertions;

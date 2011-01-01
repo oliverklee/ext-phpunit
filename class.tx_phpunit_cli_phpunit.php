@@ -29,8 +29,6 @@ if (!defined('TYPO3_cliMode')) {
 require_once('PHPUnit/Autoload.php');
 
 /**
- * Class tx_phpunit_cli_phpunit for the "phpunit" extension.
- *
  * This class runs PHPUnit in CLI mode.
  *
  * @package TYPO3
@@ -40,30 +38,11 @@ require_once('PHPUnit/Autoload.php');
  */
 class tx_phpunit_cli_phpunit extends t3lib_cli {
 	/**
-	 * same as class name
-	 *
-	 * @var string
-	 */
-	protected $prefixId = 'tx_phpunit_cli_phpunit';
-
-	/**
-	 * path to this script relative to the extension dir
-	 *
-	 * @var string
-	 */
-	protected $scriptRelPath = 'class.tx_phpunit_cli_phpunit.php';
-
-	/**
 	 * definition of the extension name
 	 *
 	 * @var string
 	 */
 	protected $extKey = 'phpunit_cli';
-
-	/**
-	 * @var tx_eft_system_logger_backend_FileBackend
-	 */
-	protected $fileLogger;
 
 	/**
 	 * The constructor.
@@ -73,19 +52,22 @@ class tx_phpunit_cli_phpunit extends t3lib_cli {
 
 		parent::t3lib_cli();
 		$this->cli_options = array_merge($this->cli_options, array());
-		$this->cli_help = array_merge($this->cli_help, array(
-			'name' => 'tx_phpunit_cli_phpunit',
-			'synopsis' => $this->extKey . ' command [clientId] ###OPTIONS###',
-			'description' => 'This script can update a list of several caches (per CLI-call can one cache be updated)',
-			'examples' => 'typo3/cli_dispatch.phpsh',
-			'author' => '(c) 2009 AOE media GmbH <dev@aoemedia.de>',
-		));
+		$this->cli_help = array_merge(
+			$this->cli_help,
+			array(
+				'name' => 'tx_phpunit_cli_phpunit',
+				'synopsis' => $this->extKey . ' command [clientId] ###OPTIONS###',
+				'description' => 'This script can update a list of several caches (per CLI-call can one cache be updated)',
+				'examples' => 'typo3/cli_dispatch.phpsh',
+				'author' => '(c) 2009-2011 AOE media GmbH <dev@aoemedia.de>',
+			)
+		);
 	}
 
 	/**
 	 * Detects the action and calls the related methods.
 	 *
-	 * @param array $argv array contains the arguments, which were post via CLI
+	 * @return void
 	 */
 	public function cli_main() {
 		define('PHPUnit_MAIN_METHOD', 'PHPUnit_TextUI_Command::main');
@@ -93,6 +75,7 @@ class tx_phpunit_cli_phpunit extends t3lib_cli {
 	}
 }
 
-$phpunit = t3lib_div::makeInstance('tx_phpunit_cli_phpunit'); /* @var $phpunit tx_phpunit_cli_phpunit */
+$phpunit = t3lib_div::makeInstance('tx_phpunit_cli_phpunit');
+/* @var $phpunit tx_phpunit_cli_phpunit */
 $phpunit->cli_main();
 ?>

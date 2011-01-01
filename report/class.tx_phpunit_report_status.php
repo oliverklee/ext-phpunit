@@ -23,9 +23,7 @@
  ***************************************************************/
 
 /**
- * Class tx_phpunit_report_status for the "phpunit" extension.
- *
- * This class provides a status report for the "report" BE module.
+ * This class provides a status report for the "reports" BE module.
  *
  * @package TYPO3
  * @subpackage tx_phpunit
@@ -36,7 +34,8 @@ class tx_phpunit_report_status implements tx_reports_StatusProvider {
 	/**
 	 * Returns the status of this extension.
 	 *
-	 * @return array an array of tx_reports_reports_status_Status objects
+	 * @return array<tx_reports_reports_status_Status>
+	 *         status reports for this extension
 	 */
 	public function getStatus() {
 		return array(
@@ -46,10 +45,10 @@ class tx_phpunit_report_status implements tx_reports_StatusProvider {
 	}
 
 	/**
-	 * Creates a status concerning whether PHP Reflection works correctly.
+	 * Creates a status concerning whether PHP reflection works correctly.
 	 *
-	 * @return tx_reports_reports_status_Status a status indicating whether
-	 *                                          PHP reflection works correctly
+	 * @return tx_reports_reports_status_Status
+	 *         a status indicating whether PHP reflection works correctly
 	 */
 	protected function getReflectionStatus() {
 		$heading = $GLOBALS['LANG']->sL(
@@ -81,8 +80,8 @@ class tx_phpunit_report_status implements tx_reports_StatusProvider {
 	/**
 	 * Creates a status concerning eAccelerator not crashing phpunit.
 	 *
-	 * @return tx_reports_reports_status_Status a status concerning eAccelerator
-	 *                                          not crashing phpunit
+	 * @return tx_reports_reports_status_Status
+	 *         a status concerning eAccelerator not crashing phpunit
 	 */
 	protected function getEAcceleratorStatus() {
 		$heading = $GLOBALS['LANG']->sL(

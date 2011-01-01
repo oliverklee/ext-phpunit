@@ -14,11 +14,8 @@ if (is_dir($TYPO3_CONF_VARS['EXTCONF'][$_EXTKEY]['phpunitlib'])) {
 define(TX_PHPUNITLIB_EXTPATH, $phpunitlib);
 set_include_path(TX_PHPUNITLIB_EXTPATH . PATH_SEPARATOR . get_include_path());
 
-// Typo3 4.2 AJAX feature. @see http://bugs.typo3.org/view.php?id=7096
 $TYPO3_CONF_VARS['BE']['AJAX']['tx_phpunit_module1_ajax'] = 'typo3conf/ext/phpunit/mod1/class.tx_phpunit_module1_ajax.php:tx_phpunit_module1_ajax->ajaxBroker';
 
-
-// Setting up script that can be run through cli_dispatch.phpsh
 if (TYPO3_MODE == 'BE') {
 	$TYPO3_CONF_VARS['SC_OPTIONS']['GLOBAL']['cliKeys'][$_EXTKEY] = array(
 		'EXT:' . $_EXTKEY . '/class.tx_phpunit_cli_phpunit.php',
