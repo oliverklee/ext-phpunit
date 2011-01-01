@@ -2,7 +2,7 @@
 /***************************************************************
  * Copyright notice
  *
- * (c) 2007-2010 Kasper Ligaard (kasperligaard@gmail.com)
+ * (c) 2007-2011 Kasper Ligaard (kasperligaard@gmail.com)
  * All rights reserved
  *
  * This script is part of the TYPO3 project. The TYPO3 project is
