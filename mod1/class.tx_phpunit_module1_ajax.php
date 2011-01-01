@@ -23,10 +23,7 @@
  ***************************************************************/
 
 /**
- * Class tx_phpunit_module1_ajax for the "phpunit" extension.
- *
- * This class uses the new ajax broker in Typo3 4.2. Thus a minimum requirement
- * of Typo3 4.2 (and hence PHP 5.2.x) is required.
+ * This class uses the new AJAX broker in Typo3 4.2.
  *
  * @see http://bugs.typo3.org/view.php?id=7096
  *
@@ -44,11 +41,13 @@ class tx_phpunit_module1_ajax {
 	 *
 	 * @param array $params
 	 *        additional parameters (not used)
-	 * @param TYPO3AJAX &$ajaxObj
-	 *        the TYPO3AJAX object of this request
+	 * @param TYPO3AJAX $ajaxObj
+	 *        the AJAX object of this request
+	 *
+	 * @return void
 	 */
-	public function ajaxBroker($params, &$ajaxObj) {
-		// Check for legal input ('white-listing').
+	public function ajaxBroker($params, TYPO3AJAX $ajaxObj) {
+		// Checks for legal input ('white-listing').
 		$state = t3lib_div::_POST('state') === 'true' ? 'on' : 'off';
 		$checkbox = t3lib_div::_POST('checkbox');
 		switch ($checkbox) {

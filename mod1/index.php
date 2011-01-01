@@ -23,7 +23,7 @@
  ***************************************************************/
 
 /**
- * Module "PHPUnit" for the "phpunit" extension.
+ * Module "PHPUnit".
  *
  * @package TYPO3
  * @subpackage tx_phpunit
