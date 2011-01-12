@@ -30,7 +30,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class tx_phpunit_Reports_Status implements tx_reports_StatusProvider {
+class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 	/**
 	 * Returns the status of this extension.
 	 *
