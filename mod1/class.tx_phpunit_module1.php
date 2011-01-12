@@ -122,18 +122,18 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 			// JavaScript Libraries
 			$this->doc->loadJavascriptLib('contrib/prototype/prototype.js');
-			$this->doc->loadJavascriptLib($this->extensionPath . 'mod1/yui/yahoo-dom-event.js');
-			$this->doc->loadJavascriptLib($this->extensionPath . 'mod1/yui/connection-min.js');
-			$this->doc->loadJavascriptLib($this->extensionPath . 'mod1/yui/json-min.js');
-			$this->doc->loadJavascriptLib($this->extensionPath . 'mod1/tx_phpunit_module1.js');
+			$this->doc->loadJavascriptLib($this->extensionPath . 'Resources/Public/YUI/yahoo-dom-event.js');
+			$this->doc->loadJavascriptLib($this->extensionPath . 'Resources/Public/YUI/connection-min.js');
+			$this->doc->loadJavascriptLib($this->extensionPath . 'Resources/Public/YUI/json-min.js');
+			$this->doc->loadJavascriptLib($this->extensionPath . 'Resources/Public/JavaScript/BackEnd.js');
 
 			// Mis-using JScode to insert CSS _after_ skin.
 			$this->doc->JScode = '<link rel="stylesheet" type="text/css" href="' . $this->extensionPath .
-				'mod1/yui/reset-fonts-grids.css" />';
+				'Resources/Public/YUI/reset-fonts-grids.css" />';
 			$this->doc->JScode .= '<link rel="stylesheet" type="text/css" href="' . $this->extensionPath .
-				'mod1/yui/base-min.css" />';
+				'Resources/Public/YUI/base-min.css" />';
 			$this->doc->JScode .= '<link rel="stylesheet" type="text/css" href="' . $this->extensionPath .
-				'mod1/phpunit-be.css" />';
+				'Resources/Public/CSS/BackEnd.css" />';
 
 			t3lib_div::cleanOutputBuffers();
 			echo $this->doc->startPage($this->getLL('title'));
@@ -671,7 +671,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$codeCoverageDir['readable'] = is_readable($this->extensionPath . 'codecoverage');
 		}
 		echo '<img src="' . $this->extensionPath .
-			'mod1/phpunit.gif" width="94" height="80" alt="PHPUnit" title="PHPUnit" style="float:right; margin-left:10px;" />';
+			'Resources/Public/Icons/PHPUnit.gif" width="94" height="80" alt="PHPUnit" title="PHPUnit" style="float:right; margin-left:10px;" />';
 		$excludeExtensions = t3lib_div::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['excludeextensions']);
 		echo '
 		<h1>About PHPUnit Backend Module</h1>

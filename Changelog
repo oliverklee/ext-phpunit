@@ -1,4 +1,5 @@
 2011-01-12 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #11705: Move the Icons, CSS and JS to Resources/
 	* Fixed Bug #11737: Use less static functions
 	* Fixed Bug #11827: Use strict comparisons
 	* Fixed Bug #12145: Update PHPUnit to 3.5.7
