@@ -23,14 +23,14 @@
  ***************************************************************/
 
 /**
- * This class provides a status report for the "reports" BE module.
+ * This class provides a status report for the "Reports" BE module.
  *
  * @package TYPO3
  * @subpackage tx_phpunit
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class tx_phpunit_report_status implements tx_reports_StatusProvider {
+class tx_phpunit_Reports_Status implements tx_reports_StatusProvider {
 	/**
 	 * Returns the status of this extension.
 	 *
@@ -55,7 +55,7 @@ class tx_phpunit_report_status implements tx_reports_StatusProvider {
 			'LLL:EXT:phpunit/Resources/Private/Language/Report.xml:status_phpComments'
 		);
 
-		$method = new ReflectionMethod('tx_phpunit_report_status', 'getStatus');
+		$method = new ReflectionMethod('tx_phpunit_Reports_Status', 'getStatus');
 		if (strlen($method->getDocComment()) > 0) {
 			$status = t3lib_div::makeInstance(
 				'tx_reports_reports_status_Status',
@@ -132,7 +132,7 @@ class tx_phpunit_report_status implements tx_reports_StatusProvider {
 	}
 }
 
-if (defined('TYPO3_MODE') && $GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/phpunit/report/class.tx_phpunit_report_status.php']) {
-	include_once($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/phpunit/report/class.tx_phpunit_report_status.php']);
+if (defined('TYPO3_MODE') && $GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/phpunit/Classes/Reports/Status.php']) {
+	include_once($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/phpunit/Classes/Reports/Status.php']);
 }
 ?>

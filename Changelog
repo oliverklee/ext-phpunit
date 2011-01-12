@@ -1,4 +1,5 @@
 2011-01-12 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #11678: Move the Reports class to Classes/
 	* Fixed Bug #11686: Move all locallang files to Resources/Private/Language
 	* Fixed Bug #11705: Move the Icons, CSS and JS to Resources/
 	* Fixed Bug #11737: Use less static functions
