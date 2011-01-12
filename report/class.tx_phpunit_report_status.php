@@ -52,7 +52,7 @@ class tx_phpunit_report_status implements tx_reports_StatusProvider {
 	 */
 	protected function getReflectionStatus() {
 		$heading = $GLOBALS['LANG']->sL(
-			'LLL:EXT:phpunit/report/locallang.xml:status_phpComments'
+			'LLL:EXT:phpunit/Resources/Private/Language/Report.xml:status_phpComments'
 		);
 
 		$method = new ReflectionMethod('tx_phpunit_report_status', 'getStatus');
@@ -60,16 +60,16 @@ class tx_phpunit_report_status implements tx_reports_StatusProvider {
 			$status = t3lib_div::makeInstance(
 				'tx_reports_reports_status_Status',
 				$heading,
-				$GLOBALS['LANG']->sL('LLL:EXT:phpunit/report/locallang.xml:status_phpComments_present_short'),
-				$GLOBALS['LANG']->sL('LLL:EXT:phpunit/report/locallang.xml:status_phpComments_present_verbose'),
+				$GLOBALS['LANG']->sL('LLL:EXT:phpunit/Resources/Private/Language/Report.xml:status_phpComments_present_short'),
+				$GLOBALS['LANG']->sL('LLL:EXT:phpunit/Resources/Private/Language/Report.xml:status_phpComments_present_verbose'),
 				tx_reports_reports_status_Status::OK
 			);
 		} else {
 			$status = t3lib_div::makeInstance(
 				'tx_reports_reports_status_Status',
 				$heading,
-				$GLOBALS['LANG']->sL('LLL:EXT:phpunit/report/locallang.xml:status_phpComments_stripped_short'),
-				$GLOBALS['LANG']->sL('LLL:EXT:phpunit/report/locallang.xml:status_phpComments_stripped_verbose'),
+				$GLOBALS['LANG']->sL('LLL:EXT:phpunit/Resources/Private/Language/Report.xml:status_phpComments_stripped_short'),
+				$GLOBALS['LANG']->sL('LLL:EXT:phpunit/Resources/Private/Language/Report.xml:status_phpComments_stripped_verbose'),
 				tx_reports_reports_status_Status::ERROR
 			);
 		}
@@ -85,14 +85,14 @@ class tx_phpunit_report_status implements tx_reports_StatusProvider {
 	 */
 	protected function getEAcceleratorStatus() {
 		$heading = $GLOBALS['LANG']->sL(
-			'LLL:EXT:phpunit/report/locallang.xml:status_eAccelerator'
+			'LLL:EXT:phpunit/Resources/Private/Language/Report.xml:status_eAccelerator'
 		);
 
 		if (!extension_loaded('eaccelerator')) {
 			$status = t3lib_div::makeInstance(
 				'tx_reports_reports_status_Status',
 				$heading,
-				$GLOBALS['LANG']->sL('LLL:EXT:phpunit/report/locallang.xml:status_eAccelerator_notInstalled_short'),
+				$GLOBALS['LANG']->sL('LLL:EXT:phpunit/Resources/Private/Language/Report.xml:status_eAccelerator_notInstalled_short'),
 				'',
 				tx_reports_reports_status_Status::OK
 			);
@@ -101,27 +101,27 @@ class tx_phpunit_report_status implements tx_reports_StatusProvider {
 
 			if (version_compare($version, '0.9.5.2', '<')) {
 				$verboseMessage = sprintf(
-					$GLOBALS['LANG']->sL('LLL:EXT:phpunit/report/locallang.xml:status_eAccelerator_installedOld_verbose'),
+					$GLOBALS['LANG']->sL('LLL:EXT:phpunit/Resources/Private/Language/Report.xml:status_eAccelerator_installedOld_verbose'),
 					$version
 				);
 
 				$status = t3lib_div::makeInstance(
 					'tx_reports_reports_status_Status',
 					$heading,
-					$GLOBALS['LANG']->sL('LLL:EXT:phpunit/report/locallang.xml:status_eAccelerator_installedOld_short'),
+					$GLOBALS['LANG']->sL('LLL:EXT:phpunit/Resources/Private/Language/Report.xml:status_eAccelerator_installedOld_short'),
 					$verboseMessage,
 					tx_reports_reports_status_Status::ERROR
 				);
 			} else {
 				$verboseMessage = sprintf(
-					$GLOBALS['LANG']->sL('LLL:EXT:phpunit/report/locallang.xml:status_eAccelerator_installedNew_verbose'),
+					$GLOBALS['LANG']->sL('LLL:EXT:phpunit/Resources/Private/Language/Report.xml:status_eAccelerator_installedNew_verbose'),
 					$version
 				);
 
 				$status = t3lib_div::makeInstance(
 					'tx_reports_reports_status_Status',
 					$heading,
-					$GLOBALS['LANG']->sL('LLL:EXT:phpunit/report/locallang.xml:status_eAccelerator_installedNew_short'),
+					$GLOBALS['LANG']->sL('LLL:EXT:phpunit/Resources/Private/Language/Report.xml:status_eAccelerator_installedNew_short'),
 					$verboseMessage,
 					tx_reports_reports_status_Status::OK
 				);

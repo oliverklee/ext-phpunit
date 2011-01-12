@@ -41,7 +41,7 @@ if (!defined('PATH_tslib')) {
 
 require_once('PHPUnit/Autoload.php');
 
-$LANG->includeLLFile('EXT:phpunit/mod1/locallang.xml');
+$LANG->includeLLFile('EXT:phpunit/Resources/Private/Language/BackEnd.xml');
 
 $SOBE = t3lib_div::makeInstance('tx_phpunit_module1');
 $SOBE->main();
