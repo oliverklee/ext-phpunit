@@ -67,7 +67,7 @@ class Tx_Phpunit_Service_TestFinderTest extends tx_phpunit_testcase {
 	 */
 	private function createAccessibleProxy() {
 		$className = 'Tx_Phpunit_Service_TestFinderAccessibleProxy';
-		if (!class_exists($className)) {
+		if (!class_exists($className, FALSE)) {
 			eval(
 				'class ' . $className . ' extends Tx_Phpunit_Service_TestFinder {' .
 				'  public function isTestCaseFileName($path) {' .
