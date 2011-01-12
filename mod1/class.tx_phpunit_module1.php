@@ -476,7 +476,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			$result->collectCodeCoverageInformation(TRUE);
 		}
 
-		$testListener = new tx_phpunit_testlistener();
+		$testListener = new Tx_PhpUnit_BackEnd_TestListener();
 		if ($this->MOD_SETTINGS['testdox'] === 'on') {
 			$testListener->useHumanReadableTextFormat();
 		}

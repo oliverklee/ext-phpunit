@@ -33,7 +33,7 @@
  * @author Michael Klapper <michael.klapper@aoemedia.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class tx_phpunit_testlistener implements PHPUnit_Framework_TestListener {
+class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener {
 	/**
 	 * the total number of tests to run
 	 *
