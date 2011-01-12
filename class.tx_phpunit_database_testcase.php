@@ -364,7 +364,7 @@ abstract class tx_phpunit_database_testcase extends tx_phpunit_testcase {
 				if (isset($column['ref'])) {
 					list($tableName, $elementID) = explode('#', $column['ref']);
 					$columnValue = $foreignKeys[$tableName][$elementID];
-				} elseif (isset($column['is-NULL']) && $column['is-NULL'] == 'yes') {
+				} elseif (isset($column['is-NULL']) && ($column['is-NULL'] === 'yes')) {
 					$columnValue = NULL;
 				} else {
 					$columnValue = $table->$columnName;

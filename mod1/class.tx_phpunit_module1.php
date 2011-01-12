@@ -197,7 +197,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 * @return void
 	 */
 	protected function runTests_render() {
-		if (($this->MOD_SETTINGS['extSel'] != 'uuall') && !$this->isExtensionLoaded($this->MOD_SETTINGS['extSel'])) {
+		if (($this->MOD_SETTINGS['extSel'] !== 'uuall') && !$this->isExtensionLoaded($this->MOD_SETTINGS['extSel'])) {
 			// We know that phpunit must be loaded.
 			$this->MOD_SETTINGS['extSel'] = 'phpunit';
 		}
@@ -228,7 +228,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		ksort($extensionsWithTestSuites);
 
 		$output = $this->runTests_renderIntro_renderExtensionSelector($extensionsWithTestSuites);
-		if ($this->MOD_SETTINGS['extSel'] && ($this->MOD_SETTINGS['extSel'] != 'uuall')) {
+		if ($this->MOD_SETTINGS['extSel'] && ($this->MOD_SETTINGS['extSel'] !== 'uuall')) {
 			$output .= $this->runTests_renderIntro_renderTestSelector(
 				$extensionsWithTestSuites,
 				$this->MOD_SETTINGS['extSel']
@@ -260,7 +260,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		foreach (array_keys($extensionsWithTestSuites) as $dirName) {
 			$style = $this->createIconStyle($dirName);
 			$selected = strcmp($dirName, $this->MOD_SETTINGS['extSel']) ? '' : ' selected="selected"';
-			if ($selected != '') {
+			if ($selected !== '') {
 				$currentExtName = $dirName;
 			}
 			$extensionsOptionsArr[] = '<option style="' . $style . '" value="' . htmlspecialchars($dirName) . '"' . $selected . '>' .
@@ -318,7 +318,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		// or "Test", except the two special classes used as superclasses.
 		foreach (get_declared_classes() as $class) {
 			$classReflection = new ReflectionClass($class);
-			if ((strtolower(substr($class, -8, 8)) == 'testcase' || substr($class, -4, 4) == 'Test')
+			if ((strtolower(substr($class, -8, 8)) === 'testcase' || substr($class, -4, 4) === 'Test')
 				&& $classReflection->isSubclassOf('PHPUnit_Framework_TestCase') && $class !== 'tx_phpunit_testcase'
 				&& $class !== 'tx_phpunit_database_testcase') {
 				$testSuite->addTestSuite($class);
@@ -328,7 +328,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		// testCaseFile
 		$testCaseFileOptionsArray = array();
 		foreach ($testSuite->tests() as $testCases) {
-			$selected = $testCases->toString() == t3lib_div::_GP('testCaseFile') ? ' selected="selected"' : '';
+			$selected = ($testCases->toString() === t3lib_div::_GP('testCaseFile')) ? ' selected="selected"' : '';
 			$testCaseFileOptionsArray[] = '<option value="' . $testCases->toString() . '"' . $selected . '>' .
 				htmlspecialchars($testCases->getName()) . '</option>';
 		}
@@ -350,7 +350,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 					$testSuiteName = strstr($testIdentifier, '(');
 					$testSuiteName = trim($testSuiteName, '()');
 				}
-				$selected = $testIdentifier == t3lib_div::_GP('testname') ? ' selected="selected"' : '';
+				$selected = ($testIdentifier === t3lib_div::_GP('testname')) ? ' selected="selected"' : '';
 				$testsOptionsArr[$testSuiteName][] .= '<option value="' . $testIdentifier . '"' . $selected . '>' .
 					htmlspecialchars($testName) . '</option>';
 			}
@@ -439,7 +439,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$extensionsWithTestSuites = $this->getExtensionsWithTestSuites();
 		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
 		$extensionKeysToProcess = array();
-		if ($this->MOD_SETTINGS['extSel'] == 'uuall') {
+		if ($this->MOD_SETTINGS['extSel'] === 'uuall') {
 			echo '<h1>' . $this->getLL('testing_all_extensions') . '</h1>';
 			$extensionKeysToProcess = array_keys($extensionsWithTestSuites);
 		} else {
@@ -460,8 +460,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		foreach (get_declared_classes() as $class) {
 			$classReflection = new ReflectionClass($class);
 			if ($classReflection->isSubclassOf('tx_phpunit_testcase')
-				&& (strtolower(substr($class, -8, 8)) == 'testcase' || substr($class, -4, 4) == 'Test')
-				&& ($class != 'tx_phpunit_testcase') && ($class != 'tx_phpunit_database_testcase')
+				&& (strtolower(substr($class, -8, 8)) === 'testcase' || substr($class, -4, 4) === 'Test')
+				&& ($class !== 'tx_phpunit_testcase') && ($class !== 'tx_phpunit_database_testcase')
 			) {
 				$testSuite->addTestSuite($class);
 			}
@@ -477,11 +477,11 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		}
 
 		$testListener = new tx_phpunit_testlistener();
-		if ($this->MOD_SETTINGS['testdox'] == 'on') {
+		if ($this->MOD_SETTINGS['testdox'] === 'on') {
 			$testListener->useHumanReadableTextFormat();
 		}
 
-		if ($this->MOD_SETTINGS['showMemoryAndTime'] == 'on') {
+		if ($this->MOD_SETTINGS['showMemoryAndTime'] === 'on') {
 			$testListener->enableShowMenoryAndTime();
 		}
 
@@ -734,7 +734,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				   $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.openInNewWindow', 1) . '" class="absmiddle" alt="" />
 				Ope<span class="access-key">n</span> in separate window.
 			</a>
-			<script type="text/javascript">/*<![CDATA[*/if (window.name == "phpunitbe") { document.getElementById("opennewwindow").style.display = "none"; }/*]]>*/</script>';
+			<script type="text/javascript">/*<![CDATA[*/if (window.name === "phpunitbe") { document.getElementById("opennewwindow").style.display = "none"; }/*]]>*/</script>';
 
 		return $content;
 	}
@@ -872,11 +872,11 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 *         TRUE if an extension with the key $extensionKey is loaded, FALSE otherwise
 	 */
 	private function isExtensionLoaded($extensionKey) {
-		if ($extensionKey == '') {
+		if ($extensionKey === '') {
 			return FALSE;
 		}
 
-		return ($extensionKey == 'typo3') || t3lib_extMgm::isLoaded($extensionKey);
+		return ($extensionKey === 'typo3') || t3lib_extMgm::isLoaded($extensionKey);
 	}
 
 	/**
