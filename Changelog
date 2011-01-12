@@ -1,3 +1,6 @@
+2011-01-12 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #12145: Update PHPUnit to 3.5.7
+
 2011-01-05 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #11755: Code-Coverage Report fails due to error in included PHPUnit
 
