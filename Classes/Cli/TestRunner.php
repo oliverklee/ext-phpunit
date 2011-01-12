@@ -36,7 +36,7 @@ require_once('PHPUnit/Autoload.php');
  *
  * @author Michael Klapper <michael.klapper@aoemedia.de>
  */
-class tx_phpunit_cli_phpunit extends t3lib_cli {
+class Tx_Phpunit_Cli_TestRunner extends t3lib_cli {
 	/**
 	 * definition of the extension name
 	 *
@@ -75,7 +75,7 @@ class tx_phpunit_cli_phpunit extends t3lib_cli {
 	}
 }
 
-$phpunit = t3lib_div::makeInstance('tx_phpunit_cli_phpunit');
-/* @var $phpunit tx_phpunit_cli_phpunit */
-$phpunit->cli_main();
+$phpUnit = t3lib_div::makeInstance('Tx_Phpunit_Cli_TestRunner');
+/* @var $phpUnit Tx_Phpunit_Cli_TestRunner */
+$phpUnit->cli_main();
 ?>

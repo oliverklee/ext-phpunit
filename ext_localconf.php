@@ -18,7 +18,7 @@ $TYPO3_CONF_VARS['BE']['AJAX']['tx_phpunit_module1_ajax'] = 'typo3conf/ext/phpun
 
 if (TYPO3_MODE === 'BE') {
 	$TYPO3_CONF_VARS['SC_OPTIONS']['GLOBAL']['cliKeys'][$_EXTKEY] = array(
-		'EXT:' . $_EXTKEY . '/class.tx_phpunit_cli_phpunit.php',
+		'EXT:' . $_EXTKEY . '/Classes/Cli/TestRunner.php',
 		'_CLI_phpunit'
 	);
 }
