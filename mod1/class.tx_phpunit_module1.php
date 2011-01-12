@@ -453,7 +453,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		// Loads the files containing test cases from extensions.
 		foreach ($extensionKeysToProcess as $extensionKey) {
 			$paths = $extensionsWithTestSuites[$extensionKey];
-			self::loadRequiredTestClasses($paths);
+			$this->loadRequiredTestClasses($paths);
 		}
 
 		// Adds all classes to the test suite which end with "testcase" or "Test".
@@ -848,7 +848,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 *
 	 * @return void
 	 */
-	private static function loadRequiredTestClasses($paths) {
+	protected function loadRequiredTestClasses($paths) {
 		if (!isset($paths)) {
 			return;
 		}
