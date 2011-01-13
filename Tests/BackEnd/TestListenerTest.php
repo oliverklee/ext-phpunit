@@ -102,7 +102,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends tx_phpunit_testcase {
 	 * @test
 	 */
 	public function prettifyTestMethodForTestPrefixByDefaultReturnsCamelCaseNameUnchanged() {
-		$camelCaseName = 'test_freshEspressoTastesNice';
+		$camelCaseName = 'testFreshEspressoTastesNice';
 
 		$this->assertSame(
 			$camelCaseName,
@@ -114,6 +114,30 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends tx_phpunit_testcase {
 	 * @test
 	 */
 	public function prettifyTestMethodForTestPrefixAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTestPrefix() {
+		$this->fixture->useHumanReadableTextFormat();
+
+		$this->assertSame(
+			'Fresh espresso tastes nice',
+			$this->fixture->prettifyTestMethod('testFreshEspressoTastesNice')
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function prettifyTestMethodForTestPrefixWithUnderscoreByDefaultReturnsCamelCaseNameUnchanged() {
+		$camelCaseName = 'test_freshEspressoTastesNice';
+
+		$this->assertSame(
+			$camelCaseName,
+			$this->fixture->prettifyTestMethod($camelCaseName)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function prettifyTestMethodForTestPrefixWithUnderscoreAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTestPrefix() {
 		$this->fixture->useHumanReadableTextFormat();
 
 		$this->assertSame(
@@ -161,12 +185,24 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends tx_phpunit_testcase {
 	/**
 	 * @test
 	 */
-	public function prettifyTestClassAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTxPrefix() {
+	public function prettifyTestClassForTestSuffixAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTxPrefix() {
 		$this->fixture->useHumanReadableTextFormat();
 
 		$this->assertSame(
-			' phpunit BackEnd TestListenerTest',
+			'phpunit BackEnd TestListener',
 			$this->fixture->prettifyTestClass('tx_phpunit_BackEnd_TestListenerTest')
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function prettifyTestClassForTestcaseSuffixAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTxPrefix() {
+		$this->fixture->useHumanReadableTextFormat();
+
+		$this->assertSame(
+			'phpunit BackEnd TestListener',
+			$this->fixture->prettifyTestClass('tx_phpunit_BackEnd_TestListener_testcase')
 		);
 	}
 
@@ -185,11 +221,11 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends tx_phpunit_testcase {
 	/**
 	 * @test
 	 */
-	public function prettifyTestClassForExtbaseClassNameAfterUseHumanReadableTextFormatConvertCamelCaseToWords() {
+	public function prettifyTestClassForExtbaseClassNameAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTestSuffix() {
 		$this->fixture->useHumanReadableTextFormat();
 
 		$this->assertSame(
-			'Tx Phpunit BackEnd TestListenerTest',
+			'Tx Phpunit BackEnd TestListener',
 			$this->fixture->prettifyTestClass('Tx_Phpunit_BackEnd_TestListenerTest')
 		);
 	}

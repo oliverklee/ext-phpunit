@@ -106,13 +106,6 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	private $useHumanReadableTextFormat = FALSE;
 
 	/**
-	 * a name prettifier for creating readable test and test case names
-	 *
-	 * @var PHPUnit_Util_TestDox_NamePrettifier
-	 */
-	private $NamePrettifier = NULL;
-
-	/**
 	 * whether to display the used memory and time of each test
 	 *
 	 * @var boolean
@@ -120,17 +113,24 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	private $enableShowMemoryAndTime = FALSE;
 
 	/**
+	 * a name prettifier for creating readable test and test case names
+	 *
+	 * @var PHPUnit_Util_TestDox_NamePrettifier
+	 */
+	private $namePrettifier = NULL;
+
+	/**
 	 * The constructor.
 	 */
 	public function __construct() {
-		$this->NamePrettifier = new PHPUnit_Util_TestDox_NamePrettifier();
+		$this->namePrettifier = new PHPUnit_Util_TestDox_NamePrettifier();
 	}
 
 	/**
 	 * The destructor.
 	 */
 	public function __destruct() {
-		unset($this->NamePrettifier);
+		unset($this->namePrettifier);
 	}
 
 	/**
@@ -474,10 +474,13 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 			return $testName;
 		}
 
-		$this->NamePrettifier->setPrefix('test');
-		$this->NamePrettifier->setSuffix(NULL);
 		// this is required because the "setPrefix" work not very well with the prefix "test_"
-		return $this->NamePrettifier->prettifyTestMethod(str_replace('test_', '', $testName));
+		$testNameWithoutSuffix = preg_replace('/^test_/i', '', $testName);
+
+		$this->namePrettifier->setPrefix('test');
+		$this->namePrettifier->setSuffix(NULL);
+
+		return $this->namePrettifier->prettifyTestMethod($testNameWithoutSuffix);
 	}
 
 	/**
@@ -495,10 +498,13 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 			return $testClassName;
 		}
 
-		$this->NamePrettifier->setPrefix('tx');
-		$this->NamePrettifier->setSuffix('testcase');
+		$testClassNameWithoutSuffix = preg_replace('/(Test|_testcase)$/', '', $testClassName);
+		$testClassNameWithoutUnderScoresAndSuffix = str_replace('_', ' ', $testClassNameWithoutSuffix);
 
-		return $this->NamePrettifier->prettifyTestClass(str_replace('_', ' ', $testClassName));
+		$this->namePrettifier->setPrefix('tx');
+		$this->namePrettifier->setSuffix(NULL);
+
+		return trim($this->namePrettifier->prettifyTestClass($testClassNameWithoutUnderScoresAndSuffix));
 	}
 
 	/**
