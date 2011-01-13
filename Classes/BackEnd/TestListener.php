@@ -127,6 +127,13 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	}
 
 	/**
+	 * The destructor.
+	 */
+	public function __destruct() {
+		unset($this->NamePrettifier);
+	}
+
+	/**
 	 * Sets the total number of tests to run (used for displaying the progress
 	 * bar).
 	 *
@@ -463,18 +470,14 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 * @return string the prettified test name, will not be empty
 	 */
 	protected function prettifyTestMethod($testName) {
-		$content = '';
-
-		if ($this->useHumanReadableTextFormat) {
-			$this->NamePrettifier->setPrefix('test');
-			$this->NamePrettifier->setSuffix(NULL);
-			// this is required because the "setPrefix" work not very well with the prefix "test_"
-			$content = $this->NamePrettifier->prettifyTestMethod(str_replace('test_', '', $testName));
-		} else {
-			$content = $testName;
+		if (!$this->useHumanReadableTextFormat) {
+			return $testName;
 		}
 
-		return $content;
+		$this->NamePrettifier->setPrefix('test');
+		$this->NamePrettifier->setSuffix(NULL);
+		// this is required because the "setPrefix" work not very well with the prefix "test_"
+		return $this->NamePrettifier->prettifyTestMethod(str_replace('test_', '', $testName));
 	}
 
 	/**
@@ -483,22 +486,19 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 * This method will return $testClass unchanged if human-readable names
 	 * are disabled.
 	 *
-	 * @param string $testClass a camel-case test class name, must not be empty
+	 * @param string $testClassName a camel-case test class name, must not be empty
 	 *
 	 * @return string the prettified test class name, will not be empty
 	 */
-	protected function prettifyTestClass($testClass) {
-		$content = '';
-
-		if ($this->useHumanReadableTextFormat) {
-			$this->NamePrettifier->setPrefix('tx');
-			$this->NamePrettifier->setSuffix('testcase');
-			$content = $this->NamePrettifier->prettifyTestClass(str_replace('_', ' ', $testClass));
-		} else {
-			$content = $testClass;
+	protected function prettifyTestClass($testClassName) {
+		if (!$this->useHumanReadableTextFormat) {
+			return $testClassName;
 		}
 
-		return $content;
+		$this->NamePrettifier->setPrefix('tx');
+		$this->NamePrettifier->setSuffix('testcase');
+
+		return $this->NamePrettifier->prettifyTestClass(str_replace('_', ' ', $testClassName));
 	}
 
 	/**
@@ -508,6 +508,17 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 */
 	public function assertionCount() {
 		return $this->testAssertions;
+	}
+
+	/**
+	 * Echoes $output.
+	 *
+	 * @param string $output a string to echo, may also be empty
+	 *
+	 * @return void
+	 */
+	protected function output($output) {
+		echo($output);
 	}
 }
 ?>
