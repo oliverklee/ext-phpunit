@@ -498,13 +498,13 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 			return $testClassName;
 		}
 
-		$testClassNameWithoutSuffix = preg_replace('/(Test|_testcase)$/', '', $testClassName);
-		$testClassNameWithoutUnderScoresAndSuffix = str_replace('_', ' ', $testClassNameWithoutSuffix);
+		$testClassNameWithoutPrefixOrSuffix = preg_replace('/(tx_|Tx_)?(.+)(Test|_testcase)$/', '\2', $testClassName);
+		$testClassNameWithoutUnderScores = str_replace('_', ' ', $testClassNameWithoutPrefixOrSuffix);
 
-		$this->namePrettifier->setPrefix('tx');
+		$this->namePrettifier->setPrefix(NULL);
 		$this->namePrettifier->setSuffix(NULL);
 
-		return trim($this->namePrettifier->prettifyTestClass($testClassNameWithoutUnderScoresAndSuffix));
+		return $this->namePrettifier->prettifyTestClass($testClassNameWithoutUnderScores);
 	}
 
 	/**

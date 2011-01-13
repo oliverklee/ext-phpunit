@@ -101,7 +101,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends tx_phpunit_testcase {
 	/**
 	 * @test
 	 */
-	public function prettifyTestMethodForTestPrefixByDefaultReturnsCamelCaseNameUnchanged() {
+	public function prettifyTestMethodForTestPrefixByDefaultReturnsNameUnchanged() {
 		$camelCaseName = 'testFreshEspressoTastesNice';
 
 		$this->assertSame(
@@ -125,7 +125,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends tx_phpunit_testcase {
 	/**
 	 * @test
 	 */
-	public function prettifyTestMethodForTestPrefixWithUnderscoreByDefaultReturnsCamelCaseNameUnchanged() {
+	public function prettifyTestMethodForTestPrefixWithUnderscoreByDefaultReturnsNameUnchanged() {
 		$camelCaseName = 'test_freshEspressoTastesNice';
 
 		$this->assertSame(
@@ -149,7 +149,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends tx_phpunit_testcase {
 	/**
 	 * @test
 	 */
-	public function prettifyTestMethodByDefaultReturnsCamelCaseNameUnchanged() {
+	public function prettifyTestMethodByDefaultReturnsNameUnchanged() {
 		$camelCaseName = 'freshEspressoTastesNice';
 
 		$this->assertSame(
@@ -173,7 +173,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends tx_phpunit_testcase {
 	/**
 	 * @test
 	 */
-	public function prettifyTestClassByDefaultReturnsCamelCaseNameUnchanged() {
+	public function prettifyTestClassByDefaultReturnsNameUnchanged() {
 		$camelCaseName = 'tx_phpunit_BackEnd_TestListenerTest';
 
 		$this->assertSame(
@@ -209,7 +209,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends tx_phpunit_testcase {
 	/**
 	 * @test
 	 */
-	public function prettifyTestClassForExtbaseClassNameByDefaultReturnsCamelCaseNameUnchanged() {
+	public function prettifyTestClassForExtbaseClassNameByDefaultReturnsNameUnchanged() {
 		$camelCaseName = 'Tx_Phpunit_BackEnd_TestListenerTest';
 
 		$this->assertSame(
@@ -225,8 +225,32 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends tx_phpunit_testcase {
 		$this->fixture->useHumanReadableTextFormat();
 
 		$this->assertSame(
-			'Tx Phpunit BackEnd TestListener',
+			'Phpunit BackEnd TestListener',
 			$this->fixture->prettifyTestClass('Tx_Phpunit_BackEnd_TestListenerTest')
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function prettifyTestClassForCoreTestByDefaultReturnsNameUnchanged() {
+		$camelCaseName = 't3lib_formprotection_InstallToolFormProtectionTest';
+
+		$this->assertSame(
+			$camelCaseName,
+			$this->fixture->prettifyTestClass($camelCaseName)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function prettifyTestClassForCoreTestAndForTestSuffixAfterUseHumanReadableTextFormatConvertCamelCaseToWords() {
+		$this->fixture->useHumanReadableTextFormat();
+
+		$this->assertSame(
+			't3lib formprotection InstallToolFormProtection',
+			$this->fixture->prettifyTestClass('t3lib_formprotection_InstallToolFormProtectionTest')
 		);
 	}
 
