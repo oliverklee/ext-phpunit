@@ -60,28 +60,28 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 *
 	 * @var string
 	 */
-	private $currentTestCaseName = '';
+	protected $currentTestCaseName = '';
 
 	/**
 	 * the name of the current test
 	 *
 	 * @var string
 	 */
-	private $previousTestName = '';
+	protected $previousTestName = '';
 
 	/**
 	 * used memory (in bytes) before the first test is run
 	 *
 	 * @var integer
 	 */
-	private $memoryUsageStartOfTest = 0;
+	protected $memoryUsageStartOfTest = 0;
 
 	/**
 	 * used memory (in bytes) after the last test has been run
 	 *
 	 * @var integer
 	 */
-	private $memoryUsageEndOfTest = 0;
+	protected $memoryUsageEndOfTest = 0;
 
 	/**
 	 * the number of bytes that have been in use after running the last test
@@ -103,21 +103,21 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 *
 	 * @var boolean
 	 */
-	private $useHumanReadableTextFormat = FALSE;
+	protected $useHumanReadableTextFormat = FALSE;
 
 	/**
 	 * whether to display the used memory and time of each test
 	 *
 	 * @var boolean
 	 */
-	private $enableShowMemoryAndTime = FALSE;
+	protected $enableShowMemoryAndTime = FALSE;
 
 	/**
 	 * a name prettifier for creating readable test and test case names
 	 *
 	 * @var PHPUnit_Util_TestDox_NamePrettifier
 	 */
-	private $namePrettifier = NULL;
+	protected $namePrettifier = NULL;
 
 	/**
 	 * The constructor.
@@ -402,7 +402,7 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 *
 	 * @return string the link to re-run the given test, will not be empty
 	 */
-	private function createReRunLink(PHPUnit_Framework_TestCase $test) {
+	protected function createReRunLink(PHPUnit_Framework_TestCase $test) {
 		$iconImageTag = '<img style="vertical-align: middle; border: 1px solid #fff;" src="' .
 			t3lib_extMgm::extRelPath('phpunit') . 'Resources/Public/Icons/Runner.gif" alt="Run this test only" />';
 		return '<a href="' . $this->createReRunUrl($test) . '" title="Run this test only">' . $iconImageTag . '</a>';
@@ -416,7 +416,7 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 *
 	 * @return string the htmlspecialchared URL to re-run the given test, will not be empty
 	 */
-	private function createReRunUrl(PHPUnit_Framework_TestCase $test) {
+	protected function createReRunUrl(PHPUnit_Framework_TestCase $test) {
 		$options = array(
 			'M=tools_txphpunitbeM1',
 			'command=runsingletest',
