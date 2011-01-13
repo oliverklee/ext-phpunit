@@ -62,8 +62,8 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends tx_phpunit_testcase {
 		if (!class_exists($className, FALSE)) {
 			eval(
 				'class ' . $className . ' extends Tx_Phpunit_BackEnd_TestListener {' .
-				'  public function isTestCaseFileName($path) {' .
-				'    return parent::isTestCaseFileName($path);' .
+				'  public function createReRunUrl(PHPUnit_Framework_TestCase $test) {' .
+				'    return parent::createReRunUrl($test);' .
 				'  }' .
 				'  public function prettifyTestMethod($testClass) {' .
 				'    return parent::prettifyTestMethod($testClass);' .
@@ -97,6 +97,82 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends tx_phpunit_testcase {
 	/*
 	 * Unit tests
 	 */
+
+	/**
+	 * @test
+	 */
+	public function createReRunUrlContainsModuleParameter() {
+		$test = $this->getMock(
+			'PHPUnit_Framework_TestCase', array(), array('myTest')
+		);
+
+		$this->assertContains(
+			'mod.php?M=tools_txphpunitbeM1',
+			$this->fixture->createReRunUrl($test)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createReRunUrlContainsRunSingleCommand() {
+		$test = $this->getMock(
+			'PHPUnit_Framework_TestCase', array(), array('myTest')
+		);
+
+		$this->assertContains(
+			'command=runsingletest',
+			$this->fixture->createReRunUrl($test)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createReRunUrlContainsTestCaseFileName() {
+		$test = $this->getMock(
+			'PHPUnit_Framework_TestCase', array(), array('myTest')
+		);
+
+		$this->fixture->setTestSuiteName('myTestCase');
+
+		$this->assertContains(
+			'testCaseFile=myTestCase',
+			$this->fixture->createReRunUrl($test)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createReRunUrlContainsTestCaseName() {
+		$test = $this->getMock(
+			'PHPUnit_Framework_TestCase', array(), array('myTest')
+		);
+
+		$this->fixture->setTestSuiteName('myTestCase');
+
+		$this->assertContains(
+			'testname=myTest',
+			$this->fixture->createReRunUrl($test)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createReRunUrlEscapesAmpersands() {
+		$test = $this->getMock(
+			'PHPUnit_Framework_TestCase', array(), array('myTest')
+		);
+
+		$this->fixture->setTestSuiteName('myTestCase');
+
+		$this->assertContains(
+			'&amp;',
+			$this->fixture->createReRunUrl($test)
+		);
+	}
 
 	/**
 	 * @test
