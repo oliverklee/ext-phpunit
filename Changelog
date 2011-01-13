@@ -2,7 +2,7 @@
 	* Fixed Bug #12152: tx_phpunit_BackEnd_TestListenerTest does not handle extbase-style names
 	* Fixed Bug #12153: prettifyTestClass does not handle the "Test" suffix
 	* Fixed Bug #12151: prettifyTestClass adds leading space for the test class name "tx_phpunit_BackEnd_TestListenerTest"
-	* Fixed Bug #11731: Make the test listener testable
+	* Fixed Bug #11731: Make the test listener testable (parts 1-3)
 
 2011-01-13 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #11687: Move the test listener to Classes
@@ -15,9 +15,6 @@
 	* Fixed Bug #11737: Use less static functions
 	* Fixed Bug #11827: Use strict comparisons
 	* Fixed Bug #12145: Update PHPUnit to 3.5.7
-
-2011-01-05 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #11755: Code-Coverage Report fails due to error in included PHPUnit
 
 2011-01-01 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #11684: Update copyrights in class comments and manual to 2011
