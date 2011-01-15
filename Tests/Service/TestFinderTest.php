@@ -30,7 +30,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Service_TestFinderTest extends tx_phpunit_testcase {
+class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var Tx_Phpunit_Service_TestFinder
 	 */

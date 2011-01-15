@@ -36,7 +36,7 @@
  * @author Michael Klapper <michael.klapper@aoemedia.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-abstract class tx_phpunit_testcase extends PHPUnit_Framework_TestCase {
+abstract class Tx_Phpunit_TestCase extends PHPUnit_Framework_TestCase {
 	/**
 	 * whether global variables should be backuped
 	 *

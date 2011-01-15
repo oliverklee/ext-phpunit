@@ -37,10 +37,8 @@
  * @author Kasper Ligaard <kasperligaard@gmail.com>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class databaseTest extends tx_phpunit_database_testcase {
+class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 	public function tearDown() {
-		// ensures that test database always is dropped
-		// even when testcases fails
 		$this->dropDatabase();
 	}
 
@@ -248,7 +246,7 @@ class databaseTest extends tx_phpunit_database_testcase {
 		}
 		$db = $this->useTestDatabase();
 		$this->importExtensions(array('ccc'));
-		$this->importDataSet(dirname(__FILE__). '/database_testcase_dataset.xml');
+		$this->importDataSet(t3lib_extMgm::extPath('phpunit') . 'Tests/Database/Fixtures/DataSet.xml');
 
 		$result = $db->exec_SELECTgetRows('*', 'tx_ccc_test', NULL);
 		$this->assertEquals(2, count($result));

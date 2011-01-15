@@ -23,13 +23,11 @@
  ***************************************************************/
 
 /**
- * Test case for checking the PHPUnit 3.1.9
- *
- * WARNING: Never ever run a unit test like this on a live site!
+ * Test case for the Tx_Phpunit_TestCase class.
  *
  * @author Kasper Ligaard <kasperligaard@gmail.com>
  */
-class tx_phpunit_testTest extends tx_phpunit_testcase {
+class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */

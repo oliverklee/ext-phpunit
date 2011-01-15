@@ -319,8 +319,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		foreach (get_declared_classes() as $class) {
 			$classReflection = new ReflectionClass($class);
 			if ((strtolower(substr($class, -8, 8)) === 'testcase' || substr($class, -4, 4) === 'Test')
-				&& $classReflection->isSubclassOf('PHPUnit_Framework_TestCase') && $class !== 'tx_phpunit_testcase'
-				&& $class !== 'tx_phpunit_database_testcase') {
+				&& $classReflection->isSubclassOf('PHPUnit_Framework_TestCase') && $class !== 'Tx_Phpunit_TestCase'
+				&& $class !== 'Tx_Phpunit_Database_TestCase') {
 				$testSuite->addTestSuite($class);
 			}
 		}
@@ -459,9 +459,9 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		// Adds all classes to the test suite which end with "testcase" or "Test".
 		foreach (get_declared_classes() as $class) {
 			$classReflection = new ReflectionClass($class);
-			if ($classReflection->isSubclassOf('tx_phpunit_testcase')
+			if ($classReflection->isSubclassOf('Tx_Phpunit_TestCase')
 				&& (strtolower(substr($class, -8, 8)) === 'testcase' || substr($class, -4, 4) === 'Test')
-				&& ($class !== 'tx_phpunit_testcase') && ($class !== 'tx_phpunit_database_testcase')
+				&& ($class !== 'Tx_Phpunit_TestCase') && ($class !== 'Tx_Phpunit_Database_TestCase')
 			) {
 				$testSuite->addTestSuite($class);
 			}

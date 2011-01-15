@@ -31,7 +31,7 @@
  * @author Michael Klapper <michael.klapper@aoemedia.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-abstract class tx_phpunit_database_testcase extends tx_phpunit_testcase {
+abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	/**
 	 * name of a test database
 	 *
