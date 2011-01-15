@@ -695,15 +695,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		<p>Older issues: <a target="_blank" href="http://bugs.typo3.org/search.php?project_id=79&amp;sticky_issues=on&amp;sortby=last_updated&amp;dir=DESC&amp;hide_status_id=90">Click to see the list of (preferably older) issues for this extension</a>.</p>
 		<h2>Browse code in Subversion repository</h2>
 		<p><a target="_blank" href="http://forge.typo3.org/repositories/show/extension-phpunit">The code repository for the phpunit extension can be browsed here, http://forge.typo3.org/repositories/show/extension-phpunit</a>.</p>
-		<p>Previously, <a target="_blank" href="http://typo3xdev.svn.sourceforge.net/viewvc/typo3xdev/tx_phpunit/">the code was hosted at sourceforge</a>.</p>
-		<h2>Licence and copyright</h2>
-		<p>PHPUnit is released under the terms of the PHP License as free software.</p>
-		<p>PHPUnit Copyright &copy; 2001&#8211;2009 Sebastian Bergmann</p>
-		<p>PHPUnit BE is released under the GPL Licence and is part of the TYPO3 Framework.</p>
-		<p>PHPUnit BE Copyright &copy; 2005&#8211;2009 <a href="mailto:kasperligaard@gmail.com">Kasper Ligaard</a></p>
-		<h2>Contributors</h2>
-		<p>The following people have contributed by testing, bugfixing, suggesting new features etc.</p>
-		<p>Kasper Ligaard, Robert Lemke, Mario Rimann, Oliver Klee, S&oslash;ren Soltveit, Mikkel Ricky and Michael Klapper.</p>
 		';
 	}
 

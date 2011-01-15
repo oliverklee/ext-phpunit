@@ -1,4 +1,5 @@
 2011-01-15 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #11700: Move the credits from the About page to the manual
 	* Fixed Bug #11755: Code-Coverage Report fails due to error in included PHPUnit, patch by Andreas Lappe
 	* Fixed Bug #12167: Move the test base classes to Classes/
 	* Fixed Bug #11731: Make the test listener testable (part 4)
