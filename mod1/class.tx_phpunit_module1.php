@@ -592,14 +592,14 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 					<input name="testCaseFile" type="hidden" value="' . t3lib_div::_GP('testCaseFile') . '" />
 				</p>
 			</form>' .
-			'<div id="testsHaveFinished"></div>'
-		;
+			'<div id="testsHaveFinished"></div>';
 
-		// code coverage output
 		if (!t3lib_div::_GP('testname') && $result->getCollectCodeCoverageInformation()) {
-			PHPUnit_Util_Report::render($result, t3lib_extMgm::extPath('phpunit') . 'codecoverage/');
-			echo '<p><a target="_blank" href="' . $this->extensionPath .
-				'codecoverage/typo3conf_ext.html">Click here to access the Code Coverage report</a></p>';
+			require_once('PHP/CodeCoverage/Report/HTML.php');
+
+			$writer =  new PHP_CodeCoverage_Report_HTML();
+			$writer->process($result->getCodeCoverage(), t3lib_extMgm::extPath('phpunit') . 'codecoverage/');
+			echo '<p><a target="_blank" href="' . $this->extensionPath . 'codecoverage/index.html">Click here to access the Code Coverage report</a></p>';
 			echo '<p>Memory peak usage: ' . t3lib_div::formatSize(memory_get_peak_usage()) . 'B<p/>';
 		}
 	}

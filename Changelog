@@ -1,4 +1,5 @@
 2011-01-15 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #11755: Code-Coverage Report fails due to error in included PHPUnit, patch by Andreas Lappe
 	* Fixed Bug #12167: Move the test base classes to Classes/
 	* Fixed Bug #11731: Make the test listener testable (part 4)
 	* Fixed Bug #11696: Display the Xdebug status in the reports module
