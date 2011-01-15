@@ -197,7 +197,7 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 * @return void
 	 */
 	public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time) {
-		$testCaseTraceArr = $this->getFirstNonPHPUnitTrace($e->getTrace());
+		$testCaseTraceArr = $this->getFirstNonPhpUnitTrace($e->getTrace());
 		$fileName = str_replace(PATH_site, '', $testCaseTraceArr['file']);
 
 		echo '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadFailure");/*]]>*/</script>
@@ -226,6 +226,27 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 		}
 
 		flush();
+	}
+
+	/**
+	 * Returns the first trace information which is not caused by the PHPUnit file
+	 * "Framework/Assert.php".
+	 *
+	 * @param array $traceData the trace data
+	 *
+	 * @return array trace information
+	 */
+	protected function getFirstNonPhpUnitTrace(array $traceData) {
+		$testCaseTraceData = array();
+
+		foreach ($traceData as $singleTraceArr) {
+			if (!stristr($singleTraceArr['file'], 'Framework/Assert.php')) {
+				$testCaseTraceData = $singleTraceArr;
+				break;
+			}
+		}
+
+		return $testCaseTraceData;
 	}
 
 	/**
@@ -341,15 +362,17 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	public function endTest(PHPUnit_Framework_Test $test, $time) {
 		$this->memoryUsageEndOfTest = memory_get_usage();
 
-		// Tests with the same name are a sign of data provider usage.
-		$testNameParts = explode(' ', $test->getName());
-		$testName = get_class($test) . ':' . $testNameParts[0];
-		if ($testName !== $this->previousTestName) {
-			$this->currentDataProviderNumber = 0;
-			$this->currentTestNumber++;
-			$this->previousTestName = $testName;
-		} else {
-			$this->currentDataProviderNumber++;
+		if ($test instanceof PHPUnit_Framework_TestCase) {
+			// Tests with the same name are a sign of data provider usage.
+			$testNameParts = explode(' ', $test->getName());
+			$testName = get_class($test) . ':' . $testNameParts[0];
+			if ($testName !== $this->previousTestName) {
+				$this->currentDataProviderNumber = 0;
+				$this->currentTestNumber++;
+				$this->previousTestName = $testName;
+			} else {
+				$this->currentDataProviderNumber++;
+			}
 		}
 
 		$percentDone = intval(($this->currentTestNumber / $this->totalNumberOfTests) * 100);
@@ -360,38 +383,21 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 			$this->testAssertions += $test->getNumAssertions();
 		}
 
-		echo '</div>';
+		$output = '</div>';
 		if ($this->enableShowMemoryAndTime === TRUE) {
-			echo '<span class="memory-leak small-font"><strong>Memory leak:</strong> ' .
+			$output .= '<span class="memory-leak small-font"><strong>Memory leak:</strong> ' .
 				t3lib_div::formatSize($leakedMemory) . 'B </span>';
-			echo '<span class="time-usages small-font"><strong>Time:</strong> ' . sprintf('%.4f', $time) .
+			$output .= '<span class="time-usages small-font"><strong>Time:</strong> ' . sprintf('%.4f', $time) .
 				' sec.</span><br />';
 		}
-		echo '</div>';
-		echo '<script type="text/javascript">/*<![CDATA[*/document.getElementById("progress-bar").style.width = "' .
+		$output .= '</div>';
+		$output .= '<script type="text/javascript">/*<![CDATA[*/document.getElementById("progress-bar").style.width = "' .
 			$percentDone . '%";/*]]>*/</script>';
-		echo '<script type="text/javascript">/*<![CDATA[*/document.getElementById("transparent-bar").style.width = "' .
+		$output .= '<script type="text/javascript">/*<![CDATA[*/document.getElementById("transparent-bar").style.width = "' .
 			(100 - $percentDone) . '%";/*]]>*/</script>';
-		flush();
-	}
 
-	/**
-	 * Returns the first trace information which is not caused by the PHPUnit file
-	 * "Framework/Assert.php".
-	 *
-	 * @param array $traceArr the trace data
-	 *
-	 * @return array trace information
-	 */
-	protected function getFirstNonPHPUnitTrace(array $traceArr) {
-		$testCaseTraceArr = array();
-		foreach ($traceArr as $singleTraceArr) {
-			if (!stristr($singleTraceArr['file'], 'Framework/Assert.php')) {
-				$testCaseTraceArr = $singleTraceArr;
-				break;
-			}
-		}
-		return $testCaseTraceArr;
+		$this->output($output);
+		$this->flushOutputBuffer();
 	}
 
 	/**
@@ -525,6 +531,15 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 */
 	protected function output($output) {
 		echo($output);
+	}
+
+	/**
+	 * Flushes the output buffer.
+	 *
+	 * @return void
+	 */
+	protected function flushOutputBuffer() {
+		flush();
 	}
 }
 ?>

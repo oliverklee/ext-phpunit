@@ -37,7 +37,8 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends tx_phpunit_testcase {
 	private $fixture;
 
 	public function setUp() {
-		$this->fixture = $this->createAccessibleProxy();
+		$fixtureClassName = $this->createAccessibleProxy();
+		$this->fixture = new $fixtureClassName();
 	}
 
 	public function tearDown() {
@@ -55,13 +56,16 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends tx_phpunit_testcase {
 	 * Creates a subclass Tx_Phpunit_BackEnd_TestListener with the protected
 	 * functions made public.
 	 *
-	 * @return Tx_Phpunit_BackEnd_TestListener an accessible proxy
+	 * @return string the name of the accessible proxy class
 	 */
 	private function createAccessibleProxy() {
 		$className = 'Tx_Phpunit_BackEnd_TestListenerAccessibleProxy';
 		if (!class_exists($className, FALSE)) {
 			eval(
 				'class ' . $className . ' extends Tx_Phpunit_BackEnd_TestListener {' .
+				'  public function createReRunLink(PHPUnit_Framework_TestCase $test) {' .
+				'    return parent::createReRunLink($test);' .
+				'  }' .
 				'  public function createReRunUrl(PHPUnit_Framework_TestCase $test) {' .
 				'    return parent::createReRunUrl($test);' .
 				'  }' .
@@ -81,15 +85,17 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends tx_phpunit_testcase {
 			);
 		}
 
-		return new $className();
+		return $className;
 	}
 
 	/**
 	 * @test
 	 */
 	public function createAccessibleProxyCreatesTestListenerSubclass() {
+		$className = $this->createAccessibleProxy();
+
 		$this->assertTrue(
-			$this->createAccessibleProxy() instanceof Tx_Phpunit_BackEnd_TestListener
+			(new $className()) instanceof Tx_Phpunit_BackEnd_TestListener
 		);
 	}
 
@@ -97,6 +103,89 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends tx_phpunit_testcase {
 	/*
 	 * Unit tests
 	 */
+
+	/**
+	 * @test
+	 */
+	public function endTestAddsTestAssertionsToTotalAssertionCount() {
+		$fixture = $this->getMock(
+			'Tx_Phpunit_BackEnd_TestListener', array('output', 'flushOutputBuffer')
+		);
+
+		$testCase1 = $this->getMock('PHPUnit_Framework_TestCase', array('getNumAssertions'));
+		$testCase1->expects($this->once())->method('getNumAssertions')->will($this->returnValue(1));
+
+		$fixture->endTest($testCase1);
+		$this->assertEquals(
+			1,
+			$fixture->assertionCount(),
+			'The assertions of the first test case have not been counted.'
+		);
+
+		$testCase2 = $this->getMock('PHPUnit_Framework_TestCase', array('getNumAssertions'));
+		$testCase2->expects($this->once())->method('getNumAssertions')->will($this->returnValue(4));
+
+		$fixture->endTest($testCase2);
+		$this->assertEquals(
+			5,
+			$fixture->assertionCount(),
+			'The assertions of the second test case have not been counted.'
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function endTestForTestCaseInstanceLeavesAssertionCountUnchanged() {
+		$fixture = $this->getMock(
+			'Tx_Phpunit_BackEnd_TestListener', array('output', 'flushOutputBuffer')
+		);
+
+		$test = $this->getMock('PHPUnit_Framework_TestCase');
+
+		$fixture->endTest($test);
+		$this->assertEquals(
+			0,
+			$fixture->assertionCount()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function endTestForPlainTestInstanceLeavesAssertionCountUnchanged() {
+		$fixture = $this->getMock(
+			'Tx_Phpunit_BackEnd_TestListener', array('output', 'flushOutputBuffer')
+		);
+
+		$test = $this->getMock('PHPUnit_Framework_Test');
+
+		$fixture->endTest($test);
+		$this->assertEquals(
+			0,
+			$fixture->assertionCount()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createReRunLinkContainsLinkToReRunUrl() {
+		$reRunUrl = 'index.php?reRun=1&amp;foo=bar';
+
+		$test = $this->getMock(
+			'PHPUnit_Framework_TestCase', array(), array('myTest')
+		);
+
+		$fixture = $this->getMock($this->createAccessibleProxy(), array('createReRunUrl'));
+		$fixture->expects($this->once())->method('createReRunUrl')
+			->will($this->returnValue($reRunUrl));
+
+		$this->assertContains(
+			'<a href="' . $reRunUrl . '"',
+			$fixture->createReRunLink($test)
+		);
+	}
 
 	/**
 	 * @test
