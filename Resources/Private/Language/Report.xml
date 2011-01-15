@@ -19,6 +19,9 @@
 			<label index="status_eAccelerator_installedNew_verbose">eAccelerator in version %s is loaded. This is current enough to not crash phpunit.</label>
 			<label index="status_eAccelerator_installedOld_short">old version</label>
 			<label index="status_eAccelerator_installedOld_verbose">eAccelerator in version %s is loaded. This versions is known to &lt;a href=&quot;http://eaccelerator.net/ticket/242&quot;&gt;crash phpunit&lt;/a&gt; when the optimizer is turned on. You should either upgrade to eAccelerator version 0.9.5.2 (or later) or turn off the eAccelerator optimizer (in php.ini set: &lt;code&gt;eaccelerator.optimizer = &amp;quot;0&amp;quot;&lt;/code&gt;) when running phpunit.</label>
+			<label index="status_xdebug">Xdebug</label>
+			<label index="status_loaded">loaded</label>
+			<label index="status_notLoaded">not loaded</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="status_phpComments">PHP-Kommentare</label>
@@ -32,6 +35,9 @@
 			<label index="status_eAccelerator_installedNew_verbose">eAccelerator in der Version %s ist geladen. Diese Version ist neu genug, um phpunit nicht abstürzen zu lassen.</label>
 			<label index="status_eAccelerator_installedOld_short">veraltete Version</label>
 			<label index="status_eAccelerator_installedOld_verbose">eAccelerator in der Version %s ist geladen. Diese Version ist dafür bekannt, &lt;a href=&quot;http://eaccelerator.net/ticket/242&quot;&gt;phpunit zum Absturz zu bringen&lt;/a&gt;. Bitte aktualisieren Sie eAccelerator auf Version 0.9.5.2 (oder neuer) oder schalten Sie den eAccelerator-Optimierer aus (setzen Sie das hier in der php.ini: &lt;code&gt;eaccelerator.optimizer = &amp;quot;0&amp;quot;&lt;/code&gt;), wenn Sie mit phpunit arbeiten.</label>
+			<label index="status_xdebug">Xdebug</label>
+			<label index="status_loaded">geladen</label>
+			<label index="status_notLoaded">nicht geladen</label>
 		</languageKey>
 	</data>
 	<orig_hash type="array">
@@ -62,6 +68,9 @@
 			<label index="status_eAccelerator_installedNew_verbose">eAccelerator in version %s is loaded. This is current enough to not crash phpunit.</label>
 			<label index="status_eAccelerator_installedOld_short">old version</label>
 			<label index="status_eAccelerator_installedOld_verbose">eAccelerator in version %s is loaded. This versions is known to &lt;a href=&quot;http://eaccelerator.net/ticket/242&quot;&gt;crash phpunit&lt;/a&gt; when the optimizer is turned on. You should either upgrade to eAccelerator version 0.9.5.2 (or later) or turn off the eAccelerator optimizer (in php.ini set: &lt;code&gt;eaccelerator.optimizer = &amp;quot;0&amp;quot;&lt;/code&gt;) when running phpunit.</label>
+			<label index="status_xdebug">Xdebug</label>
+			<label index="status_loaded">loaded</label>
+			<label index="status_notLoaded">not loaded</label>
 		</languageKey>
 	</orig_text>
 </T3locallang>

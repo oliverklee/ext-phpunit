@@ -41,6 +41,7 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 		return array(
 			$this->getReflectionStatus(),
 			$this->getEAcceleratorStatus(),
+			$this->getXdebugStatus(),
 		);
 	}
 
@@ -130,6 +131,29 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 
 		return $status;
 	}
+
+	/**
+	 * Creates a status concerning whether Xdebug is loaded.
+	 *
+	 * @return tx_reports_reports_status_Status
+	 *         a status concerning whether Xdebug is loaded.
+	 */
+	protected function getXdebugStatus() {
+		if (extension_loaded('xdebug')) {
+			$messageKey = 'status_loaded';
+		} else {
+			$messageKey = 'status_notLoaded';
+		}
+
+		return t3lib_div::makeInstance(
+			'tx_reports_reports_status_Status',
+			$GLOBALS['LANG']->sL('LLL:EXT:phpunit/Resources/Private/Language/Report.xml:status_xdebug'),
+			$GLOBALS['LANG']->sL('LLL:EXT:phpunit/Resources/Private/Language/Report.xml:' . $messageKey),
+			'',
+			tx_reports_reports_status_Status::NOTICE
+		);
+	}
+
 }
 
 if (defined('TYPO3_MODE') && $GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/phpunit/Classes/Reports/Status.php']) {

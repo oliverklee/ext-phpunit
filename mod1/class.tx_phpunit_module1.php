@@ -686,9 +686,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		<p>The following extensions are excluded from being searched for tests:</p>
 		<pre>' . join(chr(10), $excludeExtensions) . '</pre>
 		<p>Note: The extension exclusion list can be changed in the extension manager.</p>
-		<h2>Is XDebug PHP extension loaded?</h2>
-		<p>To get code coverage reporting, PHPUnit needs the PHP extension <a target="_blank" href="http://www.xdebug.org"><em>XDebug</em></a>.</p>
-		<p>On this PHP installation, XDebug is ' . (extension_loaded('xdebug') ? '' : '<em>not</em>') . ' loaded.</p>
 		<h2>Current memory limit</h2>
 		<p>When using XDebug to collect code coverage data, you will need the memory limit to be set rather high. Something like 256MB will probably be needed.</p>
 		<p>On this PHP installation the memory limit is currently set to: ' . ini_get('memory_limit') . '</p>
