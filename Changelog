@@ -1,5 +1,5 @@
 2011-01-15 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #11696: Display the xdebug status in the reports module
+	* Fixed Bug #11696: Display the Xdebug status in the reports module
 
 2011-01-13 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #12152: tx_phpunit_BackEnd_TestListenerTest does not handle extbase-style names
