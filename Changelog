@@ -13,9 +13,7 @@
 	* Fixed Bug #12153: prettifyTestClass does not handle the "Test" suffix
 	* Fixed Bug #12151: prettifyTestClass adds leading space for the test class name "tx_phpunit_BackEnd_TestListenerTest"
 	* Fixed Bug #11731: Make the test listener testable (parts 1-3)
-
-2011-01-13 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #11687: Move the test listener to Classes
+	* Fixed Bug #11687: Move the test listener to Classes/
 	* Fixed Bug #11689: Move the CLI runner to Classes/
 	* Fixed Bug #11678: Move the Reports class to Classes/
 
