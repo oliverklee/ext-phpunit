@@ -36,6 +36,13 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	 */
 	private $fixture;
 
+	/**
+	 * the output of the test lister
+	 *
+	 * @var string
+	 */
+	private $output = '';
+
 	public function setUp() {
 		$fixtureClassName = $this->createAccessibleProxy();
 		$this->fixture = new $fixtureClassName();
@@ -78,6 +85,12 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 				'  public function setNumberOfAssertions($number) {' .
 				'    $this->testAssertions = $number;' .
 				'  }' .
+				'  public function setTestNumber($number) {' .
+				'    $this->currentTestNumber = $number;' .
+				'  }' .
+				'  public function setDataProviderNumber($number) {' .
+				'    $this->currentDataProviderNumber = $number;' .
+				'  }' .
 				'  public function output($output) {' .
 				'    parent::output($output);' .
 				'  }' .
@@ -86,6 +99,17 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		}
 
 		return $className;
+	}
+
+	/**
+	 * Callback function for collecting the output of the test listener.
+	 *
+	 * @param string $text the output to collect, may also be empty
+	 *
+	 * @return void
+	 */
+	public function outputCallback($text) {
+		$this->output .= $text;
 	}
 
 	/**
@@ -99,10 +123,123 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		);
 	}
 
+	/**
+	 * @test
+	 */
+	public function outputCallbackCollectsOutput() {
+		$this->outputCallback('Hello world!');
+
+		$this->assertSame(
+			'Hello world!',
+			$this->output
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function outputCallbackCollectsOutputInAddingOrder() {
+		$this->outputCallback('1');
+		$this->outputCallback('2');
+
+		$this->assertSame(
+			'12',
+			$this->output
+		);
+	}
+
 
 	/*
 	 * Unit tests
 	 */
+
+	/**
+	 * @test
+	 */
+	public function endTestSuiteCanBeCalled() {
+		$testSuite = $this->getMock('PHPUnit_Framework_TestSuite');
+
+		$this->fixture->endTestSuite($testSuite);
+	}
+
+	/**
+	 * @test
+	 */
+	public function startTestSetsTimeLimitOf30Seconds() {
+		$fixture = $this->getMock(
+			'Tx_Phpunit_BackEnd_TestListener', array('setTimeLimit', 'output')
+		);
+
+		$fixture->expects($this->once())->method('setTimeLimit')->with(30);
+
+		$fixture->startTest($this->getMock('PHPUnit_Framework_TestCase'));
+	}
+
+	/**
+	 * @test
+	 */
+	public function startTestOutputsCurrentTestNumberAndDataProviderNumberAsHtmlId() {
+		$fixture = $this->getMock(
+			$this->createAccessibleProxy(), array('setTimeLimit', 'output')
+		);
+		$fixture->expects($this->any())->method('output')
+			->will($this->returnCallback(array($this, 'outputCallback')));
+
+		$fixture->setTestNumber(42);
+		$fixture->setDataProviderNumber(91);
+
+		$testCase = $this->getMock('PHPUnit_Framework_TestCase');
+		$fixture->startTest($testCase);
+
+		$this->assertContains(
+			'id="testcaseNum-42_91"',
+			$this->output
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function startTestOutputsReRunLink() {
+		$fixture = $this->getMock(
+			'Tx_Phpunit_BackEnd_TestListener', array('setTimeLimit', 'output', 'createReRunLink')
+		);
+		$fixture->expects($this->any())->method('output')
+			->will($this->returnCallback(array($this, 'outputCallback')));
+
+		$testCase = $this->getMock('PHPUnit_Framework_TestCase');
+		$fixture->expects($this->once())->method('createReRunLink')
+			->with($testCase)->will($this->returnValue('the re-run URL'));
+
+		$fixture->startTest($testCase);
+
+		$this->assertContains(
+			'the re-run URL',
+			$this->output
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function startTestOutputsPrettifiedTestName() {
+		$fixture = $this->getMock(
+			'Tx_Phpunit_BackEnd_TestListener', array('setTimeLimit', 'output', 'prettifyTestMethod')
+		);
+		$fixture->expects($this->any())->method('output')
+			->will($this->returnCallback(array($this, 'outputCallback')));
+
+		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array('aTestName'));
+		$fixture->expects($this->once())->method('prettifyTestMethod')
+			->with('aTestName')->will($this->returnValue('a test name'));
+
+		$fixture->startTest($testCase);
+
+		$this->assertContains(
+			'a test name',
+			$this->output
+		);
+	}
 
 	/**
 	 * @test

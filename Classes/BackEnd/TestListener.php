@@ -343,12 +343,25 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 */
 	public function startTest(PHPUnit_Framework_Test $test) {
 		// A single test has to take less than this or else PHP will time out.
-		set_time_limit(30);
-		echo '<div id="testcaseNum-' . $this->currentTestNumber . '_' . $this->currentDataProviderNumber .
-			'" class="testcaseOutput testcaseSuccess">';
+		$this->setTimeLimit(30);
 
-		echo '<h3>' . $this->createReRunLink($test) . $this->prettifyTestMethod($test->getName()) . '</h3><div>';
+		$this->output(
+			'<div id="testcaseNum-' . $this->currentTestNumber . '_' . $this->currentDataProviderNumber .
+				'" class="testcaseOutput testcaseSuccess">' .
+				'<h3>' . $this->createReRunLink($test) . $this->prettifyTestMethod($test->getName()) . '</h3><div>'
+		);
 		$this->memoryUsageStartOfTest = memory_get_usage();
+	}
+
+	/**
+	 * Sets the PHP execution time limit.
+	 *
+	 * @param integer $limit the PHP execution time limit in seconds, must be >= 0
+	 *
+	 * @return void
+	 */
+	protected function setTimeLimit($limit) {
+		set_time_limit($limit);
 	}
 
 	/**
@@ -386,14 +399,14 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 		$output = '</div>';
 		if ($this->enableShowMemoryAndTime === TRUE) {
 			$output .= '<span class="memory-leak small-font"><strong>Memory leak:</strong> ' .
-				t3lib_div::formatSize($leakedMemory) . 'B </span>';
-			$output .= '<span class="time-usages small-font"><strong>Time:</strong> ' . sprintf('%.4f', $time) .
+				t3lib_div::formatSize($leakedMemory) . 'B </span>' .
+				'<span class="time-usages small-font"><strong>Time:</strong> ' . sprintf('%.4f', $time) .
 				' sec.</span><br />';
 		}
-		$output .= '</div>';
-		$output .= '<script type="text/javascript">/*<![CDATA[*/document.getElementById("progress-bar").style.width = "' .
-			$percentDone . '%";/*]]>*/</script>';
-		$output .= '<script type="text/javascript">/*<![CDATA[*/document.getElementById("transparent-bar").style.width = "' .
+		$output .= '</div>' .
+			'<script type="text/javascript">/*<![CDATA[*/document.getElementById("progress-bar").style.width = "' .
+			$percentDone . '%";/*]]>*/</script>' .
+			'<script type="text/javascript">/*<![CDATA[*/document.getElementById("transparent-bar").style.width = "' .
 			(100 - $percentDone) . '%";/*]]>*/</script>';
 
 		$this->output($output);
