@@ -156,6 +156,28 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
+	public function startTestSuiteOutputsPrettifiedTestClassName() {
+		$fixture = $this->getMock(
+			'Tx_Phpunit_BackEnd_TestListener', array('output', 'prettifyTestClass')
+		);
+		$fixture->expects($this->any())->method('output')
+			->will($this->returnCallback(array($this, 'outputCallback')));
+
+		$testSuite = $this->getMock('PHPUnit_Framework_TestSuite', array('run'), array('aTestSuiteName'));
+		$fixture->expects($this->once())->method('prettifyTestClass')
+			->with('aTestSuiteName')->will($this->returnValue('a test suite name'));
+
+		$fixture->startTestSuite($testSuite);
+
+		$this->assertContains(
+			'a test suite name',
+			$this->output
+		);
+	}
+
+	/**
+	 * @test
+	 */
 	public function endTestSuiteCanBeCalled() {
 		$testSuite = $this->getMock('PHPUnit_Framework_TestSuite');
 
