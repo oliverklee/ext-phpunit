@@ -200,19 +200,21 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 		$testCaseTraceArr = $this->getFirstNonPhpUnitTrace($e->getTrace());
 		$fileName = str_replace(PATH_site, '', $testCaseTraceArr['file']);
 
-		echo '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadFailure");/*]]>*/</script>
-			<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
-				$this->currentDataProviderNumber . '","testcaseFailure");/*]]>*/</script>
-			<strong><span class="hadFailure">!</span> Failure</strong> in test case <em>' . $test->getName() . '</em>
-			<br />File: <em>' . $fileName . '</em>
-			<br />Line: <em>' . $testCaseTraceArr['line'] . '</em>';
+		$this->output(
+			'<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadFailure");/*]]>*/</script>' .
+				'<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
+				$this->currentDataProviderNumber . '","testcaseFailure");/*]]>*/</script>' .
+				'<strong><span class="hadFailure">!</span> Failure</strong> in test case <em>' . $test->getName() . '</em>' .
+				'<br />File: <em>' . $fileName . '</em>' .
+				'<br />Line: <em>' . $testCaseTraceArr['line'] . '</em>'
+		);
 
 		if (method_exists($e, 'getDescription')) {
 			$message = $e->getDescription();
 		} else {
 			$message = $e->getMessage();
 		}
-		echo '<div class="message">' . nl2br(htmlspecialchars($message)) . '</div>';
+		$this->output('<div class="message">' . nl2br(htmlspecialchars($message)) . '</div>');
 
 		if ($e instanceof PHPUnit_Framework_ExpectationFailedException) {
 			$comparisonFailure = $e->getComparisonFailure();
@@ -221,11 +223,9 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 				$actual = htmlspecialchars($comparisonFailure->getActual());
 
 				$diff = t3lib_div::makeInstance('t3lib_diff');
-				echo $diff->makeDiffDisplay($actual, $expected, 'pre');
+				$this->output($diff->makeDiffDisplay($actual, $expected, 'pre'));
 			}
 		}
-
-		flush();
 	}
 
 	/**
@@ -259,13 +259,14 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 * @return void
 	 */
 	public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
-		echo '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadNotImplemented");/*]]>*/</script>
-			<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
-				$this->currentDataProviderNumber . '","testcaseNotImplemented");/*]]>*/</script>
-			<span class="inCompleteTest">!</span> <strong>Incomplete test</strong> <em>' . $test->getName()
-			 . '</em> in file <em>' . $e->getFile() . '</em> line <em>' . $e->getLine() . '</em>:<br />
-			' . $e->getMessage() . '<br />';
-		flush();
+		$this->output(
+			'<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadNotImplemented");/*]]>*/</script>' .
+				'<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
+				$this->currentDataProviderNumber . '","testcaseNotImplemented");/*]]>*/</script>' .
+				'<span class="inCompleteTest">!</span> <strong>Incomplete test</strong> <em>' . $test->getName() .
+				'</em> in file <em>' . $e->getFile() . '</em> line <em>' . $e->getLine() . '</em>:<br />' .
+				$e->getMessage() . '<br />'
+		);
 	}
 
 	/**
@@ -278,13 +279,14 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 * @return void
 	 */
 	public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
-		echo '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadSkipped");/*]]>*/</script>
-			<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
-				$this->currentDataProviderNumber . '","testcaseSkipped");/*]]>*/</script>
-			<span class="inSkippedTest">!</span> <strong>Skipped test</strong> <em>' . $test->getName() . '</em> in file <em>'
-			 . $e->getFile() . '</em> line <em>' . $e->getLine() . '</em>:<br />
-			' . $e->getMessage() . '<br />';
-		flush();
+		$this->output(
+			'<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadSkipped");/*]]>*/</script>' .
+				'<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
+				$this->currentDataProviderNumber . '","testcaseSkipped");/*]]>*/</script>' .
+				'<span class="inSkippedTest">!</span> <strong>Skipped test</strong> <em>' . $test->getName() . '</em> in file <em>' .
+				$e->getFile() . '</em> line <em>' . $e->getLine() . '</em>:<br />' .
+				$e->getMessage() . '<br />'
+		);
 	}
 
 	/**

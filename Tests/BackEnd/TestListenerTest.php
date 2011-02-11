@@ -156,6 +156,72 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
+	public function addFailureOutputsTestName() {
+		$fixture = $this->getMock(
+			'Tx_Phpunit_BackEnd_TestListener', array('output')
+		);
+		$fixture->expects($this->any())->method('output')
+			->will($this->returnCallback(array($this, 'outputCallback')));
+
+		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array('aTestName'));
+		$error = $this->getMock('PHPUnit_Framework_AssertionFailedError');
+		$time = 0.0;
+
+		$fixture->addFailure($testCase, $error, $time);
+
+		$this->assertContains(
+			'aTestName',
+			$this->output
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function addIncompleteTestOutputsTestName() {
+		$fixture = $this->getMock(
+			'Tx_Phpunit_BackEnd_TestListener', array('output')
+		);
+		$fixture->expects($this->any())->method('output')
+			->will($this->returnCallback(array($this, 'outputCallback')));
+
+		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array('aTestName'));
+		$exception = new Exception();
+		$time = 0.0;
+
+		$fixture->addIncompleteTest($testCase, $exception, $time);
+
+		$this->assertContains(
+			'aTestName',
+			$this->output
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function addSkippedTestOutputsTestName() {
+		$fixture = $this->getMock(
+			'Tx_Phpunit_BackEnd_TestListener', array('output')
+		);
+		$fixture->expects($this->any())->method('output')
+			->will($this->returnCallback(array($this, 'outputCallback')));
+
+		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array('aTestName'));
+		$exception = new Exception();
+		$time = 0.0;
+
+		$fixture->addSkippedTest($testCase, $exception, $time);
+
+		$this->assertContains(
+			'aTestName',
+			$this->output
+		);
+	}
+
+	/**
+	 * @test
+	 */
 	public function startTestSuiteOutputsPrettifiedTestClassName() {
 		$fixture = $this->getMock(
 			'Tx_Phpunit_BackEnd_TestListener', array('output', 'prettifyTestClass')
