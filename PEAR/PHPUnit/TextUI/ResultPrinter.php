@@ -53,7 +53,7 @@ require_once 'PHP/Timer.php';
  * @author     Sebastian Bergmann <sebastian@phpunit.de>
  * @copyright  2002-2011 Sebastian Bergmann <sebastian@phpunit.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 3.5.7
+ * @version    Release: 3.5.10
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 2.0.0
  */
@@ -68,6 +68,11 @@ class PHPUnit_TextUI_ResultPrinter extends PHPUnit_Util_Printer implements PHPUn
      * @var integer
      */
     protected $column = 0;
+
+    /**
+     * @var integer
+     */
+    protected $maxColumn;
 
     /**
      * @var boolean
@@ -525,6 +530,7 @@ class PHPUnit_TextUI_ResultPrinter extends PHPUnit_Util_Printer implements PHPUn
         if ($this->numTests == -1) {
             $this->numTests      = count($suite);
             $this->numTestsWidth = strlen((string)$this->numTests);
+            $this->maxColumn     = 69 - (2 * $this->numTestsWidth);
         }
     }
 
@@ -582,14 +588,15 @@ class PHPUnit_TextUI_ResultPrinter extends PHPUnit_Util_Printer implements PHPUn
         $this->column++;
         $this->numTestsRun++;
 
-        if ($this->column == 60) {
+        if ($this->column == $this->maxColumn) {
             $this->write(
               sprintf(
                 ' %' . $this->numTestsWidth . 'd / %' .
-                       $this->numTestsWidth . "d",
+                       $this->numTestsWidth . 'd (%3s%%)',
 
                 $this->numTestsRun,
-                $this->numTests
+                $this->numTests,
+                floor(($this->numTestsRun / $this->numTests) * 100)
               )
             );
 

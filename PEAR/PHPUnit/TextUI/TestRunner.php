@@ -52,7 +52,7 @@
  * @author     Sebastian Bergmann <sebastian@phpunit.de>
  * @copyright  2002-2011 Sebastian Bergmann <sebastian@phpunit.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 3.5.7
+ * @version    Release: 3.5.10
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 2.0.0
  */
@@ -147,11 +147,7 @@ class PHPUnit_TextUI_TestRunner extends PHPUnit_Runner_BaseTestRunner
         $this->handleConfiguration($arguments);
 
         if (isset($arguments['bootstrap'])) {
-            $bootstrap = PHPUnit_Util_Fileloader::load($arguments['bootstrap']);
-
-            if ($bootstrap) {
-                $GLOBALS['__PHPUNIT_BOOTSTRAP'] = $bootstrap;
-            }
+            $GLOBALS['__PHPUNIT_BOOTSTRAP'] = $arguments['bootstrap'];
         }
 
         if ($arguments['backupGlobals'] === FALSE) {

@@ -51,7 +51,7 @@
  * @author     Sebastian Bergmann <sebastian@phpunit.de>
  * @copyright  2002-2011 Sebastian Bergmann <sebastian@phpunit.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 3.5.7
+ * @version    Release: 3.5.10
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 2.0.0
  */
@@ -75,20 +75,6 @@ class PHPUnit_Runner_StandardTestSuiteLoader implements PHPUnit_Runner_TestSuite
         }
 
         if (!class_exists($suiteClassName, FALSE)) {
-            if (!file_exists($suiteClassFile)) {
-                $includePaths = explode(PATH_SEPARATOR, get_include_path());
-
-                foreach ($includePaths as $includePath) {
-                    $file = $includePath . DIRECTORY_SEPARATOR .
-                            $suiteClassFile;
-
-                    if (file_exists($file)) {
-                        $suiteClassFile = $file;
-                        break;
-                    }
-                }
-            }
-
             PHPUnit_Util_Class::collectStart();
             PHPUnit_Util_Fileloader::checkAndLoad($suiteClassFile, $syntaxCheck);
             $loadedClasses = PHPUnit_Util_Class::collectEnd();

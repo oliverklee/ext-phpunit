@@ -43,6 +43,12 @@
  * @since      File available since Release 2.3.0
  */
 
+// Workaround for http://bugs.php.net/bug.php?id=47987,
+// see https://github.com/sebastianbergmann/phpunit/issues#issue/125 for details
+require_once 'PHPUnit/Framework/Error.php';
+require_once 'PHPUnit/Framework/Error/Notice.php';
+require_once 'PHPUnit/Framework/Error/Warning.php';
+
 /**
  * Error handler that converts PHP errors and warnings to exceptions.
  *
@@ -51,7 +57,7 @@
  * @author     Sebastian Bergmann <sebastian@phpunit.de>
  * @copyright  2002-2011 Sebastian Bergmann <sebastian@phpunit.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 3.5.7
+ * @version    Release: 3.5.10
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 3.3.0
  */

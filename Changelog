@@ -1,3 +1,6 @@
+2011-02-12 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #12241: Update PHPUnit to 3.5.10
+
 2011-02-11 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #11731: Make the test listener testable (parts 5, 6 and 7)
 

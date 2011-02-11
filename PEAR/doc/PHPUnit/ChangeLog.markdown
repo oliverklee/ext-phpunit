@@ -3,6 +3,26 @@ PHPUnit 3.5
 
 This is the list of changes for the PHPUnit 3.5 release series.
 
+PHPUnit 3.5.10
+--------------
+
+* Fixed GH-71: `PHPUnit_Framework_TestSuite::addTestFile()` has problems identifying the correct test suite.
+* Fixed GH-120: Printer class does not handle "file does not exist" problems correctly.
+* Fixed GH-125: Work around [PHP bug #47987](http://bugs.php.net/bug.php?id=47987).
+
+PHPUnit 3.5.9
+-------------
+
+* Fixed GH-17: Process Isolation breaks for global objects that implement the `Serializable` interface.
+* Fixed GH-64: `./` added to path to test when using PHPUnit on Windows terminal.
+* Fixed GH-104: Bootstrap must be relative to the current directory.
+
+PHPUnit 3.5.8
+-------------
+
+* Fixed GH-84: If no assertions are made the code should not be marked as covered.
+* Fixed GH-115: Make most of the attributes in `PHPUnit_Framework_TestCase` private.
+
 PHPUnit 3.5.7
 -------------
 

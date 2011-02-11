@@ -54,7 +54,7 @@ require_once 'PHP/Timer.php';
  * @author     Sebastian Bergmann <sebastian@phpunit.de>
  * @copyright  2002-2011 Sebastian Bergmann <sebastian@phpunit.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 3.5.7
+ * @version    Release: 3.5.10
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 2.0.0
  */
@@ -683,11 +683,16 @@ class PHPUnit_Framework_TestResult implements Countable
         }
 
         $time = PHP_Timer::stop();
+        $test->addToAssertionCount(PHPUnit_Framework_Assert::getCount());
+
+        if ($this->strictMode && $test->getNumAssertions() == 0) {
+            $incomplete = TRUE;
+        }
 
         if ($useXdebug) {
             $data = $this->codeCoverage->stop(FALSE);
 
-            if (!$this->strictMode || (!$incomplete && !$skipped)) {
+            if (!$incomplete && !$skipped) {
                 if ($this->collectRawCodeCoverageInformation) {
                     $this->rawCodeCoverageInformation[] = $data;
                 } else {
@@ -707,8 +712,6 @@ class PHPUnit_Framework_TestResult implements Countable
         if ($errorHandlerSet === TRUE) {
             restore_error_handler();
         }
-
-        $test->addToAssertionCount(PHPUnit_Framework_Assert::getCount());
 
         if ($error === TRUE) {
             $this->addError($test, $e, $time);

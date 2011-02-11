@@ -51,7 +51,7 @@
  * @author     Sebastian Bergmann <sebastian@phpunit.de>
  * @copyright  2002-2011 Sebastian Bergmann <sebastian@phpunit.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 3.5.7
+ * @version    Release: 3.5.10
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 2.3.0
  */
@@ -64,25 +64,28 @@ class PHPUnit_Util_Fileloader
      *
      * @param  string  $filename
      * @param  boolean $syntaxCheck
+     * @return string
      * @throws RuntimeException
      */
     public static function checkAndLoad($filename, $syntaxCheck = FALSE)
     {
-        if (!is_readable($filename)) {
-            $filename = './' . $filename;
-        }
+        $includePathFilename = PHPUnit_Util_Filesystem::fileExistsInIncludePath(
+          $filename
+        );
 
-        if (!is_readable($filename)) {
+        if (!$includePathFilename || !is_readable($includePathFilename)) {
             throw new RuntimeException(
               sprintf('Cannot open file "%s".' . "\n", $filename)
             );
         }
 
         if ($syntaxCheck) {
-            self::syntaxCheck($filename);
+            self::syntaxCheck($includePathFilename);
         }
 
-        self::load($filename);
+        self::load($includePathFilename);
+
+        return $includePathFilename;
     }
 
     /**
@@ -94,10 +97,6 @@ class PHPUnit_Util_Fileloader
      */
     public static function load($filename)
     {
-        $filename = PHPUnit_Util_Filesystem::fileExistsInIncludePath(
-          $filename
-        );
-
         $oldVariableNames = array_keys(get_defined_vars());
 
         include_once $filename;
