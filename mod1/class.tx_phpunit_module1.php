@@ -529,7 +529,11 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 						$testIdentifier = get_class($test);
 					}
 					if ($testIdentifier === $testCaseFileName) {
-						$totalNumberOfTestCases++;
+						if ($test instanceof PHPUnit_Framework_TestSuite) {
+							$totalNumberOfTestCases += $test->count();
+						} else {
+							$totalNumberOfTestCases++;
+						}
 					}
 				}
 			}
