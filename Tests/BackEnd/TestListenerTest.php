@@ -395,6 +395,46 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
+	public function endTestIncreasesTotalNumberOfDataProvidedTestsWhenRunWithDataProvidedTests() {
+		$fixture = $this->getMock(
+			'Tx_Phpunit_BackEnd_TestListener', array('output', 'flushOutputBuffer')
+		);
+
+		$test = $this->getMock('PHPUnit_Framework_TestCase', array('dummy'), array('Test 1'));
+		$test2 = $this->getMock('PHPUnit_Framework_TestCase', array('dummy'), array('Test 2'));
+
+		$fixture->endTest($test);
+		$fixture->endTest($test2);
+
+		$this->assertSame(
+			1,
+			$fixture->getTotalNumberOfDetectedDataProviderTests()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function endTestDoesNotIncreaseTotalNumberOfDataProvidedTestsWhenRunWithNormalTests() {
+		$fixture = $this->getMock(
+			'Tx_Phpunit_BackEnd_TestListener', array('output', 'flushOutputBuffer')
+		);
+
+		$test = $this->getMock('PHPUnit_Framework_TestCase', array('dummy'), array('FirstTest'));
+		$test2 = $this->getMock('PHPUnit_Framework_TestCase', array('dummy'), array('SecondTest'));
+
+		$fixture->endTest($test);
+		$fixture->endTest($test2);
+
+		$this->assertSame(
+			0,
+			$fixture->getTotalNumberOfDetectedDataProviderTests()
+		);
+	}
+
+	/**
+	 * @test
+	 */
 	public function createReRunLinkContainsLinkToReRunUrl() {
 		$reRunUrl = 'index.php?reRun=1&amp;foo=bar';
 

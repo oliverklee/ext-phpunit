@@ -40,6 +40,12 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 * @var integer
 	 */
 	protected $totalNumberOfTests = 0;
+	/**
+	 * the total number of data provider tests detected
+	 *
+	 * @var integer
+	 */
+	protected $totalNumberOfDetectedDataProviderTests = 0;
 
 	/**
 	 * the number of the current test (zero-based)
@@ -144,6 +150,18 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 */
 	public function setTotalNumberOfTests($totalNumberOfTests) {
 		$this->totalNumberOfTests = $totalNumberOfTests;
+	}
+
+	/**
+	 * Gets the total number of tests that were detected to come from data providers.
+	 *
+	 * Note: As these are detected based on similar names, the first test from a data
+	 * provider cannot be detected reliably; the number will always be too low.
+	 *
+	 * @return integer the total number of data-provider related tests detected so far, will be >= 0
+	 */
+	public function getTotalNumberOfDetectedDataProviderTests() {
+		return $this->totalNumberOfDetectedDataProviderTests;
 	}
 
 	/**
@@ -389,10 +407,11 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 				$this->previousTestName = $testName;
 			} else {
 				$this->currentDataProviderNumber++;
+				$this->totalNumberOfDetectedDataProviderTests++;
 			}
 		}
 
-		$percentDone = intval(($this->currentTestNumber / $this->totalNumberOfTests) * 100);
+		$percentDone = intval(($this->currentTestNumber / ($this->totalNumberOfTests - $this->totalNumberOfDetectedDataProviderTests)) * 100);
 		$leakedMemory = ($this->memoryUsageEndOfTest - $this->memoryUsageStartOfTest);
 		$this->totalLeakedMemory += $leakedMemory;
 
