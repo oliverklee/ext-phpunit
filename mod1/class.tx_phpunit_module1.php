@@ -491,7 +491,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$startTime = microtime(TRUE);
 
 		if (t3lib_div::_GP('testname')) {
-			$testListener->setTotalNumberOfTests(1);
 			$this->runTests_renderInfoAndProgressbar();
 			foreach ($testSuite->tests() as $testCases) {
 				foreach ($testCases->tests() as $test) {
@@ -505,6 +504,11 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 						$testListener->setTestSuiteName($testSuiteName);
 					}
 					if ($testIdentifier === t3lib_div::_GP('testname')) {
+						if ($test instanceof PHPUnit_Framework_TestSuite) {
+							$testListener->setTotalNumberOfTests($test->count());
+						} else {
+							$testListener->setTotalNumberOfTests(1);
+						}
 						echo '<h2 class="testSuiteName">Testsuite: ' . $testCases->getName() . '</h2>';
 						$test->run($result);
 					}
