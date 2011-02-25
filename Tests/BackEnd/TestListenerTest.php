@@ -178,6 +178,54 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
+	public function addFailureWithComparisonFailureOutputsHtmlSpecialchardExpectedString() {
+		$fixture = $this->getMock(
+			'Tx_Phpunit_BackEnd_TestListener', array('output')
+		);
+		$fixture->expects($this->any())->method('output')
+			->will($this->returnCallback(array($this, 'outputCallback')));
+
+		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array('aTestName'));
+		$error = new PHPUnit_Framework_ExpectationFailedException(
+			'', new PHPUnit_Framework_ComparisonFailure_String('expected&correct', 'actual&incorrect')
+		);
+		$time = 0.0;
+
+		$fixture->addFailure($testCase, $error, $time);
+
+		$this->assertContains(
+			'expected&amp;correct',
+			strip_tags($this->output)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function addFailureWithComparisonFailureOutputsHtmlSpecialchardActualString() {
+		$fixture = $this->getMock(
+			'Tx_Phpunit_BackEnd_TestListener', array('output')
+		);
+		$fixture->expects($this->any())->method('output')
+			->will($this->returnCallback(array($this, 'outputCallback')));
+
+		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array('aTestName'));
+		$error = new PHPUnit_Framework_ExpectationFailedException(
+			'', new PHPUnit_Framework_ComparisonFailure_String('expected&correct', 'actual&incorrect')
+		);
+		$time = 0.0;
+
+		$fixture->addFailure($testCase, $error, $time);
+
+		$this->assertContains(
+			'actual&amp;incorrect',
+			strip_tags($this->output)
+		);
+	}
+
+	/**
+	 * @test
+	 */
 	public function addIncompleteTestOutputsTestName() {
 		$fixture = $this->getMock(
 			'Tx_Phpunit_BackEnd_TestListener', array('output')
