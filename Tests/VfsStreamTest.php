@@ -30,7 +30,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_PhpUnit_VfsStreamTest extends tx_phpunit_testcase {
+class Tx_PhpUnit_VfsStreamTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
