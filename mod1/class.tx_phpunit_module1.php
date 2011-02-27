@@ -694,9 +694,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		<p>The following extensions are excluded from being searched for tests:</p>
 		<pre>' . join(chr(10), $excludeExtensions) . '</pre>
 		<p>Note: The extension exclusion list can be changed in the extension manager.</p>
-		<h2>Current memory limit</h2>
-		<p>When using XDebug to collect code coverage data, you will need the memory limit to be set rather high. Something like 256MB will probably be needed.</p>
-		<p>On this PHP installation the memory limit is currently set to: ' . ini_get('memory_limit') . '</p>
 		<h2>This extension has bugs...</h2>
 		<P><a target="_blank" href="http://forge.typo3.org/projects/extension-phpunit/issues">Issues can be seen and posted by clicking this link, http://forge.typo3.org/projects/extension-phpunit/issues</a>.</p>
 		<p>You can report an issue by following the above link. An issue can be e.g. a bug or an improvement/enhancement.</p>

@@ -32,6 +32,15 @@
  */
 class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 	/**
+	 * @var string
+	 */
+	const MEMORY_REQUIRED = '128M';
+	/**
+	 * @var string
+	 */
+	const MEMORY_RECOMMENDED = '256M';
+
+	/**
 	 * Returns the status of this extension.
 	 *
 	 * @return array<tx_reports_reports_status_Status>
@@ -42,6 +51,7 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 			$this->getReflectionStatus(),
 			$this->getEAcceleratorStatus(),
 			$this->getXdebugStatus(),
+			$this->getMemoryLimitStatus(),
 		);
 	}
 
@@ -164,6 +174,54 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 			tx_reports_reports_status_Status::NOTICE
 		);
 	}
+
+	/**
+	 * Creates a status concerning the PHP memory limit.
+	 *
+	 * @return tx_reports_reports_status_Status
+	 *         a status indicating whether the PHP memory limit is high enogh
+	 */
+	protected function getMemoryLimitStatus() {
+		$memoryLimitFromConfiguration = ini_get('memory_limit');
+		$memoryLimitInBytes = t3lib_div::getBytesFromSizeMeasurement($memoryLimitFromConfiguration);
+		$requiredMemoryLimitInBytes = t3lib_div::getBytesFromSizeMeasurement(self::MEMORY_REQUIRED);
+		$recommendedMemoryLimitInBytes = t3lib_div::getBytesFromSizeMeasurement(self::MEMORY_RECOMMENDED);
+
+		$heading = $this->translate('status_memoryLimit');
+		$message = sprintf(
+			$this->translate('status_memoryLimit_tooLittle'),
+			self::MEMORY_REQUIRED, self::MEMORY_RECOMMENDED
+		);
+
+		if ($memoryLimitInBytes < $requiredMemoryLimitInBytes) {
+			$status = t3lib_div::makeInstance(
+				'tx_reports_reports_status_Status',
+				$heading,
+				$memoryLimitFromConfiguration,
+				$message,
+				tx_reports_reports_status_Status::ERROR
+			);
+		} elseif ($memoryLimitInBytes < $recommendedMemoryLimitInBytes) {
+			$status = t3lib_div::makeInstance(
+				'tx_reports_reports_status_Status',
+				$heading,
+				$memoryLimitFromConfiguration,
+				$message,
+				tx_reports_reports_status_Status::WARNING
+			);
+		} else {
+			$status = t3lib_div::makeInstance(
+				'tx_reports_reports_status_Status',
+				$heading,
+				$memoryLimitFromConfiguration,
+				'',
+				tx_reports_reports_status_Status::OK
+			);
+		}
+
+		return $status;
+	}
+
 }
 
 if (defined('TYPO3_MODE') && $GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/phpunit/Classes/Reports/Status.php']) {

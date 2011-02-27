@@ -1,3 +1,6 @@
+2011-02-27 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #12262: Add a check for the memory limit being >= 256 MB to the reports module
+
 2011-02-25 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #12137: compare output is htmlspecialchared twice
 	* Fixed Bug #13278: vfsStreamWrapper cannot be used if it is not included
