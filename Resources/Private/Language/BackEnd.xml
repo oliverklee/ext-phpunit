@@ -15,8 +15,6 @@
 			<label index="admin_rights_needed">You need administrator rights in order to use PHPUnit back-end module.</label>
 			<label index="all_extensions">All extensions</label>
 			<label index="could_not_find_exts_with_tests">Could not find any extension with unit tests.</label>
-			<label index="function_about">About PHPUnit BE</label>
-			<label index="function_runtests">Run tests</label>
 			<label index="run_again"><![CDATA[<span class="access-key">R</span>e-run]]></label>
 			<label index="run_all_tests"><![CDATA[Run <span class="access-key">a</span>ll tests]]></label>
 			<label index="run_single_test"><![CDATA[Run <span class="access-key">s</span>ingle test]]></label>
@@ -44,8 +42,6 @@
 			<label index="admin_rights_needed">Der kræves administrator-rettigheder, for at må bruge PHPUnit back-end modulet.</label>
 			<label index="all_extensions">Alle extensions</label>
 			<label index="could_not_find_exts_with_tests">Der blev ikke fundet extensions med unit tests.</label>
-			<label index="function_about">Om PHPUnit BE</label>
-			<label index="function_runtests">Kør tests</label>
 			<label index="run_again"><![CDATA[Kø<span class="access-key">r</span> igen]]></label>
 			<label index="run_all_tests"><![CDATA[Kør <span class="access-key">a</span>lle tests]]></label>
 			<label index="run_single_test"><![CDATA[Kør enkelt te<span class="access-key">s</span>t]]></label>
@@ -67,8 +63,6 @@
 			<label index="admin_rights_needed">Du brauchst Admin-Rechte um das PHPUnit Back-End Modul zu benutzen.</label>
 			<label index="all_extensions">Alle Extensions</label>
 			<label index="could_not_find_exts_with_tests">Es konnte keine Extension mit Unit Tests gefunden werden</label>
-			<label index="function_about">Über PHPUnit BE</label>
-			<label index="function_runtests">Run tests</label>
 			<label index="run_again"><![CDATA[Test e<span class="access-key">r</span>neut ausführen]]></label>
 			<label index="run_all_tests"><![CDATA[<span class="access-key">A</span>lle Tests ausführen]]></label>
 			<label index="run_single_test"><![CDATA[Einzelnen Te<span class="access-key">s</span>t ausführen]]></label>
@@ -97,8 +91,6 @@
 			<label index="admin_rights_needed" type="integer">195260803</label>
 			<label index="all_extensions" type="integer">66417136</label>
 			<label index="could_not_find_exts_with_tests" type="integer">99997652</label>
-			<label index="function_about" type="integer">98185528</label>
-			<label index="function_runtests" type="integer">159366163</label>
 			<label index="run_again" type="integer">130532274</label>
 			<label index="run_all_tests" type="integer">23665408</label>
 			<label index="run_single_test" type="integer">52987544</label>
@@ -122,8 +114,6 @@
 			<label index="admin_rights_needed">You need administrator rights in order to use PHPUnit back-end module.</label>
 			<label index="all_extensions">All extensions</label>
 			<label index="could_not_find_exts_with_tests">Could not find any extension with unit tests.</label>
-			<label index="function_about">About PHPUnit BE</label>
-			<label index="function_runtests">Run tests</label>
 			<label index="run_again">Run again</label>
 			<label index="run_all_tests">Run all tests</label>
 			<label index="run_single_test">Run single test</label>
@@ -145,8 +135,6 @@
 			<label index="admin_rights_needed">You need administrator rights in order to use PHPUnit back-end module.</label>
 			<label index="all_extensions">All extensions</label>
 			<label index="could_not_find_exts_with_tests">Could not find any extension with unit tests.</label>
-			<label index="function_about">About PHPUnit BE</label>
-			<label index="function_runtests">Run tests</label>
 			<label index="run_again">Run again</label>
 			<label index="run_all_tests">Run all tests</label>
 			<label index="run_single_test">Run single test</label>

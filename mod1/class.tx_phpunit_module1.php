@@ -85,26 +85,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	}
 
 	/**
-	 * Creates the configuration for the function selector box.
-	 *
-	 * @return void
-	 */
-	public function menuConfig() {
-		$this->MOD_MENU = array(
-			'function' => array(
-				'runtests' => $this->getLL('function_runtests'),
-				'about' => $this->getLL('function_about'),
-			),
-			'extSel' => '',
-			'failure' => '',
-			'success' => '',
-			'error' => '',
-			'codeCoverage' => '',
-		);
-		parent::menuConfig();
-	}
-
-	/**
 	 * Main function of the module. Outputs all content directly using echo
 	 * instead of collecting it and doing the output later.
 	 *
@@ -150,15 +130,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				)
 			);
 
-			// Render content:
-			switch ($this->MOD_SETTINGS['function']) {
-				case 'runtests' :
-					$this->runTests_render();
-					break;
-				case 'about' :
-					$this->about_render();
-					break;
-			}
+			$this->runTests_render();
 
 			echo $this->doc->section(
 				'Keyboard shortcuts',
@@ -667,33 +639,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		$GLOBALS['TSFE'] = $frontEnd;
 	}
 
-	/**
-	 * Renders the "About" screen.
-	 *
-	 * @return void
-	 */
-	protected function about_render() {
-		$codeCoverageDir['exists'] = file_exists($this->extensionPath . 'codecoverage');
-		if ($codeCoverageDir['exists']) {
-			$codeCoverageDir['writeable'] = is_writeable($this->extensionPath . 'codecoverage');
-			$codeCoverageDir['readable'] = is_readable($this->extensionPath . 'codecoverage');
-		}
-		echo '<img src="' . $this->extensionPath .
-			'Resources/Public/Icons/PHPUnit.gif" width="94" height="80" alt="PHPUnit" title="PHPUnit" style="float:right; margin-left:10px;" />';
-		echo '
-		<h1>About PHPUnit Backend Module</h1>
-		<p>PHPUnit BE is a <a href="http://en.wikipedia.org/wiki/Unit_testing">unit testing</a> framework based on <a href="http://www.phpunit.de/" target="_new">PHPUnit</a> by Sebastian Bergmann. It offers smooth integration
-		of the PHPUnit framework into TYPO3 and offers an API and many functions which make unit testing of TYPO3 extensions easy and comfortable.</p>
-		<h2>Get test-infected!</h2>
-		<p>If you think writing tests are dull, then try it. <a href="http://junit.sourceforge.net/doc/testinfected/testing.htm">You might become test-infected</a>!</p>
-		<h2>This extension has bugs...</h2>
-		<P><a target="_blank" href="http://forge.typo3.org/projects/extension-phpunit/issues">Issues can be seen and posted by clicking this link, http://forge.typo3.org/projects/extension-phpunit/issues</a>.</p>
-		<p>You can report an issue by following the above link. An issue can be e.g. a bug or an improvement/enhancement.</p>
-		<p>Older issues: <a target="_blank" href="http://bugs.typo3.org/search.php?project_id=79&amp;sticky_issues=on&amp;sortby=last_updated&amp;dir=DESC&amp;hide_status_id=90">Click to see the list of (preferably older) issues for this extension</a>.</p>
-		<h2>Browse code in Subversion repository</h2>
-		<p><a target="_blank" href="http://forge.typo3.org/repositories/show/extension-phpunit">The code repository for the phpunit extension can be browsed here, http://forge.typo3.org/repositories/show/extension-phpunit</a>.</p>
-		';
-	}
 
 
 	/*********************************************************
