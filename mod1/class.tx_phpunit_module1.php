@@ -680,17 +680,12 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		}
 		echo '<img src="' . $this->extensionPath .
 			'Resources/Public/Icons/PHPUnit.gif" width="94" height="80" alt="PHPUnit" title="PHPUnit" style="float:right; margin-left:10px;" />';
-		$excludeExtensions = t3lib_div::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['excludeextensions']);
 		echo '
 		<h1>About PHPUnit Backend Module</h1>
 		<p>PHPUnit BE is a <a href="http://en.wikipedia.org/wiki/Unit_testing">unit testing</a> framework based on <a href="http://www.phpunit.de/" target="_new">PHPUnit</a> by Sebastian Bergmann. It offers smooth integration
 		of the PHPUnit framework into TYPO3 and offers an API and many functions which make unit testing of TYPO3 extensions easy and comfortable.</p>
 		<h2>Get test-infected!</h2>
 		<p>If you think writing tests are dull, then try it. <a href="http://junit.sourceforge.net/doc/testinfected/testing.htm">You might become test-infected</a>!</p>
-		<h2>Currently excluded extension</h2>
-		<p>The following extensions are excluded from being searched for tests:</p>
-		<pre>' . join(chr(10), $excludeExtensions) . '</pre>
-		<p>Note: The extension exclusion list can be changed in the extension manager.</p>
 		<h2>This extension has bugs...</h2>
 		<P><a target="_blank" href="http://forge.typo3.org/projects/extension-phpunit/issues">Issues can be seen and posted by clicking this link, http://forge.typo3.org/projects/extension-phpunit/issues</a>.</p>
 		<p>You can report an issue by following the above link. An issue can be e.g. a bug or an improvement/enhancement.</p>

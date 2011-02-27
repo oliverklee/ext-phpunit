@@ -53,6 +53,7 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 			$this->getXdebugStatus(),
 			$this->getMemoryLimitStatus(),
 			$this->getIncludePathStatus(),
+			$this->getExcludedExtensionsStatus(),
 		);
 	}
 
@@ -242,6 +243,26 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 			$this->translate('status_includePath'),
 			'',
 			'<code>' . implode('<br />', $escapedPaths) . '</code>',
+			tx_reports_reports_status_Status::NOTICE
+		);
+	}
+
+	/**
+	 * Creates a status about the extensions that are excluded from unit testing.
+	 *
+	 * @return tx_reports_reports_status_Status
+	 *         a status about the excluded extensions
+	 */
+	protected function getExcludedExtensionsStatus() {
+		$extensionKeys = t3lib_div::trimExplode(
+			',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['excludeextensions']
+		);
+
+		return t3lib_div::makeInstance(
+			'tx_reports_reports_status_Status',
+			$this->translate('status_excludedExtensions'),
+			'',
+			implode('<br />', $extensionKeys),
 			tx_reports_reports_status_Status::NOTICE
 		);
 	}
