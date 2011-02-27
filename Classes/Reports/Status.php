@@ -46,31 +46,44 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 	}
 
 	/**
+	 * Translates a localized string.
+	 *
+	 * @param string $subkey
+	 *        the part of the key to translate (without the
+	 *        "LLL:EXT:phpunit/Resources/Private/Language/Report.xml:" prefix)
+	 *
+	 * @return string the localized string for $subkey, might be empty
+	 */
+	protected function translate($subkey) {
+		return $GLOBALS['LANG']->sL(
+			'LLL:EXT:phpunit/Resources/Private/Language/Report.xml:' . $subkey
+		);
+	}
+
+	/**
 	 * Creates a status concerning whether PHP reflection works correctly.
 	 *
 	 * @return tx_reports_reports_status_Status
 	 *         a status indicating whether PHP reflection works correctly
 	 */
 	protected function getReflectionStatus() {
-		$heading = $GLOBALS['LANG']->sL(
-			'LLL:EXT:phpunit/Resources/Private/Language/Report.xml:status_phpComments'
-		);
+		$heading = $this->translate('status_phpComments');
 
 		$method = new ReflectionMethod('tx_phpunit_Reports_Status', 'getStatus');
 		if (strlen($method->getDocComment()) > 0) {
 			$status = t3lib_div::makeInstance(
 				'tx_reports_reports_status_Status',
 				$heading,
-				$GLOBALS['LANG']->sL('LLL:EXT:phpunit/Resources/Private/Language/Report.xml:status_phpComments_present_short'),
-				$GLOBALS['LANG']->sL('LLL:EXT:phpunit/Resources/Private/Language/Report.xml:status_phpComments_present_verbose'),
+				$this->translate('status_phpComments_present_short'),
+				$this->translate('status_phpComments_present_verbose'),
 				tx_reports_reports_status_Status::OK
 			);
 		} else {
 			$status = t3lib_div::makeInstance(
 				'tx_reports_reports_status_Status',
 				$heading,
-				$GLOBALS['LANG']->sL('LLL:EXT:phpunit/Resources/Private/Language/Report.xml:status_phpComments_stripped_short'),
-				$GLOBALS['LANG']->sL('LLL:EXT:phpunit/Resources/Private/Language/Report.xml:status_phpComments_stripped_verbose'),
+				$this->translate('status_phpComments_stripped_short'),
+				$this->translate('status_phpComments_stripped_verbose'),
 				tx_reports_reports_status_Status::ERROR
 			);
 		}
@@ -85,15 +98,13 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 	 *         a status concerning eAccelerator not crashing phpunit
 	 */
 	protected function getEAcceleratorStatus() {
-		$heading = $GLOBALS['LANG']->sL(
-			'LLL:EXT:phpunit/Resources/Private/Language/Report.xml:status_eAccelerator'
-		);
+		$heading = $this->translate('status_eAccelerator');
 
 		if (!extension_loaded('eaccelerator')) {
 			$status = t3lib_div::makeInstance(
 				'tx_reports_reports_status_Status',
 				$heading,
-				$GLOBALS['LANG']->sL('LLL:EXT:phpunit/Resources/Private/Language/Report.xml:status_eAccelerator_notInstalled_short'),
+				$this->translate('status_eAccelerator_notInstalled_short'),
 				'',
 				tx_reports_reports_status_Status::OK
 			);
@@ -102,27 +113,27 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 
 			if (version_compare($version, '0.9.5.2', '<')) {
 				$verboseMessage = sprintf(
-					$GLOBALS['LANG']->sL('LLL:EXT:phpunit/Resources/Private/Language/Report.xml:status_eAccelerator_installedOld_verbose'),
+					$this->translate('status_eAccelerator_installedOld_verbose'),
 					$version
 				);
 
 				$status = t3lib_div::makeInstance(
 					'tx_reports_reports_status_Status',
 					$heading,
-					$GLOBALS['LANG']->sL('LLL:EXT:phpunit/Resources/Private/Language/Report.xml:status_eAccelerator_installedOld_short'),
+					$this->translate('status_eAccelerator_installedOld_short'),
 					$verboseMessage,
 					tx_reports_reports_status_Status::ERROR
 				);
 			} else {
 				$verboseMessage = sprintf(
-					$GLOBALS['LANG']->sL('LLL:EXT:phpunit/Resources/Private/Language/Report.xml:status_eAccelerator_installedNew_verbose'),
+					$this->translate('status_eAccelerator_installedNew_verbose'),
 					$version
 				);
 
 				$status = t3lib_div::makeInstance(
 					'tx_reports_reports_status_Status',
 					$heading,
-					$GLOBALS['LANG']->sL('LLL:EXT:phpunit/Resources/Private/Language/Report.xml:status_eAccelerator_installedNew_short'),
+					$this->translate('status_eAccelerator_installedNew_short'),
 					$verboseMessage,
 					tx_reports_reports_status_Status::OK
 				);
@@ -147,13 +158,12 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 
 		return t3lib_div::makeInstance(
 			'tx_reports_reports_status_Status',
-			$GLOBALS['LANG']->sL('LLL:EXT:phpunit/Resources/Private/Language/Report.xml:status_xdebug'),
-			$GLOBALS['LANG']->sL('LLL:EXT:phpunit/Resources/Private/Language/Report.xml:' . $messageKey),
+			$this->translate('status_xdebug'),
+			$this->translate($messageKey),
 			'',
 			tx_reports_reports_status_Status::NOTICE
 		);
 	}
-
 }
 
 if (defined('TYPO3_MODE') && $GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/phpunit/Classes/Reports/Status.php']) {
