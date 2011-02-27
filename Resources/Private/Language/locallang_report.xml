@@ -61,6 +61,13 @@
 			<label index="status_eAccelerator_installedNew_verbose" type="integer">263934305</label>
 			<label index="status_eAccelerator_installedOld_short" type="integer">261314415</label>
 			<label index="status_eAccelerator_installedOld_verbose" type="integer">118950726</label>
+			<label index="status_xdebug" type="integer">17124310</label>
+			<label index="status_loaded" type="integer">37949411</label>
+			<label index="status_notLoaded" type="integer">51119452</label>
+			<label index="status_memoryLimit" type="integer">132739621</label>
+			<label index="status_memoryLimit_tooLittle" type="integer">247170632</label>
+			<label index="status_includePath" type="integer">254670759</label>
+			<label index="status_excludedExtensions" type="integer">133406142</label>
 		</languageKey>
 	</orig_hash>
 	<orig_text type="array">
@@ -79,6 +86,10 @@
 			<label index="status_xdebug">Xdebug</label>
 			<label index="status_loaded">loaded</label>
 			<label index="status_notLoaded">not loaded</label>
+			<label index="status_memoryLimit">PHP Memory Limit</label>
+			<label index="status_memoryLimit_tooLittle">A PHP memory limit of %1s is required for running the PHPUnit tests, but a limit of %2s (or more) is recommended. Particularly, code coverage reports need lots of memory.</label>
+			<label index="status_includePath">PHP Include Path</label>
+			<label index="status_excludedExtensions">Extensions excluded from testing</label>
 		</languageKey>
 	</orig_text>
 </T3locallang>
