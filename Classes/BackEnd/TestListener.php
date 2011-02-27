@@ -202,7 +202,7 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 			<br />File: <em>' . $fileName . '</em>
 			<br />Line: <em>' . $lineNumber . '</em>' .
 			'<div class="message">' . nl2br(htmlspecialchars($e->getMessage())) . '</div>';
-		flush();
+		$this->flushOutputBuffer();
 	}
 
 	/**
@@ -411,7 +411,11 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 			}
 		}
 
-		$percentDone = intval(($this->currentTestNumber / ($this->totalNumberOfTests - $this->totalNumberOfDetectedDataProviderTests)) * 100);
+		if (($this->totalNumberOfTests - $this->totalNumberOfDetectedDataProviderTests) > 0) {
+			$percentDone = intval(($this->currentTestNumber / ($this->totalNumberOfTests - $this->totalNumberOfDetectedDataProviderTests)) * 100);
+		} else {
+			$percentDone = 0;
+		}
 		$leakedMemory = ($this->memoryUsageEndOfTest - $this->memoryUsageStartOfTest);
 		$this->totalLeakedMemory += $leakedMemory;
 

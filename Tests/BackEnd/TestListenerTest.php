@@ -388,7 +388,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		$testCase1 = $this->getMock('PHPUnit_Framework_TestCase', array('getNumAssertions'));
 		$testCase1->expects($this->once())->method('getNumAssertions')->will($this->returnValue(1));
 
-		$fixture->endTest($testCase1);
+		$fixture->endTest($testCase1, 0.0);
 		$this->assertEquals(
 			1,
 			$fixture->assertionCount(),
@@ -398,7 +398,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		$testCase2 = $this->getMock('PHPUnit_Framework_TestCase', array('getNumAssertions'));
 		$testCase2->expects($this->once())->method('getNumAssertions')->will($this->returnValue(4));
 
-		$fixture->endTest($testCase2);
+		$fixture->endTest($testCase2, 0.0);
 		$this->assertEquals(
 			5,
 			$fixture->assertionCount(),
@@ -416,7 +416,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		$test = $this->getMock('PHPUnit_Framework_TestCase');
 
-		$fixture->endTest($test);
+		$fixture->endTest($test, 0.0);
 		$this->assertEquals(
 			0,
 			$fixture->assertionCount()
@@ -433,7 +433,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		$test = $this->getMock('PHPUnit_Framework_Test');
 
-		$fixture->endTest($test);
+		$fixture->endTest($test, 0.0);
 		$this->assertEquals(
 			0,
 			$fixture->assertionCount()
@@ -451,8 +451,8 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		$test = $this->getMock('PHPUnit_Framework_TestCase', array('dummy'), array('Test 1'));
 		$test2 = $this->getMock('PHPUnit_Framework_TestCase', array('dummy'), array('Test 2'));
 
-		$fixture->endTest($test);
-		$fixture->endTest($test2);
+		$fixture->endTest($test, 0.0);
+		$fixture->endTest($test2, 0.0);
 
 		$this->assertSame(
 			1,
@@ -471,8 +471,8 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		$test = $this->getMock('PHPUnit_Framework_TestCase', array('dummy'), array('FirstTest'));
 		$test2 = $this->getMock('PHPUnit_Framework_TestCase', array('dummy'), array('SecondTest'));
 
-		$fixture->endTest($test);
-		$fixture->endTest($test2);
+		$fixture->endTest($test, 0.0);
+		$fixture->endTest($test2, 0.0);
 
 		$this->assertSame(
 			0,
