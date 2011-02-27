@@ -24,6 +24,7 @@
 			<label index="status_notLoaded">not loaded</label>
 			<label index="status_memoryLimit">PHP Memory Limit</label>
 			<label index="status_memoryLimit_tooLittle">A PHP memory limit of %1s is required for running the PHPUnit tests, but a limit of %2s (or more) is recommended. Particularly, code coverage reports need lots of memory.</label>
+			<label index="status_includePath">PHP Include Path</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="status_phpComments">PHP-Kommentare</label>
@@ -42,6 +43,7 @@
 			<label index="status_notLoaded">nicht geladen</label>
 			<label index="status_memoryLimit">PHP-Speicherbegrenzung</label>
 			<label index="status_memoryLimit_tooLittle">Eine PHP-Speicherbegrenzung von %1s ist für das Ausführen von PHPUnit-Tests erforderlich. %2s (oder mehr) werden empfohlen. Insbesondere die Code-Coverage-Berichte benötigen sehr viel Speicher.</label>
+			<label index="status_includePath">PHP-Include-Path</label>
 		</languageKey>
 	</data>
 	<orig_hash type="array">

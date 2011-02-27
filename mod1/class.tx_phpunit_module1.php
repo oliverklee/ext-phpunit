@@ -687,9 +687,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 		of the PHPUnit framework into TYPO3 and offers an API and many functions which make unit testing of TYPO3 extensions easy and comfortable.</p>
 		<h2>Get test-infected!</h2>
 		<p>If you think writing tests are dull, then try it. <a href="http://junit.sourceforge.net/doc/testinfected/testing.htm">You might become test-infected</a>!</p>
-		<h2>Current include path</h2>
-		<p>Below are the paths of the includepath that phpunit currently uses to locate PHPUnit:</p>
-		<pre>' . join(chr(10), explode(PATH_SEPARATOR, get_include_path())) . '</pre>
 		<h2>Currently excluded extension</h2>
 		<p>The following extensions are excluded from being searched for tests:</p>
 		<pre>' . join(chr(10), $excludeExtensions) . '</pre>

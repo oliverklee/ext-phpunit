@@ -52,6 +52,7 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 			$this->getEAcceleratorStatus(),
 			$this->getXdebugStatus(),
 			$this->getMemoryLimitStatus(),
+			$this->getIncludePathStatus(),
 		);
 	}
 
@@ -157,7 +158,7 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 	 * Creates a status concerning whether Xdebug is loaded.
 	 *
 	 * @return tx_reports_reports_status_Status
-	 *         a status concerning whether Xdebug is loaded.
+	 *         a status concerning whether Xdebug is loaded
 	 */
 	protected function getXdebugStatus() {
 		if (extension_loaded('xdebug')) {
@@ -222,6 +223,28 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 		return $status;
 	}
 
+	/**
+	 * Creates a status about the PHP include path.
+	 *
+	 * @return tx_reports_reports_status_Status
+	 *         a status about the PHP include path
+	 */
+	protected function getIncludePathStatus() {
+		$paths = explode(PATH_SEPARATOR, get_include_path());
+
+		$escapedPaths = array();
+		foreach ($paths as $path) {
+			$escapedPaths[] = htmlspecialchars($path);
+		}
+
+		return t3lib_div::makeInstance(
+			'tx_reports_reports_status_Status',
+			$this->translate('status_includePath'),
+			'',
+			'<code>' . implode('<br />', $escapedPaths) . '</code>',
+			tx_reports_reports_status_Status::NOTICE
+		);
+	}
 }
 
 if (defined('TYPO3_MODE') && $GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/phpunit/Classes/Reports/Status.php']) {
