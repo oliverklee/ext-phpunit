@@ -55,6 +55,20 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	protected $testFinder = NULL;
 
 	/**
+	 * module menu items
+	 *
+	 * @var array<array>
+	 */
+	public $MOD_MENU = array(
+		'function' => array(),
+		'extSel' => '',
+		'failure' => '',
+		'success' => '',
+		'error' => '',
+		'codeCoverage' => '',
+	);
+
+	/**
 	 * The constructor.
 	 */
 	public function __construct() {
@@ -117,18 +131,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 			t3lib_div::cleanOutputBuffers();
 			echo $this->doc->startPage($this->getLL('title'));
-			echo $this->doc->section(
-				'',
-				$this->doc->funcMenu(
-					PHPUnit_Runner_Version::getVersionString(),
-					t3lib_BEfunc::getFuncMenu(
-						$this->id,
-						'SET[function]',
-						$this->MOD_SETTINGS['function'],
-						$this->MOD_MENU['function']
-					)
-				)
-			);
+			echo $this->doc->header(PHPUnit_Runner_Version::getVersionString());
 
 			$this->runTests_render();
 
