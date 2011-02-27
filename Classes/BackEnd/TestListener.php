@@ -451,7 +451,7 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	protected function createReRunLink(PHPUnit_Framework_TestCase $test) {
 		$iconImageTag = '<img style="vertical-align: middle; border: 1px solid #fff;" src="' .
 			t3lib_extMgm::extRelPath('phpunit') . 'Resources/Public/Icons/Runner.gif" alt="Run this test only" />';
-		return '<a href="' . $this->createReRunUrl($test) . '" title="Run this test only">' . $iconImageTag . '</a>';
+		return '<a href="' . $this->createReRunUrl($test) . '" title="Run this test only">' . $iconImageTag . '</a> ';
 	}
 
 	/**

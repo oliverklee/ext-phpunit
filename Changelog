@@ -1,4 +1,5 @@
 2011-02-27 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #11861: Double-clicking a test name also selects the "run this test" icon
 	* Fixed Bug #13419: Regression: Cannot select extension other than "phpunit" in the drop-down
 	* Fixed Bug #13420: PHP warnings in the TYPO3 log when running the phpunit unit tests
 	* Fixed Bug #13401: Document which functions are called in what order for test cases with data providers

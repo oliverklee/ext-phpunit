@@ -503,6 +503,26 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
+	public function createReRunLinkAddsSpaceAfterLink() {
+		$reRunUrl = 'index.php?reRun=1&amp;foo=bar';
+
+		$test = $this->getMock(
+			'PHPUnit_Framework_TestCase', array(), array('myTest')
+		);
+
+		$fixture = $this->getMock($this->createAccessibleProxy(), array('createReRunUrl'));
+		$fixture->expects($this->once())->method('createReRunUrl')
+			->will($this->returnValue($reRunUrl));
+
+		$this->assertContains(
+			'</a> ',
+			$fixture->createReRunLink($test)
+		);
+	}
+
+	/**
+	 * @test
+	 */
 	public function createReRunUrlContainsModuleParameter() {
 		$test = $this->getMock(
 			'PHPUnit_Framework_TestCase', array(), array('myTest')
