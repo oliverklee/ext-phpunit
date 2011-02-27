@@ -62,13 +62,13 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 	 *
 	 * @param string $subkey
 	 *        the part of the key to translate (without the
-	 *        "LLL:EXT:phpunit/Resources/Private/Language/Report.xml:" prefix)
+	 *        "LLL:EXT:phpunit/Resources/Private/Language/locallang_report.xml:" prefix)
 	 *
 	 * @return string the localized string for $subkey, might be empty
 	 */
 	protected function translate($subkey) {
 		return $GLOBALS['LANG']->sL(
-			'LLL:EXT:phpunit/Resources/Private/Language/Report.xml:' . $subkey
+			'LLL:EXT:phpunit/Resources/Private/Language/locallang_report.xml:' . $subkey
 		);
 	}
 
