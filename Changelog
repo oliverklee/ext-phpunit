@@ -1,3 +1,6 @@
+2011-02-28 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #13427: Use $GLOBALS['TYPO3_CONF_VARS'] instead of $TYPO3_CONF_VARS
+
 2011-02-27 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #13069: Copy'n'paste of the testnames also copies the text "Run this test only"
 	* Fixed Bug #11861: Double-clicking a test name also selects the "run this test" icon
