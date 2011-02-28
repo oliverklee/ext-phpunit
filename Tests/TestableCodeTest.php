@@ -306,6 +306,36 @@ class Tx_Phpunit_TestableCodeTest extends Tx_Phpunit_TestCase {
 			$this->fixture->getWhitelist()
 		);
 	}
-}
 
+	/**
+	 * @test
+	 */
+	public function getIconPathInitiallyReturnsEmptyString() {
+		$this->assertSame(
+			'',
+			$this->fixture->getIconPath()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setIconPathSetsIconPath() {
+		$this->fixture->setIconPath('someIcon.gif');
+
+		$this->assertSame(
+			'someIcon.gif',
+			$this->fixture->getIconPath()
+		);
+	}
+
+	/**
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function setIconPathWithEmptyStringThrowsException() {
+		$this->fixture->setIconPath('');
+	}
+}
 ?>

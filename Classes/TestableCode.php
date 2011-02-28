@@ -51,6 +51,11 @@ class Tx_Phpunit_TestableCode {
 	/**
 	 * @var string
 	 */
+	const CORE_KEY = 'typo3';
+
+	/**
+	 * @var string
+	 */
 	protected $key = '';
 
 	/**
@@ -82,6 +87,11 @@ class Tx_Phpunit_TestableCode {
 	 * @var array<string>
 	 */
 	protected $whitelist = array();
+
+	/**
+	 * @var string
+	 */
+	protected $iconPath = '';
 
 	/**
 	 * Returns the key.
@@ -273,6 +283,30 @@ class Tx_Phpunit_TestableCode {
 	 */
 	public function setWhitelist(array $files) {
 		$this->whitelist = $files;
+	}
+
+	/**
+	 * Returns the relative path to the icon associated with this testable code.
+	 *
+	 * @return string the relative icon path, will not be empty
+	 */
+	public function getIconPath() {
+		return $this->iconPath;
+	}
+
+	/**
+	 * Sets the relative path to the icon associated with this testable code.
+	 *
+	 * @param string $iconPath the icon path, must not be empty
+	 *
+	 * @return void
+	 */
+	public function setIconPath($iconPath) {
+		if ($iconPath === '') {
+			throw new InvalidArgumentException('$iconPath must not be empty.');
+		}
+
+		$this->iconPath = $iconPath;
 	}
 }
 
