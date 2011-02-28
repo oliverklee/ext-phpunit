@@ -682,9 +682,6 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 	 */
 	protected function getExtensionsWithTestSuites() {
 		$excludeExtensions = t3lib_div::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['excludeextensions']);
-		$outOfLineTestCases = $this->traversePathForTestCases(
-			$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['outoflinetestspath']
-		);
 
 		$extList = explode(',', $GLOBALS['TYPO3_CONF_VARS']['EXT']['extList']);
 
@@ -709,41 +706,10 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 				= $this->findTestCasesInDir($this->testFinder->getAbsoluteCoreTestsPath());
 		}
 
-		$totalTestsArr = array_merge_recursive($outOfLineTestCases, $extensionsOwnTestCases, $coreTestCases);
+		$totalTestsArr = array_merge_recursive($extensionsOwnTestCases, $coreTestCases);
 
 		$returnTestsArr = array_diff_key($totalTestsArr, array_flip($excludeExtensions));
 		return $returnTestsArr;
-	}
-
-	/**
-	 * Traverses a given path recursively for *testcase.php files.
-	 *
-	 * @param string $path
-	 *        the absolute path to descend from, must not be empt
-	 *
-	 * @return array<array><string>
-	 *         first-level array keys: directory names within $path
-	 *         second level array values: paths to the test case files relative
-	 *         to the corresponding directory
-	 */
-	private function traversePathForTestCases($path) {
-		if (!is_dir($path)) {
-			return array();
-		}
-
-		$extensionsArr = array();
-		$dirs = t3lib_div::get_dirs($path);
-		if (is_array($dirs)) {
-			sort($dirs);
-			foreach ($dirs as $dirName) {
-				if ($this->isExtensionLoaded($dirName)) {
-					$testsPath = $path . $dirName . '/tests/';
-					$extensionsArr[$dirName] = $this->findTestCasesInDir($testsPath);
-				}
-			}
-		}
-
-		return $extensionsArr;
 	}
 
 	/**

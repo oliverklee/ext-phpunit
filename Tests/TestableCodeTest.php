@@ -145,18 +145,6 @@ class Tx_Phpunit_TestableCodeTest extends Tx_Phpunit_TestCase {
 
 	/**
 	 * @test
-	 */
-	public function setTypeCanSetTypeToOutOfLine() {
-		$this->fixture->setType(Tx_Phpunit_TestableCode::TYPE_OUT_OF_LINE);
-
-		$this->assertSame(
-			Tx_Phpunit_TestableCode::TYPE_OUT_OF_LINE,
-			$this->fixture->getType()
-		);
-	}
-
-	/**
-	 * @test
 	 *
 	 * @expectedException InvalidArgumentException
 	 */

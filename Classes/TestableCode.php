@@ -43,10 +43,6 @@ class Tx_Phpunit_TestableCode {
 	 * @var integer
 	 */
 	const TYPE_CORE = 2;
-	/**
-	 * @var integer
-	 */
-	const TYPE_OUT_OF_LINE = 3;
 
 	/**
 	 * @var string
@@ -153,8 +149,7 @@ class Tx_Phpunit_TestableCode {
 	 * Returns the type of this testable code.
 	 *
 	 * @return integer
-	 *         the type, will be either TYPE_UNDEFINED, TYPE_EXTENSION, TYPE_CORE
-	 *         or TYPE_OUT_OF_LINE
+	 *         the type, will be either TYPE_UNDEFINED, TYPE_EXTENSION or TYPE_CORE
 	 */
 	public function getType() {
 		return $this->type;
@@ -164,15 +159,15 @@ class Tx_Phpunit_TestableCode {
 	 * Sets the type of this testable code.
 	 *
 	 * @param integer
-	 *        the type, must be either TYPE_EXTENSION, TYPE_CORE or TYPE_OUT_OF_LINE
+	 *        the type, must be either TYPE_EXTENSION or TYPE_CORE
 	 *
 	 * @return void
 	 */
 	public function setType($type) {
-		$allowedTypes = array(self::TYPE_EXTENSION, self::TYPE_CORE, self::TYPE_OUT_OF_LINE);
+		$allowedTypes = array(self::TYPE_EXTENSION, self::TYPE_CORE);
 		if (!in_array($type, $allowedTypes, TRUE)) {
 			throw new InvalidArgumentException(
-				'$type must be one of TYPE_EXTENSION, TYPE_CORE, TYPE_OUT_OF_LINE, but actually was ' . $type . '.'
+				'$type must be one of TYPE_EXTENSION, TYPE_CORE, but actually was ' . $type . '.'
 			);
 		}
 
