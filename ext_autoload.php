@@ -6,6 +6,7 @@ return array(
 	'tx_phpunit_database_testcase' => $extensionPath . 'Classes/Database/TestCase.php',
 	'tx_phpunit_reports_status' => $extensionPath . 'Classes/Reports/Status.php',
 	'tx_phpunit_service_testfinder' => $extensionPath . 'Classes/Service/TestFinder.php',
+	'tx_phpunit_testablecode' => $extensionPath . 'Classes/TestableCode.php',
 	'tx_phpunit_testcase' => $extensionPath . 'Classes/TestCase.php',
 	'tx_phpunit_module1' => $extensionPath . 'mod1/class.tx_phpunit_module1.php',
 	'tx_phpunit_module1_ajax' => $extensionPath . 'mod1/class.tx_phpunit_module1_ajax.php',
