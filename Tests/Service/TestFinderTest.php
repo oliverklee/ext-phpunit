@@ -405,6 +405,27 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
+	public function getTestableCodeForCoreExistingCoreTestsReturnsExactlyOneTestableCodeInstance() {
+		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('hasCoreTests', 'getAbsoluteCoreTestsPath'));
+		$testFinder->expects($this->once())->method('hasCoreTests')->will($this->returnValue(TRUE));
+		$testFinder->expects($this->once())->method('getAbsoluteCoreTestsPath')->will($this->returnValue('/core/tests/'));
+
+		$result = $testFinder->getTestableCodeForCore();
+
+		$this->assertSame(
+			1,
+			count($result),
+			'The return array does not have exactly one element.'
+		);
+		$this->assertInstanceOf(
+			'Tx_Phpunit_TestableCode',
+			array_pop($result)
+		);
+	}
+
+	/**
+	 * @test
+	 */
 	public function getTestableCodeForCoreExistingCoreTestsReturnsTestableCodeWithCoreType() {
 		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('hasCoreTests', 'getAbsoluteCoreTestsPath'));
 		$testFinder->expects($this->once())->method('hasCoreTests')->will($this->returnValue(TRUE));
