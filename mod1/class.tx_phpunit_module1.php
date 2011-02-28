@@ -705,7 +705,8 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 		$coreTestCases = array();
 		if ($this->testFinder->hasCoreTests()) {
-			$coreTestCases['typo3'] = $this->findTestCasesInDir($this->testFinder->getAbsoluteCoreTestsPath());
+			$coreTestCases[Tx_Phpunit_TestableCode::CORE_KEY]
+				= $this->findTestCasesInDir($this->testFinder->getAbsoluteCoreTestsPath());
 		}
 
 		$totalTestsArr = array_merge_recursive($outOfLineTestCases, $extensionsOwnTestCases, $coreTestCases);
@@ -809,7 +810,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 			return FALSE;
 		}
 
-		return ($extensionKey === 'typo3') || t3lib_extMgm::isLoaded($extensionKey);
+		return ($extensionKey === Tx_Phpunit_TestableCode::CORE_KEY) || t3lib_extMgm::isLoaded($extensionKey);
 	}
 
 	/**
@@ -828,7 +829,7 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 		$result = 'background: white no-repeat ';
 
-		if ($extensionKey === 'typo3') {
+		if ($extensionKey === Tx_Phpunit_TestableCode::CORE_KEY) {
 			$result .= 'url(' . t3lib_extMgm::extRelPath('phpunit') . 'Resources/Public/Icons/Typo3.png) 3px 50%;';
 		} else {
 			$result .= 'url(' . t3lib_extMgm::extRelPath($extensionKey) . 'ext_icon.gif) 3px 50%;';

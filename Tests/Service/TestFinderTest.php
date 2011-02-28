@@ -388,5 +388,104 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 			)
 		);
 	}
+
+	/**
+	 * @test
+	 */
+	public function getTestableCodeForCoreForNoCoreTestsReturnsEmptyArray() {
+		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('hasCoreTests'));
+		$testFinder->expects($this->once())->method('hasCoreTests')->will($this->returnValue(FALSE));
+
+		$this->assertSame(
+			array(),
+			$testFinder->getTestableCodeForCore()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTestableCodeForCoreExistingCoreTestsReturnsTestableCodeWithCoreType() {
+		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('hasCoreTests', 'getAbsoluteCoreTestsPath'));
+		$testFinder->expects($this->once())->method('hasCoreTests')->will($this->returnValue(TRUE));
+		$testFinder->expects($this->once())->method('getAbsoluteCoreTestsPath')->will($this->returnValue('/core/tests/'));
+
+		$this->assertSame(
+			Tx_Phpunit_TestableCode::TYPE_CORE,
+			array_pop($testFinder->getTestableCodeForCore())->getType()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTestableCodeForCoreExistingCoreTestsReturnsTestableCodeWithTypo3Key() {
+		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('hasCoreTests', 'getAbsoluteCoreTestsPath'));
+		$testFinder->expects($this->once())->method('hasCoreTests')->will($this->returnValue(TRUE));
+		$testFinder->expects($this->once())->method('getAbsoluteCoreTestsPath')->will($this->returnValue('/core/tests/'));
+
+		$this->assertSame(
+			Tx_Phpunit_TestableCode::CORE_KEY,
+			array_pop($testFinder->getTestableCodeForCore())->getKey()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTestableCodeForCoreExistingCoreTestsReturnsTestableCodeWithTypo3CoreTitle() {
+		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('hasCoreTests', 'getAbsoluteCoreTestsPath'));
+		$testFinder->expects($this->once())->method('hasCoreTests')->will($this->returnValue(TRUE));
+		$testFinder->expects($this->once())->method('getAbsoluteCoreTestsPath')->will($this->returnValue('/core/tests/'));
+
+		$this->assertSame(
+			'TYPO3 Core',
+			array_pop($testFinder->getTestableCodeForCore())->getTitle()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTestableCodeForCoreExistingCoreTestsReturnsTestableCodeWithSitePath() {
+		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('hasCoreTests', 'getAbsoluteCoreTestsPath'));
+		$testFinder->expects($this->once())->method('hasCoreTests')->will($this->returnValue(TRUE));
+		$testFinder->expects($this->once())->method('getAbsoluteCoreTestsPath')->will($this->returnValue('/core/tests/'));
+
+		$this->assertSame(
+			PATH_site,
+			array_pop($testFinder->getTestableCodeForCore())->getCodePath()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTestableCodeForCoreExistingCoreTestsReturnsTestableCodeWithCoreTestsPath() {
+		$coreTestsPath = '/core/tests/';
+
+		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('hasCoreTests', 'getAbsoluteCoreTestsPath'));
+		$testFinder->expects($this->once())->method('hasCoreTests')->will($this->returnValue(TRUE));
+		$testFinder->expects($this->once())->method('getAbsoluteCoreTestsPath')->will($this->returnValue($coreTestsPath));
+
+		$this->assertSame(
+			$coreTestsPath,
+			array_pop($testFinder->getTestableCodeForCore())->getTestsPath()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTestableCodeForCoreExistingCoreTestsReturnsTestableCodeWithTypo3IconPath() {
+		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('hasCoreTests', 'getAbsoluteCoreTestsPath'));
+		$testFinder->expects($this->once())->method('hasCoreTests')->will($this->returnValue(TRUE));
+		$testFinder->expects($this->once())->method('getAbsoluteCoreTestsPath')->will($this->returnValue('/core/tests/'));
+
+		$this->assertSame(
+			t3lib_extMgm::extRelPath('phpunit') . 'Resources/Public/Icons/Typo3.png',
+			array_pop($testFinder->getTestableCodeForCore())->getIconPath()
+		);
+	}
 }
 ?>

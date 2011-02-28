@@ -167,5 +167,28 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	protected function isHiddenMacFile($fileName) {
 		return (substr($fileName, 0, 2) === '._');
 	}
+
+	/**
+	 * Returns the testable code for the TYPO3 Core.
+	 *
+	 * @return array<Tx_Phpunit_TestableCode>
+	 *         testable code for the TYPO3 core, will have exactly one element if
+	 *         there are Core tests, will be empty if there are no Core tests
+	 */
+	public function getTestableCodeForCore() {
+		if (!$this->hasCoreTests()) {
+			return array();
+		}
+
+		$coreTests = t3lib_div::makeInstance('Tx_Phpunit_TestableCode');
+		$coreTests->setType(Tx_Phpunit_TestableCode::TYPE_CORE);
+		$coreTests->setKey(Tx_Phpunit_TestableCode::CORE_KEY);
+		$coreTests->setTitle('TYPO3 Core');
+		$coreTests->setCodePath(PATH_site);
+		$coreTests->setTestsPath($this->getAbsoluteCoreTestsPath());
+		$coreTests->setIconPath(t3lib_extMgm::extRelPath('phpunit') . 'Resources/Public/Icons/Typo3.png');
+
+		return array($coreTests);
+	}
 }
 ?>
