@@ -34,16 +34,25 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var Tx_Phpunit_Service_TestFinder
 	 */
-	private $fixture;
+	private $fixture = NULL;
 
 	/**
 	 * the absolute path to the fixtures directory for this testcase
 	 *
 	 * @var string
 	 */
-	private $fixturesPath;
+	private $fixturesPath = '';
+
+	/**
+	 * backup of $GLOBALS['TYPO3_CONF_VARS']
+	 *
+	 * @var array
+	 */
+	private $typo3ConfigurationVariablesBackup = array();
 
 	public function setUp() {
+		$this->typo3ConfigurationVariablesBackup = $GLOBALS['TYPO3_CONF_VARS'];
+
 		$this->fixture = $this->createAccessibleProxy();
 
 		$this->fixturesPath = t3lib_extMgm::extPath('phpunit') . 'Tests/Service/Fixtures/';
@@ -52,6 +61,8 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	public function tearDown() {
 		$this->fixture->__destruct();
 		unset($this->fixture);
+
+		$GLOBALS['TYPO3_CONF_VARS'] = $this->typo3ConfigurationVariablesBackup;
 	}
 
 
@@ -72,6 +83,18 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 				'class ' . $className . ' extends Tx_Phpunit_Service_TestFinder {' .
 				'  public function isTestCaseFileName($path) {' .
 				'    return parent::isTestCaseFileName($path);' .
+				'  }' .
+				'  public function getLoadedExtensionKeys() {' .
+				'    return parent::getLoadedExtensionKeys();' .
+				'  }' .
+				'  public function getExcludedExtensionKeys() {' .
+				'    return parent::getExcludedExtensionKeys();' .
+				'  }' .
+				'  public function findTestsPathForExtension($extensionKey) {' .
+				'    return parent::findTestsPathForExtension($extensionKey);' .
+				'  }' .
+				'  public function retrieveExtensionTitle($extensionKey) {' .
+				'    return parent::retrieveExtensionTitle($extensionKey);' .
 				'  }' .
 				'}'
 			);
@@ -405,7 +428,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
-	public function getTestableCodeForCoreExistingCoreTestsReturnsExactlyOneTestableCodeInstance() {
+	public function getTestableCodeForCoreExistingCoreTestsReturnsExactlyOneTestableCodeInstanceUsingCoreArrayKey() {
 		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('hasCoreTests', 'getAbsoluteCoreTestsPath'));
 		$testFinder->expects($this->once())->method('hasCoreTests')->will($this->returnValue(TRUE));
 		$testFinder->expects($this->once())->method('getAbsoluteCoreTestsPath')->will($this->returnValue('/core/tests/'));
@@ -419,7 +442,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 		);
 		$this->assertInstanceOf(
 			'Tx_Phpunit_TestableCode',
-			array_pop($result)
+			$result[Tx_Phpunit_TestableCode::CORE_KEY]
 		);
 	}
 
@@ -506,6 +529,350 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 		$this->assertSame(
 			t3lib_extMgm::extRelPath('phpunit') . 'Resources/Public/Icons/Typo3.png',
 			array_pop($testFinder->getTestableCodeForCore())->getIconPath()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getLoadedExtensionKeysReturnsKeysOfLoadedExtensions() {
+		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'] = 'foo,bar';
+
+		$this->assertSame(
+			array('foo', 'bar'),
+			$this->fixture->getLoadedExtensionKeys()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getExcludedExtensionKeysReturnsKeysOfExcludedExtensions() {
+		$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['excludeextensions'] = 'foo,bar';
+
+		$this->assertSame(
+			array('foo', 'bar'),
+			$this->fixture->getExcludedExtensionKeys()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getExcludedExtensionKeysForNoExcludedExtensionsReturnsEmptyArray() {
+		$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['excludeextensions'] = '';
+
+		$this->assertSame(
+			array(),
+			$this->fixture->getExcludedExtensionKeys()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getExcludedExtensionKeysForNoPhpUnitConfigurationReturnsEmptyArray() {
+		unset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['excludeextensions']);
+
+		$this->assertSame(
+			array(),
+			$this->fixture->getExcludedExtensionKeys()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTestableCodeForExtensionsCreatesTestableCodeForSingleExtensionForInstalledExtensionsWithoutExcludedExtensions() {
+		$testFinder = $this->getMock(
+			'Tx_Phpunit_Service_TestFinder',
+			array('getLoadedExtensionKeys', 'getExcludedExtensionKeys', 'findTestsPathForExtension', 'createTestableCodeForSingleExtension')
+		);
+		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('foo', 'bar', 'foobar')));
+		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array('foo', 'baz')));
+
+		$testFinder->expects($this->at(2))->method('createTestableCodeForSingleExtension')->with('bar');
+		$testFinder->expects($this->at(3))->method('createTestableCodeForSingleExtension')->with('foobar');
+
+		$testFinder->getTestableCodeForExtensions();
+	}
+
+	/**
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function findTestsPathForExtensionForExtensionWithEmptyExtensionKeyThrowsException() {
+		$this->fixture->findTestsPathForExtension('');
+	}
+
+	/**
+	 * @test
+	 *
+	 * @expectedException Tx_Phpunit_Service_NoTestsDirectoryException
+	 */
+	public function findTestsPathForExtensionForExtensionWithoutTestsPathThrowsException() {
+		if (!t3lib_extMgm::isLoaded('aaa')) {
+			$this->markTestSkipped(
+				'This test can only be run if the extension "aaa" from Tests/res is installed.'
+			);
+		}
+
+		$this->fixture->findTestsPathForExtension('aaa');
+	}
+
+	/**
+	 * @test
+	 *
+	 * Note: This tests uses a lowercase compare because some systems use a
+	 * case-insensitive file system.
+	 */
+	public function findTestsPathForExtensionForExtensionWithUpperFirstTestsDirectoryReturnsThatDirectory() {
+		$this->assertSame(
+			strtolower(t3lib_extMgm::extPath('phpunit') . 'Tests/'),
+			strtolower($this->fixture->findTestsPathForExtension('phpunit'))
+		);
+	}
+
+	/**
+	 * @test
+	 *
+	 * Note: This tests uses a lowercase compare because some systems use a
+	 * case-insensitive file system.
+	 */
+	public function findTestsPathForExtensionForExtensionWithLowerCaseTestsDirectoryReturnsThatDirectory() {
+		if (!t3lib_extMgm::isLoaded('bbb')) {
+			$this->markTestSkipped(
+				'This test can only be run if the extension "bbb" from Tests/res is installed.'
+			);
+		}
+
+		$this->assertSame(
+			strtolower(t3lib_extMgm::extPath('bbb') . 'tests/'),
+			strtolower($this->fixture->findTestsPathForExtension('bbb'))
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTestableCodeForExtensionsForNoInstalledExtensionsReturnsEmptyArray() {
+		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getLoadedExtensionKeys'));
+		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array()));
+
+		$this->assertSame(
+			array(),
+			$testFinder->getTestableCodeForExtensions()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTestableCodeForExtensionsForOneInstalledExtensionsWithTestsReturnsOneTestableCodeInstance() {
+		$testableCodeInstance = new Tx_Phpunit_TestableCode();
+
+		$testFinder = $this->getMock(
+			'Tx_Phpunit_Service_TestFinder',
+			array('getLoadedExtensionKeys', 'getExcludedExtensionKeys', 'findTestsPathForExtension', 'createTestableCodeForSingleExtension')
+		);
+		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('foo')));
+		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
+		$testFinder->expects($this->once())->method('createTestableCodeForSingleExtension')
+			->with('foo')->will($this->returnValue($testableCodeInstance));
+
+		$this->assertSame(
+			array('foo' => $testableCodeInstance),
+			$testFinder->getTestableCodeForExtensions()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTestableCodeForExtensionsForTwoInstalledExtensionsWithTestsReturnsTwoResults() {
+		$testFinder = $this->getMock(
+			'Tx_Phpunit_Service_TestFinder',
+			array('getLoadedExtensionKeys', 'getExcludedExtensionKeys', 'findTestsPathForExtension', 'createTestableCodeForSingleExtension')
+		);
+		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('foo', 'bar')));
+		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
+		$testFinder->expects($this->at(2))->method('createTestableCodeForSingleExtension')
+			->with('foo')->will($this->returnValue(new Tx_Phpunit_TestableCode()));
+		$testFinder->expects($this->at(3))->method('createTestableCodeForSingleExtension')
+			->with('bar')->will($this->returnValue(new Tx_Phpunit_TestableCode()));
+
+		$this->assertSame(
+			2,
+			count($testFinder->getTestableCodeForExtensions())
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTestableCodeForExtensionsForOneInstalledExtensionsWithoutTestsReturnsEmptyArray() {
+		$testFinder = $this->getMock(
+			'Tx_Phpunit_Service_TestFinder',
+			array('getLoadedExtensionKeys', 'getExcludedExtensionKeys', 'findTestsPathForExtension')
+		);
+		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('foo')));
+		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
+		$testFinder->expects($this->once())->method('findTestsPathForExtension')
+			->with('foo')->will($this->throwException(new Tx_Phpunit_Service_NoTestsDirectoryException()));
+
+		$this->assertSame(
+			array(),
+			$testFinder->getTestableCodeForExtensions()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTestableCodeForExtensionsForOneExtensionsWithoutTestsAndOneWithTestsReturnsFirstExtension() {
+		$testableCodeInstance = new Tx_Phpunit_TestableCode();
+
+		$testFinder = $this->getMock(
+			'Tx_Phpunit_Service_TestFinder',
+			array('getLoadedExtensionKeys', 'getExcludedExtensionKeys', 'findTestsPathForExtension', 'createTestableCodeForSingleExtension')
+		);
+		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('foo', 'bar')));
+		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
+		$testFinder->expects($this->at(2))->method('createTestableCodeForSingleExtension')
+			->with('foo')->will($this->throwException(new Tx_Phpunit_Service_NoTestsDirectoryException()));
+		$testFinder->expects($this->at(3))->method('createTestableCodeForSingleExtension')
+			->with('bar')->will($this->returnValue($testableCodeInstance));
+
+		$this->assertSame(
+			array('bar' => $testableCodeInstance),
+			$testFinder->getTestableCodeForExtensions()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTestableCodeForExtensionsProvidesTestableCodeInstanceWithExtensionType() {
+		$testFinder = $this->getMock(
+			'Tx_Phpunit_Service_TestFinder',
+			array('getLoadedExtensionKeys', 'getExcludedExtensionKeys', 'findTestsPathForExtension', 'retrieveExtensionTitle')
+		);
+		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('phpunit')));
+		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
+		$testFinder->expects($this->once())->method('findTestsPathForExtension')
+			->with('phpunit')->will($this->returnValue(t3lib_extMgm::extPath('phpunit') . 'Tests/'));
+
+		$this->assertSame(
+			Tx_Phpunit_TestableCode::TYPE_EXTENSION,
+			array_pop($testFinder->getTestableCodeForExtensions())->getType()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTestableCodeForExtensionsProvidesTestableCodeInstanceWithExtensionKey() {
+		$testFinder = $this->getMock(
+			'Tx_Phpunit_Service_TestFinder',
+			array('getLoadedExtensionKeys', 'getExcludedExtensionKeys', 'findTestsPathForExtension', 'retrieveExtensionTitle')
+		);
+		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('phpunit')));
+		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
+		$testFinder->expects($this->once())->method('findTestsPathForExtension')
+			->with('phpunit')->will($this->returnValue(t3lib_extMgm::extPath('phpunit') . 'Tests/'));
+
+		$this->assertSame(
+			'phpunit',
+			array_pop($testFinder->getTestableCodeForExtensions())->getKey()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTestableCodeForExtensionsProvidesTestableCodeInstanceWithExtensionTitle() {
+		$testFinder = $this->getMock(
+			'Tx_Phpunit_Service_TestFinder',
+			array('getLoadedExtensionKeys', 'getExcludedExtensionKeys', 'findTestsPathForExtension', 'retrieveExtensionTitle')
+		);
+		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('phpunit')));
+		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
+		$testFinder->expects($this->once())->method('findTestsPathForExtension')
+			->with('phpunit')->will($this->returnValue(t3lib_extMgm::extPath('phpunit') . 'Tests/'));
+		$testFinder->expects($this->once())->method('retrieveExtensionTitle')
+			->with('phpunit')->will($this->returnValue('PHPUnit'));
+
+		$this->assertSame(
+			'PHPUnit',
+			array_pop($testFinder->getTestableCodeForExtensions())->getTitle()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTestableCodeForExtensionsProvidesTestableCodeInstanceWithCodePath() {
+		$testFinder = $this->getMock(
+			'Tx_Phpunit_Service_TestFinder',
+			array('getLoadedExtensionKeys', 'getExcludedExtensionKeys', 'findTestsPathForExtension', 'retrieveExtensionTitle')
+		);
+		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('phpunit')));
+		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
+		$testFinder->expects($this->once())->method('findTestsPathForExtension')
+			->with('phpunit')->will($this->returnValue(t3lib_extMgm::extPath('phpunit') . 'Tests/'));
+
+		$this->assertSame(
+			t3lib_extMgm::extPath('phpunit'),
+			array_pop($testFinder->getTestableCodeForExtensions())->getCodePath()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTestableCodeForExtensionsProvidesTestableCodeInstanceWithTestsPath() {
+		$testFinder = $this->getMock(
+			'Tx_Phpunit_Service_TestFinder',
+			array('getLoadedExtensionKeys', 'getExcludedExtensionKeys', 'findTestsPathForExtension', 'retrieveExtensionTitle')
+		);
+		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('phpunit')));
+		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
+		$testFinder->expects($this->once())->method('findTestsPathForExtension')
+			->with('phpunit')->will($this->returnValue(t3lib_extMgm::extPath('phpunit') . 'Tests/'));
+
+		$this->assertSame(
+			t3lib_extMgm::extPath('phpunit') . 'Tests/',
+			array_pop($testFinder->getTestableCodeForExtensions())->getTestsPath()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTestableCodeForExtensionsProvidesTestableCodeInstanceWithIconPath() {
+		$testFinder = $this->getMock(
+			'Tx_Phpunit_Service_TestFinder',
+			array('getLoadedExtensionKeys', 'getExcludedExtensionKeys', 'findTestsPathForExtension', 'retrieveExtensionTitle')
+		);
+		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('phpunit')));
+		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
+		$testFinder->expects($this->once())->method('findTestsPathForExtension')
+			->with('phpunit')->will($this->returnValue(t3lib_extMgm::extPath('phpunit') . 'Tests/'));
+
+		$this->assertSame(
+			t3lib_extMgm::extRelPath('phpunit') . 'ext_icon.gif',
+			array_pop($testFinder->getTestableCodeForExtensions())->getIconPath()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function retrieveExtensionTitleReturnsTitleOfInstalledExtension() {
+		$this->assertSame(
+			'PHPUnit',
+			$this->fixture->retrieveExtensionTitle('phpunit')
 		);
 	}
 }

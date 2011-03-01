@@ -5,6 +5,7 @@ return array(
 	'tx_phpunit_cli_testrunner' => $extensionPath . 'Classes/Cli/TestRunner.php',
 	'tx_phpunit_database_testcase' => $extensionPath . 'Classes/Database/TestCase.php',
 	'tx_phpunit_reports_status' => $extensionPath . 'Classes/Reports/Status.php',
+	'tx_phpunit_service_notestsdirectoryexception' => $extensionPath . 'Classes/Service/NoTestsDirectoryException.php',
 	'tx_phpunit_service_testfinder' => $extensionPath . 'Classes/Service/TestFinder.php',
 	'tx_phpunit_testablecode' => $extensionPath . 'Classes/TestableCode.php',
 	'tx_phpunit_testcase' => $extensionPath . 'Classes/TestCase.php',

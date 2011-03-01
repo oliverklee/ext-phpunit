@@ -41,6 +41,13 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	);
 
 	/**
+	 * allowed test directory names
+	 *
+	 * @var array<string>
+	 */
+	static protected $allowedTestDirectoryNames = array('Tests/', 'tests/');
+
+	/**
 	 * The destructor.
 	 */
 	public function __destruct() {
@@ -173,7 +180,8 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 *
 	 * @return array<Tx_Phpunit_TestableCode>
 	 *         testable code for the TYPO3 core, will have exactly one element if
-	 *         there are Core tests, will be empty if there are no Core tests
+	 *         there are Core tests (using the core key as array key),
+	 *         will be empty if there are no Core tests
 	 */
 	public function getTestableCodeForCore() {
 		if (!$this->hasCoreTests()) {
@@ -188,7 +196,137 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 		$coreTests->setTestsPath($this->getAbsoluteCoreTestsPath());
 		$coreTests->setIconPath(t3lib_extMgm::extRelPath('phpunit') . 'Resources/Public/Icons/Typo3.png');
 
-		return array($coreTests);
+		return array(Tx_Phpunit_TestableCode::CORE_KEY => $coreTests);
+	}
+
+	/**
+	 * Returns the testable code for all installed extensions.
+	 *
+	 * Extensions without a test directory and extensions in the "exclude list"
+	 * will be skipped.
+	 *
+	 * @return array<Tx_Phpunit_TestableCode>
+	 *         testable code for the installed extensions using the extension keys
+	 *         as array keys, might be empty
+	 */
+	public function getTestableCodeForExtensions() {
+		$result = array();
+
+		$extensionKeysToExamine = array_diff($this->getLoadedExtensionKeys(), $this->getExcludedExtensionKeys());
+
+		foreach ($extensionKeysToExamine as $extensionKey) {
+			try {
+				$result[$extensionKey] = $this->createTestableCodeForSingleExtension($extensionKey);
+			} catch (Tx_Phpunit_Service_NoTestsDirectoryException $exception) {
+				// Just skip extensions without a tests directory.
+			}
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Returns the keys of the loaded extensions.
+	 *
+	 * @return array<string> the keys of the loaded extensions, might be empty
+	 */
+	protected function getLoadedExtensionKeys() {
+		if (!isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'])) {
+			return array();
+		}
+
+		return t3lib_div::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'], TRUE);
+	}
+
+	/**
+	 * Returns the keys of the extensions excluded from unit testing via the
+	 * phpunit configuration.
+	 *
+	 * @return array<string> the keys of the excluded extensions, might be empty
+	 */
+	protected function getExcludedExtensionKeys() {
+		if (!isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['excludeextensions'])) {
+			return array();
+		}
+
+		return t3lib_div::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['excludeextensions'], TRUE);
+	}
+
+	/**
+	 * Creates the testable code instance for the extension with the given key.
+	 *
+	 * @throws Tx_Phpunit_Service_NoTestsDirectoryException if the given extension has no tests directory
+	 *
+	 * @param string $extensionKey the key of an installed extension, must not be empty
+	 *
+	 * @return Tx_Phpunit_TestableCode the test-relevant data of the installed extension
+	 */
+	protected function createTestableCodeForSingleExtension($extensionKey) {
+		$testsPath = $this->findTestsPathForExtension($extensionKey);
+
+		$testableCode = t3lib_div::makeInstance('Tx_Phpunit_TestableCode');
+		$testableCode->setType(Tx_Phpunit_TestableCode::TYPE_EXTENSION);
+		$testableCode->setKey($extensionKey);
+		$testableCode->setTitle($this->retrieveExtensionTitle($extensionKey));
+		$testableCode->setCodePath(t3lib_extMgm::extPath($extensionKey));
+		$testableCode->setTestsPath($testsPath);
+		$testableCode->setIconPath(t3lib_extMgm::extRelPath($extensionKey) . 'ext_icon.gif');
+
+		return $testableCode;
+	}
+
+	/**
+	 * Finds the absolute path to the tests of the extension with the key $extensionKey.
+	 *
+	 * @throws Tx_Phpunit_Service_NoTestsDirectoryException if the given extension has no tests directory
+	 *
+	 * @param string $extensionKey the key of an installed extension, must not be empty
+	 *
+	 * @return string
+	 *         the absolute path of the tests directory of the given extension
+	 *         (might differ in case from the actual tests directory on case-insensitive
+	 *         file systems)
+	 */
+	protected function findTestsPathForExtension($extensionKey) {
+		if ($extensionKey === '') {
+			throw new InvalidArgumentException('$extensionKey must not be empty.');
+		}
+
+		$path = '';
+		$extensionPath = t3lib_extMgm::extPath($extensionKey);
+		foreach (self::$allowedTestDirectoryNames as $testDirectoryName) {
+			if (is_dir($extensionPath . $testDirectoryName)) {
+				$path = $extensionPath . $testDirectoryName;
+				break;
+			}
+		}
+
+		if ($path === '') {
+			throw new Tx_Phpunit_Service_NoTestsDirectoryException(
+				'The extension "' . $extensionKey . '" does not have a tests directory.'
+			);
+		}
+
+		return $path;
+	}
+
+	/**
+	 * Retrieves the title of an installed extension.
+	 *
+	 * @param string $extensionKey the key of the extension to retrieve, must not be empty
+	 *
+	 * @return string the title of the extension with the given key, might be empty
+	 */
+	protected function retrieveExtensionTitle($extensionKey) {
+		if ($extensionKey === '') {
+			throw new InvalidArgumentException('$extensionKey must not be empty.');
+		}
+
+		$EM_CONF = array();
+		$_EXTKEY = $extensionKey;
+		include(t3lib_extMgm::extPath($extensionKey) . 'ext_emconf.php');
+
+		return $EM_CONF[$extensionKey]['title'];
 	}
 }
 ?>
