@@ -176,6 +176,18 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	}
 
 	/**
+	 * Returns the testable code instance for everything, i.e., the core and
+	 * all installed extensions.
+	 *
+	 * @return array<Tx_Phpunit_TestableCode>
+	 *         testable code for everything using the extension keys or the core key
+	 *         as array keys, might be empty
+	 */
+	public function getTestableCodeForEverything() {
+		return array_merge($this->getTestableCodeForCore(), $this->getTestableCodeForExtensions());
+	}
+
+	/**
 	 * Returns the testable code for the TYPO3 Core.
 	 *
 	 * @return array<Tx_Phpunit_TestableCode>

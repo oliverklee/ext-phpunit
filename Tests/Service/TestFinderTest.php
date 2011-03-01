@@ -415,6 +415,77 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
+	public function getTestableCodeForEverythingForNoCoreTestsAndNoExtensionTestsReturnsEmptyArray() {
+		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestableCodeForCore', 'getTestableCodeForExtensions'));
+		$testFinder->expects($this->once())->method('getTestableCodeForCore')->will($this->returnValue(array()));
+		$testFinder->expects($this->once())->method('getTestableCodeForExtensions')->will($this->returnValue(array()));
+
+		$this->assertSame(
+			array(),
+			$testFinder->getTestableCodeForEverything()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTestableCodeForEverythingForCoreTestsAndNoExtensionTestsReturnsCoreTests() {
+		$coreTests = new Tx_Phpunit_TestableCode();
+
+		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestableCodeForCore', 'getTestableCodeForExtensions'));
+		$testFinder->expects($this->once())->method('getTestableCodeForCore')
+			->will($this->returnValue(array(Tx_Phpunit_TestableCode::CORE_KEY => $coreTests)));
+		$testFinder->expects($this->once())->method('getTestableCodeForExtensions')->will($this->returnValue(array()));
+
+		$this->assertSame(
+			array(Tx_Phpunit_TestableCode::CORE_KEY => $coreTests),
+			$testFinder->getTestableCodeForEverything()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTestableCodeForEverythingForCoreTestsAndNoExtensionTestsReturnsExtensionTests() {
+		$extensionTests = new Tx_Phpunit_TestableCode();
+
+		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestableCodeForCore', 'getTestableCodeForExtensions'));
+		$testFinder->expects($this->once())->method('getTestableCodeForCore')
+			->will($this->returnValue(array()));
+		$testFinder->expects($this->once())->method('getTestableCodeForExtensions')
+			->will($this->returnValue(array('foo' => $extensionTests)));
+
+		$this->assertSame(
+			array('foo' => $extensionTests),
+			$testFinder->getTestableCodeForEverything()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTestableCodeForEverythingForCoreTestsAndExtensionTestsReturnsCoreAndExtensionTests() {
+		$coreTests = new Tx_Phpunit_TestableCode();
+		$extensionTests = new Tx_Phpunit_TestableCode();
+
+		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestableCodeForCore', 'getTestableCodeForExtensions'));
+		$testFinder->expects($this->once())->method('getTestableCodeForCore')
+			->will($this->returnValue(array(Tx_Phpunit_TestableCode::CORE_KEY => $coreTests)));
+		$testFinder->expects($this->once())->method('getTestableCodeForExtensions')
+			->will($this->returnValue(array('foo' => $extensionTests)));
+
+		$this->assertSame(
+			array(
+				Tx_Phpunit_TestableCode::CORE_KEY => $coreTests,
+				'foo' => $extensionTests,
+			),
+			$testFinder->getTestableCodeForEverything()
+		);
+	}
+
+	/**
+	 * @test
+	 */
 	public function getTestableCodeForCoreForNoCoreTestsReturnsEmptyArray() {
 		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('hasCoreTests'));
 		$testFinder->expects($this->once())->method('hasCoreTests')->will($this->returnValue(FALSE));
