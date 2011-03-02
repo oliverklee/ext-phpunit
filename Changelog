@@ -1,4 +1,5 @@
 2011-03-02 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #12165: Make the BE module testable and add some basic tests (part 1)
 	* Fixed Bug #13501: Add a cache for the extensions, an "exists check" and a dummy extension filter to the test finder
 	* Fixed Bug #13485: Crash when running Tx_Phpunit_Database_TestCaseTest on TYPO3 4.5
 	* Fixed Bug #11688: Move the back-end module to Classes

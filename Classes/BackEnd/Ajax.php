@@ -39,14 +39,14 @@ class Tx_Phpunit_BackEnd_Ajax {
 	 * Used to broker incoming requests to other calls.
 	 * Called by typo3/ajax.php
 	 *
-	 * @param array $params
+	 * @param array $parameters
 	 *        additional parameters (not used)
 	 * @param TYPO3AJAX $ajaxObj
 	 *        the AJAX object of this request
 	 *
 	 * @return void
 	 */
-	public function ajaxBroker($params, TYPO3AJAX $ajaxObj) {
+	public function ajaxBroker(array $parameters, TYPO3AJAX $ajaxObj) {
 		// Checks for legal input ('white-listing').
 		$state = t3lib_div::_POST('state') === 'true' ? 'on' : 'off';
 		$checkbox = t3lib_div::_POST('checkbox');
