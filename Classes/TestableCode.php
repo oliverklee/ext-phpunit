@@ -304,8 +304,4 @@ class Tx_Phpunit_TestableCode {
 		$this->iconPath = $iconPath;
 	}
 }
-
-if (defined('TYPO3_MODE') && $GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/phpunit/Classes/TestableCode.php']) {
-	include_once($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/phpunit/Classes/TestableCode.php']);
-}
 ?>
