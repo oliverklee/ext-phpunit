@@ -14,7 +14,8 @@ if (is_dir($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['phpunitlib'])) {
 define(TX_PHPUNITLIB_EXTPATH, $phpunitlib);
 set_include_path(TX_PHPUNITLIB_EXTPATH . PATH_SEPARATOR . get_include_path());
 
-$GLOBALS['TYPO3_CONF_VARS']['BE']['AJAX']['tx_phpunit_module1_ajax'] = 'typo3conf/ext/phpunit/mod1/class.tx_phpunit_module1_ajax.php:tx_phpunit_module1_ajax->ajaxBroker';
+$GLOBALS['TYPO3_CONF_VARS']['BE']['AJAX']['Tx_Phpunit_BackEnd_Ajax']
+	= 'typo3conf/ext/phpunit/Classes/BackEnd/Ajax.php:Tx_Phpunit_BackEnd_Ajax->ajaxBroker';
 
 if (TYPO3_MODE === 'BE') {
 	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['GLOBAL']['cliKeys'][$_EXTKEY] = array(

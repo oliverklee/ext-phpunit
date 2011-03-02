@@ -85,7 +85,7 @@ function setProgressBarClass(className) {
 			{	success: function (responseObj) {},
 				failure: function (responseObj) {}
 			},
-			'ajaxID=tx_phpunit_module1_ajax&state='+state+'&checkbox='+checkbox
+			'ajaxID=Tx_Phpunit_BackEnd_Ajax&state='+state+'&checkbox='+checkbox
 		);
 		Dom.setStyle(Dom.getElementsByClassName(className), 'display', display);
 	}
@@ -97,7 +97,7 @@ function setProgressBarClass(className) {
 				{	success: function (responseObj) {},
 					failure: function (responseObj) {}
 				},
-				'ajaxID=tx_phpunit_module1_ajax&state=' + state + '&checkbox=codeCoverage'
+				'ajaxID=Tx_Phpunit_BackEnd_Ajax&state=' + state + '&checkbox=codeCoverage'
 			);
 	}
 

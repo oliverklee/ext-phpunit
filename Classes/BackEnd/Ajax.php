@@ -34,7 +34,7 @@
  * @author Michael Klapper <michael.klapper@aoemedia.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class tx_phpunit_module1_ajax {
+class Tx_Phpunit_BackEnd_Ajax {
 	/**
 	 * Used to broker incoming requests to other calls.
 	 * Called by typo3/ajax.php
@@ -74,9 +74,5 @@ class tx_phpunit_module1_ajax {
 			$ajaxObj->setError('Illegal input parameters.');
 		}
 	}
-}
-
-if (defined('TYPO3_MODE') && $GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/phpunit/mod1/class.tx_phpunit_module1_ajax.php']) {
-	include_once($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/phpunit/mod1/class.tx_phpunit_module1_ajax.php']);
 }
 ?>

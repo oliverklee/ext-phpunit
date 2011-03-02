@@ -23,7 +23,7 @@
  ***************************************************************/
 
 /**
- * Module "PHPUnit".
+ * Back-end module "PHPUnit".
  *
  * @package TYPO3
  * @subpackage tx_phpunit
@@ -32,7 +32,7 @@
  * @author Michael Klapper <michael.klapper@aoemedia.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class tx_phpunit_module1 extends t3lib_SCbase {
+class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	/**
 	 * the extension key
 	 *
@@ -805,9 +805,5 @@ class tx_phpunit_module1 extends t3lib_SCbase {
 
 		return $result;
 	}
-}
-
-if (defined('TYPO3_MODE') && $GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/phpunit/mod1/class.tx_phpunit_module1.php']) {
-	include_once($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/phpunit/mod1/class.tx_phpunit_module1.php']);
 }
 ?>
