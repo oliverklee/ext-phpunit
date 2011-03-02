@@ -72,7 +72,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * The constructor.
 	 */
 	public function __construct() {
-		parent::init();
+		$this->init();
 
 		$this->extensionPath = t3lib_extMgm::extRelPath(self::EXTENSION_KEY);
 
