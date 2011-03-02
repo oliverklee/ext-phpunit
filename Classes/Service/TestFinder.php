@@ -345,22 +345,22 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 			throw new InvalidArgumentException('$extensionKey must not be empty.');
 		}
 
-		$path = '';
+		$testsPath = '';
 		$extensionPath = t3lib_extMgm::extPath($extensionKey);
 		foreach (self::$allowedTestDirectoryNames as $testDirectoryName) {
 			if (is_dir($extensionPath . $testDirectoryName)) {
-				$path = $extensionPath . $testDirectoryName;
+				$testsPath = $extensionPath . $testDirectoryName;
 				break;
 			}
 		}
 
-		if ($path === '') {
+		if ($testsPath === '') {
 			throw new Tx_Phpunit_Service_NoTestsDirectoryException(
 				'The extension "' . $extensionKey . '" does not have a tests directory.'
 			);
 		}
 
-		return $path;
+		return $testsPath;
 	}
 
 	/**
