@@ -90,6 +90,9 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 				'  public function getExcludedExtensionKeys() {' .
 				'    return parent::getExcludedExtensionKeys();' .
 				'  }' .
+				'  public function getDummyExtensionKeys() {' .
+				'    return parent::getDummyExtensionKeys();' .
+				'  }' .
 				'  public function findTestsPathForExtension($extensionKey) {' .
 				'    return parent::findTestsPathForExtension($extensionKey);' .
 				'  }' .
@@ -712,6 +715,16 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
+	public function getDummyExtensionKeysReturnsKeysOfPhpUnitDummyExtensions() {
+		$this->assertSame(
+			array('aaa', 'bbb', 'ccc', 'ddd'),
+			$this->fixture->getDummyExtensionKeys()
+		);
+	}
+
+	/**
+	 * @test
+	 */
 	public function getTestableCodeForExtensionsCreatesTestableCodeForSingleExtensionForInstalledExtensionsWithoutExcludedExtensions() {
 		$testFinder = $this->getMock(
 			'Tx_Phpunit_Service_TestFinder',
@@ -722,6 +735,26 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 		$testFinder->expects($this->at(2))->method('createTestableCodeForSingleExtension')->with('bar');
 		$testFinder->expects($this->at(3))->method('createTestableCodeForSingleExtension')->with('foobar');
+
+		$testFinder->getTestableCodeForExtensions();
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTestableCodeForExtensionsCreatesTestableCodeForSingleExtensionForInstalledExtensionsWithoutDummyExtensions() {
+		$testFinder = $this->getMock(
+			'Tx_Phpunit_Service_TestFinder',
+			array('getLoadedExtensionKeys', 'getExcludedExtensionKeys', 'getDummyExtensionKeys',
+				'findTestsPathForExtension', 'createTestableCodeForSingleExtension',
+			)
+		);
+		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('foo', 'bar', 'foobar')));
+		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
+		$testFinder->expects($this->once())->method('getDummyExtensionKeys')->will($this->returnValue(array('foo', 'baz')));
+
+		$testFinder->expects($this->at(3))->method('createTestableCodeForSingleExtension')->with('bar');
+		$testFinder->expects($this->at(4))->method('createTestableCodeForSingleExtension')->with('foobar');
 
 		$testFinder->getTestableCodeForExtensions();
 	}

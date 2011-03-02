@@ -48,6 +48,13 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	static protected $allowedTestDirectoryNames = array('Tests/', 'tests/');
 
 	/**
+	 * keys of the dummy extensions of the phpunit extension
+	 *
+	 * @var array<string>
+	 */
+	static protected $dummyExtensionKeys = array('aaa', 'bbb', 'ccc', 'ddd');
+
+	/**
 	 * a cache for the result of findTestableCodeForEverything
 	 *
 	 * @var array
@@ -265,7 +272,10 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	public function getTestableCodeForExtensions() {
 		$result = array();
 
-		$extensionKeysToExamine = array_diff($this->getLoadedExtensionKeys(), $this->getExcludedExtensionKeys());
+		$extensionKeysToExamine = array_diff(
+			$this->getLoadedExtensionKeys(),
+			$this->getExcludedExtensionKeys(), $this->getDummyExtensionKeys()
+		);
 
 		foreach ($extensionKeysToExamine as $extensionKey) {
 			try {
@@ -303,6 +313,16 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 		}
 
 		return t3lib_div::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['excludeextensions'], TRUE);
+	}
+
+	/**
+	 * Returns the keys of the extensions excluded from unit testing because
+	 * they are the dummy extensions of phpunit.
+	 *
+	 * @return array<string> the keys of the dummy extensions, will not be empty
+	 */
+	public function getDummyExtensionKeys() {
+		return self::$dummyExtensionKeys;
 	}
 
 	/**
