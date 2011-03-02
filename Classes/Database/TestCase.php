@@ -259,13 +259,13 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	 */
 	private function importDBdefinitions($definitionContent) {
 		$install = t3lib_div::makeInstance('t3lib_install');
-		$FDfile = $install->getFieldDefinitions_sqlContent($definitionContent);
+		$FDfile = $install->getFieldDefinitions_fileContent($definitionContent);
 		if (empty($FDfile)) {
 			return;
 		}
 
 		// find statements to query
-		$FDdatabase = $install->getFieldDefinitions_sqlContent($this->getTestDatabaseSchema());
+		$FDdatabase = $install->getFieldDefinitions_fileContent($this->getTestDatabaseSchema());
 		$diff = $install->getDatabaseExtra($FDfile, $FDdatabase);
 		$updateStatements = $install->getUpdateSuggestions($diff);
 

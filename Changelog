@@ -1,4 +1,5 @@
 2011-03-02 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #13485: Crash when running Tx_Phpunit_Database_TestCaseTest on TYPO3 4.5
 	* Fixed Bug #11688: Move the back-end module to Classes
 
 2011-03-01 Oliver Klee <typo3-coding@oliverklee.de>
