@@ -48,6 +48,20 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	static protected $allowedTestDirectoryNames = array('Tests/', 'tests/');
 
 	/**
+	 * a cache for the result of findTestableCodeForEverything
+	 *
+	 * @var array
+	 */
+	protected $allTestableCodeCache = array();
+
+	/**
+	 * indicates whether $allTestableCodeCache already has been filled
+	 *
+	 * @var boolean
+	 */
+	protected $allTestableCodeIsCached = FALSE;
+
+	/**
 	 * The destructor.
 	 */
 	public function __destruct() {
@@ -176,6 +190,25 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	}
 
 	/**
+	 * Checks whether there is testable code for a key.
+	 *
+	 * @param string $key
+	 *        the key to check, might be an extension key, the core key or
+	 *        any other string (even an empty string)
+	 *
+	 * @return boolean TRUE if there is testable code with the given key, FALSE otherwise
+	 */
+	public function existsTestableCodeForKey($key) {
+		if ($key === '') {
+			return FALSE;
+		}
+
+		$allTestableCode = $this->getTestableCodeForEverything();
+
+		return isset($allTestableCode[$key]);
+	}
+
+	/**
 	 * Returns the testable code instance for everything, i.e., the core and
 	 * all installed extensions.
 	 *
@@ -184,7 +217,15 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 *         as array keys, might be empty
 	 */
 	public function getTestableCodeForEverything() {
-		return array_merge($this->getTestableCodeForCore(), $this->getTestableCodeForExtensions());
+		if (!$this->allTestableCodeIsCached) {
+			$this->allTestableCodeCache = array_merge(
+				$this->getTestableCodeForCore(), $this->getTestableCodeForExtensions()
+			);
+
+			$this->allTestableCodeIsCached = TRUE;
+		}
+
+		return $this->allTestableCodeCache;
 	}
 
 	/**
