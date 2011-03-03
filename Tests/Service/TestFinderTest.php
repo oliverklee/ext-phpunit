@@ -771,7 +771,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 *
-	 * @expectedException Tx_Phpunit_Service_NoTestsDirectoryException
+	 * @expectedException Tx_Phpunit_Exception_NoTestsDirectory
 	 */
 	public function findTestsPathForExtensionForExtensionWithoutTestsPathThrowsException() {
 		if (!t3lib_extMgm::isLoaded('aaa')) {
@@ -881,7 +881,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('foo')));
 		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
 		$testFinder->expects($this->once())->method('findTestsPathForExtension')
-			->with('foo')->will($this->throwException(new Tx_Phpunit_Service_NoTestsDirectoryException()));
+			->with('foo')->will($this->throwException(new Tx_Phpunit_Exception_NoTestsDirectory()));
 
 		$this->assertSame(
 			array(),
@@ -902,7 +902,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('foo', 'bar')));
 		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
 		$testFinder->expects($this->at(2))->method('createTestableCodeForSingleExtension')
-			->with('foo')->will($this->throwException(new Tx_Phpunit_Service_NoTestsDirectoryException()));
+			->with('foo')->will($this->throwException(new Tx_Phpunit_Exception_NoTestsDirectory()));
 		$testFinder->expects($this->at(3))->method('createTestableCodeForSingleExtension')
 			->with('bar')->will($this->returnValue($testableCodeInstance));
 

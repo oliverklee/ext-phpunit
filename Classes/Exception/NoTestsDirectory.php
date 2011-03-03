@@ -31,6 +31,6 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Service_NoTestsDirectoryException extends t3lib_exception {
+class Tx_Phpunit_Exception_NoTestsDirectory extends t3lib_exception {
 }
 ?>

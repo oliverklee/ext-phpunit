@@ -1,3 +1,6 @@
+2011-03-03 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #11682: Port the testing framework from oelib
+
 2011-03-02 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #12165: Make the BE module testable and add some basic tests (part 1)
 	* Fixed Bug #13501: Add a cache for the extensions, an "exists check" and a dummy extension filter to the test finder
