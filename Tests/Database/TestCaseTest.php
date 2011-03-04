@@ -40,12 +40,13 @@
 class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 	public function tearDown() {
 		$this->dropDatabase();
+		$this->switchToTypo3Database();
 	}
 
 	/**
 	 * @test
 	 */
-	public function NULLToEmptyString() {
+	public function nullToEmptyString() {
 		$this->assertEquals('', mysql_real_escape_string(NULL));
 	}
 

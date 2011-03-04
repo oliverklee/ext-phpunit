@@ -52,6 +52,19 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	}
 
 	/**
+	 * Selects the TYPO3 database (again).
+	 *
+	 * If you have selected any non-TYPO3 in your unit tests, you need to
+	 * call this function in tearDown() in order to avoid problems with the
+	 * following unit tests and the TYPO3 back-end.
+	 *
+	 * @return void
+	 */
+	protected function switchToTypo3Database() {
+		$GLOBALS['TYPO3_DB']->sql_select_db(TYPO3_db);
+	}
+
+	/**
 	 * Accesses the TYPO3 database instance and uses it to fetch the list of
 	 * abailable databases. Then this function creates a test database (if none
 	 * has been set up yet).
