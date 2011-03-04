@@ -54,11 +54,13 @@ abstract class Tx_Phpunit_TestCase extends PHPUnit_Framework_TestCase {
 	/**
 	 * Roughly simulates the front end although being in the back end.
 	 *
-	 * @todo	This is a quick hack, needs proper implementation.
+	 * @deprecated since 3.5.12, will be removed in 3.6.0. Use Tx_Phpunit_Framework::createFakeFrontEnd instead.
 	 *
-	 * @return void.
+	 * @return void
 	 */
 	protected function simulateFrontendEnviroment() {
+		t3lib_div::logDeprecatedFunction();
+
 		if (isset($GLOBALS['TSFE']) && is_object($GLOBALS['TSFE'])) {
 			// avoids some memory leaks
 			unset(
