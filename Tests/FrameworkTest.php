@@ -124,7 +124,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	 * Checks whether the extension user_phpunittest is currently loaded and lets
 	 * a test fail if the extension is not loaded.
 	 */
-	private function checkIfExtensionUserOelibtestIsLoaded() {
+	private function checkIfExtensionUserPhpUnittestIsLoaded() {
 		if (!t3lib_extMgm::isLoaded('user_phpunittest')) {
 			$this->fail(
 				'Extension user_phpunittest is not installed but needs to be ' .
@@ -138,7 +138,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	 * Checks whether the extension user_phpunittest2 is currently loaded and lets
 	 * a test fail if the extension is not loaded.
 	 */
-	private function checkIfExtensionUserOelibtest2IsLoaded() {
+	private function checkIfExtensionUserPhpUnittest2IsLoaded() {
 		if (!t3lib_extMgm::isLoaded('user_phpunittest')) {
 			$this->fail(
 				'Extension user_phpunittest2 is not installed but needs to be ' .
@@ -243,7 +243,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
      * @test
      */
     public function markTableAsDirtyWillCleanUpAdditionalAllowedTable() {
-		$this->checkIfExtensionUserOelibtestIsLoaded();
+		$this->checkIfExtensionUserPhpUnittestIsLoaded();
 
 		$uid = Tx_Phpunit_Service_Database::insert(
 			'user_phpunittest_test', array('tx_phpunit_is_dummy_record' => 1)
@@ -383,7 +383,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
      * @test
      */
     public function createRecordOnValidAdditionalAllowedTableWithValidDataSucceeds() {
-		$this->checkIfExtensionUserOelibtestIsLoaded();
+		$this->checkIfExtensionUserPhpUnittestIsLoaded();
 
 		$title = 'TEST record';
 		$this->fixture->createRecord(
@@ -509,7 +509,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
      * @test
      */
     public function changeRecordOnAdditionalAllowedTableSucceeds() {
-		$this->checkIfExtensionUserOelibtestIsLoaded();
+		$this->checkIfExtensionUserPhpUnittestIsLoaded();
 
 		$uid = $this->fixture->createRecord(
 			'user_phpunittest_test',
@@ -608,7 +608,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
      * @test
      */
     public function deleteRecordOnValidDummyRecordOnAdditionalAllowedTableSucceeds() {
-		$this->checkIfExtensionUserOelibtestIsLoaded();
+		$this->checkIfExtensionUserPhpUnittestIsLoaded();
 
 		// Creates and directly destroys a dummy record.
 		$uid = $this->fixture->createRecord('user_phpunittest_test', array());
@@ -732,7 +732,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
      * @test
      */
     public function createRelationWithValidDataOnAdditionalAllowedTableSucceeds() {
-		$this->checkIfExtensionUserOelibtestIsLoaded();
+		$this->checkIfExtensionUserPhpUnittestIsLoaded();
 
 		$uidLocal = $this->fixture->createRecord('user_phpunittest_test');
 		$uidForeign = $this->fixture->createRecord('user_phpunittest_test');
@@ -1046,7 +1046,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
      * @test
      */
     public function removeRelationOnValidDummyRecordOnAdditionalAllowedTableSucceeds() {
-		$this->checkIfExtensionUserOelibtestIsLoaded();
+		$this->checkIfExtensionUserPhpUnittestIsLoaded();
 
 		$uidLocal = $this->fixture->createRecord('user_phpunittest_test');
 		$uidForeign = $this->fixture->createRecord('user_phpunittest_test');
@@ -1352,7 +1352,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
      * @test
      */
     public function createListOfAdditionalAllowedTablesContainsOurTestTable() {
-		$this->checkIfExtensionUserOelibtestIsLoaded();
+		$this->checkIfExtensionUserPhpUnittestIsLoaded();
 
 		$allowedTables = $this->fixture->getListOfAdditionalAllowedTableNames();
 		$this->assertContains(
@@ -1376,8 +1376,8 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
      * @test
      */
     public function createListOfAdditionalAllowedTablesContainsOurTestTables() {
-		$this->checkIfExtensionUserOelibtestIsLoaded();
-		$this->checkIfExtensionUserOelibtest2IsLoaded();
+		$this->checkIfExtensionUserPhpUnittestIsLoaded();
+		$this->checkIfExtensionUserPhpUnittest2IsLoaded();
 
 		$fixture = new Tx_Phpunit_Framework(
 			'tx_phpunit', array('user_phpunittest', 'user_phpunittest2')
@@ -1991,7 +1991,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
      * @test
      */
     public function resetAutoIncrementForAdditionalAllowedTableSucceeds() {
-		$this->checkIfExtensionUserOelibtestIsLoaded();
+		$this->checkIfExtensionUserPhpUnittestIsLoaded();
 
 		// Creates and deletes a record and then resets the auto increment.
 		$latestUid = $this->fixture->createRecord('user_phpunittest_test');
@@ -4690,7 +4690,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	/**
 	 * @test
 	 */
-	public function getDummyColumnNameForSystemTableReturnsOelibPrefixedColumnName() {
+	public function getDummyColumnNameForSystemTableReturnsPhpUnitPrefixedColumnName() {
 		$this->assertEquals(
 			'tx_phpunit_is_dummy_record',
 			$this->fixture->getDummyColumnName('fe_users')
