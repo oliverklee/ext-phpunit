@@ -743,9 +743,13 @@ class Tx_Phpunit_Framework {
 		$this->discardFakeFrontEnd();
 
 		foreach ($this->getHooks() as $hook) {
-			if (method_exists($hook, 'cleanUp')) {
-				$hook->cleanUp($this);
+			if (!($hook instanceof Tx_Phpunit_Interface_FrameworkCleanupHook)) {
+				throw new t3lib_exception(
+					'The class ' . get_class($hook) . ' must implement Tx_Phpunit_Interface_FrameworkCleanupHook.',
+					1299257923
+				);
 			}
+			$hook->cleanUp($this);
 		}
 	}
 

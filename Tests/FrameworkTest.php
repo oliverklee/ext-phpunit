@@ -75,22 +75,20 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 		$this->extConfBackup = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'];
 		$this->t3VarBackup = $GLOBALS['T3_VAR']['getUserObj'];
 
-		$this->fixture = new Tx_Phpunit_Framework(
-			'tx_phpunit', array('user_phpunittest')
-		);
+		$this->fixture = new Tx_Phpunit_Framework('tx_phpunit', array('user_phpunittest'));
 	}
 
 	public function tearDown() {
+		$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'] = $this->extConfBackup;
+		$GLOBALS['T3_VAR']['getUserObj'] = $this->t3VarBackup;
+
 		$this->fixture->setResetAutoIncrementThreshold(1);
-		$this->fixture->cleanUp();
 		$this->fixture->purgeHooks();
+		$this->fixture->cleanUp();
 		$this->deleteForeignFile();
 		$this->deleteForeignFolder();
 
 		unset($this->fixture);
-
-		$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'] = $this->extConfBackup;
-		$GLOBALS['T3_VAR']['getUserObj'] = $this->t3VarBackup;
 	}
 
 
@@ -1299,15 +1297,32 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	 * @test
 	 */
 	public function cleanUpExecutesCleanUpHook() {
-		$hookClassName = uniqid('cleanUpHook');
-		$cleanUpHookMock = $this->getMock(
-			$hookClassName, array('cleanUp')
-		);
+		$this->fixture->purgeHooks();
+
+		$cleanUpHookMock = $this->getMock('Tx_Phpunit_Interface_FrameworkCleanupHook', array('cleanUp'));
 		$cleanUpHookMock->expects($this->atLeastOnce())->method('cleanUp');
 
+		$hookClassName = get_class($cleanUpHookMock);
+
 		$GLOBALS['T3_VAR']['getUserObj'][$hookClassName] = $cleanUpHookMock;
-		$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']
-			['FrameworkCleanUp'][$hookClassName] = $hookClassName;
+		$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['FrameworkCleanUp']['phpunit_tests'] = $hookClassName;
+
+		$this->fixture->cleanUp();
+	}
+
+	/**
+	 * @test
+	 *
+	 * @expectedException t3lib_exception
+	 */
+	public function cleanUpForHookWithoutHookInterfaceThrowsException() {
+		$this->fixture->purgeHooks();
+
+		$hookClassName = uniqid('cleanUpHook');
+		$cleanUpHookMock = $this->getMock($hookClassName, array('cleanUp'));
+
+		$GLOBALS['T3_VAR']['getUserObj'][$hookClassName] = $cleanUpHookMock;
+		$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['FrameworkCleanUp']['phpunit_tests'] = $hookClassName;
 
 		$this->fixture->cleanUp();
 	}
