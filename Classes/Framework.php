@@ -45,7 +45,7 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @var string
 	 */
-	private $tablePrefix = '';
+	protected $tablePrefix = '';
 
 	/**
 	 * prefixes of additional extensions to which this instance of the testing
@@ -53,7 +53,7 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @var array
 	 */
-	private $additionalTablePrefixes = array();
+	protected $additionalTablePrefixes = array();
 
 	/**
 	 * all own DB table names to which this instance of the testing framework
@@ -61,7 +61,7 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @var array
 	 */
-	private $ownAllowedTables = array();
+	protected $ownAllowedTables = array();
 
 	/**
 	 * all additional DB table names to which this instance of the testing
@@ -69,7 +69,7 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @var array
 	 */
-	private $additionalAllowedTables = array();
+	protected $additionalAllowedTables = array();
 
 	/**
 	 * all sytem table names to which this instance of the testing framework
@@ -77,7 +77,7 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @var array
 	 */
-	private $allowedSystemTables = array(
+	protected $allowedSystemTables = array(
 		'be_users', 'fe_groups', 'fe_users', 'pages', 'sys_template',
 		'tt_content', 'be_groups'
 	);
@@ -88,7 +88,7 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @var array
 	 */
-	private $dirtyTables = array();
+	protected $dirtyTables = array();
 
 	/**
 	 * all "dirty" system tables (i.e. all tables that were used for testing and
@@ -96,14 +96,14 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @var array
 	 */
-	private $dirtySystemTables = array();
+	protected $dirtySystemTables = array();
 
 	/**
 	 * sorting values of all relation tables
 	 *
 	 * @var array
 	 */
-	private $relationSorting = array();
+	protected $relationSorting = array();
 
 	/**
 	 * the number of unusable UIDs after the maximum UID in a table before the
@@ -111,7 +111,7 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @var integer
 	 */
-	private $resetAutoIncrementThreshold = 100;
+	protected $resetAutoIncrementThreshold = 100;
 
 	/**
 	 * the names of the created dummy files relative to the upload folder of the
@@ -119,7 +119,7 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @var array
 	 */
-	private $dummyFiles = array();
+	protected $dummyFiles = array();
 
 	/**
 	 * the names of the created dummy folders relative to theupload folder of
@@ -127,42 +127,42 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @var array
 	 */
-	private $dummyFolders = array();
+	protected $dummyFolders = array();
 
 	/**
 	 * the absolute path to the upload folder of the extension to test
 	 *
 	 * @var string
 	 */
-	private $uploadFolderPath = '';
+	protected $uploadFolderPath = '';
 
 	/**
 	 * an instance used for retrieving a unique file name
 	 *
 	 * @var t3lib_basicFileFunctions
 	 */
-	private static $fileNameProcessor = NULL;
+	protected static $fileNameProcessor = NULL;
 
 	/**
 	 * whether a fake front end has been created
 	 *
 	 * @var boolean
 	 */
-	private $hasFakeFrontEnd = FALSE;
+	protected $hasFakeFrontEnd = FALSE;
 
 	/**
 	 * hook objects for this class
 	 *
 	 * @var array
 	 */
-	static private $hooks = array();
+	static protected $hooks = array();
 
 	/**
 	 * whether the hooks in self::hooks have been retrieved
 	 *
 	 * @var boolean
 	 */
-	static private $hooksHaveBeenRetrieved = FALSE;
+	static protected $hooksHaveBeenRetrieved = FALSE;
 
 	/**
 	 * The constructor for this class.
@@ -242,7 +242,7 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @return integer the UID of the new record, will be > 0
 	 */
-	private function createRecordWithoutTableNameChecks($tableName, array $recordData) {
+	protected function createRecordWithoutTableNameChecks($tableName, array $recordData) {
 		$dummyColumnName = $this->getDummyColumnName($tableName);
 		$recordData[$dummyColumnName] = 1;
 
@@ -301,7 +301,7 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @return integer the UID of the new record, will be > 0
 	 */
-	private function createGeneralPageRecord($documentType, $parentId, array $recordData) {
+	protected function createGeneralPageRecord($documentType, $parentId, array $recordData) {
 		if (isset($recordData['uid'])) {
 			throw new InvalidArgumentException('The column "uid" must not be set in $recordData.');
 		}
@@ -769,7 +769,7 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @return void
 	 */
-	private function cleanUpTableSet($useSystemTables, $performDeepCleanUp) {
+	protected function cleanUpTableSet($useSystemTables, $performDeepCleanUp) {
 		if ($useSystemTables) {
 			$tablesToCleanUp = $performDeepCleanUp ? $this->allowedSystemTables : $this->dirtySystemTables;
 		} else {
@@ -797,7 +797,7 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @return void
 	 */
-	private function deleteAllDummyFoldersAndFiles() {
+	protected function deleteAllDummyFoldersAndFiles() {
 		// If the upload folder was created by the testing framework, it can be
 		// removed at once.
 		if (isset($this->dummyFolders['uploadFolder'])) {
@@ -903,7 +903,7 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @return void
 	 */
-	private function addToDummyFileList($uniqueFileName) {
+	protected function addToDummyFileList($uniqueFileName) {
 		$relativeFileName = $this->getPathRelativeToUploadDirectory($uniqueFileName);
 
 		$this->dummyFiles[$relativeFileName] = $relativeFileName;
@@ -1009,7 +1009,7 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @return void
 	 */
-	private function createDummyUploadFolder() {
+	protected function createDummyUploadFolder() {
 		if (is_dir($this->getUploadFolderPath())) {
 			return;
 		}
@@ -1225,7 +1225,7 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @return void
 	 */
-	private function suppressFrontEndCookies() {
+	protected function suppressFrontEndCookies() {
 		$_POST['FE_SESSION_KEY'] = '';
 		$_GET['FE_SESSION_KEY'] = '';
 		$GLOBALS['TYPO3_CONF_VARS']['FE']['dontSetCookie'] = 1;
@@ -1333,7 +1333,7 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @return void
 	 */
-	private function createListOfOwnAllowedTables() {
+	protected function createListOfOwnAllowedTables() {
 		$this->ownAllowedTables = array();
 		$allTables = Tx_Phpunit_Service_Database::getAllTableNames();
 		$length = strlen($this->tablePrefix);
@@ -1358,7 +1358,7 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @return void
 	 */
-	private function createListOfAdditionalAllowedTables() {
+	protected function createListOfAdditionalAllowedTables() {
 		$allTables = implode(',', Tx_Phpunit_Service_Database::getAllTableNames());
 		$additionalTablePrefixes = implode('|', $this->additionalTablePrefixes);
 
@@ -1384,7 +1384,7 @@ class Tx_Phpunit_Framework {
 	 *         TRUE if the name of the table is in the list of allowed tables,
 	 *         FALSE otherwise
 	 */
-	private function isOwnTableNameAllowed($tableName) {
+	protected function isOwnTableNameAllowed($tableName) {
 		return in_array($tableName, $this->ownAllowedTables);
 	}
 
@@ -1399,7 +1399,7 @@ class Tx_Phpunit_Framework {
 	 *         TRUE if the name of the table is in the list of additional
 	 *         allowed tables, FALSE otherwise
 	 */
-	private function isAdditionalTableNameAllowed($tableName) {
+	protected function isAdditionalTableNameAllowed($tableName) {
 		return in_array($tableName, $this->additionalAllowedTables);
 	}
 
@@ -1414,7 +1414,7 @@ class Tx_Phpunit_Framework {
 	 *         TRUE if the name of the table is in the list of allowed system
 	 *         tables, FALSE otherwise
 	 */
-	private function isSystemTableNameAllowed($tableName) {
+	protected function isSystemTableNameAllowed($tableName) {
 		return in_array($tableName, $this->allowedSystemTables);
 	}
 
@@ -1429,7 +1429,7 @@ class Tx_Phpunit_Framework {
 	 *         TRUE if the name of the table is in the list of allowed tables or
 	 *         additional allowed tables, FALSE otherwise
 	 */
-	private function isNoneSystemTableNameAllowed($tableName) {
+	protected function isNoneSystemTableNameAllowed($tableName) {
 		return $this->isOwnTableNameAllowed($tableName)
 			|| $this->isAdditionalTableNameAllowed($tableName);
 	}
@@ -1445,7 +1445,7 @@ class Tx_Phpunit_Framework {
 	 *         TRUE if the name of the table is in the list of allowed tables,
 	 *         additional allowed tables or allowed system tables, FALSE otherwise
 	 */
-	private function isTableNameAllowed($tableName) {
+	protected function isTableNameAllowed($tableName) {
 		return $this->isNoneSystemTableNameAllowed($tableName)
 			|| $this->isSystemTableNameAllowed($tableName);
 	}
@@ -1667,7 +1667,7 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @return integer the highest UID from this table, will be >= 0
 	 */
-	private function getMaximumUidFromTable($tableName) {
+	protected function getMaximumUidFromTable($tableName) {
 		$row = Tx_Phpunit_Service_Database::selectSingle('MAX(uid) AS uid', $tableName);
 
 		return $row['uid'];
@@ -1881,7 +1881,7 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @return array the hook objects, will be empty if no hooks have been set
 	 */
-	private function getHooks() {
+	protected function getHooks() {
 		if (!self::$hooksHaveBeenRetrieved) {
 			$hookClasses = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['FrameworkCleanUp'];
 			if (is_array($hookClasses)) {
