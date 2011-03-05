@@ -118,8 +118,9 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	public function createAccessibleProxyCreatesTestListenerSubclass() {
 		$className = $this->createAccessibleProxy();
 
-		$this->assertTrue(
-			(new $className()) instanceof Tx_Phpunit_BackEnd_TestListener
+		$this->assertInstanceOf(
+			'Tx_Phpunit_BackEnd_TestListener',
+			new $className()
 		);
 	}
 

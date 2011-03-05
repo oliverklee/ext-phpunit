@@ -57,7 +57,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	/**
 	 * module menu items
 	 *
-	 * @var array<array>
+	 * @var array
 	 */
 	public $MOD_MENU = array(
 		'function' => array(),
@@ -75,8 +75,6 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$this->init();
 
 		$this->extensionPath = t3lib_extMgm::extRelPath(self::EXTENSION_KEY);
-
-		$this->testFinder = t3lib_div::makeInstance('Tx_Phpunit_Service_TestFinder');
 	}
 
 	/**
@@ -87,6 +85,19 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	}
 
 	/**
+	 * Creates a and returns the singleton test finder instance.
+	 *
+	 * @return Tx_Phpunit_Service_TestFinder the test finder instance
+	 */
+	protected function getTestFinder() {
+		if ($this->testFinder === NULL) {
+			$this->testFinder = t3lib_div::makeInstance('Tx_Phpunit_Service_TestFinder');
+		}
+
+		return $this->testFinder;
+	}
+
+	/**
 	 * Returns the localized string for the key $key.
 	 *
 	 * @param string $key the key of the string to retrieve, must not be empty
@@ -94,23 +105,21 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 *
 	 * @return string the localized string for the key $key
 	 */
-	private function getLL($key, $default = '') {
+	protected function getLL($key, $default = '') {
 		return $GLOBALS['LANG']->getLL($key, $default);
 	}
 
 	/**
-	 * Main function of the module. Outputs all content directly using echo
-	 * instead of collecting it and doing the output later.
+	 * Main function of the module. Outputs all content directly instead of
+	 * collecting it and doing the output later.
 	 *
 	 * @return void
 	 */
 	public function main() {
-		global $BE_USER, $BACK_PATH;
-
-		if ($BE_USER->user['admin']) {
+		if ($GLOBALS['BE_USER']->user['admin']) {
 			// Draw the header.
 			$this->doc = t3lib_div::makeInstance('bigDoc');
-			$this->doc->backPath = $BACK_PATH;
+			$this->doc->backPath = $GLOBALS['BACK_PATH'];
 			$this->doc->docType = 'xhtml_strict';
 			$this->doc->bodyTagAdditions = 'id="doc3"';
 
@@ -130,33 +139,39 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 				'Resources/Public/CSS/BackEnd.css" />';
 
 			t3lib_div::cleanOutputBuffers();
-			echo $this->doc->startPage($this->getLL('title'));
-			echo $this->doc->header(PHPUnit_Runner_Version::getVersionString());
+			$this->output(
+				$this->doc->startPage($this->getLL('title')) .
+				$this->doc->header(PHPUnit_Runner_Version::getVersionString())
+			);
 
 			$this->runTests_render();
 
-			echo $this->doc->section(
-				'Keyboard shortcuts',
-				'<p>Use "a" for running all tests, use "s" for running a single test and
-				use "r" to re-run the latest tests; to open phpunit in a new window, use "n".</p>
-				<p>Depending on your browser and system you will need to press some
-				modifier keys:</p>
-				<ul>
-				<li>Safari, IE and Firefox 1.x: Use "Alt" button on Windows, "Ctrl" on Macs.</li>
-				<li>Firefox 2.x and 3.x: Use "Alt-Shift" on Windows, "Ctrl-Shift" on Macs</li>
-				</ul>'
+			$this->output(
+				$this->doc->section(
+					'Keyboard shortcuts',
+					'<p>Use "a" for running all tests, use "s" for running a single test and
+					use "r" to re-run the latest tests; to open phpunit in a new window, use "n".</p>
+					<p>Depending on your browser and system you will need to press some
+					modifier keys:</p>
+					<ul>
+					<li>Safari, IE and Firefox 1.x: Use "Alt" button on Windows, "Ctrl" on Macs.</li>
+					<li>Firefox 2.x and 3.x: Use "Alt-Shift" on Windows, "Ctrl-Shift" on Macs</li>
+					</ul>' .
+					$this->doc->section('', $this->openNewWindowLink())
+				)
 			);
-			echo $this->doc->section('', $this->openNewWindowLink());
 		} else {
 			$this->doc = t3lib_div::makeInstance('mediumDoc');
-			$this->doc->backPath = $BACK_PATH;
+			$this->doc->backPath = $GLOBALS['BACK_PATH'];
 
-			echo $this->doc->startPage($this->getLL('title'));
-			echo $this->doc->header($this->getLL('title'));
-			echo $this->getLL('admin_rights_needed');
+			$this->output(
+				$this->doc->startPage($this->getLL('title')) .
+				$this->doc->header($this->getLL('title')) .
+				$this->getLL('admin_rights_needed')
+			);
 		}
 
-		echo $this->doc->endPage();
+		$this->output($this->doc->endPage());
 	}
 
 
@@ -210,7 +225,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			);
 		}
 
-		echo $output;
+		$this->output($output);
 	}
 
 	/**
@@ -415,10 +430,13 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
 		$extensionKeysToProcess = array();
 		if ($this->MOD_SETTINGS['extSel'] === 'uuall') {
-			echo '<h1>' . $this->getLL('testing_all_extensions') . '</h1>';
+			$this->output('<h1>' . $this->getLL('testing_all_extensions') . '</h1>');
 			$extensionKeysToProcess = array_keys($extensionsWithTestSuites);
 		} else {
-			echo '<h1>' . $this->getLL('testing_extension') . ': ' . htmlspecialchars($this->MOD_SETTINGS['extSel']) . '</h1>';
+			$this->output(
+				'<h1>' . $this->getLL('testing_extension') . ': ' .
+					htmlspecialchars($this->MOD_SETTINGS['extSel']) . '</h1>'
+			);
 			$extInfo = $extensionsWithTestSuites[$this->MOD_SETTINGS['extSel']];
 			$extensionsWithTestSuites = array();
 			$extensionsWithTestSuites[$this->MOD_SETTINGS['extSel']] = $extInfo;
@@ -484,14 +502,16 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 						} else {
 							$testListener->setTotalNumberOfTests(1);
 						}
-						echo '<h2 class="testSuiteName">Testsuite: ' . $testCases->getName() . '</h2>';
+						$this->output('<h2 class="testSuiteName">Testsuite: ' . $testCases->getName() . '</h2>');
 						$test->run($result);
 					}
 				}
 			}
 			if (!is_object($result)) {
-				echo '<h2 class="hadError">Error</h2>' . '<p>The test <strong> ' .
-					htmlspecialchars(t3lib_div::_GP('testCaseFile')) . '</strong> could not be found.</p>';
+				$this->output(
+					'<h2 class="hadError">Error</h2>' . '<p>The test <strong> ' .
+						htmlspecialchars(t3lib_div::_GP('testCaseFile')) . '</strong> could not be found.</p>'
+				);
 				return;
 			}
 		} elseif (t3lib_div::_GP('testCaseFile')) {
@@ -528,7 +548,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 					}
 					if ($testIdentifier === $testCaseFileName) {
 						if (!$suiteNameHasBeenDisplayed) {
-							echo '<h2 class="testSuiteName">Testsuite: ' . $testCaseFileName . '</h2>';
+							$this->output('<h2 class="testSuiteName">Testsuite: ' . $testCaseFileName . '</h2>');
 							$suiteNameHasBeenDisplayed = TRUE;
 						}
 						$test->run($result);
@@ -536,8 +556,10 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 				}
 			}
 			if (!is_object($result)) {
-				echo '<h2 class="hadError">Error</h2>' . '<p>The test <strong> ' .
-					htmlspecialchars(t3lib_div::_GP('testname')) . '</strong> could not be found.</p>';
+				$this->output(
+					'<h2 class="hadError">Error</h2>' . '<p>The test <strong> ' .
+						htmlspecialchars(t3lib_div::_GP('testname')) . '</strong> could not be found.</p>'
+				);
 				return;
 			}
 		} else {
@@ -565,9 +587,10 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			$this->getLL('tests_seconds') . '">' . round($timeSpent, 3) . '&nbsp;' . $this->getLL('tests_seconds') .
 			', </span>' . t3lib_div::formatSize($leakedMemory) . 'B (' . $leakedMemory . ' B) ' .
 			$this->getLL('tests_leaks') . '</p>';
-		echo $testStatistics;
+		$this->output($testStatistics);
 
-		echo '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">
+		$this->output(
+			'<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">
 				<p>
 					<button type="submit" name="bingo" value="run" accesskey="r">' . $this->getLL('run_again') . '</button>
 					<input name="command" type="hidden" value="' . t3lib_div::_GP('command') . '" />
@@ -575,15 +598,19 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 					<input name="testCaseFile" type="hidden" value="' . t3lib_div::_GP('testCaseFile') . '" />
 				</p>
 			</form>' .
-			'<div id="testsHaveFinished"></div>';
+			'<div id="testsHaveFinished"></div>'
+		);
 
 		if (!t3lib_div::_GP('testname') && $result->getCollectCodeCoverageInformation()) {
 			require_once('PHP/CodeCoverage/Report/HTML.php');
 
 			$writer =  new PHP_CodeCoverage_Report_HTML();
 			$writer->process($result->getCodeCoverage(), t3lib_extMgm::extPath('phpunit') . 'codecoverage/');
-			echo '<p><a target="_blank" href="' . $this->extensionPath . 'codecoverage/index.html">Click here to access the Code Coverage report</a></p>';
-			echo '<p>Memory peak usage: ' . t3lib_div::formatSize(memory_get_peak_usage()) . 'B<p/>';
+			$this->output(
+				'<p><a target="_blank" href="' . $this->extensionPath .
+					'codecoverage/index.html">Click here to access the Code Coverage report</a></p>' .
+					'<p>Memory peak usage: ' . t3lib_div::formatSize(memory_get_peak_usage()) . 'B<p/>'
+			);
 		}
 	}
 
@@ -597,10 +624,12 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * @return void
 	 */
 	protected function runTests_renderInfoAndProgressbar() {
-		echo '<div class="progress-bar-wrap">
+		$this->output(
+			'<div class="progress-bar-wrap">
 				<span id="progress-bar" class="wasSuccessful">&nbsp;</span>
 				<span id="transparent-bar">&nbsp;</span>
-			</div>';
+			</div>'
+		);
 	}
 
 	/**
@@ -658,14 +687,11 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * @return string
 	 */
 	protected function openNewWindowLink() {
-		global $BACK_PATH;
-
-		// FIXME: Needs to take mod.php into account, when generating URL here. Otherwise 'Open link in new window' will not work (gives error: Value "" for "M" was not found as a module).
 		$url = t3lib_div::getIndpEnv('TYPO3_REQUEST_SCRIPT') . '?M=tools_txphpunitbeM1';
 		$onClick = "phpunitbeWin=window.open('" . $url .
 				   "','phpunitbe','width=790,status=0,menubar=1,resizable=1,location=0,scrollbars=1,toolbar=0');phpunitbeWin.focus();return false;";
 		$content = '<a id="opennewwindow" href="" onclick="' . htmlspecialchars($onClick) . '" accesskey="n">
-				<img' . t3lib_iconWorks::skinImg($BACK_PATH, 'gfx/open_in_new_window.gif', 'width="19" height="14"') . ' title="' .
+				<img' . t3lib_iconWorks::skinImg($GLOBALS['BACK_PATH'], 'gfx/open_in_new_window.gif', 'width="19" height="14"') . ' title="' .
 				   $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.openInNewWindow', 1) . '" class="absmiddle" alt="" />
 				Ope<span class="access-key">n</span> in separate window.
 			</a>
@@ -703,9 +729,9 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		}
 
 		$coreTestCases = array();
-		if ($this->testFinder->hasCoreTests()) {
+		if ($this->getTestFinder()->hasCoreTests()) {
 			$coreTestCases[Tx_Phpunit_TestableCode::CORE_KEY]
-				= $this->findTestCasesInDir($this->testFinder->getAbsoluteCoreTestsPath());
+				= $this->findTestCasesInDir($this->getTestFinder()->getAbsoluteCoreTestsPath());
 		}
 
 		$totalTestsArr = array_merge_recursive($extensionsOwnTestCases, $coreTestCases);
@@ -726,12 +752,12 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 *         its subdirectories relative to $dir, will be empty if no
 	 *         test cases have been found
 	 */
-	private function findTestCasesInDir($dir) {
+	protected function findTestCasesInDir($dir) {
 		if (!is_dir($dir)) {
 			return array();
 		}
 
-		$testCaseFileNames = $this->testFinder->findTestCasesInDirectory($dir);
+		$testCaseFileNames = $this->getTestFinder()->findTestCasesInDirectory($dir);
 
 		$extensionsArr = array();
 		if (!empty($testCaseFileNames)) {
@@ -773,7 +799,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * @return boolean
 	 *         TRUE if an extension with the key $extensionKey is loaded, FALSE otherwise
 	 */
-	private function isExtensionLoaded($extensionKey) {
+	protected function isExtensionLoaded($extensionKey) {
 		if ($extensionKey === '') {
 			return FALSE;
 		}
@@ -790,7 +816,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 *
 	 * @return string the content for the "style" attribute, will not be empty
 	 */
-	private function createIconStyle($extensionKey) {
+	protected function createIconStyle($extensionKey) {
 		if (!$this->isExtensionLoaded($extensionKey)) {
 			throw new Exception('The extension ' . $extensionKey . ' is not loaded.');
 		}
@@ -806,6 +832,17 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$result .= ' padding: 1px 1px 1px 24px;';
 
 		return $result;
+	}
+
+	/**
+	 * Echoes $output.
+	 *
+	 * @param string $output a string to echo, may also be empty
+	 *
+	 * @return void
+	 */
+	protected function output($output) {
+		echo($output);
 	}
 }
 ?>
