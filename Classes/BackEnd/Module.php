@@ -763,7 +763,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	}
 
 	/**
-	 * Recursively finds all test case files in the directory $dir.
+	 * Recursively finds all test case files in the directory $directory.
 	 *
 	 * @param string $dir
 	 *        the absolute path of the directory in which to look for test cases,
@@ -774,16 +774,16 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 *         its subdirectories relative to $dir, will be empty if no
 	 *         test cases have been found
 	 */
-	protected function findTestCasesInDir($dir) {
-		if (!is_dir($dir)) {
+	protected function findTestCasesInDir($directory) {
+		if (!is_dir($directory)) {
 			return array();
 		}
 
-		$testCaseFileNames = $this->getTestFinder()->findTestCasesInDirectory($dir);
+		$testCaseFileNames = $this->getTestFinder()->findTestCasesInDirectory($directory);
 
 		$extensionsArr = array();
 		if (!empty($testCaseFileNames)) {
-			$extensionsArr[$dir] = $testCaseFileNames;
+			$extensionsArr[$directory] = $testCaseFileNames;
 		}
 
 		return $extensionsArr;
@@ -792,17 +792,13 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	/**
 	 * Includes all PHP files provided in $paths.
 	 *
-	 * @param array<strings>|NULL
+	 * @param array<strings>
 	 *        array keys: absolute path
-	 *        array values: file name in that path
+	 *        array values: file names in that path
 	 *
 	 * @return void
 	 */
-	protected function loadRequiredTestClasses($paths) {
-		if (!isset($paths)) {
-			return;
-		}
-
+	protected function loadRequiredTestClasses(array $paths) {
 		foreach ($paths as $path => $fileNames) {
 			foreach ($fileNames as $fileName) {
 				require_once(realpath($path . '/' . $fileName));
@@ -826,12 +822,16 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			return FALSE;
 		}
 
-		return ($extensionKey === Tx_Phpunit_TestableCode::CORE_KEY) || t3lib_extMgm::isLoaded($extensionKey);
+		return ($extensionKey === Tx_Phpunit_TestableCode::CORE_KEY)
+			|| t3lib_extMgm::isLoaded($extensionKey);
 	}
 
 	/**
 	 * Creates the CSS style attribute content for an icon for the extension
 	 * $extensionKey.
+	 *
+	 * @throws Tx_Phpunit_Exception_NoTestsDirectory
+	 *         if there is not extension with tests with the given key
 	 *
 	 * @param string $extensionKey
 	 *        the key of a loaded extension, may also be "typo3"
@@ -839,8 +839,13 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * @return string the content for the "style" attribute, will not be empty
 	 */
 	protected function createIconStyle($extensionKey) {
+		if ($extensionKey === '') {
+			throw new Tx_Phpunit_Exception_NoTestsDirectory('$extensionKey must not be empty.', 1303503647);
+		}
 		if (!$this->isExtensionLoaded($extensionKey)) {
-			throw new Exception('The extension ' . $extensionKey . ' is not loaded.');
+			throw new Tx_Phpunit_Exception_NoTestsDirectory(
+				'The extension ' . $extensionKey . ' is not loaded.', 1303503664
+			);
 		}
 
 		$result = 'background: white no-repeat ';

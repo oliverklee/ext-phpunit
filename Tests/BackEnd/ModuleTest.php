@@ -71,6 +71,12 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 				'  public function output($output) {' .
 				'    parent::output($output);' .
 				'  }' .
+				'  public function isExtensionLoaded($extensionKey) {' .
+				'    return parent::isExtensionLoaded($extensionKey);' .
+				'  }' .
+				'  public function createIconStyle($extensionKey) {' .
+				'    return parent::createIconStyle($extensionKey);' .
+				'  }' .
 				'}'
 			);
 		}
@@ -130,6 +136,104 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	/*
 	 * Unit tests
 	 */
+
+	/**
+	 * @test
+	 */
+	public function isExtensionLoadedEmptyKeyReturnsFalse() {
+		$this->assertFalse(
+			$this->fixture->isExtensionLoaded('')
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function isExtensionLoadedForLoadedExtensionReturnsTrue() {
+		$this->assertTrue(
+			$this->fixture->isExtensionLoaded('phpunit')
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function isExtensionLoadedForNotLoadedExtensionReturnsFalse() {
+		$this->assertFalse(
+			$this->fixture->isExtensionLoaded('not_loaded_extension')
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function isExtensionLoadedForCoreWithExistingTestsReturnsTrue() {
+		$testFinder = t3lib_div::makeInstance('Tx_Phpunit_Service_TestFinder');
+		if (!$testFinder->hasCoreTests()) {
+			$this->markTestSkipped('This test can only be run if the TYPO3 Core unit tests are present.');
+		}
+
+		$this->assertTrue(
+			$this->fixture->isExtensionLoaded(Tx_Phpunit_TestableCode::CORE_KEY)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function isExtensionLoadedForCoreWithoutExistingTestsReturnsFalse() {
+		$testFinder = t3lib_div::makeInstance('Tx_Phpunit_Service_TestFinder');
+		if ($testFinder->hasCoreTests()) {
+			$this->markTestSkipped('This test can only be run if no TYPO3 Core unit tests are present.');
+		}
+
+		$this->assertFalse(
+			$this->fixture->isExtensionLoaded(Tx_Phpunit_TestableCode::CORE_KEY)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createIconStyleForLoadedExtensionReturnsExtensionIcon() {
+		$this->assertContains(
+			'url(' . t3lib_extMgm::extRelPath('phpunit') . 'ext_icon.gif)',
+			$this->fixture->createIconStyle('phpunit')
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createIconStyleForCoreReturnsTypo3Icon() {
+		$testFinder = t3lib_div::makeInstance('Tx_Phpunit_Service_TestFinder');
+		if (!$testFinder->hasCoreTests()) {
+			$this->markTestSkipped('This test can only be run if the TYPO3 Core unit tests are present.');
+		}
+
+		$this->assertContains(
+			'url(' . t3lib_extMgm::extRelPath('phpunit') . 'Resources/Public/Icons/Typo3.png)',
+			$this->fixture->createIconStyle(Tx_Phpunit_TestableCode::CORE_KEY)
+		);
+	}
+
+	/**
+	 * @test
+	 *
+	 * @expectedException Tx_Phpunit_Exception_NoTestsDirectory
+	 */
+	public function createIconStyleForNotLoadedExtensionThrowsException() {
+		$this->fixture->createIconStyle('not_loaded_extension');
+	}
+
+	/**
+	 * @test
+	 *
+	 * @expectedException Tx_Phpunit_Exception_NoTestsDirectory
+	 */
+	public function createIconStyleForEmptyExtensionKeyThrowsException() {
+		$this->fixture->createIconStyle('');
+	}
 
 	/**
 	 * @test
