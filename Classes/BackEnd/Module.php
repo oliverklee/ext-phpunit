@@ -790,7 +790,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	}
 
 	/**
-	 * Includes all PHP files provided in $paths.
+	 * Includes all PHP files given in $paths.
 	 *
 	 * @param array<strings>
 	 *        array keys: absolute path

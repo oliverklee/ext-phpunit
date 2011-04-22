@@ -71,6 +71,9 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 				'  public function output($output) {' .
 				'    parent::output($output);' .
 				'  }' .
+				'  public function loadRequiredTestClasses(array $paths) {' .
+				'    parent::loadRequiredTestClasses($paths);' .
+				'  }' .
 				'  public function isExtensionLoaded($extensionKey) {' .
 				'    return parent::isExtensionLoaded($extensionKey);' .
 				'  }' .
@@ -136,6 +139,61 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	/*
 	 * Unit tests
 	 */
+
+	/**
+	 * @test
+	 */
+	public function loadRequiredTestClassesLoadsFileInFirstPath() {
+		$this->fixture->loadRequiredTestClasses(
+			array(
+				t3lib_extMgm::extPath('phpunit') . 'Tests/BackEnd/Fixtures/' => array(
+					'LoadMe.php',
+				),
+			)
+		);
+
+		$this->assertTrue(
+			class_exists('Tx_Phpunit_BackEnd_Fixtures_LoadMe', FALSE)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function loadRequiredTestClassesLoadsSecondFileInFirstPath() {
+		$this->fixture->loadRequiredTestClasses(
+			array(
+				t3lib_extMgm::extPath('phpunit') . 'Tests/BackEnd/Fixtures/' => array(
+					'LoadMe.php',
+					'LoadMeToo.php',
+				),
+			)
+		);
+
+		$this->assertTrue(
+			class_exists('Tx_Phpunit_BackEnd_Fixtures_LoadMeToo', FALSE)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function loadRequiredTestClassesLoadsFileInSecondPath() {
+		$this->fixture->loadRequiredTestClasses(
+			array(
+				t3lib_extMgm::extPath('phpunit') . 'Tests/BackEnd/Fixtures/' => array(
+					'LoadMe.php',
+				),
+				t3lib_extMgm::extPath('phpunit') . 'Tests/Fixtures/' => array(
+					'LoadMe.php',
+				),
+			)
+		);
+
+		$this->assertTrue(
+			class_exists('Tx_Phpunit_Fixtures_LoadMe', FALSE)
+		);
+	}
 
 	/**
 	 * @test
