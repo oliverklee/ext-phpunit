@@ -749,7 +749,7 @@ class Tx_Phpunit_Framework {
 					1299257923
 				);
 			}
-			$hook->cleanUp($this);
+			$hook->cleanUp();
 		}
 	}
 
