@@ -1,4 +1,5 @@
 2011-04-22 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #13901: Crash with failling assertSame with objects
 	* Fixed Bug #8340: Add support for Selenium tests (thanks to Bastian Waidelich and Carsten Koenig)
 
 2011-03-05 Oliver Klee <typo3-coding@oliverklee.de>
