@@ -13,6 +13,7 @@ return array(
 	'tx_phpunit_framework' => $extensionPath . 'Classes/Framework.php',
 	'tx_phpunit_interface_frameworkcleanuphook' => $extensionPath . 'Classes/Interface/FrameworkCleanupHook.php',
 	'tx_phpunit_reports_status' => $extensionPath . 'Classes/Reports/Status.php',
+	'tx_phpunit_selenium_testcase' => $extensionPath . 'Classes/Selenium/TestCase.php',
 	'tx_phpunit_service_database' => $extensionPath . 'Classes/Service/Database.php',
 	'tx_phpunit_service_testfinder' => $extensionPath . 'Classes/Service/TestFinder.php',
 	'tx_phpunit_testablecode' => $extensionPath . 'Classes/TestableCode.php',

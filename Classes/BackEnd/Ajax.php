@@ -33,6 +33,8 @@
  * @author Kasper Ligaard <kasperligaard@gmail.com>
  * @author Michael Klapper <michael.klapper@aoemedia.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
+ * @author Bastian Waidelich <bastian@typo3.org>
+ * @author Carsten Koenig <ck@carsten-koenig.de>
  */
 class Tx_Phpunit_BackEnd_Ajax {
 	/**
@@ -59,6 +61,7 @@ class Tx_Phpunit_BackEnd_Ajax {
 			case 'testdox':
 			case 'codeCoverage':
 			case 'showMemoryAndTime':
+			case 'runSeleniumTests':
 				break;
 			default:
 				$checkbox = FALSE;

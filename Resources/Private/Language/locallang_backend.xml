@@ -34,6 +34,7 @@
 			<label index="title">PHPUnit BE</label>
 			<label index="testing_success">Success!</label>
 			<label index="testing_failure">Failures!</label>
+			<label index="run_selenium_tests">Run Selenium Tests</label>
 		</languageKey>
 		<languageKey index="dk" type="array">
 			<label index="mlang_tabs_tab">PHPUnit</label>

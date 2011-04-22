@@ -209,6 +209,19 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
+	public function ajaxBrokerForRunSeleniumTestsCheckboxParameterAddsSuccessContent() {
+		$_POST['checkbox'] = 'runSeleniumTests';
+
+		$ajax = $this->getMock('TYPO3AJAX');
+		$ajax->expects($this->once())->method('addContent')->with('success', TRUE);
+		$ajax->expects($this->never())->method('setError');
+
+		$this->fixture->ajaxBroker(array(), $ajax);
+	}
+
+	/**
+	 * @test
+	 */
 	public function ajaxBrokerForMissingCheckboxParameterSetsError() {
 		$ajax = $this->getMock('TYPO3AJAX');
 		$ajax->expects($this->once())->method('setError');

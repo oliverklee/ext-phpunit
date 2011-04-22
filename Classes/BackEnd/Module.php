@@ -31,6 +31,8 @@
  * @author Kasper Ligaard <kasperligaard@gmail.com>
  * @author Michael Klapper <michael.klapper@aoemedia.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
+ * @author Bastian Waidelich <bastian@typo3.org>
+ * @author Carsten Koenig <ck@carsten-koenig.de>
  */
 class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	/**
@@ -66,6 +68,17 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		'success' => '',
 		'error' => '',
 		'codeCoverage' => '',
+	);
+
+	/**
+	 * the names of classes which cannot be directly run as test cases
+	 *
+	 * @var array
+	 */
+	protected $ignoredTestSuitClasses = array(
+		'Tx_Phpunit_TestCase',
+		'Tx_Phpunit_Database_TestCase',
+		'Tx_Phpunit_Selenium_TestCase',
 	);
 
 	/**
@@ -309,8 +322,9 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		foreach (get_declared_classes() as $class) {
 			$classReflection = new ReflectionClass($class);
 			if ((strtolower(substr($class, -8, 8)) === 'testcase' || substr($class, -4, 4) === 'Test')
-				&& $classReflection->isSubclassOf('PHPUnit_Framework_TestCase') && $class !== 'Tx_Phpunit_TestCase'
-				&& $class !== 'Tx_Phpunit_Database_TestCase') {
+				&& $classReflection->isSubclassOf('PHPUnit_Framework_TestCase')
+				&& $this->isAcceptedTestSuitClass($class)
+			) {
 				$testSuite->addTestSuite($class);
 			}
 		}
@@ -409,6 +423,8 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$output .= ' <input type="checkbox" id="SET_codeCoverage" ' . $codecoverageDisable . ' ' . $codeCoverageState .
 			' /><label for="SET_codeCoverage"' . $codecoverageForLabelWhenDisabled .
 			'>Collect code-coverage data</label>';
+		$runSeleniumTests = $this->MOD_SETTINGS['runSeleniumTests'] === 'on' ? 'checked="checked"' : '';
+		$output .= ' <input type="checkbox" id="SET_runSeleniumTests" ' . $runSeleniumTests . '/><label for="SET_runSeleniumTests">' . $this->getLL('run_selenium_tests') . '</label>';
 		$output .= '</div>';
 		$output .= '</form>';
 
@@ -453,8 +469,14 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		foreach (get_declared_classes() as $class) {
 			$classReflection = new ReflectionClass($class);
 			if ($classReflection->isSubclassOf('Tx_Phpunit_TestCase')
-				&& (strtolower(substr($class, -8, 8)) === 'testcase' || substr($class, -4, 4) === 'Test')
+				&& ((strtolower(substr($class, -8, 8)) === 'testcase') || (substr($class, -4, 4) === 'Test'))
 				&& ($class !== 'Tx_Phpunit_TestCase') && ($class !== 'Tx_Phpunit_Database_TestCase')
+			) {
+				$testSuite->addTestSuite($class);
+			} elseif ($this->MOD_SETTINGS['runSeleniumTests'] === 'on'
+				&& $classReflection->isSubclassOf('Tx_Phpunit_Selenium_TestCase')
+				&& ((strtolower(substr($class, -8, 8)) === 'testcase') || (substr($class, -4, 4) === 'Test'))
+				&& ($class !== 'Tx_Phpunit_Selenium_TestCase')
 			) {
 				$testSuite->addTestSuite($class);
 			}
@@ -843,6 +865,18 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 */
 	protected function output($output) {
 		echo($output);
+	}
+
+	/**
+	 * Tests whether $class is the name of a class which can be run in the test
+	 * runner.
+	 *
+	 * @param string $class class name to test, must not be empty
+	 *
+	 * @return boolean TRUE if the class is accepted, FALSE otherwise
+	 */
+	protected function isAcceptedTestSuitClass($class) {
+		return !in_array($class, $this->ignoredTestSuitClasses);
 	}
 }
 ?>

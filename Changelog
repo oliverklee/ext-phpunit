@@ -1,3 +1,6 @@
+2011-04-22 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #8340: Add support for Selenium tests (thanks to Bastian Waidelich and Carsten Koenig)
+
 2011-03-05 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #12165: Make the BE module testable and add some basic tests (part 2)
 	* Fixed Bug #13481: The locallang files contain some strings that have no hash and orig_language entries
