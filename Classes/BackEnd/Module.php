@@ -200,14 +200,18 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * @return void
 	 */
 	protected function runTests_render() {
-		if (($this->MOD_SETTINGS['extSel'] !== 'uuall') && !$this->isExtensionLoaded($this->MOD_SETTINGS['extSel'])) {
+		if (($this->MOD_SETTINGS['extSel'] !== 'uuall')
+			&& !$this->isExtensionLoaded($this->MOD_SETTINGS['extSel'])
+		) {
 			// We know that phpunit must be loaded.
 			$this->MOD_SETTINGS['extSel'] = 'phpunit';
 		}
 		$command = $this->MOD_SETTINGS['extSel'] ? t3lib_div::_GP('command') : '';
 		switch ($command) {
 			case 'runalltests':
+				// The fallthrough is intentional.
 			case 'runTestCaseFile':
+				// The fallthrough is intentional.
 			case 'runsingletest':
 				$this->runTests_renderIntro();
 				$this->runTests_renderRunningTest();

@@ -37,6 +37,25 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	private $fixture;
 
 	/**
+	 * @var t3lib_beUserAuth
+	 */
+	private $backEndUserBackup = NULL;
+
+	/**
+	 * backup of $_POST
+	 *
+	 * @var array
+	 */
+	private $postBackup = array();
+
+	/**
+	 * backup of $_GET
+	 *
+	 * @var array
+	 */
+	private $getBackup = array();
+
+	/**
 	 * the output of the module
 	 *
 	 * @var string
@@ -44,13 +63,28 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	private $output = '';
 
 	public function setUp() {
-		$fixtureClassName = $this->createAccessibleProxy();
-		$this->fixture = new $fixtureClassName();
+		$this->backEndUserBackup = $GLOBALS['BE_USER'];
+		$this->postBackup = $_POST;
+		$this->getBackup = $_GET;
+		$_POST = array();
+		$_GET = array();
+
+		$this->fixture = $this->getMock(
+			$this->createAccessibleProxy(), array('output')
+		);
+		$this->fixture->expects($this->any())->method('output')
+			->will($this->returnCallback(array($this, 'outputCallback')));
 	}
 
 	public function tearDown() {
 		$this->fixture->__destruct();
-		unset($this->fixture);
+
+		$_POST = $this->postBackup;
+		$_GET = $this->getBackup;
+
+		$GLOBALS['BE_USER'] = $this->backEndUserBackup;
+
+		unset($this->fixture, $this->backEndUserBackup);
 	}
 
 	/*
@@ -68,8 +102,11 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		if (!class_exists($className, FALSE)) {
 			eval(
 				'class ' . $className . ' extends Tx_Phpunit_BackEnd_Module {' .
-				'  public function output($output) {' .
-				'    parent::output($output);' .
+				'  public function getTestFinder() {' .
+				'    return parent::getTestFinder();' .
+				'  }' .
+				'  public function runTests_render() {' .
+				'    parent::runTests_render();' .
 				'  }' .
 				'  public function loadRequiredTestClasses(array $paths) {' .
 				'    parent::loadRequiredTestClasses($paths);' .
@@ -79,6 +116,9 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 				'  }' .
 				'  public function createIconStyle($extensionKey) {' .
 				'    return parent::createIconStyle($extensionKey);' .
+				'  }' .
+				'  public function output($output) {' .
+				'    parent::output($output);' .
 				'  }' .
 				'}'
 			);
@@ -139,6 +179,168 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	/*
 	 * Unit tests
 	 */
+
+	/**
+	 * @test
+	 */
+	public function getTestFinderReturnsTestFinderInstance() {
+		$this->assertInstanceOf(
+			'Tx_Phpunit_Service_TestFinder',
+			$this->fixture->getTestFinder()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function mainForNoAdminBackEndUserShowsAdminRightsNeeded() {
+		$GLOBALS['BE_USER']->user['admin'] = FALSE;
+
+		$this->fixture->main();
+
+		$this->assertContains(
+			$GLOBALS['LANG']->getLL('admin_rights_needed'),
+			$this->output
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function mainForAdminBackEndUserRunsTests() {
+		$GLOBALS['BE_USER']->user['admin'] = TRUE;
+
+		$fixture = $this->getMock(
+			$this->createAccessibleProxy(), array('output', 'runTests_render')
+		);
+		$fixture->expects($this->any())->method('output')
+			->will($this->returnCallback(array($this, 'outputCallback')));
+		$fixture->expects($this->once())->method('runTests_render');
+
+		$fixture->main();
+	}
+
+	/**
+	 * @test
+	 */
+	public function runTests_renderForEmptyCommandRendersIntro() {
+		$fixture = $this->getMock(
+			$this->createAccessibleProxy(),
+			array('runTests_renderIntro', 'runTests_renderRunningTest', 'output')
+		);
+		$fixture->MOD_SETTINGS = array('extSel' => 'phpunit');
+
+		$fixture->expects($this->once())->method('runTests_renderIntro');
+
+		$_GET['command'] = '';
+
+		$fixture->runTests_render();
+	}
+
+	/**
+	 * @test
+	 */
+	public function runTests_renderForEmptyCommandNotRunsTests() {
+		$fixture = $this->getMock(
+			$this->createAccessibleProxy(),
+			array('runTests_renderIntro', 'runTests_renderRunningTest', 'output')
+		);
+		$fixture->MOD_SETTINGS = array('extSel' => 'phpunit');
+
+		$fixture->expects($this->never())->method('runTests_renderRunningTest');
+
+		$_GET['command'] = '';
+
+		$fixture->runTests_render();
+	}
+
+	/**
+	 * @test
+	 */
+	public function runTests_renderForInvalidCommandRendersIntro() {
+		$fixture = $this->getMock(
+			$this->createAccessibleProxy(),
+			array('runTests_renderIntro', 'runTests_renderRunningTest', 'output')
+		);
+		$fixture->MOD_SETTINGS = array('extSel' => 'phpunit');
+
+		$fixture->expects($this->once())->method('runTests_renderIntro');
+
+		$_GET['command'] = 'invalid';
+
+		$fixture->runTests_render();
+	}
+
+	/**
+	 * @test
+	 */
+	public function runTests_renderForInvalidCommandNotRunsTests() {
+		$fixture = $this->getMock(
+			$this->createAccessibleProxy(),
+			array('runTests_renderIntro', 'runTests_renderRunningTest', 'output')
+		);
+		$fixture->MOD_SETTINGS = array('extSel' => 'phpunit');
+
+		$fixture->expects($this->never())->method('runTests_renderRunningTest');
+
+		$_GET['command'] = 'invalid';
+
+		$fixture->runTests_render();
+	}
+
+	/**
+	 * @test
+	 */
+	public function runTests_renderForRunAllTestsCommandRendersIntroAndTests() {
+		$fixture = $this->getMock(
+			$this->createAccessibleProxy(),
+			array('runTests_renderIntro', 'runTests_renderRunningTest', 'output')
+		);
+		$fixture->MOD_SETTINGS = array('extSel' => 'phpunit');
+
+		$fixture->expects($this->once())->method('runTests_renderIntro');
+		$fixture->expects($this->once())->method('runTests_renderRunningTest');
+
+		$_GET['command'] = 'runalltests';
+
+		$fixture->runTests_render();
+	}
+
+	/**
+	 * @test
+	 */
+	public function runTests_renderForRunTestCaseFileCommandRendersIntroAndTests() {
+		$fixture = $this->getMock(
+			$this->createAccessibleProxy(),
+			array('runTests_renderIntro', 'runTests_renderRunningTest', 'output')
+		);
+		$fixture->MOD_SETTINGS = array('extSel' => 'phpunit');
+
+		$fixture->expects($this->once())->method('runTests_renderIntro');
+		$fixture->expects($this->once())->method('runTests_renderRunningTest');
+
+		$_GET['command'] = 'runTestCaseFile';
+
+		$fixture->runTests_render();
+	}
+
+	/**
+	 * @test
+	 */
+	public function runTests_renderForRunSingleTestCommandRendersIntroAndTests() {
+		$fixture = $this->getMock(
+			$this->createAccessibleProxy(),
+			array('runTests_renderIntro', 'runTests_renderRunningTest', 'output')
+		);
+		$fixture->MOD_SETTINGS = array('extSel' => 'phpunit');
+
+		$fixture->expects($this->once())->method('runTests_renderIntro');
+		$fixture->expects($this->once())->method('runTests_renderRunningTest');
+
+		$_GET['command'] = 'runsingletest';
+
+		$fixture->runTests_render();
+	}
 
 	/**
 	 * @test
@@ -297,10 +499,13 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function outputOutputsOutput() {
+		$className = $this->createAccessibleProxy();
+		$fixture = new $className();
+
 		$output = 'Hello world!';
 
 		ob_start();
-		$this->fixture->output($output);
+		$fixture->output($output);
 
 		$this->assertSame(
 			$output,
