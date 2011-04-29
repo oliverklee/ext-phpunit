@@ -118,7 +118,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 *
 	 * @return string the localized string for the key $key
 	 */
-	protected function getLL($key, $default = '') {
+	protected function translate($key, $default = '') {
 		return $GLOBALS['LANG']->getLL($key, $default);
 	}
 
@@ -153,7 +153,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 
 			t3lib_div::cleanOutputBuffers();
 			$this->output(
-				$this->doc->startPage($this->getLL('title')) .
+				$this->doc->startPage($this->translate('title')) .
 				$this->doc->header(PHPUnit_Runner_Version::getVersionString())
 			);
 
@@ -178,9 +178,9 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			$this->doc->backPath = $GLOBALS['BACK_PATH'];
 
 			$this->output(
-				$this->doc->startPage($this->getLL('title')) .
-				$this->doc->header($this->getLL('title')) .
-				$this->getLL('admin_rights_needed')
+				$this->doc->startPage($this->translate('title')) .
+				$this->doc->header($this->translate('title')) .
+				$this->translate('admin_rights_needed')
 			);
 		}
 
@@ -229,7 +229,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	protected function runTests_renderIntro() {
 		$extensionsWithTestSuites = $this->getExtensionsWithTestSuites();
 		if (!is_array($extensionsWithTestSuites)) {
-			return $this->getLL('could_not_find_exts_with_tests');
+			return $this->translate('could_not_find_exts_with_tests');
 		}
 
 		ksort($extensionsWithTestSuites);
@@ -258,11 +258,11 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		array $extensionsWithTestSuites
 	) {
 		$extensionsOptionsArr = array();
-		$extensionsOptionsArr[] = '<option value="">' . $this->getLL('select_extension') . '</option>';
+		$extensionsOptionsArr[] = '<option value="">' . $this->translate('select_extension') . '</option>';
 
 		$selected = strcmp('uuall', $this->MOD_SETTINGS['extSel']) ? '' : ' selected="selected"';
 		$extensionsOptionsArr[] = '<option class="alltests" value="uuall"' . $selected . '>' .
-			$this->getLL('all_extensions') . '</option>';
+			$this->translate('all_extensions') . '</option>';
 
 		foreach (array_keys($extensionsWithTestSuites) as $dirName) {
 			$style = $this->createIconStyle($dirName);
@@ -287,7 +287,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 				implode('', $extensionsOptionsArr) .
 				'</select>
 				<button type="submit" name="bingo" value="run" accesskey="a">' .
-				$this->getLL('run_all_tests') . '</button>
+				$this->translate('run_all_tests') . '</button>
 				<input type="hidden" name="command" value="runalltests" />
 				</p>
 			</form>';
@@ -381,16 +381,16 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$output = '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">
 				<p>
 					<select style="' . $currentStyle . '" name="testCaseFile">
-					<option value="">' . $this->getLL('select_tests') . '</option>' . implode(chr(10), $testCaseFileOptionsArray) . '</select>
-					<button type="submit" name="bingo" value="run" accesskey="f">' . $this->getLL('runTestCaseFile') . '</button>
+					<option value="">' . $this->translate('select_tests') . '</option>' . implode(chr(10), $testCaseFileOptionsArray) . '</select>
+					<button type="submit" name="bingo" value="run" accesskey="f">' . $this->translate('runTestCaseFile') . '</button>
 					<input type="hidden" name="command" value="runTestCaseFile" />
 				</p>
 			</form>';
 		$output .= '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">
 				<p>
 					<select style="' . $currentStyle . '" name="testname">
-					<option value="">' . $this->getLL('select_tests') . '</option>' . $testOptionsHtml . '</select>
-					<button type="submit" name="bingo" value="run" accesskey="s">' . $this->getLL('run_single_test') . '</button>
+					<option value="">' . $this->translate('select_tests') . '</option>' . $testOptionsHtml . '</select>
+					<button type="submit" name="bingo" value="run" accesskey="s">' . $this->translate('run_single_test') . '</button>
 					<input type="hidden" name="command" value="runsingletest" />
 					<input type="hidden" name="testCaseFile" value="' . $testCaseFile . '" />
 				</p>
@@ -428,7 +428,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			' /><label for="SET_codeCoverage"' . $codecoverageForLabelWhenDisabled .
 			'>Collect code-coverage data</label>';
 		$runSeleniumTests = $this->MOD_SETTINGS['runSeleniumTests'] === 'on' ? 'checked="checked"' : '';
-		$output .= ' <input type="checkbox" id="SET_runSeleniumTests" ' . $runSeleniumTests . '/><label for="SET_runSeleniumTests">' . $this->getLL('run_selenium_tests') . '</label>';
+		$output .= ' <input type="checkbox" id="SET_runSeleniumTests" ' . $runSeleniumTests . '/><label for="SET_runSeleniumTests">' . $this->translate('run_selenium_tests') . '</label>';
 		$output .= '</div>';
 		$output .= '</form>';
 
@@ -450,11 +450,11 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
 		$extensionKeysToProcess = array();
 		if ($this->MOD_SETTINGS['extSel'] === 'uuall') {
-			$this->output('<h1>' . $this->getLL('testing_all_extensions') . '</h1>');
+			$this->output('<h1>' . $this->translate('testing_all_extensions') . '</h1>');
 			$extensionKeysToProcess = array_keys($extensionsWithTestSuites);
 		} else {
 			$this->output(
-				'<h1>' . $this->getLL('testing_extension') . ': ' .
+				'<h1>' . $this->translate('testing_extension') . ': ' .
 					htmlspecialchars($this->MOD_SETTINGS['extSel']) . '</h1>'
 			);
 			$extInfo = $extensionsWithTestSuites[$this->MOD_SETTINGS['extSel']];
@@ -535,7 +535,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			}
 			if (!is_object($result)) {
 				$this->output(
-					'<h2 class="hadError">Error</h2>' . '<p>The test <strong> ' .
+					'<h2 class="hadError">Error</h2><p>The test <strong> ' .
 						htmlspecialchars(t3lib_div::_GP('testCaseFile')) . '</strong> could not be found.</p>'
 				);
 				return;
@@ -583,7 +583,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			}
 			if (!is_object($result)) {
 				$this->output(
-					'<h2 class="hadError">Error</h2>' . '<p>The test <strong> ' .
+					'<h2 class="hadError">Error</h2><p>The test <strong> ' .
 						htmlspecialchars(t3lib_div::_GP('testname')) . '</strong> could not be found.</p>'
 				);
 				return;
@@ -600,25 +600,25 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		// Displays test statistics.
 		$testStatistics = '';
 		if ($result->wasSuccessful()) {
-			$testStatistics = '<h2 class="wasSuccessful">' . $this->getLL('testing_success') . '</h2>';
+			$testStatistics = '<h2 class="wasSuccessful">' . $this->translate('testing_success') . '</h2>';
 		} else {
 			$testStatistics = '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadFailure");/*]]>*/</script>
-				<h2 class="hadFailure">' . $this->getLL('testing_failure') . '</h2>';
+				<h2 class="hadFailure">' . $this->translate('testing_failure') . '</h2>';
 		}
-		$testStatistics .= '<p>' . $result->count() . ' ' . $this->getLL('tests_total') . ', ' . $testListener->assertionCount() . ' ' .
-			$this->getLL('assertions_total') . ', ' . $result->failureCount() . ' ' . $this->getLL('tests_failures') .
-			', ' . $result->skippedCount() . ' ' . $this->getLL('tests_skipped') . ', ' .
-			$result->notImplementedCount() . ' ' . $this->getLL('tests_notimplemented') . ', ' . $result->errorCount() .
-			' ' . $this->getLL('tests_errors') . ', ' . '<span title="' . $timeSpent . '&nbsp;' .
-			$this->getLL('tests_seconds') . '">' . round($timeSpent, 3) . '&nbsp;' . $this->getLL('tests_seconds') .
+		$testStatistics .= '<p>' . $result->count() . ' ' . $this->translate('tests_total') . ', ' . $testListener->assertionCount() . ' ' .
+			$this->translate('assertions_total') . ', ' . $result->failureCount() . ' ' . $this->translate('tests_failures') .
+			', ' . $result->skippedCount() . ' ' . $this->translate('tests_skipped') . ', ' .
+			$result->notImplementedCount() . ' ' . $this->translate('tests_notimplemented') . ', ' . $result->errorCount() .
+			' ' . $this->translate('tests_errors') . ', <span title="' . $timeSpent . '&nbsp;' .
+			$this->translate('tests_seconds') . '">' . round($timeSpent, 3) . '&nbsp;' . $this->translate('tests_seconds') .
 			', </span>' . t3lib_div::formatSize($leakedMemory) . 'B (' . $leakedMemory . ' B) ' .
-			$this->getLL('tests_leaks') . '</p>';
+			$this->translate('tests_leaks') . '</p>';
 		$this->output($testStatistics);
 
 		$this->output(
 			'<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">
 				<p>
-					<button type="submit" name="bingo" value="run" accesskey="r">' . $this->getLL('run_again') . '</button>
+					<button type="submit" name="bingo" value="run" accesskey="r">' . $this->translate('run_again') . '</button>
 					<input name="command" type="hidden" value="' . t3lib_div::_GP('command') . '" />
 					<input name="testname" type="hidden" value="' . t3lib_div::_GP('testname') . '" />
 					<input name="testCaseFile" type="hidden" value="' . t3lib_div::_GP('testCaseFile') . '" />
@@ -769,7 +769,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	/**
 	 * Recursively finds all test case files in the directory $directory.
 	 *
-	 * @param string $dir
+	 * @param string $directory
 	 *        the absolute path of the directory in which to look for test cases,
 	 *        must not be empty
 	 *
@@ -796,7 +796,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	/**
 	 * Includes all PHP files given in $paths.
 	 *
-	 * @param array<strings>
+	 * @param array<strings> $paths
 	 *        array keys: absolute path
 	 *        array values: file names in that path
 	 *
@@ -834,13 +834,13 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * Creates the CSS style attribute content for an icon for the extension
 	 * $extensionKey.
 	 *
-	 * @throws Tx_Phpunit_Exception_NoTestsDirectory
-	 *         if there is not extension with tests with the given key
-	 *
 	 * @param string $extensionKey
 	 *        the key of a loaded extension, may also be "typo3"
 	 *
 	 * @return string the content for the "style" attribute, will not be empty
+	 *
+	 * @throws Tx_Phpunit_Exception_NoTestsDirectory
+	 *         if there is not extension with tests with the given key
 	 */
 	protected function createIconStyle($extensionKey) {
 		if ($extensionKey === '') {

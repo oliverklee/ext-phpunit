@@ -194,7 +194,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 				$sqlFilename = t3lib_div::getFileAbsFileName($file);
 				$fileContent = t3lib_div::getUrl($sqlFilename);
 
-				$this->importDBDefinitions($fileContent);
+				$this->importDatabaseDefinitions($fileContent);
 			}
 		}
 	}
@@ -207,7 +207,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	 *        if none is provided, the name of the current TYPO3 database plus a
 	 *        suffix "_test" is used
 	 *
-	 * return array<string>
+	 * @return array<string>
 	 *        the names of all tables in the database $databaseName, might be empty
 	 */
 	protected function getDatabaseTables($databaseName = NULL) {
@@ -236,7 +236,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 		$sqlFilename = t3lib_div::getFileAbsFileName(t3lib_extMgm::extPath($extensionName) . 'ext_tables.sql');
 		$fileContent = t3lib_div::getUrl($sqlFilename);
 
-		$this->importDBDefinitions($fileContent);
+		$this->importDatabaseDefinitions($fileContent);
 	}
 
 	/**
@@ -255,11 +255,11 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	 *
 	 * @return void
 	 */
-	protected function importStdDB() {
+	protected function importStdDb() {
 		$sqlFilename = t3lib_div::getFileAbsFileName(PATH_t3lib . 'stddb/tables.sql');
 		$fileContent = t3lib_div::getUrl($sqlFilename);
 
-		$this->importDBDefinitions($fileContent);
+		$this->importDatabaseDefinitions($fileContent);
 	}
 
 	/**
@@ -270,16 +270,16 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	 *
 	 * @return void
 	 */
-	private function importDBdefinitions($definitionContent) {
+	private function importDatabaseDefinitions($definitionContent) {
 		$install = t3lib_div::makeInstance('t3lib_install');
-		$FDfile = $install->getFieldDefinitions_fileContent($definitionContent);
-		if (empty($FDfile)) {
+		$fieldDefinitionsFile = $install->getFieldDefinitions_fileContent($definitionContent);
+		if (empty($fieldDefinitionsFile)) {
 			return;
 		}
 
 		// find statements to query
-		$FDdatabase = $install->getFieldDefinitions_fileContent($this->getTestDatabaseSchema());
-		$diff = $install->getDatabaseExtra($FDfile, $FDdatabase);
+		$fieldDefinitionsDatabase = $install->getFieldDefinitions_fileContent($this->getTestDatabaseSchema());
+		$diff = $install->getDatabaseExtra($fieldDefinitionsFile, $fieldDefinitionsDatabase);
 		$updateStatements = $install->getUpdateSuggestions($diff);
 
 		$updateTypes = array('add', 'change', 'create_table');
@@ -375,8 +375,8 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 				$columnValue = NULL;
 
 				if (isset($column['ref'])) {
-					list($tableName, $elementID) = explode('#', $column['ref']);
-					$columnValue = $foreignKeys[$tableName][$elementID];
+					list($tableName, $elementId) = explode('#', $column['ref']);
+					$columnValue = $foreignKeys[$tableName][$elementId];
 				} elseif (isset($column['is-NULL']) && ($column['is-NULL'] === 'yes')) {
 					$columnValue = NULL;
 				} else {
@@ -390,8 +390,8 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 			$db->exec_INSERTquery($tableName, $insertArray);
 
 			if (isset($table['id'])) {
-				$elementID = (string) $table['id'];
-				$foreignKeys[$tableName][$elementID] = $db->sql_insert_id();
+				$elementId = (string) $table['id'];
+				$foreignKeys[$tableName][$elementId] = $db->sql_insert_id();
 			}
 		}
 	}

@@ -75,11 +75,15 @@ class Tx_Phpunit_TestableCode {
 	protected $testsPath = '';
 
 	/**
+	 * files that should be excluded from code coverage
+	 *
 	 * @var array<string>
 	 */
 	protected $blacklist = array();
 
 	/**
+	 * files that should be included in code coverage
+	 *
 	 * @var array<string>
 	 */
 	protected $whitelist = array();
@@ -158,7 +162,7 @@ class Tx_Phpunit_TestableCode {
 	/**
 	 * Sets the type of this testable code.
 	 *
-	 * @param integer
+	 * @param integer $type
 	 *        the type, must be either TYPE_EXTENSION or TYPE_CORE
 	 *
 	 * @return void
@@ -250,7 +254,7 @@ class Tx_Phpunit_TestableCode {
 	 * @param array<string> $files
 	 *         the absolute paths to the blacklisted files, may be empty
 	 *
-	 * œreturn void
+	 * @return void
 	 */
 	public function setBlacklist(array $files) {
 		$this->blacklist = $files;
@@ -274,7 +278,7 @@ class Tx_Phpunit_TestableCode {
 	 * @param array<string> $files
 	 *         the absolute paths to the whitelisted files, may be empty
 	 *
-	 * œreturn void
+	 * @return void
 	 */
 	public function setWhitelist(array $files) {
 		$this->whitelist = $files;

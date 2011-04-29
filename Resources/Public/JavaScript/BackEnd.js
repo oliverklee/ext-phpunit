@@ -154,7 +154,8 @@ function setProgressBarClass(className) {
 			'SET_failure', 'SET_success', 'SET_error', 'SET_skipped',
 			'SET_notimplemented', 'SET_testdox', 'SET_showMemoryAndTime', 'SET_runSeleniumTests'
 		]);
-		for (var i = 0; i < checkboxes.length; i++) {
+		var numberOfCheckboxes = checkboxes.length;
+		for (var i = 0; i < numberOfCheckboxes; i++) {
 			var checkbox = checkboxes[i];
 			var display = checkbox.checked ? 'block' : 'none';
 			var className = mapClasses(checkbox.id);
@@ -188,7 +189,8 @@ function setProgressBarClass(className) {
 		var pre = document.createElement('pre');
 		pre.className = 'message';
 
-		for (var i = 0; i < testChildren.length; i++) {
+		var numberOfChildren = testChildren.length;
+		for (var i = 0; i < numberOfChildren; i++) {
 			var node = testChildren[i];
 			if (node.tagName !== 'H3') {
 				lastTestContainer.removeChild(node);

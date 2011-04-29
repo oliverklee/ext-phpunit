@@ -69,7 +69,7 @@ class Tx_Phpunit_Cli_TestRunner extends t3lib_cli {
 	 *
 	 * @return void
 	 */
-	public function cli_main() {
+	public function run() {
 		define('PHPUnit_MAIN_METHOD', 'PHPUnit_TextUI_Command::main');
 		PHPUnit_TextUI_Command::main();
 	}
@@ -77,5 +77,5 @@ class Tx_Phpunit_Cli_TestRunner extends t3lib_cli {
 
 $phpUnit = t3lib_div::makeInstance('Tx_Phpunit_Cli_TestRunner');
 /* @var $phpUnit Tx_Phpunit_Cli_TestRunner */
-$phpUnit->cli_main();
+$phpUnit->run();
 ?>

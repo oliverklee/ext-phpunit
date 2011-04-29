@@ -70,6 +70,8 @@ class Tx_Phpunit_Service_Database {
 
 	/**
 	 * Enables query logging in TYPO3's DB class.
+	 *
+	 * @return void
 	 */
 	public static function enableQueryLogging() {
 		$GLOBALS['TYPO3_DB']->store_lastBuiltQuery = TRUE;
@@ -118,12 +120,9 @@ class Tx_Phpunit_Service_Database {
 		$showHiddenKey = $showHidden + 1;
 		$ignoresKey = serialize($ignoreArray);
 		$previewKey = intval($noVersionPreview);
-		if (!isset(self::$enableFieldsCache[$tableName][$showHiddenKey][$ignoresKey]
-			[$previewKey])
-		) {
+		if (!isset(self::$enableFieldsCache[$tableName][$showHiddenKey][$ignoresKey][$previewKey])) {
 			self::retrievePageForEnableFields();
-			self::$enableFieldsCache[$tableName][$showHiddenKey][$ignoresKey]
-				[$previewKey]
+			self::$enableFieldsCache[$tableName][$showHiddenKey][$ignoresKey][$previewKey]
 				= self::$pageForEnableFields->enableFields(
 					$tableName,
 					$showHidden,
@@ -132,8 +131,7 @@ class Tx_Phpunit_Service_Database {
 				);
 		}
 
-		return self::$enableFieldsCache[$tableName][$showHiddenKey][$ignoresKey]
-			[$previewKey];
+		return self::$enableFieldsCache[$tableName][$showHiddenKey][$ignoresKey][$previewKey];
 	}
 
 	/**
@@ -217,14 +215,14 @@ class Tx_Phpunit_Service_Database {
 	/**
 	 * Executes a DELETE query.
 	 *
-	 * @throws Tx_Phpunit_Exception_Database if an error has occured
-	 *
 	 * @param string $tableName
 	 *        the name of the table from which to delete, must not be empty
 	 * @param string $whereClause
 	 *        the WHERE clause to select the records, may be empty
 	 *
 	 * @return integer the number of affected rows, might be 0
+	 *
+	 * @throws Tx_Phpunit_Exception_Database if an error has occured
 	 */
 	public static function delete($tableName, $whereClause) {
 		if ($tableName == '') {
@@ -245,8 +243,6 @@ class Tx_Phpunit_Service_Database {
 	/**
 	 * Executes an UPDATE query.
 	 *
-	 * @throws Tx_Phpunit_Exception_Database if an error has occured
-	 *
 	 * @param string $tableName
 	 *        the name of the table to change, must not be empty
 	 * @param string $whereClause
@@ -255,6 +251,8 @@ class Tx_Phpunit_Service_Database {
 	 *        key/value pairs of the fields to change, may be empty
 	 *
 	 * @return integer the number of affected rows, might be 0
+	 *
+	 * @throws Tx_Phpunit_Exception_Database if an error has occured
 	 */
 	public static function update($tableName, $whereClause, array $fields) {
 		if ($tableName == '') {
@@ -275,8 +273,6 @@ class Tx_Phpunit_Service_Database {
 	/**
 	 * Executes an INSERT query.
 	 *
-	 * @throws Tx_Phpunit_Exception_Database if an error has occured
-	 *
 	 * @param string $tableName
 	 *        the name of the table in which the record should be created,
 	 *        must not be empty
@@ -285,6 +281,8 @@ class Tx_Phpunit_Service_Database {
 	 *
 	 * @return integer
 	 *         the UID of the created record, will be 0 if the table has no UID column
+	 *
+	 * @throws Tx_Phpunit_Exception_Database if an error has occured
 	 */
 	public static function insert($tableName, array $recordData) {
 		if ($tableName == '') {
@@ -308,8 +306,6 @@ class Tx_Phpunit_Service_Database {
 	/**
 	 * Executes a SELECT query.
 	 *
-	 * @throws Tx_Phpunit_Exception_Database if an error has occured
-	 *
 	 * @param string $fields
 	 *        list of fields to select, may be "*", must not be empty
 	 * @param string $tableNames
@@ -324,6 +320,8 @@ class Tx_Phpunit_Service_Database {
 	 *        LIMIT value ([begin,]max), may be empty
 	 *
 	 * @return resource MySQL result pointer
+	 *
+	 * @throws Tx_Phpunit_Exception_Database if an error has occured
 	 */
 	public static function select(
 		$fields, $tableNames, $whereClause = '', $groupBy = '', $orderBy = '', $limit = ''
@@ -352,10 +350,6 @@ class Tx_Phpunit_Service_Database {
 	 *
 	 * If there is more than one matching record, only one will be returned.
 	 *
-	 * @throws Tx_Phpunit_Exception_Database if an error has occured
-	 * @throws Tx_Phpunit_Exception_EmptyQueryResult if there is no matching
-	 *                                             record
-	 *
 	 * @param string $fields
 	 *        list of fields to select, may be "*", must not be empty
 	 * @param string $tableNames
@@ -370,6 +364,9 @@ class Tx_Phpunit_Service_Database {
 	 *        the offset to start the result for, must be >= 0
 	 *
 	 * @return array the single result row, will not be empty
+	 *
+	 * @throws Tx_Phpunit_Exception_Database if an error has occured
+	 * @throws Tx_Phpunit_Exception_EmptyQueryResult if there is no matching record
 	 */
 	public static function selectSingle(
 		$fields, $tableNames, $whereClause = '', $groupBy = '', $orderBy = '', $offset = 0
@@ -389,8 +386,6 @@ class Tx_Phpunit_Service_Database {
 	 * Executes a SELECT query and returns the result rows as a two-dimensional
 	 * associative array.
 	 *
-	 * @throws Tx_Phpunit_Exception_Database if an error has occured
-	 *
 	 * @param string $fieldNames
 	 *        list of fields to select, may be "*", must not be empty
 	 * @param string $tableNames
@@ -406,6 +401,8 @@ class Tx_Phpunit_Service_Database {
 	 *
 	 * @return array
 	 *         the query result rows, will be empty if there are no matching records
+	 *
+	 * @throws Tx_Phpunit_Exception_Database if an error has occured
 	 */
 	public static function selectMultiple(
 		$fieldNames, $tableNames, $whereClause = '', $groupBy = '', $orderBy = '', $limit = ''
@@ -429,8 +426,6 @@ class Tx_Phpunit_Service_Database {
 	 *
 	 * If there is more than one matching record, only one will be returned.
 	 *
-	 * @throws Tx_Phpunit_Exception_Database if an error has occured
-	 *
 	 * @param string $fieldName
 	 *        name of the field to select, must not be empty
 	 * @param string $tableNames
@@ -447,6 +442,8 @@ class Tx_Phpunit_Service_Database {
 	 * @return array
 	 *         one column from the the query result rows, will be empty if there
 	 *         are no matching records
+	 *
+	 * @throws Tx_Phpunit_Exception_Database if an error has occured
 	 */
 	public static function selectColumnForMultiple(
 		$fieldName, $tableNames, $whereClause = '', $groupBy = '', $orderBy = '', $limit = ''
@@ -467,8 +464,6 @@ class Tx_Phpunit_Service_Database {
 	 * Counts the number of matching records in the database for a particular
 	 * WHERE clause.
 	 *
-	 * @throws Tx_Phpunit_Exception_Database if an error has occured
-	 *
 	 * @param string $tableNames
 	 *        comma-separated list of existing tables from which to count, can
 	 *        also be a JOIN, must not be empty
@@ -476,6 +471,8 @@ class Tx_Phpunit_Service_Database {
 	 *        WHERE clause, may be empty
 	 *
 	 * @return integer the number of matching records, will be >= 0
+	 *
+	 * @throws Tx_Phpunit_Exception_Database if an error has occured
 	 */
 	public static function count($tableNames, $whereClause = '') {
 		$isOnlyOneTable = ((strpos($tableNames, ',') === FALSE)
@@ -670,8 +667,7 @@ class Tx_Phpunit_Service_Database {
 				);
 			}
 
-			self::$tableColumnCache[$tableName] =
-				$GLOBALS['TYPO3_DB']->admin_get_fields($tableName);
+			self::$tableColumnCache[$tableName] = $GLOBALS['TYPO3_DB']->admin_get_fields($tableName);
 		}
 	}
 

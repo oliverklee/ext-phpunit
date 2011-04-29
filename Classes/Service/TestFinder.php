@@ -152,7 +152,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 		$allPhpFiles = t3lib_div::getAllFilesAndFoldersInPath(array(), $directory, 'php');
 		foreach ($allPhpFiles as $filePath) {
 			if ($this->isTestCaseFileName($filePath)) {
-				$testFiles[] = substr($filePath, $directoryLength);;
+				$testFiles[] = substr($filePath, $directoryLength);
 			}
 		}
 
@@ -328,11 +328,11 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	/**
 	 * Creates the testable code instance for the extension with the given key.
 	 *
-	 * @throws Tx_Phpunit_Exception_NoTestsDirectory if the given extension has no tests directory
-	 *
 	 * @param string $extensionKey the key of an installed extension, must not be empty
 	 *
 	 * @return Tx_Phpunit_TestableCode the test-relevant data of the installed extension
+	 *
+	 * @throws Tx_Phpunit_Exception_NoTestsDirectory if the given extension has no tests directory
 	 */
 	protected function createTestableCodeForSingleExtension($extensionKey) {
 		$testsPath = $this->findTestsPathForExtension($extensionKey);
@@ -351,14 +351,14 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	/**
 	 * Finds the absolute path to the tests of the extension with the key $extensionKey.
 	 *
-	 * @throws Tx_Phpunit_Exception_NoTestsDirectory if the given extension has no tests directory
-	 *
 	 * @param string $extensionKey the key of an installed extension, must not be empty
 	 *
 	 * @return string
 	 *         the absolute path of the tests directory of the given extension
 	 *         (might differ in case from the actual tests directory on case-insensitive
 	 *         file systems)
+	 *
+	 * @throws Tx_Phpunit_Exception_NoTestsDirectory if the given extension has no tests directory
 	 */
 	protected function findTestsPathForExtension($extensionKey) {
 		if ($extensionKey === '') {

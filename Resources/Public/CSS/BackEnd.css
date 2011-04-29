@@ -9,16 +9,16 @@ p {
 }
 
 a {
-	color : blue;
+	color: blue;
 }
 
 a:hover {
-	color : blue;
-	text-decoration : underline;
+	color: blue;
+	text-decoration: underline;
 }
 
 p, div, body, input, select, textarea, .defstyle {
-	color : black;
+	color: black;
 }
 
 /* Safari hack, http://dustinbrewer.com/css-hackgetting-safari-to-behave/ */
@@ -37,8 +37,8 @@ p, div, body, input, select, textarea, .defstyle {
 }
 
 h1, h2, h3, h4 {
-	background-color : transparent;
-	color : black;
+	background-color: transparent;
+	color: black;
 	text-align: left;
 }
 
@@ -55,20 +55,20 @@ body#typo3-mod-php {
 
 .progress-bar-wrap {
 	height: 2em;
-	margin-bottom : 1em;
-	border : 1px solid black;
-	background-color : white;
-	width : 100%;
+	margin-bottom: 1em;
+	border: 1px solid black;
+	background-color: white;
+	width: 100%;
 }
 
 #progress-bar,
 #transparent-bar  {
-	border : 0;
-	height : 100%;
+	border: 0;
+	height: 100%;
 }
 
 #progress-bar {
-	float : left;
+	float: left;
 }
 
 #transparent-bar {
@@ -77,8 +77,8 @@ body#typo3-mod-php {
 }
 
 .alltests {
-	border-top : 1px solid #999999;
-	border-bottom : 1px solid #999999;
+	border-top: 1px solid #999999;
+	border-bottom: 1px solid #999999;
 }
 
 .wasSuccessful {
@@ -98,9 +98,9 @@ body#typo3-mod-php {
 }
 
 .message {
-	margin : 0.5em;
-	border : 1px solid #eeeeee;
-	padding : 0.5em;
+	margin: 0.5em;
+	border: 1px solid #eeeeee;
+	padding: 0.5em;
 	margin-left: 0.2em;
 	background-color: white;
 }
@@ -108,33 +108,33 @@ body#typo3-mod-php {
 .testcaseOutput,
 .testcaseFailure,
 .testcaseError {
-	padding : 0.2em 0 0.2em 0;
-	padding-left : 0.3em;
+	padding: 0.2em 0 0.2em 0;
+	padding-left: 0.3em;
 	margin: 0.3em 0 0.3em 0;
 	background-color: #f1fff1;
 }
 
 .testcaseOutput {
-	border-left : 2px solid lightgreen;
+	border-left: 2px solid lightgreen;
 }
 
 .testcaseFailure {
-	border-left : 2px solid yellow;
+	border-left: 2px solid yellow;
 	background-color: #fffec3;
 }
 
 .testcaseError {
-	border-left : 2px solid red;
+	border-left: 2px solid red;
 	background-color: #ffc3c3;
 }
 
 .testcaseNotImplemented {
-	border-left : 2px solid #CCC;
+	border-left: 2px solid #CCC;
 	background-color: #EEE;
 }
 
 .testcaseSkipped {
-	border-left : 2px solid #CCC;
+	border-left: 2px solid #CCC;
 	background-color: #EEE;
 }
 

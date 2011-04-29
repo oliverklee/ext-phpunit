@@ -49,7 +49,7 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 	public function getStatus() {
 		return array(
 			$this->getReflectionStatus(),
-			$this->getEAcceleratorStatus(),
+			$this->getEacceleratorStatus(),
 			$this->getXdebugStatus(),
 			$this->getMemoryLimitStatus(),
 			$this->getIncludePathStatus(),
@@ -109,7 +109,7 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 	 * @return tx_reports_reports_status_Status
 	 *         a status concerning eAccelerator not crashing phpunit
 	 */
-	protected function getEAcceleratorStatus() {
+	protected function getEacceleratorStatus() {
 		$heading = $this->translate('status_eAccelerator');
 
 		if (!extension_loaded('eaccelerator')) {

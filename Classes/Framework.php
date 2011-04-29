@@ -608,7 +608,7 @@ class Tx_Phpunit_Framework {
 				'$uidLocal must be an integer > 0, but actually is "' . $uidLocal . '"'
 			);
 		}
-		if  (intval($uidForeign) <= 0) {
+		if (intval($uidForeign) <= 0) {
 			throw new InvalidArgumentException(
 				'$uidForeign must be an integer > 0, but actually is "' . $uidForeign . '"'
 			);
@@ -830,7 +830,7 @@ class Tx_Phpunit_Framework {
 	 * @param string $fileName
 	 *        path of the dummy file to create, relative to the calling
 	 *        extension's upload directory, must not be empty
-	 * @param $content
+	 * @param string $content
 	 *        string content for the file to create, may be empty
 	 *
 	 * @return string
@@ -853,8 +853,6 @@ class Tx_Phpunit_Framework {
 	 * Creates a dummy ZIP archive with a unique file name in the calling
 	 * extension's upload directory.
 	 *
-	 * @throws t3lib_exception if the PHP installation does not provide ZIPArchive
-	 *
 	 * @param string $fileName
 	 *        path of the dummy ZIP archive to create, relative to the calling
 	 *        extension's upload directory, must not be empty
@@ -869,6 +867,8 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @return string
 	 *         the absolute path of the created dummy ZIP archive, will not be empty
+	 *
+	 * @throws t3lib_exception if the PHP installation does not provide ZIPArchive
 	 */
 	public function createDummyZipArchive($fileName = 'test.zip', array $filesToAddToArchive = array()) {
 		$this->checkForZipArchive();
@@ -934,7 +934,7 @@ class Tx_Phpunit_Framework {
 			);
 		}
 
-		if ($fileExists && !@unlink($absolutePathToFile)) {
+		if ($fileExists && !unlink($absolutePathToFile)) {
 			throw new t3lib_exception('The file "' . $absolutePathToFile . '" could not be deleted.');
 		}
 
@@ -1032,11 +1032,6 @@ class Tx_Phpunit_Framework {
 	/**
 	 * Sets the upload folder path.
 	 *
-	 * @throws t3lib_exception
-	 *         if there are dummy files within the current upload folder as
-	 *         these files could not be deleted if the upload folder path has
-	 *         changed
-	 *
 	 * @param string $absolutePath
 	 *        absolute path to the folder where to work on during the tests, can
 	 *        be either an existing folder which will be cleaned up after the
@@ -1044,6 +1039,11 @@ class Tx_Phpunit_Framework {
 	 *        and deleted during cleanUp, must end with a trailing slash
 	 *
 	 * @return void
+	 *
+	 * @throws t3lib_exception
+	 *         if there are dummy files within the current upload folder as
+	 *         these files could not be deleted if the upload folder path has
+	 *         changed
 	 */
 	public function setUploadFolderPath($absolutePath) {
 		if (!empty($this->dummyFiles) || !empty($this->dummyFolders)) {
@@ -1230,8 +1230,8 @@ class Tx_Phpunit_Framework {
 	 * @return void
 	 */
 	protected function suppressFrontEndCookies() {
-		$_POST['FE_SESSION_KEY'] = '';
-		$_GET['FE_SESSION_KEY'] = '';
+		$GLOBALS['_POST']['FE_SESSION_KEY'] = '';
+		$GLOBALS['_GET']['FE_SESSION_KEY'] = '';
 		$GLOBALS['TYPO3_CONF_VARS']['FE']['dontSetCookie'] = 1;
 	}
 
@@ -1249,13 +1249,13 @@ class Tx_Phpunit_Framework {
 	 * Note: To set the logged-in users group data properly, the front-end user
 	 *       and his groups must actually exist in the database.
 	 *
-	 * @throws t3lib_exception if no front end has been created
-	 *
 	 * @param integer $userId
 	 *        UID of the FE user, must not necessarily exist in the database,
 	 *        must be > 0
 	 *
 	 * @return void
+	 *
+	 * @throws t3lib_exception if no front end has been created
 	 */
 	public function loginFrontEndUser($userId) {
 		if (intval($userId) === 0) {
@@ -1634,9 +1634,7 @@ class Tx_Phpunit_Framework {
 			return;
 		}
 
-		if ($this->getAutoIncrement($tableName) >
-			($this->getMaximumUidFromTable($tableName) + $this->resetAutoIncrementThreshold)
-		) {
+		if ($this->getAutoIncrement($tableName) > ($this->getMaximumUidFromTable($tableName) + $this->resetAutoIncrementThreshold)) {
 			$this->resetAutoIncrement($tableName);
 		}
 	}
@@ -1760,7 +1758,7 @@ class Tx_Phpunit_Framework {
 				$this->dirtySystemTables[$currentTable] = $currentTable;
 			} else {
 				throw new InvalidArgumentException(
-					'The table name "' . $currentTable . '" is not allowed for' . ' markTableAsDirty.'
+					'The table name "' . $currentTable . '" is not allowed for markTableAsDirty.'
 				);
 			}
 		}
@@ -1800,14 +1798,14 @@ class Tx_Phpunit_Framework {
 	 * relation between these two dummy records, so you're sure there aren't
 	 * already relations for a local UID in the database.
 	 *
-	 * @see https://bugs.oliverklee.com/show_bug.cgi?id=1423
-	 *
 	 * @param string $tableName
 	 *        the relation table, must not be empty
 	 * @param integer $uidLocal
 	 *        UID of the local table, must be > 0
 	 *
 	 * @return integer the next sorting value to use (> 0)
+	 *
+	 * @see https://bugs.oliverklee.com/show_bug.cgi?id=1423
 	 */
 	public function getRelationSorting($tableName, $uidLocal) {
 		if (!$this->relationSorting[$tableName][$uidLocal]) {
