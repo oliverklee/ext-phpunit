@@ -1,4 +1,5 @@
 2011-04-30 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #26506: Fatal Error if core using the PHP5 constructor
 	* Fixed Bug #26523: Polish the CSS a bit (thanks to Patrick Shriner)
 
 2011-04-29 Oliver Klee <typo3-coding@oliverklee.de>
