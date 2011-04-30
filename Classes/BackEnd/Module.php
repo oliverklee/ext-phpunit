@@ -114,12 +114,11 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * Returns the localized string for the key $key.
 	 *
 	 * @param string $key the key of the string to retrieve, must not be empty
-	 * @param string $default default language value
 	 *
 	 * @return string the localized string for the key $key
 	 */
-	protected function translate($key, $default = '') {
-		return $GLOBALS['LANG']->getLL($key, $default);
+	protected function translate($key) {
+		return $GLOBALS['LANG']->getLL($key);
 	}
 
 	/**
