@@ -1,3 +1,6 @@
+2011-04-30 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #26523: Polish the CSS a bit (thanks to Patrick Shriner)
+
 2011-04-29 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #26424: Fix some phpcs warnings
 

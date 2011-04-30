@@ -108,8 +108,7 @@ body#typo3-mod-php {
 .testcaseOutput,
 .testcaseFailure,
 .testcaseError {
-	padding: 0.2em 0 0.2em 0;
-	padding-left: 0.3em;
+	padding: .2em 0 .2em .3em;
 	margin: 0.3em 0 0.3em 0;
 	background-color: #f1fff1;
 }
@@ -117,7 +116,27 @@ body#typo3-mod-php {
 .testcaseOutput {
 	border-left: 2px solid lightgreen;
 }
-
+.testcaseOutput img.runner {
+	border: 1px solid transparent;
+	vertical-align: middle;
+	padding: 0 2px;
+	border-radius: .2em;
+}
+.testcaseOutput img.runner:hover {
+	background-image: url(/typo3conf/ext/phpunit/Resources/Public/Icons/RunnerRunning.gif);
+	background-repeat: no-repeat;
+	background-position: 2px 0;
+	border-color: lightgreen;
+}
+.testcaseOutput.testcaseError img.runner:hover {
+	border-color: #ff0000;
+}
+.testcaseOutput.testcaseFailure img.runner:hover {
+	border-color: yellow;
+}
+.testcaseOutput pre.message {
+	white-space: normal;
+}
 .testcaseFailure {
 	border-left: 2px solid yellow;
 	background-color: #fffec3;
@@ -164,4 +183,32 @@ html {
 
 th, td {
 	border: 0;
+}
+
+.testSuiteName {
+	font-size: 13px;
+}
+.wasSuccessful {
+	color: #3b7826;
+	background-color: #cdeaca;
+	border-color: #58b548;
+}
+.hadFailure {
+	color: #9e7d4a;
+	background-color: #fbf6de;
+	border-color: #b1905c;
+}
+.hadError {
+	color: #aa0225;
+	background-color: #f6d3cf;
+	border-color: #d66c68;
+}
+h2.wasSuccessful, h2.hadFailure, h2.hadError {
+	padding: 2px 5px;
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 4px;
+}
+#progress-bar.wasSuccessful {
+	width:100%;
 }
