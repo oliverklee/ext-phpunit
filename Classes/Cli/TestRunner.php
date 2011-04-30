@@ -50,12 +50,7 @@ class Tx_Phpunit_Cli_TestRunner extends t3lib_cli {
 	public function __construct() {
 		setlocale(LC_NUMERIC, 'C');
 
-		// This check can be removed once this extension requires TYPO3 >= 4.6.
-		if (method_exists($this, 't3lib_cli')) {
-			parent::t3lib_cli();
-		} else {
-			parent::__construct();
-		}
+		parent::__construct();
 
 		$this->cli_options = array_merge($this->cli_options, array());
 		$this->cli_help = array_merge(
