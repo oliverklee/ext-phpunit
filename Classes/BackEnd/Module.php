@@ -228,8 +228,9 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 */
 	protected function runTests_renderIntro() {
 		$extensionsWithTestSuites = $this->getExtensionsWithTestSuites();
-		if (!is_array($extensionsWithTestSuites)) {
-			return $this->translate('could_not_find_exts_with_tests');
+		if (empty($extensionsWithTestSuites)) {
+			$this->output($this->translate('could_not_find_exts_with_tests'));
+			return;
 		}
 
 		ksort($extensionsWithTestSuites);
@@ -254,9 +255,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * @return string
 	 *         HTML code for the drop-down and a surrounding form, will not be empty
 	 */
-	protected function runTests_renderIntro_renderExtensionSelector(
-		array $extensionsWithTestSuites
-	) {
+	protected function runTests_renderIntro_renderExtensionSelector(array $extensionsWithTestSuites) {
 		$extensionsOptionsArr = array();
 		$extensionsOptionsArr[] = '<option value="">' . $this->translate('select_extension') . '</option>';
 
@@ -264,14 +263,14 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$extensionsOptionsArr[] = '<option class="alltests" value="uuall"' . $selected . '>' .
 			$this->translate('all_extensions') . '</option>';
 
-		foreach (array_keys($extensionsWithTestSuites) as $dirName) {
-			$style = $this->createIconStyle($dirName);
-			$selected = strcmp($dirName, $this->MOD_SETTINGS['extSel']) ? '' : ' selected="selected"';
+		foreach (array_keys($extensionsWithTestSuites) as $extensionKey) {
+			$style = $this->createIconStyle($extensionKey);
+			$selected = strcmp($extensionKey, $this->MOD_SETTINGS['extSel']) ? '' : ' selected="selected"';
 			if ($selected !== '') {
-				$currentExtName = $dirName;
+				$currentExtName = $extensionKey;
 			}
-			$extensionsOptionsArr[] = '<option style="' . $style . '" value="' . htmlspecialchars($dirName) . '"' . $selected . '>' .
-				htmlspecialchars($dirName) . '</option>';
+			$extensionsOptionsArr[] = '<option style="' . $style . '" value="' . htmlspecialchars($extensionKey) . '"' . $selected . '>' .
+				htmlspecialchars($extensionKey) . '</option>';
 		}
 
 		try {

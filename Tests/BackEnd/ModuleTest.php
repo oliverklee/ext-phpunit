@@ -22,6 +22,9 @@
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+require_once(PATH_typo3 . 'template.php');
+$GLOBALS['LANG']->includeLLFile('EXT:phpunit/Resources/Private/Language/locallang_backend.xml');
+
 /**
  * Testcase for the Tx_Phpunit_BackEnd_Module class.
  *
@@ -107,6 +110,12 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 				'  }' .
 				'  public function runTests_render() {' .
 				'    parent::runTests_render();' .
+				'  }' .
+				'  public function runTests_renderIntro() {' .
+				'    parent::runTests_renderIntro();' .
+				'  }' .
+				'  public function runTests_renderIntro_renderExtensionSelector(array $extensionsWithTestSuites) {' .
+				'    return parent::runTests_renderIntro_renderExtensionSelector($extensionsWithTestSuites);' .
 				'  }' .
 				'  public function loadRequiredTestClasses(array $paths) {' .
 				'    parent::loadRequiredTestClasses($paths);' .
@@ -340,6 +349,131 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$_GET['command'] = 'runsingletest';
 
 		$fixture->runTests_render();
+	}
+
+	/**
+	 * @test
+	 */
+	public function runTests_renderIntroForNoExtensionsWithTestSuitesShowsErrorMessage() {
+		$fixture = $this->getMock(
+			$this->createAccessibleProxy(),
+			array(
+				'getExtensionsWithTestSuites', 'runTests_renderIntro_renderExtensionSelector',
+				'runTests_renderIntro_renderTestSelector', 'output'
+			)
+		);
+		$fixture->expects($this->any())->method('output')
+			->will($this->returnCallback(array($this, 'outputCallback')));
+		$fixture->expects($this->once())->method('getExtensionsWithTestSuites')
+			->will($this->returnValue(array()));
+
+		$fixture->MOD_SETTINGS = array('extSel' => 'phpunit');
+
+		$fixture->runTests_renderIntro();
+
+		$this->assertContains(
+			$GLOBALS['LANG']->getLL('could_not_find_exts_with_tests'),
+			$this->output
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function runTests_renderIntroForNoExtensionsWithTestSuitesNotRendersExtensionSelector() {
+		$fixture = $this->getMock(
+			$this->createAccessibleProxy(),
+			array(
+				'getExtensionsWithTestSuites', 'runTests_renderIntro_renderExtensionSelector',
+				'runTests_renderIntro_renderTestSelector', 'output'
+			)
+		);
+		$fixture->expects($this->any())->method('output')
+			->will($this->returnCallback(array($this, 'outputCallback')));
+		$fixture->expects($this->once())->method('getExtensionsWithTestSuites')
+			->will($this->returnValue(array()));
+		$fixture->expects($this->never())->method('runTests_renderIntro_renderExtensionSelector')
+			->will($this->returnValue('extension selector'));
+
+		$fixture->MOD_SETTINGS = array('extSel' => 'phpunit');
+
+		$fixture->runTests_renderIntro();
+	}
+
+	/**
+	 * @test
+	 */
+	public function runTests_renderIntroForExistingExtensionsWithTestSuitesRendersExtensionSelector() {
+		$fixture = $this->getMock(
+			$this->createAccessibleProxy(),
+			array(
+				'getExtensionsWithTestSuites', 'runTests_renderIntro_renderExtensionSelector',
+				'runTests_renderIntro_renderTestSelector', 'output'
+			)
+		);
+		$fixture->expects($this->any())->method('output')
+			->will($this->returnCallback(array($this, 'outputCallback')));
+		$fixture->expects($this->once())->method('getExtensionsWithTestSuites')
+			->will($this->returnValue(array('phpunit' => 'phpunit')));
+		$fixture->expects($this->once())->method('runTests_renderIntro_renderExtensionSelector')
+			->will($this->returnValue('extension selector'));
+
+		$fixture->MOD_SETTINGS = array('extSel' => 'phpunit');
+
+		$fixture->runTests_renderIntro();
+
+		$this->assertContains(
+			'extension selector',
+			$this->output
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function runTests_renderIntroForSelectedExtensionRendersTestSelector() {
+		$extensionsWithTests = array('phpunit' => 'phpunit');
+		$selectedExtension = 'phpunit';
+
+		$fixture = $this->getMock(
+			$this->createAccessibleProxy(),
+			array(
+				'getExtensionsWithTestSuites', 'runTests_renderIntro_renderExtensionSelector',
+				'runTests_renderIntro_renderTestSelector', 'output'
+			)
+		);
+		$fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+
+		$fixture->expects($this->any())->method('output')
+			->will($this->returnCallback(array($this, 'outputCallback')));
+		$fixture->expects($this->once())->method('getExtensionsWithTestSuites')
+			->will($this->returnValue($extensionsWithTests));
+		$fixture->expects($this->once())->method('runTests_renderIntro_renderTestSelector')
+			->with($extensionsWithTests, $selectedExtension)->will($this->returnValue('test selector'));
+
+		$fixture->runTests_renderIntro();
+
+		$this->assertContains(
+			'test selector',
+			$this->output
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function runTests_renderIntro_renderExtensionSelectorCreatesOptionForExtensionWithTests() {
+		$extensionsWithTests = array('phpunit' => 'phpunit');
+		$selectedExtension = 'aaa';
+
+		$className = $this->createAccessibleProxy();
+		$fixture = new $className();
+		$fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+
+		$this->assertRegExp(
+			'/<option[^>]*value="phpunit"/',
+			$fixture->runTests_renderIntro_renderExtensionSelector($extensionsWithTests)
+		);
 	}
 
 	/**
