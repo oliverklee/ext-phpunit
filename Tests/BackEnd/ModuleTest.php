@@ -117,6 +117,9 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 				'  public function runTests_renderIntro_renderExtensionSelector(array $extensionsWithTestSuites) {' .
 				'    return parent::runTests_renderIntro_renderExtensionSelector($extensionsWithTestSuites);' .
 				'  }' .
+				'  public function findTestCasesInDir($directory) {' .
+				'    return parent::findTestCasesInDir($directory);' .
+				'  }' .
 				'  public function loadRequiredTestClasses(array $paths) {' .
 				'    parent::loadRequiredTestClasses($paths);' .
 				'  }' .
@@ -128,6 +131,9 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 				'  }' .
 				'  public function output($output) {' .
 				'    parent::output($output);' .
+				'  }' .
+				'  public function isAcceptedTestSuitClass($class) {' .
+				'    return parent::isAcceptedTestSuitClass($class);' .
 				'  }' .
 				'}'
 			);
@@ -479,6 +485,70 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
+	public function findTestCasesInDirReturnsEmptyArrayIfDirectoryDoesNotExist() {
+		vfsStreamWrapper::register();
+		vfsStreamWrapper::setRoot(new vfsStreamDirectory('Foo'));
+		$notExistingDirectory = 'vfs://Foo/bar';
+
+		$this->assertSame(
+			array(),
+			$this->fixture->findTestCasesInDir($notExistingDirectory)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function findTestCasesInDirCallsFindTestCasesInDirectoryOfTestFinderObject() {
+		vfsStreamWrapper::register();
+		vfsStreamWrapper::setRoot(new vfsStreamDirectory('Foo'));
+		$directory = 'vfs://Foo/';
+
+		$testFinderMock = $this->getMock(
+			'Tx_Phpunit_Service_TestFinder', array('findTestCasesInDirectory')
+		);
+		$testFinderMock->expects($this->once())->method('findTestCasesInDirectory')->with($directory);
+
+		$fixture = $this->getMock(
+			$this->createAccessibleProxy(), array('getTestFinder')
+		);
+		$fixture->expects($this->once())->method('getTestFinder')
+			->will($this->returnValue($testFinderMock));
+
+		$fixture->findTestCasesInDir($directory);
+	}
+
+	/**
+	 * @test
+	 */
+	public function findTestCasesInDirReturnsArrayWithFoundTestCaseFiles() {
+		vfsStreamWrapper::register();
+		vfsStreamWrapper::setRoot(new vfsStreamDirectory('Foo'));
+		$directory = 'vfs://Foo/';
+		$testFiles = array('class.test1Test.php', 'class.test2Test.php');
+
+		$testFinderMock = $this->getMock(
+			'Tx_Phpunit_Service_TestFinder',
+			array('findTestCasesInDirectory')
+		);
+		$testFinderMock->expects($this->once())->method('findTestCasesInDirectory')
+			->will($this->returnValue($testFiles));
+
+		$fixture = $this->getMock(
+			$this->createAccessibleProxy(), array('getTestFinder')
+		);
+		$fixture->expects($this->once())->method('getTestFinder')
+			->will($this->returnValue($testFinderMock));
+
+		$this->assertSame(
+			array($directory => $testFiles),
+			$fixture->findTestCasesInDir($directory)
+		);
+	}
+
+	/**
+	 * @test
+	 */
 	public function loadRequiredTestClassesLoadsFileInFirstPath() {
 		$this->fixture->loadRequiredTestClasses(
 			array(
@@ -647,6 +717,51 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		);
 
 		ob_end_clean();
+	}
+
+	/**
+	 * @test
+	 */
+	public function isAcceptedTestSuitClassReturnsTrueForNonSpecialClass() {
+		$this->assertTrue(
+			$this->fixture->isAcceptedTestSuitClass('foo')
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function isAcceptedTestSuitClassReturnsTrueForTestCaseSubClass() {
+		$this->assertTrue(
+			$this->fixture->isAcceptedTestSuitClass(get_class($this))
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function isAcceptedTestSuitClassReturnsFalseForPhpunitTestCase() {
+		$this->assertFalse(
+			$this->fixture->isAcceptedTestSuitClass('Tx_Phpunit_TestCase')
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function isAcceptedTestSuitClassReturnsFalseForPhpunitDatabaseTestCase() {
+		$this->assertFalse(
+			$this->fixture->isAcceptedTestSuitClass('Tx_Phpunit_Database_TestCase')
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function isAcceptedTestSuitClassReturnsFalseForPhpunitSeleniumTestCase() {
+		$this->assertFalse(
+			$this->fixture->isAcceptedTestSuitClass('Tx_Phpunit_Selenium_TestCase')
+		);
 	}
 }
 ?>
