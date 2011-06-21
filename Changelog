@@ -1,4 +1,5 @@
 2011-06-21 Oliver Klee <typo3-coding@oliverklee.de>
+	* Release version 3.5.14
 	* Fixed Bug #26573: Mark function assertType as deprecated in auto suggest
 	* Fixed Bug #13556: Update to the latest versions of PHPUnit and vfsStream
 
