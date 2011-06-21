@@ -49,7 +49,7 @@
  * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @copyright  2010-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 1.0.7
+ * @version    Release: 1.0.9
  * @link       http://github.com/sebastianbergmann/phpunit-mock-objects
  * @since      Class available since Release 1.0.0
  */
@@ -71,16 +71,13 @@ class PHPUnit_Framework_MockObject_Invocation_Static implements PHPUnit_Framewor
      * @var array
      */
     protected static $uncloneableClasses = array(
-      'AppendIterator' => TRUE,
-      'CachingIterator' => TRUE,
-      'Closure' => TRUE,
-      'COMPersistHelper' => TRUE,
-      'IteratorIterator' => TRUE,
-      'LimitIterator' => TRUE,
-      'RecursiveCachingIterator' => TRUE,
-      'RecursiveRegexIterator' => TRUE,
-      'RegexIterator' => TRUE,
-      'ZipArchive' => TRUE
+      'Closure',
+      'COMPersistHelper',
+      'IteratorIterator',
+      'RecursiveIteratorIterator',
+      'SplFileObject',
+      'PDORow',
+      'ZipArchive'
     );
 
     /**
@@ -142,22 +139,35 @@ class PHPUnit_Framework_MockObject_Invocation_Static implements PHPUnit_Framewor
      */
     protected function cloneObject($original)
     {
-        $cloneable = TRUE;
+        $cloneable = NULL;
         $object    = new ReflectionObject($original);
 
         if (method_exists($object, 'isCloneable')) {
             $cloneable = $object->isCloneable();
         }
 
-        else if ($object->isInternal() &&
-            isset(self::$uncloneableExtensions[$object->getExtensionName()]) ||
-            isset(self::$uncloneableClasses[$object->getName()])) {
+        if ($cloneable === NULL &&
+            $object->isInternal() &&
+            isset(self::$uncloneableExtensions[$object->getExtensionName()])) {
             $cloneable = FALSE;
         }
 
-        else if ($object->hasMethod('__clone')) {
+        if ($cloneable === NULL && $object->hasMethod('__clone')) {
             $method    = $object->getMethod('__clone');
             $cloneable = $method->isPublic();
+        }
+
+        if ($cloneable === NULL) {
+            foreach (self::$uncloneableClasses as $class) {
+                if ($original instanceof $class) {
+                    $cloneable = FALSE;
+                    break;
+                }
+            }
+        }
+
+        if ($cloneable === NULL) {
+            $cloneable = TRUE;
         }
 
         if ($cloneable) {

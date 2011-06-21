@@ -51,7 +51,7 @@ require_once 'Text/Template.php';
  * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @copyright  2010-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 1.0.7
+ * @version    Release: 1.0.9
  * @link       http://github.com/sebastianbergmann/phpunit-mock-objects
  * @since      Class available since Release 1.0.0
  */
@@ -80,15 +80,20 @@ class PHPUnit_Framework_MockObject_Generator
       'continue' => TRUE,
       'declare' => TRUE,
       'default' => TRUE,
+      'die' => TRUE,
       'do' => TRUE,
+      'echo' => TRUE,
       'else' => TRUE,
       'elseif' => TRUE,
+      'empty' => TRUE,
       'enddeclare' => TRUE,
       'endfor' => TRUE,
       'endforeach' => TRUE,
       'endif' => TRUE,
       'endswitch' => TRUE,
       'endwhile' => TRUE,
+      'eval' => TRUE,
+      'exit' => TRUE,
       'extends' => TRUE,
       'final' => TRUE,
       'for' => TRUE,
@@ -98,18 +103,27 @@ class PHPUnit_Framework_MockObject_Generator
       'goto' => TRUE,
       'if' => TRUE,
       'implements' => TRUE,
-      'interface' => TRUE,
+      'include' => TRUE,
+      'include_once' => TRUE,
       'instanceof' => TRUE,
+      'interface' => TRUE,
+      'isset' => TRUE,
+      'list' => TRUE,
       'namespace' => TRUE,
       'new' => TRUE,
       'or' => TRUE,
+      'print' => TRUE,
       'private' => TRUE,
       'protected' => TRUE,
       'public' => TRUE,
+      'require' => TRUE,
+      'require_once' => TRUE,
+      'return' => TRUE,
       'static' => TRUE,
       'switch' => TRUE,
       'throw' => TRUE,
       'try' => TRUE,
+      'unset' => TRUE,
       'use' => TRUE,
       'var' => TRUE,
       'while' => TRUE,
@@ -399,7 +413,10 @@ class PHPUnit_Framework_MockObject_Generator
 
             if (!empty($mockClassName['namespaceName'])) {
                 $prologue = 'namespace ' . $mockClassName['namespaceName'] .
-                            ";\n\n" . $prologue;
+                            " {\n\n" . $prologue . "}\n\n" .
+                            "namespace {\n\n";
+
+                $epilogue = "\n\n}";
             }
 
             $cloneTemplate = new Text_Template(
@@ -491,6 +508,7 @@ class PHPUnit_Framework_MockObject_Generator
         $classTemplate->setVar(
           array(
             'prologue'          => isset($prologue) ? $prologue : '',
+            'epilogue'          => isset($epilogue) ? $epilogue : '',
             'class_declaration' => self::generateMockClassDeclaration(
                                      $mockClassName, $isInterface
                                    ),
@@ -513,6 +531,10 @@ class PHPUnit_Framework_MockObject_Generator
      */
     protected static function generateMockClassName($originalClassName, $mockClassName)
     {
+        if ($originalClassName[0] == '\\') {
+            $originalClassName = substr($originalClassName, 1);
+        }
+
         $classNameParts = explode('\\', $originalClassName);
 
         if (count($classNameParts) > 1) {

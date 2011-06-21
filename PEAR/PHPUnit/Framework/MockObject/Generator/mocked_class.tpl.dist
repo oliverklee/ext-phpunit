@@ -43,4 +43,4 @@
         self::$staticInvocationMocker = NULL;
         $this->invocationMocker       = NULL;
     }
-}
+}{epilogue}
