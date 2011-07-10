@@ -52,6 +52,8 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 	public function setUp() {
 		$this->typo3ConfigurationVariablesBackup = $GLOBALS['TYPO3_CONF_VARS'];
+		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'] = '';
+		$GLOBALS['TYPO3_CONF_VARS']['EXT']['requiredExt'] = '';
 
 		$this->fixture = $this->createAccessibleProxy();
 
@@ -488,7 +490,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
-	public function getTestableCodeForEverythingForCoreTestsAndNoExtensionTestsReturnsExtensionTests() {
+	public function getTestableCodeForEverythingForNoCoreTestsAndExtensionTestsReturnsExtensionTests() {
 		$extensionTests = new Tx_Phpunit_TestableCode();
 
 		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestableCodeForCore', 'getTestableCodeForExtensions'));
@@ -506,7 +508,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
-	public function getTestableCodeForEverythingForCoreTestsAndExtensionTestsReturnsCoreAndExtensionTests() {
+	public function getTestableCodeForEverythingForCoreTestsAndExtensionTestsReturnsCoreAndExtensionTestsWithCoreTestsLast() {
 		$coreTests = new Tx_Phpunit_TestableCode();
 		$extensionTests = new Tx_Phpunit_TestableCode();
 
@@ -518,8 +520,8 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			array(
-				Tx_Phpunit_TestableCode::CORE_KEY => $coreTests,
 				'foo' => $extensionTests,
+				Tx_Phpunit_TestableCode::CORE_KEY => $coreTests,
 			),
 			$testFinder->getTestableCodeForEverything()
 		);
@@ -668,12 +670,63 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getLoadedExtensionKeysReturnsKeysOfLoadedExtensions() {
-		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'] = 'foo,bar';
+		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'] = 'bar';
+		$GLOBALS['TYPO3_CONF_VARS']['EXT']['requiredExt'] = '';
 
-		$this->assertSame(
-			array('foo', 'bar'),
+		$this->assertContains(
+			'bar',
 			$this->fixture->getLoadedExtensionKeys()
 		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getLoadedExtensionKeysReturnsKeysOfRequiredExtensions() {
+		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'] = '';
+		$GLOBALS['TYPO3_CONF_VARS']['EXT']['requiredExt'] = 'foo';
+
+		$this->assertContains(
+			'foo',
+			$this->fixture->getLoadedExtensionKeys()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getLoadedExtensionKeysReturnsKeysOfAlwasRequiredExtensions() {
+		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'] = '';
+		$GLOBALS['TYPO3_CONF_VARS']['EXT']['requiredExt'] = '';
+
+		$this->assertContains(
+			'cms',
+			$this->fixture->getLoadedExtensionKeys()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getLoadedExtensionKeysReturnsKeysThatAreBothLoadedAndRequiredOnlyOnce() {
+		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'] = 'foo';
+		$GLOBALS['TYPO3_CONF_VARS']['EXT']['requiredExt'] = 'foo';
+
+		$this->assertSame(
+			array('foo'),
+			array_filter($this->fixture->getLoadedExtensionKeys(), array($this, 'keepOnlyFooElements'))
+		);
+	}
+
+	/**
+	 * Call-back function for checking whether $element is "Foo".
+	 *
+	 * @param string $element element to check, may be empty
+	 *
+	 * @return boolean TRUE if $element is == "foo", FALSE otherwise
+	 */
+	public function keepOnlyFooElements($element) {
+		return ($element === 'foo');
 	}
 
 	/**
@@ -733,8 +786,10 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('foo', 'bar', 'foobar')));
 		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array('foo', 'baz')));
 
-		$testFinder->expects($this->at(2))->method('createTestableCodeForSingleExtension')->with('bar');
-		$testFinder->expects($this->at(3))->method('createTestableCodeForSingleExtension')->with('foobar');
+		$testFinder->expects($this->at(2))->method('createTestableCodeForSingleExtension')
+			->with('bar')->will($this->returnValue(new Tx_Phpunit_TestableCode()));;
+		$testFinder->expects($this->at(3))->method('createTestableCodeForSingleExtension')
+			->with('foobar')->will($this->returnValue(new Tx_Phpunit_TestableCode()));;
 
 		$testFinder->getTestableCodeForExtensions();
 	}
@@ -753,10 +808,39 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
 		$testFinder->expects($this->once())->method('getDummyExtensionKeys')->will($this->returnValue(array('foo', 'baz')));
 
-		$testFinder->expects($this->at(3))->method('createTestableCodeForSingleExtension')->with('bar');
-		$testFinder->expects($this->at(4))->method('createTestableCodeForSingleExtension')->with('foobar');
+		$testFinder->expects($this->at(3))->method('createTestableCodeForSingleExtension')
+			->with('bar')->will($this->returnValue(new Tx_Phpunit_TestableCode()));
+		$testFinder->expects($this->at(4))->method('createTestableCodeForSingleExtension')
+			->with('foobar')->will($this->returnValue(new Tx_Phpunit_TestableCode()));;
 
 		$testFinder->getTestableCodeForExtensions();
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTestableCodeForExtensionsSortsExtensionsByNsmeInAscendingOrder() {
+		$testableCodeForFoo = new Tx_Phpunit_TestableCode();
+		$testableCodeForFoo->setKey('foo');
+		$testableCodeForBar = new Tx_Phpunit_TestableCode();
+		$testableCodeForBar->setKey('bar');
+
+		$testFinder = $this->getMock(
+			'Tx_Phpunit_Service_TestFinder',
+			array('getLoadedExtensionKeys', 'getExcludedExtensionKeys', 'findTestsPathForExtension', 'createTestableCodeForSingleExtension')
+		);
+		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('foo', 'bar')));
+		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
+
+		$testFinder->expects($this->at(2))->method('createTestableCodeForSingleExtension')
+			->with('foo')->will($this->returnValue($testableCodeForFoo));
+		$testFinder->expects($this->at(3))->method('createTestableCodeForSingleExtension')
+			->with('bar')->will($this->returnValue($testableCodeForBar));
+
+		$this->assertSame(
+			array('bar' => $testableCodeForBar, 'foo' => $testableCodeForFoo),
+			$testFinder->getTestableCodeForExtensions()
+		);
 	}
 
 	/**

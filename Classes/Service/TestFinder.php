@@ -226,7 +226,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	public function getTestableCodeForEverything() {
 		if (!$this->allTestableCodeIsCached) {
 			$this->allTestableCodeCache = array_merge(
-				$this->getTestableCodeForCore(), $this->getTestableCodeForExtensions()
+				$this->getTestableCodeForExtensions(), $this->getTestableCodeForCore()
 			);
 
 			$this->allTestableCodeIsCached = TRUE;
@@ -260,7 +260,8 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	}
 
 	/**
-	 * Returns the testable code for all installed extensions.
+	 * Returns the testable code for all installed extensions, sorted in
+	 * alphabetical order by extension name.
 	 *
 	 * Extensions without a test directory and extensions in the "exclude list"
 	 * will be skipped.
@@ -285,7 +286,24 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 			}
 		}
 
+		uasort($result, array($this, 'sortTestableCodesByKey'));
+
 		return $result;
+	}
+
+	/**
+	 * Callback function for comparing the keys of $testableCode1 and
+	 * $testableCode2.
+	 *
+	 * @param Tx_Phpunit_TestableCode $testableCode1 the first item to compare
+	 * @param Tx_Phpunit_TestableCode $testableCode2 the second item to compare
+	 *
+	 * @return integer
+	 *         1 if both items need to be swapped, 0 if they have the same key,
+	 *         and -1 if the order is okay.
+	 */
+	public function sortTestableCodesByKey(Tx_Phpunit_TestableCode $testableCode1, Tx_Phpunit_TestableCode $testableCode2) {
+		return strcmp($testableCode1->getKey(), $testableCode2->getKey());
 	}
 
 	/**
@@ -294,11 +312,18 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 * @return array<string> the keys of the loaded extensions, might be empty
 	 */
 	protected function getLoadedExtensionKeys() {
-		if (!isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'])) {
-			return array();
+		$loadedExtensionList = isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'])
+			? $GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'] : '';
+		if (t3lib_div::int_from_ver(TYPO3_version) >= 4005000) {
+			$requiredExtensionList = t3lib_extMgm::getRequiredExtensionList();
+		} else {
+			$requiredExtensionList = isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['requiredExt'])
+				? $GLOBALS['TYPO3_CONF_VARS']['EXT']['requiredExt'] : '';
 		}
 
-		return t3lib_div::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'], TRUE);
+		$allExtensionKeys = t3lib_div::trimExplode(',', $loadedExtensionList . ',' . $requiredExtensionList, TRUE);
+
+		return array_unique($allExtensionKeys);
 	}
 
 	/**

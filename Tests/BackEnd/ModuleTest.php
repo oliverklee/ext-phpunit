@@ -114,8 +114,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 				'  public function runTests_renderIntro() {' .
 				'    parent::runTests_renderIntro();' .
 				'  }' .
-				'  public function runTests_renderIntro_renderExtensionSelector(array $extensionsWithTestSuites) {' .
-				'    return parent::runTests_renderIntro_renderExtensionSelector($extensionsWithTestSuites);' .
+				'  public function createExtensionSelector() {' .
+				'    return parent::createExtensionSelector();' .
 				'  }' .
 				'  public function findTestCasesInDir($directory) {' .
 				'    return parent::findTestCasesInDir($directory);' .
@@ -364,7 +364,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$fixture = $this->getMock(
 			$this->createAccessibleProxy(),
 			array(
-				'getExtensionsWithTestSuites', 'runTests_renderIntro_renderExtensionSelector',
+				'getExtensionsWithTestSuites', 'createExtensionSelector',
 				'runTests_renderIntro_renderTestSelector', 'output'
 			)
 		);
@@ -390,7 +390,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$fixture = $this->getMock(
 			$this->createAccessibleProxy(),
 			array(
-				'getExtensionsWithTestSuites', 'runTests_renderIntro_renderExtensionSelector',
+				'getExtensionsWithTestSuites', 'createExtensionSelector',
 				'runTests_renderIntro_renderTestSelector', 'output'
 			)
 		);
@@ -398,7 +398,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			->will($this->returnCallback(array($this, 'outputCallback')));
 		$fixture->expects($this->once())->method('getExtensionsWithTestSuites')
 			->will($this->returnValue(array()));
-		$fixture->expects($this->never())->method('runTests_renderIntro_renderExtensionSelector')
+		$fixture->expects($this->never())->method('createExtensionSelector')
 			->will($this->returnValue('extension selector'));
 
 		$fixture->MOD_SETTINGS = array('extSel' => 'phpunit');
@@ -413,7 +413,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$fixture = $this->getMock(
 			$this->createAccessibleProxy(),
 			array(
-				'getExtensionsWithTestSuites', 'runTests_renderIntro_renderExtensionSelector',
+				'getExtensionsWithTestSuites', 'createExtensionSelector',
 				'runTests_renderIntro_renderTestSelector', 'output'
 			)
 		);
@@ -421,7 +421,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			->will($this->returnCallback(array($this, 'outputCallback')));
 		$fixture->expects($this->once())->method('getExtensionsWithTestSuites')
 			->will($this->returnValue(array('phpunit' => 'phpunit')));
-		$fixture->expects($this->once())->method('runTests_renderIntro_renderExtensionSelector')
+		$fixture->expects($this->once())->method('createExtensionSelector')
 			->will($this->returnValue('extension selector'));
 
 		$fixture->MOD_SETTINGS = array('extSel' => 'phpunit');
@@ -444,7 +444,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$fixture = $this->getMock(
 			$this->createAccessibleProxy(),
 			array(
-				'getExtensionsWithTestSuites', 'runTests_renderIntro_renderExtensionSelector',
+				'getExtensionsWithTestSuites', 'createExtensionSelector',
 				'runTests_renderIntro_renderTestSelector', 'output'
 			)
 		);
@@ -462,23 +462,6 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->assertContains(
 			'test selector',
 			$this->output
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function runTests_renderIntro_renderExtensionSelectorCreatesOptionForExtensionWithTests() {
-		$extensionsWithTests = array('phpunit' => 'phpunit');
-		$selectedExtension = 'aaa';
-
-		$className = $this->createAccessibleProxy();
-		$fixture = new $className();
-		$fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
-
-		$this->assertRegExp(
-			'/<option[^>]*value="phpunit"/',
-			$fixture->runTests_renderIntro_renderExtensionSelector($extensionsWithTests)
 		);
 	}
 
@@ -763,5 +746,132 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			$this->fixture->isAcceptedTestSuitClass('Tx_Phpunit_Selenium_TestCase')
 		);
 	}
+
+
+	/*
+	 * Tests concerning createExtensionSelector
+	 */
+
+	/**
+	 * @test
+	 */
+	public function createExtensionSelectorCreatesForm() {
+		$this->assertContains(
+			'<form',
+			$this->fixture->createExtensionSelector()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createExtensionSelectorCreatesOptionForExtensionWithTests() {
+		$selectedExtension = 'aaa';
+
+		$className = $this->createAccessibleProxy();
+		$fixture = new $className();
+		$fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+
+		$this->assertRegExp(
+			'/<option[^>]*value="phpunit"/',
+			$fixture->createExtensionSelector()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createExtensionSelectorContainsExtensionKeyOfExtensionWithTests() {
+		$testableCode = new Tx_Phpunit_TestableCode();
+		$testableCode->setKey('t3dd11');
+
+		$testFinderMock = $this->getMock(
+			'Tx_Phpunit_Service_TestFinder', array('getTestableCodeForEverything')
+		);
+		$testFinderMock->expects($this->once())->method('getTestableCodeForEverything')
+			->will($this->returnValue(array($testableCode)));
+
+		$fixture = $this->getMock(
+			$this->createAccessibleProxy(), array('getTestFinder')
+		);
+		$fixture->expects($this->once())->method('getTestFinder')
+			->will($this->returnValue($testFinderMock));
+
+		$this->assertRegExp(
+			'#<option [^>]*value="t3dd11">t3dd11</option>#',
+			$fixture->createExtensionSelector()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createExtensionSelectorContainsIconPathKeyOfExtensionWithTests() {
+		$this->assertContains(
+			'background: url(../typo3conf/ext/phpunit/ext_icon.gif)',
+			$this->fixture->createExtensionSelector()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createExtensionSelectorMarksSelectedExtensionAsSelected() {
+		$this->fixture->MOD_SETTINGS['extSel'] = 'phpunit';
+
+		$this->assertRegExp(
+			'#<option [^>]* selected="selected">phpunit</option>#',
+			$this->fixture->createExtensionSelector()
+		);
+
+	}
+
+	/**
+	 * @test
+	 */
+	public function createExtensionSelectorMarksNotSelectedExtensionAsNotSelected() {
+		$this->fixture->MOD_SETTINGS['extSel'] = 't3dd11';
+
+		$this->assertNotRegExp(
+			'#<option [^>]*selected="selected">phpunit</option>#',
+			$this->fixture->createExtensionSelector()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createExtensionSelectorContainsKeyForAllExtensions() {
+		$this->assertRegExp(
+			'/<option [^>]*value="uuall"/',
+			$this->fixture->createExtensionSelector()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createExtensionSelectorForAllSelectedMarksAllAsSelected() {
+		$this->fixture->MOD_SETTINGS['extSel'] = 'uuall';
+
+		$this->assertRegExp(
+			'/<option [^>]* value="uuall" selected="selected">/',
+			$this->fixture->createExtensionSelector()
+		);
+
+	}
+
+	/**
+	 * @test
+	 */
+	public function createExtensionSelectorForOtherExtensionSelectedMarksAllAsNotSelected() {
+		$this->fixture->MOD_SETTINGS['extSel'] = 't3dd11';
+
+		$this->assertNotRegExp(
+			'/<option [^>]* value="uuall" selected="selected">/',
+			$this->fixture->createExtensionSelector()
+		);
+	}
+
 }
 ?>

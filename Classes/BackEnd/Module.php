@@ -234,7 +234,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 
 		ksort($extensionsWithTestSuites);
 
-		$output = $this->runTests_renderIntro_renderExtensionSelector($extensionsWithTestSuites);
+		$output = $this->createExtensionSelector();
 		if ($this->MOD_SETTINGS['extSel'] && ($this->MOD_SETTINGS['extSel'] !== 'uuall')) {
 			$output .= $this->runTests_renderIntro_renderTestSelector(
 				$extensionsWithTestSuites,
@@ -248,47 +248,45 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	/**
 	 * Renders the extension drop-down.
 	 *
-	 * @param array<string> $extensionsWithTestSuites
-	 *        keys of the extensions for which test suites exist, may be empty
-	 *
 	 * @return string
 	 *         HTML code for the drop-down and a surrounding form, will not be empty
 	 */
-	protected function runTests_renderIntro_renderExtensionSelector(array $extensionsWithTestSuites) {
-		$extensionsOptionsArr = array();
-		$extensionsOptionsArr[] = '<option value="">' . $this->translate('select_extension') . '</option>';
+	protected function createExtensionSelector() {
+		$options = array();
+		$options[] = '<option value="" disabled="disabled">' . $this->translate('select_extension') . '</option>';
 
-		$selected = strcmp('uuall', $this->MOD_SETTINGS['extSel']) ? '' : ' selected="selected"';
-		$extensionsOptionsArr[] = '<option class="alltests" value="uuall"' . $selected . '>' .
+		$allIsSelected = ($this->MOD_SETTINGS['extSel'] === 'uuall') ? ' selected="selected"' : '';
+		$options[] = '<option class="alltests" value="uuall"' . $allIsSelected . '>' .
 			$this->translate('all_extensions') . '</option>';
 
-		foreach (array_keys($extensionsWithTestSuites) as $extensionKey) {
-			$style = $this->createIconStyle($extensionKey);
-			$selected = strcmp($extensionKey, $this->MOD_SETTINGS['extSel']) ? '' : ' selected="selected"';
-			if ($selected !== '') {
-				$currentExtName = $extensionKey;
+		$selectedExtensionStyle = '';
+
+		$testableCodes = $this->getTestFinder()->getTestableCodeForEverything();
+		foreach ($testableCodes as $testableCode) {
+			$style = 'background: url(' . $testableCode->getIconPath() . ') no-repeat 3px 50% white; padding: 1px 1px 1px 24px;';
+			if ($this->MOD_SETTINGS['extSel'] === $testableCode->getKey()) {
+				$selected = ' selected="selected"';
+				$selectedExtensionStyle = $style;
+			} else {
+				$selected = '';
 			}
-			$extensionsOptionsArr[] = '<option style="' . $style . '" value="' . htmlspecialchars($extensionKey) . '"' . $selected . '>' .
-				htmlspecialchars($extensionKey) . '</option>';
+
+			$options[] = '<option style="' . $style . '" value="' . htmlspecialchars($testableCode->getKey()) . '"' . $selected . '>' .
+				htmlspecialchars($testableCode->getKey()) . '</option>';
 		}
 
-		try {
-			$style = $this->createIconStyle($currentExtName);
-		} catch (Exception $exception) {
-			$style = '';
-		}
+		$allOptions = implode(LF, $options);
 
-		$output = '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">
-				<p>
-				<select style="' . $style . '" name="SET[extSel]" onchange="jumpToUrl(\'' . htmlspecialchars($this->MCONF['_']) .
+		$output = '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post"><p>' .
+				'<select style="' . $selectedExtensionStyle . '"name="SET[extSel]" onchange="jumpToUrl(\'' .
+				htmlspecialchars($this->MCONF['_']) .
 				'&amp;SET[extSel]=\'+this.options[this.selectedIndex].value,this);">' .
-				implode('', $extensionsOptionsArr) .
-				'</select>
-				<button type="submit" name="bingo" value="run" accesskey="a">' .
-				$this->translate('run_all_tests') . '</button>
-				<input type="hidden" name="command" value="runalltests" />
-				</p>
-			</form>';
+				$allOptions .
+				'</select> ' .
+				'<button type="submit" name="bingo" value="run" accesskey="a">' .
+				$this->translate('run_all_tests') . '</button>' .
+				'<input type="hidden" name="command" value="runalltests" />' .
+				'</p></form>';
 
 		return $output;
 	}
