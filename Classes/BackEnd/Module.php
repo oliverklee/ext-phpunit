@@ -236,17 +236,16 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 
 		$output = $this->createExtensionSelector();
 		if ($this->MOD_SETTINGS['extSel'] && ($this->MOD_SETTINGS['extSel'] !== 'uuall')) {
-			$output .= $this->createTestSelector(
-				$extensionsWithTestSuites,
-				$this->MOD_SETTINGS['extSel']
-			);
+			$output .= $this->createTestCaseSelector($extensionsWithTestSuites, $this->MOD_SETTINGS['extSel']) .
+				$this->createTestSelector($extensionsWithTestSuites, $this->MOD_SETTINGS['extSel']);
 		}
+		$output .= $this->createCheckboxes();
 
 		$this->output($output);
 	}
 
 	/**
-	 * Renders the extension drop-down.
+	 * Creates the extension drop-down.
 	 *
 	 * @return string
 	 *         HTML code for the drop-down and a surrounding form, will not be empty
@@ -292,16 +291,17 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	}
 
 	/**
-	 * Renders a drop-down for running single tests for the given extension.
+	 * Renders a drop-down for running single tests cases for the given extension.
 	 *
 	 * @param array<string> $extensionsWithTestSuites
 	 *        keys of the extensions for which test suites exist
 	 * @param string $extensionKey
 	 *        keys of the extension for which to render the drop-down
 	 *
-	 * @return string HTML code with the selectorbox and a surrounding form
+	 * @return string
+	 *         HTML code with the drop-down and a surrounding form
 	 */
-	protected function createTestSelector(
+	protected function createTestCaseSelector(
 		array $extensionsWithTestSuites, $extensionKey
 	) {
 		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
@@ -337,6 +337,57 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 				htmlspecialchars($testCases->getName()) . '</option>';
 		}
 
+		$currentStyle = $this->createIconStyle($extensionKey);
+
+		return '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">
+				<p>
+					<select style="' . $currentStyle . '" name="testCaseFile">
+					<option value="">' . $this->translate('select_tests') . '</option>' . implode(LF, $testCaseFileOptionsArray) . '</select>
+					<button type="submit" name="bingo" value="run" accesskey="f">' . $this->translate('runTestCaseFile') . '</button>
+					<input type="hidden" name="command" value="runTestCaseFile" />
+				</p>
+			</form>';
+	}
+
+	/**
+	 * Renders a drop-down for running single tests for the given extension.
+	 *
+	 * @param array<string> $extensionsWithTestSuites
+	 *        keys of the extensions for which test suites exist
+	 * @param string $extensionKey
+	 *        keys of the extension for which to render the drop-down
+	 *
+	 * @return string
+	 *         HTML code with the drop-down and a surrounding form
+	 */
+	protected function createTestSelector(
+		array $extensionsWithTestSuites, $extensionKey
+	) {
+		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
+
+		// Loads the files containing test cases from extensions.
+		$paths = $extensionsWithTestSuites[$extensionKey];
+
+		if (isset($paths)) {
+			foreach ($paths as $path => $fileNames) {
+				foreach ($fileNames as $fileName) {
+					require_once($path . $fileName);
+				}
+			}
+		}
+
+		// Adds all classes to the test suite which end with "testcase" (case-insensitive)
+		// or "Test", except the two special classes used as superclasses.
+		foreach (get_declared_classes() as $class) {
+			$classReflection = new ReflectionClass($class);
+			if ((strtolower(substr($class, -8, 8)) === 'testcase' || substr($class, -4, 4) === 'Test')
+				&& $classReflection->isSubclassOf('PHPUnit_Framework_TestCase')
+				&& $this->isAcceptedTestSuitClass($class)
+			) {
+				$testSuite->addTestSuite($class);
+			}
+		}
+
 		// single test case
 		$testsOptionsArr = array();
 		$testCaseFile = t3lib_div::_GP('testCaseFile');
@@ -360,8 +411,6 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			}
 		}
 
-		$currentStyle = $this->createIconStyle($extensionKey);
-
 		// builds options for select (including option groups for test suites)
 		$testOptionsHtml = '';
 		foreach ($testsOptionsArr as $suiteName => $testArr) {
@@ -374,15 +423,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 
 		$currentStyle = $this->createIconStyle($extensionKey);
 
-		$output = '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">
-				<p>
-					<select style="' . $currentStyle . '" name="testCaseFile">
-					<option value="">' . $this->translate('select_tests') . '</option>' . implode(chr(10), $testCaseFileOptionsArray) . '</select>
-					<button type="submit" name="bingo" value="run" accesskey="f">' . $this->translate('runTestCaseFile') . '</button>
-					<input type="hidden" name="command" value="runTestCaseFile" />
-				</p>
-			</form>';
-		$output .= '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">
+		return '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">
 				<p>
 					<select style="' . $currentStyle . '" name="testname">
 					<option value="">' . $this->translate('select_tests') . '</option>' . $testOptionsHtml . '</select>
@@ -392,8 +433,16 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 				</p>
 			</form>
 		';
+	}
 
-		$output .= '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">';
+	/**
+	 * Renders the checkboxes for hiding or showing various test results.
+	 *
+	 * @return string
+	 *         HTML code with checkboxes and a surrounding form
+	 */
+	protected function createCheckboxes() {
+		$output = '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">';
 		$output .= '<div class="phpunit-controls">';
 		$failureState = $this->MOD_SETTINGS['failure'] === 'on' ? 'checked="checked"' : '';
 		$errorState = $this->MOD_SETTINGS['error'] === 'on' ? 'checked="checked"' : '';
