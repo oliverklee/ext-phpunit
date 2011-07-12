@@ -1,4 +1,5 @@
 2011-07-12 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #11732: Document how to test protected methods
 	* Fixed Bug #27497: Move unit tests to Tests/Unit/
 	* Fixed Bug #12733: solr tests are not found (thanks to Ingo Renner)
 
