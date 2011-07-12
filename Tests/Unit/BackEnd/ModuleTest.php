@@ -535,7 +535,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	public function loadRequiredTestClassesLoadsFileInFirstPath() {
 		$this->fixture->loadRequiredTestClasses(
 			array(
-				t3lib_extMgm::extPath('phpunit') . 'Tests/BackEnd/Fixtures/' => array(
+				t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/BackEnd/Fixtures/' => array(
 					'LoadMe.php',
 				),
 			)
@@ -552,7 +552,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	public function loadRequiredTestClassesLoadsSecondFileInFirstPath() {
 		$this->fixture->loadRequiredTestClasses(
 			array(
-				t3lib_extMgm::extPath('phpunit') . 'Tests/BackEnd/Fixtures/' => array(
+				t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/BackEnd/Fixtures/' => array(
 					'LoadMe.php',
 					'LoadMeToo.php',
 				),
@@ -570,10 +570,10 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	public function loadRequiredTestClassesLoadsFileInSecondPath() {
 		$this->fixture->loadRequiredTestClasses(
 			array(
-				t3lib_extMgm::extPath('phpunit') . 'Tests/BackEnd/Fixtures/' => array(
+				t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/BackEnd/Fixtures/' => array(
 					'LoadMe.php',
 				),
-				t3lib_extMgm::extPath('phpunit') . 'Tests/Fixtures/' => array(
+				t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/Fixtures/' => array(
 					'LoadMe.php',
 				),
 			)

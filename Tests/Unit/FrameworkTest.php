@@ -126,7 +126,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 		if (!t3lib_extMgm::isLoaded('user_phpunittest')) {
 			$this->fail(
 				'Extension user_phpunittest is not installed but needs to be ' .
-					'installed! Please install it from EXT:phpunit/Tests/' .
+					'installed! Please install it from EXT:phpunit/Tests/Unit/' .
 					'Fixtures/Extensions/user_phpunittest/.'
 			);
 		}
@@ -140,7 +140,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 		if (!t3lib_extMgm::isLoaded('user_phpunittest')) {
 			$this->fail(
 				'Extension user_phpunittest2 is not installed but needs to be ' .
-					'installed! Please install it from EXT:phpunit/Tests/' .
+					'installed! Please install it from EXT:phpunit/Tests/Unit/' .
 					'Fixtures/Extensions/user_phpunittest2/.'
 			);
 		}
@@ -4318,7 +4318,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 		$this->assertContains(
 			'<img ',
 			$GLOBALS['TSFE']->cObj->IMAGE(
-				array('file' => 'typo3conf/ext/phpunit/Tests/Fixtures/test.png')
+				array('file' => 'typo3conf/ext/phpunit/Tests/Unit/Fixtures/test.png')
 			)
 		);
 	}

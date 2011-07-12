@@ -57,7 +57,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 		$this->fixture = $this->createAccessibleProxy();
 
-		$this->fixturesPath = t3lib_extMgm::extPath('phpunit') . 'Tests/Service/Fixtures/';
+		$this->fixturesPath = t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/Service/Fixtures/';
 	}
 
 	public function tearDown() {
@@ -348,7 +348,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 */
 	public function findTestCasesInDirectoryAcceptsPathWithoutTrailingSlash() {
 		$result = $this->fixture->findTestCasesInDirectory(
-			t3lib_extMgm::extPath('phpunit') . 'Tests/Service/Fixtures'
+			t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/Service/Fixtures'
 		);
 
 		$this->assertFalse(
@@ -882,7 +882,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	public function findTestsPathForExtensionForExtensionWithoutTestsPathThrowsException() {
 		if (!t3lib_extMgm::isLoaded('aaa')) {
 			$this->markTestSkipped(
-				'This test can only be run if the extension "aaa" from Tests/res is installed.'
+				'This test can only be run if the extension "aaa" from Tests/Unit/Fixtures/Extensions/ is installed.'
 			);
 		}
 
@@ -911,7 +911,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	public function findTestsPathForExtensionForExtensionWithLowerCaseTestsDirectoryReturnsThatDirectory() {
 		if (!t3lib_extMgm::isLoaded('bbb')) {
 			$this->markTestSkipped(
-				'This test can only be run if the extension "bbb" from Tests/res is installed.'
+				'This test can only be run if the extension "bbb" from Tests/Unit/Fixtures/Extensions/ is installed.'
 			);
 		}
 
