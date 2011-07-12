@@ -236,7 +236,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 
 		$output = $this->createExtensionSelector();
 		if ($this->MOD_SETTINGS['extSel'] && ($this->MOD_SETTINGS['extSel'] !== 'uuall')) {
-			$output .= $this->runTests_renderIntro_renderTestSelector(
+			$output .= $this->createTestSelector(
 				$extensionsWithTestSuites,
 				$this->MOD_SETTINGS['extSel']
 			);
@@ -301,7 +301,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 *
 	 * @return string HTML code with the selectorbox and a surrounding form
 	 */
-	protected function runTests_renderIntro_renderTestSelector(
+	protected function createTestSelector(
 		array $extensionsWithTestSuites, $extensionKey
 	) {
 		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');

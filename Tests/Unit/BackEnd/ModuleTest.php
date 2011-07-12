@@ -365,7 +365,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			$this->createAccessibleProxy(),
 			array(
 				'getExtensionsWithTestSuites', 'createExtensionSelector',
-				'runTests_renderIntro_renderTestSelector', 'output'
+				'createTestSelector', 'output'
 			)
 		);
 		$fixture->expects($this->any())->method('output')
@@ -391,7 +391,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			$this->createAccessibleProxy(),
 			array(
 				'getExtensionsWithTestSuites', 'createExtensionSelector',
-				'runTests_renderIntro_renderTestSelector', 'output'
+				'createTestSelector', 'output'
 			)
 		);
 		$fixture->expects($this->any())->method('output')
@@ -414,7 +414,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			$this->createAccessibleProxy(),
 			array(
 				'getExtensionsWithTestSuites', 'createExtensionSelector',
-				'runTests_renderIntro_renderTestSelector', 'output'
+				'createTestSelector', 'output'
 			)
 		);
 		$fixture->expects($this->any())->method('output')
@@ -445,7 +445,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			$this->createAccessibleProxy(),
 			array(
 				'getExtensionsWithTestSuites', 'createExtensionSelector',
-				'runTests_renderIntro_renderTestSelector', 'output'
+				'createTestSelector', 'output'
 			)
 		);
 		$fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
@@ -454,7 +454,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			->will($this->returnCallback(array($this, 'outputCallback')));
 		$fixture->expects($this->once())->method('getExtensionsWithTestSuites')
 			->will($this->returnValue($extensionsWithTests));
-		$fixture->expects($this->once())->method('runTests_renderIntro_renderTestSelector')
+		$fixture->expects($this->once())->method('createTestSelector')
 			->with($extensionsWithTests, $selectedExtension)->will($this->returnValue('test selector'));
 
 		$fixture->runTests_renderIntro();
