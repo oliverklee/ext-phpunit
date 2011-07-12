@@ -385,10 +385,32 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
-	public function isTestCaseFileNameForTestcaseSuffixReturnsTrue() {
+	public function isTestCaseFileNameForLowercaseTestSuffixReturnsTrue() {
+		$this->assertTrue(
+			$this->fixture->isTestCaseFileName(
+				$this->fixturesPath . 'onetest.php'
+			)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function isTestCaseFileNameForLowercaseTestcaseSuffixReturnsTrue() {
 		$this->assertTrue(
 			$this->fixture->isTestCaseFileName(
 				$this->fixturesPath . 'Another_testcase.php'
+			)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function isTestCaseFileNameForLowercaseNoUnderscoreTestcaseSuffixReturnsTrue() {
+		$this->assertTrue(
+			$this->fixture->isTestCaseFileName(
+				$this->fixturesPath . 'anothertestcase.php'
 			)
 		);
 	}

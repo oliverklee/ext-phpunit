@@ -37,7 +37,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 * @var array<string>
 	 */
 	static protected $testcaseFileSuffixes = array(
-		'Test.php', '_testcase.php'
+		'Test.php', 'test.php', '_testcase.php', 'testcase.php'
 	);
 
 	/**
