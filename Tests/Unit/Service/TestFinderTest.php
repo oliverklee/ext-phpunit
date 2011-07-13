@@ -478,6 +478,11 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 		);
 	}
 
+
+	/*
+	 * Tests concerning getTestableCodeForEverything
+	 */
+
 	/**
 	 * @test
 	 */
@@ -567,6 +572,54 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 			$testFinder->getTestableCodeForEverything()
 		);
 	}
+
+	/*
+	 * Tests concerning existsTestableCodeForAnything
+	 */
+
+	/**
+	 * @test
+	 */
+	public function existsTestableCodeForAnythingForNoTestableCodesReturnsFalse() {
+		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestableCodeForEverything'));
+		$testFinder->expects($this->any())->method('getTestableCodeForEverything')
+			->will($this->returnValue(array()));
+
+		$this->assertFalse(
+			$testFinder->existsTestableCodeForAnything()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function existsTestableCodeForAnythingForOneTestableCodeReturnsTrue() {
+		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestableCodeForEverything'));
+		$testFinder->expects($this->any())->method('getTestableCodeForEverything')
+			->will($this->returnValue(array('foo' => new Tx_Phpunit_TestableCode())));
+
+		$this->assertTrue(
+			$testFinder->existsTestableCodeForAnything()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function existsTestableCodeForAnythingForTwoTestableCodessReturnsTrue() {
+		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestableCodeForEverything'));
+		$testFinder->expects($this->any())->method('getTestableCodeForEverything')
+			->will($this->returnValue(array('foo' => new Tx_Phpunit_TestableCode(), 'bar' => new Tx_Phpunit_TestableCode())));
+
+		$this->assertTrue(
+			$testFinder->existsTestableCodeForAnything()
+		);
+	}
+
+
+	/*
+	 * Tests concerning getTestableCodeForCore
+	 */
 
 	/**
 	 * @test

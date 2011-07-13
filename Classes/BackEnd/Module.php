@@ -226,12 +226,18 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * @return void
 	 */
 	protected function runTests_renderIntro() {
-		$extensionsWithTestSuites = $this->getExtensionsWithTestSuites();
-		if (empty($extensionsWithTestSuites)) {
-			$this->output($this->translate('could_not_find_exts_with_tests'));
+		if (!$this->getTestFinder()->existsTestableCodeForAnything()) {
+			$message = t3lib_div::makeInstance(
+				't3lib_FlashMessage',
+				$this->translate('could_not_find_exts_with_tests'),
+				'',
+				t3lib_FlashMessage::WARNING
+			);
+			$this->output($message->render());
 			return;
 		}
 
+		$extensionsWithTestSuites = $this->getExtensionsWithTestSuites();
 		ksort($extensionsWithTestSuites);
 
 		$output = $this->createExtensionSelector();

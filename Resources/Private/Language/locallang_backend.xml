@@ -63,7 +63,7 @@
 			<label index="mlang_labels_tablabel">PHPUnit</label>
 			<label index="admin_rights_needed">Du brauchst Admin-Rechte um das PHPUnit Back-End Modul zu benutzen.</label>
 			<label index="all_extensions">Alle Extensions</label>
-			<label index="could_not_find_exts_with_tests">Es konnte keine Extension mit Unit Tests gefunden werden</label>
+			<label index="could_not_find_exts_with_tests">Es konnte keine Extension mit Unit-Tests gefunden werden</label>
 			<label index="run_again">Test e&lt;span class=&quot;access-key&quot;&gt;r&lt;/span&gt;neut ausführen</label>
 			<label index="run_all_tests">&lt;span class=&quot;access-key&quot;&gt;A&lt;/span&gt;lle Tests ausführen</label>
 			<label index="run_single_test">Einzelnen Te&lt;span class=&quot;access-key&quot;&gt;s&lt;/span&gt;t ausführen</label>

@@ -361,16 +361,21 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function runTests_renderIntroForNoExtensionsWithTestSuitesShowsErrorMessage() {
+		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder');
+		$testFinder->expects($this->any())->method('existsTestableCodeForAnything')
+			->will($this->returnValue(FALSE));
+
 		$fixture = $this->getMock(
 			$this->createAccessibleProxy(),
 			array(
-				'getExtensionsWithTestSuites', 'createExtensionSelector',
-				'createTestSelector', 'output'
+				'getExtensionsWithTestSuites', 'createExtensionSelector', 'createTestCaseSelector',
+				'createCheckboxes', 'createTestSelector', 'output', 'getTestFinder'
 			)
 		);
 		$fixture->expects($this->any())->method('output')
 			->will($this->returnCallback(array($this, 'outputCallback')));
-		$fixture->expects($this->once())->method('getExtensionsWithTestSuites')
+		$fixture->expects($this->any())->method('getTestFinder')->will($this->returnValue($testFinder));
+		$fixture->expects($this->any())->method('getExtensionsWithTestSuites')
 			->will($this->returnValue(array()));
 
 		$fixture->MOD_SETTINGS = array('extSel' => 'phpunit');
@@ -387,16 +392,21 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function runTests_renderIntroForNoExtensionsWithTestSuitesNotRendersExtensionSelector() {
+		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder');
+		$testFinder->expects($this->any())->method('existsTestableCodeForAnything')
+			->will($this->returnValue(FALSE));
+
 		$fixture = $this->getMock(
 			$this->createAccessibleProxy(),
 			array(
-				'getExtensionsWithTestSuites', 'createExtensionSelector',
-				'createTestSelector', 'output'
+				'getExtensionsWithTestSuites', 'createExtensionSelector', 'createTestCaseSelector',
+				'createCheckboxes', 'createTestSelector', 'output', 'getTestFinder'
 			)
 		);
 		$fixture->expects($this->any())->method('output')
 			->will($this->returnCallback(array($this, 'outputCallback')));
-		$fixture->expects($this->once())->method('getExtensionsWithTestSuites')
+		$fixture->expects($this->any())->method('getTestFinder')->will($this->returnValue($testFinder));
+		$fixture->expects($this->any())->method('getExtensionsWithTestSuites')
 			->will($this->returnValue(array()));
 		$fixture->expects($this->never())->method('createExtensionSelector')
 			->will($this->returnValue('extension selector'));
@@ -413,8 +423,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$fixture = $this->getMock(
 			$this->createAccessibleProxy(),
 			array(
-				'getExtensionsWithTestSuites', 'createExtensionSelector',
-				'createTestSelector', 'output'
+				'getExtensionsWithTestSuites', 'createExtensionSelector', 'createTestCaseSelector',
+				'createCheckboxes', 'createTestSelector', 'output'
 			)
 		);
 		$fixture->expects($this->any())->method('output')
@@ -437,6 +447,37 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
+	public function runTests_renderIntroForSelectedExtensionRendersTestCaseSelector() {
+		$extensionsWithTests = array('phpunit' => 'phpunit');
+		$selectedExtension = 'phpunit';
+
+		$fixture = $this->getMock(
+			$this->createAccessibleProxy(),
+			array(
+				'getExtensionsWithTestSuites', 'createExtensionSelector', 'createTestCaseSelector',
+				'createCheckboxes', 'createTestSelector', 'output'
+			)
+		);
+		$fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+
+		$fixture->expects($this->any())->method('output')
+			->will($this->returnCallback(array($this, 'outputCallback')));
+		$fixture->expects($this->once())->method('getExtensionsWithTestSuites')
+			->will($this->returnValue($extensionsWithTests));
+		$fixture->expects($this->once())->method('createTestCaseSelector')
+			->with($extensionsWithTests, $selectedExtension)->will($this->returnValue('test case selector'));
+
+		$fixture->runTests_renderIntro();
+
+		$this->assertContains(
+			'test case selector',
+			$this->output
+		);
+	}
+
+	/**
+	 * @test
+	 */
 	public function runTests_renderIntroForSelectedExtensionRendersTestSelector() {
 		$extensionsWithTests = array('phpunit' => 'phpunit');
 		$selectedExtension = 'phpunit';
@@ -444,8 +485,39 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$fixture = $this->getMock(
 			$this->createAccessibleProxy(),
 			array(
-				'getExtensionsWithTestSuites', 'createExtensionSelector',
-				'createTestSelector', 'output'
+				'getExtensionsWithTestSuites', 'createExtensionSelector', 'createTestCaseSelector',
+				'createCheckboxes', 'createTestSelector', 'output'
+			)
+		);
+		$fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+
+		$fixture->expects($this->any())->method('output')
+			->will($this->returnCallback(array($this, 'outputCallback')));
+		$fixture->expects($this->once())->method('getExtensionsWithTestSuites')
+			->will($this->returnValue($extensionsWithTests));
+		$fixture->expects($this->once())->method('createTestSelector')
+			->with($extensionsWithTests, $selectedExtension)->will($this->returnValue('test selector'));
+
+		$fixture->runTests_renderIntro();
+
+		$this->assertContains(
+			'test selector',
+			$this->output
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function runTests_renderIntroForSelectedExtensionRendersCheckboxes() {
+		$extensionsWithTests = array('phpunit' => 'phpunit');
+		$selectedExtension = 'phpunit';
+
+		$fixture = $this->getMock(
+			$this->createAccessibleProxy(),
+			array(
+				'getExtensionsWithTestSuites', 'createExtensionSelector', 'createTestCaseSelector',
+				'createCheckboxes', 'createTestSelector', 'output'
 			)
 		);
 		$fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);

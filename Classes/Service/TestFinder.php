@@ -216,6 +216,19 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	}
 
 	/**
+	 * Checks whether there is at least one tests directory in at least one
+	 * extension or in the TYPO3 Core.
+	 *
+	 * @return boolean
+	 *         TRUE if there ist at least one test directory, FALSE otherwise
+	 */
+	public function existsTestableCodeForAnything() {
+		$testableCodeForEverything = $this->getTestableCodeForEverything();
+
+		return !empty($testableCodeForEverything);
+	}
+
+	/**
 	 * Returns the testable code instance for everything, i.e., the core and
 	 * all installed extensions.
 	 *
