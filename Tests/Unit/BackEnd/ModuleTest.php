@@ -117,6 +117,9 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 				'  public function createExtensionSelector() {' .
 				'    return parent::createExtensionSelector();' .
 				'  }' .
+				'  public function createTestCaseSelector(array $extensionsWithTestSuites = array(), $extensionKey = \'\') {' .
+				'    return parent::createTestCaseSelector($extensionsWithTestSuites, $extensionKey);' .
+				'  }' .
 				'  public function findTestCasesInDir($directory) {' .
 				'    return parent::findTestCasesInDir($directory);' .
 				'  }' .
@@ -924,10 +927,10 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function createExtensionSelectorForAllSelectedMarksAllAsSelected() {
-		$this->fixture->MOD_SETTINGS['extSel'] = 'uuall';
+		$this->fixture->MOD_SETTINGS['extSel'] = Tx_Phpunit_TestableCode::ALL_EXTENSIONS;
 
 		$this->assertRegExp(
-			'/<option [^>]* value="uuall" selected="selected">/',
+			'/<option [^>]* value="' . Tx_Phpunit_TestableCode::ALL_EXTENSIONS . '" selected="selected">/',
 			$this->fixture->createExtensionSelector()
 		);
 
@@ -945,5 +948,133 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		);
 	}
 
+
+	/*
+	 * Tests concerning createTestCaseSelector
+	 */
+
+	/**
+	 * @test
+	 */
+	public function createTestCaseSelectorCreatesForm() {
+		$selectedExtension = 'phpunit';
+		$this->fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+
+		$this->assertContains(
+			'<form',
+			$this->fixture->createTestCaseSelector(array($selectedExtension => array()), $selectedExtension)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createTestCaseSelectorForNoExtensionSelectedReturnsEmptyString() {
+		$selectedExtension = '';
+		$this->fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+
+		$this->assertSame(
+			'',
+			$this->fixture->createTestCaseSelector(array('phpunit' => array()), $selectedExtension)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createTestCaseSelectorForAllExtensionSelectedReturnsEmptyString() {
+		$selectedExtension = Tx_Phpunit_TestableCode::ALL_EXTENSIONS;
+		$this->fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+
+		$this->assertSame(
+			'',
+			$this->fixture->createTestCaseSelector(array('phpunit' => array()), $selectedExtension)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createTestCaseSelectorCreatesOptionForExistingTestcaseFromSelectedExtension() {
+		$selectedExtension = 'phpunit';
+		$this->fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+
+		$this->assertRegExp(
+			'/<option[^>]*value="Tx_Phpunit_BackEnd_ModuleTest"/',
+			$this->fixture->createTestCaseSelector(array($selectedExtension => array()), $selectedExtension)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createTestCaseSelectorNotCreatesOptionForExistingTestcaseFromNotSelectedExtension() {
+		if (!t3lib_extMgm::isLoaded('oelib')) {
+			$this->markTestSkipped('This tests requires the "oelib" extension to be loaded.');
+		}
+
+		$selectedExtension = 'phpunit';
+		$this->fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+
+		$this->assertNotContains(
+			'value="tx_oelib_DataMapperTest"',
+			$this->fixture->createTestCaseSelector(array($selectedExtension => array()), $selectedExtension)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createTestCaseSelectorContainsIconPathKeyOfExtensionWithTests() {
+		$selectedExtension = 'phpunit';
+		$this->fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+
+		$this->assertContains(
+			'background: url(../typo3conf/ext/phpunit/ext_icon.gif)',
+			$this->fixture->createTestCaseSelector(array($selectedExtension => array()), $selectedExtension)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createTestCaseSelectorMarksSelectedTestCaseAsSelected() {
+		$selectedExtension = 'phpunit';
+		$this->fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+		$_GET['testCaseFile'] = 'Tx_Phpunit_Service_TestFinderTest';
+
+		$this->assertRegExp(
+			'#<option [^>]* selected="selected">Tx_Phpunit_Service_TestFinderTest</option>#',
+			$this->fixture->createTestCaseSelector(array($selectedExtension => array()), $selectedExtension)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createTestCaseSelectorMarksForOtherTestCaseSelectedTestCaseAsNotSelected() {
+		$selectedExtension = 'phpunit';
+		$this->fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+		$_GET['testCaseFile'] = 'Tx_Phpunit_Service_TestFinderTest';
+
+		$this->assertNotRegExp(
+			'#<option [^>]* selected="selected">Tx_Phpunit_BackEnd_ModuleTest</option>#',
+			$this->fixture->createTestCaseSelector(array($selectedExtension => array()), $selectedExtension)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createTestCaseSelectorMarksNoTestCaseSelectedTestCaseAsNotSelected() {
+		$selectedExtension = 'phpunit';
+		$this->fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+		$_GET['testCaseFile'] = '';
+
+		$this->assertNotRegExp(
+			'#<option [^>]* selected="selected">Tx_Phpunit_BackEnd_ModuleTest</option>#',
+			$this->fixture->createTestCaseSelector(array($selectedExtension => array()), $selectedExtension)
+		);
+	}
 }
 ?>

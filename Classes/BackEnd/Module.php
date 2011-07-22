@@ -199,7 +199,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * @return void
 	 */
 	protected function runTests_render() {
-		if (($this->MOD_SETTINGS['extSel'] !== 'uuall')
+		if (($this->MOD_SETTINGS['extSel'] !== Tx_Phpunit_TestableCode::ALL_EXTENSIONS)
 			&& !$this->isExtensionLoaded($this->MOD_SETTINGS['extSel'])
 		) {
 			// We know that phpunit must be loaded.
@@ -241,7 +241,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		ksort($extensionsWithTestSuites);
 
 		$output = $this->createExtensionSelector();
-		if ($this->MOD_SETTINGS['extSel'] && ($this->MOD_SETTINGS['extSel'] !== 'uuall')) {
+		if ($this->MOD_SETTINGS['extSel'] && ($this->MOD_SETTINGS['extSel'] !== Tx_Phpunit_TestableCode::ALL_EXTENSIONS)) {
 			$output .= $this->createTestCaseSelector($extensionsWithTestSuites, $this->MOD_SETTINGS['extSel']) .
 				$this->createTestSelector($extensionsWithTestSuites, $this->MOD_SETTINGS['extSel']);
 		}
@@ -260,7 +260,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$options = array();
 		$options[] = '<option value="" disabled="disabled">' . $this->translate('select_extension') . '</option>';
 
-		$allIsSelected = ($this->MOD_SETTINGS['extSel'] === 'uuall') ? ' selected="selected"' : '';
+		$allIsSelected = ($this->MOD_SETTINGS['extSel'] === Tx_Phpunit_TestableCode::ALL_EXTENSIONS) ? ' selected="selected"' : '';
 		$options[] = '<option class="alltests" value="uuall"' . $allIsSelected . '>' .
 			$this->translate('all_extensions') . '</option>';
 
@@ -299,24 +299,23 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	/**
 	 * Renders a drop-down for running single tests cases for the given extension.
 	 *
-	 * @param array<string> $extensionsWithTestSuites
+	 * @param array<array><string> $extensionsWithTestSuites
 	 *        keys of the extensions for which test suites exist
 	 * @param string $extensionKey
 	 *        keys of the extension for which to render the drop-down
 	 *
 	 * @return string
-	 *         HTML code with the drop-down and a surrounding form
+	 *         HTML code with the drop-down and a surrounding form, will be empty
+	 *         if no loaded single extension is selected
 	 */
-	protected function createTestCaseSelector(
-		array $extensionsWithTestSuites, $extensionKey
-	) {
-		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
+	protected function createTestCaseSelector(array $extensionsWithTestSuites, $extensionKey) {
+		if (!$this->getTestFinder()->existsTestableCodeForKey($extensionKey)) {
+			return '';
+		}
 
 		// Loads the files containing test cases from extensions.
-		$paths = $extensionsWithTestSuites[$extensionKey];
-
-		if (isset($paths)) {
-			foreach ($paths as $path => $fileNames) {
+		if (isset($extensionsWithTestSuites[$extensionKey])) {
+			foreach ($extensionsWithTestSuites[$extensionKey] as $path => $fileNames) {
 				foreach ($fileNames as $fileName) {
 					require_once($path . $fileName);
 				}
@@ -325,6 +324,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 
 		// Adds all classes to the test suite which end with "testcase" (case-insensitive)
 		// or "Test", except the two special classes used as superclasses.
+		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
 		foreach (get_declared_classes() as $class) {
 			$classReflection = new ReflectionClass($class);
 			if ((strtolower(substr($class, -8, 8)) === 'testcase' || substr($class, -4, 4) === 'Test')
@@ -345,14 +345,15 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 
 		$currentStyle = $this->createIconStyle($extensionKey);
 
-		return '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">
-				<p>
-					<select style="' . $currentStyle . '" name="testCaseFile">
-					<option value="">' . $this->translate('select_tests') . '</option>' . implode(LF, $testCaseFileOptionsArray) . '</select>
-					<button type="submit" name="bingo" value="run" accesskey="f">' . $this->translate('runTestCaseFile') . '</button>
-					<input type="hidden" name="command" value="runTestCaseFile" />
-				</p>
-			</form>';
+		return '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">' .
+				'<p>' .
+					'<select style="' . $currentStyle . '" name="testCaseFile">' .
+					'<option value="">' . htmlspecialchars($this->translate('select_tests')) . '</option>' .
+					implode(LF, $testCaseFileOptionsArray) . '</select>' .
+					'<button type="submit" name="bingo" value="run" accesskey="f">' . $this->translate('runTestCaseFile') . '</button>' .
+					'<input type="hidden" name="command" value="runTestCaseFile" />' .
+				'</p>' .
+			'</form>';
 	}
 
 	/**
@@ -500,7 +501,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$extensionsWithTestSuites = $this->getExtensionsWithTestSuites();
 		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
 		$extensionKeysToProcess = array();
-		if ($this->MOD_SETTINGS['extSel'] === 'uuall') {
+		if ($this->MOD_SETTINGS['extSel'] === Tx_Phpunit_TestableCode::ALL_EXTENSIONS) {
 			$this->output('<h1>' . $this->translate('testing_all_extensions') . '</h1>');
 			$extensionKeysToProcess = array_keys($extensionsWithTestSuites);
 		} else {
@@ -903,15 +904,15 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			);
 		}
 
-		$result = 'background: white no-repeat ';
+		$result = 'background: ';
 
 		if ($extensionKey === Tx_Phpunit_TestableCode::CORE_KEY) {
-			$result .= 'url(' . t3lib_extMgm::extRelPath('phpunit') . 'Resources/Public/Icons/Typo3.png) 3px 50%;';
+			$result .= 'url(' . t3lib_extMgm::extRelPath('phpunit') . 'Resources/Public/Icons/Typo3.png)';
 		} else {
-			$result .= 'url(' . t3lib_extMgm::extRelPath($extensionKey) . 'ext_icon.gif) 3px 50%;';
+			$result .= 'url(' . t3lib_extMgm::extRelPath($extensionKey) . 'ext_icon.gif)';
 		}
 
-		$result .= ' padding: 1px 1px 1px 24px;';
+		$result .= ' 3px 50% white no-repeat; padding: 1px 1px 1px 24px;';
 
 		return $result;
 	}

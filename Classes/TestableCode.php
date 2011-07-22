@@ -52,6 +52,11 @@ class Tx_Phpunit_TestableCode {
 	/**
 	 * @var string
 	 */
+	const ALL_EXTENSIONS = 'uuall';
+
+	/**
+	 * @var string
+	 */
 	protected $key = '';
 
 	/**
