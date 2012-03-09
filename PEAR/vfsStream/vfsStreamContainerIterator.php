@@ -3,7 +3,6 @@
  * Iterator for children of a directory container.
  *
  * @package  bovigo_vfs
- * @version  $Id: vfsStreamContainerIterator.php 132 2009-07-13 19:13:25Z google@frankkleine.de $
  */
 /**
  * Iterator for children of a directory container.

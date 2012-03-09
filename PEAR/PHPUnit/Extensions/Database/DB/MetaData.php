@@ -2,7 +2,7 @@
 /**
  * PHPUnit
  *
- * Copyright (c) 2002-2011, Sebastian Bergmann <sb@sebastian-bergmann.de>.
+ * Copyright (c) 2002-2012, Sebastian Bergmann <sb@sebastian-bergmann.de>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@
  *
  * @package    DbUnit
  * @author     Mike Lively <m@digitalsandwich.com>
- * @copyright  2002-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
+ * @copyright  2002-2012 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @link       http://www.phpunit.de/
  * @since      File available since Release 1.0.0
@@ -50,7 +50,7 @@
  * @author     Mike Lively <m@digitalsandwich.com>
  * @copyright  2010 Mike Lively <m@digitalsandwich.com>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 1.0.2
+ * @version    Release: 1.1.2
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 1.0.0
  */
@@ -61,7 +61,8 @@ abstract class PHPUnit_Extensions_Database_DB_MetaData implements PHPUnit_Extens
         'mysql'  => 'PHPUnit_Extensions_Database_DB_MetaData_MySQL',
         'oci'    => 'PHPUnit_Extensions_Database_DB_MetaData_Oci',
         'sqlite' => 'PHPUnit_Extensions_Database_DB_MetaData_Sqlite',
-        'sqlite2'=> 'PHPUnit_Extensions_Database_DB_MetaData_Sqlite'
+        'sqlite2'=> 'PHPUnit_Extensions_Database_DB_MetaData_Sqlite',
+        'sqlsrv' => 'PHPUnit_Extensions_Database_DB_MetaData_SqlSrv'
     );
 
     /**
@@ -121,7 +122,7 @@ abstract class PHPUnit_Extensions_Database_DB_MetaData implements PHPUnit_Extens
                 return self::registerClassWithDriver($className, $driverName)->newInstance($pdo, $schema);
             }
         } else {
-            throw new Exception("Could not find a meta data driver for {$driverName} pdo driver.");
+            throw new PHPUnit_Extensions_Database_Exception("Could not find a meta data driver for {$driverName} pdo driver.");
         }
     }
 
@@ -140,14 +141,14 @@ abstract class PHPUnit_Extensions_Database_DB_MetaData implements PHPUnit_Extens
     public static function registerClassWithDriver($className, $pdoDriver)
     {
         if (!class_exists($className)) {
-            throw new Exception("Specified class for {$pdoDriver} driver ({$className}) does not exist.");
+            throw new PHPUnit_Extensions_Database_Exception("Specified class for {$pdoDriver} driver ({$className}) does not exist.");
         }
 
         $reflection = new ReflectionClass($className);
         if ($reflection->isSubclassOf('PHPUnit_Extensions_Database_DB_MetaData')) {
             return self::$metaDataClassMap[$pdoDriver] = $reflection;
         } else {
-            throw new Exception("Specified class for {$pdoDriver} driver ({$className}) does not extend PHPUnit_Extensions_Database_DB_MetaData.");
+            throw new PHPUnit_Extensions_Database_Exception("Specified class for {$pdoDriver} driver ({$className}) does not extend PHPUnit_Extensions_Database_DB_MetaData.");
         }
     }
 
@@ -222,5 +223,25 @@ abstract class PHPUnit_Extensions_Database_DB_MetaData implements PHPUnit_Extens
     public function allowsCascading()
     {
         return FALSE;
+    }
+
+    /**
+     * Disables primary keys if the rdbms does not allow setting them otherwise
+     *
+     * @param string $tableName
+     */
+    public function disablePrimaryKeys($tableName)
+    {
+        return;
+    }
+
+    /**
+     * Reenables primary keys after they have been disabled
+     *
+     * @param string $tableName
+     */
+    public function enablePrimaryKeys($tableName)
+    {
+        return;
     }
 }

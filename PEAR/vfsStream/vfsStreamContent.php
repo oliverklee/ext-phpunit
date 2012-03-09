@@ -3,7 +3,6 @@
  * Interface for stream contents.
  *
  * @package  bovigo_vfs
- * @version  $Id: vfsStreamContent.php 201 2010-06-08 20:15:45Z google@frankkleine.de $
  */
 /**
  * @ignore
@@ -70,15 +69,6 @@ interface vfsStreamContent
      * @return  int
      */
     public function size();
-
-    /**
-     * alias for lastModified()
-     *
-     * @param   int               $filemtime
-     * @return  vfsStreamContent
-     * @see     lastModified()
-     */
-    public function setFilemtime($filemtime);
 
     /**
      * sets the last modification time of the stream content

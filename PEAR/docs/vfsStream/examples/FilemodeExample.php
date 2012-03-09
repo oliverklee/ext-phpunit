@@ -4,7 +4,7 @@
  *
  * @package     stubbles_vfs
  * @subpackage  examples
- * @version     $Id: FilemodeExample.php 124 2009-07-12 18:06:04Z google@frankkleine.de $
+ * @version     $Id$
  */
 /**
  * Example class.

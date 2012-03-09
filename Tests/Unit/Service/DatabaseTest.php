@@ -124,7 +124,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
      * @test
      */
     public function enableFieldsThrowsExceptionForTooSmallShowHidden() {
-		$this->setExpectedException('Exception', '$showHidden may only be -1, 0 or 1, but actually is -2');
+		$this->setExpectedException('InvalidArgumentException', '$showHidden may only be -1, 0 or 1, but actually is -2');
 		Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', -2);
 	}
 
@@ -132,7 +132,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
      * @test
      */
     public function enableFieldsThrowsExceptionForTooBigShowHidden() {
-		$this->setExpectedException('Exception', '$showHidden may only be -1, 0 or 1, but actually is 2');
+		$this->setExpectedException('InvalidArgumentException', '$showHidden may only be -1, 0 or 1, but actually is 2');
 		Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', 2);
 	}
 
@@ -253,7 +253,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
      * @test
      */
     public function createRecursivePageListThrowsWithNegativeRecursion() {
-		$this->setExpectedException('Exception', '$recursionDepth must be >= 0.');
+		$this->setExpectedException('InvalidArgumentException', '$recursionDepth must be >= 0.');
 
 		Tx_Phpunit_Service_Database::createRecursivePageList('', -1);
 	}
@@ -391,7 +391,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
      */
     public function getColumnsInTableForEmptyTableNameThrowsException() {
 		$this->setExpectedException(
-			'Exception', 'The table name must not be empty.'
+			'InvalidArgumentException', 'The table name must not be empty.'
 		);
 
 		Tx_Phpunit_Service_Database::getColumnsInTable('');
@@ -402,7 +402,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 	 */
 	public function getColumnsInTableForInexistentTableNameThrowsException() {
 		$this->setExpectedException(
-			'Exception', 'The table "tx_phpunit_doesnotexist" does not exist.'
+			'BadMethodCallException', 'The table "tx_phpunit_doesnotexist" does not exist.'
 		);
 
 		Tx_Phpunit_Service_Database::getColumnsInTable('tx_phpunit_doesnotexist');
@@ -440,7 +440,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
      */
     public function getColumnDefinitionForEmptyTableNameThrowsException() {
 		$this->setExpectedException(
-			'Exception', 'The table name must not be empty.'
+			'InvalidArgumentException', 'The table name must not be empty.'
 		);
 
 		Tx_Phpunit_Service_Database::getColumnDefinition('', 'uid');
@@ -467,7 +467,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
      */
     public function tableHasColumnUidForEmptyTableNameThrowsException() {
 		$this->setExpectedException(
-			'Exception', 'The table name must not be empty.'
+			'InvalidArgumentException', 'The table name must not be empty.'
 		);
 
 		Tx_Phpunit_Service_Database::tableHasColumnUid('');
@@ -533,7 +533,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
      */
     public function tableHasColumnThrowsExceptionOnEmptyTableName() {
 		$this->setExpectedException(
-			'Exception', 'The table name must not be empty.'
+			'InvalidArgumentException', 'The table name must not be empty.'
 		);
 
 		Tx_Phpunit_Service_Database::tableHasColumn(
@@ -562,7 +562,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
      */
     public function deleteForEmptyTableNameThrowsException() {
 		$this->setExpectedException(
-			'Exception', 'The table name must not be empty.'
+			'InvalidArgumentException', 'The table name must not be empty.'
 		);
 
 		Tx_Phpunit_Service_Database::delete(
@@ -639,7 +639,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
      */
     public function updateForEmptyTableNameThrowsException() {
 		$this->setExpectedException(
-			'Exception', 'The table name must not be empty.'
+			'InvalidArgumentException', 'The table name must not be empty.'
 		);
 
 		Tx_Phpunit_Service_Database::update(
@@ -717,7 +717,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
      */
     public function insertForEmptyTableNameThrowsException() {
 		$this->setExpectedException(
-			'Exception', 'The table name must not be empty.'
+			'InvalidArgumentException', 'The table name must not be empty.'
 		);
 
 		Tx_Phpunit_Service_Database::insert(
@@ -730,7 +730,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
      */
     public function insertForEmptyRecordDataThrowsException() {
 		$this->setExpectedException(
-			'Exception', '$recordData must not be empty.'
+			'InvalidArgumentException', '$recordData must not be empty.'
 		);
 
 		Tx_Phpunit_Service_Database::insert(
@@ -794,7 +794,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 	 */
 	public function selectForEmptyTableNameThrowsException() {
 		$this->setExpectedException(
-			'Exception', 'The table names must not be empty.'
+			'InvalidArgumentException', 'The table names must not be empty.'
 		);
 
 		Tx_Phpunit_Service_Database::select('*', '');
@@ -805,7 +805,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 	 */
 	public function selectForEmptyFieldListThrowsException() {
 		$this->setExpectedException(
-			'Exception', '$fields must not be empty.'
+			'InvalidArgumentException', '$fields must not be empty.'
 		);
 
 		Tx_Phpunit_Service_Database::select('', 'tx_phpunit_test');
@@ -825,7 +825,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 	 */
 	public function selectSingleForEmptyTableNameThrowsException() {
 		$this->setExpectedException(
-			'Exception', 'The table names must not be empty.'
+			'InvalidArgumentException', 'The table names must not be empty.'
 		);
 
 		Tx_Phpunit_Service_Database::selectSingle('*', '');
@@ -836,7 +836,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 	 */
 	public function selectSingleForEmptyFieldListThrowsException() {
 		$this->setExpectedException(
-			'Exception', '$fields must not be empty.'
+			'InvalidArgumentException', '$fields must not be empty.'
 		);
 
 		Tx_Phpunit_Service_Database::selectSingle('', 'tx_phpunit_test');
@@ -907,7 +907,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 	 */
 	public function selectMultipleForEmptyTableNameThrowsException() {
 		$this->setExpectedException(
-			'Exception', 'The table names must not be empty.'
+			'InvalidArgumentException', 'The table names must not be empty.'
 		);
 
 		Tx_Phpunit_Service_Database::selectMultiple('*', '');
@@ -918,7 +918,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 	 */
 	public function selectMultipleForEmptyFieldListThrowsException() {
 		$this->setExpectedException(
-			'Exception', '$fields must not be empty.'
+			'InvalidArgumentException', '$fields must not be empty.'
 		);
 
 		Tx_Phpunit_Service_Database::selectMultiple('', 'tx_phpunit_test');
@@ -1054,7 +1054,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
      */
     public function existsTableWithEmptyTableNameThrowsException() {
 		$this->setExpectedException(
-			'Exception', 'The table name must not be empty.'
+			'InvalidArgumentException', 'The table name must not be empty.'
 		);
 
 		Tx_Phpunit_Service_Database::existsTable('');
@@ -1101,7 +1101,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 	 */
 	public function getTcaForTableWithEmptyTableNameThrowsExceptionTca() {
 		$this->setExpectedException(
-			'Exception', 'The table name must not be empty.'
+			'InvalidArgumentException', 'The table name must not be empty.'
 		);
 
 		Tx_Phpunit_Service_Database::getTcaForTable('');
@@ -1112,7 +1112,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 	 */
 	public function getTcaForTableWithInexistentTableNameThrowsExceptionTca() {
 		$this->setExpectedException(
-			'Exception', 'The table "tx_phpunit_doesnotexist" does not exist.'
+			'BadMethodCallException', 'The table "tx_phpunit_doesnotexist" does not exist.'
 		);
 
 		Tx_Phpunit_Service_Database::getTcaForTable('tx_phpunit_doesnotexist');
@@ -1123,7 +1123,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
      */
     public function getTcaForTableThrowsExceptionOnTableWithoutTca() {
 		$this->setExpectedException(
-			'Exception', 'The table "' . 'tx_phpunit_test_article_mm' . '" has no TCA.'
+			'BadMethodCallException', 'The table "' . 'tx_phpunit_test_article_mm' . '" has no TCA.'
 		);
 
 		Tx_Phpunit_Service_Database::getTcaForTable('tx_phpunit_test_article_mm');
@@ -1223,7 +1223,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 	 */
 	public function countWithInvalidTableNameThrowsException() {
 		$this->setExpectedException(
-			'Exception', 'The table "tx_phpunit_doesnotexist" does not exist.'
+			'BadMethodCallException', 'The table "tx_phpunit_doesnotexist" does not exist.'
 		);
 
 		Tx_Phpunit_Service_Database::count('tx_phpunit_doesnotexist', 'uid = 42');
@@ -1241,7 +1241,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 	 */
 	public function countDoesNotAllowJoinWithoutTables() {
 		$this->setExpectedException(
-			'Exception', 'The table "JOIN" does not exist.'
+			'BadMethodCallException', 'The table "JOIN" does not exist.'
 		);
 
 		Tx_Phpunit_Service_Database::count('JOIN');
@@ -1252,7 +1252,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 	 */
 	public function countDoesNotAllowJoinWithOnlyOneTableOnTheLeft() {
 		$this->setExpectedException(
-			'Exception', 'The table "tx_phpunit_test JOIN " does not exist.'
+			'BadMethodCallException', 'The table "tx_phpunit_test JOIN " does not exist.'
 		);
 
 		Tx_Phpunit_Service_Database::count('tx_phpunit_test JOIN ');
@@ -1263,7 +1263,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 	 */
 	public function countDoesNotAllowJoinWithOnlyOneTableOnTheRight() {
 		$this->setExpectedException(
-			'Exception', 'The table "JOIN tx_phpunit_test" does not exist.'
+			'BadMethodCallException', 'The table "JOIN tx_phpunit_test" does not exist.'
 		);
 
 		Tx_Phpunit_Service_Database::count('JOIN tx_phpunit_test');
@@ -1293,7 +1293,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 	 */
 	public function existsRecordWithEmptyTableNameThrowsException() {
 		$this->setExpectedException(
-			'Exception',
+			'InvalidArgumentException',
 			'The table name must not be empty.'
 		);
 
@@ -1305,7 +1305,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 	 */
 	public function existsRecordWithInvalidTableNameThrowsException() {
 		$this->setExpectedException(
-			'Exception', 'The table "tx_phpunit_doesnotexist" does not exist.'
+			'BadMethodCallException', 'The table "tx_phpunit_doesnotexist" does not exist.'
 		);
 
 		Tx_Phpunit_Service_Database::existsRecord('tx_phpunit_doesnotexist');
@@ -1373,7 +1373,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 	 */
 	public function existsExactlyOneRecordWithEmptyTableNameThrowsException() {
 		$this->setExpectedException(
-			'Exception',
+			'InvalidArgumentException',
 			'The table name must not be empty.'
 		);
 
@@ -1385,7 +1385,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 	 */
 	public function existsExactlyOneRecordWithInvalidTableNameThrowsException() {
 		$this->setExpectedException(
-			'Exception', 'The table "tx_phpunit_doesnotexist" does not exist.'
+			'BadMethodCallException', 'The table "tx_phpunit_doesnotexist" does not exist.'
 		);
 
 		Tx_Phpunit_Service_Database::existsExactlyOneRecord('tx_phpunit_doesnotexist');
@@ -1439,7 +1439,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 	 */
 	public function existsRecordWithUidWithZeroUidThrowsException() {
 		$this->setExpectedException(
-			'Exception', '$uid must be > 0.'
+			'InvalidArgumentException', '$uid must be > 0.'
 		);
 
 		Tx_Phpunit_Service_Database::existsRecordWithUid('tx_phpunit_test', 0);
@@ -1450,7 +1450,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 	 */
 	public function existsRecordWithUidWithNegativeUidThrowsException() {
 		$this->setExpectedException(
-			'Exception', '$uid must be > 0.'
+			'InvalidArgumentException', '$uid must be > 0.'
 		);
 
 		Tx_Phpunit_Service_Database::existsRecordWithUid('tx_phpunit_test', -1);
@@ -1461,7 +1461,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 	 */
 	public function existsRecordWithUidWithEmptyTableNameThrowsException() {
 		$this->setExpectedException(
-			'Exception',
+			'InvalidArgumentException',
 			'The table name must not be empty.'
 		);
 
@@ -1473,7 +1473,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 	 */
 	public function existsRecordWithUidWithInvalidTableNameThrowsException() {
 		$this->setExpectedException(
-			'Exception', 'The table "tx_phpunit_doesnotexist" does not exist.'
+			'BadMethodCallException', 'The table "tx_phpunit_doesnotexist" does not exist.'
 		);
 
 		Tx_Phpunit_Service_Database::existsRecordWithUid('tx_phpunit_doesnotexist', 42);

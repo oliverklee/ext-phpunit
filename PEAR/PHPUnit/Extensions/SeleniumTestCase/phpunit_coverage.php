@@ -2,7 +2,7 @@
 /**
  * PHPUnit
  *
- * Copyright (c) 2010-2011, Sebastian Bergmann <sb@sebastian-bergmann.de>.
+ * Copyright (c) 2010-2012, Sebastian Bergmann <sb@sebastian-bergmann.de>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,14 +36,14 @@
  *
  * @package    PHPUnit_Selenium
  * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @copyright  2010-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
+ * @copyright  2010-2012 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @link       http://www.phpunit.de/
  * @since      File available since Release 1.0.0
  */
 
-require_once 'File/Iterator/Factory.php';
-require_once 'PHP/CodeCoverage/Filter.php';
+require_once 'File/Iterator/Autoload.php';
+require_once 'PHP/CodeCoverage/Autoload.php';
 
 // Set this to the directory that contains the code coverage files.
 // It defaults to getcwd(). If you have configured a different directory
@@ -51,7 +51,8 @@ require_once 'PHP/CodeCoverage/Filter.php';
 $GLOBALS['PHPUNIT_COVERAGE_DATA_DIRECTORY'] = getcwd();
 
 if (isset($_GET['PHPUNIT_SELENIUM_TEST_ID'])) {
-    $files = File_Iterator_Factory::getFileIterator(
+    $facade = new File_Iterator_Facade;
+    $files  = $facade->getFilesAsArray(
       $GLOBALS['PHPUNIT_COVERAGE_DATA_DIRECTORY'],
       $_GET['PHPUNIT_SELENIUM_TEST_ID']
     );
@@ -59,22 +60,22 @@ if (isset($_GET['PHPUNIT_SELENIUM_TEST_ID'])) {
     $coverage = array();
 
     foreach ($files as $file) {
-        $filename = $file->getPathName();
-        $data     = unserialize(file_get_contents($filename));
-        @unlink($filename);
-        unset($filename);
+        $data = unserialize(file_get_contents($file));
+        unlink($file);
+        unset($file);
+        $filter = new PHP_CodeCoverage_Filter();
 
-        foreach ($data as $filename => $lines) {
-            if (PHP_CodeCoverage_Filter::isFile($filename)) {
-                if (!isset($coverage[$filename])) {
-                    $coverage[$filename] = array(
-                      'md5' => md5_file($filename), 'coverage' => $lines
+        foreach ($data as $file => $lines) {
+            if ($filter->isFile($file)) {
+                if (!isset($coverage[$file])) {
+                    $coverage[$file] = array(
+                      'md5' => md5_file($file), 'coverage' => $lines
                     );
                 } else {
                     foreach ($lines as $line => $flag) {
-                        if (!isset($coverage[$filename]['coverage'][$line]) ||
-                            $flag > $coverage[$filename]['coverage'][$line]) {
-                            $coverage[$filename]['coverage'][$line] = $flag;
+                        if (!isset($coverage[$file]['coverage'][$line]) ||
+                            $flag > $coverage[$file]['coverage'][$line]) {
+                            $coverage[$file]['coverage'][$line] = $flag;
                         }
                     }
                 }

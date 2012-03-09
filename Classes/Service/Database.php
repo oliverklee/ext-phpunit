@@ -110,9 +110,8 @@ class Tx_Phpunit_Service_Database {
 		$noVersionPreview = FALSE
 	) {
 		if (!in_array($showHidden, array(-1, 0, 1))) {
-			throw new Exception(
-				'$showHidden may only be -1, 0 or 1, but actually is ' .
-					$showHidden
+			throw new InvalidArgumentException(
+				'$showHidden may only be -1, 0 or 1, but actually is ' . $showHidden, 1331315445
 			);
 		}
 
@@ -175,7 +174,7 @@ class Tx_Phpunit_Service_Database {
 	 */
 	public static function createRecursivePageList($startPages, $recursionDepth = 0) {
 		if ($recursionDepth < 0) {
-			throw new Exception('$recursionDepth must be >= 0.');
+			throw new InvalidArgumentException('$recursionDepth must be >= 0.', 1331315492);
 		}
 		if ($recursionDepth == 0) {
 			return $startPages;
@@ -226,7 +225,7 @@ class Tx_Phpunit_Service_Database {
 	 */
 	public static function delete($tableName, $whereClause) {
 		if ($tableName == '') {
-			throw new Exception('The table name must not be empty.');
+			throw new InvalidArgumentException('The table name must not be empty.', 1331315508);
 		}
 
 		self::enableQueryLogging();
@@ -256,7 +255,7 @@ class Tx_Phpunit_Service_Database {
 	 */
 	public static function update($tableName, $whereClause, array $fields) {
 		if ($tableName == '') {
-			throw new Exception('The table name must not be empty.');
+			throw new InvalidArgumentException('The table name must not be empty.', 1331315523);
 		}
 
 		self::enableQueryLogging();
@@ -286,10 +285,10 @@ class Tx_Phpunit_Service_Database {
 	 */
 	public static function insert($tableName, array $recordData) {
 		if ($tableName == '') {
-			throw new Exception('The table name must not be empty.');
+			throw new InvalidArgumentException('The table name must not be empty.', 1331315544);
 		}
 		if (empty($recordData)) {
-			throw new Exception('$recordData must not be empty.');
+			throw new InvalidArgumentException('$recordData must not be empty.', 1331315553);
 		}
 
 		self::enableQueryLogging();
@@ -327,10 +326,10 @@ class Tx_Phpunit_Service_Database {
 		$fields, $tableNames, $whereClause = '', $groupBy = '', $orderBy = '', $limit = ''
 	) {
 		if ($tableNames == '') {
-			throw new Exception('The table names must not be empty.');
+			throw new InvalidArgumentException('The table names must not be empty.', 1331315600);
 		}
 		if ($fields == '') {
-			throw new Exception('$fields must not be empty.');
+			throw new InvalidArgumentException('$fields must not be empty.', 1331315609);
 		}
 
 		self::enableQueryLogging();
@@ -546,7 +545,7 @@ class Tx_Phpunit_Service_Database {
 		$tableName, $uid, $additionalWhereClause = ''
 	) {
 		if ($uid <= 0) {
-			throw new Exception('$uid must be > 0.');
+			throw new InvalidArgumentException('$uid must be > 0.', 1331315624);
 		}
 
 		return (
@@ -598,7 +597,7 @@ class Tx_Phpunit_Service_Database {
 	 */
 	public static function existsTable($tableName) {
 		if ($tableName == '') {
-			throw new Exception('The table name must not be empty.');
+			throw new InvalidArgumentException('The table name must not be empty.', 1331315636);
 		}
 
 		self::retrieveTableNames();
@@ -662,9 +661,7 @@ class Tx_Phpunit_Service_Database {
 	private static function retrieveColumnsForTable($tableName) {
 		if (!isset(self::$tableColumnCache[$tableName])) {
 			if (!self::existsTable($tableName)) {
-				throw new Exception(
-					'The table "' . $tableName . '" does not exist.'
-				);
+				throw new BadMethodCallException('The table "' . $tableName . '" does not exist.', 1331315659);
 			}
 
 			self::$tableColumnCache[$tableName] = $GLOBALS['TYPO3_DB']->admin_get_fields($tableName);
@@ -726,16 +723,12 @@ class Tx_Phpunit_Service_Database {
 		}
 
 		if (!self::existsTable($tableName)) {
-			throw new Exception(
-				'The table "' . $tableName . '" does not exist.'
-			);
+			throw new BadMethodCallException('The table "' . $tableName . '" does not exist.', 1331315679);
 		}
 
 		t3lib_div::loadTCA($tableName);
 		if (!isset($GLOBALS['TCA'][$tableName])) {
-			throw new Exception(
-				'The table "' . $tableName . '" has no TCA.'
-			);
+			throw new BadMethodCallException('The table "' . $tableName . '" has no TCA.', 1331315694);
 		}
 		self::$tcaCache[$tableName] = $GLOBALS['TCA'][$tableName];
 

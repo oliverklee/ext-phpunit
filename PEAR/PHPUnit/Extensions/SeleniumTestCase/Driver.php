@@ -2,7 +2,7 @@
 /**
  * PHPUnit
  *
- * Copyright (c) 2010-2011, Sebastian Bergmann <sb@sebastian-bergmann.de>.
+ * Copyright (c) 2010-2012, Sebastian Bergmann <sb@sebastian-bergmann.de>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@
  *
  * @package    PHPUnit_Selenium
  * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @copyright  2010-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
+ * @copyright  2010-2012 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @link       http://www.phpunit.de/
  * @since      File available since Release 1.0.0
@@ -47,9 +47,9 @@
  *
  * @package    PHPUnit_Selenium
  * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @copyright  2010-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
+ * @copyright  2010-2012 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 1.0.3
+ * @version    Release: 1.2.4
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 1.0.0
  */
@@ -136,6 +136,11 @@ class PHPUnit_Extensions_SeleniumTestCase_Driver
     protected $commands = array();
 
     /**
+     * @var array $userCommands A numerical array which holds custom user commands.
+     */
+    protected $userCommands = array();
+
+    /**
      * @var array
      */
     protected $verificationErrors = array();
@@ -168,6 +173,24 @@ class PHPUnit_Extensions_SeleniumTestCase_Driver
         }
 
         return $this->sessionId;
+    }
+
+    /**
+     * @return string
+     * @since  Method available since Release 1.1.0
+     */
+    public function getSessionId()
+    {
+        return $this->sessionId;
+    }
+
+    /**
+     * @param string
+     * @since  Method available since Release 1.2.0
+     */
+    public function setSessionId($sessionId)
+    {
+        $this->sessionId = $sessionId;
     }
 
     /**
@@ -265,6 +288,15 @@ class PHPUnit_Extensions_SeleniumTestCase_Driver
     }
 
     /**
+     * @return string
+     * @since  Method available since Release 1.1.0
+     */
+    public function getHost()
+    {
+        return $this->host;
+    }
+
+    /**
      * @param  integer $port
      * @throws InvalidArgumentException
      */
@@ -275,6 +307,15 @@ class PHPUnit_Extensions_SeleniumTestCase_Driver
         }
 
         $this->port = $port;
+    }
+
+    /**
+     * @return integer
+     * @since  Method available since Release 1.1.0
+     */
+    public function getPort()
+    {
+        return $this->port;
     }
 
     /**
@@ -346,6 +387,24 @@ class PHPUnit_Extensions_SeleniumTestCase_Driver
         }
 
         $this->useWaitForPageToLoad = $flag;
+    }
+
+    /**
+     * Adds allowed user commands into {@link self::$userCommands}. See
+     * {@link self::__call()} (switch/case -> default) for usage.
+     *
+     * @param string $command A command.
+     *
+     * @return $this
+     * @see    self::__call()
+     */
+    public function addUserCommand($command)
+    {
+        if (!is_string($command)) {
+            throw PHPUnit_Util_InvalidArgumentHelper::factory(1, 'string');
+        }
+        $this->userCommands[] = $command;
+        return $this;
     }
 
     /**
@@ -425,60 +484,60 @@ class PHPUnit_Extensions_SeleniumTestCase_Driver
      * @method array    getAllWindowIds()
      * @method array    getAllWindowNames()
      * @method array    getAllWindowTitles()
-     * @method string   getAttribute()
-     * @method array    getAttributeFromAllWindows()
+     * @method string   getAttribute(string $attributeLocator)
+     * @method array    getAttributeFromAllWindows(string $attributeName)
      * @method string   getBodyText()
      * @method string   getConfirmation()
      * @method string   getCookie()
-     * @method string   getCookieByName()
-     * @method integer  getCursorPosition()
-     * @method integer  getElementHeight()
-     * @method integer  getElementIndex()
-     * @method integer  getElementPositionLeft()
-     * @method integer  getElementPositionTop()
-     * @method integer  getElementWidth()
-     * @method string   getEval()
-     * @method string   getExpression()
+     * @method string   getCookieByName(string $name)
+     * @method integer  getCursorPosition(string $locator)
+     * @method integer  getElementHeight(string $locator)
+     * @method integer  getElementIndex(string $locator)
+     * @method integer  getElementPositionLeft(string $locator)
+     * @method integer  getElementPositionTop(string $locator)
+     * @method integer  getElementWidth(string $locator)
+     * @method string   getEval(string $script)
+     * @method string   getExpression(string $expression)
      * @method string   getHtmlSource()
      * @method string   getLocation()
      * @method string   getLogMessages()
      * @method integer  getMouseSpeed()
      * @method string   getPrompt()
-     * @method array    getSelectOptions()
-     * @method string   getSelectedId()
-     * @method array    getSelectedIds()
-     * @method string   getSelectedIndex()
-     * @method array    getSelectedIndexes()
-     * @method string   getSelectedLabel()
-     * @method array    getSelectedLabels()
-     * @method string   getSelectedValue()
-     * @method array    getSelectedValues()
+     * @method array    getSelectOptions(string $selectLocator)
+     * @method string   getSelectedId(string $selectLocator)
+     * @method array    getSelectedIds(string $selectLocator)
+     * @method string   getSelectedIndex(string $selectLocator)
+     * @method array    getSelectedIndexes(string $selectLocator)
+     * @method string   getSelectedLabel(string $selectLocator)
+     * @method array    getSelectedLabels(string $selectLocator)
+     * @method string   getSelectedValue(string $selectLocator)
+     * @method array    getSelectedValues(string $selectLocator)
      * @method unknown  getSpeed()
      * @method unknown  getSpeedAndWait()
-     * @method string   getTable()
-     * @method string   getText()
+     * @method string   getTable(string $tableCellAddress)
+     * @method string   getText(string $locator)
      * @method string   getTitle()
-     * @method string   getValue()
-     * @method boolean  getWhetherThisFrameMatchFrameExpression()
-     * @method boolean  getWhetherThisWindowMatchWindowExpression()
-     * @method integer  getXpathCount()
+     * @method string   getValue(string $locator)
+     * @method boolean  getWhetherThisFrameMatchFrameExpression(string $currentFrameString, string $target)
+     * @method boolean  getWhetherThisWindowMatchWindowExpression(string $currentWindowString, string $target)
+     * @method integer  getXpathCount(string $xpath)
      * @method unknown  goBack()
      * @method unknown  goBackAndWait()
-     * @method unknown  highlight()
-     * @method unknown  highlightAndWait()
-     * @method unknown  ignoreAttributesWithoutValue()
-     * @method unknown  ignoreAttributesWithoutValueAndWait()
+     * @method unknown  highlight(string $locator)
+     * @method unknown  highlightAndWait(string $locator)
+     * @method unknown  ignoreAttributesWithoutValue(string $ignore)
+     * @method unknown  ignoreAttributesWithoutValueAndWait(string $ignore)
      * @method boolean  isAlertPresent()
-     * @method boolean  isChecked()
+     * @method boolean  isChecked(locator)
      * @method boolean  isConfirmationPresent()
-     * @method boolean  isCookiePresent()
-     * @method boolean  isEditable()
-     * @method boolean  isElementPresent()
-     * @method boolean  isOrdered()
+     * @method boolean  isCookiePresent(string $name)
+     * @method boolean  isEditable(string $locator)
+     * @method boolean  isElementPresent(string $locator)
+     * @method boolean  isOrdered(string $locator1, string $locator2)
      * @method boolean  isPromptPresent()
-     * @method boolean  isSomethingSelected()
-     * @method boolean  isTextPresent()
-     * @method boolean  isVisible()
+     * @method boolean  isSomethingSelected(string $selectLocator)
+     * @method boolean  isTextPresent(pattern)
+     * @method boolean  isVisible(locator)
      * @method unknown  keyDown()
      * @method unknown  keyDownAndWait()
      * @method unknown  keyDownNative()
@@ -571,6 +630,8 @@ class PHPUnit_Extensions_SeleniumTestCase_Driver
      */
     public function __call($command, $arguments)
     {
+        $arguments = $this->preprocessParameters($arguments);
+
         $wait = FALSE;
 
         if (substr($command, -7, 7) == 'AndWait') {
@@ -836,11 +897,12 @@ class PHPUnit_Extensions_SeleniumTestCase_Driver
             break;
 
             default: {
-                $this->stop();
-
-                throw new BadMethodCallException(
-                  "Method $command not defined."
-                );
+                if (!in_array($command, $this->userCommands)) {
+                    throw new BadMethodCallException(
+                      "Method $command not defined."
+                    );
+                }
+                $this->doCommand($command, $arguments);
             }
         }
     }
@@ -851,77 +913,74 @@ class PHPUnit_Extensions_SeleniumTestCase_Driver
      * @param  string $command
      * @param  array  $arguments
      * @return string
-     * @author Shin Ohno <ganchiku@gmail.com>
-     * @author Bjoern Schotte <schotte@mayflower.de>
+     * @author Seth Casana <totallymeat@gmail.org>
      */
     protected function doCommand($command, array $arguments = array())
     {
-        if (!ini_get('allow_url_fopen')) {
-            throw new PHPUnit_Framework_Exception(
-              'Could not connect to the Selenium RC server because allow_url_fopen is disabled.'
-            );
-        }
-
         $url = sprintf(
-          'http://%s:%s/selenium-server/driver/?cmd=%s',
+          'http://%s:%s/selenium-server/driver/',
           $this->host,
-          $this->port,
-          urlencode($command)
+          $this->port
         );
 
         $numArguments = count($arguments);
-
+        $postData = sprintf('cmd=%s', urlencode($command));
         for ($i = 0; $i < $numArguments; $i++) {
             $argNum = strval($i + 1);
-            $url .= sprintf('&%s=%s', $argNum, urlencode(trim($arguments[$i])));
+
+            if ($arguments[$i] == ' ') {
+                $postData .= sprintf('&%s=%s', $argNum, urlencode($arguments[$i]));
+            } else {
+                $postData .= sprintf('&%s=%s', $argNum, urlencode(trim($arguments[$i])));
+            }
         }
 
         if (isset($this->sessionId)) {
-            $url .= sprintf('&%s=%s', 'sessionId', $this->sessionId);
+            $postData .= sprintf('&%s=%s', 'sessionId', $this->sessionId);
         }
 
-        $this->commands[] = sprintf('%s(%s)', $command, join(', ', $arguments));
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_HEADER, 0);
+        curl_setopt($curl, CURLOPT_POST, TRUE);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/x-www-form-urlencoded; charset=utf-8'
+        ));
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 60);
 
-        $context = stream_context_create(
-          array(
-            'http' => array(
-              'timeout' => $this->httpTimeout
-            )
-          )
-        );
+        $response = curl_exec($curl);
+        $info     = curl_getinfo($curl);
 
-        $handle = @fopen($url, 'r', FALSE, $context);
-
-        if (!$handle) {
-            throw new PHPUnit_Framework_Exception(
-              'Could not connect to the Selenium RC server.'
-            );
+        if (!$response) {
+            throw new RuntimeException("CURL error while accessing the Selenium Server at '$url': " . curl_error($curl));
         }
 
-        stream_set_blocking($handle, 1);
-        stream_set_timeout($handle, $this->httpTimeout);
+        curl_close($curl);
 
-        /* Tell the web server that we will not be sending more data
-        so that it can start processing our request */
-        stream_socket_shutdown($handle, STREAM_SHUT_WR);
+        if (strstr($response, 'ERROR: ') == $response) {
+            throw new RuntimeException("Invalid response while accessing the Selenium Server at '$url': " . $response);
+        }
 
-        $response = stream_get_contents($handle);
-
-        fclose($handle);
-
-        if (!preg_match('/^OK/', $response)) {
-            $this->stop();
-
-            throw new PHPUnit_Framework_Exception(
-              sprintf(
-                "Response from Selenium RC server for %s.\n%s.\n",
-                $this->commands[count($this->commands)-1],
-                $response
-              )
+        if ($info['http_code'] != 200) {
+            throw new RuntimeException(
+              'The response from the Selenium RC server is invalid: ' .
+              $response
             );
         }
 
         return $response;
+    }
+
+    protected function preprocessParameters($params)
+    {
+        foreach ($params as $key => $param ) {
+            if (is_string($param) && (strlen($param) > 0)) {
+                $params[$key] = $this->getString('getExpression', array($param));
+            }
+        }
+        return $params;
     }
 
     /**
@@ -944,10 +1003,8 @@ class PHPUnit_Extensions_SeleniumTestCase_Driver
             case 'false': return FALSE;
 
             default: {
-                $this->stop();
-
                 throw new PHPUnit_Framework_Exception(
-                  'Result is neither "true" nor "false": ' . PHPUnit_Util_Type::toString($result, TRUE)
+                  'Result is neither "true" nor "false": ' . PHPUnit_Util_Type::export($result)
                 );
             }
         }
@@ -968,10 +1025,8 @@ class PHPUnit_Extensions_SeleniumTestCase_Driver
         $result = $this->getString($command, $arguments);
 
         if (!is_numeric($result)) {
-            $this->stop();
-
             throw new PHPUnit_Framework_Exception(
-              'Result is not numeric: ' . PHPUnit_Util_Type::toString($result, TRUE)
+              'Result is not numeric: ' . PHPUnit_Util_Type::export($result)
             );
         }
 
@@ -995,8 +1050,6 @@ class PHPUnit_Extensions_SeleniumTestCase_Driver
         }
 
         catch (RuntimeException $e) {
-            $this->stop();
-
             throw $e;
         }
 
@@ -1061,16 +1114,25 @@ class PHPUnit_Extensions_SeleniumTestCase_Driver
     protected function assertCommand($command, $arguments, $info)
     {
         $method = $info['originalMethod'];
+        $requiresTarget = $info['requiresTarget'];
         $result = $this->__call($method, $arguments);
 
         if ($info['isBoolean']) {
             if (!isset($info['negative']) || !$info['negative']) {
-	      PHPUnit_Framework_Assert::assertTrue($result, $arguments[ count($arguments) - 1 ]);
+                PHPUnit_Framework_Assert::assertTrue(
+                  $result, $arguments[count($arguments) - 1]
+                );
             } else {
-	      PHPUnit_Framework_Assert::assertFalse($result, $arguments[ count($arguments) - 1 ]);
+                PHPUnit_Framework_Assert::assertFalse(
+                  $result, $arguments[count($arguments) - 1]
+                );
             }
         } else {
-            $expected = array_pop($arguments);
+            if ($requiresTarget === TRUE) {
+                $expected = $arguments[1];
+            } else {
+                $expected = $arguments[0];
+            }
 
             if (strpos($expected, 'exact:') === 0) {
                 $expected = substr($expected, strlen('exact:'));
@@ -1085,10 +1147,14 @@ class PHPUnit_Extensions_SeleniumTestCase_Driver
 
                 if (strpos($expected, 'regexp:') === 0) {
                     $expected = substr($expected, strlen('regexp:'));
-                } else if (strpos($expected, 'regexpi:') === 0) {
+                }
+
+                else if (strpos($expected, 'regexpi:') === 0) {
                     $expected        = substr($expected, strlen('regexpi:'));
                     $caseInsensitive = TRUE;
-                } else  {
+                }
+
+                else {
                     if (strpos($expected, 'glob:') === 0) {
                         $expected = substr($expected, strlen('glob:'));
                     }
@@ -1157,14 +1223,15 @@ class PHPUnit_Extensions_SeleniumTestCase_Driver
         $method     = new ReflectionMethod(__CLASS__, '__call');
         $docComment = $method->getDocComment();
 
-        if (preg_match_all('(@method\s+(\w+)\s+([\w]+)\(\))', $docComment, $matches)) {
-            foreach ($matches[2] as $method) {
-                if (preg_match('/^(get|is)([A-Z].+)$/', $method, $matches)) {
-                    $baseName  = $matches[2];
-                    $isBoolean = $matches[1] == 'is';
+        if (preg_match_all('(@method\s+(\w+)\s+([\w]+)\((.*)\))', $docComment, $matches)) {
+            foreach ($matches[2] as $methodKey => $method) {
+                if (preg_match('/^(get|is)([A-Z].+)$/', $method, $methodMatches)) {
+                    $baseName  = $methodMatches[2];
+                    $isBoolean = $methodMatches[1] == 'is';
+                    $requiresTarget = (strlen($matches[3][$methodKey]) > 0);
 
-                    if (preg_match('/^(.*)Present$/', $baseName, $matches)) {
-                        $notBaseName = $matches[1].'NotPresent';
+                    if (preg_match('/^(.*)Present$/', $baseName, $methodMatches)) {
+                        $notBaseName = $methodMatches[1].'NotPresent';
                     } else {
                         $notBaseName = 'Not'.$baseName;
                     }
@@ -1176,40 +1243,46 @@ class PHPUnit_Extensions_SeleniumTestCase_Driver
                     self::$autoGeneratedCommands['assert' . $baseName] = array(
                       'originalMethod' => $method,
                       'isBoolean'      => $isBoolean,
-                      'functionHelper' => 'assertCommand'
+                      'functionHelper' => 'assertCommand',
+                      'requiresTarget' => $requiresTarget
                     );
 
                     self::$autoGeneratedCommands['assert' . $notBaseName] = array(
                       'originalMethod' => $method,
                       'isBoolean'      => $isBoolean,
                       'negative'       => TRUE,
-                      'functionHelper' => 'assertCommand'
+                      'functionHelper' => 'assertCommand',
+                      'requiresTarget' => $requiresTarget
                     );
 
                     self::$autoGeneratedCommands['verify' . $baseName] = array(
                       'originalMethod' => $method,
                       'isBoolean'      => $isBoolean,
-                      'functionHelper' => 'verifyCommand'
+                      'functionHelper' => 'verifyCommand',
+                      'requiresTarget' => $requiresTarget
                     );
 
                     self::$autoGeneratedCommands['verify' . $notBaseName] = array(
                       'originalMethod' => $method,
                       'isBoolean'      => $isBoolean,
                       'negative'       => TRUE,
-                      'functionHelper' => 'verifyCommand'
+                      'functionHelper' => 'verifyCommand',
+                      'requiresTarget' => $requiresTarget
                     );
 
                     self::$autoGeneratedCommands['waitFor' . $baseName] = array(
                       'originalMethod' => $method,
                       'isBoolean'      => $isBoolean,
-                      'functionHelper' => 'waitForCommand'
+                      'functionHelper' => 'waitForCommand',
+                      'requiresTarget' => $requiresTarget
                     );
 
                     self::$autoGeneratedCommands['waitFor' . $notBaseName] = array(
                       'originalMethod' => $method,
                       'isBoolean'      => $isBoolean,
                       'negative'       => TRUE,
-                      'functionHelper' => 'waitForCommand'
+                      'functionHelper' => 'waitForCommand',
+                      'requiresTarget' => $requiresTarget
                     );
                 }
             }

@@ -4,7 +4,7 @@
  *
  * @package     bovigo_vfs
  * @subpackage  examples
- * @version     $Id: Example.php 124 2009-07-12 18:06:04Z google@frankkleine.de $
+ * @version     $Id$
  */
 /**
  * Example class.

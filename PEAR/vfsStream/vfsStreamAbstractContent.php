@@ -3,7 +3,6 @@
  * Base stream contents container.
  *
  * @package  bovigo_vfs
- * @version  $Id: vfsStreamAbstractContent.php 214 2010-10-07 20:57:57Z google@frankkleine.de $
  */
 /**
  * @ignore
@@ -28,6 +27,18 @@ abstract class vfsStreamAbstractContent implements vfsStreamContent
      * @var  string
      */
     protected $type;
+    /**
+     * timestamp of last access
+     *
+     * @var  int
+     */
+    protected $lastAccessed;
+    /**
+     * timestamp of last attribute modification
+     *
+     * @var  int
+     */
+    protected $lastAttributeModified;
     /**
      * timestamp of last modification
      *
@@ -61,15 +72,18 @@ abstract class vfsStreamAbstractContent implements vfsStreamContent
      */
     public function __construct($name, $permissions = null)
     {
-        $this->name         = $name;
-        $this->lastModified = time();
+        $this->name = $name;
+        $time       = time();
         if (null === $permissions) {
             $permissions = $this->getDefaultPermissions() & ~vfsStream::umask();
         }
 
-        $this->permissions  = $permissions;
-        $this->user         = vfsStream::getCurrentUser();
-        $this->group        = vfsStream::getCurrentGroup();
+        $this->lastAccessed          = $time;
+        $this->lastAttributeModified = $time;
+        $this->lastModified          = $time;
+        $this->permissions           = $permissions;
+        $this->user                  = vfsStream::getCurrentUser();
+        $this->group                 = vfsStream::getCurrentGroup();
     }
 
     /**
@@ -112,7 +126,8 @@ abstract class vfsStreamAbstractContent implements vfsStreamContent
             return true;
         }
 
-        return (substr($name, 0, strlen($this->name)) === $this->name && strpos($name, '/') !== false);
+        $segment_name = $this->name.'/';
+        return (strncmp($segment_name, $name, strlen($segment_name)) == 0);
     }
 
     /**
@@ -123,18 +138,6 @@ abstract class vfsStreamAbstractContent implements vfsStreamContent
     public function getType()
     {
         return $this->type;
-    }
-
-    /**
-     * alias for lastModified()
-     *
-     * @param   int               $filemtime
-     * @return  vfsStreamContent
-     * @see     lastModified()
-     */
-    public function setFilemtime($filemtime)
-    {
-        return $this->lastModified($filemtime);
     }
 
     /**
@@ -160,6 +163,54 @@ abstract class vfsStreamAbstractContent implements vfsStreamContent
     }
 
     /**
+     * sets last access time of the stream content
+     *
+     * @param   int               $fileatime
+     * @return  vfsStreamContent
+     * @since   0.9
+     */
+    public function lastAccessed($fileatime)
+    {
+        $this->lastAccessed = $fileatime;
+        return $this;
+    }
+
+    /**
+     * returns the last access time of the stream content
+     *
+     * @return  int
+     * @since   0.9
+     */
+    public function fileatime()
+    {
+        return $this->lastAccessed;
+    }
+
+    /**
+     * sets the last attribute modification time of the stream content
+     *
+     * @param   int               $filectime
+     * @return  vfsStreamContent
+     * @since   0.9
+     */
+    public function lastAttributeModified($filectime)
+    {
+        $this->lastAttributeModified = $filectime;
+        return $this;
+    }
+
+    /**
+     * returns the last attribute modification time of the stream content
+     *
+     * @return  int
+     * @since   0.9
+     */
+    public function filectime()
+    {
+        return $this->lastAttributeModified;
+    }
+
+    /**
      * adds content to given container
      *
      * @param   vfsStreamContainer  $container
@@ -179,7 +230,8 @@ abstract class vfsStreamAbstractContent implements vfsStreamContent
      */
     public function chmod($permissions)
     {
-        $this->permissions = $permissions;
+        $this->permissions           = $permissions;
+        $this->lastAttributeModified = time();
         clearstatcache();
         return $this;
     }
@@ -262,7 +314,8 @@ abstract class vfsStreamAbstractContent implements vfsStreamContent
      */
     public function chown($user)
     {
-        $this->user = $user;
+        $this->user                  = $user;
+        $this->lastAttributeModified = time();
         return $this;
     }
 
@@ -295,7 +348,8 @@ abstract class vfsStreamAbstractContent implements vfsStreamContent
      */
     public function chgrp($group)
     {
-        $this->group = $group;
+        $this->group                 = $group;
+        $this->lastAttributeModified = time();
         return $this;
     }
 

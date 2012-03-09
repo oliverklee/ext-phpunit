@@ -1,38 +1,29 @@
-PHP_CodeCoverage 1.0
+PHP_CodeCoverage 1.1
 ====================
 
-This is the list of changes for the PHP_CodeCoverage 1.0 release series.
+This is the list of changes for the PHP_CodeCoverage 1.1 release series.
 
-PHP_CodeCoverage 1.0.4
+PHP_CodeCoverage 1.1.2
 ----------------------
 
-* Fixed an issue where `mkdir()` was called with a wrong argument.
-* Updated list of dependencies in `package.xml`.
+* Fixed #80: Whitelisted files that do not exist lead to errors.
+* Fixed #91: Traits are not handled properly.
+* Fixed notice in `PHP_CodeCoverage_Util::resolveCoversToReflectionObjects()`.
+* The `callbable`, `implements`, and `insteadof` keywords are now properly highlighted in the HTML report.
 
-PHP_CodeCoverage 1.0.3
+PHP_CodeCoverage 1.1.1
 ----------------------
 
-* Fixed GH-32: `//@codeCoverageIgnore*` (no leading space) no longer works.
-* Fixed a bug in `PHP_CodeCoverage_Report_HTML_Node_File::getNumClasses()`.
-* Abstract methods are now excluded from code coverage statistics.
-* When the directory to which the Clover XML logfile is to be written does not exist it is created.
-* Updated bundled RGraph library to version 2010-12-24.
-* Updated bundled YUI library to version 2.8.2r1.
+* Fixed #74: Removed extraneous spaces in displayed paths in the HTML code coverage report.
+* Fixed #75: CRAP index missing from HTML code coverage report.
 
-PHP_CodeCoverage 1.0.2
+PHP_CodeCoverage 1.1.0
 ----------------------
 
-* Fixed the `version_compare()` check for Xdebug 2.2.
-
-PHP_CodeCoverage 1.0.1
-----------------------
-
-* Covered lines of uncovered files are now correctly marked as uncovered.
-* Fixed the detection of uncovered files.
-* A warning is now printed when Xdebug 2.2 (or later) is used and `xdebug.coverage_enable=0` is set.
-* Various minor performance optimizations.
-
-PHP_CodeCoverage 1.0.0
-----------------------
-
-* Initial release.
+* Added support for traits.
+* Added an option to disable the caching of `PHP_Token_Stream` objects to reduce the memory usage.
+* Refactored the collection and processing of code coverage data improving code readability and performance.
+* Refactored the generation of Clover XML and HTML reports improving code readability and testability.
+* Removed the support for multiple blacklist groups.
+* Removed the `PHP_CodeCoverage::getInstance()` and `PHP_CodeCoverage_Filter::getInstance()` methods.
+* Replaced [RGraph](http://www.rgraph.net/) with [Highcharts JS](http://www.highcharts.com/) as the JavaScript chart library used for the HTML report's code coverage dashboard.

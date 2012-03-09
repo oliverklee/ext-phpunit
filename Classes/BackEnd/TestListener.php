@@ -236,9 +236,9 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 
 		if ($e instanceof PHPUnit_Framework_ExpectationFailedException) {
 			$comparisonFailure = $e->getComparisonFailure();
-			if ($comparisonFailure instanceof PHPUnit_Framework_ComparisonFailure_String) {
-				$expected = $comparisonFailure->getExpected();
-				$actual = $comparisonFailure->getActual();
+			if ($comparisonFailure instanceof PHPUnit_Framework_ComparisonFailure) {
+				$expected = $comparisonFailure->getExpectedAsString();
+				$actual = $comparisonFailure->getActualAsString();
 
 				$diff = t3lib_div::makeInstance('t3lib_diff');
 				$this->output('<code>'. $diff->makeDiffDisplay($actual, $expected) . '</code>');

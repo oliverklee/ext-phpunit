@@ -1,22 +1,20 @@
-DbUnit 1.0
+DbUnit 1.1
 ==========
 
-This is the list of changes for the DbUnit 1.0 release series.
+This is the list of changes for the DbUnit 1.1 release series.
 
-DbUnit 1.0.2
-------------
+DbUnit 1.1.2
+-------------
 
-* Implemented proper error handling for XML dataset processing.
+* `PHPUnit_Extensions_Database_Constraint_TableIsEqual` did not work with PHPUnit 3.6 and DbUnit 1.1.
 
-DbUnit 1.0.1
-------------
+DbUnit 1.1.1
+-------------
 
-* Fixed GH-24: YAML dataset does not respect empty tables.
-* Fixed GH-25: YAML dataset only looks at columns in first row instead of entire data set.
-* Fixed MySQL dataset to respect empty tables.
-* Updated list of dependencies in `package.xml`.
+* `PHPUnit_Extensions_Database_TestCase` test cases did not work at all with PHPUnit 3.6 and DbUnit 1.1.
 
-DbUnit 1.0.0
-------------
+DbUnit 1.1.0
+-------------
 
-* Initial release as separate component.
+* Added support for MS SQL Server.
+* Added `assertTableRowCount()`.

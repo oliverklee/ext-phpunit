@@ -4,7 +4,7 @@
  *
  * @package     bovigo_vfs
  * @subpackage  examples
- * @version     $Id: FilePermissionsExample.php 194 2010-06-07 16:00:06Z google@frankkleine.de $
+ * @version     $Id$
  */
 /**
  * Example showing correct file permission support introduced with 0.7.0.

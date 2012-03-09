@@ -4,7 +4,7 @@
  *
  * @package     bovigo_vfs
  * @subpackage  examples
- * @version     $Id: FailureExampleTestCase.php 124 2009-07-12 18:06:04Z google@frankkleine.de $
+ * @version     $Id$
  */
 require_once 'PHPUnit/Framework.php';
 require_once 'vfsStream/vfsStream.php';

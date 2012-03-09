@@ -2,7 +2,7 @@
 /**
  * PHPUnit
  *
- * Copyright (c) 2010-2011, Sebastian Bergmann <sb@sebastian-bergmann.de>.
+ * Copyright (c) 2010-2012, Sebastian Bergmann <sb@sebastian-bergmann.de>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,13 +36,11 @@
  *
  * @package    PHPUnit_Selenium
  * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @copyright  2010-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
+ * @copyright  2010-2012 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @link       http://www.phpunit.de/
  * @since      File available since Release 1.0.0
  */
-
-require_once 'File/Iterator/Factory.php';
 
 /**
  * TestCase class that uses Selenium to provide
@@ -50,9 +48,9 @@ require_once 'File/Iterator/Factory.php';
  *
  * @package    PHPUnit_Selenium
  * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @copyright  2010-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
+ * @copyright  2010-2012 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 1.0.3
+ * @version    Release: 1.2.4
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 1.0.0
  *
@@ -330,6 +328,36 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
     protected $screenshotUrl = '';
 
     /**
+     * @var    integer  the number of seconds to wait before declaring
+     *                  the Selenium server not reachable
+     */
+    protected $serverConnectionTimeOut = 10;
+
+    /**
+     * @var boolean
+     */
+    private $serverRunning;
+
+    /**
+     * @var boolean
+     */
+    private static $shareSession;
+
+    /**
+     * The last sessionId used for running a test.
+     * @var string
+     */
+    private static $sessionId;
+
+    /**
+     * @param boolean
+     */
+    public static function shareSession($shareSession)
+    {
+        self::$shareSession = $shareSession;
+    }
+
+    /**
      * @param  string $name
      * @param  array  $data
      * @param  string $dataName
@@ -344,12 +372,21 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
     }
 
     /**
+     * Stops any shared session still open at the end of the current
+     * PHPUnit process.
+     */
+    public function __destruct()
+    {
+        $this->stopSession();
+    }
+
+    /**
      * @param  string $className
      * @return PHPUnit_Framework_TestSuite
      */
     public static function suite($className)
     {
-        $suite = new PHPUnit_Framework_TestSuite;
+        $suite = new PHPUnit_Extensions_SeleniumTestSuite();
         $suite->setName($className);
 
         $class            = new ReflectionClass($className);
@@ -371,7 +408,7 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
                     $browserSuite->setName($className . ': ' . $browser['name']);
 
                     foreach ($files as $file) {
-                        $browserSuite->addTest(
+                        self::addConfiguredTestTo($browserSuite,
                           new $className($file, array(), '', $browser),
                           $classGroups
                         );
@@ -384,7 +421,9 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
             // Create tests from Selenese/HTML files for single browser.
             else {
                 foreach ($files as $file) {
-                    $suite->addTest(new $className($file), $classGroups);
+                    self::addConfiguredTestTo($suite,
+                                              new $className($file),
+                                              $classGroups);
                 }
             }
         }
@@ -398,43 +437,13 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
                 foreach ($class->getMethods() as $method) {
                     if (PHPUnit_Framework_TestSuite::isPublicTestMethod($method)) {
                         $name   = $method->getName();
-                        $data   = PHPUnit_Util_Test::getProvidedData($className, $name);
-                        $groups = PHPUnit_Util_Test::getGroups($className, $name);
 
-                        // Test method with @dataProvider.
-                        if (is_array($data) || $data instanceof Iterator) {
-                            $dataSuite = new PHPUnit_Framework_TestSuite_DataProvider(
-                              $className . '::' . $name
-                            );
-
-                            foreach ($data as $_dataName => $_data) {
-                                $dataSuite->addTest(
-                                  new $className($name, $_data, $_dataName, $browser),
-                                  $groups
-                                );
-                            }
-
-                            $browserSuite->addTest($dataSuite);
-                        }
-
-                        // Test method with invalid @dataProvider.
-                        else if ($data === FALSE) {
-                            $browserSuite->addTest(
-                              new PHPUnit_Framework_Warning(
-                                sprintf(
-                                  'The data provider specified for %s::%s is invalid.',
-                                  $className,
-                                  $name
-                                )
-                              )
-                            );
-                        }
-
-                        // Test method without @dataProvider.
-                        else {
-                            $browserSuite->addTest(
-                              new $className($name, array(), '', $browser), $groups
-                            );
+                        $test = PHPUnit_Framework_TestSuite::createTest($class, $name);
+                        if ($test instanceof PHPUnit_Framework_TestCase) {
+                            $groups = PHPUnit_Util_Test::getGroups($className, $name);
+                            self::addConfiguredTestTo($browserSuite, $test, $groups);
+                        } else {
+                            $browserSuite->addTest($test);
                         }
                     }
                 }
@@ -448,49 +457,28 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
             foreach ($class->getMethods() as $method) {
                 if (PHPUnit_Framework_TestSuite::isPublicTestMethod($method)) {
                     $name   = $method->getName();
-                    $data   = PHPUnit_Util_Test::getProvidedData($className, $name);
-                    $groups = PHPUnit_Util_Test::getGroups($className, $name);
 
-                    // Test method with @dataProvider.
-                    if (is_array($data) || $data instanceof Iterator) {
-                        $dataSuite = new PHPUnit_Framework_TestSuite_DataProvider(
-                          $className . '::' . $name
-                        );
-
-                        foreach ($data as $_dataName => $_data) {
-                            $dataSuite->addTest(
-                              new $className($name, $_data, $_dataName),
-                              $groups
-                            );
-                        }
-
-                        $suite->addTest($dataSuite);
-                    }
-
-                    // Test method with invalid @dataProvider.
-                    else if ($data === FALSE) {
-                        $suite->addTest(
-                          new PHPUnit_Framework_Warning(
-                            sprintf(
-                              'The data provider specified for %s::%s is invalid.',
-                              $className,
-                              $name
-                            )
-                          )
-                        );
-                    }
-
-                    // Test method without @dataProvider.
-                    else {
-                        $suite->addTest(
-                          new $className($name), $groups
-                        );
+                    $test = PHPUnit_Framework_TestSuite::createTest($class, $name);
+                    if ($test instanceof PHPUnit_Framework_TestCase) {
+                        $groups = PHPUnit_Util_Test::getGroups($className, $name);
+                        self::addConfiguredTestTo($suite, $test, $groups);
+                    } else {
+                        $suite->addTest($test);
                     }
                 }
             }
         }
 
         return $suite;
+    }
+
+    private static function addConfiguredTestTo(PHPUnit_Framework_TestSuite $suite, PHPUnit_Framework_TestCase $test, $classGroups)
+    {
+        list ($methodName, ) = explode(' ', $test->getName());
+        $test->setDependencies(
+              PHPUnit_Util_Test::getDependencies(get_class($test), $methodName)
+        );
+        $suite->addTest($test, $classGroups);
     }
 
     /**
@@ -507,8 +495,6 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
             $result = $this->createResult();
         }
 
-        $this->result = $result;
-
         $this->collectCodeCoverageInformation = $result->getCollectCodeCoverageInformation();
 
         foreach ($this->drivers as $driver) {
@@ -517,11 +503,7 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
             );
         }
 
-        if (!$this->handleDependencies()) {
-            return;
-        }
-
-        $result->run($this);
+        parent::run($result);
 
         if ($this->collectCodeCoverageInformation) {
             $result->getCodeCoverage()->append(
@@ -535,7 +517,6 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
     /**
      * @param  array $browser
      * @return PHPUnit_Extensions_SeleniumTestCase_Driver
-     * @since  Method available since Release 1.0.0
      */
     protected function getDriver(array $browser)
     {
@@ -614,15 +595,46 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
         return $driver;
     }
 
+    public function skipWithNoServerRunning()
+    {
+        $this->serverRunning = @fsockopen($this->drivers[0]->getHost(), $this->drivers[0]->getPort(), $errno, $errstr, $this->serverConnectionTimeOut);
+        if (!$this->serverRunning) {
+            $this->markTestSkipped(
+              sprintf(
+                'Could not connect to the Selenium Server on %s:%d.',
+                $this->drivers[0]->getHost(),
+                $this->drivers[0]->getPort()
+              )
+            );
+        }
+    }
+
+    /**
+     * @return string
+     */
+    protected function prepareTestSession()
+    {
+        if (self::$shareSession && self::$sessionId !== NULL) {
+            $this->setSessionId(self::$sessionId);
+            $this->selectWindow('null');
+        } else {
+            self::$sessionId = $this->start();
+        }
+
+        return self::$sessionId;
+    }
+
     /**
      * @throws RuntimeException
      */
     protected function runTest()
     {
-        $this->start();
+        $this->skipWithNoServerRunning();
+
+        $this->prepareTestSession();
 
         if (!is_file($this->getName(FALSE))) {
-            parent::runTest();
+            $result = parent::runTest();
         } else {
             $this->runSelenese($this->getName(FALSE));
         }
@@ -631,12 +643,18 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
             $this->fail(implode("\n", $this->verificationErrors));
         }
 
-        try {
-            $this->stop();
+        if (!self::$shareSession) {
+            $this->stopSession();
         }
 
-        catch (RuntimeException $e) {
-        }
+        return $result;
+    }
+
+    private function stopSession()
+    {
+        try {
+            $this->stop();
+        } catch (RuntimeException $e) { }
     }
 
     /**
@@ -787,7 +805,6 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
      * @param  string $selectLocator
      * @param  string $option
      * @param  string $message
-     * @since  Method available since Release 3.2.0
      */
     public function assertSelectHasOption($selectLocator, $option, $message = '')
     {
@@ -800,7 +817,6 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
      * @param  string $selectLocator
      * @param  string $option
      * @param  string $message
-     * @since  Method available since Release 3.2.0
      */
     public function assertSelectNotHasOption($selectLocator, $option, $message = '')
     {
@@ -813,7 +829,6 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
      * @param  string $selectLocator
      * @param  string $value
      * @param  string $message
-     * @since  Method available since Release 3.2.0
      */
     public function assertSelected($selectLocator, $option, $message = '')
     {
@@ -838,7 +853,6 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
      * @param  string $selectLocator
      * @param  string $value
      * @param  string $message
-     * @since  Method available since Release 3.2.0
      */
     public function assertNotSelected($selectLocator, $option, $message = '')
     {
@@ -908,7 +922,6 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
      * Template Method that is called after Selenium actions.
      *
      * @param  string $action
-     * @since  Method available since Release 3.1.0
      */
     protected function defaultAssertions($action)
     {
@@ -916,7 +929,6 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
 
     /**
      * @return array
-     * @since  Method available since Release 3.2.0
      */
     protected function getCodeCoverage()
     {
@@ -930,7 +942,12 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
             $buffer = @file_get_contents($url);
 
             if ($buffer !== FALSE) {
-                return $this->matchLocalAndRemotePaths(unserialize($buffer));
+                $coverageData = unserialize($buffer);
+                if (is_array($coverageData)) {
+                    return $this->matchLocalAndRemotePaths($coverageData);
+                } else {
+                    throw new Exception('Empty or invalid code coverage data received from url "' . $url . '"');
+                }
             }
         }
 
@@ -941,7 +958,6 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
      * @param  array $coverage
      * @return array
      * @author Mattis Stordalen Flister <mattis@xait.no>
-     * @since  Method available since Release 3.2.9
      */
     protected function matchLocalAndRemotePaths(array $coverage)
     {
@@ -968,7 +984,6 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
      * @param  string $path
      * @return string
      * @author Mattis Stordalen Flister <mattis@xait.no>
-     * @since  Method available since Release 3.2.9
      */
     protected function findDirectorySeparator($path)
     {
@@ -983,7 +998,6 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
      * @param  string $path
      * @return array
      * @author Mattis Stordalen Flister <mattis@xait.no>
-     * @since  Method available since Release 3.2.9
      */
     protected function explodeDirectories($path)
     {
@@ -994,23 +1008,16 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
      * @param  string $directory
      * @param  string $suffix
      * @return array
-     * @since  Method available since Release 1.0.0
      */
     protected static function getSeleneseFiles($directory, $suffix)
     {
-        $files    = array();
-        $iterator = File_Iterator_Factory::getFileIterator($directory, $suffix);
+        $facade = new File_Iterator_Facade;
 
-        foreach ($iterator as $file) {
-            $files[] = (string)$file;
-        }
-
-        return $files;
+        return $facade->getFilesAsArray($directory, $suffix);
     }
 
     /**
      * @param  string $action
-     * @since  Method available since Release 3.2.0
      */
     public function runDefaultAssertions($action)
     {
@@ -1025,43 +1032,95 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
      * This method is called when a test method did not execute successfully.
      *
      * @param Exception $e
-     * @since Method available since Release 3.4.0
      */
     protected function onNotSuccessfulTest(Exception $e)
     {
-        if ($e instanceof PHPUnit_Framework_ExpectationFailedException) {
-            $buffer  = 'Current URL: ' . $this->drivers[0]->getLocation() .
-                       "\n";
-            $message = $e->getCustomMessage();
+        if (!$this->serverRunning) {
+            throw $e;
+        }
 
-            if ($this->captureScreenshotOnFailure &&
-                !empty($this->screenshotPath) &&
-                !empty($this->screenshotUrl)) {
-                $this->drivers[0]->captureEntirePageScreenshot(
-                  $this->screenshotPath . DIRECTORY_SEPARATOR . $this->testId .
-                  '.png'
-                );
+        $this->restoreSessionStateAfterFailedTest();
 
-                $buffer .= 'Screenshot: ' . $this->screenshotUrl . '/' .
-                           $this->testId . ".png\n";
+        $buffer  = 'Current URL: ' . $this->drivers[0]->getLocation() .
+                   "\n";
+
+        if ($this->captureScreenshotOnFailure) {
+            $screenshotInfo = $this->takeScreenshot();
+            if ($screenshotInfo != '') {
+                $buffer .= $screenshotInfo;
             }
         }
 
-        try {
-            $this->stop();
+        $this->stopSession();
+
+        if ($e instanceof PHPUnit_Framework_ExpectationFailedException
+         && is_object($e->getComparisonFailure())) {
+            $message = $e->getComparisonFailure()->toString();
+        } else {
+            $message = $e->getMessage();
         }
 
-        catch (RuntimeException $e) {
+        $buffer .= "\n" . $message;
+
+        // gain the screenshot path, lose the stack trace
+        if ($this->captureScreenshotOnFailure) {
+            throw new PHPUnit_Framework_Error($buffer, $e->getCode(), $e->getFile(), $e->getLine(), $e->getTrace());
         }
 
-        if ($e instanceof PHPUnit_Framework_ExpectationFailedException) {
-            if (!empty($message)) {
-                $buffer .= "\n" . $message;
-            }
-
-            $e->setCustomMessage($buffer);
+        // yes to stack trace and everything
+        if ($e instanceof PHPUnit_Framework_IncompleteTestError
+         || $e instanceof PHPUnit_Framework_SkippedTestError
+         || $e instanceof PHPUnit_Framework_AssertionFailedError) {
+            throw $e;
         }
 
-        throw $e;
+        // yes to stack trace, only for F tests
+        throw new PHPUnit_Framework_Error($buffer, $e->getCode(), $e->getFile(), $e->getLine(), $e->getTrace());
+    }
+
+    private function restoreSessionStateAfterFailedTest()
+    {
+        $this->selectWindow('null');
+        self::$sessionId = NULL;
+    }
+
+    /**
+     * Returns correct path to screenshot save path.
+     *
+     * @return string
+     */
+    protected function getScreenshotPath()
+    {
+        $path = $this->screenshotPath;
+
+        if (!in_array(substr($path, strlen($path) -1, 1), array("/","\\"))) {
+            $path .= DIRECTORY_SEPARATOR;
+        }
+
+        return $path;
+    }
+
+    /**
+     * Take a screenshot and return information about it.
+     * Return an empty string if the screenshotPath and screenshotUrl
+     * properties are empty.
+     * Issue #88.
+     * 
+     * @access protected
+     * @return string
+     */
+    protected function takeScreenshot()
+    {
+        if (!empty($this->screenshotPath) &&
+            !empty($this->screenshotUrl)) {
+            $filename = $this->getScreenshotPath() . $this->testId . '.png';
+
+            $this->drivers[0]->captureEntirePageScreenshot($filename);
+
+            return 'Screenshot: ' . $this->screenshotUrl . '/' .
+                   $this->testId . ".png\n";
+        } else {
+            return '';
+        }
     }
 }

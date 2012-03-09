@@ -3,7 +3,6 @@
  * Directory container.
  *
  * @package  bovigo_vfs
- * @version  $Id: vfsStreamDirectory.php 211 2010-10-06 16:33:05Z google@frankkleine.de $
  */
 /**
  * @ignore
@@ -109,6 +108,7 @@ class vfsStreamDirectory extends vfsStreamAbstractContent implements vfsStreamCo
     public function addChild(vfsStreamContent $child)
     {
         $this->children[$child->getName()] = $child;
+        $this->updateModifications();
     }
 
     /**
@@ -122,11 +122,22 @@ class vfsStreamDirectory extends vfsStreamAbstractContent implements vfsStreamCo
         foreach ($this->children as $key => $child) {
             if ($child->appliesTo($name) === true) {
                 unset($this->children[$key]);
+                $this->updateModifications();
                 return true;
             }
         }
         
         return false;
+    }
+
+    /**
+     * updates internal timestamps
+     */
+    protected function updateModifications()
+    {
+        $time = time();
+        $this->lastAttributeModified = $time;
+        $this->lastModified          = $time;
     }
 
     /**
@@ -187,6 +198,17 @@ class vfsStreamDirectory extends vfsStreamAbstractContent implements vfsStreamCo
     protected static function getChildName($name, $ownName)
     {
         return substr($name, strlen($ownName) + 1);
+    }
+
+    /**
+     * checks whether directory contains any children
+     *
+     * @return  bool
+     * @since   0.10.0
+     */
+    public function hasChildren()
+    {
+        return (count($this->children) > 0);
     }
 
     /**

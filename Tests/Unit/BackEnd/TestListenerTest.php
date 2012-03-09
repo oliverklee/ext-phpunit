@@ -188,7 +188,9 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array('aTestName'));
 		$error = new PHPUnit_Framework_ExpectationFailedException(
-			'', new PHPUnit_Framework_ComparisonFailure_String('expected&correct', 'actual&incorrect')
+			'', new PHPUnit_Framework_ComparisonFailure(
+				'expected&correct', 'actual&incorrect', 'expected&correct', 'actual&incorrect'
+			)
 		);
 		$time = 0.0;
 
@@ -212,7 +214,9 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array('aTestName'));
 		$error = new PHPUnit_Framework_ExpectationFailedException(
-			'', new PHPUnit_Framework_ComparisonFailure_String('expected&correct', 'actual&incorrect')
+			'', new PHPUnit_Framework_ComparisonFailure(
+				'expected&correct', 'actual&incorrect', 'expected&correct', 'actual&incorrect'
+			)
 		);
 		$time = 0.0;
 
@@ -236,7 +240,9 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array('aTestName'));
 		$error = new PHPUnit_Framework_ExpectationFailedException(
-			'', new PHPUnit_Framework_ComparisonFailure_String('expected&correct', 'actual&incorrect')
+			'', new PHPUnit_Framework_ComparisonFailure(
+				'expected&correct', 'actual&incorrect', 'expected&correct', 'actual&incorrect'
+			)
 		);
 		$time = 0.0;
 
@@ -246,7 +252,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
-	public function addFailureWithComparisonFailureForTwoArraysDoesNotCrash() {
+	public function addFailureWithNullComparisonFailureDoesNotCrash() {
 		$fixture = $this->getMock(
 			'Tx_Phpunit_BackEnd_TestListener', array('output')
 		);
@@ -254,90 +260,11 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 			->will($this->returnCallback(array($this, 'outputCallback')));
 
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array('aTestName'));
-		$error = new PHPUnit_Framework_ExpectationFailedException(
-			'', new PHPUnit_Framework_ComparisonFailure_Array(array('foo'), array('bar'))
-		);
+		$error = new PHPUnit_Framework_ExpectationFailedException('', NULL);
 		$time = 0.0;
 
 		$fixture->addFailure($testCase, $error, $time);
 	}
-
-	/**
-	 * @test
-	 */
-	public function addFailureWithComparisonFailureForTwoObjectsDoesNotCrash() {
-		$fixture = $this->getMock(
-			'Tx_Phpunit_BackEnd_TestListener', array('output')
-		);
-		$fixture->expects($this->any())->method('output')
-			->will($this->returnCallback(array($this, 'outputCallback')));
-
-		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array('aTestName'));
-		$error = new PHPUnit_Framework_ExpectationFailedException(
-			'', new PHPUnit_Framework_ComparisonFailure_Object(new stdClass(), new stdClass())
-		);
-		$time = 0.0;
-
-		$fixture->addFailure($testCase, $error, $time);
-	}
-
-	/**
-	 * @test
-	 */
-	public function addFailureWithComparisonFailureForTwoIntegersDoesNotCrash() {
-		$fixture = $this->getMock(
-			'Tx_Phpunit_BackEnd_TestListener', array('output')
-		);
-		$fixture->expects($this->any())->method('output')
-			->will($this->returnCallback(array($this, 'outputCallback')));
-
-		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array('aTestName'));
-		$error = new PHPUnit_Framework_ExpectationFailedException(
-			'', new PHPUnit_Framework_ComparisonFailure_Scalar(8, 9)
-		);
-		$time = 0.0;
-
-		$fixture->addFailure($testCase, $error, $time);
-	}
-
-	/**
-	 * @test
-	 */
-	public function addFailureWithComparisonFailureForTwoFloatsDoesNotCrash() {
-		$fixture = $this->getMock(
-			'Tx_Phpunit_BackEnd_TestListener', array('output')
-		);
-		$fixture->expects($this->any())->method('output')
-			->will($this->returnCallback(array($this, 'outputCallback')));
-
-		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array('aTestName'));
-		$error = new PHPUnit_Framework_ExpectationFailedException(
-			'', new PHPUnit_Framework_ComparisonFailure_Scalar(1.2, 2.3)
-		);
-		$time = 0.0;
-
-		$fixture->addFailure($testCase, $error, $time);
-	}
-
-	/**
-	 * @test
-	 */
-	public function addFailureWithComparisonFailureForTwoTypesDoesNotCrash() {
-		$fixture = $this->getMock(
-			'Tx_Phpunit_BackEnd_TestListener', array('output')
-		);
-		$fixture->expects($this->any())->method('output')
-			->will($this->returnCallback(array($this, 'outputCallback')));
-
-		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array('aTestName'));
-		$error = new PHPUnit_Framework_ExpectationFailedException(
-			'', new PHPUnit_Framework_ComparisonFailure_Type(new stdClass(), 'anotherClass')
-		);
-		$time = 0.0;
-
-		$fixture->addFailure($testCase, $error, $time);
-	}
-
 
 	/**
 	 * @test
