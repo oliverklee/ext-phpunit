@@ -1,0 +1,123 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>vfsStream</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><script xmlns="" type="text/javascript" src="js/sidebar.js"></script><div xmlns="" id="sidebar">
+<div id="sidebar-header">
+<h1>vfsStream</h1>
+<div style="clear: both"></div>
+</div>
+<div id="sidebar-nav">
+<h3 id="sidebar-dashboard">
+<img class="icon" src="css/docblox/images/icons/dashboard.png" alt="Dashboard"><a href="content.html" class="link" target="content">Dashboard</a>
+</h3>
+<div style="display: none"></div>
+<h3 id="sidebar-files">
+<img src="css/docblox/images/icons/files.png" alt="Files"><a href="#files">Files</a>
+</h3>
+<div class="sidebar-section">
+<div class="search-bar">
+<a href="#" onclick="$(this).parent().next().find('.collapsable-hitarea').click(); return false;"><img src="images/collapse_all.png" title="Collapse all" alt="Collapse all"></a><a href="#" onclick="$(this).parent().next().find('.expandable-hitarea').click(); return false;"><img src="images/expand_all.png" title="Expand all" alt="Expand all"></a><div><input type="text" onkeyup="tree_search(this);"></div>
+</div>
+<ul class="sidebar-nav-tree">
+<li class="closed">
+<span class="file"><a href="db_vfsStream.html" target="content">vfsStream.php</a></span><ul id="files_5a62a0dcc9a34d04a39759963916690a" class="filetree"><li><span class="class"><a href="db_vfsStream.html#%5CvfsStream" target="content">vfsStream<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_vfsStreamAbstractContent.html" target="content">vfsStreamAbstractContent.php</a></span><ul id="files_a4b5f36893f2ae52cd78e71f28f82411" class="filetree"><li><span class="class"><a href="db_vfsStreamAbstractContent.html#%5CvfsStreamAbstractContent" target="content">vfsStreamAbstractContent<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_vfsStreamContainer.html" target="content">vfsStreamContainer.php</a></span><ul id="files_0d9da2cd2d3f33b7f2f647493e55e984" class="filetree"><li><span class="interface"><a href="db_vfsStreamContainer.html#%5CvfsStreamContainer" target="content">vfsStreamContainer<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_vfsStreamContainerIterator.html" target="content">vfsStreamContainerIterator.php</a></span><ul id="files_3c95b26781147390b1c5347361b7303e" class="filetree"><li><span class="class"><a href="db_vfsStreamContainerIterator.html#%5CvfsStreamContainerIterator" target="content">vfsStreamContainerIterator<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_vfsStreamContent.html" target="content">vfsStreamContent.php</a></span><ul id="files_12b9ad1706e1aaca4a8bd4377bac35e1" class="filetree"><li><span class="interface"><a href="db_vfsStreamContent.html#%5CvfsStreamContent" target="content">vfsStreamContent<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_vfsStreamDirectory.html" target="content">vfsStreamDirectory.php</a></span><ul id="files_e7102d927fe05d1585abca4784089351" class="filetree"><li><span class="class"><a href="db_vfsStreamDirectory.html#%5CvfsStreamDirectory" target="content">vfsStreamDirectory<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_vfsStreamException.html" target="content">vfsStreamException.php</a></span><ul id="files_4141c4c5884957b23c4c83bbb3f442bf" class="filetree"><li><span class="class"><a href="db_vfsStreamException.html#%5CvfsStreamException" target="content">vfsStreamException<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_vfsStreamFile.html" target="content">vfsStreamFile.php</a></span><ul id="files_65b6bac0af660575072558bde9a56364" class="filetree"><li><span class="class"><a href="db_vfsStreamFile.html#%5CvfsStreamFile" target="content">vfsStreamFile<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_vfsStreamWrapper.html" target="content">vfsStreamWrapper.php</a></span><ul id="files_dee52002246a7cb671f954d40e9746e5" class="filetree"><li><span class="class"><a href="db_vfsStreamWrapper.html#%5CvfsStreamWrapper" target="content">vfsStreamWrapper<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_visitor_vfsStreamAbstractVisitor.html" target="content">visitor/vfsStreamAbstractVisitor.php</a></span><ul id="files_3ff6166785ffc1ad970d93579a64d45b" class="filetree"><li><span class="class"><a href="db_visitor_vfsStreamAbstractVisitor.html#%5CvfsStreamAbstractVisitor" target="content">vfsStreamAbstractVisitor<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_visitor_vfsStreamPrintVisitor.html" target="content">visitor/vfsStreamPrintVisitor.php</a></span><ul id="files_846fbbe048768ddee33fe5df75c2ba6d" class="filetree"><li><span class="class"><a href="db_visitor_vfsStreamPrintVisitor.html#%5CvfsStreamPrintVisitor" target="content">vfsStreamPrintVisitor<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_visitor_vfsStreamStructureVisitor.html" target="content">visitor/vfsStreamStructureVisitor.php</a></span><ul id="files_b11549892a18dee46dc52036718aff4b" class="filetree"><li><span class="class"><a href="db_visitor_vfsStreamStructureVisitor.html#%5CvfsStreamStructureVisitor" target="content">vfsStreamStructureVisitor<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_visitor_vfsStreamVisitor.html" target="content">visitor/vfsStreamVisitor.php</a></span><ul id="files_4f0863a0adff44168e8e2141fc1ec3dd" class="filetree"><li><span class="interface"><a href="db_visitor_vfsStreamVisitor.html#%5CvfsStreamVisitor" target="content">vfsStreamVisitor<br></a></span></li></ul>
+</li>
+</ul>
+</div>
+<h3 id="sidebar-packages">
+<img src="css/docblox/images/icons/packages.png" alt="Packages"><a href="#packages">Packages</a>
+</h3>
+<div class="sidebar-section sidebar-tree">
+<div class="search-bar">
+<a href="#" onclick="$(this).parent().next().find('.collapsable-hitarea').click(); return false;"><img src="images/collapse_all.png" title="Collapse all" alt="Collapse all"></a><a href="#" onclick="$(this).parent().next().find('.expandable-hitarea').click(); return false;"><img src="images/expand_all.png" title="Expand all" alt="Expand all"></a><div><input type="text" onkeyup="tree_search(this);"></div>
+</div>
+<ul class="sidebar-nav-tree"><li class="closed">
+<span class="folder">bovigo</span><ul><li class="closed">
+<span class="folder">vfs</span><ul>
+<li class="closed">
+<span class="folder">visitor</span><ul>
+<li><span class="class"><a href="db_visitor_vfsStreamAbstractVisitor.html#%5CvfsStreamAbstractVisitor" target="content">vfsStreamAbstractVisitor</a></span></li>
+<li><span class="class"><a href="db_visitor_vfsStreamPrintVisitor.html#%5CvfsStreamPrintVisitor" target="content">vfsStreamPrintVisitor</a></span></li>
+<li><span class="class"><a href="db_visitor_vfsStreamStructureVisitor.html#%5CvfsStreamStructureVisitor" target="content">vfsStreamStructureVisitor</a></span></li>
+<li><span class="interface"><a href="db_visitor_vfsStreamVisitor.html#%5CvfsStreamVisitor" target="content">vfsStreamVisitor</a></span></li>
+</ul>
+</li>
+<li><span class="class"><a href="db_vfsStream.html#%5CvfsStream" target="content">vfsStream</a></span></li>
+<li><span class="class"><a href="db_vfsStreamAbstractContent.html#%5CvfsStreamAbstractContent" target="content">vfsStreamAbstractContent</a></span></li>
+<li><span class="interface"><a href="db_vfsStreamContainer.html#%5CvfsStreamContainer" target="content">vfsStreamContainer</a></span></li>
+<li><span class="class"><a href="db_vfsStreamContainerIterator.html#%5CvfsStreamContainerIterator" target="content">vfsStreamContainerIterator</a></span></li>
+<li><span class="interface"><a href="db_vfsStreamContent.html#%5CvfsStreamContent" target="content">vfsStreamContent</a></span></li>
+<li><span class="class"><a href="db_vfsStreamDirectory.html#%5CvfsStreamDirectory" target="content">vfsStreamDirectory</a></span></li>
+<li><span class="class"><a href="db_vfsStreamException.html#%5CvfsStreamException" target="content">vfsStreamException</a></span></li>
+<li><span class="class"><a href="db_vfsStreamFile.html#%5CvfsStreamFile" target="content">vfsStreamFile</a></span></li>
+<li><span class="class"><a href="db_vfsStreamWrapper.html#%5CvfsStreamWrapper" target="content">vfsStreamWrapper</a></span></li>
+</ul>
+</li></ul>
+</li></ul>
+</div>
+<h3 id="sidebar-charts">
+<img src="css/docblox/images/icons/chart.png" alt="Charts"><a href="#charts">Charts</a>
+</h3>
+<div class="sidebar-section"><ul style="list-style-image: url('css/docblox/images/icons/chart15x12.png');"><li><a href="graph.html" target="content">Class Inheritance Diagram</a></li></ul></div>
+<h3 id="sidebar-reports">
+<img src="css/docblox/images/icons/reports.png" alt="Reports"><a href="#reports">Reports</a>
+</h3>
+<div class="sidebar-section"><ul style="list-style-image: url('css/docblox/images/icons/reports9x12.png');">
+<li><a href="report_markers.html" target="content">Markers (TODO/FIXME)</a></li>
+<li><a href="report_parse_markers.html" target="content">Parsing errors</a></li>
+<li><a href="report_deprecated.html" target="content">Deprecated elements</a></li>
+</ul></div>
+</div>
+<div id="sidebar-footer">
+        Documentation is generated by <a href="http://docblox-project.org" target="_top"><img src="images/icon48x48.png" height="12" align="top" alt="Logo"> DocBlox 0.18.1</a>, images courtesy of <a href="http://glyphish.com/" target="_top">Glyphish</a>
+</div>
+</div></body></html>
