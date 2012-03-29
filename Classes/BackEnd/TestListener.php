@@ -198,7 +198,7 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 		echo '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadError");/*]]>*/</script>
 			<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
 				$this->currentDataProviderNumber . '","testcaseError");/*]]>*/</script>
-			<strong><span class="hadError">!</span> Error</strong> in test case <em>' . $test->getName() . '</em>
+			<strong>Error</strong> in test case <em>' . $test->getName() . '</em>
 			<br />File: <em>' . $fileName . '</em>
 			<br />Line: <em>' . $lineNumber . '</em>' .
 			'<div class="message">' . nl2br(htmlspecialchars($e->getMessage())) . '</div>';
@@ -222,7 +222,7 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 			'<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadFailure");/*]]>*/</script>' .
 				'<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
 				$this->currentDataProviderNumber . '","testcaseFailure");/*]]>*/</script>' .
-				'<strong><span class="hadFailure">!</span> Failure</strong> in test case <em>' . $test->getName() . '</em>' .
+				'<strong>Failure</strong> in test case <em>' . $test->getName() . '</em>' .
 				'<br />File: <em>' . $fileName . '</em>' .
 				'<br />Line: <em>' . $testCaseTraceArr['line'] . '</em>'
 		);
@@ -281,7 +281,7 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 			'<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadNotImplemented");/*]]>*/</script>' .
 				'<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
 				$this->currentDataProviderNumber . '","testcaseNotImplemented");/*]]>*/</script>' .
-				'<span class="inCompleteTest">!</span> <strong>Incomplete test</strong> <em>' . $test->getName() .
+				'<strong>Incomplete test</strong> <em>' . $test->getName() .
 				'</em> in file <em>' . $e->getFile() . '</em> line <em>' . $e->getLine() . '</em>:<br />' .
 				$e->getMessage() . '<br />'
 		);
@@ -301,7 +301,7 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 			'<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadSkipped");/*]]>*/</script>' .
 				'<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
 				$this->currentDataProviderNumber . '","testcaseSkipped");/*]]>*/</script>' .
-				'<span class="inSkippedTest">!</span> <strong>Skipped test</strong> <em>' . $test->getName() . '</em> in file <em>' .
+				'<strong>Skipped test</strong> <em>' . $test->getName() . '</em> in file <em>' .
 				$e->getFile() . '</em> line <em>' . $e->getLine() . '</em>:<br />' .
 				$e->getMessage() . '<br />'
 		);
