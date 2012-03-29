@@ -2,7 +2,7 @@
 /***************************************************************
  * Copyright notice
  *
- * (c) 2009-2011 AOE media GmbH <dev@aoemedia.de>
+ * (c) 2009-2012 AOE media GmbH <dev@aoemedia.de>
  * All rights reserved
  *
  * This script is part of the TYPO3 project. The TYPO3 project is
@@ -60,7 +60,7 @@ class Tx_Phpunit_Cli_TestRunner extends t3lib_cli {
 				'synopsis' => $this->extKey . ' command [clientId] ###OPTIONS###',
 				'description' => 'This script can update a list of several caches (per CLI-call can one cache be updated)',
 				'examples' => 'typo3/cli_dispatch.phpsh',
-				'author' => '(c) 2009-2011 AOE media GmbH <dev@aoemedia.de>',
+				'author' => '(c) 2009-2012 AOE media GmbH <dev@aoemedia.de>',
 			)
 		);
 	}
