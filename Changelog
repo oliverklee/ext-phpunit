@@ -1,3 +1,7 @@
+2012-03-29 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #33588: path to locallang in ext_tables.php is wrong
+	* Fixed Bug #34701: Update the copyrights to 2012
+
 2012-03-09 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #28117: Update to the latest versions of PHPUnit and vfsStream
 

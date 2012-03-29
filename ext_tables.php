@@ -5,7 +5,7 @@ if (!defined('TYPO3_MODE')) {
 
 $TCA['tx_phpunit_test'] = array(
 	'ctrl' => array(
-		'title' => 'LLL:EXT:phpunit/locallang_db.xml:tx_phpunit_test',
+		'title' => 'LLL:EXT:phpunit/Resource/Private/Language/locallang_backend.xml:tx_phpunit_test',
 		'readOnly' => 1,
 		'adminOnly' => 1,
 		'rootLevel' => 1,
@@ -28,7 +28,7 @@ $TCA['tx_phpunit_test'] = array(
 
 //$TCA['tx_phpunit_testchild'] = array(
 //	'ctrl' => array(
-//		'title' => 'LLL:EXT:phpunit/locallang_db.xml:tx_phpunit_test',
+//		'title' => 'LLL:EXT:phpunit/Resource/Private/Language/locallang_backend.xml:tx_phpunit_test',
 //		'readOnly' => 1,
 //		'adminOnly' => 1,
 //		'rootLevel' => 1,

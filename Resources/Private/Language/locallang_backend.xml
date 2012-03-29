@@ -35,6 +35,8 @@
 			<label index="testing_success">Success!</label>
 			<label index="testing_failure">Failures!</label>
 			<label index="run_selenium_tests">Run Selenium Tests</label>
+			<label index="tx_phpunit_test">PHPUnit test records</label>
+			<label index="tx_phpunit_test.title">Title</label>
 		</languageKey>
 		<languageKey index="dk" type="array">
 			<label index="mlang_tabs_tab">PHPUnit</label>
@@ -77,6 +79,8 @@
 			<label index="tests_seconds">Sekunden</label>
 			<label index="tests_leaks">Speicherlecks</label>
 			<label index="title">PHPUnit BE</label>
+			<label index="tx_phpunit_test">PHPUnit-Testdatensätze</label>
+			<label index="tx_phpunit_test.title">Titel</label>
 		</languageKey>
 	</data>
 	<orig_hash type="array">
@@ -121,6 +125,8 @@
 			<label index="tests_seconds" type="integer">126085346</label>
 			<label index="title" type="integer">94470161</label>
 			<label index="tests_leaks" type="integer">101762851</label>
+			<label index="tx_phpunit_test" type="integer">218058741</label>
+			<label index="tx_phpunit_test.title" type="integer">192455458</label>
 		</languageKey>
 	</orig_hash>
 	<orig_text type="array">
@@ -167,6 +173,8 @@
 			<label index="tests_seconds">seconds</label>
 			<label index="title">PHPUnit BE</label>
 			<label index="tests_leaks">memory leaks</label>
+			<label index="tx_phpunit_test">PHPUnit test records</label>
+			<label index="tx_phpunit_test.title">Title</label>
 		</languageKey>
 	</orig_text>
 </T3locallang>
