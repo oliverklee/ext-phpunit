@@ -1,4 +1,5 @@
 2012-03-31 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #35419: The progress bar should have a fixed width
 	* Fixed Bug #35374: If there is an error, the results bar at the bottom needs to be red instead of yellow
 
 2012-03-29 Oliver Klee <typo3-coding@oliverklee.de>
