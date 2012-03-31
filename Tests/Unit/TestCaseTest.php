@@ -34,6 +34,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	public function newArrayIsEmpty() {
 		$fixture = array();
 
+//		throw new Exception('boo!');
 		$this->assertEquals(0, sizeof($fixture));
 	}
 

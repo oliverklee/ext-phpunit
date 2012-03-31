@@ -1,3 +1,6 @@
+2012-03-31 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #35374: If there is an error, the results bar at the bottom needs to be red instead of yellow
+
 2012-03-29 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #12154: Use the whole frame width for the bar and the test names
 	* Fixed Bug #32078: Change colors

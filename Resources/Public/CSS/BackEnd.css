@@ -85,25 +85,9 @@ body#typo3-mod-php {
 	border-bottom: 1px solid #999999;
 }
 
-.wasSuccessful {
-	background-color: green;
-}
-
-.hadFailure {
-	background-color: yellow;
-}
-
-.hadError {
-	background-color: red;
-}
-
-.inCompleteTest {
-	color: grey;
-}
-
 .testcaseOutput .message {
 	margin: 4px;
-	border: 1px solid #ccc;
+	border: 1px solid #999;
 	padding: 4px;
 	background-color: white;
 }
@@ -129,17 +113,21 @@ body#typo3-mod-php {
 	white-space: normal;
 }
 
+.testcaseOutput {
+	border: 1px solid #999;
+}
+
 .testcaseOutput h3 {
 	padding: 2px 4px;
-	background-color: #7f7;
+	background-color: #afa;
 }
 
 .testcaseFailure h3 {
-	background-color: #ff7;
+	background-color: #ffa;
 }
 
 .testcaseError h3 {
-	background-color: #f77;
+	background-color: #faa;
 }
 
 .testcaseNotImplemented h3 {
@@ -176,7 +164,7 @@ body#typo3-mod-php {
 }
 
 html {
-	background-color: #F8F8F8;
+	background-color: #f8f8f8;
 }
 
 th, td {
@@ -187,25 +175,17 @@ th, td {
 	font-size: 13px;
 }
 .wasSuccessful {
-	color: #3b7826;
 	background-color: #0f0;
-	border-color: #58b548;
 }
 .hadFailure {
 	color: #000;
 	background-color: #ff0;
-	border-color: #b1905c;
 }
 .hadError {
 	color: #000;
-	background-color: #0f0;
-	border-color: #d66c68;
+	background-color: #f33;
 }
 h2.wasSuccessful, h2.hadFailure, h2.hadError {
 	padding: 2px 5px;
-	border-width: 1px;
-	border-style: solid;
-}
-#progress-bar.wasSuccessful {
-	width: 100%;
+	border: 1px solid #000;
 }

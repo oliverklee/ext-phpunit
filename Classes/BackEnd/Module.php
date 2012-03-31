@@ -654,8 +654,13 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		if ($result->wasSuccessful()) {
 			$testStatistics = '<h2 class="wasSuccessful">' . $this->translate('testing_success') . '</h2>';
 		} else {
-			$testStatistics = '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadFailure");/*]]>*/</script>
-				<h2 class="hadFailure">' . $this->translate('testing_failure') . '</h2>';
+			if ($result->errorCount() > 0) {
+				$testStatistics = '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadError");/*]]>*/</script>
+					<h2 class="hadError">' . $this->translate('testing_failure') . '</h2>';
+			} else {
+				$testStatistics = '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadFailure");/*]]>*/</script>
+					<h2 class="hadFailure">' . $this->translate('testing_failure') . '</h2>';
+			}
 		}
 		$testStatistics .= '<p>' . $result->count() . ' ' . $this->translate('tests_total') . ', ' . $testListener->assertionCount() . ' ' .
 			$this->translate('assertions_total') . ', ' . $result->failureCount() . ' ' . $this->translate('tests_failures') .
