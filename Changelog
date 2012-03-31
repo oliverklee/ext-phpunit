@@ -1,4 +1,5 @@
 2012-03-29 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #12154: Use the whole frame width for the bar and the test names
 	* Fixed Bug #32078: Change colors
 	* Fixed Bug #33820: Fix all deprecation log warnings
 	* Fixed Bug #33588: path to locallang in ext_tables.php is wrong
