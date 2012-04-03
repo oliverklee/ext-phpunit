@@ -1,3 +1,6 @@
+2012-04-01 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #26089: Tests from required extensions are not found (thanks to Christian Kuhn)
+
 2012-03-31 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #35419: The progress bar should have a fixed width
 	* Fixed Bug #35374: If there is an error, the results bar at the bottom needs to be red instead of yellow

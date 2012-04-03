@@ -237,13 +237,10 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			return;
 		}
 
-		$extensionsWithTestSuites = $this->getExtensionsWithTestSuites();
-		ksort($extensionsWithTestSuites);
-
 		$output = $this->createExtensionSelector();
 		if ($this->MOD_SETTINGS['extSel'] && ($this->MOD_SETTINGS['extSel'] !== Tx_Phpunit_TestableCode::ALL_EXTENSIONS)) {
-			$output .= $this->createTestCaseSelector($extensionsWithTestSuites, $this->MOD_SETTINGS['extSel']) .
-				$this->createTestSelector($extensionsWithTestSuites, $this->MOD_SETTINGS['extSel']);
+			$output .= $this->createTestCaseSelector($this->MOD_SETTINGS['extSel']) .
+				$this->createTestSelector($this->MOD_SETTINGS['extSel']);
 		}
 		$output .= $this->createCheckboxes();
 
@@ -299,8 +296,6 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	/**
 	 * Renders a drop-down for running single tests cases for the given extension.
 	 *
-	 * @param array<array><string> $extensionsWithTestSuites
-	 *        keys of the extensions for which test suites exist
 	 * @param string $extensionKey
 	 *        keys of the extension for which to render the drop-down
 	 *
@@ -308,18 +303,17 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 *         HTML code with the drop-down and a surrounding form, will be empty
 	 *         if no loaded single extension is selected
 	 */
-	protected function createTestCaseSelector(array $extensionsWithTestSuites, $extensionKey) {
+	protected function createTestCaseSelector($extensionKey) {
 		if (!$this->getTestFinder()->existsTestableCodeForKey($extensionKey)) {
 			return '';
 		}
 
-		// Loads the files containing test cases from extensions.
-		if (isset($extensionsWithTestSuites[$extensionKey])) {
-			foreach ($extensionsWithTestSuites[$extensionKey] as $path => $fileNames) {
-				foreach ($fileNames as $fileName) {
-					require_once($path . $fileName);
-				}
-			}
+		$testableCodeOfEverything = $this->getTestFinder()->getTestableCodeForEverything();
+		$testsPathOfExtension = $testableCodeOfEverything[$extensionKey]->getTestsPath();
+		$testSuites = $this->getTestFinder()->findTestCasesInDirectory($testsPathOfExtension);
+
+		foreach ($testSuites as $fileName) {
+			require_once($testsPathOfExtension . $fileName);
 		}
 
 		// Adds all classes to the test suite which end with "testcase" (case-insensitive)
@@ -367,20 +361,15 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * @return string
 	 *         HTML code with the drop-down and a surrounding form
 	 */
-	protected function createTestSelector(
-		array $extensionsWithTestSuites, $extensionKey
-	) {
+	protected function createTestSelector($extensionKey) {
 		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
 
-		// Loads the files containing test cases from extensions.
-		$paths = $extensionsWithTestSuites[$extensionKey];
+		$testableCodeOfEverything = $this->getTestFinder()->getTestableCodeForEverything();
+		$testsPathOfExtension = $testableCodeOfEverything[$extensionKey]->getTestsPath();
+		$testSuites = $this->getTestFinder()->findTestCasesInDirectory($testsPathOfExtension);
 
-		if (isset($paths)) {
-			foreach ($paths as $path => $fileNames) {
-				foreach ($fileNames as $fileName) {
-					require_once($path . $fileName);
-				}
-			}
+		foreach ($testSuites as $fileName) {
+			require_once($testsPathOfExtension . $fileName);
 		}
 
 		// Adds all classes to the test suite which end with "testcase" (case-insensitive)
@@ -498,27 +487,25 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			$this->simulateFrontendEnviroment();
 		}
 
-		$extensionsWithTestSuites = $this->getExtensionsWithTestSuites();
 		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
-		$extensionKeysToProcess = array();
+		$extensionKeysToProcess = $this->getTestFinder()->getTestableCodeForEverything();
 		if ($this->MOD_SETTINGS['extSel'] === Tx_Phpunit_TestableCode::ALL_EXTENSIONS) {
 			$this->output('<h1>' . $this->translate('testing_all_extensions') . '</h1>');
-			$extensionKeysToProcess = array_keys($extensionsWithTestSuites);
 		} else {
 			$this->output(
 				'<h1>' . $this->translate('testing_extension') . ': ' .
 					htmlspecialchars($this->MOD_SETTINGS['extSel']) . '</h1>'
 			);
-			$extInfo = $extensionsWithTestSuites[$this->MOD_SETTINGS['extSel']];
-			$extensionsWithTestSuites = array();
-			$extensionsWithTestSuites[$this->MOD_SETTINGS['extSel']] = $extInfo;
-			$extensionKeysToProcess = array($this->MOD_SETTINGS['extSel']);
+			$extensionKeysToProcess = array($extensionKeysToProcess[$this->MOD_SETTINGS['extSel']]);
 		}
 
 		// Loads the files containing test cases from extensions.
-		foreach ($extensionKeysToProcess as $extensionKey) {
-			$paths = $extensionsWithTestSuites[$extensionKey];
-			$this->loadRequiredTestClasses($paths);
+		foreach ($extensionKeysToProcess as $extension) {
+			$testsPathOfExtension = $extension->getTestsPath();
+			$testSuites = $this->getTestFinder()->findTestCasesInDirectory($testsPathOfExtension);
+			foreach ($testSuites as $fileName) {
+				require_once(realpath($testsPathOfExtension . $fileName));
+			}
 		}
 
 		// Adds all classes to the test suite which end with "testcase" or "Test".
@@ -781,46 +768,6 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			<script type="text/javascript">/*<![CDATA[*/if (window.name === "phpunitbe") { document.getElementById("opennewwindow").style.display = "none"; }/*]]>*/</script>';
 
 		return $content;
-	}
-
-	/**
-	 * Scans all available extensions for test case files.
-	 *
-	 * @return array<array><string>
-	 *         first-level array keys: extension key
-	 *         second level array values: paths to the test case files relative
-	 *         to the extension directory
-	 */
-	protected function getExtensionsWithTestSuites() {
-		$excludeExtensions = t3lib_div::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['excludeextensions']);
-
-		$extList = explode(',', $GLOBALS['TYPO3_CONF_VARS']['EXT']['extList']);
-
-		$extensionsOwnTestCases = array();
-		foreach ($extList as $extKey) {
-			$extPath = t3lib_extMgm::extPath($extKey);
-			if (is_dir($extPath . 'Tests/')) {
-				$testCasesDirectory = $extPath . 'Tests/';
-			} else {
-				$testCasesDirectory = $extPath . 'tests/';
-			}
-
-			$testCasesArr = $this->findTestCasesInDir($testCasesDirectory);
-			if (!empty($testCasesArr)) {
-				$extensionsOwnTestCases[$extKey] = $testCasesArr;
-			}
-		}
-
-		$coreTestCases = array();
-		if ($this->getTestFinder()->hasCoreTests()) {
-			$coreTestCases[Tx_Phpunit_TestableCode::CORE_KEY]
-				= $this->findTestCasesInDir($this->getTestFinder()->getAbsoluteCoreTestsPath());
-		}
-
-		$totalTestsArr = array_merge_recursive($extensionsOwnTestCases, $coreTestCases);
-
-		$returnTestsArr = array_diff_key($totalTestsArr, array_flip($excludeExtensions));
-		return $returnTestsArr;
 	}
 
 	/**
