@@ -55,8 +55,6 @@ body#typo3-mod-php {
 	overflow: auto;
 }
 
-/* Now we have a somewhat sane setup. Let's style get to work styling. */
-
 .progress-bar-wrap {
 	height: 2em;
 	margin-bottom: 1em;
@@ -188,4 +186,5 @@ th, td {
 h2.wasSuccessful, h2.hadFailure, h2.hadError {
 	padding: 2px 5px;
 	border: 1px solid #000;
+	width: 790px;
 }
