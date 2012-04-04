@@ -365,7 +365,7 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 */
 	public function startTest(PHPUnit_Framework_Test $test) {
 		// A single test has to take less than this or else PHP will time out.
-		$this->setTimeLimit(30);
+		$this->setTimeLimit(240);
 
 		$this->output(
 			'<div id="testcaseNum-' . $this->currentTestNumber . '_' . $this->currentDataProviderNumber .

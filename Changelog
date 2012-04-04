@@ -1,4 +1,5 @@
 2012-04-04 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #35438: Code coverage is broken with 3.6
 	* Fixed Bug #35691: Make the results bar the same length as the progress bar
 
 2012-04-01 Oliver Klee <typo3-coding@oliverklee.de>

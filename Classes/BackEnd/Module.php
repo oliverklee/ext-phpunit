@@ -82,6 +82,11 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	);
 
 	/**
+	 * @var PHP_CodeCoverage
+	 */
+	protected $coverage = NULL;
+
+	/**
 	 * The constructor.
 	 */
 	public function __construct() {
@@ -94,7 +99,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * The destructor.
 	 */
 	public function __destruct() {
-		unset($this->testFinder);
+		unset($this->testFinder, $this->coverage);
 	}
 
 	/**
@@ -527,11 +532,9 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 
 		$result = new PHPUnit_Framework_TestResult();
 
-		// Sets to collect code coverage information.
-		if (($GLOBALS['BE_USER']->uc['moduleData']['tools_txphpunitM1']['codeCoverage'] === 'on')
-			&& extension_loaded('xdebug')
-		) {
-			$result->collectCodeCoverageInformation(TRUE);
+		if ($this->shouldCollectCodeCoverageInformation()) {
+			$this->coverage = new PHP_CodeCoverage;
+			$this->coverage->start('PHPUnit');
 		}
 
 		$testListener = new Tx_PhpUnit_BackEnd_TestListener();
@@ -671,11 +674,11 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			'<div id="testsHaveFinished"></div>'
 		);
 
-		if (!t3lib_div::_GP('testname') && $result->getCollectCodeCoverageInformation()) {
-			require_once('PHP/CodeCoverage/Report/HTML.php');
+		if ($this->shouldCollectCodeCoverageInformation()) {
+			$this->coverage->stop();
 
-			$writer =  new PHP_CodeCoverage_Report_HTML();
-			$writer->process($result->getCodeCoverage(), t3lib_extMgm::extPath('phpunit') . 'codecoverage/');
+			$coverageReport = new PHP_CodeCoverage_Report_HTML();
+			$coverageReport->process($this->coverage, t3lib_extMgm::extPath('phpunit') . 'codecoverage/');
 			$this->output(
 				'<p><a target="_blank" href="' . $this->extensionPath .
 					'codecoverage/index.html">Click here to access the Code Coverage report</a></p>' .
@@ -890,6 +893,16 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 */
 	protected function isAcceptedTestSuitClass($class) {
 		return !in_array($class, $this->ignoredTestSuitClasses);
+	}
+
+	/**
+	 * Checks whether code coverage information should be collected.
+	 *
+	 * @return boolean whether code coverage information should be collected
+	 */
+	protected function shouldCollectCodeCoverageInformation() {
+		return ($GLOBALS['BE_USER']->uc['moduleData']['tools_txphpunitM1']['codeCoverage'] === 'on')
+			&& extension_loaded('xdebug');
 	}
 }
 ?>

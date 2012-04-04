@@ -344,12 +344,12 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
-	public function startTestSetsTimeLimitOf30Seconds() {
+	public function startTestSetsTimeLimitOf240Seconds() {
 		$fixture = $this->getMock(
 			'Tx_Phpunit_BackEnd_TestListener', array('setTimeLimit', 'output')
 		);
 
-		$fixture->expects($this->once())->method('setTimeLimit')->with(30);
+		$fixture->expects($this->once())->method('setTimeLimit')->with(240);
 
 		$fixture->startTest($this->getMock('PHPUnit_Framework_TestCase'));
 	}
