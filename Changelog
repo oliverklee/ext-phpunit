@@ -1,3 +1,6 @@
+2012-04-12 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #35880: phpunit wrongly assumes that typo3_src does exist (thanks to Philipp Gampe)
+
 2012-04-04 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #35438: Code coverage is broken with 3.6
 	* Fixed Bug #35691: Make the results bar the same length as the progress bar

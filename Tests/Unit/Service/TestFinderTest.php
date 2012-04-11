@@ -154,7 +154,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 		}
 
 		$this->assertSame(
-			'typo3_src/tests/',
+			'tests/',
 			$this->fixture->getRelativeCoreTestsPath()
 		);
 	}
@@ -196,7 +196,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 		}
 
 		$this->assertSame(
-			PATH_site . 'typo3_src/tests/',
+			PATH_site . 'tests/',
 			$this->fixture->getAbsoluteCoreTestsPath()
 		);
 	}
