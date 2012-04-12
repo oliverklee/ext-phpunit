@@ -1,3 +1,6 @@
+2012-04-12 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug: The BE test runner needs to escape test names and testcase names (thanks to Andreas Lappe)
+
 2011-06-21 Oliver Klee <typo3-coding@oliverklee.de>
 	* Release version 3.5.14
 	* Fixed Bug #26573: Mark function assertType as deprecated in auto suggest
