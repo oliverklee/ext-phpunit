@@ -1,4 +1,5 @@
 2012-04-12 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug: The BE test runner needs to escape test names and testcase names (thanks to Andreas Lappe)
 	* Fixed Bug #35880: phpunit wrongly assumes that typo3_src does exist (thanks to Philipp Gampe)
 
 2012-04-04 Oliver Klee <typo3-coding@oliverklee.de>
