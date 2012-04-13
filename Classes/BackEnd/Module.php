@@ -366,6 +366,10 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 *         HTML code with the drop-down and a surrounding form
 	 */
 	protected function createTestSelector($extensionKey) {
+		if (!$this->getTestFinder()->existsTestableCodeForKey($extensionKey)) {
+			return '';
+		}
+
 		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
 
 		$testableCodeOfEverything = $this->getTestFinder()->getTestableCodeForEverything();
