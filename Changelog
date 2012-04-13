@@ -1,4 +1,5 @@
 2012-04-13 Oliver Klee <typo3-coding@oliverklee.de>
+	* Release version 3.6.10
 	* Fixed Bug #12242: The code coverage report should be in typo3temp, not in the extension directory
 	* Fixed Bug #33534: Missing cachingframework tables might break database tests (thanks to Tolleiv Nietsch)
 	* Fixed Bug #28069: Document how to use the phpunit CLI script with MAMP (thanks to Dimitri Koenig)
