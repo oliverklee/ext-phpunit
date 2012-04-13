@@ -1,4 +1,5 @@
 2012-04-13 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #28069: Document how to use the phpunit CLI script with MAMP (thanks to Dimitri Koenig)
 	* Fixed Bug #35774: Crash if the tests of the currently selected extension have been removed
 	* Fixed Bug #35943: Fix PhpStorm code inspection warnings
 
