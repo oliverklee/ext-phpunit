@@ -35,7 +35,7 @@ $GLOBALS['LANG']->includeLLFile('EXT:phpunit/Resources/Private/Language/locallan
  */
 class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	/**
-	 * @var Tx_Phpunit_BackEnd_Module
+	 * @var Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject
 	 */
 	private $fixture;
 
@@ -228,9 +228,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	public function mainForAdminBackEndUserRunsTests() {
 		$GLOBALS['BE_USER']->user['admin'] = TRUE;
 
-		$fixture = $this->getMock(
-			$this->createAccessibleProxy(), array('output', 'runTests_render')
-		);
+		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
+		$fixture = $this->getMock($this->createAccessibleProxy(), array('output', 'runTests_render'));
 		$fixture->expects($this->any())->method('output')
 			->will($this->returnCallback(array($this, 'outputCallback')));
 		$fixture->expects($this->once())->method('runTests_render');
@@ -242,6 +241,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function runTests_renderForEmptyCommandRendersIntro() {
+		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
 		$fixture = $this->getMock(
 			$this->createAccessibleProxy(),
 			array('runTests_renderIntro', 'runTests_renderRunningTest', 'output')
@@ -259,6 +259,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function runTests_renderForEmptyCommandNotRunsTests() {
+		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
 		$fixture = $this->getMock(
 			$this->createAccessibleProxy(),
 			array('runTests_renderIntro', 'runTests_renderRunningTest', 'output')
@@ -276,6 +277,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function runTests_renderForInvalidCommandRendersIntro() {
+		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
 		$fixture = $this->getMock(
 			$this->createAccessibleProxy(),
 			array('runTests_renderIntro', 'runTests_renderRunningTest', 'output')
@@ -293,6 +295,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function runTests_renderForInvalidCommandNotRunsTests() {
+		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
 		$fixture = $this->getMock(
 			$this->createAccessibleProxy(),
 			array('runTests_renderIntro', 'runTests_renderRunningTest', 'output')
@@ -310,6 +313,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function runTests_renderForRunAllTestsCommandRendersIntroAndTests() {
+		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
 		$fixture = $this->getMock(
 			$this->createAccessibleProxy(),
 			array('runTests_renderIntro', 'runTests_renderRunningTest', 'output')
@@ -328,6 +332,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function runTests_renderForRunTestCaseFileCommandRendersIntroAndTests() {
+		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
 		$fixture = $this->getMock(
 			$this->createAccessibleProxy(),
 			array('runTests_renderIntro', 'runTests_renderRunningTest', 'output')
@@ -346,6 +351,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function runTests_renderForRunSingleTestCommandRendersIntroAndTests() {
+		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
 		$fixture = $this->getMock(
 			$this->createAccessibleProxy(),
 			array('runTests_renderIntro', 'runTests_renderRunningTest', 'output')
@@ -368,6 +374,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$testFinder->expects($this->any())->method('existsTestableCodeForAnything')
 			->will($this->returnValue(FALSE));
 
+		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
 		$fixture = $this->getMock(
 			$this->createAccessibleProxy(),
 			array(
@@ -397,6 +404,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$testFinder->expects($this->any())->method('existsTestableCodeForAnything')
 			->will($this->returnValue(FALSE));
 
+		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
 		$fixture = $this->getMock(
 			$this->createAccessibleProxy(),
 			array(
@@ -419,6 +427,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function runTests_renderIntroForExistingExtensionsWithTestSuitesRendersExtensionSelector() {
+		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
 		$fixture = $this->getMock(
 			$this->createAccessibleProxy(),
 			array(
@@ -447,6 +456,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	public function runTests_renderIntroForSelectedExtensionRendersTestCaseSelector() {
 		$selectedExtension = 'phpunit';
 
+		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
 		$fixture = $this->getMock(
 			$this->createAccessibleProxy(),
 			array(
@@ -475,6 +485,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	public function runTests_renderIntroForSelectedExtensionRendersTestSelector() {
 		$selectedExtension = 'phpunit';
 
+		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
 		$fixture = $this->getMock(
 			$this->createAccessibleProxy(),
 			array(
@@ -503,6 +514,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	public function runTests_renderIntroForSelectedExtensionRendersCheckboxes() {
 		$selectedExtension = 'phpunit';
 
+		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
 		$fixture = $this->getMock(
 			$this->createAccessibleProxy(),
 			array(
@@ -552,9 +564,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		);
 		$testFinderMock->expects($this->once())->method('findTestCasesInDirectory')->with($directory);
 
-		$fixture = $this->getMock(
-			$this->createAccessibleProxy(), array('getTestFinder')
-		);
+		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
+		$fixture = $this->getMock($this->createAccessibleProxy(), array('getTestFinder'));
 		$fixture->expects($this->once())->method('getTestFinder')
 			->will($this->returnValue($testFinderMock));
 
@@ -577,9 +588,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$testFinderMock->expects($this->once())->method('findTestCasesInDirectory')
 			->will($this->returnValue($testFiles));
 
-		$fixture = $this->getMock(
-			$this->createAccessibleProxy(), array('getTestFinder')
-		);
+		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
+		$fixture = $this->getMock($this->createAccessibleProxy(), array('getTestFinder'));
 		$fixture->expects($this->once())->method('getTestFinder')
 			->will($this->returnValue($testFinderMock));
 
@@ -675,7 +685,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function isExtensionLoadedForCoreWithExistingTestsReturnsTrue() {
-		$testFinder = t3lib_div::makeInstance('Tx_Phpunit_Service_TestFinder');
+		$testFinder = new Tx_Phpunit_Service_TestFinder();
 		if (!$testFinder->hasCoreTests()) {
 			$this->markTestSkipped('This test can only be run if the TYPO3 Core unit tests are present.');
 		}
@@ -689,7 +699,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function isExtensionLoadedForCoreWithoutExistingTestsReturnsFalse() {
-		$testFinder = t3lib_div::makeInstance('Tx_Phpunit_Service_TestFinder');
+		$testFinder = new Tx_Phpunit_Service_TestFinder();
 		if ($testFinder->hasCoreTests()) {
 			$this->markTestSkipped('This test can only be run if no TYPO3 Core unit tests are present.');
 		}
@@ -713,7 +723,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function createIconStyleForCoreReturnsTypo3Icon() {
-		$testFinder = t3lib_div::makeInstance('Tx_Phpunit_Service_TestFinder');
+		$testFinder = new Tx_Phpunit_Service_TestFinder();
 		if (!$testFinder->hasCoreTests()) {
 			$this->markTestSkipped('This test can only be run if the TYPO3 Core unit tests are present.');
 		}
@@ -747,6 +757,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 */
 	public function outputOutputsOutput() {
 		$className = $this->createAccessibleProxy();
+		/** @var $fixture Tx_Phpunit_BackEnd_Module */
 		$fixture = new $className();
 
 		$output = 'Hello world!';
@@ -829,6 +840,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$selectedExtension = 'aaa';
 
 		$className = $this->createAccessibleProxy();
+		/** @var $fixture Tx_Phpunit_BackEnd_Module */
 		$fixture = new $className();
 		$fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
 
@@ -851,9 +863,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$testFinderMock->expects($this->once())->method('getTestableCodeForEverything')
 			->will($this->returnValue(array($testableCode)));
 
-		$fixture = $this->getMock(
-			$this->createAccessibleProxy(), array('getTestFinder')
-		);
+		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
+		$fixture = $this->getMock($this->createAccessibleProxy(), array('getTestFinder'));
 		$fixture->expects($this->once())->method('getTestFinder')
 			->will($this->returnValue($testFinderMock));
 

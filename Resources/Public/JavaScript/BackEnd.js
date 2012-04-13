@@ -6,6 +6,10 @@ function jumpToUrl(URL)	{	//
 	document.location = URL;
 }
 
+/**
+ * @param {string} id
+ * @param {string} className
+ */
 function setClass(id, className) {
 	YAHOO.util.Dom.replaceClass(id, 'testcaseSuccess', className);
 }
@@ -13,7 +17,7 @@ function setClass(id, className) {
 /**
  * Sets the CSS class of the progress bar.
  *
- * @param string className the class name to set, must not be empty
+ * @param {string} className the class name to set, must not be empty
  *
  * @return void
  */
@@ -107,9 +111,9 @@ function setProgressBarClass(className) {
 	/**
 	 * Maps a checkbox ID to a class name for the corresponding test results.
 	 *
-	 * @param string buttonId the ID of a checkbox, e.g. "SET_success"
+	 * @param {string} buttonId the ID of a checkbox, e.g. "SET_success"
 	 *
-	 * @return string the corresponding class name, e.g. "testcaseSuccess"
+	 * @return {string} the corresponding class name, e.g. "testcaseSuccess"
 	 */
 	var mapClasses = function (buttonId) {
 		var className;
@@ -172,7 +176,7 @@ function setProgressBarClass(className) {
 	/**
 	 * Checks whether the last displayed test has crashed. In that case, un-hides it.
 	 *
-	 * @return void
+	 * @return {void}
 	 */
 	var checkForCrashedTest = function() {
 		if ($('testsHaveFinished')) {

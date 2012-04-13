@@ -83,6 +83,7 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 
 		$method = new ReflectionMethod('tx_phpunit_Reports_Status', 'getStatus');
 		if (strlen($method->getDocComment()) > 0) {
+			/** @var $status tx_reports_reports_status_Status */
 			$status = t3lib_div::makeInstance(
 				'tx_reports_reports_status_Status',
 				$heading,
@@ -91,6 +92,7 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 				tx_reports_reports_status_Status::OK
 			);
 		} else {
+			/** @var $status tx_reports_reports_status_Status */
 			$status = t3lib_div::makeInstance(
 				'tx_reports_reports_status_Status',
 				$heading,
@@ -113,6 +115,7 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 		$heading = $this->translate('status_eAccelerator');
 
 		if (!extension_loaded('eaccelerator')) {
+			/** @var $status tx_reports_reports_status_Status */
 			$status = t3lib_div::makeInstance(
 				'tx_reports_reports_status_Status',
 				$heading,
@@ -129,6 +132,7 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 					$version
 				);
 
+				/** @var $status tx_reports_reports_status_Status */
 				$status = t3lib_div::makeInstance(
 					'tx_reports_reports_status_Status',
 					$heading,
@@ -142,6 +146,7 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 					$version
 				);
 
+				/** @var $status tx_reports_reports_status_Status */
 				$status = t3lib_div::makeInstance(
 					'tx_reports_reports_status_Status',
 					$heading,
@@ -196,6 +201,7 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 		);
 
 		if ($memoryLimitInBytes < $requiredMemoryLimitInBytes) {
+			/** @var $status tx_reports_reports_status_Status */
 			$status = t3lib_div::makeInstance(
 				'tx_reports_reports_status_Status',
 				$heading,
@@ -204,6 +210,7 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 				tx_reports_reports_status_Status::ERROR
 			);
 		} elseif ($memoryLimitInBytes < $recommendedMemoryLimitInBytes) {
+			/** @var $status tx_reports_reports_status_Status */
 			$status = t3lib_div::makeInstance(
 				'tx_reports_reports_status_Status',
 				$heading,
@@ -212,6 +219,7 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 				tx_reports_reports_status_Status::WARNING
 			);
 		} else {
+			/** @var $status tx_reports_reports_status_Status */
 			$status = t3lib_div::makeInstance(
 				'tx_reports_reports_status_Status',
 				$heading,

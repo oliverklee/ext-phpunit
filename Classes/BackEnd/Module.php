@@ -36,8 +36,6 @@
  */
 class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	/**
-	 * the extension key
-	 *
 	 * @var string
 	 */
 	const EXTENSION_KEY = 'phpunit';
@@ -50,8 +48,6 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	protected $extensionPath = '';
 
 	/**
-	 * a test finder
-	 *
 	 * @var Tx_Phpunit_Service_TestFinder
 	 */
 	protected $testFinder = NULL;
@@ -232,6 +228,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 */
 	protected function runTests_renderIntro() {
 		if (!$this->getTestFinder()->existsTestableCodeForAnything()) {
+			/** @var $message t3lib_FlashMessage */
 			$message = t3lib_div::makeInstance(
 				't3lib_FlashMessage',
 				$this->translate('could_not_find_exts_with_tests'),
@@ -269,6 +266,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$selectedExtensionStyle = '';
 
 		$testableCodes = $this->getTestFinder()->getTestableCodeForEverything();
+		/** @var  $testableCode Tx_Phpunit_TestableCode */
 		foreach ($testableCodes as $testableCode) {
 			$style = 'background: url(' . $testableCode->getIconPath() . ') no-repeat 3px 50% white; padding: 1px 1px 1px 24px;';
 			if ($this->MOD_SETTINGS['extSel'] === $testableCode->getKey()) {
@@ -336,10 +334,11 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 
 		// testCaseFile
 		$testCaseFileOptionsArray = array();
-		foreach ($testSuite->tests() as $testCases) {
-			$selected = ($testCases->toString() === t3lib_div::_GP('testCaseFile')) ? ' selected="selected"' : '';
-			$testCaseFileOptionsArray[] = '<option value="' . $testCases->toString() . '"' . $selected . '>' .
-				htmlspecialchars($testCases->getName()) . '</option>';
+		/** @var $testCase PHPUnit_Framework_TestCase */
+		foreach ($testSuite->tests() as $testCase) {
+			$selected = ($testCase->toString() === t3lib_div::_GP('testCaseFile')) ? ' selected="selected"' : '';
+			$testCaseFileOptionsArray[] = '<option value="' . $testCase->toString() . '"' . $selected . '>' .
+				htmlspecialchars($testCase->getName()) . '</option>';
 		}
 
 		$currentStyle = $this->createIconStyle($extensionKey);
@@ -392,11 +391,13 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		// single test case
 		$testsOptionsArr = array();
 		$testCaseFile = t3lib_div::_GP('testCaseFile');
-		foreach ($testSuite->tests() as $testCases) {
-			if (!is_null($testCaseFile) && ($testCases->getName() !== $testCaseFile)) {
+		/** @var $testCase PHPUnit_Framework_TestSuite */
+		foreach ($testSuite->tests() as $testCase) {
+			if (!is_null($testCaseFile) && ($testCase->getName() !== $testCaseFile)) {
 				continue;
 			}
-			foreach ($testCases->tests() as $test) {
+			/** @var $test PHPUnit_Framework_TestCase */
+			foreach ($testCase->tests() as $test) {
 				if ($test instanceof PHPUnit_Framework_TestSuite) {
 					list($testSuiteName, $testName) = explode('::', $test->getName());
 					$testIdentifier = $testName . '(' . $testSuiteName . ')';
@@ -505,6 +506,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		}
 
 		// Loads the files containing test cases from extensions.
+		/** @var $extension Tx_Phpunit_TestableCode */
 		foreach ($extensionKeysToProcess as $extension) {
 			$testsPathOfExtension = $extension->getTestsPath();
 			$testSuites = $this->getTestFinder()->findTestCasesInDirectory($testsPathOfExtension);
@@ -553,15 +555,17 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 
 		if (t3lib_div::_GP('testname')) {
 			$this->runTests_renderInfoAndProgressbar();
+			/** @var $testCases PHPUnit_Framework_TestSuite */
 			foreach ($testSuite->tests() as $testCases) {
 				foreach ($testCases->tests() as $test) {
 					if ($test instanceof PHPUnit_Framework_TestSuite) {
+						/** @var $test PHPUnit_Framework_TestSuite */
 						list($testSuiteName, $testName) = explode('::', $test->getName());
 						$testListener->setTestSuiteName($testSuiteName);
 						$testIdentifier = $testName . '(' . $testSuiteName . ')';
 					} else {
 						$testIdentifier = $test->toString();
-						list($testSuiteName, $testName) = explode('::', $testIdentifier);
+						list($testSuiteName, $unused) = explode('::', $testIdentifier);
 						$testListener->setTestSuiteName($testSuiteName);
 					}
 					if ($testIdentifier === t3lib_div::_GP('testname')) {
@@ -591,7 +595,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			foreach ($testSuite->tests() as $testCases) {
 				foreach ($testCases->tests() as $test) {
 					if ($test instanceof PHPUnit_Framework_TestSuite) {
-						list($testIdentifier, $testName) = explode('::', $test->getName());
+						list($testIdentifier, $unused) = explode('::', $test->getName());
 					} else {
 						$testIdentifier = get_class($test);
 					}
@@ -610,7 +614,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			foreach ($testSuite->tests() as $testCases) {
 				foreach ($testCases->tests() as $test) {
 					if ($test instanceof PHPUnit_Framework_TestSuite) {
-						list($testIdentifier, $testName) = explode('::', $test->getName());
+						list($testIdentifier, $unused) = explode('::', $test->getName());
 					} else {
 						$testIdentifier = get_class($test);
 					}
@@ -640,7 +644,6 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$leakedMemory = memory_get_usage() - $startMemory;
 
 		// Displays test statistics.
-		$testStatistics = '';
 		if ($result->wasSuccessful()) {
 			$testStatistics = '<h2 class="wasSuccessful">' . $this->translate('testing_success') . '</h2>';
 		} else {
@@ -728,6 +731,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		}
 
 		$GLOBALS['TT'] = t3lib_div::makeInstance('t3lib_TimeTrackNull');
+		/** @var $frontEnd tslib_fe */
 		$frontEnd = t3lib_div::makeInstance('tslib_fe', $GLOBALS['TYPO3_CONF_VARS'], 0, 0);
 
 		// simulates a normal FE without any logged-in FE or BE user

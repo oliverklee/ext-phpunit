@@ -61,8 +61,8 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 			);
 		}
 
+		/** @var $db t3lib_DB */
 		$db = $GLOBALS['TYPO3_DB'];
-
 		$databaseNames = $db->admin_get_dbs();
 
 		$this->assertContains($this->testDatabase, $databaseNames);
@@ -72,6 +72,7 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 	 * @test
 	 */
 	public function droppingTestDatabase() {
+		/** @var $db t3lib_DB */
 		$db = $GLOBALS['TYPO3_DB'];
 		$databaseNames = $db->admin_get_dbs();
 
@@ -109,11 +110,13 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 		$this->importExtensions(array('tsconfig_help'));
 
 		$db = $this->useTestDatabase();
+		/** @var $res resource */
 		$res = $db->sql_query('show tables');
 		$rows = mysql_num_rows($res);
 		$this->assertNotEquals(0, $rows);
 
 		$this->cleanDatabase();
+		/** @var $res resource */
 		$res = $db->sql_query('show tables');
 		$rows = mysql_num_rows($res);
 		$this->assertEquals(0, $rows);
@@ -132,6 +135,7 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 		$db = $this->useTestDatabase();
 		$this->importExtensions(array('tsconfig_help'));
 
+		/** @var $res resource */
 		$res = $db->sql_query('show tables');
 		$rows = mysql_num_rows($res);
 

@@ -36,6 +36,9 @@ if (!defined('TYPO3_MODE')) {
 }
 
 if (!defined('PATH_tslib')) {
+	/**
+	 * @var string
+	 */
 	define('PATH_tslib', t3lib_extMgm::extPath('cms') . 'tslib/');
 }
 
@@ -43,6 +46,7 @@ require_once('PHPUnit/Autoload.php');
 
 $GLOBALS['LANG']->includeLLFile('EXT:phpunit/Resources/Private/Language/locallang_backend.xml');
 
+/** @var $module Tx_Phpunit_BackEnd_Module */
 $module = t3lib_div::makeInstance('Tx_Phpunit_BackEnd_Module');
 $module->main();
 ?>

@@ -41,14 +41,12 @@ class Tx_Phpunit_BackEnd_Ajax {
 	 * Used to broker incoming requests to other calls.
 	 * Called by typo3/ajax.php
 	 *
-	 * @param array $parameters
-	 *        additional parameters (not used)
-	 * @param TYPO3AJAX $ajaxObj
-	 *        the AJAX object of this request
+	 * @param array $unused additional parameters (not used)
+	 * @param TYPO3AJAX $ajax the AJAX object for this request
 	 *
 	 * @return void
 	 */
-	public function ajaxBroker(array $parameters, TYPO3AJAX $ajaxObj) {
+	public function ajaxBroker(array $unused, TYPO3AJAX $ajax) {
 		// Checks for legal input ('white-listing').
 		$state = t3lib_div::_POST('state') === 'true' ? 'on' : 'off';
 		$checkbox = t3lib_div::_POST('checkbox');
@@ -68,13 +66,13 @@ class Tx_Phpunit_BackEnd_Ajax {
 		}
 
 		if ($checkbox) {
-			$ajaxObj->setContentFormat('json');
+			$ajax->setContentFormat('json');
 			$GLOBALS['BE_USER']->uc['moduleData']['tools_txphpunitM1'][$checkbox] = $state;
 			$GLOBALS['BE_USER']->writeUC();
-			$ajaxObj->addContent('success', TRUE);
+			$ajax->addContent('success', TRUE);
 		} else {
-			$ajaxObj->setContentFormat('plain');
-			$ajaxObj->setError('Illegal input parameters.');
+			$ajax->setContentFormat('plain');
+			$ajax->setError('Illegal input parameters.');
 		}
 	}
 }

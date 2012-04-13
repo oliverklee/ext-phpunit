@@ -24,6 +24,9 @@
 
 // In the back end, PATH_tslib isn't defined yet.
 if (!defined('PATH_tslib')) {
+	/**
+	 * @var string
+	 */
 	define('PATH_tslib', t3lib_extMgm::extPath('cms') . 'tslib/');
 }
 
@@ -749,6 +752,7 @@ class Tx_Phpunit_Framework {
 					1299257923
 				);
 			}
+			/** @var $hook Tx_Phpunit_Interface_FrameworkCleanupHook */
 			$hook->cleanUp();
 		}
 	}
@@ -875,7 +879,7 @@ class Tx_Phpunit_Framework {
 
 		$this->createDummyUploadFolder();
 		$uniqueFileName = $this->getUniqueFileOrFolderPath($fileName);
-		$zip = t3lib_div::makeInstance('ZipArchive');
+		$zip = new ZipArchive();
 
 		if ($zip->open($uniqueFileName, ZipArchive::CREATE) !== TRUE) {
 			throw new t3lib_exception('The new ZIP archive "' . $fileName . '" could not be created.');
@@ -1150,6 +1154,7 @@ class Tx_Phpunit_Framework {
 
 		$GLOBALS['TT'] = t3lib_div::makeInstance('t3lib_TimeTrackNull');
 
+		/** @var $frontEnd tslib_fe */
 		$frontEnd = t3lib_div::makeInstance('tslib_fe', $GLOBALS['TYPO3_CONF_VARS'], $pageUid, 0);
 
 		// simulates a normal FE without any logged-in FE or BE user

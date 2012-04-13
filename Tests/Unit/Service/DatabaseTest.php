@@ -55,7 +55,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 	 * Explodes a comma-separated list of integer values and sorts them
 	 * numerically.
 	 *
-	 * @param string comma-separated list of values, may be empty
+	 * @param string $valueList comma-separated list of values, may be empty
 	 *
 	 * @return array the separate values, sorted numerically, may be empty
 	 */
@@ -199,10 +199,8 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
      */
     public function enableFieldsCanBeDifferentForDifferentVersionParameters() {
 		$this->markTestSkipped(
-			'This test does not work until the full versioning feature is ' .
-				'implemented in the testing framework.'
+			'This test does not work until the full versioning feature is implemented in the testing framework.'
 		);
-		Tx_Phpunit_Service_Database::enableVersioningPreviewForCachedPage();
 
 		$this->assertNotEquals(
 			Tx_Phpunit_Service_Database::enableFields(

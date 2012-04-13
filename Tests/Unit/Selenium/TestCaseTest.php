@@ -40,7 +40,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 	protected $backupGlobalPhpunitConfiguration = array();
 
 	/**
-	 * @var Tx_Phpunit_Selenium_TestCase
+	 * @var Tx_Phpunit_Selenium_TestCase|PHPUnit_Framework_MockObject_MockObject
 	 */
 	private $fixture = NULL;
 
@@ -240,6 +240,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 		$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['selenium_host'] = 'http://example.invalid';
 
 		$className = $this->createAccessibleProxyClass();
+		/** @var $fixture Tx_Phpunit_BackEnd_Module */
 		$fixture = new $className();
 
 		$this->assertFalse(

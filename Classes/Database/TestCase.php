@@ -77,6 +77,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 		$success = TRUE;
 
 		$this->dropDatabase();
+		/** @var $db t3lib_DB */
 		$db = $GLOBALS['TYPO3_DB'];
 		$databaseNames = $db->admin_get_dbs();
 
@@ -95,6 +96,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	 * @return void
 	 */
 	protected function cleanDatabase() {
+		/** @var $db t3lib_DB */
 		$db = $GLOBALS['TYPO3_DB'];
 		if (!in_array($this->testDatabase, $db->admin_get_dbs())) {
 			return;
@@ -115,6 +117,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	 *         TRUE if the database has been dropped successfully, FALSE otherwise
 	 */
 	protected function dropDatabase() {
+		/** @var $db t3lib_DB */
 		$db = $GLOBALS['TYPO3_DB'];
 		if (!in_array($this->testDatabase, $db->admin_get_dbs())) {
 			return TRUE;
@@ -137,6 +140,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	 * @return t3lib_DB the test database
 	 */
 	protected function useTestDatabase($databaseName = NULL) {
+		/** @var $db t3lib_DB */
 		$db = $GLOBALS['TYPO3_DB'];
 
 		if ($db->sql_select_db($databaseName ? $databaseName : $this->testDatabase) !== TRUE) {
@@ -271,6 +275,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	 * @return void
 	 */
 	private function importDatabaseDefinitions($definitionContent) {
+		/* @var $install t3lib_install */
 		$install = t3lib_div::makeInstance('t3lib_install');
 		$fieldDefinitionsFile = $install->getFieldDefinitions_fileContent($definitionContent);
 		if (empty($fieldDefinitionsFile)) {
@@ -367,9 +372,11 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 		$db = $this->useTestDatabase();
 		$foreignKeys = array();
 
+		/** @var $table SimpleXMLElement */
 		foreach ($xml->children() as $table) {
 			$insertArray = array();
 
+			/** @var $column SimpleXMLElement */
 			foreach ($table->children() as $column) {
 				$columnName = $column->getName();
 				$columnValue = NULL;

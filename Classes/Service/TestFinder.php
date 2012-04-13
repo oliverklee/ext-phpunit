@@ -190,7 +190,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 *
 	 * @param string $fileName base name of a file to check
 	 *
-	 * @return TRUE if $fileName is a hidden Mac file, FALSE otherwise
+	 * @return boolean TRUE if $fileName is a hidden Mac file, FALSE otherwise
 	 */
 	protected function isHiddenMacFile($fileName) {
 		return (substr($fileName, 0, 2) === '._');
@@ -261,6 +261,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 			return array();
 		}
 
+		/** @var $coreTests Tx_Phpunit_TestableCode */
 		$coreTests = t3lib_div::makeInstance('Tx_Phpunit_TestableCode');
 		$coreTests->setType(Tx_Phpunit_TestableCode::TYPE_CORE);
 		$coreTests->setKey(Tx_Phpunit_TestableCode::CORE_KEY);
@@ -378,6 +379,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	protected function createTestableCodeForSingleExtension($extensionKey) {
 		$testsPath = $this->findTestsPathForExtension($extensionKey);
 
+		/** @var $testableCode Tx_Phpunit_TestableCode */
 		$testableCode = t3lib_div::makeInstance('Tx_Phpunit_TestableCode');
 		$testableCode->setType(Tx_Phpunit_TestableCode::TYPE_EXTENSION);
 		$testableCode->setKey($extensionKey);

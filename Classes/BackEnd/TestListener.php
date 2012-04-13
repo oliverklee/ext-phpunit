@@ -192,6 +192,13 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 * @return void
 	 */
 	public function addError(PHPUnit_Framework_Test $test, Exception $e, $time) {
+		if (!$test instanceof PHPUnit_Framework_TestCase) {
+			throw new InvalidArgumentException(
+				'addError needs $test to be a PHPUnit_Framework_TestCase.', 1334308922
+			);
+		}
+		/** @var $test PHPUnit_Framework_TestCase */
+
 		$fileName = str_replace(PATH_site, '', $e->getFile());
 		$lineNumber = $e->getLine();
 
@@ -217,6 +224,13 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 * @return void
 	 */
 	public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time) {
+		if (!$test instanceof PHPUnit_Framework_TestCase) {
+			throw new InvalidArgumentException(
+				'addFailure needs $test to be a PHPUnit_Framework_TestCase.', 1334308954
+			);
+		}
+		/** @var $test PHPUnit_Framework_TestCase */
+
 		$testCaseTraceArr = $this->getFirstNonPhpUnitTrace($e->getTrace());
 		$fileName = str_replace(PATH_site, '', $testCaseTraceArr['file']);
 
@@ -237,13 +251,16 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 		$this->output('<div class="message">' . nl2br(htmlspecialchars($message)) . '</div>');
 
 		if ($e instanceof PHPUnit_Framework_ExpectationFailedException) {
+			/** @var $e PHPUnit_Framework_ExpectationFailedException */
 			$comparisonFailure = $e->getComparisonFailure();
 			if ($comparisonFailure instanceof PHPUnit_Framework_ComparisonFailure) {
+				/** @var $comparisonFailure PHPUnit_Framework_ComparisonFailure */
 				$expected = $comparisonFailure->getExpectedAsString();
 				$actual = $comparisonFailure->getActualAsString();
 
+				/** @var $diff t3lib_diff */
 				$diff = t3lib_div::makeInstance('t3lib_diff');
-				$this->output('<code>'. $diff->makeDiffDisplay($actual, $expected) . '</code>');
+				$this->output('<code>' . $diff->makeDiffDisplay($actual, $expected) . '</code>');
 			}
 		}
 	}
@@ -279,6 +296,13 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 * @return void
 	 */
 	public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
+		if (!$test instanceof PHPUnit_Framework_TestCase) {
+			throw new InvalidArgumentException(
+				'addIncompleteTest needs $test to be a PHPUnit_Framework_TestCase.', 1334308983
+			);
+		}
+		/** @var $test PHPUnit_Framework_TestCase */
+
 		$this->output(
 			'<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadNotImplemented");/*]]>*/</script>' .
 				'<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
@@ -299,6 +323,13 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 * @return void
 	 */
 	public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
+		if (!$test instanceof PHPUnit_Framework_TestCase) {
+			throw new InvalidArgumentException(
+				'addSkippedTest needs $test to be a PHPUnit_Framework_TestCase.', 1334309006
+			);
+		}
+		/** @var $test PHPUnit_Framework_TestCase */
+
 		$this->output(
 			'<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadSkipped");/*]]>*/</script>' .
 				'<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
@@ -366,6 +397,11 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 * @return void
 	 */
 	public function startTest(PHPUnit_Framework_Test $test) {
+		if (!$test instanceof PHPUnit_Framework_TestCase) {
+			throw new InvalidArgumentException('For startTest, $test needs to be a PHPUnit_Framework_TestCase.', 1334305913);
+		}
+		/** @var $test PHPUnit_Framework_TestCase */
+
 		// A single test has to take less than this or else PHP will time out.
 		$this->setTimeLimit(240);
 
@@ -400,6 +436,7 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 		$this->memoryUsageEndOfTest = memory_get_usage();
 
 		if ($test instanceof PHPUnit_Framework_TestCase) {
+			/** @var $test  PHPUnit_Framework_TestCase */
 			// Tests with the same name are a sign of data provider usage.
 			$testNameParts = explode(' ', $test->getName());
 			$testName = get_class($test) . ':' . $testNameParts[0];
@@ -445,7 +482,7 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	/**
 	 * Creates the link (including an icon) to re-run the given single test.
 	 *
-	 * @param PHPUnit_Framework_TestSuite $test
+	 * @param PHPUnit_Framework_TestCase $test
 	 *        the test for which to create the re-run link
 	 *
 	 * @return string the link to re-run the given test, will not be empty
@@ -459,7 +496,7 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	/**
 	 * Creates the URL to re-run the given test.
 	 *
-	 * @param PHPUnit_Framework_TestSuite $test
+	 * @param PHPUnit_Framework_TestCase $test
 	 *        the test for which to create the re-run URL
 	 *
 	 * @return string the htmlspecialchared URL to re-run the given test, will not be empty
