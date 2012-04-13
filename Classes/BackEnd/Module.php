@@ -684,11 +684,16 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		if ($this->shouldCollectCodeCoverageInformation()) {
 			$this->coverage->stop();
 
+			$codeCoverageDirectory = PATH_site . 'typo3temp/codecoverage/';
+			if (!is_readable($codeCoverageDirectory) && !is_dir($codeCoverageDirectory)) {
+				t3lib_div::mkdir($codeCoverageDirectory);
+			}
+
 			$coverageReport = new PHP_CodeCoverage_Report_HTML();
-			$coverageReport->process($this->coverage, t3lib_extMgm::extPath('phpunit') . 'codecoverage/');
+			$coverageReport->process($this->coverage, $codeCoverageDirectory);
 			$this->output(
-				'<p><a target="_blank" href="' . $this->extensionPath .
-					'codecoverage/index.html">Click here to access the Code Coverage report</a></p>' .
+				'<p><a target="_blank" href="../typo3temp/codecoverage/index.html">' .
+					'Click here to access the Code Coverage report</a></p>' .
 					'<p>Memory peak usage: ' . t3lib_div::formatSize(memory_get_peak_usage()) . 'B<p/>'
 			);
 		}
