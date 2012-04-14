@@ -113,6 +113,23 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	}
 
 	/**
+	 * Helper function to check for a working diff tool on a system.
+	 *
+	 * Tests same file to be sure there isn't any error message.
+	 *
+	 * @return boolean TRUE if a diff tool was found, FALSE otherwise
+	 */
+	public function isDiffToolAvailable() {
+		$filePath = t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/Backend/Fixtures/LoadMe.php';
+		// Makes sure everything is sent to the stdOutput.
+		$executeCommand = $GLOBALS['TYPO3_CONF_VARS']['BE']['diff_path'] . ' 2>&1 ' . $filePath . ' ' . $filePath;
+		$result = array();
+		t3lib_utility_Command::exec($executeCommand, $result);
+
+		return empty($result);
+	}
+
+	/**
 	 * @test
 	 */
 	public function createAccessibleProxyCreatesTestListenerSubclass() {
@@ -237,6 +254,10 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function addFailureWithComparisonFailureOutputsHtmlSpecialcharedExpectedString() {
+		if (!$this->isDiffToolAvailable()) {
+			$this->markTestSkipped('This test needs a working diff tool. Please see [BE][diff_path] in the install tool.');
+		}
+
 		/** @var $fixture Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject */
 		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('output'));
 		$fixture->expects($this->any())->method('output')

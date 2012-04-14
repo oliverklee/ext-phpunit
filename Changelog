@@ -1,3 +1,6 @@
+2012-04-15 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #36084: Test addFailureWithComparisonFailureOutputsHtmlSpecialcharedExpectedString fails when no diff tool is available (thanks to Nicole Cordes)
+
 2012-04-14 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #13637: Use InvalidArgumentException and t3lib_exception in Service_Database and add exception codes
 	* Fixed Bug #13616: Remove the old fake FE code
