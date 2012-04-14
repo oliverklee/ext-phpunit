@@ -266,10 +266,8 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 		$this->importDatabaseDefinitions($fileContent);
 
 		// make sure missing caching framework tables don't get into the way
-		if (class_exists('t3lib_cache')) {
-			$cacheTables = t3lib_cache::getDatabaseTableDefinitions();
-			$this->importDatabaseDefinitions($cacheTables);
-		}
+		$cacheTables = t3lib_cache::getDatabaseTableDefinitions();
+		$this->importDatabaseDefinitions($cacheTables);
 	}
 
 	/**
@@ -281,10 +279,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	 * @return void
 	 */
 	private function importDatabaseDefinitions($definitionContent) {
-		$version = class_exists('t3lib_utility_VersionNumber')
-			? t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version)
-			: t3lib_div::int_from_ver(TYPO3_version);
-		if ($version >= 4006000) {
+		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 4006000) {
 			/* @var $install t3lib_install_Sql */
 			$install = t3lib_div::makeInstance('t3lib_install_Sql');
 		} else {
