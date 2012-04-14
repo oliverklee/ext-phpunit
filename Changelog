@@ -1,3 +1,6 @@
+2012-04-14 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #36019: findTestCasesInDirectoryForEmptyDirectoryReturnsEmptyArray fails
+
 2012-04-13 Oliver Klee <typo3-coding@oliverklee.de>
 	* Release version 3.6.10
 	* Fixed Bug #12242: The code coverage report should be in typo3temp, not in the extension directory
