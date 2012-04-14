@@ -698,13 +698,13 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
-	public function isExtensionLoadedForCoreWithoutExistingTestsReturnsFalse() {
+	public function isExtensionLoadedForCoreWithoutExistingTestsReturnsTrue() {
 		$testFinder = new Tx_Phpunit_Service_TestFinder();
 		if ($testFinder->hasCoreTests()) {
 			$this->markTestSkipped('This test can only be run if no TYPO3 Core unit tests are present.');
 		}
 
-		$this->assertFalse(
+		$this->assertTrue(
 			$this->fixture->isExtensionLoaded(Tx_Phpunit_TestableCode::CORE_KEY)
 		);
 	}
