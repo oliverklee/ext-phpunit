@@ -493,10 +493,6 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * @return void
 	 */
 	protected function runTests_renderRunningTest() {
-		if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['alwaysSimulateFrontendEnvironment']) {
-			$this->simulateFrontendEnviroment();
-		}
-
 		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
 		$extensionKeysToProcess = $this->getTestFinder()->getTestableCodeForEverything();
 		if ($this->MOD_SETTINGS['extSel'] === Tx_Phpunit_TestableCode::ALL_EXTENSIONS) {
@@ -716,50 +712,6 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			</div>'
 		);
 	}
-
-	/**
-	 * Roughly simulates the front end although being in the back end.
-	 *
-	 * @deprecated since 3.5.12, will be removed in 3.6.0. Use Tx_Phpunit_Framework::createFakeFrontEnd instead.
-	 *
-	 * @return void
-	 */
-	protected function simulateFrontendEnviroment() {
-		t3lib_div::logDeprecatedFunction();
-
-		if (isset($GLOBALS['TSFE']) && is_object($GLOBALS['TSFE'])) {
-			// avoids some memory leaks
-			unset(
-				$GLOBALS['TSFE']->tmpl, $GLOBALS['TSFE']->sys_page, $GLOBALS['TSFE']->fe_user,
-				$GLOBALS['TSFE']->TYPO3_CONF_VARS, $GLOBALS['TSFE']->config, $GLOBALS['TSFE']->TCAcachedExtras,
-				$GLOBALS['TSFE']->imagesOnPage, $GLOBALS['TSFE']->cObj, $GLOBALS['TSFE']->csConvObj,
-				$GLOBALS['TSFE']->pagesection_lockObj, $GLOBALS['TSFE']->pages_lockObj
-			);
-			$GLOBALS['TSFE'] = NULL;
-			$GLOBALS['TT'] = NULL;
-		}
-
-		$GLOBALS['TT'] = t3lib_div::makeInstance('t3lib_TimeTrackNull');
-		/** @var $frontEnd tslib_fe */
-		$frontEnd = t3lib_div::makeInstance('tslib_fe', $GLOBALS['TYPO3_CONF_VARS'], 0, 0);
-
-		// simulates a normal FE without any logged-in FE or BE user
-		$frontEnd->beUserLogin = FALSE;
-		$frontEnd->workspacePreview = '';
-		$frontEnd->gr_list = '0,-1';
-
-		$frontEnd->sys_page = t3lib_div::makeInstance('t3lib_pageSelect');
-		$frontEnd->sys_page->init(TRUE);
-		$frontEnd->initTemplate();
-
-		// $frontEnd->getConfigArray() doesn't work here because the dummy FE
-		// is not required to have a template.
-		$frontEnd->config = array();
-
-		$GLOBALS['TSFE'] = $frontEnd;
-	}
-
-
 
 	/*********************************************************
 	 *

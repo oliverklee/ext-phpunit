@@ -1,4 +1,5 @@
 2012-04-14 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #13616: Remove the old fake FE code
 	* Fixed Bug #35700: Require TYPO3 >= 4.5
 	* Fixed Bug #35942: Fix the use of deprecated functions (thanks to Nicole Cordes)
 	* Fixed Bug #36028: Add documentation for running CLI on MAMP/XAMPP etc. (thanks to Hendrik Nadler)
