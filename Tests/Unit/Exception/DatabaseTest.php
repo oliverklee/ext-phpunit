@@ -37,7 +37,7 @@ class Tx_Phpunit_Exception_DatabaseTest extends Tx_Phpunit_TestCase {
 	 * @expectedException Tx_Phpunit_Exception_Database
 	 */
 	public function exceptionCanBeThrown() {
-		throw new Tx_Phpunit_Exception_Database();
+		throw new Tx_Phpunit_Exception_Database(1334438897);
 	}
 }
 ?>

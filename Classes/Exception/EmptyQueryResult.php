@@ -36,15 +36,17 @@
 class Tx_Phpunit_Exception_EmptyQueryResult extends t3lib_exception {
 	/**
 	 * The constructor.
+	 *
+	 * @param integer $code error code, must be >= 0
 	 */
-	public function __construct() {
+	public function __construct($code = 0) {
 		$message = 'The database query returned an empty result, but should have returned a non-empty result.';
 
 		if ($GLOBALS['TYPO3_DB']->store_lastBuiltQuery || $GLOBALS['TYPO3_DB']->debugOutput) {
 			$message .= LF . 'The last built query:' . LF . $GLOBALS['TYPO3_DB']->debug_lastBuiltQuery;
 		}
 
-		parent::__construct($message);
+		parent::__construct($message, $code);
 	}
 }
 ?>

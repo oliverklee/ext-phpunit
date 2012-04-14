@@ -64,7 +64,7 @@ class Tx_Phpunit_Exception_EmptyQueryResultTest extends Tx_Phpunit_TestCase {
 	 * @expectedException Tx_Phpunit_Exception_EmptyQueryResult
 	 */
 	public function exceptionCanBeThrown() {
-		throw new Tx_Phpunit_Exception_EmptyQueryResult();
+		throw new Tx_Phpunit_Exception_EmptyQueryResult(1334438911);
 	}
 
 	/**

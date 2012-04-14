@@ -819,9 +819,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			throw new Tx_Phpunit_Exception_NoTestsDirectory('$extensionKey must not be empty.', 1303503647);
 		}
 		if (!$this->isExtensionLoaded($extensionKey)) {
-			throw new Tx_Phpunit_Exception_NoTestsDirectory(
-				'The extension ' . $extensionKey . ' is not loaded.', 1303503664
-			);
+			throw new Tx_Phpunit_Exception_NoTestsDirectory('The extension ' . $extensionKey . ' is not loaded.', 1303503664);
 		}
 
 		$result = 'background: ';

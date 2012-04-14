@@ -1423,7 +1423,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 			'TRUNCATE TABLE tx_phpunit_test;'
 		);
 		if (!$dbResult) {
-			throw new Tx_Phpunit_Exception_Database();
+			throw new Tx_Phpunit_Exception_Database(1334438839);
 		}
 
 		$this->assertEquals(

@@ -128,7 +128,7 @@ class Tx_Phpunit_TestableCode {
 	 */
 	public function setKey($key) {
 		if ($key === '') {
-			throw new InvalidArgumentException('$key must not be empty.');
+			throw new InvalidArgumentException('$key must not be empty.', 1334439650);
 		}
 
 		$this->key = $key;
@@ -176,7 +176,7 @@ class Tx_Phpunit_TestableCode {
 		$allowedTypes = array(self::TYPE_EXTENSION, self::TYPE_CORE);
 		if (!in_array($type, $allowedTypes, TRUE)) {
 			throw new InvalidArgumentException(
-				'$type must be one of TYPE_EXTENSION, TYPE_CORE, but actually was ' . $type . '.'
+				'$type must be one of TYPE_EXTENSION, TYPE_CORE, but actually was ' . $type . '.', 1334439659
 			);
 		}
 
@@ -205,7 +205,7 @@ class Tx_Phpunit_TestableCode {
 	 */
 	public function setCodePath($codePath) {
 		if ($codePath === '') {
-			throw new InvalidArgumentException('$codePath must not be empty.');
+			throw new InvalidArgumentException('$codePath must not be empty.', 1334439668);
 		}
 
 		$this->codePath = $codePath;
@@ -235,7 +235,7 @@ class Tx_Phpunit_TestableCode {
 	 */
 	public function setTestsPath($testsPath) {
 		if ($testsPath === '') {
-			throw new InvalidArgumentException('$testsPath must not be empty.');
+			throw new InvalidArgumentException('$testsPath must not be empty.', 1334439674);
 		}
 
 		$this->testsPath = $testsPath;
@@ -307,7 +307,7 @@ class Tx_Phpunit_TestableCode {
 	 */
 	public function setIconPath($iconPath) {
 		if ($iconPath === '') {
-			throw new InvalidArgumentException('$iconPath must not be empty.');
+			throw new InvalidArgumentException('$iconPath must not be empty.', 1334439681);
 		}
 
 		$this->iconPath = $iconPath;

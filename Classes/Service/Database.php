@@ -110,9 +110,7 @@ class Tx_Phpunit_Service_Database {
 		$noVersionPreview = FALSE
 	) {
 		if (!in_array($showHidden, array(-1, 0, 1))) {
-			throw new InvalidArgumentException(
-				'$showHidden may only be -1, 0 or 1, but actually is ' . $showHidden, 1331315445
-			);
+			throw new InvalidArgumentException('$showHidden may only be -1, 0 or 1, but actually is ' . $showHidden, 1331315445);
 		}
 
 		// maps $showHidden (-1..1) to (0..2) which ensures valid array keys
@@ -233,7 +231,7 @@ class Tx_Phpunit_Service_Database {
 			$tableName, $whereClause
 		);
 		if (!$dbResult) {
-			throw new Tx_Phpunit_Exception_Database();
+			throw new Tx_Phpunit_Exception_Database(1334439746);
 		}
 
 		return $GLOBALS['TYPO3_DB']->sql_affected_rows();
@@ -263,7 +261,7 @@ class Tx_Phpunit_Service_Database {
 			$tableName, $whereClause, $fields
 		);
 		if (!$dbResult) {
-			throw new Tx_Phpunit_Exception_Database();
+			throw new Tx_Phpunit_Exception_Database(1334439755);
 		}
 
 		return $GLOBALS['TYPO3_DB']->sql_affected_rows();
@@ -296,7 +294,7 @@ class Tx_Phpunit_Service_Database {
 			$tableName, $recordData
 		);
 		if (!$dbResult) {
-			throw new Tx_Phpunit_Exception_Database();
+			throw new Tx_Phpunit_Exception_Database(1334439765);
 		}
 
 		return $GLOBALS['TYPO3_DB']->sql_insert_id();
@@ -337,7 +335,7 @@ class Tx_Phpunit_Service_Database {
 			$fields, $tableNames, $whereClause, $groupBy, $orderBy, $limit
 		);
 		if (!$dbResult) {
-			throw new Tx_Phpunit_Exception_Database();
+			throw new Tx_Phpunit_Exception_Database(1334439769);
 		}
 
 		return $dbResult;
@@ -375,7 +373,7 @@ class Tx_Phpunit_Service_Database {
 			$groupBy, $orderBy, $offset . ',' . 1
 		);
 		if (empty($result)) {
-			throw new Tx_Phpunit_Exception_EmptyQueryResult();
+			throw new Tx_Phpunit_Exception_EmptyQueryResult(1334439777);
 		}
 
 		return $result[0];

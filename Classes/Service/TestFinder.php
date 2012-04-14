@@ -137,13 +137,13 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 */
 	public function findTestCasesInDirectory($directory) {
 		if ($directory === '') {
-			throw new InvalidArgumentException('$directory must not be empty.');
+			throw new InvalidArgumentException('$directory must not be empty.', 1334439798);
 		}
 		if (!is_dir($directory)) {
-			throw new InvalidArgumentException('The directory '. $directory . ' does not exist.');
+			throw new InvalidArgumentException('The directory '. $directory . ' does not exist.', 1334439804);
 		}
 		if (!is_readable($directory)) {
-			throw new InvalidArgumentException('The directory '. $directory . ' exists, but is not readable.');
+			throw new InvalidArgumentException('The directory '. $directory . ' exists, but is not readable.', 1334439813);
 		}
 
 		$directoryLength = strlen($directory);
@@ -397,7 +397,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 */
 	protected function findTestsPathForExtension($extensionKey) {
 		if ($extensionKey === '') {
-			throw new InvalidArgumentException('$extensionKey must not be empty.');
+			throw new InvalidArgumentException('$extensionKey must not be empty.', 1334439819);
 		}
 
 		$testsPath = '';
@@ -411,7 +411,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 
 		if ($testsPath === '') {
 			throw new Tx_Phpunit_Exception_NoTestsDirectory(
-				'The extension "' . $extensionKey . '" does not have a tests directory.'
+				'The extension "' . $extensionKey . '" does not have a tests directory.', 1334439826
 			);
 		}
 
@@ -427,7 +427,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 */
 	protected function retrieveExtensionTitle($extensionKey) {
 		if ($extensionKey === '') {
-			throw new InvalidArgumentException('$extensionKey must not be empty.');
+			throw new InvalidArgumentException('$extensionKey must not be empty.', 1334439838);
 		}
 
 		$EM_CONF = array();

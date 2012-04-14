@@ -1,4 +1,5 @@
 2012-04-14 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #13637: Use InvalidArgumentException and t3lib_exception in Service_Database and add exception codes
 	* Fixed Bug #13616: Remove the old fake FE code
 	* Fixed Bug #35700: Require TYPO3 >= 4.5
 	* Fixed Bug #35942: Fix the use of deprecated functions (thanks to Nicole Cordes)

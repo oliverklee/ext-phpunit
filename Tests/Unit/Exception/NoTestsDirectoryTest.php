@@ -37,7 +37,7 @@ class Tx_Phpunit_Exception_NoTestsDirectoryTest extends Tx_Phpunit_TestCase {
 	 * @expectedException Tx_Phpunit_Exception_NoTestsDirectory
 	 */
 	public function exceptionCanBeThrown() {
-		throw new Tx_Phpunit_Exception_NoTestsDirectory();
+		throw new Tx_Phpunit_Exception_NoTestsDirectory('some message', 12345);
 	}
 }
 ?>

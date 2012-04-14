@@ -216,10 +216,10 @@ class Tx_Phpunit_Framework {
 	 */
 	public function createRecord($tableName, array $recordData = array()) {
 		if (!$this->isNoneSystemTableNameAllowed($tableName)) {
-			throw new InvalidArgumentException('The table name "' . $tableName . '" is not allowed.');
+			throw new InvalidArgumentException('The table name "' . $tableName . '" is not allowed.', 1334438817);
 		}
 		if (isset($recordData['uid'])) {
-			throw new InvalidArgumentException('The column "uid" must not be set in $recordData.');
+			throw new InvalidArgumentException('The column "uid" must not be set in $recordData.', 1334438963);
 		}
 
 		return $this->createRecordWithoutTableNameChecks($tableName, $recordData);
@@ -306,13 +306,13 @@ class Tx_Phpunit_Framework {
 	 */
 	protected function createGeneralPageRecord($documentType, $parentId, array $recordData) {
 		if (isset($recordData['uid'])) {
-			throw new InvalidArgumentException('The column "uid" must not be set in $recordData.');
+			throw new InvalidArgumentException('The column "uid" must not be set in $recordData.', 1334438971);
 		}
 		if (isset($recordData['pid'])) {
-			throw new InvalidArgumentException('The column "pid" must not be set in $recordData.');
+			throw new InvalidArgumentException('The column "pid" must not be set in $recordData.', 1334438980);
 		}
 		if (isset($recordData['doktype'])) {
-			throw new InvalidArgumentException('The column "doktype" must not be set in $recordData.');
+			throw new InvalidArgumentException('The column "doktype" must not be set in $recordData.', 1334438986);
 		}
 
 		$completeRecordData = $recordData;
@@ -340,10 +340,10 @@ class Tx_Phpunit_Framework {
 	 */
 	public function createContentElement($pageId = 0, array $recordData = array()) {
 		if (isset($recordData['uid'])) {
-			throw new InvalidArgumentException('The column "uid" must not be set in $recordData.');
+			throw new InvalidArgumentException('The column "uid" must not be set in $recordData.', 1334439000);
 		}
 		if (isset($recordData['pid'])) {
-			throw new InvalidArgumentException('The column "pid" must not be set in $recordData.');
+			throw new InvalidArgumentException('The column "pid" must not be set in $recordData.', 1334439007);
 		}
 
 		$completeRecordData = $recordData;
@@ -369,13 +369,13 @@ class Tx_Phpunit_Framework {
 	 */
 	public function createTemplate($pageId, array $recordData = array()) {
 		if ($pageId <= 0) {
-			throw new InvalidArgumentException('$pageId must be > 0.');
+			throw new InvalidArgumentException('$pageId must be > 0.', 1334439016);
 		}
 		if (isset($recordData['uid'])) {
-			throw new InvalidArgumentException('The column "uid" must not be set in $recordData.');
+			throw new InvalidArgumentException('The column "uid" must not be set in $recordData.', 1334439024);
 		}
 		if (isset($recordData['pid'])) {
-			throw new InvalidArgumentException('The column "pid" must not be set in $recordData.');
+			throw new InvalidArgumentException('The column "pid" must not be set in $recordData.', 1334439032);
 		}
 
 		$completeRecordData = $recordData;
@@ -395,7 +395,7 @@ class Tx_Phpunit_Framework {
 	 */
 	public function createFrontEndUserGroup(array $recordData = array()) {
 		if (isset($recordData['uid'])) {
-			throw new InvalidArgumentException('The column "uid" must not be set in $recordData.');
+			throw new InvalidArgumentException('The column "uid" must not be set in $recordData.', 1334439042);
 		}
 
 		return $this->createRecordWithoutTableNameChecks('fe_groups', $recordData);
@@ -426,14 +426,14 @@ class Tx_Phpunit_Framework {
 		if (!preg_match('/^(?:[1-9]+[0-9]*,?)+$/', $frontEndUserGroupsWithoutSpaces)
 		) {
 			throw new InvalidArgumentException(
-				'$frontEndUserGroups must contain a comma-separated list of UIDs. Each UID must be > 0.'
+				'$frontEndUserGroups must contain a comma-separated list of UIDs. Each UID must be > 0.', 1334439059
 			);
 		}
 		if (isset($recordData['uid'])) {
-			throw new InvalidArgumentException('The column "uid" must not be set in $recordData.');
+			throw new InvalidArgumentException('The column "uid" must not be set in $recordData.', 1334439065);
 		}
 		if (isset($recordData['usergroup'])) {
-			throw new InvalidArgumentException('The column "usergroup" must not be set in $recordData.');
+			throw new InvalidArgumentException('The column "usergroup" must not be set in $recordData.', 1334439071);
 		}
 
 		$completeRecordData = $recordData;
@@ -475,7 +475,7 @@ class Tx_Phpunit_Framework {
 	 */
 	public function createBackEndUser(array $recordData = array()) {
 		if (isset($recordData['uid'])) {
-			throw new InvalidArgumentException('The column "uid" must not be set in $recordData.');
+			throw new InvalidArgumentException('The column "uid" must not be set in $recordData.', 1334439081);
 		}
 
 		return $this->createRecordWithoutTableNameChecks('be_users', $recordData);
@@ -492,7 +492,7 @@ class Tx_Phpunit_Framework {
 	 */
 	public function createBackEndUserGroup(array $recordData = array()) {
 		if (isset($recordData['uid'])) {
-			throw new InvalidArgumentException('The column "uid" must not be set in $recordData.');
+			throw new InvalidArgumentException('The column "uid" must not be set in $recordData.', 1334439090);
 		}
 
 		return $this->createRecordWithoutTableNameChecks('be_groups', $recordData);
@@ -522,31 +522,30 @@ class Tx_Phpunit_Framework {
 
 		if (!$this->isTableNameAllowed($tableName)) {
 			throw new InvalidArgumentException(
-				'The table "' . $tableName . '" is not on the lists with allowed tables.'
+				'The table "' . $tableName . '" is not on the lists with allowed tables.', 1334439098
 			);
 		}
 		if ($uid === 0) {
-			throw new InvalidArgumentException('The parameter $uid must not be zero.');
+			throw new InvalidArgumentException('The parameter $uid must not be zero.', 1334439105);
 		}
 		if (empty($recordData)) {
-			throw new InvalidArgumentException('The array with the new record data must not be empty.');
+			throw new InvalidArgumentException('The array with the new record data must not be empty.', 1334439111);
 		}
 		if (isset($recordData['uid'])) {
 			throw new InvalidArgumentException(
-				'The parameter $recordData must not contain changes to the UID of a record.'
+				'The parameter $recordData must not contain changes to the UID of a record.', 1334439119
 			);
 		}
 		if (isset($recordData[$dummyColumnName])) {
 			throw new InvalidArgumentException(
 				'The parameter $recordData must not contain changes to the ' .
 					'field "' . $dummyColumnName . '". It is impossible to ' .
-					'convert a dummy record into a regular record.'
+					'convert a dummy record into a regular record.',
+				1334439125
 			);
 		}
 		if (!$this->countRecords($tableName, 'uid='.$uid)) {
-			throw new Tx_Phpunit_Exception_Database(
-				'There is no record with UID ' . $uid . ' on table "' . $tableName . '".'
-			);
+			throw new Tx_Phpunit_Exception_Database(1334439132);
 		}
 
 		Tx_Phpunit_Service_Database::update(
@@ -573,7 +572,7 @@ class Tx_Phpunit_Framework {
 	 */
 	public function deleteRecord($tableName, $uid) {
 		if (!$this->isNoneSystemTableNameAllowed($tableName)) {
-			throw new InvalidArgumentException('The table name "' . $tableName . '" is not allowed.');
+			throw new InvalidArgumentException('The table name "' . $tableName . '" is not allowed.', 1334439187);
 		}
 
 		Tx_Phpunit_Service_Database::delete(
@@ -602,18 +601,18 @@ class Tx_Phpunit_Framework {
 	 */
 	public function createRelation($tableName, $uidLocal, $uidForeign, $sorting = 0) {
 		if (!$this->isNoneSystemTableNameAllowed($tableName)) {
-			throw new InvalidArgumentException('The table name "' . $tableName . '" is not allowed.');
+			throw new InvalidArgumentException('The table name "' . $tableName . '" is not allowed.', 1334439196);
 		}
 
 		// Checks that the two given UIDs are valid.
 		if (intval($uidLocal) <= 0) {
 			throw new InvalidArgumentException(
-				'$uidLocal must be an integer > 0, but actually is "' . $uidLocal . '"'
+				'$uidLocal must be an integer > 0, but actually is "' . $uidLocal . '"', 1334439206
 			);
 		}
 		if (intval($uidForeign) <= 0) {
 			throw new InvalidArgumentException(
-				'$uidForeign must be an integer > 0, but actually is "' . $uidForeign . '"'
+				'$uidForeign must be an integer > 0, but actually is "' . $uidForeign . '"', 1334439213
 			);
 		}
 
@@ -654,14 +653,10 @@ class Tx_Phpunit_Framework {
 		}
 
 		if ($uidLocal <= 0) {
-			throw new InvalidArgumentException(
-				'$uidLocal must be > 0, but actually is "' . $uidLocal . '"'
-			);
+			throw new InvalidArgumentException('$uidLocal must be > 0, but actually is "' . $uidLocal . '"', 1334439220);
 		}
 		if ($uidForeign <= 0) {
-			throw new InvalidArgumentException(
-				'$uidForeign must be  > 0, but actually is "' . $uidForeign . '"'
-			);
+			throw new InvalidArgumentException('$uidForeign must be  > 0, but actually is "' . $uidForeign . '"', 1334439233);
 		}
 
 		$tca = Tx_Phpunit_Service_Database::getTcaForTable($tableName);
@@ -670,7 +665,8 @@ class Tx_Phpunit_Framework {
 		if (!isset($relationConfiguration['config']['MM']) || ($relationConfiguration['config']['MM'] === '')) {
 			throw new t3lib_exception(
 				'The column ' . $columnName . ' in the table ' . $tableName .
-				' is not configured to contain m:n relations using a m:n table.'
+					' is not configured to contain m:n relations using a m:n table.',
+				1334439257
 			);
 		}
 
@@ -713,7 +709,7 @@ class Tx_Phpunit_Framework {
 	 */
 	public function removeRelation($tableName, $uidLocal, $uidForeign) {
 		if (!$this->isNoneSystemTableNameAllowed($tableName)) {
-			throw new InvalidArgumentException('The table name "' . $tableName . '" is not allowed.');
+			throw new InvalidArgumentException('The table name "' . $tableName . '" is not allowed.', 1334439276);
 		}
 
 		Tx_Phpunit_Service_Database::delete(
@@ -845,7 +841,7 @@ class Tx_Phpunit_Framework {
 		$uniqueFileName = $this->getUniqueFileOrFolderPath($fileName);
 
 		if (!t3lib_div::writeFile($uniqueFileName, $content)) {
-			throw new t3lib_exception('The file ' . $uniqueFileName . ' could not be created.');
+			throw new t3lib_exception('The file ' . $uniqueFileName . ' could not be created.', 1334439291);
 		}
 
 		$this->addToDummyFileList($uniqueFileName);
@@ -882,7 +878,7 @@ class Tx_Phpunit_Framework {
 		$zip = new ZipArchive();
 
 		if ($zip->open($uniqueFileName, ZipArchive::CREATE) !== TRUE) {
-			throw new t3lib_exception('The new ZIP archive "' . $fileName . '" could not be created.');
+			throw new t3lib_exception('The new ZIP archive "' . $fileName . '" could not be created.', 1334439299);
 		}
 
 		$contents = !empty($filesToAddToArchive) ? $filesToAddToArchive : array($this->createDummyFile());
@@ -890,7 +886,7 @@ class Tx_Phpunit_Framework {
 		foreach ($contents as $pathToFile) {
 			if (!file_exists($pathToFile)) {
 				throw new t3lib_exception(
-					'The provided path "' . $pathToFile . '" does not point to an exisiting file.'
+					'The provided path "' . $pathToFile . '" does not point to an exisiting file.', 1334439306
 				);
 			}
 			$zip->addFile($pathToFile, $this->getPathRelativeToUploadDirectory($pathToFile));
@@ -934,12 +930,13 @@ class Tx_Phpunit_Framework {
 			throw new InvalidArgumentException(
 				'The file "' . $absolutePathToFile . '" which you are trying to delete ' .
 					(!$fileExists ? 'does not exist and has never been ' : 'was not ') .
-					'created by this instance of the testing framework.'
+					'created by this instance of the testing framework.',
+				1334439315
 			);
 		}
 
 		if ($fileExists && !unlink($absolutePathToFile)) {
-			throw new t3lib_exception('The file "' . $absolutePathToFile . '" could not be deleted.');
+			throw new t3lib_exception('The file "' . $absolutePathToFile . '" could not be deleted.', 1334439327);
 		}
 
 		unset($this->dummyFiles[$fileName]);
@@ -961,7 +958,7 @@ class Tx_Phpunit_Framework {
 		$uniqueFolderName = $this->getUniqueFileOrFolderPath($folderName);
 
 		if (!t3lib_div::mkdir($uniqueFolderName)) {
-			throw new t3lib_exception('The folder ' . $uniqueFolderName . ' could not be created.');
+			throw new t3lib_exception('The folder ' . $uniqueFolderName . ' could not be created.', 1334439333);
 		}
 
 		$relativeUniqueFolderName = $this->getPathRelativeToUploadDirectory($uniqueFolderName);
@@ -990,23 +987,20 @@ class Tx_Phpunit_Framework {
 
 		if (!is_dir($absolutePathToFolder)) {
 			throw new InvalidArgumentException(
-				'The folder "' . $absolutePathToFolder . '" which you ' .
-					'are trying to delete does not exist.'
+				'The folder "' . $absolutePathToFolder . '" which you are trying to delete does not exist.', 1334439343
 			);
 		}
 
 		if (!isset($this->dummyFolders[$folderName])) {
 			throw new InvalidArgumentException(
-				'The folder "' . $absolutePathToFolder . '" which you ' .
-					'are trying to delete was not created by this instance of ' .
-					'the testing framework.'
+				'The folder "' . $absolutePathToFolder . '" which you are trying to delete was not created by this instance of ' .
+					'the testing framework.',
+				1334439387
 			);
 		}
 
 		if (!t3lib_div::rmdir($absolutePathToFolder)) {
-			throw new t3lib_exception(
-				'The folder "' . $absolutePathToFolder . '" could not be deleted.'
-			);
+			throw new t3lib_exception('The folder "' . $absolutePathToFolder . '" could not be deleted.', 1334439393);
 		}
 
 		unset($this->dummyFolders[$folderName]);
@@ -1026,10 +1020,7 @@ class Tx_Phpunit_Framework {
 			// registers the upload folder as dummy folder
 			$this->dummyFolders['uploadFolder'] = '';
 		} else {
-			throw new t3lib_exception(
-				'The upload folder ' . $this->getUploadFolderPath() .
-					' could not be created.'
-			);
+			throw new t3lib_exception('The upload folder ' . $this->getUploadFolderPath() . ' could not be created.', 1334439408);
 		}
 	}
 
@@ -1052,8 +1043,7 @@ class Tx_Phpunit_Framework {
 	public function setUploadFolderPath($absolutePath) {
 		if (!empty($this->dummyFiles) || !empty($this->dummyFolders)) {
 			throw new t3lib_exception(
-				'The upload folder path must not be changed if there are ' .
-					'already dummy files or folders.'
+				'The upload folder path must not be changed if there are already dummy files or folders.', 1334439424
 			);
 		}
 
@@ -1088,8 +1078,7 @@ class Tx_Phpunit_Framework {
 				$absolutePath
 		)) {
 			throw new InvalidArgumentException(
-				'The first parameter $absolutePath is not within the calling ' .
-					'extension\'s upload directory.'
+				'The first parameter $absolutePath is not within the calling extension\'s upload directory.', 1334439445
 			);
 		}
 
@@ -1110,7 +1099,7 @@ class Tx_Phpunit_Framework {
 	 */
 	public function getUniqueFileOrFolderPath($path) {
 		if (empty($path)) {
-			throw new InvalidArgumentException('The first parameter $path must not be empty.');
+			throw new InvalidArgumentException('The first parameter $path must not be empty.', 1334439457);
 		}
 
 		if (!self::$fileNameProcessor) {
@@ -1146,7 +1135,7 @@ class Tx_Phpunit_Framework {
 	 */
 	public function createFakeFrontEnd($pageUid = 0) {
 		if ($pageUid < 0) {
-			throw new InvalidArgumentException('$pageUid must be >= 0.');
+			throw new InvalidArgumentException('$pageUid must be >= 0.', 1334439467);
 		}
 
 		$this->suppressFrontEndCookies();
@@ -1264,10 +1253,10 @@ class Tx_Phpunit_Framework {
 	 */
 	public function loginFrontEndUser($userId) {
 		if (intval($userId) === 0) {
-			throw new InvalidArgumentException('The user ID must be > 0.');
+			throw new InvalidArgumentException('The user ID must be > 0.', 1334439475);
 		}
 		if (!$this->hasFakeFrontEnd()) {
-			throw new t3lib_exception('Please create a front end before calling loginFrontEndUser.');
+			throw new t3lib_exception('Please create a front end before calling loginFrontEndUser.', 1334439483);
 		}
 
 		if ($this->isLoggedIn()) {
@@ -1296,7 +1285,7 @@ class Tx_Phpunit_Framework {
 	 */
 	public function logoutFrontEndUser() {
 		if (!$this->hasFakeFrontEnd()) {
-			throw new t3lib_exception('Please create a front end before calling logoutFrontEndUser.');
+			throw new t3lib_exception('Please create a front end before calling logoutFrontEndUser.', 1334439488);
 		}
 		if (!$this->isLoggedIn()) {
 			return;
@@ -1317,7 +1306,7 @@ class Tx_Phpunit_Framework {
 	 */
 	public function isLoggedIn() {
 		if (!$this->hasFakeFrontEnd()) {
-			throw new t3lib_exception('Please create a front end before calling isLoggedIn.');
+			throw new t3lib_exception('Please create a front end before calling isLoggedIn.', 1334439494);
 		}
 
 		return isset($GLOBALS['TSFE']) && is_object($GLOBALS['TSFE'])
@@ -1501,8 +1490,8 @@ class Tx_Phpunit_Framework {
 	public function countRecords($tableName, $whereClause = '') {
 		if (!$this->isTableNameAllowed($tableName)) {
 			throw new InvalidArgumentException(
-				'The given table name is invalid. This means it is either ' .
-					'empty or not in the list of allowed tables.'
+				'The given table name is invalid. This means it is either empty or not in the list of allowed tables.',
+				1334439501
 			);
 		}
 
@@ -1543,7 +1532,7 @@ class Tx_Phpunit_Framework {
 	 */
 	public function existsRecordWithUid($tableName, $uid) {
 		if ($uid <= 0) {
-			throw new InvalidArgumentException('$uid must be > 0.');
+			throw new InvalidArgumentException('$uid must be > 0.', 1334439512);
 		}
 
 		return ($this->countRecords($tableName, 'uid = ' . $uid) > 0);
@@ -1581,8 +1570,8 @@ class Tx_Phpunit_Framework {
 	public function resetAutoIncrement($tableName) {
 		if (!$this->isTableNameAllowed($tableName)) {
 			throw new InvalidArgumentException(
-				'The given table name is invalid. This means it is either ' .
-					'empty or not in the list of allowed tables.'
+				'The given table name is invalid. This means it is either empty or not in the list of allowed tables.',
+				1334439521
 			);
 		}
 
@@ -1603,7 +1592,7 @@ class Tx_Phpunit_Framework {
 			'ALTER TABLE ' . $tableName . ' AUTO_INCREMENT=' . $newAutoIncrementValue . ';'
 		);
 		if (!$dbResult) {
-			throw new Tx_Phpunit_Exception_Database();
+			throw new Tx_Phpunit_Exception_Database(1334439540);
 		}
 	}
 
@@ -1626,8 +1615,8 @@ class Tx_Phpunit_Framework {
 	public function resetAutoIncrementLazily($tableName) {
 		if (!$this->isTableNameAllowed($tableName)) {
 			throw new InvalidArgumentException(
-				'The given table name is invalid. This means it is either ' .
-					'empty or not in the list of allowed tables.'
+				'The given table name is invalid. This means it is either empty or not in the list of allowed tables.',
+				1334439548
 			);
 		}
 
@@ -1656,7 +1645,7 @@ class Tx_Phpunit_Framework {
 	 */
 	public function setResetAutoIncrementThreshold($threshold) {
 		if ($threshold <= 0) {
-			throw new InvalidArgumentException('$threshold must be > 0.');
+			throw new InvalidArgumentException('$threshold must be > 0.', 1334439558);
 		}
 
 		$this->resetAutoIncrementThreshold = $threshold;
@@ -1696,8 +1685,8 @@ class Tx_Phpunit_Framework {
 	public function getAutoIncrement($tableName) {
 		if (!$this->isTableNameAllowed($tableName)) {
 			throw new InvalidArgumentException(
-				'The given table name is invalid. This means it is either ' .
-					'empty or not in the list of allowed tables.'
+				'The given table name is invalid. This means it is either empty or not in the list of allowed tables.',
+				1334439567
 			);
 		}
 
@@ -1706,7 +1695,7 @@ class Tx_Phpunit_Framework {
 			'SHOW TABLE STATUS WHERE Name = \'' . $tableName . '\';'
 		);
 		if (!$dbResult) {
-			throw new Tx_Phpunit_Exception_Database();
+			throw new Tx_Phpunit_Exception_Database(1334439578);
 		}
 
 		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbResult);
@@ -1715,8 +1704,8 @@ class Tx_Phpunit_Framework {
 		$autoIncrement = $row['Auto_increment'];
 		if ($autoIncrement === NULL) {
 			throw new InvalidArgumentException(
-				'The given table name is invalid. This means it is either ' .
-					'empty or not in the list of allowed tables.'
+				'The given table name is invalid. This means it is either empty or not in the list of allowed tables.',
+				1334439584
 			);
 		}
 
@@ -1763,7 +1752,7 @@ class Tx_Phpunit_Framework {
 				$this->dirtySystemTables[$currentTable] = $currentTable;
 			} else {
 				throw new InvalidArgumentException(
-					'The table name "' . $currentTable . '" is not allowed for markTableAsDirty.'
+					'The table name "' . $currentTable . '" is not allowed for markTableAsDirty.', 1334439595
 				);
 			}
 		}
@@ -1840,13 +1829,14 @@ class Tx_Phpunit_Framework {
 	public function increaseRelationCounter($tableName, $uid, $fieldName) {
 		if (!$this->isTableNameAllowed($tableName)) {
 			throw new InvalidArgumentException(
-				'The table name "' . $tableName . '" is invalid. This means ' .
-					'it is either empty or not in the list of allowed tables.'
+				'The table name "' . $tableName .
+					'" is invalid. This means it is either empty or not in the list of allowed tables.',
+				1334439601
 			);
 		}
 		if (!Tx_Phpunit_Service_Database::tableHasColumn($tableName, $fieldName)) {
 			throw new InvalidArgumentException(
-				'The table ' . $tableName . ' has no column ' . $fieldName . '.'
+				'The table ' . $tableName . ' has no column ' . $fieldName . '.', 1334439616
 			);
 		}
 
@@ -1855,13 +1845,11 @@ class Tx_Phpunit_Framework {
 			'UPDATE ' . $tableName . ' SET ' . $fieldName . '=' . $fieldName . '+1 WHERE uid=' . $uid
 		);
 		if (!$dbResult) {
-			throw new Tx_Phpunit_Exception_Database();
+			throw new Tx_Phpunit_Exception_Database(1334439623);
 		}
 
 		if ($GLOBALS['TYPO3_DB']->sql_affected_rows() === 0) {
-			throw new Tx_Phpunit_Exception_Database(
-				'The table ' . $tableName . ' does not contain a record with UID ' . $uid . '.'
-			);
+			throw new Tx_Phpunit_Exception_Database(1334439632);
 		}
 
 		$this->markTableAsDirty($tableName);
@@ -1879,7 +1867,7 @@ class Tx_Phpunit_Framework {
 	 */
 	public function checkForZipArchive() {
 		if (!in_array('zip', get_loaded_extensions())) {
-			throw new t3lib_exception('This PHP installation does not provide the ZIPArchive class.');
+			throw new t3lib_exception('This PHP installation does not provide the ZIPArchive class.', 1334439642);
 		}
 	}
 
