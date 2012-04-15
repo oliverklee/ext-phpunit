@@ -1,4 +1,5 @@
 2012-04-15 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #36092: Require PHP >= 5.2.7 and recommend PHP >= 5.3.9
 	* Fixed Bug #36034: Test isExtensionLoadedForCoreWithoutExistingTestsReturnsFalse is called without accessible Core Tests (thanks to Nicole Cordes)
 	* Fixed Bug #36084: Test addFailureWithComparisonFailureOutputsHtmlSpecialcharedExpectedString fails when no diff tool is available (thanks to Nicole Cordes)
 
