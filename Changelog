@@ -1,4 +1,5 @@
 2012-04-15 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #36118: Skip test if an fixture extension is not installed (thanks to Nicole Cordes)
 	* Fixed Bug #36098: Replace old "oelib" strings
 	* Fixed Bug #12255: The progress bar should have less rounding errors and also use fractions of per cents
 	* Fixed Bug #26830: The demo extension A, B, C etc. need to have workspace-relevant columns

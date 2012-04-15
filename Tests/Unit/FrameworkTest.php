@@ -124,10 +124,9 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	 */
 	private function checkIfExtensionUserPhpUnittestIsLoaded() {
 		if (!t3lib_extMgm::isLoaded('user_phpunittest')) {
-			$this->fail(
-				'Extension user_phpunittest is not installed but needs to be ' .
-					'installed! Please install it from EXT:phpunit/Tests/Unit/' .
-					'Fixtures/Extensions/user_phpunittest/.'
+			$this->markTestSkipped(
+				'The Extension user_phpunittest is not installed, but needs to be installed. ' .
+					'Please install it from EXT:phpunit/Tests/Unit/Fixtures/Extensions/user_phpunittest/.'
 			);
 		}
 	}
@@ -138,10 +137,9 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	 */
 	private function checkIfExtensionUserPhpUnittest2IsLoaded() {
 		if (!t3lib_extMgm::isLoaded('user_phpunittest')) {
-			$this->fail(
-				'Extension user_phpunittest2 is not installed but needs to be ' .
-					'installed! Please install it from EXT:phpunit/Tests/Unit/' .
-					'Fixtures/Extensions/user_phpunittest2/.'
+			$this->markTestSkipped(
+				'THe extension user_phpunittest2 is not installed, but needs to be installed. ' .
+					'Please install it from EXT:phpunit/Tests/Unit/Fixtures/Extensions/user_phpunittest2/.'
 			);
 		}
 	}
@@ -4716,6 +4714,8 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	 * @test
 	 */
 	public function getDummyColumnNameForThirdPartyExtensionTableReturnsPrefixedColumnName() {
+		$this->checkIfExtensionUserPhpUnittestIsLoaded();
+
 		$testingFramework = new Tx_Phpunit_Framework(
 			'user_phpunittest', array('user_phpunittest2')
 		);
