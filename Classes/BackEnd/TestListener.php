@@ -451,9 +451,10 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 		}
 
 		if (($this->totalNumberOfTests - $this->totalNumberOfDetectedDataProviderTests) > 0) {
-			$percentDone = intval(($this->currentTestNumber / ($this->totalNumberOfTests - $this->totalNumberOfDetectedDataProviderTests)) * 100);
+			$percentDone = 100.0 * $this->currentTestNumber /
+				($this->totalNumberOfTests - $this->totalNumberOfDetectedDataProviderTests);
 		} else {
-			$percentDone = 0;
+			$percentDone = 0.0;
 		}
 		$leakedMemory = ($this->memoryUsageEndOfTest - $this->memoryUsageStartOfTest);
 		$this->totalLeakedMemory += $leakedMemory;
@@ -473,7 +474,7 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 			'<script type="text/javascript">/*<![CDATA[*/document.getElementById("progress-bar").style.width = "' .
 			$percentDone . '%";/*]]>*/</script>' .
 			'<script type="text/javascript">/*<![CDATA[*/document.getElementById("transparent-bar").style.width = "' .
-			(100 - $percentDone) . '%";/*]]>*/</script>';
+			(100.0 - $percentDone) . '%";/*]]>*/</script>';
 
 		$this->output($output);
 		$this->flushOutputBuffer();
