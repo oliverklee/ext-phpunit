@@ -534,7 +534,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		$testCase1->expects($this->once())->method('getNumAssertions')->will($this->returnValue(1));
 
 		$this->fixture->endTest($testCase1, 0.0);
-		$this->assertEquals(
+		$this->assertSame(
 			1,
 			$this->fixture->assertionCount(),
 			'The assertions of the first test case have not been counted.'
@@ -545,7 +545,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		$testCase2->expects($this->once())->method('getNumAssertions')->will($this->returnValue(4));
 
 		$this->fixture->endTest($testCase2, 0.0);
-		$this->assertEquals(
+		$this->assertSame(
 			5,
 			$this->fixture->assertionCount(),
 			'The assertions of the second test case have not been counted.'
@@ -560,7 +560,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase');
 
 		$this->fixture->endTest($testCase, 0.0);
-		$this->assertEquals(
+		$this->assertSame(
 			0,
 			$this->fixture->assertionCount()
 		);
@@ -574,7 +574,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		$test = $this->getMock('PHPUnit_Framework_Test');
 
 		$this->fixture->endTest($test, 0.0);
-		$this->assertEquals(
+		$this->assertSame(
 			0,
 			$this->fixture->assertionCount()
 		);

@@ -31,24 +31,25 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
-	public function newArrayIsEmpty() {
-		$fixture = array();
-
-		$this->assertEquals(0, sizeof($fixture));
+	public function passedTest() {
+		$this->assertSame(
+			2,
+			1 + 1
+		);
 	}
 
 	/**
 	 * @test
 	 */
-	public function thisCaseIsMarkedAsSkipped() {
-		$this->markTestSkipped('This test is skipped while testing.');
+	public function skippedTest() {
+		$this->markTestSkipped('This test always is skipped (for testing purposes).');
 	}
 
 	/**
 	 * @test
 	 */
-	public function thisCaseIsMarkedAsNotImplemented() {
-		$this->markTestIncomplete('This test as incomplete while not implemented for testing.');
+	public function incompleteTest() {
+		$this->markTestIncomplete('This test always is incomplete (for testing purposes).');
 	}
 }
 ?>

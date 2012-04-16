@@ -46,13 +46,6 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 	/**
 	 * @test
 	 */
-	public function nullToEmptyString() {
-		$this->assertEquals('', mysql_real_escape_string(NULL));
-	}
-
-	/**
-	 * @test
-	 */
 	public function creatingTestDatabase() {
 		if (!$this->dropDatabase() || !$this->createDatabase()) {
 			$this->markTestSkipped(
@@ -118,8 +111,10 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 		$this->cleanDatabase();
 		/** @var $res resource */
 		$res = $db->sql_query('show tables');
-		$rows = mysql_num_rows($res);
-		$this->assertEquals(0, $rows);
+		$this->assertSame(
+			0,
+			mysql_num_rows($res)
+		);
 	}
 
 	/**
@@ -254,20 +249,50 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 		$this->importDataSet(t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/Database/Fixtures/DataSet.xml');
 
 		$result = $db->exec_SELECTgetRows('*', 'tx_ccc_test', NULL);
-		$this->assertEquals(2, count($result));
-		$this->assertEquals(1, $result[0]['uid']);
-		$this->assertEquals(2, $result[1]['uid']);
+		$this->assertSame(
+			2,
+			count($result)
+		);
+		$this->assertSame(
+			'1',
+			$result[0]['uid']
+		);
+		$this->assertSame(
+			'2',
+			$result[1]['uid']
+		);
 
 		$result = $db->exec_SELECTgetRows('*', 'tx_ccc_data', NULL);
-		$this->assertEquals(1, count($result));
-		$this->assertEquals(1, $result[0]['uid']);
+		$this->assertSame(
+			1,
+			count($result)
+		);
+		$this->assertSame(
+			'1',
+			$result[0]['uid']
+		);
 
 		$result = $db->exec_SELECTgetRows('*', 'tx_ccc_data_test_mm', NULL);
-		$this->assertEquals(2, count($result));
-		$this->assertEquals(1, $result[0]['uid_local']);
-		$this->assertEquals(1, $result[0]['uid_foreign']);
-		$this->assertEquals(1, $result[1]['uid_local']);
-		$this->assertEquals(2, $result[1]['uid_foreign']);
+		$this->assertSame(
+			2,
+			count($result)
+		);
+		$this->assertSame(
+			'1',
+			$result[0]['uid_local']
+		);
+		$this->assertSame(
+			'1',
+			$result[0]['uid_foreign']
+		);
+		$this->assertSame(
+			'1',
+			$result[1]['uid_local']
+		);
+		$this->assertSame(
+			'2',
+			$result[1]['uid_foreign']
+		);
 	}
 }
 ?>

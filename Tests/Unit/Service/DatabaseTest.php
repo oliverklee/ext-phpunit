@@ -79,7 +79,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
      * @test
      */
     public function sortExplodeWithEmptyStringReturnsEmptyArray() {
-		$this->assertEquals(
+		$this->assertSame(
 			array(),
 			$this->sortExplode('')
 		);
@@ -89,7 +89,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
      * @test
      */
     public function sortExplodeWithOneNumberReturnsArrayWithNumber() {
-		$this->assertEquals(
+		$this->assertSame(
 			array(42),
 			$this->sortExplode('42')
 		);
@@ -99,7 +99,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
      * @test
      */
     public function sortExplodeWithTwoAscendingNumbersReturnsArrayWithBothNumbers() {
-		$this->assertEquals(
+		$this->assertSame(
 			array(1, 2),
 			$this->sortExplode('1,2')
 		);
@@ -109,7 +109,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
      * @test
      */
     public function sortExplodeWithTwoDescendingNumbersReturnsSortedArrayWithBothNumbers() {
-		$this->assertEquals(
+		$this->assertSame(
 			array(1, 2),
 			$this->sortExplode('2,1')
 		);
@@ -160,7 +160,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
      * @test
      */
     public function enableFieldsAreTheSameForShowHiddenZeroAndMinusOne() {
-		$this->assertEquals(
+		$this->assertSame(
 			Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', 0),
 			Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', -1)
 		);
@@ -221,7 +221,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
      * @test
      */
     public function createRecursivePageListReturnsAnEmptyStringForNoPagesWithDefaultRecursion() {
-		$this->assertEquals(
+		$this->assertSame(
 			'',
 			Tx_Phpunit_Service_Database::createRecursivePageList('')
 		);
@@ -231,7 +231,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
      * @test
      */
     public function createRecursivePageListReturnsAnEmptyStringForNoPagesWithZeroRecursion() {
-		$this->assertEquals(
+		$this->assertSame(
 			'',
 			Tx_Phpunit_Service_Database::createRecursivePageList('', 0)
 		);
@@ -241,7 +241,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
      * @test
      */
     public function createRecursivePageListReturnsAnEmptyStringForNoPagesWithNonZeroRecursion() {
-		$this->assertEquals(
+		$this->assertSame(
 			'',
 			Tx_Phpunit_Service_Database::createRecursivePageList('', 1)
 		);
@@ -263,7 +263,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 		$uid = $this->testingFramework->createSystemFolder();
 		$this->testingFramework->createSystemFolder($uid);
 
-		$this->assertEquals(
+		$this->assertSame(
 			(string) $uid,
 			Tx_Phpunit_Service_Database::createRecursivePageList((string) $uid, 0)
 		);
@@ -277,7 +277,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 		$this->testingFramework->createSystemFolder($uid1);
 		$uid2 = $this->testingFramework->createSystemFolder();
 
-		$this->assertEquals(
+		$this->assertSame(
 			$this->sortExplode($uid1 . ',' . $uid2),
 			$this->sortExplode(
 				Tx_Phpunit_Service_Database::createRecursivePageList($uid1.','.$uid2, 0)
@@ -293,7 +293,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 		$subFolderUid = $this->testingFramework->createSystemFolder($uid);
 		$this->testingFramework->createSystemFolder($subFolderUid);
 
-		$this->assertEquals(
+		$this->assertSame(
 			$this->sortExplode($uid.','.$subFolderUid),
 			$this->sortExplode(Tx_Phpunit_Service_Database::createRecursivePageList($uid, 1))
 		);
@@ -306,7 +306,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 		$uid = $this->testingFramework->createSystemFolder();
 		$this->testingFramework->createSystemFolder();
 
-		$this->assertEquals(
+		$this->assertSame(
 			(string) $uid,
 			Tx_Phpunit_Service_Database::createRecursivePageList($uid, 0)
 		);
@@ -320,7 +320,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 		$subFolderUid1 = $this->testingFramework->createSystemFolder($uid);
 		$subFolderUid2 = $this->testingFramework->createSystemFolder($uid);
 
-		$this->assertEquals(
+		$this->assertSame(
 			$this->sortExplode($uid.','.$subFolderUid1.','.$subFolderUid2),
 			$this->sortExplode(Tx_Phpunit_Service_Database::createRecursivePageList($uid, 1))
 		);
@@ -335,7 +335,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 		$subFolderUid1 = $this->testingFramework->createSystemFolder($uid1);
 		$subFolderUid2 = $this->testingFramework->createSystemFolder($uid2);
 
-		$this->assertEquals(
+		$this->assertSame(
 			$this->sortExplode(
 				$uid1.','.$uid2.','.$subFolderUid1.','.$subFolderUid2
 			),
@@ -352,11 +352,11 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 		$uid = $this->testingFramework->createSystemFolder();
 		$subFolderUid = $this->testingFramework->createSystemFolder($uid);
 
-		$this->assertEquals(
+		$this->assertSame(
 			(string) $uid,
 			Tx_Phpunit_Service_Database::createRecursivePageList($uid, 0)
 		);
-		$this->assertEquals(
+		$this->assertSame(
 			$this->sortExplode($uid.','.$subFolderUid),
 			$this->sortExplode(Tx_Phpunit_Service_Database::createRecursivePageList($uid, 1))
 		);
@@ -369,11 +369,11 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 		$uid = $this->testingFramework->createSystemFolder();
 		$subFolderUid = $this->testingFramework->createSystemFolder($uid);
 
-		$this->assertEquals(
+		$this->assertSame(
 			$this->sortExplode($uid.','.$subFolderUid),
 			$this->sortExplode(Tx_Phpunit_Service_Database::createRecursivePageList($uid, 1))
 		);
-		$this->assertEquals(
+		$this->assertSame(
 			(string) $uid,
 			Tx_Phpunit_Service_Database::createRecursivePageList($uid, 0)
 		);
@@ -589,7 +589,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
      * @test
      */
     public function deleteForNoDeletedRecordReturnsZero() {
-		$this->assertEquals(
+		$this->assertSame(
 			0,
 			Tx_Phpunit_Service_Database::delete(
 				'tx_phpunit_test', 'uid = 0'
@@ -603,7 +603,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
     public function deleteForOneDeletedRecordReturnsOne() {
 		$uid = $this->testingFramework->createRecord('tx_phpunit_test');
 
-		$this->assertEquals(
+		$this->assertSame(
 			1,
 			Tx_Phpunit_Service_Database::delete(
 				'tx_phpunit_test', 'uid = ' . $uid
@@ -618,7 +618,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 		$uid1 = $this->testingFramework->createRecord('tx_phpunit_test');
 		$uid2 = $this->testingFramework->createRecord('tx_phpunit_test');
 
-		$this->assertEquals(
+		$this->assertSame(
 			2,
 			Tx_Phpunit_Service_Database::delete(
 				'tx_phpunit_test',
@@ -666,7 +666,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
      * @test
      */
     public function updateForNoChangedRecordReturnsZero() {
-		$this->assertEquals(
+		$this->assertSame(
 			0,
 			Tx_Phpunit_Service_Database::update(
 				'tx_phpunit_test', 'uid = 0', array('title' => 'foo')
@@ -680,7 +680,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
     public function updateForOneChangedRecordReturnsOne() {
 		$uid = $this->testingFramework->createRecord('tx_phpunit_test');
 
-		$this->assertEquals(
+		$this->assertSame(
 			1,
 			Tx_Phpunit_Service_Database::update(
 				'tx_phpunit_test', 'uid = ' . $uid, array('title' => 'foo')
@@ -695,7 +695,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 		$uid1 = $this->testingFramework->createRecord('tx_phpunit_test');
 		$uid2 = $this->testingFramework->createRecord('tx_phpunit_test');
 
-		$this->assertEquals(
+		$this->assertSame(
 			2,
 			Tx_Phpunit_Service_Database::update(
 				'tx_phpunit_test',
@@ -774,7 +774,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
     public function insertForTableWithoutUidReturnsZero() {
 		$this->testingFramework->markTableAsDirty('tx_phpunit_test_article_mm');
 
-		$this->assertEquals(
+		$this->assertSame(
 			0,
 			Tx_Phpunit_Service_Database::insert(
 				'tx_phpunit_test_article_mm', array('is_dummy_record' => 1)
@@ -848,7 +848,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 			'tx_phpunit_test'
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array('uid' => $uid),
 			Tx_Phpunit_Service_Database::selectSingle('uid', 'tx_phpunit_test', 'uid = ' . $uid)
 		);
@@ -876,7 +876,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 			'tx_phpunit_test', array('title' => 'Title B')
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array('uid' => $uid),
 			Tx_Phpunit_Service_Database::selectSingle('uid', 'tx_phpunit_test', '', '', 'title DESC')
 		);
@@ -893,7 +893,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 			'tx_phpunit_test', array('title' => 'Title B')
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array('uid' => $uid),
 			Tx_Phpunit_Service_Database::selectSingle('uid', 'tx_phpunit_test', '', '', 'title', 1)
 		);
@@ -926,7 +926,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 	 * @test
 	 */
 	public function selectMultipleForNoResultsReturnsEmptyArray() {
-		$this->assertEquals(
+		$this->assertSame(
 			array(),
 			Tx_Phpunit_Service_Database::selectMultiple(
 				'uid', 'tx_phpunit_test', 'title = "nothing"'
@@ -942,7 +942,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 			'tx_phpunit_test'
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array(array('uid' => $uid)),
 			Tx_Phpunit_Service_Database::selectMultiple('uid', 'tx_phpunit_test', 'uid = ' . $uid)
 		);
@@ -959,7 +959,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 			'tx_phpunit_test', array('title' => 'foo')
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array(
 				array('title' => 'foo'),
 				array('title' => 'foo'),
@@ -974,7 +974,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 	 * @test
 	 */
 	public function selectColumnForMultipleForNoMatchesReturnsEmptyArray() {
-		$this->assertEquals(
+		$this->assertSame(
 			array(),
 			Tx_Phpunit_Service_Database::selectColumnForMultiple(
 				'title', 'tx_phpunit_test', 'title = "nothing"'
@@ -990,7 +990,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 			'tx_phpunit_test', array('title' => 'foo')
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			array('foo'),
 			Tx_Phpunit_Service_Database::selectColumnForMultiple(
 				'title', 'tx_phpunit_test', 'uid = ' . $uid
@@ -1013,7 +1013,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 			'title', 'tx_phpunit_test', 'uid = ' . $uid1 . ' OR uid = ' . $uid2
 		);
 		sort($result);
-		$this->assertEquals(
+		$this->assertSame(
 			array('bar', 'foo'),
 			$result
 		);
