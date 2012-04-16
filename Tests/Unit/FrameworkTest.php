@@ -873,7 +873,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 
 		$this->assertSame(
 			1,
-			$row['related_records']
+			intval($row['related_records'])
 		);
 	}
 
@@ -902,7 +902,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 
 		$this->assertSame(
 			2,
-			$row['related_records']
+			intval($row['related_records'])
 		);
 	}
 
@@ -953,7 +953,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 
 		$this->assertSame(
 			1,
-			$row['bidirectional']
+			intval($row['bidirectional'])
 		);
 	}
 
@@ -979,7 +979,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 
 		$this->assertSame(
 			1,
-			$row['related_records']
+			intval($row['related_records'])
 		);
 	}
 
@@ -999,8 +999,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 
 		$count = $this->fixture->countRecords(
 			'tx_phpunit_test_article_mm',
-			'uid_local=' . $secondRecordUid . ' AND uid_foreign=' .
-				$firstRecordUid
+			'uid_local=' . $secondRecordUid . ' AND uid_foreign=' . $firstRecordUid
 		);
 		$this->assertSame(
 			1,
@@ -2264,7 +2263,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	/**
      * @test
      */
-    public function createFrontEndPageSetsCorrectDocumentType() {
+    public function createFrontEndPageSetsPageDocumentType() {
 		$uid = $this->fixture->createFrontEndPage();
 
 		$this->assertNotEquals(
@@ -2280,7 +2279,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 
 		$this->assertSame(
 			1,
-			$row['doktype']
+			intval($row['doktype'])
 		);
 	}
 
@@ -2303,7 +2302,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 
 		$this->assertSame(
 			0,
-			$row['pid']
+			intval($row['pid'])
 		);
 	}
 
@@ -2327,7 +2326,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 
 		$this->assertSame(
 			$parent,
-			$row['pid']
+			intval($row['pid'])
 		);
 	}
 
@@ -2490,7 +2489,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	/**
      * @test
      */
-    public function createSystemFolderSetsCorrectDocumentType() {
+    public function createSystemFolderSetsSystemFolderDocumentType() {
 		$uid = $this->fixture->createSystemFolder();
 
 		$this->assertNotEquals(
@@ -2506,7 +2505,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 
 		$this->assertSame(
 			254,
-			$row['doktype']
+			intval($row['doktype'])
 		);
 	}
 
@@ -2529,7 +2528,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 
 		$this->assertSame(
 			0,
-			$row['pid']
+			intval($row['pid'])
 		);
 	}
 
@@ -2553,7 +2552,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 
 		$this->assertSame(
 			$parent,
-			$row['pid']
+			intval($row['pid'])
 		);
 	}
 
@@ -2732,7 +2731,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 
 		$this->assertSame(
 			0,
-			$row['pid']
+			intval($row['pid'])
 		);
 	}
 
@@ -2756,7 +2755,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 
 		$this->assertSame(
 			$parent,
-			$row['pid']
+			intval($row['pid'])
 		);
 	}
 
@@ -3010,9 +3009,8 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 			'uid = ' . $uid
 		);
 
-		$this->assertSame(
-			'',
-			$row['config']
+		$this->assertFalse(
+			isset($row['config'])
 		);
 	}
 
@@ -3049,9 +3047,8 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 			'uid = ' . $uid
 		);
 
-		$this->assertSame(
-			'',
-			$row['constants']
+		$this->assertFalse(
+			isset($row['constants'])
 		);
 	}
 
@@ -4124,13 +4121,13 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 		$pageUid = $this->fixture->createFrontEndPage();
 		$this->fixture->createTemplate(
 			$pageUid,
-			array('config' => 'foo = 42')
+			array('config' => 'foo = bar')
 		);
 
 		$this->fixture->createFakeFrontEnd($pageUid);
 
 		$this->assertSame(
-			42,
+			'bar',
 			$GLOBALS['TSFE']->tmpl->setup['foo']
 		);
 	}
@@ -4583,7 +4580,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 
 		$this->assertSame(
 			$frontEndUserGroupUid,
-			$dbResultRow['usergroup']
+			intval($dbResultRow['usergroup'])
 		);
 	}
 
@@ -4644,7 +4641,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 
 		$this->assertSame(
 			42,
-			$row['related_records']
+			intval($row['related_records'])
 		);
 	}
 

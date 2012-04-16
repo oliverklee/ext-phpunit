@@ -849,7 +849,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 		);
 
 		$this->assertSame(
-			array('uid' => $uid),
+			array('uid' => (string) $uid),
 			Tx_Phpunit_Service_Database::selectSingle('uid', 'tx_phpunit_test', 'uid = ' . $uid)
 		);
 	}
@@ -877,7 +877,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 		);
 
 		$this->assertSame(
-			array('uid' => $uid),
+			array('uid' => (string) $uid),
 			Tx_Phpunit_Service_Database::selectSingle('uid', 'tx_phpunit_test', '', '', 'title DESC')
 		);
 	}
@@ -894,7 +894,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 		);
 
 		$this->assertSame(
-			array('uid' => $uid),
+			array('uid' => (string) $uid),
 			Tx_Phpunit_Service_Database::selectSingle('uid', 'tx_phpunit_test', '', '', 'title', 1)
 		);
 	}
@@ -943,7 +943,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 		);
 
 		$this->assertSame(
-			array(array('uid' => $uid)),
+			array(array('uid' => (string) $uid)),
 			Tx_Phpunit_Service_Database::selectMultiple('uid', 'tx_phpunit_test', 'uid = ' . $uid)
 		);
 	}
