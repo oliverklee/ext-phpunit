@@ -35,6 +35,11 @@
  */
 class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener {
 	/**
+	 * @var Tx_PhpUnit_Service_OutputService
+	 */
+	protected $outputService = NULL;
+
+	/**
 	 * the total number of tests to run
 	 *
 	 * @var integer
@@ -136,7 +141,18 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 * The destructor.
 	 */
 	public function __destruct() {
-		unset($this->namePrettifier);
+		unset($this->namePrettifier, $this->outputService);
+	}
+
+	/**
+	 * Injects the output service.
+	 *
+	 * @param Tx_PhpUnit_Service_OutputService $outputService the output service to inject
+	 *
+	 * @return void
+	 */
+	public function injectOutputService(Tx_PhpUnit_Service_OutputService $outputService) {
+		$this->outputService = $outputService;
 	}
 
 	/**
@@ -202,7 +218,7 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 		$fileName = str_replace(PATH_site, '', $e->getFile());
 		$lineNumber = $e->getLine();
 
-		$this->output(
+		$this->outputService->output(
 			'<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadError");/*]]>*/</script>' .
 					'<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
 					$this->currentDataProviderNumber . '","testcaseError");/*]]>*/</script>' .
@@ -211,7 +227,7 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 					'<br />Line: <em>' . $lineNumber . '</em>' .
 					'<div class="message">' . nl2br(htmlspecialchars($e->getMessage())) . '</div>'
 		);
-		$this->flushOutputBuffer();
+		$this->outputService->flushOutputBuffer();
 	}
 
 	/**
@@ -234,7 +250,7 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 		$testCaseTraceArr = $this->getFirstNonPhpUnitTrace($e->getTrace());
 		$fileName = str_replace(PATH_site, '', $testCaseTraceArr['file']);
 
-		$this->output(
+		$this->outputService->output(
 			'<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadFailure");/*]]>*/</script>' .
 				'<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
 				$this->currentDataProviderNumber . '","testcaseFailure");/*]]>*/</script>' .
@@ -248,7 +264,7 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 		} else {
 			$message = $e->getMessage();
 		}
-		$this->output('<div class="message">' . nl2br(htmlspecialchars($message)) . '</div>');
+		$this->outputService->output('<div class="message">' . nl2br(htmlspecialchars($message)) . '</div>');
 
 		if ($e instanceof PHPUnit_Framework_ExpectationFailedException) {
 			/** @var $e PHPUnit_Framework_ExpectationFailedException */
@@ -260,7 +276,7 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 
 				/** @var $diff t3lib_diff */
 				$diff = t3lib_div::makeInstance('t3lib_diff');
-				$this->output('<code>' . $diff->makeDiffDisplay($actual, $expected) . '</code>');
+				$this->outputService->output('<code>' . $diff->makeDiffDisplay($actual, $expected) . '</code>');
 			}
 		}
 	}
@@ -303,7 +319,7 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 		}
 		/** @var $test PHPUnit_Framework_TestCase */
 
-		$this->output(
+		$this->outputService->output(
 			'<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadNotImplemented");/*]]>*/</script>' .
 				'<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
 				$this->currentDataProviderNumber . '","testcaseNotImplemented");/*]]>*/</script>' .
@@ -330,7 +346,7 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 		}
 		/** @var $test PHPUnit_Framework_TestCase */
 
-		$this->output(
+		$this->outputService->output(
 			'<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadSkipped");/*]]>*/</script>' .
 				'<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
 				$this->currentDataProviderNumber . '","testcaseSkipped");/*]]>*/</script>' .
@@ -358,7 +374,7 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 			return;
 		}
 
-		$this->output(
+		$this->outputService->output(
 			'<h2 class="testSuiteName">Testsuite: ' . htmlspecialchars($this->prettifyTestClass($suite->getName())) . '</h2>' .
 			'<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("wasSuccessful");/*]]>*/</script>'
 		);
@@ -405,7 +421,7 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 		// A single test has to take less than this or else PHP will time out.
 		$this->setTimeLimit(240);
 
-		$this->output(
+		$this->outputService->output(
 			'<div id="testcaseNum-' . $this->currentTestNumber . '_' . $this->currentDataProviderNumber .
 				'" class="testcaseOutput testcaseSuccess">' .
 				'<h3>' . $this->createReRunLink($test) . htmlspecialchars($this->prettifyTestMethod($test->getName())) . '</h3><div>'
@@ -476,8 +492,8 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 			'<script type="text/javascript">/*<![CDATA[*/document.getElementById("transparent-bar").style.width = "' .
 			(100.0 - $percentDone) . '%";/*]]>*/</script>';
 
-		$this->output($output);
-		$this->flushOutputBuffer();
+		$this->outputService->output($output);
+		$this->outputService->flushOutputBuffer();
 	}
 
 	/**
@@ -600,26 +616,6 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 */
 	public function assertionCount() {
 		return $this->testAssertions;
-	}
-
-	/**
-	 * Echoes $output.
-	 *
-	 * @param string $output a string to echo, may also be empty
-	 *
-	 * @return void
-	 */
-	protected function output($output) {
-		echo($output);
-	}
-
-	/**
-	 * Flushes the output buffer.
-	 *
-	 * @return void
-	 */
-	protected function flushOutputBuffer() {
-		flush();
 	}
 }
 ?>

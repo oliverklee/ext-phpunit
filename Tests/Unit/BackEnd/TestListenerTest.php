@@ -37,21 +37,22 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	private $fixture;
 
 	/**
-	 * the output of the test lister
-	 *
-	 * @var string
+	 * @var Tx_PhpUnit_Service_FakeOutputService
 	 */
-	private $output = '';
+	protected $outputService = NULL;
 
 	public function setUp() {
+		$this->outputService = new Tx_PhpUnit_Service_FakeOutputService();
+
 		$fixtureClassName = $this->createAccessibleProxy();
 		$this->fixture = new $fixtureClassName();
+		$this->fixture->injectOutputService($this->outputService);
 	}
 
 	public function tearDown() {
 		$this->fixture->__destruct();
 
-		unset($this->fixture);
+		unset($this->fixture, $this->outputService);
 	}
 
 
@@ -91,25 +92,11 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 				'  public function setDataProviderNumber($number) {' .
 				'    $this->currentDataProviderNumber = $number;' .
 				'  }' .
-				'  public function output($output) {' .
-				'    parent::output($output);' .
-				'  }' .
 				'}'
 			);
 		}
 
 		return $className;
-	}
-
-	/**
-	 * Callback function for collecting the output of the test listener.
-	 *
-	 * @param string $text the output to collect, may also be empty
-	 *
-	 * @return void
-	 */
-	public function outputCallback($text) {
-		$this->output .= $text;
 	}
 
 	/**
@@ -141,31 +128,6 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		);
 	}
 
-	/**
-	 * @test
-	 */
-	public function outputCallbackCollectsOutput() {
-		$this->outputCallback('Hello world!');
-
-		$this->assertSame(
-			'Hello world!',
-			$this->output
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function outputCallbackCollectsOutputInAddingOrder() {
-		$this->outputCallback('1');
-		$this->outputCallback('2');
-
-		$this->assertSame(
-			'12',
-			$this->output
-		);
-	}
-
 
 	/*
 	 * Unit tests
@@ -175,22 +137,17 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function addFailureOutputsTestName() {
-		/** @var $fixture Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject  */
-		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('output'));
-		$fixture->expects($this->any())->method('output')
-			->will($this->returnCallback(array($this, 'outputCallback')));
-
 		/** @var $testCase PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject */
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array('aTestName'));
 		/** @var $error PHPUnit_Framework_AssertionFailedError|PHPUnit_Framework_MockObject_MockObject */
 		$error = $this->getMock('PHPUnit_Framework_AssertionFailedError');
 		$time = 0.0;
 
-		$fixture->addFailure($testCase, $error, $time);
+		$this->fixture->addFailure($testCase, $error, $time);
 
 		$this->assertContains(
 			'aTestName',
-			$this->output
+			$this->outputService->getCollectedOutput()
 		);
 	}
 
@@ -200,24 +157,19 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	public function addErrorOutputsTestNameHtmlSpecialchared() {
 		$testName = '<b>b</b>';
 
-		/** @var $fixture Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('output', 'flushOutputBuffer'));
-		$fixture->expects($this->any())->method('output')
-			->will($this->returnCallback(array($this, 'outputCallback')));
-
 		/** @var $testCase PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject */
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array($testName));
 		$time = 0.0;
 
-		$fixture->addError($testCase, new Exception(), $time);
+		$this->fixture->addError($testCase, new Exception(), $time);
 
 		$this->assertContains(
 			htmlspecialchars($testName),
-			$this->output
+			$this->outputService->getCollectedOutput()
 		);
 		$this->assertNotContains(
 			$testName,
-			$this->output
+			$this->outputService->getCollectedOutput()
 		);
 	}
 
@@ -227,26 +179,21 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	public function addFailureOutputsTestNameHtmlSpecialchared() {
 		$testName = '<b>b</b>';
 
-		/** @var $fixture Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('output'));
-		$fixture->expects($this->any())->method('output')
-			->will($this->returnCallback(array($this, 'outputCallback')));
-
 		/** @var $testCase PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject */
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array($testName));
 		/** @var $error PHPUnit_Framework_AssertionFailedError|PHPUnit_Framework_MockObject_MockObject */
 		$error = $this->getMock('PHPUnit_Framework_AssertionFailedError');
 		$time = 0.0;
 
-		$fixture->addFailure($testCase, $error, $time);
+		$this->fixture->addFailure($testCase, $error, $time);
 
 		$this->assertContains(
 			htmlspecialchars($testName),
-			$this->output
+			$this->outputService->getCollectedOutput()
 		);
 		$this->assertNotContains(
 			$testName,
-			$this->output
+			$this->outputService->getCollectedOutput()
 		);
 	}
 
@@ -258,11 +205,6 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 			$this->markTestSkipped('This test needs a working diff tool. Please see [BE][diff_path] in the install tool.');
 		}
 
-		/** @var $fixture Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('output'));
-		$fixture->expects($this->any())->method('output')
-			->will($this->returnCallback(array($this, 'outputCallback')));
-
 		/** @var $testCase PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject */
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array('aTestName'));
 		$error = new PHPUnit_Framework_ExpectationFailedException(
@@ -272,11 +214,11 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		);
 		$time = 0.0;
 
-		$fixture->addFailure($testCase, $error, $time);
+		$this->fixture->addFailure($testCase, $error, $time);
 
 		$this->assertContains(
 			'expected&amp;correct',
-			strip_tags($this->output)
+			strip_tags($this->outputService->getCollectedOutput())
 		);
 	}
 
@@ -284,11 +226,6 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function addFailureWithComparisonFailureForTwoStringsOutputsHtmlSpecialcharedActualString() {
-		/** @var $fixture Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('output'));
-		$fixture->expects($this->any())->method('output')
-			->will($this->returnCallback(array($this, 'outputCallback')));
-
 		/** @var $testCase PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject */
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array('aTestName'));
 		$error = new PHPUnit_Framework_ExpectationFailedException(
@@ -298,11 +235,11 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		);
 		$time = 0.0;
 
-		$fixture->addFailure($testCase, $error, $time);
+		$this->fixture->addFailure($testCase, $error, $time);
 
 		$this->assertContains(
 			'actual&amp;incorrect',
-			strip_tags($this->output)
+			strip_tags($this->outputService->getCollectedOutput())
 		);
 	}
 
@@ -310,11 +247,6 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function addFailureWithComparisonFailureForTwoStringsDoesNotCrash() {
-		/** @var $fixture Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('output'));
-		$fixture->expects($this->any())->method('output')
-			->will($this->returnCallback(array($this, 'outputCallback')));
-
 		/** @var $testCase PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject */
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array('aTestName'));
 		$error = new PHPUnit_Framework_ExpectationFailedException(
@@ -324,24 +256,19 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		);
 		$time = 0.0;
 
-		$fixture->addFailure($testCase, $error, $time);
+		$this->fixture->addFailure($testCase, $error, $time);
 	}
 
 	/**
 	 * @test
 	 */
 	public function addFailureWithNullComparisonFailureDoesNotCrash() {
-		/** @var $fixture Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('output'));
-		$fixture->expects($this->any())->method('output')
-			->will($this->returnCallback(array($this, 'outputCallback')));
-
 		/** @var $testCase PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject */
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array('aTestName'));
 		$error = new PHPUnit_Framework_ExpectationFailedException('', NULL);
 		$time = 0.0;
 
-		$fixture->addFailure($testCase, $error, $time);
+		$this->fixture->addFailure($testCase, $error, $time);
 	}
 
 	/**
@@ -350,25 +277,20 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	public function addIncompleteTestOutputsHtmlSpecialcharedTestName() {
 		$testName = 'a<b>Test</b>Name';
 
-		/** @var $fixture Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('output'));
-		$fixture->expects($this->any())->method('output')
-			->will($this->returnCallback(array($this, 'outputCallback')));
-
 		/** @var $testCase PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject  */
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array($testName));
 		$exception = new Exception();
 		$time = 0.0;
 
-		$fixture->addIncompleteTest($testCase, $exception, $time);
+		$this->fixture->addIncompleteTest($testCase, $exception, $time);
 
 		$this->assertContains(
 			htmlspecialchars($testName),
-			$this->output
+			$this->outputService->getCollectedOutput()
 		);
 		$this->assertNotContains(
 			$testName,
-			$this->output
+			$this->outputService->getCollectedOutput()
 		);
 	}
 
@@ -378,25 +300,20 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	public function addIncompleteTestOutputsHtmlSpecialcharedExceptionMessage() {
 		$message = 'a<b>Test</b>Name';
 
-		/** @var $fixture Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('output'));
-		$fixture->expects($this->any())->method('output')
-			->will($this->returnCallback(array($this, 'outputCallback')));
-
 		/** @var $testCase PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject  */
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array('aTestName'));
 		$exception = new Exception($message);
 		$time = 0.0;
 
-		$fixture->addIncompleteTest($testCase, $exception, $time);
+		$this->fixture->addIncompleteTest($testCase, $exception, $time);
 
 		$this->assertContains(
 			htmlspecialchars($message),
-			$this->output
+			$this->outputService->getCollectedOutput()
 		);
 		$this->assertNotContains(
 			$message,
-			$this->output
+			$this->outputService->getCollectedOutput()
 		);
 	}
 
@@ -406,25 +323,20 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	public function addSkippedTestOutputsSpecialcharedTestName() {
 		$testName = 'a<b>Test</b>Name';
 
-		/** @var $fixture Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('output'));
-		$fixture->expects($this->any())->method('output')
-			->will($this->returnCallback(array($this, 'outputCallback')));
-
 		/** @var $testCase PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject  */
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array($testName));
 		$exception = new Exception();
 		$time = 0.0;
 
-		$fixture->addSkippedTest($testCase, $exception, $time);
+		$this->fixture->addSkippedTest($testCase, $exception, $time);
 
 		$this->assertContains(
 			htmlspecialchars($testName),
-			$this->output
+			$this->outputService->getCollectedOutput()
 		);
 		$this->assertNotContains(
 			$testName,
-			$this->output
+			$this->outputService->getCollectedOutput()
 		);
 	}
 
@@ -434,25 +346,20 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	public function addSkippedTestOutputsHtmlSpecialcharedExceptionMessage() {
 		$message = 'a<b>Test</b>Name';
 
-		/** @var $fixture Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('output'));
-		$fixture->expects($this->any())->method('output')
-			->will($this->returnCallback(array($this, 'outputCallback')));
-
 		/** @var $testCase PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject  */
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array('aTestName'));
 		$exception = new Exception($message);
 		$time = 0.0;
 
-		$fixture->addSkippedTest($testCase, $exception, $time);
+		$this->fixture->addSkippedTest($testCase, $exception, $time);
 
 		$this->assertContains(
 			htmlspecialchars($message),
-			$this->output
+			$this->outputService->getCollectedOutput()
 		);
 		$this->assertNotContains(
 			$message,
-			$this->output
+			$this->outputService->getCollectedOutput()
 		);
 	}
 
@@ -461,9 +368,8 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	 */
 	public function startTestSuiteOutputsPrettifiedTestClassName() {
 		/** @var $fixture Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('output', 'prettifyTestClass'));
-		$fixture->expects($this->any())->method('output')
-			->will($this->returnCallback(array($this, 'outputCallback')));
+		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('prettifyTestClass'));
+		$fixture->injectOutputService($this->outputService);
 
 		/** @var $testSuite PHPUnit_Framework_TestSuite|PHPUnit_Framework_MockObject_MockObject */
 		$testSuite = $this->getMock('PHPUnit_Framework_TestSuite', array('run'), array('aTestSuiteName'));
@@ -474,7 +380,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		$this->assertContains(
 			'a test suite name',
-			$this->output
+			$this->outputService->getCollectedOutput()
 		);
 	}
 
@@ -493,7 +399,8 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	 */
 	public function startTestSetsTimeLimitOf240Seconds() {
 		/** @var $fixture Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('setTimeLimit', 'output'));
+		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('setTimeLimit'));
+		$fixture->injectOutputService($this->outputService);
 
 		$fixture->expects($this->once())->method('setTimeLimit')->with(240);
 
@@ -507,9 +414,8 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	 */
 	public function startTestOutputsCurrentTestNumberAndDataProviderNumberAsHtmlId() {
 		/** @var $fixture Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject  */
-		$fixture = $this->getMock($this->createAccessibleProxy(), array('setTimeLimit', 'output'));
-		$fixture->expects($this->any())->method('output')
-			->will($this->returnCallback(array($this, 'outputCallback')));
+		$fixture = $this->getMock($this->createAccessibleProxy(), array('setTimeLimit'));
+		$fixture->injectOutputService($this->outputService);
 
 		$fixture->setTestNumber(42);
 		$fixture->setDataProviderNumber(91);
@@ -520,7 +426,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		$this->assertContains(
 			'id="testcaseNum-42_91"',
-			$this->output
+			$this->outputService->getCollectedOutput()
 		);
 	}
 
@@ -529,9 +435,8 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	 */
 	public function startTestOutputsReRunLink() {
 		/** @var $fixture Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject  */
-		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('setTimeLimit', 'output', 'createReRunLink'));
-		$fixture->expects($this->any())->method('output')
-			->will($this->returnCallback(array($this, 'outputCallback')));
+		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('setTimeLimit', 'createReRunLink'));
+		$fixture->injectOutputService($this->outputService);
 
 		/** @var $testCase PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject */
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase');
@@ -542,7 +447,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		$this->assertContains(
 			'the re-run URL',
-			$this->output
+			$this->outputService->getCollectedOutput()
 		);
 	}
 
@@ -551,9 +456,8 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	 */
 	public function startTestOutputsPrettifiedTestName() {
 		/** @var $fixture Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject  */
-		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('setTimeLimit', 'output', 'prettifyTestMethod'));
-		$fixture->expects($this->any())->method('output')
-			->will($this->returnCallback(array($this, 'outputCallback')));
+		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('setTimeLimit', 'prettifyTestMethod'));
+		$fixture->injectOutputService($this->outputService);
 
 		/** @var $testCase PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject */
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array('aTestName'));
@@ -564,7 +468,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		$this->assertContains(
 			'a test name',
-			$this->output
+			$this->outputService->getCollectedOutput()
 		);
 	}
 
@@ -575,8 +479,8 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		$testName = '<b>b</b>';
 
 		/** @var $fixture Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject  */
-		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('setTimeLimit', 'output', 'prettifyTestMethod'));
-		$fixture->expects($this->any())->method('output')->will($this->returnCallback(array($this, 'outputCallback')));
+		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('setTimeLimit', 'prettifyTestMethod'));
+		$fixture->injectOutputService($this->outputService);
 
 		/** @var $testCase PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject */
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array($testName));
@@ -586,11 +490,11 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		$this->assertContains(
 			htmlspecialchars($testName),
-			$this->output
+			$this->outputService->getCollectedOutput()
 		);
 		$this->assertNotContains(
 			$testName,
-			$this->output
+			$this->outputService->getCollectedOutput()
 		);
 	}
 
@@ -601,8 +505,8 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		$testSuiteName = '<b>b</b>';
 
 		/** @var $fixture Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject  */
-		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('output', 'prettifyTestClass'));
-		$fixture->expects($this->any())->method('output')->will($this->returnCallback(array($this, 'outputCallback')));
+		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('prettifyTestClass'));
+		$fixture->injectOutputService($this->outputService);
 
 		/** @var $testSuite PHPUnit_Framework_TestSuite|PHPUnit_Framework_MockObject_MockObject */
 		$testSuite = $this->getMock('PHPUnit_Framework_TestSuite', array('run'), array($testSuiteName));
@@ -613,11 +517,11 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		$this->assertContains(
 			htmlspecialchars($testSuiteName),
-			$this->output
+			$this->outputService->getCollectedOutput()
 		);
 		$this->assertNotContains(
 			$testSuiteName,
-			$this->output
+			$this->outputService->getCollectedOutput()
 		);
 	}
 
@@ -625,17 +529,14 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function endTestAddsTestAssertionsToTotalAssertionCount() {
-		/** @var $fixture Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject  */
-		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('output', 'flushOutputBuffer'));
-
 		/** @var $testCase1 PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject */
 		$testCase1 = $this->getMock('PHPUnit_Framework_TestCase', array('getNumAssertions'));
 		$testCase1->expects($this->once())->method('getNumAssertions')->will($this->returnValue(1));
 
-		$fixture->endTest($testCase1, 0.0);
+		$this->fixture->endTest($testCase1, 0.0);
 		$this->assertEquals(
 			1,
-			$fixture->assertionCount(),
+			$this->fixture->assertionCount(),
 			'The assertions of the first test case have not been counted.'
 		);
 
@@ -643,10 +544,10 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		$testCase2 = $this->getMock('PHPUnit_Framework_TestCase', array('getNumAssertions'));
 		$testCase2->expects($this->once())->method('getNumAssertions')->will($this->returnValue(4));
 
-		$fixture->endTest($testCase2, 0.0);
+		$this->fixture->endTest($testCase2, 0.0);
 		$this->assertEquals(
 			5,
-			$fixture->assertionCount(),
+			$this->fixture->assertionCount(),
 			'The assertions of the second test case have not been counted.'
 		);
 	}
@@ -655,16 +556,13 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function endTestForTestCaseInstanceLeavesAssertionCountUnchanged() {
-		/** @var $fixture Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject  */
-		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('output', 'flushOutputBuffer'));
-
 		/** @var $testCase PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject */
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase');
 
-		$fixture->endTest($testCase, 0.0);
+		$this->fixture->endTest($testCase, 0.0);
 		$this->assertEquals(
 			0,
-			$fixture->assertionCount()
+			$this->fixture->assertionCount()
 		);
 	}
 
@@ -672,16 +570,13 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function endTestForPlainTestInstanceLeavesAssertionCountUnchanged() {
-		/** @var $fixture Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject  */
-		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('output', 'flushOutputBuffer'));
-
 		/** @var $test PHPUnit_Framework_Test|PHPUnit_Framework_MockObject_MockObject */
 		$test = $this->getMock('PHPUnit_Framework_Test');
 
-		$fixture->endTest($test, 0.0);
+		$this->fixture->endTest($test, 0.0);
 		$this->assertEquals(
 			0,
-			$fixture->assertionCount()
+			$this->fixture->assertionCount()
 		);
 	}
 
@@ -689,20 +584,17 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function endTestIncreasesTotalNumberOfDataProvidedTestsWhenRunWithDataProvidedTests() {
-		/** @var $fixture Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('output', 'flushOutputBuffer'));
-
 		/** @var $test PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject */
 		$test = $this->getMock('PHPUnit_Framework_TestCase', array('dummy'), array('Test 1'));
 		/** @var $test2 PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject */
 		$test2 = $this->getMock('PHPUnit_Framework_TestCase', array('dummy'), array('Test 2'));
 
-		$fixture->endTest($test, 0.0);
-		$fixture->endTest($test2, 0.0);
+		$this->fixture->endTest($test, 0.0);
+		$this->fixture->endTest($test2, 0.0);
 
 		$this->assertSame(
 			1,
-			$fixture->getTotalNumberOfDetectedDataProviderTests()
+			$this->fixture->getTotalNumberOfDetectedDataProviderTests()
 		);
 	}
 
@@ -710,20 +602,17 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function endTestDoesNotIncreaseTotalNumberOfDataProvidedTestsWhenRunWithNormalTests() {
-		/** @var $fixture Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('output', 'flushOutputBuffer'));
-
 		/** @var $testCase PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject */
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('dummy'), array('FirstTest'));
 		/** @var $testCase2 PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject */
 		$testCase2 = $this->getMock('PHPUnit_Framework_TestCase', array('dummy'), array('SecondTest'));
 
-		$fixture->endTest($testCase, 0.0);
-		$fixture->endTest($testCase2, 0.0);
+		$this->fixture->endTest($testCase, 0.0);
+		$this->fixture->endTest($testCase2, 0.0);
 
 		$this->assertSame(
 			0,
-			$fixture->getTotalNumberOfDetectedDataProviderTests()
+			$this->fixture->getTotalNumberOfDetectedDataProviderTests()
 		);
 	}
 
@@ -1034,23 +923,6 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 			42,
 			$this->fixture->assertionCount()
 		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function outputOutputsOutput() {
-		$output = 'Hello world!';
-
-		ob_start();
-		$this->fixture->output($output);
-
-		$this->assertSame(
-			$output,
-			ob_get_contents()
-		);
-
-		ob_end_clean();
 	}
 }
 ?>

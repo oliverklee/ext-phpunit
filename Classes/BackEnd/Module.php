@@ -53,6 +53,16 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	protected $testFinder = NULL;
 
 	/**
+	 * @var Tx_PhpUnit_BackEnd_TestListener
+	 */
+	protected $testListener = NULL;
+
+	/**
+	 * @var Tx_PhpUnit_Service_OutputService
+	 */
+	protected $outputService = NULL;
+
+	/**
 	 * module menu items
 	 *
 	 * @var array
@@ -95,7 +105,29 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * The destructor.
 	 */
 	public function __destruct() {
-		unset($this->testFinder, $this->coverage);
+		unset($this->testFinder, $this->coverage, $this->testListener, $this->outputService);
+	}
+
+	/**
+	 * Injects the test listener.
+	 *
+	 * @param Tx_PhpUnit_BackEnd_TestListener $testListener the test listener to inject
+	 *
+	 * @return void
+	 */
+	public function injectTestListener(Tx_PhpUnit_BackEnd_TestListener $testListener) {
+		$this->testListener = $testListener;
+	}
+
+	/**
+	 * Injects the output service.
+	 *
+	 * @param Tx_PhpUnit_Service_OutputService $outputService the output service to inject
+	 *
+	 * @return void
+	 */
+	public function injectOutputService(Tx_PhpUnit_Service_OutputService $outputService) {
+		$this->outputService = $outputService;
 	}
 
 	/**
@@ -152,14 +184,14 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 				'Resources/Public/CSS/BackEnd.css" />';
 
 			t3lib_div::cleanOutputBuffers();
-			$this->output(
+			$this->outputService->output(
 				$this->doc->startPage($this->translate('title')) .
 				$this->doc->header(PHPUnit_Runner_Version::getVersionString())
 			);
 
 			$this->runTests_render();
 
-			$this->output(
+			$this->outputService->output(
 				$this->doc->section(
 					'Keyboard shortcuts',
 					'<p>Use "a" for running all tests, use "s" for running a single test and
@@ -177,14 +209,14 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			$this->doc = t3lib_div::makeInstance('mediumDoc');
 			$this->doc->backPath = $GLOBALS['BACK_PATH'];
 
-			$this->output(
+			$this->outputService->output(
 				$this->doc->startPage($this->translate('title')) .
 				$this->doc->header($this->translate('title')) .
 				$this->translate('admin_rights_needed')
 			);
 		}
 
-		$this->output($this->doc->endPage());
+		$this->outputService->output($this->doc->endPage());
 	}
 
 
@@ -235,7 +267,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 				'',
 				t3lib_FlashMessage::WARNING
 			);
-			$this->output($message->render());
+			$this->outputService->output($message->render());
 			return;
 		}
 
@@ -246,7 +278,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		}
 		$output .= $this->createCheckboxes();
 
-		$this->output($output);
+		$this->outputService->output($output);
 	}
 
 	/**
@@ -496,9 +528,9 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
 		$extensionKeysToProcess = $this->getTestFinder()->getTestableCodeForEverything();
 		if ($this->MOD_SETTINGS['extSel'] === Tx_Phpunit_TestableCode::ALL_EXTENSIONS) {
-			$this->output('<h1>' . $this->translate('testing_all_extensions') . '</h1>');
+			$this->outputService->output('<h1>' . $this->translate('testing_all_extensions') . '</h1>');
 		} else {
-			$this->output(
+			$this->outputService->output(
 				'<h1>' . $this->translate('testing_extension') . ': ' .
 					htmlspecialchars($this->MOD_SETTINGS['extSel']) . '</h1>'
 			);
@@ -539,16 +571,15 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			$this->coverage->start('PHPUnit');
 		}
 
-		$testListener = new Tx_PhpUnit_BackEnd_TestListener();
 		if ($this->MOD_SETTINGS['testdox'] === 'on') {
-			$testListener->useHumanReadableTextFormat();
+			$this->testListener->useHumanReadableTextFormat();
 		}
 
 		if ($this->MOD_SETTINGS['showMemoryAndTime'] === 'on') {
-			$testListener->enableShowMenoryAndTime();
+			$this->testListener->enableShowMenoryAndTime();
 		}
 
-		$result->addListener($testListener);
+		$result->addListener($this->testListener);
 
 		$startMemory = memory_get_usage();
 		$startTime = microtime(TRUE);
@@ -561,26 +592,26 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 					if ($test instanceof PHPUnit_Framework_TestSuite) {
 						/** @var $test PHPUnit_Framework_TestSuite */
 						list($testSuiteName, $testName) = explode('::', $test->getName());
-						$testListener->setTestSuiteName($testSuiteName);
+						$this->testListener->setTestSuiteName($testSuiteName);
 						$testIdentifier = $testName . '(' . $testSuiteName . ')';
 					} else {
 						$testIdentifier = $test->toString();
 						list($testSuiteName, $unused) = explode('::', $testIdentifier);
-						$testListener->setTestSuiteName($testSuiteName);
+						$this->testListener->setTestSuiteName($testSuiteName);
 					}
 					if ($testIdentifier === t3lib_div::_GP('testname')) {
 						if ($test instanceof PHPUnit_Framework_TestSuite) {
-							$testListener->setTotalNumberOfTests($test->count());
+							$this->testListener->setTotalNumberOfTests($test->count());
 						} else {
-							$testListener->setTotalNumberOfTests(1);
+							$this->testListener->setTotalNumberOfTests(1);
 						}
-						$this->output('<h2 class="testSuiteName">Testsuite: ' . $testCases->getName() . '</h2>');
+						$this->outputService->output('<h2 class="testSuiteName">Testsuite: ' . $testCases->getName() . '</h2>');
 						$test->run($result);
 					}
 				}
 			}
 			if (!is_object($result)) {
-				$this->output(
+				$this->outputService->output(
 					'<h2 class="hadError">Error</h2><p>The test <strong> ' .
 						htmlspecialchars(t3lib_div::_GP('testCaseFile')) . '</strong> could not be found.</p>'
 				);
@@ -588,7 +619,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			}
 		} elseif (t3lib_div::_GP('testCaseFile')) {
 			$testCaseFileName = t3lib_div::_GP('testCaseFile');
-			$testListener->setTestSuiteName($testCaseFileName);
+			$this->testListener->setTestSuiteName($testCaseFileName);
 
 			$suiteNameHasBeenDisplayed = FALSE;
 			$totalNumberOfTestCases = 0;
@@ -608,7 +639,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 					}
 				}
 			}
-			$testListener->setTotalNumberOfTests($totalNumberOfTestCases);
+			$this->testListener->setTotalNumberOfTests($totalNumberOfTestCases);
 			$this->runTests_renderInfoAndProgressbar();
 
 			foreach ($testSuite->tests() as $testCases) {
@@ -620,7 +651,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 					}
 					if ($testIdentifier === $testCaseFileName) {
 						if (!$suiteNameHasBeenDisplayed) {
-							$this->output('<h2 class="testSuiteName">Testsuite: ' . $testCaseFileName . '</h2>');
+							$this->outputService->output('<h2 class="testSuiteName">Testsuite: ' . $testCaseFileName . '</h2>');
 							$suiteNameHasBeenDisplayed = TRUE;
 						}
 						$test->run($result);
@@ -628,14 +659,14 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 				}
 			}
 			if (!is_object($result)) {
-				$this->output(
+				$this->outputService->output(
 					'<h2 class="hadError">Error</h2><p>The test <strong> ' .
 						htmlspecialchars(t3lib_div::_GP('testname')) . '</strong> could not be found.</p>'
 				);
 				return;
 			}
 		} else {
-			$testListener->setTotalNumberOfTests($testSuite->count());
+			$this->testListener->setTotalNumberOfTests($testSuite->count());
 			$this->runTests_renderInfoAndProgressbar();
 			$testSuite->run($result);
 		}
@@ -655,7 +686,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 					<h2 class="hadFailure">' . $this->translate('testing_failure') . '</h2>';
 			}
 		}
-		$testStatistics .= '<p>' . $result->count() . ' ' . $this->translate('tests_total') . ', ' . $testListener->assertionCount() . ' ' .
+		$testStatistics .= '<p>' . $result->count() . ' ' . $this->translate('tests_total') . ', ' . $this->testListener->assertionCount() . ' ' .
 			$this->translate('assertions_total') . ', ' . $result->failureCount() . ' ' . $this->translate('tests_failures') .
 			', ' . $result->skippedCount() . ' ' . $this->translate('tests_skipped') . ', ' .
 			$result->notImplementedCount() . ' ' . $this->translate('tests_notimplemented') . ', ' . $result->errorCount() .
@@ -663,9 +694,9 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			$this->translate('tests_seconds') . '">' . round($timeSpent, 3) . '&nbsp;' . $this->translate('tests_seconds') .
 			', </span>' . t3lib_div::formatSize($leakedMemory) . 'B (' . $leakedMemory . ' B) ' .
 			$this->translate('tests_leaks') . '</p>';
-		$this->output($testStatistics);
+		$this->outputService->output($testStatistics);
 
-		$this->output(
+		$this->outputService->output(
 			'<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">
 				<p>
 					<button type="submit" name="bingo" value="run" accesskey="r">' . $this->translate('run_again') . '</button>
@@ -687,7 +718,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 
 			$coverageReport = new PHP_CodeCoverage_Report_HTML();
 			$coverageReport->process($this->coverage, $codeCoverageDirectory);
-			$this->output(
+			$this->outputService->output(
 				'<p><a target="_blank" href="../typo3temp/codecoverage/index.html">' .
 					'Click here to access the Code Coverage report</a></p>' .
 					'<p>Memory peak usage: ' . t3lib_div::formatSize(memory_get_peak_usage()) . 'B<p/>'
@@ -705,7 +736,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * @return void
 	 */
 	protected function runTests_renderInfoAndProgressbar() {
-		$this->output(
+		$this->outputService->output(
 			'<div class="progress-bar-wrap">
 				<span id="progress-bar" class="wasSuccessful">&nbsp;</span>
 				<span id="transparent-bar">&nbsp;</span>
@@ -833,17 +864,6 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$result .= ' 3px 50% white no-repeat; padding: 1px 1px 1px 24px;';
 
 		return $result;
-	}
-
-	/**
-	 * Echoes $output.
-	 *
-	 * @param string $output a string to echo, may also be empty
-	 *
-	 * @return void
-	 */
-	protected function output($output) {
-		echo($output);
 	}
 
 	/**

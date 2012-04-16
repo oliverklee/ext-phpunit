@@ -46,7 +46,16 @@ require_once('PHPUnit/Autoload.php');
 
 $GLOBALS['LANG']->includeLLFile('EXT:phpunit/Resources/Private/Language/locallang_backend.xml');
 
+/** @var $outputService Tx_PhpUnit_Service_OutputService */
+$outputService = t3lib_div::makeInstance('Tx_PhpUnit_Service_OutputService');
+
+/** @var $testListener Tx_PhpUnit_BackEnd_TestListener */
+$testListener = t3lib_div::makeInstance('Tx_PhpUnit_BackEnd_TestListener');
+$testListener->injectOutputService($outputService);
+
 /** @var $module Tx_Phpunit_BackEnd_Module */
 $module = t3lib_div::makeInstance('Tx_Phpunit_BackEnd_Module');
+$module->injectOutputService($outputService);
+$module->injectTestListener($testListener);
 $module->main();
 ?>
