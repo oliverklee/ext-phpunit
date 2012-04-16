@@ -175,7 +175,7 @@ class Tx_Phpunit_Service_Database {
 			throw new InvalidArgumentException('$recursionDepth must be >= 0.', 1331315492);
 		}
 		if ($recursionDepth == 0) {
-			return $startPages;
+			return (string) $startPages;
 		}
 		if ($startPages == '') {
 			return '';
