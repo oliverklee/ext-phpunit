@@ -1,4 +1,5 @@
 2012-04-16 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #36180: Framework::getAutoIncrement and FrameworkTest::getSortingOfRelation need to return integers
 	* Fixed Bug #36170: Use assertSame instead of assertEquals in our unit tests
 	* Fixed Bug #35696: Move the echo, output buffer flushing etc. to an output service
 

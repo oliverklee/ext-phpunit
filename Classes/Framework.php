@@ -1709,7 +1709,7 @@ class Tx_Phpunit_Framework {
 			);
 		}
 
-		return $autoIncrement;
+		return intval($autoIncrement);
 	}
 
 	/**

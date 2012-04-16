@@ -115,7 +115,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 			'uid_local = ' . $uidLocal.' AND uid_foreign = ' . $uidForeign
 		);
 
-		return $row['sorting'];
+		return intval($row['sorting']);
 	}
 
 	/**
