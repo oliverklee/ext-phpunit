@@ -831,17 +831,9 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			throw new Tx_Phpunit_Exception_NoTestsDirectory('The extension ' . $extensionKey . ' is not loaded.', 1303503664);
 		}
 
-		$result = 'background: ';
+		$testable = $this->getTestFinder()->getTestableForKey($extensionKey);
 
-		if ($extensionKey === Tx_Phpunit_Testable::CORE_KEY) {
-			$result .= 'url(' . t3lib_extMgm::extRelPath('phpunit') . 'Resources/Public/Icons/Typo3.png)';
-		} else {
-			$result .= 'url(' . t3lib_extMgm::extRelPath($extensionKey) . 'ext_icon.gif)';
-		}
-
-		$result .= ' 3px 50% white no-repeat; padding: 1px 1px 1px 24px;';
-
-		return $result;
+		return 'background: url(' . $testable->getIconPath() . ') 3px 50% white no-repeat; padding: 1px 1px 1px 24px;';
 	}
 
 	/**
