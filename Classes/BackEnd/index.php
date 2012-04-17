@@ -29,6 +29,7 @@
  * @subpackage tx_phpunit
  *
  * @author Kasper Ligaard <kasperligaard@gmail.com>
+ * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 
 if (!defined('TYPO3_MODE')) {
