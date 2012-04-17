@@ -1,13 +1,13 @@
 <?php
 
 ########################################################################
-# Extension Manager/Repository config file for ext: "ccc"
+# Extension Manager/Repository config file for ext "ccc".
 #
-# Auto generated 28-02-2008 15:51
+# Auto generated 17-04-2012 12:58
 #
 # Manual updates:
-# Only the data in the array - anything else is removed by next write.
-# "version" and "dependencies" must not be touched!
+# Only the data in the array - everything else is removed by next
+# writing. "version" and "dependencies" must not be touched!
 ########################################################################
 
 $EM_CONF[$_EXTKEY] = array(
@@ -39,7 +39,9 @@ $EM_CONF[$_EXTKEY] = array(
 		'suggests' => array(
 		),
 	),
-	'_md5_values_when_last_written' => 'a:11:{s:9:"ChangeLog";s:4:"6901";s:10:"README.txt";s:4:"ee2d";s:12:"ext_icon.gif";s:4:"1bdc";s:14:"ext_tables.php";s:4:"7b15";s:14:"ext_tables.sql";s:4:"ed29";s:20:"icon_tx_ccc_data.gif";s:4:"475a";s:20:"icon_tx_ccc_test.gif";s:4:"475a";s:16:"locallang_db.xml";s:4:"4f69";s:7:"tca.php";s:4:"eb30";s:19:"doc/wizard_form.dat";s:4:"5b6a";s:20:"doc/wizard_form.html";s:4:"79f5";}',
+	'_md5_values_when_last_written' => 'a:4:{s:12:"ext_icon.gif";s:4:"5f50";s:14:"ext_tables.php";s:4:"71da";s:14:"ext_tables.sql";s:4:"93f6";s:7:"tca.php";s:4:"27f6";}',
+	'suggests' => array(
+	),
 );
 
 ?>

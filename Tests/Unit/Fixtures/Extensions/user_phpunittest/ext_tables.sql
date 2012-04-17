@@ -32,7 +32,6 @@ CREATE TABLE user_phpunittest_test (
 	KEY t3ver_oid (t3ver_oid,t3ver_wsid)
 );
 
-
 #
 # Table structure for table 'user_phpunittest_test_article_mm'
 #

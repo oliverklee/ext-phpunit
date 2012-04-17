@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext "user_phpunittest2".
 #
-# Auto generated 22-05-2010 09:54
+# Auto generated 17-04-2012 12:58
 #
 # Manual updates:
 # Only the data in the array - everything else is removed by next
@@ -38,7 +38,7 @@ $EM_CONF[$_EXTKEY] = array(
 		'suggests' => array(
 		),
 	),
-	'_md5_values_when_last_written' => 'a:6:{s:12:"ext_icon.gif";s:4:"bd58";s:14:"ext_tables.php";s:4:"1bbe";s:14:"ext_tables.sql";s:4:"e709";s:29:"icon_user_phpunittest2_test.gif";s:4:"bd58";s:16:"locallang_db.xml";s:4:"717d";s:7:"tca.php";s:4:"c191";}',
+	'_md5_values_when_last_written' => 'a:4:{s:12:"ext_icon.gif";s:4:"5f50";s:14:"ext_tables.php";s:4:"078d";s:14:"ext_tables.sql";s:4:"3b51";s:7:"tca.php";s:4:"f3a8";}',
 	'suggests' => array(
 	),
 );
