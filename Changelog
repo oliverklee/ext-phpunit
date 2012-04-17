@@ -1,3 +1,6 @@
+2012-04-18 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #36107: Add features for accessing protected functions and fields (thanks to Nicole Cordes)
+
 2012-04-17 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #13642: Use the testFinder/testableCode classes for creating the icons
 	* Fixed Bug #36186: Add and use TestFinder::getTestableForKey

@@ -11,6 +11,7 @@ return array(
 	'tx_phpunit_exception_emptyqueryresult' => $extensionPath . 'Classes/Exception/EmptyQueryResult.php',
 	'tx_phpunit_exception_notestsdirectory' => $extensionPath . 'Classes/Exception/NoTestsDirectory.php',
 	'tx_phpunit_framework' => $extensionPath . 'Classes/Framework.php',
+	'tx_phpunit_interface_accessibleObject' => $extensionPath . 'Classes/Interface/AccessibleObject.php',
 	'tx_phpunit_interface_frameworkcleanuphook' => $extensionPath . 'Classes/Interface/FrameworkCleanupHook.php',
 	'tx_phpunit_reports_status' => $extensionPath . 'Classes/Reports/Status.php',
 	'tx_phpunit_selenium_testcase' => $extensionPath . 'Classes/Selenium/TestCase.php',
