@@ -18,7 +18,7 @@ return array(
 	'tx_phpunit_service_fakeoutputservice' => $extensionPath . 'Classes/Service/FakeOutputService.php',
 	'tx_phpunit_service_outputservice' => $extensionPath . 'Classes/Service/OutputService.php',
 	'tx_phpunit_service_testfinder' => $extensionPath . 'Classes/Service/TestFinder.php',
-	'tx_phpunit_testablecode' => $extensionPath . 'Classes/TestableCode.php',
+	'tx_phpunit_testable' => $extensionPath . 'Classes/Testable.php',
 	'tx_phpunit_testcase' => $extensionPath . 'Classes/TestCase.php',
 	'tx_phpunit_test_testsuite' => $extensionPath . 'Tests/tx_phpunit_testsuite.php',
 	'vfsstream' => $vfsStreamPath . 'vfsStream.php',

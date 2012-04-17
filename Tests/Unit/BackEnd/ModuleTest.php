@@ -336,7 +336,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 */
 	public function runTests_renderIntroForNoExtensionsWithTestSuitesShowsErrorMessage() {
 		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder');
-		$testFinder->expects($this->any())->method('existsTestableCodeForAnything')
+		$testFinder->expects($this->any())->method('existsTestableForAnything')
 			->will($this->returnValue(FALSE));
 
 		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
@@ -362,7 +362,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 */
 	public function runTests_renderIntroForNoExtensionsWithTestSuitesNotRendersExtensionSelector() {
 		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder');
-		$testFinder->expects($this->any())->method('existsTestableCodeForAnything')
+		$testFinder->expects($this->any())->method('existsTestableForAnything')
 			->will($this->returnValue(FALSE));
 
 		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
@@ -616,7 +616,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		$this->assertContains(
 			'url(' . t3lib_extMgm::extRelPath('phpunit') . 'Resources/Public/Icons/Typo3.png)',
-			$this->fixture->createIconStyle(Tx_Phpunit_TestableCode::CORE_KEY)
+			$this->fixture->createIconStyle(Tx_Phpunit_Testable::CORE_KEY)
 		);
 	}
 
@@ -719,14 +719,14 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function createExtensionSelectorContainsExtensionKeyOfExtensionWithTests() {
-		$testableCode = new Tx_Phpunit_TestableCode();
-		$testableCode->setKey('t3dd11');
+		$testable = new Tx_Phpunit_Testable();
+		$testable->setKey('t3dd11');
 
 		$testFinderMock = $this->getMock(
-			'Tx_Phpunit_Service_TestFinder', array('getTestableCodeForEverything')
+			'Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything')
 		);
-		$testFinderMock->expects($this->once())->method('getTestableCodeForEverything')
-			->will($this->returnValue(array($testableCode)));
+		$testFinderMock->expects($this->once())->method('getTestablesForEverything')
+			->will($this->returnValue(array($testable)));
 
 		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
 		$fixture = $this->getMock($this->createAccessibleProxy(), array('getTestFinder'));
@@ -788,10 +788,10 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function createExtensionSelectorForAllSelectedMarksAllAsSelected() {
-		$this->fixture->MOD_SETTINGS['extSel'] = Tx_Phpunit_TestableCode::ALL_EXTENSIONS;
+		$this->fixture->MOD_SETTINGS['extSel'] = Tx_Phpunit_Testable::ALL_EXTENSIONS;
 
 		$this->assertRegExp(
-			'/<option [^>]* value="' . Tx_Phpunit_TestableCode::ALL_EXTENSIONS . '" selected="selected">/',
+			'/<option [^>]* value="' . Tx_Phpunit_Testable::ALL_EXTENSIONS . '" selected="selected">/',
 			$this->fixture->createExtensionSelector()
 		);
 
@@ -844,7 +844,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function createTestCaseSelectorForAllExtensionSelectedReturnsEmptyString() {
-		$selectedExtension = Tx_Phpunit_TestableCode::ALL_EXTENSIONS;
+		$selectedExtension = Tx_Phpunit_Testable::ALL_EXTENSIONS;
 		$this->fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
 
 		$this->assertSame(

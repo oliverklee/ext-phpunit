@@ -55,18 +55,18 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	static protected $dummyExtensionKeys = array('aaa', 'bbb', 'ccc', 'ddd');
 
 	/**
-	 * a cache for the result of findTestableCodeForEverything
+	 * the cached result of findTestableForEverything
 	 *
 	 * @var array
 	 */
-	protected $allTestableCodeCache = array();
+	protected $allTestables = array();
 
 	/**
-	 * indicates whether $allTestableCodeCache already has been filled
+	 * indicates whether $allTestables already has been filled
 	 *
 	 * @var boolean
 	 */
-	protected $allTestableCodeIsCached = FALSE;
+	protected $allTestablesAreCached = FALSE;
 
 	/**
 	 * The destructor.
@@ -205,14 +205,14 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 *
 	 * @return boolean TRUE if there is testable code with the given key, FALSE otherwise
 	 */
-	public function existsTestableCodeForKey($key) {
+	public function existsTestableForKey($key) {
 		if ($key === '') {
 			return FALSE;
 		}
 
-		$allTestableCode = $this->getTestableCodeForEverything();
+		$allTestables = $this->getTestablesForEverything();
 
-		return isset($allTestableCode[$key]);
+		return isset($allTestables[$key]);
 	}
 
 	/**
@@ -222,55 +222,55 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 * @return boolean
 	 *         TRUE if there ist at least one test directory, FALSE otherwise
 	 */
-	public function existsTestableCodeForAnything() {
-		$testableCodeForEverything = $this->getTestableCodeForEverything();
+	public function existsTestableForAnything() {
+		$testablesForEverything = $this->getTestablesForEverything();
 
-		return !empty($testableCodeForEverything);
+		return !empty($testablesForEverything);
 	}
 
 	/**
 	 * Returns the testable code instance for everything, i.e., the core and
 	 * all installed extensions.
 	 *
-	 * @return array<Tx_Phpunit_TestableCode>
+	 * @return array<Tx_Phpunit_Testable>
 	 *         testable code for everything using the extension keys or the core key
 	 *         as array keys, might be empty
 	 */
-	public function getTestableCodeForEverything() {
-		if (!$this->allTestableCodeIsCached) {
-			$this->allTestableCodeCache = array_merge(
-				$this->getTestableCodeForExtensions(), $this->getTestableCodeForCore()
+	public function getTestablesForEverything() {
+		if (!$this->allTestablesAreCached) {
+			$this->allTestables = array_merge(
+				$this->getTestablesForExtensions(), $this->getTestableForCore()
 			);
 
-			$this->allTestableCodeIsCached = TRUE;
+			$this->allTestablesAreCached = TRUE;
 		}
 
-		return $this->allTestableCodeCache;
+		return $this->allTestables;
 	}
 
 	/**
 	 * Returns the testable code for the TYPO3 Core.
 	 *
-	 * @return array<Tx_Phpunit_TestableCode>
+	 * @return array<Tx_Phpunit_Testable>
 	 *         testable code for the TYPO3 core, will have exactly one element if
 	 *         there are Core tests (using the core key as array key),
 	 *         will be empty if there are no Core tests
 	 */
-	public function getTestableCodeForCore() {
+	public function getTestableForCore() {
 		if (!$this->hasCoreTests()) {
 			return array();
 		}
 
-		/** @var $coreTests Tx_Phpunit_TestableCode */
-		$coreTests = t3lib_div::makeInstance('Tx_Phpunit_TestableCode');
-		$coreTests->setType(Tx_Phpunit_TestableCode::TYPE_CORE);
-		$coreTests->setKey(Tx_Phpunit_TestableCode::CORE_KEY);
+		/** @var $coreTests Tx_Phpunit_Testable */
+		$coreTests = t3lib_div::makeInstance('Tx_Phpunit_Testable');
+		$coreTests->setType(Tx_Phpunit_Testable::TYPE_CORE);
+		$coreTests->setKey(Tx_Phpunit_Testable::CORE_KEY);
 		$coreTests->setTitle('TYPO3 Core');
 		$coreTests->setCodePath(PATH_site);
 		$coreTests->setTestsPath($this->getAbsoluteCoreTestsPath());
 		$coreTests->setIconPath(t3lib_extMgm::extRelPath('phpunit') . 'Resources/Public/Icons/Typo3.png');
 
-		return array(Tx_Phpunit_TestableCode::CORE_KEY => $coreTests);
+		return array(Tx_Phpunit_Testable::CORE_KEY => $coreTests);
 	}
 
 	/**
@@ -280,11 +280,11 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 * Extensions without a test directory and extensions in the "exclude list"
 	 * will be skipped.
 	 *
-	 * @return array<Tx_Phpunit_TestableCode>
+	 * @return array<Tx_Phpunit_Testable>
 	 *         testable code for the installed extensions using the extension keys
 	 *         as array keys, might be empty
 	 */
-	public function getTestableCodeForExtensions() {
+	public function getTestablesForExtensions() {
 		$result = array();
 
 		$extensionKeysToExamine = array_diff(
@@ -294,30 +294,29 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 
 		foreach ($extensionKeysToExamine as $extensionKey) {
 			try {
-				$result[$extensionKey] = $this->createTestableCodeForSingleExtension($extensionKey);
+				$result[$extensionKey] = $this->createTestableForSingleExtension($extensionKey);
 			} catch (Tx_Phpunit_Exception_NoTestsDirectory $exception) {
 				// Just skip extensions without a tests directory.
 			}
 		}
 
-		uasort($result, array($this, 'sortTestableCodesByKey'));
+		uasort($result, array($this, 'sortTestablesByKey'));
 
 		return $result;
 	}
 
 	/**
-	 * Callback function for comparing the keys of $testableCode1 and
-	 * $testableCode2.
+	 * Callback function for comparing the keys of $testable1 and $testable2.
 	 *
-	 * @param Tx_Phpunit_TestableCode $testableCode1 the first item to compare
-	 * @param Tx_Phpunit_TestableCode $testableCode2 the second item to compare
+	 * @param Tx_Phpunit_Testable $testable1 the first item to compare
+	 * @param Tx_Phpunit_Testable $testable2 the second item to compare
 	 *
 	 * @return integer
 	 *         1 if both items need to be swapped, 0 if they have the same key,
 	 *         and -1 if the order is okay.
 	 */
-	public function sortTestableCodesByKey(Tx_Phpunit_TestableCode $testableCode1, Tx_Phpunit_TestableCode $testableCode2) {
-		return strcmp($testableCode1->getKey(), $testableCode2->getKey());
+	public function sortTestablesByKey(Tx_Phpunit_Testable $testable1, Tx_Phpunit_Testable $testable2) {
+		return strcmp($testable1->getKey(), $testable2->getKey());
 	}
 
 	/**
@@ -364,23 +363,23 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 *
 	 * @param string $extensionKey the key of an installed extension, must not be empty
 	 *
-	 * @return Tx_Phpunit_TestableCode the test-relevant data of the installed extension
+	 * @return Tx_Phpunit_Testable the test-relevant data of the installed extension
 	 *
 	 * @throws Tx_Phpunit_Exception_NoTestsDirectory if the given extension has no tests directory
 	 */
-	protected function createTestableCodeForSingleExtension($extensionKey) {
+	protected function createTestableForSingleExtension($extensionKey) {
 		$testsPath = $this->findTestsPathForExtension($extensionKey);
 
-		/** @var $testableCode Tx_Phpunit_TestableCode */
-		$testableCode = t3lib_div::makeInstance('Tx_Phpunit_TestableCode');
-		$testableCode->setType(Tx_Phpunit_TestableCode::TYPE_EXTENSION);
-		$testableCode->setKey($extensionKey);
-		$testableCode->setTitle($this->retrieveExtensionTitle($extensionKey));
-		$testableCode->setCodePath(t3lib_extMgm::extPath($extensionKey));
-		$testableCode->setTestsPath($testsPath);
-		$testableCode->setIconPath(t3lib_extMgm::extRelPath($extensionKey) . 'ext_icon.gif');
+		/** @var $testable Tx_Phpunit_Testable */
+		$testable = t3lib_div::makeInstance('Tx_Phpunit_Testable');
+		$testable->setType(Tx_Phpunit_Testable::TYPE_EXTENSION);
+		$testable->setKey($extensionKey);
+		$testable->setTitle($this->retrieveExtensionTitle($extensionKey));
+		$testable->setCodePath(t3lib_extMgm::extPath($extensionKey));
+		$testable->setTestsPath($testsPath);
+		$testable->setIconPath(t3lib_extMgm::extRelPath($extensionKey) . 'ext_icon.gif');
 
-		return $testableCode;
+		return $testable;
 	}
 
 	/**

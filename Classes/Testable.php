@@ -30,7 +30,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_TestableCode {
+class Tx_Phpunit_Testable {
 	/**
 	 * @var integer
 	 */

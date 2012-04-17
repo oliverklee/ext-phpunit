@@ -23,21 +23,21 @@
 ***************************************************************/
 
 /**
- * Testcase for the Tx_Phpunit_TestableCode class.
+ * Testcase for the Tx_Phpunit_Testable class.
  *
  * @package TYPO3
  * @subpackage tx_
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_TestableCodeTest extends Tx_Phpunit_TestCase {
+class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	/**
-	 * @var Tx_Phpunit_TestableCode
+	 * @var Tx_Phpunit_Testable
 	 */
 	private $fixture;
 
 	public function setUp() {
-		$this->fixture = new Tx_Phpunit_TestableCode();
+		$this->fixture = new Tx_Phpunit_Testable();
 	}
 
 	public function tearDown() {
@@ -114,7 +114,7 @@ class Tx_Phpunit_TestableCodeTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getTypeInitiallyReturnsUndefined() {
 		$this->assertSame(
-			Tx_Phpunit_TestableCode::TYPE_UNDEFINED,
+			Tx_Phpunit_Testable::TYPE_UNDEFINED,
 			$this->fixture->getType()
 		);
 	}
@@ -123,10 +123,10 @@ class Tx_Phpunit_TestableCodeTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function setTypeCanSetTypeToExtension() {
-		$this->fixture->setType(Tx_Phpunit_TestableCode::TYPE_EXTENSION);
+		$this->fixture->setType(Tx_Phpunit_Testable::TYPE_EXTENSION);
 
 		$this->assertSame(
-			Tx_Phpunit_TestableCode::TYPE_EXTENSION,
+			Tx_Phpunit_Testable::TYPE_EXTENSION,
 			$this->fixture->getType()
 		);
 	}
@@ -135,10 +135,10 @@ class Tx_Phpunit_TestableCodeTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function setTypeCanSetTypeToCore() {
-		$this->fixture->setType(Tx_Phpunit_TestableCode::TYPE_CORE);
+		$this->fixture->setType(Tx_Phpunit_Testable::TYPE_CORE);
 
 		$this->assertSame(
-			Tx_Phpunit_TestableCode::TYPE_CORE,
+			Tx_Phpunit_Testable::TYPE_CORE,
 			$this->fixture->getType()
 		);
 	}
@@ -149,7 +149,7 @@ class Tx_Phpunit_TestableCodeTest extends Tx_Phpunit_TestCase {
 	 * @expectedException InvalidArgumentException
 	 */
 	public function setTypeForUndefinedTypeThrowsException() {
-		$this->fixture->setType(Tx_Phpunit_TestableCode::TYPE_UNDEFINED);
+		$this->fixture->setType(Tx_Phpunit_Testable::TYPE_UNDEFINED);
 	}
 
 	/**

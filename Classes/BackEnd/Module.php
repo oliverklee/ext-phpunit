@@ -232,8 +232,8 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * @return void
 	 */
 	protected function runTests_render() {
-		if (($this->MOD_SETTINGS['extSel'] !== Tx_Phpunit_TestableCode::ALL_EXTENSIONS)
-			&& !$this->getTestFinder()->existsTestableCodeForKey($this->MOD_SETTINGS['extSel'])
+		if (($this->MOD_SETTINGS['extSel'] !== Tx_Phpunit_Testable::ALL_EXTENSIONS)
+			&& !$this->getTestFinder()->existsTestableForKey($this->MOD_SETTINGS['extSel'])
 		) {
 			// We know that phpunit must be loaded.
 			$this->MOD_SETTINGS['extSel'] = 'phpunit';
@@ -259,7 +259,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * @return void
 	 */
 	protected function runTests_renderIntro() {
-		if (!$this->getTestFinder()->existsTestableCodeForAnything()) {
+		if (!$this->getTestFinder()->existsTestableForAnything()) {
 			/** @var $message t3lib_FlashMessage */
 			$message = t3lib_div::makeInstance(
 				't3lib_FlashMessage',
@@ -272,7 +272,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		}
 
 		$output = $this->createExtensionSelector();
-		if ($this->MOD_SETTINGS['extSel'] && ($this->MOD_SETTINGS['extSel'] !== Tx_Phpunit_TestableCode::ALL_EXTENSIONS)) {
+		if ($this->MOD_SETTINGS['extSel'] && ($this->MOD_SETTINGS['extSel'] !== Tx_Phpunit_Testable::ALL_EXTENSIONS)) {
 			$output .= $this->createTestCaseSelector($this->MOD_SETTINGS['extSel']) .
 				$this->createTestSelector($this->MOD_SETTINGS['extSel']);
 		}
@@ -291,25 +291,25 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$options = array();
 		$options[] = '<option value="" disabled="disabled">' . $this->translate('select_extension') . '</option>';
 
-		$allIsSelected = ($this->MOD_SETTINGS['extSel'] === Tx_Phpunit_TestableCode::ALL_EXTENSIONS) ? ' selected="selected"' : '';
+		$allIsSelected = ($this->MOD_SETTINGS['extSel'] === Tx_Phpunit_Testable::ALL_EXTENSIONS) ? ' selected="selected"' : '';
 		$options[] = '<option class="alltests" value="uuall"' . $allIsSelected . '>' .
 			$this->translate('all_extensions') . '</option>';
 
 		$selectedExtensionStyle = '';
 
-		$testableCodes = $this->getTestFinder()->getTestableCodeForEverything();
-		/** @var  $testableCode Tx_Phpunit_TestableCode */
-		foreach ($testableCodes as $testableCode) {
-			$style = 'background: url(' . $testableCode->getIconPath() . ') no-repeat 3px 50% white; padding: 1px 1px 1px 24px;';
-			if ($this->MOD_SETTINGS['extSel'] === $testableCode->getKey()) {
+		$testables = $this->getTestFinder()->getTestablesForEverything();
+		/** @var  $testable Tx_Phpunit_Testable */
+		foreach ($testables as $testable) {
+			$style = 'background: url(' . $testable->getIconPath() . ') no-repeat 3px 50% white; padding: 1px 1px 1px 24px;';
+			if ($this->MOD_SETTINGS['extSel'] === $testable->getKey()) {
 				$selected = ' selected="selected"';
 				$selectedExtensionStyle = $style;
 			} else {
 				$selected = '';
 			}
 
-			$options[] = '<option style="' . $style . '" value="' . htmlspecialchars($testableCode->getKey()) . '"' . $selected . '>' .
-				htmlspecialchars($testableCode->getKey()) . '</option>';
+			$options[] = '<option style="' . $style . '" value="' . htmlspecialchars($testable->getKey()) . '"' . $selected . '>' .
+				htmlspecialchars($testable->getKey()) . '</option>';
 		}
 
 		$allOptions = implode(LF, $options);
@@ -339,12 +339,12 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 *         if no loaded single extension is selected
 	 */
 	protected function createTestCaseSelector($extensionKey) {
-		if (!$this->getTestFinder()->existsTestableCodeForKey($extensionKey)) {
+		if (!$this->getTestFinder()->existsTestableForKey($extensionKey)) {
 			return '';
 		}
 
-		$testableCodeOfEverything = $this->getTestFinder()->getTestableCodeForEverything();
-		$testsPathOfExtension = $testableCodeOfEverything[$extensionKey]->getTestsPath();
+		$testableOfEverything = $this->getTestFinder()->getTestablesForEverything();
+		$testsPathOfExtension = $testableOfEverything[$extensionKey]->getTestsPath();
 		$testSuites = $this->getTestFinder()->findTestCasesInDirectory($testsPathOfExtension);
 
 		foreach ($testSuites as $fileName) {
@@ -398,14 +398,14 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 *         HTML code with the drop-down and a surrounding form
 	 */
 	protected function createTestSelector($extensionKey) {
-		if (!$this->getTestFinder()->existsTestableCodeForKey($extensionKey)) {
+		if (!$this->getTestFinder()->existsTestableForKey($extensionKey)) {
 			return '';
 		}
 
 		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
 
-		$testableCodeOfEverything = $this->getTestFinder()->getTestableCodeForEverything();
-		$testsPathOfExtension = $testableCodeOfEverything[$extensionKey]->getTestsPath();
+		$testableOfEverything = $this->getTestFinder()->getTestablesForEverything();
+		$testsPathOfExtension = $testableOfEverything[$extensionKey]->getTestsPath();
 		$testSuites = $this->getTestFinder()->findTestCasesInDirectory($testsPathOfExtension);
 
 		foreach ($testSuites as $fileName) {
@@ -526,8 +526,8 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 */
 	protected function runTests_renderRunningTest() {
 		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
-		$extensionKeysToProcess = $this->getTestFinder()->getTestableCodeForEverything();
-		if ($this->MOD_SETTINGS['extSel'] === Tx_Phpunit_TestableCode::ALL_EXTENSIONS) {
+		$extensionKeysToProcess = $this->getTestFinder()->getTestablesForEverything();
+		if ($this->MOD_SETTINGS['extSel'] === Tx_Phpunit_Testable::ALL_EXTENSIONS) {
 			$this->outputService->output('<h1>' . $this->translate('testing_all_extensions') . '</h1>');
 		} else {
 			$this->outputService->output(
@@ -538,7 +538,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		}
 
 		// Loads the files containing test cases from extensions.
-		/** @var $extension Tx_Phpunit_TestableCode */
+		/** @var $extension Tx_Phpunit_Testable */
 		foreach ($extensionKeysToProcess as $extension) {
 			$testsPathOfExtension = $extension->getTestsPath();
 			$testSuites = $this->getTestFinder()->findTestCasesInDirectory($testsPathOfExtension);
@@ -829,13 +829,13 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		if ($extensionKey === '') {
 			throw new Tx_Phpunit_Exception_NoTestsDirectory('$extensionKey must not be empty.', 1303503647);
 		}
-		if (!$this->getTestFinder()->existsTestableCodeForKey($extensionKey)) {
+		if (!$this->getTestFinder()->existsTestableForKey($extensionKey)) {
 			throw new Tx_Phpunit_Exception_NoTestsDirectory('The extension ' . $extensionKey . ' is not loaded.', 1303503664);
 		}
 
 		$result = 'background: ';
 
-		if ($extensionKey === Tx_Phpunit_TestableCode::CORE_KEY) {
+		if ($extensionKey === Tx_Phpunit_Testable::CORE_KEY) {
 			$result .= 'url(' . t3lib_extMgm::extRelPath('phpunit') . 'Resources/Public/Icons/Typo3.png)';
 		} else {
 			$result .= 'url(' . t3lib_extMgm::extRelPath($extensionKey) . 'ext_icon.gif)';
