@@ -501,9 +501,9 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$directory = 'vfs://Foo/';
 
 		$testFinderMock = $this->getMock(
-			'Tx_Phpunit_Service_TestFinder', array('findTestCasesInDirectory')
+			'Tx_Phpunit_Service_TestFinder', array('findTestCaseFilesDirectory')
 		);
-		$testFinderMock->expects($this->once())->method('findTestCasesInDirectory')->with($directory);
+		$testFinderMock->expects($this->once())->method('findTestCaseFilesDirectory')->with($directory);
 
 		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
 		$fixture = $this->getMock($this->createAccessibleProxy(), array('getTestFinder'));
@@ -524,9 +524,9 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		$testFinderMock = $this->getMock(
 			'Tx_Phpunit_Service_TestFinder',
-			array('findTestCasesInDirectory')
+			array('findTestCaseFilesDirectory')
 		);
-		$testFinderMock->expects($this->once())->method('findTestCasesInDirectory')
+		$testFinderMock->expects($this->once())->method('findTestCaseFilesDirectory')
 			->will($this->returnValue($testFiles));
 
 		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */

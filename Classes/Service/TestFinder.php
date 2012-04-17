@@ -135,7 +135,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 *         sorted file names of the testcases in the directory $directory relative
 	 *         to $directory, will be empty if no testcases have been found
 	 */
-	public function findTestCasesInDirectory($directory) {
+	public function findTestCaseFilesDirectory($directory) {
 		if ($directory === '') {
 			throw new InvalidArgumentException('$directory must not be empty.', 1334439798);
 		}

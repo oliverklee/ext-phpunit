@@ -259,8 +259,8 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 *
 	 * @expectedException InvalidArgumentException
 	 */
-	public function findTestCasesInDirectoryForEmptyPathThrowsException() {
-		$this->fixture->findTestCasesInDirectory('');
+	public function findTestCaseFilesDirectoryForEmptyPathThrowsException() {
+		$this->fixture->findTestCaseFilesDirectory('');
 	}
 
 	/**
@@ -268,8 +268,8 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 *
 	 * @expectedException InvalidArgumentException
 	 */
-	public function findTestCasesInDirectoryForInexistentPathThrowsException() {
-		$this->fixture->findTestCasesInDirectory(
+	public function findTestCaseFilesDirectoryForInexistentPathThrowsException() {
+		$this->fixture->findTestCaseFilesDirectory(
 			$this->fixturesPath . 'DoesNotExist/'
 		);
 	}
@@ -277,17 +277,17 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
-	public function findTestCasesInDirectoryForEmptyDirectoryReturnsEmptyArray() {
+	public function findTestCaseFilesDirectoryForEmptyDirectoryReturnsEmptyArray() {
 		$this->assertSame(
 			array(),
-			$this->fixture->findTestCasesInDirectory($this->fixturesPath . 'Empty/')
+			$this->fixture->findTestCaseFilesDirectory($this->fixturesPath . 'Empty/')
 		);
 	}
 
 	/**
 	 * @test
 	 */
-	public function findTestCasesInDirectoryFindsFileWithProperTestcaseFileName() {
+	public function findTestCaseFilesDirectoryFindsFileWithProperTestcaseFileName() {
 		$path = 'OneTest.php';
 
 		/** @var $fixture Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
@@ -297,14 +297,14 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 		$this->assertContains(
 			$path,
-			$fixture->findTestCasesInDirectory($this->fixturesPath)
+			$fixture->findTestCaseFilesDirectory($this->fixturesPath)
 		);
 	}
 
 	/**
 	 * @test
 	 */
-	public function findTestCasesInDirectoryNotFindsFileWithNonProperTestcaseFileName() {
+	public function findTestCaseFilesDirectoryNotFindsFileWithNonProperTestcaseFileName() {
 		$path = 'OneTest.php';
 
 		/** @var $fixture Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
@@ -314,27 +314,27 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 		$this->assertNotContains(
 			$path,
-			$fixture->findTestCasesInDirectory($this->fixturesPath)
+			$fixture->findTestCaseFilesDirectory($this->fixturesPath)
 		);
 	}
 
 	/**
 	 * @test
 	 */
-	public function findTestCasesInDirectoryFindsTestcaseInSubfolder() {
+	public function findTestCaseFilesDirectoryFindsTestcaseInSubfolder() {
 		$path = 'Subfolder/AnotherTest.php';
 
 		$this->assertContains(
 			$path,
-			$this->fixture->findTestCasesInDirectory($this->fixturesPath)
+			$this->fixture->findTestCaseFilesDirectory($this->fixturesPath)
 		);
 	}
 
 	/**
 	 * @test
 	 */
-	public function findTestCasesInDirectoryAcceptsPathWithTrailingSlash() {
-		$result = $this->fixture->findTestCasesInDirectory($this->fixturesPath);
+	public function findTestCaseFilesDirectoryAcceptsPathWithTrailingSlash() {
+		$result = $this->fixture->findTestCaseFilesDirectory($this->fixturesPath);
 
 		$this->assertFalse(
 			empty($result)
@@ -344,8 +344,8 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
-	public function findTestCasesInDirectoryAcceptsPathWithoutTrailingSlash() {
-		$result = $this->fixture->findTestCasesInDirectory(
+	public function findTestCaseFilesDirectoryAcceptsPathWithoutTrailingSlash() {
+		$result = $this->fixture->findTestCaseFilesDirectory(
 			t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/Service/Fixtures'
 		);
 
@@ -357,8 +357,8 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
-	public function findTestCasesInDirectorySortsFileNamesInAscendingOrder() {
-		$result = $this->fixture->findTestCasesInDirectory($this->fixturesPath);
+	public function findTestCaseFilesDirectorySortsFileNamesInAscendingOrder() {
+		$result = $this->fixture->findTestCaseFilesDirectory($this->fixturesPath);
 
 		$fileName1 = 'OneTest.php';
 		$fileName2 = 'XTest.php';
