@@ -1,4 +1,5 @@
 2012-04-17 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #36213: All our test extensions need to have the "experimental" stage and add some more meta data
 	* Fixed Bug #36187: Rename "TestableCode" to "Testable"
 	* Fixed Bug #36204: Drop BackEndModule::isExtensionLoaded and use TestFinder::existsTestableCodeForKey instead
 	* Fixed Bug #36212: Make all records from our testing extensions hidden in the BE and clean up the test extensions
