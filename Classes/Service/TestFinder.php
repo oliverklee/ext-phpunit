@@ -131,7 +131,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 * @param string $directory
 	 *        the absolute path of the directory in which to look for test cases
 	 *
-	 * @return array
+	 * @return array<string>
 	 *         sorted file names of the testcases in the directory $directory relative
 	 *         to $directory, will be empty if no testcases have been found
 	 */
