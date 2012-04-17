@@ -124,9 +124,6 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 				'  public function loadRequiredTestClasses(array $paths) {' .
 				'    parent::loadRequiredTestClasses($paths);' .
 				'  }' .
-				'  public function isExtensionLoaded($extensionKey) {' .
-				'    return parent::isExtensionLoaded($extensionKey);' .
-				'  }' .
 				'  public function createIconStyle($extensionKey) {' .
 				'    return parent::createIconStyle($extensionKey);' .
 				'  }' .
@@ -595,61 +592,6 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		$this->assertTrue(
 			class_exists('Tx_Phpunit_Fixtures_LoadMe', FALSE)
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function isExtensionLoadedEmptyKeyReturnsFalse() {
-		$this->assertFalse(
-			$this->fixture->isExtensionLoaded('')
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function isExtensionLoadedForLoadedExtensionReturnsTrue() {
-		$this->assertTrue(
-			$this->fixture->isExtensionLoaded('phpunit')
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function isExtensionLoadedForNotLoadedExtensionReturnsFalse() {
-		$this->assertFalse(
-			$this->fixture->isExtensionLoaded('not_loaded_extension')
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function isExtensionLoadedForCoreWithExistingTestsReturnsTrue() {
-		$testFinder = new Tx_Phpunit_Service_TestFinder();
-		if (!$testFinder->hasCoreTests()) {
-			$this->markTestSkipped('This test can only be run if the TYPO3 Core unit tests are present.');
-		}
-
-		$this->assertTrue(
-			$this->fixture->isExtensionLoaded(Tx_Phpunit_TestableCode::CORE_KEY)
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function isExtensionLoadedForCoreWithoutExistingTestsReturnsTrue() {
-		$testFinder = new Tx_Phpunit_Service_TestFinder();
-		if ($testFinder->hasCoreTests()) {
-			$this->markTestSkipped('This test can only be run if no TYPO3 Core unit tests are present.');
-		}
-
-		$this->assertTrue(
-			$this->fixture->isExtensionLoaded(Tx_Phpunit_TestableCode::CORE_KEY)
 		);
 	}
 

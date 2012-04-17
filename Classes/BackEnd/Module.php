@@ -233,7 +233,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 */
 	protected function runTests_render() {
 		if (($this->MOD_SETTINGS['extSel'] !== Tx_Phpunit_TestableCode::ALL_EXTENSIONS)
-			&& !$this->isExtensionLoaded($this->MOD_SETTINGS['extSel'])
+			&& !$this->getTestFinder()->existsTestableCodeForKey($this->MOD_SETTINGS['extSel'])
 		) {
 			// We know that phpunit must be loaded.
 			$this->MOD_SETTINGS['extSel'] = 'phpunit';
@@ -814,26 +814,6 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	}
 
 	/**
-	 * Checks whether a extension is valid and the extension is loaded.
-	 *
-	 * "typo3" is considered as a valid extension key for this purpose, too.
-	 *
-	 * @param string $extensionKey
-	 *        the key of the extension to test, may be empty
-	 *
-	 * @return boolean
-	 *         TRUE if an extension with the key $extensionKey is loaded, FALSE otherwise
-	 */
-	protected function isExtensionLoaded($extensionKey) {
-		if ($extensionKey === '') {
-			return FALSE;
-		}
-
-		return ($extensionKey === Tx_Phpunit_TestableCode::CORE_KEY)
-			|| t3lib_extMgm::isLoaded($extensionKey);
-	}
-
-	/**
 	 * Creates the CSS style attribute content for an icon for the extension
 	 * $extensionKey.
 	 *
@@ -849,7 +829,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		if ($extensionKey === '') {
 			throw new Tx_Phpunit_Exception_NoTestsDirectory('$extensionKey must not be empty.', 1303503647);
 		}
-		if (!$this->isExtensionLoaded($extensionKey)) {
+		if (!$this->getTestFinder()->existsTestableCodeForKey($extensionKey)) {
 			throw new Tx_Phpunit_Exception_NoTestsDirectory('The extension ' . $extensionKey . ' is not loaded.', 1303503664);
 		}
 
