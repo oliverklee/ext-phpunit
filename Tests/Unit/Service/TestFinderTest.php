@@ -439,6 +439,48 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 	/**
 	 * @test
+	 * @expectedException InvalidArgumentException
+	 */
+	public function getTestableForKeyForEmptyKeyThrowsException() {
+		/** @var $fixture Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
+		$fixture = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
+		$fixture->expects($this->any())->method('getTestablesForEverything')
+			->will($this->returnValue(array('foo' => new Tx_Phpunit_Testable())));
+
+		$fixture->getTestableForKey('');
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTestableForKeyForExistingKeyReturnsTestableForKey() {
+		$testable = new Tx_Phpunit_Testable();
+
+		/** @var $fixture Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
+		$fixture = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
+		$fixture->expects($this->any())->method('getTestablesForEverything')->will($this->returnValue(array('foo' => $testable)));
+
+		$this->assertSame(
+			$testable,
+			$fixture->getTestableForKey('foo')
+		);
+	}
+
+	/**
+	 * @test
+	 * @expectedException BadMethodCallException
+	 */
+	public function getTestableForKeyForInexistentKeyThrowsException() {
+		/** @var $fixture Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
+		$fixture = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
+		$fixture->expects($this->any())->method('getTestablesForEverything')
+			->will($this->returnValue(array('foo' => new Tx_Phpunit_Testable())));
+
+		$fixture->getTestableForKey('bar');
+	}
+
+	/**
+	 * @test
 	 */
 	public function existsTestableForKeyForEmptyKeyReturnsFalse() {
 		/** @var $fixture Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */

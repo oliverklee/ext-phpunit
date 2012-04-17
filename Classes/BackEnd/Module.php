@@ -343,8 +343,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			return '';
 		}
 
-		$testableOfEverything = $this->getTestFinder()->getTestablesForEverything();
-		$testsPathOfExtension = $testableOfEverything[$extensionKey]->getTestsPath();
+		$testsPathOfExtension = $this->getTestFinder()->getTestableForKey($extensionKey)->getTestsPath();
 		$testSuites = $this->getTestFinder()->findTestCaseFilesDirectory($testsPathOfExtension);
 
 		foreach ($testSuites as $fileName) {
@@ -404,8 +403,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 
 		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
 
-		$testableOfEverything = $this->getTestFinder()->getTestablesForEverything();
-		$testsPathOfExtension = $testableOfEverything[$extensionKey]->getTestsPath();
+		$testsPathOfExtension = $this->getTestFinder()->getTestableForKey($extensionKey)->getTestsPath();
 		$testSuites = $this->getTestFinder()->findTestCaseFilesDirectory($testsPathOfExtension);
 
 		foreach ($testSuites as $fileName) {

@@ -229,6 +229,26 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	}
 
 	/**
+	 * Returns the testable code for the given key.
+	 *
+	 * @param string $key
+	 *        the key for which to get the testable, must an extension key or the core key, must not be empty
+	 *
+	 * @return Tx_Phpunit_Testable the testable for the given key
+	 */
+	public function getTestableForKey($key) {
+		if ($key === '') {
+			throw new InvalidArgumentException('$key must not be empty.', 1334664441);
+		}
+		if (!$this->existsTestableForKey($key)) {
+			throw new BadMethodCallException('There is no testable for this key: ' . $key, 1334664552);
+		}
+
+		$allTestables = $this->getTestablesForEverything();
+		return $allTestables[$key];
+	}
+
+	/**
 	 * Returns the testable code instance for everything, i.e., the core and
 	 * all installed extensions.
 	 *

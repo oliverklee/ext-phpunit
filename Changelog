@@ -1,4 +1,5 @@
 2012-04-17 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #36186: Add and use TestFinder::getTestableForKey
 	* Fixed Bug #36188: Rename TestFinder::findTestCasesInDirectory to findTestCaseFilesDirectory
 	* Fixed Bug #36213: All our test extensions need to have the "experimental" stage and add some more meta data
 	* Fixed Bug #36187: Rename "TestableCode" to "Testable"
