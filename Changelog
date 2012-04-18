@@ -1,4 +1,5 @@
 2012-04-18 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #36265: Change class names in ext_autoload.php to lowercase
 	* Fixed Bug #36107: Add features for accessing protected functions and fields (thanks to Nicole Cordes)
 
 2012-04-17 Oliver Klee <typo3-coding@oliverklee.de>
