@@ -265,9 +265,11 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 
 		$this->importDatabaseDefinitions($fileContent);
 
-		// make sure missing caching framework tables don't get into the way
-		$cacheTables = t3lib_cache::getDatabaseTableDefinitions();
-		$this->importDatabaseDefinitions($cacheTables);
+		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 4006000) {
+			// make sure missing caching framework tables don't get into the way
+			$cacheTables = t3lib_cache::getDatabaseTableDefinitions();
+			$this->importDatabaseDefinitions($cacheTables);
+		}
 	}
 
 	/**
