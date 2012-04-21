@@ -45,6 +45,11 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	protected $outputService = NULL;
 
 	/**
+	 * @var Tx_Phpunit_Service_FakeSettingsService
+	 */
+	protected $userSettingsService = NULL;
+
+	/**
 	 * @var t3lib_beUserAuth
 	 */
 	private $backEndUserBackup = NULL;
@@ -75,6 +80,9 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		$this->outputService = new Tx_PhpUnit_Service_FakeOutputService();
 		$this->fixture->injectOutputService($this->outputService);
+
+		$this->userSettingsService = new Tx_Phpunit_Service_FakeSettingsService();
+		$this->fixture->injectUserSettingsService($this->userSettingsService);
 	}
 
 	public function tearDown() {
@@ -85,7 +93,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		$GLOBALS['BE_USER'] = $this->backEndUserBackup;
 
-		unset($this->fixture, $this->outputService, $this->backEndUserBackup);
+		unset($this->fixture, $this->outputService, $this->userSettingsService, $this->backEndUserBackup);
 	}
 
 	/*
@@ -190,6 +198,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
 		$fixture = $this->getMock($this->createAccessibleProxy(), array('runTests_render'));
 		$fixture->injectOutputService($this->outputService);
+		$fixture->injectUserSettingsService($this->userSettingsService);
 		$fixture->expects($this->once())->method('runTests_render');
 
 		$fixture->main();
@@ -205,7 +214,9 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			array('runTests_renderIntro', 'runTests_renderRunningTest')
 		);
 		$fixture->injectOutputService($this->outputService);
-		$fixture->MOD_SETTINGS = array('extSel' => 'phpunit');
+
+		$this->userSettingsService->set('extSel', 'phpunit');
+		$fixture->injectUserSettingsService($this->userSettingsService);
 
 		$fixture->expects($this->once())->method('runTests_renderIntro');
 
@@ -224,7 +235,9 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			array('runTests_renderIntro', 'runTests_renderRunningTest')
 		);
 		$fixture->injectOutputService($this->outputService);
-		$fixture->MOD_SETTINGS = array('extSel' => 'phpunit');
+
+		$this->userSettingsService->set('extSel', 'phpunit');
+		$fixture->injectUserSettingsService($this->userSettingsService);
 
 		$fixture->expects($this->never())->method('runTests_renderRunningTest');
 
@@ -243,7 +256,9 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			array('runTests_renderIntro', 'runTests_renderRunningTest')
 		);
 		$fixture->injectOutputService($this->outputService);
-		$fixture->MOD_SETTINGS = array('extSel' => 'phpunit');
+
+		$this->userSettingsService->set('extSel', 'phpunit');
+		$fixture->injectUserSettingsService($this->userSettingsService);
 
 		$fixture->expects($this->once())->method('runTests_renderIntro');
 
@@ -262,7 +277,9 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			array('runTests_renderIntro', 'runTests_renderRunningTest')
 		);
 		$fixture->injectOutputService($this->outputService);
-		$fixture->MOD_SETTINGS = array('extSel' => 'phpunit');
+
+		$this->userSettingsService->set('extSel', 'phpunit');
+		$fixture->injectUserSettingsService($this->userSettingsService);
 
 		$fixture->expects($this->never())->method('runTests_renderRunningTest');
 
@@ -281,7 +298,9 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			array('runTests_renderIntro', 'runTests_renderRunningTest')
 		);
 		$fixture->injectOutputService($this->outputService);
-		$fixture->MOD_SETTINGS = array('extSel' => 'phpunit');
+
+		$this->userSettingsService->set('extSel', 'phpunit');
+		$fixture->injectUserSettingsService($this->userSettingsService);
 
 		$fixture->expects($this->once())->method('runTests_renderIntro');
 		$fixture->expects($this->once())->method('runTests_renderRunningTest');
@@ -301,7 +320,9 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			array('runTests_renderIntro', 'runTests_renderRunningTest')
 		);
 		$fixture->injectOutputService($this->outputService);
-		$fixture->MOD_SETTINGS = array('extSel' => 'phpunit');
+
+		$this->userSettingsService->set('extSel', 'phpunit');
+		$fixture->injectUserSettingsService($this->userSettingsService);
 
 		$fixture->expects($this->once())->method('runTests_renderIntro');
 		$fixture->expects($this->once())->method('runTests_renderRunningTest');
@@ -321,7 +342,9 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			array('runTests_renderIntro', 'runTests_renderRunningTest')
 		);
 		$fixture->injectOutputService($this->outputService);
-		$fixture->MOD_SETTINGS = array('extSel' => 'phpunit');
+
+		$this->userSettingsService->set('extSel', 'phpunit');
+		$fixture->injectUserSettingsService($this->userSettingsService);
 
 		$fixture->expects($this->once())->method('runTests_renderIntro');
 		$fixture->expects($this->once())->method('runTests_renderRunningTest');
@@ -345,9 +368,11 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector', 'getTestFinder')
 		);
 		$fixture->injectOutputService($this->outputService);
-		$fixture->expects($this->any())->method('getTestFinder')->will($this->returnValue($testFinder));
 
-		$fixture->MOD_SETTINGS = array('extSel' => 'phpunit');
+		$this->userSettingsService->set('extSel', 'phpunit');
+		$fixture->injectUserSettingsService($this->userSettingsService);
+
+		$fixture->expects($this->any())->method('getTestFinder')->will($this->returnValue($testFinder));
 
 		$fixture->runTests_renderIntro();
 
@@ -371,11 +396,13 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector', 'getTestFinder')
 		);
 		$fixture->injectOutputService($this->outputService);
+
+		$this->userSettingsService->set('extSel', 'phpunit');
+		$fixture->injectUserSettingsService($this->userSettingsService);
+
 		$fixture->expects($this->any())->method('getTestFinder')->will($this->returnValue($testFinder));
 		$fixture->expects($this->never())->method('createExtensionSelector')
 			->will($this->returnValue('extension selector'));
-
-		$fixture->MOD_SETTINGS = array('extSel' => 'phpunit');
 
 		$fixture->runTests_renderIntro();
 	}
@@ -390,10 +417,12 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector')
 		);
 		$fixture->injectOutputService($this->outputService);
+
+		$this->userSettingsService->set('extSel', 'phpunit');
+		$fixture->injectUserSettingsService($this->userSettingsService);
+
 		$fixture->expects($this->once())->method('createExtensionSelector')
 			->will($this->returnValue('extension selector'));
-
-		$fixture->MOD_SETTINGS = array('extSel' => 'phpunit');
 
 		$fixture->runTests_renderIntro();
 
@@ -415,7 +444,9 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector')
 		);
 		$fixture->injectOutputService($this->outputService);
-		$fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+
+		$this->userSettingsService->set('extSel', $selectedExtension);
+		$fixture->injectUserSettingsService($this->userSettingsService);
 
 		$fixture->expects($this->once())->method('createTestCaseSelector')
 			->with($selectedExtension)->will($this->returnValue('test case selector'));
@@ -440,7 +471,9 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector')
 		);
 		$fixture->injectOutputService($this->outputService);
-		$fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+
+		$this->userSettingsService->set('extSel', $selectedExtension);
+		$fixture->injectUserSettingsService($this->userSettingsService);
 
 		$fixture->expects($this->once())->method('createTestSelector')
 			->with($selectedExtension)->will($this->returnValue('test selector'));
@@ -465,7 +498,9 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector')
 		);
 		$fixture->injectOutputService($this->outputService);
-		$fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+
+		$this->userSettingsService->set('extSel', $selectedExtension);
+		$fixture->injectUserSettingsService($this->userSettingsService);
 
 		$fixture->expects($this->once())->method('createTestSelector')
 			->with($selectedExtension)->will($this->returnValue('test selector'));
@@ -707,7 +742,9 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$className = $this->createAccessibleProxy();
 		/** @var $fixture Tx_Phpunit_BackEnd_Module */
 		$fixture = new $className();
-		$fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+
+		$this->userSettingsService->set('extSel', $selectedExtension);
+		$fixture->injectUserSettingsService($this->userSettingsService);
 
 		$this->assertRegExp(
 			'/<option[^>]*value="phpunit"/',
@@ -730,6 +767,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
 		$fixture = $this->getMock($this->createAccessibleProxy(), array('getTestFinder'));
+		$fixture->injectUserSettingsService($this->userSettingsService);
 		$fixture->expects($this->once())->method('getTestFinder')
 			->will($this->returnValue($testFinderMock));
 
@@ -753,7 +791,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function createExtensionSelectorMarksSelectedExtensionAsSelected() {
-		$this->fixture->MOD_SETTINGS['extSel'] = 'phpunit';
+		$this->userSettingsService->set('extSel', 'phpunit');
 
 		$this->assertRegExp(
 			'#<option [^>]* selected="selected">phpunit</option>#',
@@ -766,7 +804,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function createExtensionSelectorMarksNotSelectedExtensionAsNotSelected() {
-		$this->fixture->MOD_SETTINGS['extSel'] = 't3dd11';
+		$this->userSettingsService->set('extSel', 't3dd11');
 
 		$this->assertNotRegExp(
 			'#<option [^>]*selected="selected">phpunit</option>#',
@@ -788,7 +826,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function createExtensionSelectorForAllSelectedMarksAllAsSelected() {
-		$this->fixture->MOD_SETTINGS['extSel'] = Tx_Phpunit_Testable::ALL_EXTENSIONS;
+		$this->userSettingsService->set('extSel', Tx_Phpunit_Testable::ALL_EXTENSIONS);
 
 		$this->assertRegExp(
 			'/<option [^>]* value="' . Tx_Phpunit_Testable::ALL_EXTENSIONS . '" selected="selected">/',
@@ -801,7 +839,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function createExtensionSelectorForOtherExtensionSelectedMarksAllAsNotSelected() {
-		$this->fixture->MOD_SETTINGS['extSel'] = 't3dd11';
+		$this->userSettingsService->set('extSel', 't3dd11');
 
 		$this->assertNotRegExp(
 			'/<option [^>]* value="uuall" selected="selected">/',
@@ -819,7 +857,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 */
 	public function createTestCaseSelectorCreatesForm() {
 		$selectedExtension = 'phpunit';
-		$this->fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+		$this->userSettingsService->set('extSel', $selectedExtension);
 
 		$this->assertContains(
 			'<form',
@@ -832,7 +870,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 */
 	public function createTestCaseSelectorForNoExtensionSelectedReturnsEmptyString() {
 		$selectedExtension = '';
-		$this->fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+		$this->userSettingsService->set('extSel', $selectedExtension);
 
 		$this->assertSame(
 			'',
@@ -845,7 +883,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 */
 	public function createTestCaseSelectorForAllExtensionSelectedReturnsEmptyString() {
 		$selectedExtension = Tx_Phpunit_Testable::ALL_EXTENSIONS;
-		$this->fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+		$this->userSettingsService->set('extSel', $selectedExtension);
 
 		$this->assertSame(
 			'',
@@ -858,7 +896,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 */
 	public function createTestCaseSelectorCreatesOptionForExistingTestcaseFromSelectedExtension() {
 		$selectedExtension = 'phpunit';
-		$this->fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+		$this->userSettingsService->set('extSel', $selectedExtension);
 
 		$this->assertRegExp(
 			'/<option[^>]*value="Tx_Phpunit_BackEnd_ModuleTest"/',
@@ -875,7 +913,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		}
 
 		$selectedExtension = 'phpunit';
-		$this->fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+		$this->userSettingsService->set('extSel', $selectedExtension);
 
 		$this->assertNotContains(
 			'value="tx_oelib_DataMapperTest"',
@@ -888,7 +926,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 */
 	public function createTestCaseSelectorContainsIconPathKeyOfExtensionWithTests() {
 		$selectedExtension = 'phpunit';
-		$this->fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+		$this->userSettingsService->set('extSel', $selectedExtension);
 
 		$this->assertContains(
 			'background: url(../typo3conf/ext/phpunit/ext_icon.gif)',
@@ -901,7 +939,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 */
 	public function createTestCaseSelectorMarksSelectedTestCaseAsSelected() {
 		$selectedExtension = 'phpunit';
-		$this->fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+		$this->userSettingsService->set('extSel', $selectedExtension);
 		$_GET['testCaseFile'] = 'Tx_Phpunit_Service_TestFinderTest';
 
 		$this->assertRegExp(
@@ -915,7 +953,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 */
 	public function createTestCaseSelectorMarksForOtherTestCaseSelectedTestCaseAsNotSelected() {
 		$selectedExtension = 'phpunit';
-		$this->fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+		$this->userSettingsService->set('extSel', $selectedExtension);
 		$_GET['testCaseFile'] = 'Tx_Phpunit_Service_TestFinderTest';
 
 		$this->assertNotRegExp(
@@ -929,7 +967,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 */
 	public function createTestCaseSelectorMarksNoTestCaseSelectedTestCaseAsNotSelected() {
 		$selectedExtension = 'phpunit';
-		$this->fixture->MOD_SETTINGS = array('extSel' => $selectedExtension);
+		$this->userSettingsService->set('extSel', $selectedExtension);
 		$_GET['testCaseFile'] = '';
 
 		$this->assertNotRegExp(

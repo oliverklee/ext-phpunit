@@ -38,6 +38,42 @@
  */
 class Tx_Phpunit_BackEnd_Ajax {
 	/**
+	 * @var Tx_Phpunit_Interface_UserSettingsService
+	 */
+	protected $userSettingsService = NULL;
+
+	/**
+	 * The constructor.
+	 *
+	 * @param boolean $initializeUserSettingsService whether to automatically initialize the user settings service
+	 */
+	public function __construct($initializeUserSettingsService = TRUE) {
+		if ($initializeUserSettingsService) {
+			/** @var $userSettingsService Tx_Phpunit_Service_UserSettingsService */
+			$userSettingsService = t3lib_div::makeInstance('Tx_Phpunit_Service_UserSettingsService');
+			$this->injectUserSettingsService($userSettingsService);
+		}
+	}
+
+	/**
+	 * The destructor.
+	 */
+	public function __destruct() {
+		unset($this->userSettingsService);
+	}
+
+	/**
+	 * Injects the user settings service.
+	 *
+	 * @param Tx_Phpunit_Interface_UserSettingsService $service the service to inject
+	 *
+	 * @return void
+	 */
+	public function injectUserSettingsService(Tx_Phpunit_Interface_UserSettingsService $service) {
+		$this->userSettingsService = $service;
+	}
+
+	/**
 	 * Used to broker incoming requests to other calls.
 	 * Called by typo3/ajax.php
 	 *
@@ -67,8 +103,7 @@ class Tx_Phpunit_BackEnd_Ajax {
 
 		if ($checkbox) {
 			$ajax->setContentFormat('json');
-			$GLOBALS['BE_USER']->uc['moduleData']['tools_txphpunitM1'][$checkbox] = $state;
-			$GLOBALS['BE_USER']->writeUC();
+			$this->userSettingsService->set($checkbox, $state);
 			$ajax->addContent('success', TRUE);
 		} else {
 			$ajax->setContentFormat('plain');

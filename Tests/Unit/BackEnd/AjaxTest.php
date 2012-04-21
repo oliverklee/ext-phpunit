@@ -39,11 +39,9 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 	private $fixture = NULL;
 
 	/**
-	 * backup of $GLOBALS['BE_USER']
-	 *
-	 * @var t3lib_beUserAuth
+	 * @var Tx_Phpunit_Service_FakeSettingsService
 	 */
-	private $backEndUserBackup = NULL;
+	protected $userSettingsService = NULL;
 
 	/**
 	 * backup of $_POST
@@ -54,19 +52,18 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 
 	public function setUp() {
 		$this->postBackup = $_POST;
-		$this->backEndUserBackup = $GLOBALS['BE_USER'];
-
 		$_POST = array();
-		$GLOBALS['BE_USER'] = $this->getMock('t3lib_beUserAuth');
 
-		$this->fixture = new Tx_Phpunit_BackEnd_Ajax();
+		$this->fixture = new Tx_Phpunit_BackEnd_Ajax(FALSE);
+
+		$this->userSettingsService = new Tx_Phpunit_Service_FakeSettingsService();
+		$this->fixture->injectUserSettingsService($this->userSettingsService);
 	}
 
 	public function tearDown() {
-		$GLOBALS['BE_USER'] = $this->backEndUserBackup;
 		$_POST = $this->postBackup;
 
-		unset($this->fixture, $this->backEndUserBackup, $this->postBackup);
+		unset($this->fixture, $this->postBackup, $this->userSettingsService);
 	}
 
 	/**
@@ -76,15 +73,13 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 		$_POST['checkbox'] = 'failure';
 		$_POST['state'] = 'true';
 
-		$GLOBALS['BE_USER']->expects($this->once())->method('writeUC');
-
 		/** @var $ajax TYPO3AJAX|PHPUnit_Framework_MockObject_MockObject  */
 		$ajax = $this->getMock('TYPO3AJAX');
 		$this->fixture->ajaxBroker(array(), $ajax);
 
 		$this->assertSame(
 			'on',
-			$GLOBALS['BE_USER']->uc['moduleData']['tools_txphpunitM1']['failure']
+			$this->userSettingsService->getAsString('failure')
 		);
 	}
 
@@ -94,15 +89,13 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 	public function ajaxBrokerForFailureCheckboxParameterAndMissingStateSavesOffStateToUserSettings() {
 		$_POST['checkbox'] = 'failure';
 
-		$GLOBALS['BE_USER']->expects($this->once())->method('writeUC');
-
 		/** @var $ajax TYPO3AJAX|PHPUnit_Framework_MockObject_MockObject  */
 		$ajax = $this->getMock('TYPO3AJAX');
 		$this->fixture->ajaxBroker(array(), $ajax);
 
 		$this->assertSame(
 			'off',
-			$GLOBALS['BE_USER']->uc['moduleData']['tools_txphpunitM1']['failure']
+			$this->userSettingsService->getAsString('failure')
 		);
 	}
 

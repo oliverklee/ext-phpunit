@@ -63,6 +63,11 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	protected $outputService = NULL;
 
 	/**
+	 * @var Tx_Phpunit_Interface_UserSettingsService
+	 */
+	protected $userSettingsService = NULL;
+
+	/**
 	 * module menu items
 	 *
 	 * @var array
@@ -105,7 +110,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * The destructor.
 	 */
 	public function __destruct() {
-		unset($this->testFinder, $this->coverage, $this->testListener, $this->outputService);
+		unset($this->testFinder, $this->coverage, $this->testListener, $this->outputService, $this->userSettingsService);
 	}
 
 	/**
@@ -122,12 +127,23 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	/**
 	 * Injects the output service.
 	 *
-	 * @param Tx_PhpUnit_Service_OutputService $outputService the output service to inject
+	 * @param Tx_PhpUnit_Service_OutputService $service the service to inject
 	 *
 	 * @return void
 	 */
-	public function injectOutputService(Tx_PhpUnit_Service_OutputService $outputService) {
-		$this->outputService = $outputService;
+	public function injectOutputService(Tx_PhpUnit_Service_OutputService $service) {
+		$this->outputService = $service;
+	}
+
+	/**
+	 * Injects the user settings service.
+	 *
+	 * @param Tx_Phpunit_Interface_UserSettingsService $service the service to inject
+	 *
+	 * @return void
+	 */
+	public function injectUserSettingsService(Tx_Phpunit_Interface_UserSettingsService $service) {
+		$this->userSettingsService = $service;
 	}
 
 	/**
@@ -232,13 +248,15 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * @return void
 	 */
 	protected function runTests_render() {
-		if (($this->MOD_SETTINGS['extSel'] !== Tx_Phpunit_Testable::ALL_EXTENSIONS)
-			&& !$this->getTestFinder()->existsTestableForKey($this->MOD_SETTINGS['extSel'])
+		$selectedExtensionKey = $this->userSettingsService->getAsString('extSel');
+
+		if (($selectedExtensionKey !== Tx_Phpunit_Testable::ALL_EXTENSIONS)
+			&& !$this->getTestFinder()->existsTestableForKey($selectedExtensionKey)
 		) {
 			// We know that phpunit must be loaded.
-			$this->MOD_SETTINGS['extSel'] = 'phpunit';
+			$this->userSettingsService->set('extSel', 'phpunit');
 		}
-		$command = $this->MOD_SETTINGS['extSel'] ? t3lib_div::_GP('command') : '';
+		$command = $this->userSettingsService->getAsString('extSel') ? t3lib_div::_GP('command') : '';
 		switch ($command) {
 			case 'runalltests':
 				// The fallthrough is intentional.
@@ -272,9 +290,10 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		}
 
 		$output = $this->createExtensionSelector();
-		if ($this->MOD_SETTINGS['extSel'] && ($this->MOD_SETTINGS['extSel'] !== Tx_Phpunit_Testable::ALL_EXTENSIONS)) {
-			$output .= $this->createTestCaseSelector($this->MOD_SETTINGS['extSel']) .
-				$this->createTestSelector($this->MOD_SETTINGS['extSel']);
+		$selectedExtensionKey = $this->userSettingsService->getAsString('extSel');
+
+		if (($selectedExtensionKey !== '') && ($selectedExtensionKey !== Tx_Phpunit_Testable::ALL_EXTENSIONS)) {
+			$output .= $this->createTestCaseSelector($selectedExtensionKey) . $this->createTestSelector($selectedExtensionKey);
 		}
 		$output .= $this->createCheckboxes();
 
@@ -288,10 +307,12 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 *         HTML code for the drop-down and a surrounding form, will not be empty
 	 */
 	protected function createExtensionSelector() {
+		$selectedExtensionKey = $this->userSettingsService->getAsString('extSel');
+
 		$options = array();
 		$options[] = '<option value="" disabled="disabled">' . $this->translate('select_extension') . '</option>';
 
-		$allIsSelected = ($this->MOD_SETTINGS['extSel'] === Tx_Phpunit_Testable::ALL_EXTENSIONS) ? ' selected="selected"' : '';
+		$allIsSelected = ($selectedExtensionKey === Tx_Phpunit_Testable::ALL_EXTENSIONS) ? ' selected="selected"' : '';
 		$options[] = '<option class="alltests" value="uuall"' . $allIsSelected . '>' .
 			$this->translate('all_extensions') . '</option>';
 
@@ -301,7 +322,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		/** @var  $testable Tx_Phpunit_Testable */
 		foreach ($testables as $testable) {
 			$style = 'background: url(' . $testable->getIconPath() . ') no-repeat 3px 50% white; padding: 1px 1px 1px 24px;';
-			if ($this->MOD_SETTINGS['extSel'] === $testable->getKey()) {
+			if ($selectedExtensionKey === $testable->getKey()) {
 				$selected = ' selected="selected"';
 				$selectedExtensionStyle = $style;
 			} else {
@@ -388,8 +409,6 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	/**
 	 * Renders a drop-down for running single tests for the given extension.
 	 *
-	 * @param array<string> $extensionsWithTestSuites
-	 *        keys of the extensions for which test suites exist
 	 * @param string $extensionKey
 	 *        keys of the extension for which to render the drop-down
 	 *
@@ -480,13 +499,13 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	protected function createCheckboxes() {
 		$output = '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">';
 		$output .= '<div class="phpunit-controls">';
-		$failureState = $this->MOD_SETTINGS['failure'] === 'on' ? 'checked="checked"' : '';
-		$errorState = $this->MOD_SETTINGS['error'] === 'on' ? 'checked="checked"' : '';
-		$skippedState = $this->MOD_SETTINGS['skipped'] === 'on' ? 'checked="checked"' : '';
-		$successState = $this->MOD_SETTINGS['success'] === 'on' ? 'checked="checked"' : '';
-		$notImplementedState = $this->MOD_SETTINGS['notimplemented'] === 'on' ? 'checked="checked"' : '';
-		$showMemoryAndTime = $this->MOD_SETTINGS['showMemoryAndTime'] === 'on' ? 'checked="checked"' : '';
-		$testdoxState = $this->MOD_SETTINGS['testdox'] === 'on' ? 'checked="checked"' : '';
+		$failureState = $this->userSettingsService->getAsString('failure') === 'on' ? 'checked="checked"' : '';
+		$errorState = $this->userSettingsService->getAsString('error') === 'on' ? 'checked="checked"' : '';
+		$skippedState = $this->userSettingsService->getAsString('skipped') === 'on' ? 'checked="checked"' : '';
+		$successState = $this->userSettingsService->getAsString('success') === 'on' ? 'checked="checked"' : '';
+		$notImplementedState = $this->userSettingsService->getAsString('notimplemented') === 'on' ? 'checked="checked"' : '';
+		$showMemoryAndTime = $this->userSettingsService->getAsString('showMemoryAndTime') === 'on' ? 'checked="checked"' : '';
+		$testdoxState = $this->userSettingsService->getAsString('testdox') === 'on' ? 'checked="checked"' : '';
 		$output .= '<input type="checkbox" id="SET_success" ' . $successState . ' /><label for="SET_success">Success</label>';
 		$output .= ' <input type="checkbox" id="SET_failure" ' . $failureState . ' /><label for="SET_failure">Failure</label>';
 		$output .= ' <input type="checkbox" id="SET_skipped" ' . $skippedState . ' /><label for="SET_skipped">Skipped</label>';
@@ -504,11 +523,11 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			$codecoverageDisable = ' disabled="disabled"';
 			$codecoverageForLabelWhenDisabled = ' title="Code coverage requires XDebug to be installed."';
 		}
-		$codeCoverageState = $this->MOD_SETTINGS['codeCoverage'] === 'on' ? 'checked="checked"' : '';
+		$codeCoverageState = $this->userSettingsService->getAsString('codeCoverage') === 'on' ? 'checked="checked"' : '';
 		$output .= ' <input type="checkbox" id="SET_codeCoverage" ' . $codecoverageDisable . ' ' . $codeCoverageState .
 			' /><label for="SET_codeCoverage"' . $codecoverageForLabelWhenDisabled .
 			'>Collect code-coverage data</label>';
-		$runSeleniumTests = $this->MOD_SETTINGS['runSeleniumTests'] === 'on' ? 'checked="checked"' : '';
+		$runSeleniumTests = $this->userSettingsService->getAsString('runSeleniumTests') === 'on' ? 'checked="checked"' : '';
 		$output .= ' <input type="checkbox" id="SET_runSeleniumTests" ' . $runSeleniumTests . '/><label for="SET_runSeleniumTests">' . $this->translate('run_selenium_tests') . '</label>';
 		$output .= '</div>';
 		$output .= '</form>';
@@ -523,16 +542,17 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * @return void
 	 */
 	protected function runTests_renderRunningTest() {
+		$selectedExtensionKey = $this->userSettingsService->getAsString('extSel');
+
 		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
 		$extensionKeysToProcess = $this->getTestFinder()->getTestablesForEverything();
-		if ($this->MOD_SETTINGS['extSel'] === Tx_Phpunit_Testable::ALL_EXTENSIONS) {
+		if ($selectedExtensionKey === Tx_Phpunit_Testable::ALL_EXTENSIONS) {
 			$this->outputService->output('<h1>' . $this->translate('testing_all_extensions') . '</h1>');
 		} else {
 			$this->outputService->output(
-				'<h1>' . $this->translate('testing_extension') . ': ' .
-					htmlspecialchars($this->MOD_SETTINGS['extSel']) . '</h1>'
+				'<h1>' . $this->translate('testing_extension') . ': ' . htmlspecialchars($selectedExtensionKey) . '</h1>'
 			);
-			$extensionKeysToProcess = array($extensionKeysToProcess[$this->MOD_SETTINGS['extSel']]);
+			$extensionKeysToProcess = array($extensionKeysToProcess[$selectedExtensionKey]);
 		}
 
 		// Loads the files containing test cases from extensions.
@@ -553,7 +573,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 				&& ($class !== 'Tx_Phpunit_TestCase') && ($class !== 'Tx_Phpunit_Database_TestCase')
 			) {
 				$testSuite->addTestSuite($class);
-			} elseif ($this->MOD_SETTINGS['runSeleniumTests'] === 'on'
+			} elseif ($this->userSettingsService->getAsString('runSeleniumTests') === 'on'
 				&& $classReflection->isSubclassOf('Tx_Phpunit_Selenium_TestCase')
 				&& ((strtolower(substr($class, -8, 8)) === 'testcase') || (substr($class, -4, 4) === 'Test'))
 				&& ($class !== 'Tx_Phpunit_Selenium_TestCase')
@@ -569,11 +589,11 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			$this->coverage->start('PHPUnit');
 		}
 
-		if ($this->MOD_SETTINGS['testdox'] === 'on') {
+		if ($this->userSettingsService->getAsString('testdox') === 'on') {
 			$this->testListener->useHumanReadableTextFormat();
 		}
 
-		if ($this->MOD_SETTINGS['showMemoryAndTime'] === 'on') {
+		if ($this->userSettingsService->getAsString('showMemoryAndTime') === 'on') {
 			$this->testListener->enableShowMenoryAndTime();
 		}
 
