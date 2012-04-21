@@ -39,7 +39,7 @@ class Tx_Phpunit_Service_OutputService implements t3lib_Singleton {
 	 *
 	 * @return void
 	 */
-	public  function output($output) {
+	public function output($output) {
 		echo($output);
 	}
 
