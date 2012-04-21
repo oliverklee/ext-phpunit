@@ -25,7 +25,7 @@ class Tx_Phpunit_Tests_Fixtures_ProtectedClass {
 	/**
 	 * This function returns the number of passed arguments and their values.
 	 *
-	 * @return a summary of the passed arguments, will not be empty
+	 * @return string a summary of the passed arguments, will not be empty
 	 */
 	protected function argumentChecker() {
 		return func_num_args() . ': ' . implode(', ', func_get_args());
