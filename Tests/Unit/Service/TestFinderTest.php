@@ -937,9 +937,9 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array('foo', 'baz')));
 
 		$testFinder->expects($this->at(2))->method('createTestableForSingleExtension')
-			->with('bar')->will($this->returnValue(new Tx_Phpunit_Testable()));;
+			->with('bar')->will($this->returnValue(new Tx_Phpunit_Testable()));
 		$testFinder->expects($this->at(3))->method('createTestableForSingleExtension')
-			->with('foobar')->will($this->returnValue(new Tx_Phpunit_Testable()));;
+			->with('foobar')->will($this->returnValue(new Tx_Phpunit_Testable()));
 
 		$testFinder->getTestablesForExtensions();
 	}
@@ -963,7 +963,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 		$testFinder->expects($this->at(3))->method('createTestableForSingleExtension')
 			->with('bar')->will($this->returnValue(new Tx_Phpunit_Testable()));
 		$testFinder->expects($this->at(4))->method('createTestableForSingleExtension')
-			->with('foobar')->will($this->returnValue(new Tx_Phpunit_Testable()));;
+			->with('foobar')->will($this->returnValue(new Tx_Phpunit_Testable()));
 
 		$testFinder->getTestablesForExtensions();
 	}

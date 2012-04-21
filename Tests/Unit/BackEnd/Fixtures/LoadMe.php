@@ -2,5 +2,6 @@
 /**
  * Test class.
  */
-class Tx_Phpunit_BackEnd_Fixtures_LoadMe {}
+class Tx_Phpunit_BackEnd_Fixtures_LoadMe {
+}
 ?>

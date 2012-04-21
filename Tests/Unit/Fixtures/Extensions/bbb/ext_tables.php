@@ -27,5 +27,5 @@ $tempColumns = array(
 
 t3lib_div::loadTCA('tx_aaa_test');
 t3lib_extMgm::addTCAcolumns('tx_aaa_test', $tempColumns, 1);
-t3lib_extMgm::addToAllTCAtypes('tx_aaa_test','tx_bbb_test;;;;1-1-1');
+t3lib_extMgm::addToAllTCAtypes('tx_aaa_test', 'tx_bbb_test;;;;1-1-1');
 ?>

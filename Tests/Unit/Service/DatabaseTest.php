@@ -1121,7 +1121,7 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
      */
     public function getTcaForTableThrowsExceptionOnTableWithoutTca() {
 		$this->setExpectedException(
-			'BadMethodCallException', 'The table "' . 'tx_phpunit_test_article_mm' . '" has no TCA.'
+			'BadMethodCallException', 'The table "tx_phpunit_test_article_mm" has no TCA.'
 		);
 
 		Tx_Phpunit_Service_Database::getTcaForTable('tx_phpunit_test_article_mm');

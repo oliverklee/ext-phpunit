@@ -121,6 +121,8 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	/**
 	 * Checks whether the extension user_phpunittest is currently loaded and lets
 	 * a test fail if the extension is not loaded.
+	 *
+	 * @return void
 	 */
 	private function checkIfExtensionUserPhpUnittestIsLoaded() {
 		if (!t3lib_extMgm::isLoaded('user_phpunittest')) {
@@ -134,6 +136,8 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	/**
 	 * Checks whether the extension user_phpunittest2 is currently loaded and lets
 	 * a test fail if the extension is not loaded.
+	 *
+	 * @return void
 	 */
 	private function checkIfExtensionUserPhpUnittest2IsLoaded() {
 		if (!t3lib_extMgm::isLoaded('user_phpunittest')) {
@@ -146,6 +150,8 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 
 	/**
 	 * Deletes a "foreign" file which was created for test purposes.
+	 *
+	 * @return void
 	 */
 	private function deleteForeignFile() {
 		if ($this->foreignFileToDelete == '') {
@@ -158,6 +164,8 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 
 	/**
 	 * Deletes a "foreign" folder which was created for test purposes.
+	 *
+	 * @return void
 	 */
 	private function deleteForeignFolder() {
 		if ($this->foreignFolderToDelete == '') {
@@ -171,6 +179,8 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	/**
 	 * Marks a test as skipped if the ZIPArchive class is not available in the
 	 * PHP installation.
+	 *
+	 * @return void
 	 */
 	private function markAsSkippedForNoZipArchive() {
 		try {
@@ -206,7 +216,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	/**
      * @test
      */
-    public function markTableAsDirtyWillCleanUpANonSystemTable() {
+    public function markTableAsDirtyWillCleanUpNonSystemTable() {
 		$uid = Tx_Phpunit_Service_Database::insert(
 			'tx_phpunit_test', array('is_dummy_record' => 1)
 		);
@@ -222,7 +232,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	/**
      * @test
      */
-    public function markTableAsDirtyWillCleanUpASystemTable() {
+    public function markTableAsDirtyWillCleanUpSystemTable() {
 		$uid = Tx_Phpunit_Service_Database::insert (
 			'pages', array('tx_phpunit_is_dummy_record' => 1)
 		);
@@ -293,7 +303,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
      * @test
      */
     public function markTableAsDirtyAcceptsCommaSeparatedListOfTableNames() {
-		$this->fixture->markTableAsDirty('tx_phpunit_test'.','.'tx_phpunit_test_article_mm');
+		$this->fixture->markTableAsDirty('tx_phpunit_test,tx_phpunit_test_article_mm');
 		$this->assertSame(
 			array(
 				'tx_phpunit_test' => 'tx_phpunit_test',
@@ -816,7 +826,6 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 			$previousSorting
 		);
 
-
 		$uidForeign = $this->fixture->createRecord('tx_phpunit_test');
 		$this->fixture->createRelation(
 			'tx_phpunit_test_article_mm', $uidLocal, $uidForeign
@@ -1123,7 +1132,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
      */
     public function removeRelationOnRealRecordNotRemovesRelation() {
 		$uidLocal = $this->fixture->createRecord('tx_phpunit_test');
-		$uidForeign = $this->fixture->createRecord('tx_phpunit_test');;
+		$uidForeign = $this->fixture->createRecord('tx_phpunit_test');
 
 		// Create a new record that looks like a real record, i.e. the
 		// is_dummy_record flag is set to 0.
@@ -1156,8 +1165,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 		// Deletes the record as it will not be caught by the clean up function.
 		Tx_Phpunit_Service_Database::delete(
 			'tx_phpunit_test_article_mm',
-			'uid_local = ' . $uidLocal . ' AND uid_foreign = ' . $uidForeign
-				.' AND is_dummy_record = 0'
+			'uid_local = ' . $uidLocal . ' AND uid_foreign = ' . $uidForeign . ' AND is_dummy_record = 0'
 		);
 
 		// Checks whether the relation had been created further up.
@@ -1327,7 +1335,6 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 
 	// ---------------------------------------------------------------------
 	// Tests regarding createListOfAllowedTables()
-	//
 	// The method is called in the constructor of the fixture.
 	// ---------------------------------------------------------------------
 
@@ -1356,7 +1363,6 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 
 	// ---------------------------------------------------------------------
 	// Tests regarding createListOfAdditionalAllowedTables()
-	//
 	// (That method is called in the constructor of the fixture.)
 	// ---------------------------------------------------------------------
 
@@ -1836,7 +1842,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	/**
      * @test
      */
-    public function existsRecordWithUidForAMatchReturnsTrue() {
+    public function existsRecordWithUidForMatchReturnsTrue() {
 		$uid = $this->fixture->createRecord('tx_phpunit_test');
 
 		$this->assertTrue(
@@ -3078,7 +3084,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
      *
      * @expectedException InvalidArgumentException
      */
-    public function templateMustNotHaveAZeroPid() {
+    public function templateMustNotHaveZeroPid() {
 		$this->fixture->createTemplate(42, array('pid' => 0));
 	}
 
@@ -3087,7 +3093,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
      *
      * @expectedException InvalidArgumentException
      */
-    public function templateMustNotHaveANonZeroPid() {
+    public function templateMustNotHaveNonZeroPid() {
 		$this->fixture->createTemplate(42, array('pid' => 99999));
 	}
 
@@ -3105,7 +3111,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
      *
      * @expectedException InvalidArgumentException
      */
-    public function templateMustNotHaveANonZeroUid() {
+    public function templateMustNotHaveNonZeroUid() {
 		$this->fixture->createTemplate(42, array('uid' => 99999));
 	}
 
@@ -3548,7 +3554,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
      *
      * @expectedException t3lib_exception
      */
-    public function setUploadFolderPathAfterCreatingADummyFileThrowsException() {
+    public function setUploadFolderPathAfterCreatingDummyFileThrowsException() {
 		$this->fixture->createDummyFile();
 		$this->fixture->setUploadFolderPath('/foo/bar/');
 	}
@@ -3665,7 +3671,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	/**
      * @test
      */
-    public function frontEndUserGroupCanHaveATitle() {
+    public function frontEndUserGroupCanHaveTitle() {
 		$uid = $this->fixture->createFrontEndUserGroup(
 			array('title' => 'Test title')
 		);
@@ -3784,7 +3790,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	/**
      * @test
      */
-    public function frontEndUserCanHaveAUserName() {
+    public function frontEndUserCanHaveUserName() {
 		$uid = $this->fixture->createFrontEndUser(
 			'',
 			array('username' => 'Test name')
@@ -4213,7 +4219,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	/**
      * @test
      */
-    public function discardFakeFrontEndCanBeCalledTwoTimesInARow() {
+    public function discardFakeFrontEndCanBeCalledTwoTimes() {
 		$this->fixture->discardFakeFrontEnd();
 		$this->fixture->discardFakeFrontEnd();
 	}
@@ -4299,7 +4305,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	// Note: In the unit tests, the src attribute of the generated image tag
 	// will be empty because the IMAGE handles does not accept absolute paths
 	// and handles relative paths and EXT: paths inconsistently:
-	//
+
 	// It correctly resolves paths which are relative to the TYPO3 document
 	// root, but then calls t3lib_stdGraphic::getImageDimensions (which is
 	// inherited by tslib_gifBuilder) which again uses the relative path. So
@@ -4310,7 +4316,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	/**
      * @test
      */
-    public function fakeFrontEndCObjImageCreatesImageTagForExistingImageFile() {
+    public function fakeFrontEndCobjImageCreatesImageTagForExistingImageFile() {
 		$this->fixture->createFakeFrontEnd();
 
 		$this->assertContains(
@@ -4501,7 +4507,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	/**
      * @test
      */
-    public function logoutFrontEndUserCanBeCalledTwoTimesInARow() {
+    public function logoutFrontEndUserCanBeCalledTwoTimes() {
 		$this->fixture->createFakeFrontEnd();
 
 		$this->fixture->logoutFrontEndUser();
@@ -4587,7 +4593,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	/**
      * @test
      */
-    public function createAndLogInFrontEndUserWithFrontEndUserGroupDoesNotCreateAFrontEndUserGroup() {
+    public function createAndLogInFrontEndUserWithFrontEndUserGroupDoesNotCreateFrontEndUserGroup() {
 		$this->fixture->createFakeFrontEnd();
 		$frontEndUserGroupUid = $this->fixture->createFrontEndUserGroup();
 		$this->fixture->createAndLogInFrontEndUser(

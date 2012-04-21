@@ -1,4 +1,5 @@
 2012-04-21 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #36413: Fix CGL issues
 	* Fixed Bug #36226: Add a service for getting the extension settings from the BE user
 
 2012-04-20 Oliver Klee <typo3-coding@oliverklee.de>
