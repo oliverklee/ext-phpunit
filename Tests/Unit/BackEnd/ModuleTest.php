@@ -73,6 +73,11 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 */
 	protected $testFinder = NULL;
 
+	/**
+	 * @var Tx_Phpunit_Service_FakeSettingsService
+	 */
+	protected $extensionSettingsService = NULL;
+
 	public function setUp() {
 		$this->backEndUserBackup = $GLOBALS['BE_USER'];
 		$this->postBackup = $_POST;
@@ -90,6 +95,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->fixture->injectUserSettingsService($this->userSettingsService);
 
 		$this->testFinder = new Tx_Phpunit_Service_TestFinder();
+		$this->extensionSettingsService = new Tx_Phpunit_Service_FakeSettingsService();
+		$this->testFinder->injectExtensionSettingsService($this->extensionSettingsService);
 		$this->fixture->injectTestFinder($this->testFinder);
 	}
 
@@ -101,7 +108,10 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		$GLOBALS['BE_USER'] = $this->backEndUserBackup;
 
-		unset($this->fixture, $this->outputService, $this->userSettingsService, $this->backEndUserBackup, $this->testFinder);
+		unset(
+			$this->fixture, $this->outputService, $this->userSettingsService, $this->backEndUserBackup, $this->testFinder,
+			$this->extensionSettingsService
+		);
 	}
 
 	/*

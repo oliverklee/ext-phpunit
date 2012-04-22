@@ -51,6 +51,15 @@ interface Tx_Phpunit_Interface_UserSettingsService {
 	public function getAsInteger($key);
 
 	/**
+	 * Checks whether there is a non-zero integer for $key.
+	 *
+	 * @param string $key the key of the value to check, must not be empty
+	 *
+	 * @return boolean whether there is a non-zero integer for $key
+	 */
+	public function hasInteger($key);
+
+	/**
 	 * Returns the string value stored for the key $key.
 	 *
 	 * @param string $key the key of the value to retrieve, must not be empty
@@ -58,6 +67,24 @@ interface Tx_Phpunit_Interface_UserSettingsService {
 	 * @return string the value for the given key, will be "" if there is no value for the given key
 	 */
 	public function getAsString($key);
+
+	/**
+	 * Checks whether there is a non-empty string for $key.
+	 *
+	 * @param string $key the key of the value to check, must not be empty
+	 *
+	 * @return boolean whether there is a non-empty string for $key
+	 */
+	public function hasString($key);
+
+	/**
+	 * Returns the array value stored for the key $key.
+	 *
+	 * @param string $key the key of the value to retrieve, must not be empty
+	 *
+	 * @return array the value for the given key, will be empty if there is no array value for the given key
+	 */
+	public function getAsArray($key);
 
 	/**
 	 * Sets the value for the key $key.

@@ -69,6 +69,22 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	protected $allTestablesAreCached = FALSE;
 
 	/**
+	 * @var Tx_Phpunit_Interface_ExtensionSettingsService
+	 */
+	protected $extensionSettingsService = NULL;
+
+	/**
+	 * Injects the extension settings service.
+	 *
+	 * @param Tx_Phpunit_Interface_ExtensionSettingsService $service the service to inject
+	 *
+	 * @return void
+	 */
+	public function injectExtensionSettingsService(Tx_Phpunit_Interface_ExtensionSettingsService $service) {
+		$this->extensionSettingsService = $service;
+	}
+
+	/**
 	 * The destructor.
 	 */
 	public function __destruct() {
@@ -361,11 +377,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 * @return array<string> the keys of the excluded extensions, might be empty
 	 */
 	protected function getExcludedExtensionKeys() {
-		if (!isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['excludeextensions'])) {
-			return array();
-		}
-
-		return t3lib_div::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['excludeextensions'], TRUE);
+		return t3lib_div::trimExplode(',', $this->extensionSettingsService->getAsString('excludeextensions'), TRUE);
 	}
 
 	/**

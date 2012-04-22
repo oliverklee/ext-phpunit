@@ -41,6 +41,25 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 	const MEMORY_RECOMMENDED = '256M';
 
 	/**
+	 * @var Tx_Phpunit_Interface_ExtensionSettingsService
+	 */
+	protected $extensionSettingsService = NULL;
+
+	/**
+	 * The constructor.
+	 */
+	public function __construct() {
+		$this->extensionSettingsService = t3lib_div::makeInstance('Tx_Phpunit_Service_ExtensionSettingsService');
+	}
+
+	/**
+	 * The destructor.
+	 */
+	public function __destruct() {
+		unset($this->extensionSettingsService);
+	}
+
+	/**
 	 * Returns the status of this extension.
 	 *
 	 * @return array<tx_reports_reports_status_Status>
@@ -250,7 +269,7 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 			'tx_reports_reports_status_Status',
 			$this->translate('status_includePath'),
 			'',
-			'<code>' . implode('<br />', $escapedPaths) . '</code>',
+			'<code>' . nl2br(htmlspecialchars(implode(LF, $escapedPaths))) . '</code>',
 			tx_reports_reports_status_Status::NOTICE
 		);
 	}
@@ -262,15 +281,13 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 	 *         a status about the excluded extensions
 	 */
 	protected function getExcludedExtensionsStatus() {
-		$extensionKeys = t3lib_div::trimExplode(
-			',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['excludeextensions']
-		);
+		$extensionKeys = t3lib_div::trimExplode(',', $this->extensionSettingsService->getAsString('excludeextensions'));
 
 		return t3lib_div::makeInstance(
 			'tx_reports_reports_status_Status',
 			$this->translate('status_excludedExtensions'),
 			'',
-			implode('<br />', $extensionKeys),
+			nl2br(htmlspecialchars(implode(LF, $extensionKeys))),
 			tx_reports_reports_status_Status::NOTICE
 		);
 	}

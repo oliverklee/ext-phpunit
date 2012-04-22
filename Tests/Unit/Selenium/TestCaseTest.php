@@ -33,30 +33,27 @@
  */
 class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 	/**
-	 * Temporary backup for the global phpunit extension configuration during tests
-	 *
-	 * @var array
-	 */
-	protected $backupGlobalPhpunitConfiguration = array();
-
-	/**
 	 * @var Tx_Phpunit_Selenium_TestCase|PHPUnit_Framework_MockObject_MockObject
 	 */
 	private $fixture = NULL;
 
-	protected function setUp() {
-		$this->backupGlobalPhpunitConfiguration = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit'];
+	/**
+	 * @var Tx_Phpunit_Service_FakeSettingsService
+	 */
+	protected $extensionSettingsService = NULL;
 
+	protected function setUp() {
+		$this->extensionSettingsService = new Tx_Phpunit_Service_FakeSettingsService();
 		$this->fixture = $this->getMock(
-			$this->createAccessibleProxyClass(), array('isSeleniumServerRunning')
+			$this->createAccessibleProxyClass(),
+			array('isSeleniumServerRunning'),
+			array(NULL, array(), '', $this->extensionSettingsService)
 		);
 		$this->fixture->expects($this->any())->method('isSeleniumServerRunning')->will($this->returnValue(TRUE));
 	}
 
 	protected function tearDown() {
-		unset($this->fixture);
-
-		$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit'] = $this->backupGlobalPhpunitConfiguration;
+		unset($this->fixture, $this->extensionSettingsService);
 	}
 
 	/*
@@ -114,7 +111,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 
 		$this->assertInstanceOf(
 			'Tx_Phpunit_Selenium_TestCase',
-			new $className()
+			new $className(NULL, array(), '', $this->extensionSettingsService)
 		);
 	}
 
@@ -127,8 +124,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getSeleniumBrowserUrlForConfiguredBrowserUrlReturnsConfiguredUrl() {
 		$url = 'http://example.com/';
-
-		$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['selenium_browserurl'] = $url;
+		$this->extensionSettingsService->set('selenium_browserurl', $url);
 
 		$this->assertSame(
 			$url,
@@ -140,8 +136,6 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getSeleniumBrowserUrlForNoConfiguredBrowserUrlReturnsDefaultUrl() {
-		$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['selenium_browserurl'] = '';
-
 		$expected = rtrim(
 			t3lib_div::getIndpEnv('TYPO3_SITE_URL'),
 			Tx_Phpunit_Selenium_TestCase::DEFAULT_SELENIUM_BROWSER_URL
@@ -158,8 +152,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getSeleniumBrowserForConfiguredBrowserReturnsConfiguredBrowser() {
 		$browser = '*firefox';
-
-		$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['selenium_browser'] = $browser;
+		$this->extensionSettingsService->set('selenium_browser', $browser);
 
 		$this->assertSame(
 			$browser,
@@ -171,8 +164,6 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getSeleniumBrowserForNoConfiguredBrowserReturnsDefaultBrowser() {
-		$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['selenium_browser'] = '';
-
 		$this->assertSame(
 			Tx_Phpunit_Selenium_TestCase::DEFAULT_SELENIUM_BROWSER,
 			$this->fixture->getSeleniumBrowser()
@@ -184,8 +175,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getSeleniumPortForConfiguredPortReturnsConfiguredPort() {
 		$port = 1234;
-
-		$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['selenium_port'] = $port;
+		$this->extensionSettingsService->set('selenium_port', $port);
 
 		$this->assertSame(
 			$port,
@@ -197,8 +187,6 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getSeleniumPortForNoConfiguredPortReturnsDefaultPort() {
-		$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['selenium_port'] = 0;
-
 		$this->assertSame(
 			Tx_Phpunit_Selenium_TestCase::DEFAULT_SELENIUM_PORT,
 			$this->fixture->getSeleniumPort()
@@ -210,8 +198,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getSeleniumHostForConfiguredHostReturnsConfiguredHost() {
 		$host = 'http://example.com/';
-
-		$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['selenium_host'] = $host;
+		$this->extensionSettingsService->set('selenium_host', $host);
 
 		$this->assertSame(
 			$host,
@@ -223,8 +210,6 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getSeleniumHostForNotConfiguredHostReturnsTheDefaultHost() {
-		$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['selenium_host'] = '';
-
 		$this->assertSame(
 			Tx_Phpunit_Selenium_TestCase::DEFAULT_SELENIUM_HOST,
 			$this->fixture->getSeleniumHost()
@@ -237,7 +222,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 	public function isSeleniumServerRunningWhenHostIsInvalidReturnsFalse() {
 		// We will use 'example.invalid' as an invalid host
 		// (according to RFC 2606 the TLD '.invalid' should be used to test for invalid hosts).
-		$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['selenium_host'] = 'http://example.invalid';
+		$this->extensionSettingsService->set('selenium_host', 'http://example.invalid');
 
 		$className = $this->createAccessibleProxyClass();
 		/** @var $fixture Tx_Phpunit_BackEnd_Module */
@@ -252,7 +237,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function runTestWhenServerIsNotRunningMarksTestAsSkipped() {
-		$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['selenium_host'] = 'http://example.invalid';
+		$this->extensionSettingsService->set('selenium_host', 'http://example.invalid');
 
 		$fixture = new Tx_Phpunit_Selenium_TestCase();
 

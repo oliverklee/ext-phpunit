@@ -24,14 +24,14 @@
  ***************************************************************/
 
 /**
- * This class provides functions for reading and writing settings.
+ * This interface provides functions for reading the settings of the PHPUnit extension (as set in the extension manager).
  *
  * @package TYPO3
  * @subpackage tx_phpunit
  *
  * @author Oliver Klee <typo3-coding@oliverklee.,de>
  */
-abstract class Tx_Phpunit_Service_AbstractSettingsService {
+interface Tx_Phpunit_Interface_ExtensionSettingsService {
 	/**
 	 * Returns the boolean value stored for the key $key.
 	 *
@@ -39,9 +39,7 @@ abstract class Tx_Phpunit_Service_AbstractSettingsService {
 	 *
 	 * @return boolean the value for the given key, will be FALSE if there is no value for the given key
 	 */
-	public function getAsBoolean($key) {
-		return (boolean) $this->get($key);
-	}
+	public function getAsBoolean($key);
 
 	/**
 	 * Returns the integer value stored for the key $key.
@@ -50,9 +48,7 @@ abstract class Tx_Phpunit_Service_AbstractSettingsService {
 	 *
 	 * @return integer the value for the given key, will be 0 if there is no value for the given key
 	 */
-	public function getAsInteger($key) {
-		return intval($this->get($key));
-	}
+	public function getAsInteger($key);
 
 	/**
 	 * Checks whether there is a non-zero integer for $key.
@@ -61,9 +57,7 @@ abstract class Tx_Phpunit_Service_AbstractSettingsService {
 	 *
 	 * @return boolean whether there is a non-zero integer for $key
 	 */
-	public function hasInteger($key) {
-		return ($this->getAsInteger($key) !== 0);
-	}
+	public function hasInteger($key);
 
 	/**
 	 * Returns the string value stored for the key $key.
@@ -72,9 +66,7 @@ abstract class Tx_Phpunit_Service_AbstractSettingsService {
 	 *
 	 * @return string the value for the given key, will be "" if there is no value for the given key
 	 */
-	public function getAsString($key) {
-		return strval($this->get($key));
-	}
+	public function getAsString($key);
 
 	/**
 	 * Checks whether there is a non-empty string for $key.
@@ -83,9 +75,7 @@ abstract class Tx_Phpunit_Service_AbstractSettingsService {
 	 *
 	 * @return boolean whether there is a non-empty string for $key
 	 */
-	public function hasString($key) {
-		return ($this->getAsString($key) !== '');
-	}
+	public function hasString($key);
 
 	/**
 	 * Returns the array value stored for the key $key.
@@ -94,37 +84,6 @@ abstract class Tx_Phpunit_Service_AbstractSettingsService {
 	 *
 	 * @return array the value for the given key, will be empty if there is no array value for the given key
 	 */
-	public function getAsArray($key) {
-		$rawValue = $this->get($key);
-		if (!is_array($rawValue)) {
-			$rawValue = array();
-		}
-
-		return $rawValue;
-	}
-
-	/**
-	 * Returns the value stored for the key $key.
-	 *
-	 * @param string $key the key of the value to retrieve, must not be empty
-	 *
-	 * @return mixed the value for the given key, will be NULL if there is no value for the given key
-	 */
-	abstract protected function get($key);
-
-	/**
-	 * Checks that $key is non-empty.
-	 *
-	 * @param string $key the key to check, may be empty
-	 *
-	 * @throws InvalidArgumentException if $key is empty
-	 *
-	 * @return void
-	 */
-	protected function checkForNonEmptyKey($key) {
-		if ($key === '') {
-			throw new InvalidArgumentException('$key must not be empty.', 1335021694);
-		}
-	}
+	public function getAsArray($key);
 }
 ?>

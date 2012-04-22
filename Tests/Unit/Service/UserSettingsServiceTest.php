@@ -201,6 +201,45 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
+	public function hasIntegerForZeroReturnsFalse() {
+		$key = 'foo';
+		$value = 0;
+		$this->fixture->set($key, $value);
+
+		$this->assertFalse(
+			$this->fixture->hasInteger($key)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function hasIntegerForPositiveIntegerReturnsTrue() {
+		$key = 'foo';
+		$value = 2;
+		$this->fixture->set($key, $value);
+
+		$this->assertTrue(
+			$this->fixture->hasInteger($key)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function hasIntegerForNegativeIntegerReturnsTrue() {
+		$key = 'foo';
+		$value = -1;
+		$this->fixture->set($key, $value);
+
+		$this->assertTrue(
+			$this->fixture->hasInteger($key)
+		);
+	}
+
+	/**
+	 * @test
+	 */
 	public function getAsStringForMissingValueReturnsEmptyString() {
 		$this->assertSame(
 			'',
@@ -247,6 +286,83 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 		$this->assertSame(
 			$value,
 			$this->fixture->getAsString($key)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function hasStringForEmptyStringReturnsFalse() {
+		$key = 'foo';
+		$value = '';
+		$this->fixture->set($key, $value);
+
+		$this->assertFalse(
+			$this->fixture->hasString($key)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function hasStringForNonEmptyStringReturnsTrue() {
+		$key = 'foo';
+		$value = 'bar';
+		$this->fixture->set($key, $value);
+
+		$this->assertTrue(
+			$this->fixture->hasString($key)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getAsArrayForMissingValueReturnsEmptyArray() {
+		$this->assertSame(
+			array(),
+			$this->fixture->getAsArray('foo')
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getAsArrayForExistingValueReturnsValueFromUserSettings() {
+		$key = 'foo';
+		$value = array('foo', 'bar');
+		$GLOBALS['BE_USER']->uc['moduleData']['tools_txphpunitM1'][$key] = $value;
+
+		$this->assertSame(
+			$value,
+			$this->fixture->getAsArray($key)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getAsArrayForExistingIntegerValueReturnsEmptyArray() {
+		$key = 'foo';
+		$GLOBALS['BE_USER']->uc['moduleData']['tools_txphpunitM1'][$key] = 42;
+
+		$this->assertSame(
+			array(),
+			$this->fixture->getAsArray($key)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setCanSetArrayValue() {
+		$key = 'foo';
+		$value = array('hello', 'world');
+		$this->fixture->set($key, $value);
+
+		$this->assertSame(
+			$value,
+			$this->fixture->getAsArray($key)
 		);
 	}
 

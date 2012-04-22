@@ -50,6 +50,11 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 */
 	private $typo3ConfigurationVariablesBackup = array();
 
+	/**
+	 * @var Tx_Phpunit_Service_FakeSettingsService
+	 */
+	protected $extensionSettingsService = NULL;
+
 	public function setUp() {
 		$this->typo3ConfigurationVariablesBackup = $GLOBALS['TYPO3_CONF_VARS'];
 		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'] = '';
@@ -57,12 +62,15 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 		$this->fixture = $this->createAccessibleProxy();
 
+		$this->extensionSettingsService = new Tx_Phpunit_Service_FakeSettingsService();
+		$this->fixture->injectExtensionSettingsService($this->extensionSettingsService);
+
 		$this->fixturesPath = t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/Service/Fixtures/';
 	}
 
 	public function tearDown() {
 		$this->fixture->__destruct();
-		unset($this->fixture);
+		unset($this->fixture, $this->extensionSettingsService);
 
 		$GLOBALS['TYPO3_CONF_VARS'] = $this->typo3ConfigurationVariablesBackup;
 	}
@@ -879,7 +887,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getExcludedExtensionKeysReturnsKeysOfExcludedExtensions() {
-		$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['excludeextensions'] = 'foo,bar';
+		$this->extensionSettingsService->set('excludeextensions', 'foo,bar');
 
 		$this->assertSame(
 			array('foo', 'bar'),
@@ -891,7 +899,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getExcludedExtensionKeysForNoExcludedExtensionsReturnsEmptyArray() {
-		$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['excludeextensions'] = '';
+		$this->extensionSettingsService->set('excludeextensions', '');
 
 		$this->assertSame(
 			array(),
@@ -903,8 +911,6 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getExcludedExtensionKeysForNoPhpUnitConfigurationReturnsEmptyArray() {
-		unset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['excludeextensions']);
-
 		$this->assertSame(
 			array(),
 			$this->fixture->getExcludedExtensionKeys()
@@ -1061,6 +1067,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	public function getTestablesForExtensionsForNoInstalledExtensionsReturnsEmptyArray() {
 		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
 		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getLoadedExtensionKeys'));
+		$testFinder->injectExtensionSettingsService($this->extensionSettingsService);
 		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array()));
 
 		$this->assertSame(

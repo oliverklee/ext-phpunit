@@ -63,13 +63,25 @@ class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_SeleniumTestCase {
 	const DEFAULT_SELENIUM_BROWSER_URL = '/';
 
 	/**
+	 * @var Tx_Phpunit_Interface_ExtensionSettingsService
+	 */
+	protected $extensionSettingsService = NULL;
+
+	/**
 	 * The constructor.
 	 *
 	 * @param string $name
 	 * @param array  $data
 	 * @param string $dataName
+	 * @param Tx_Phpunit_Interface_ExtensionSettingsService $extensionSettingsService
+	 *        the extension settings service to use
 	 */
-	public function __construct($name = NULL, array $data = array(), $dataName = '') {
+	public function __construct($name = NULL, array $data = array(), $dataName = '', Tx_Phpunit_Interface_ExtensionSettingsService $extensionSettingsService = NULL) {
+		if ($extensionSettingsService === NULL) {
+			$extensionSettingsService = t3lib_div::makeInstance('Tx_Phpunit_Service_ExtensionSettingsService');
+		}
+		$this->extensionSettingsService = $extensionSettingsService;
+
 		$browser = array(
 			'browser' => $this->getSeleniumBrowser(),
 			'host' => $this->getSeleniumHost(),
@@ -135,10 +147,8 @@ class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_SeleniumTestCase {
 	 * @return string host of the Selenium RC server, will not be empty
 	 */
 	protected function getSeleniumHost() {
-		return isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['selenium_host'])
-			&& (strlen($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['selenium_host']) > 0)
-			? $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['selenium_host']
-			: self::DEFAULT_SELENIUM_HOST;
+		return $this->extensionSettingsService->hasString('selenium_host')
+			? $this->extensionSettingsService->getAsString('selenium_host') : self::DEFAULT_SELENIUM_HOST;
 	}
 
 	/**
@@ -150,10 +160,8 @@ class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_SeleniumTestCase {
 	 * @return integer the elenium RC server port, will be > 0
 	 */
 	protected function getSeleniumPort() {
-		return isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['selenium_port'])
-			&& (intval($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['selenium_port']) > 0)
-			? intval($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['selenium_port'])
-			: self::DEFAULT_SELENIUM_PORT;
+		return $this->extensionSettingsService->hasInteger('selenium_port')
+			? $this->extensionSettingsService->getAsInteger('selenium_port') : self::DEFAULT_SELENIUM_PORT;
 	}
 
 	/**
@@ -164,10 +172,8 @@ class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_SeleniumTestCase {
 	 * @return string Selenium RC browser, will not be empty
 	 */
 	protected function getSeleniumBrowser() {
-		return isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['selenium_browser'])
-			&& (strlen($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['selenium_browser']) > 0)
-			? $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['selenium_browser']
-			: self::DEFAULT_SELENIUM_BROWSER;
+		return $this->extensionSettingsService->hasString('selenium_browser')
+			? $this->extensionSettingsService->getAsString('selenium_browser') : self::DEFAULT_SELENIUM_BROWSER;
 	}
 
 	/**
@@ -178,9 +184,8 @@ class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_SeleniumTestCase {
 	 * @return string Selenium RC Browser URL, will not be empty
 	 */
 	protected function getSeleniumBrowserUrl() {
-		return isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['selenium_browserurl'])
-			&& (strlen($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['selenium_browserurl']) > 0)
-			? $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['selenium_browserurl']
+		return $this->extensionSettingsService->hasString('selenium_browserurl')
+			? $this->extensionSettingsService->getAsString('selenium_browserurl')
 			: rtrim(t3lib_div::getIndpEnv('TYPO3_SITE_URL'), self::DEFAULT_SELENIUM_BROWSER_URL);
 	}
 }

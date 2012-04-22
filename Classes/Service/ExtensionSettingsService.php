@@ -24,20 +24,30 @@
  ***************************************************************/
 
 /**
- * This class provides functions for reading and writing fake settings.
+ * This interface provides functions for reading the settings of the PHPUnit extension (as set in the extension manager).
  *
  * @package TYPO3
  * @subpackage tx_phpunit
  *
  * @author Oliver Klee <typo3-coding@oliverklee.,de>
  */
-class Tx_Phpunit_Service_FakeSettingsService extends Tx_Phpunit_Service_AbstractSettingsService
-	implements Tx_Phpunit_Interface_UserSettingsService, Tx_Phpunit_Interface_ExtensionSettingsService
+class Tx_Phpunit_Service_ExtensionSettingsService extends Tx_Phpunit_Service_AbstractSettingsService
+	implements Tx_Phpunit_Interface_ExtensionSettingsService, t3lib_Singleton
 {
+	/**
+	 * @var string
+	 */
+	const EXTENSION_KEY = 'phpunit';
+
 	/**
 	 * @var array
 	 */
-	protected $data = array();
+	private $cachedSettings = array();
+
+	/**
+	 * @var boolean
+	 */
+	private $settingsHaveBeenRetrieved = FALSE;
 
 	/**
 	 * Returns the value stored for the key $key.
@@ -48,25 +58,29 @@ class Tx_Phpunit_Service_FakeSettingsService extends Tx_Phpunit_Service_Abstract
 	 */
 	protected function get($key) {
 		$this->checkForNonEmptyKey($key);
-		if (!isset($this->data[$key])) {
+		if (!$this->settingsHaveBeenRetrieved) {
+			$this->retrieveSettings();
+		}
+		if (!isset($this->cachedSettings[$key])) {
 			return NULL;
 		}
 
-		return $this->data[$key];
+		return $this->cachedSettings[$key];
 	}
 
 	/**
-	 * Sets the value for the key $key.
-	 *
-	 * @param string $key the key of the value to set, must not be empty
-	 * @param mixed $value the value to set
+	 * Retrieves the EM configuration for the PHPUnit extionsion.
 	 *
 	 * @return void
 	 */
-	public function set($key, $value) {
-		$this->checkForNonEmptyKey($key);
+	protected function retrieveSettings() {
+		if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][self::EXTENSION_KEY])) {
+			$this->cachedSettings = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][self::EXTENSION_KEY]);
+		} else {
+			$this->cachedSettings = array();
+		}
 
-		$this->data[$key] = $value;
+		$this->settingsHaveBeenRetrieved = TRUE;
 	}
 }
 ?>
