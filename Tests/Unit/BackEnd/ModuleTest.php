@@ -754,6 +754,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$testable = new Tx_Phpunit_Testable();
 		$testable->setKey('t3dd11');
 
+		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
 		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
 		$testFinder->expects($this->once())->method('getTestablesForEverything')->will($this->returnValue(array($testable)));
 		$this->fixture->injectTestFinder($testFinder);
