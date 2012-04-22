@@ -499,13 +499,13 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	protected function createCheckboxes() {
 		$output = '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">';
 		$output .= '<div class="phpunit-controls">';
-		$failureState = $this->userSettingsService->getAsString('failure') === 'on' ? 'checked="checked"' : '';
-		$errorState = $this->userSettingsService->getAsString('error') === 'on' ? 'checked="checked"' : '';
-		$skippedState = $this->userSettingsService->getAsString('skipped') === 'on' ? 'checked="checked"' : '';
-		$successState = $this->userSettingsService->getAsString('success') === 'on' ? 'checked="checked"' : '';
-		$notImplementedState = $this->userSettingsService->getAsString('notimplemented') === 'on' ? 'checked="checked"' : '';
-		$showMemoryAndTime = $this->userSettingsService->getAsString('showMemoryAndTime') === 'on' ? 'checked="checked"' : '';
-		$testdoxState = $this->userSettingsService->getAsString('testdox') === 'on' ? 'checked="checked"' : '';
+		$failureState = $this->userSettingsService->getAsBoolean('failure') ? 'checked="checked"' : '';
+		$errorState = $this->userSettingsService->getAsBoolean('error') ? 'checked="checked"' : '';
+		$skippedState = $this->userSettingsService->getAsBoolean('skipped') ? 'checked="checked"' : '';
+		$successState = $this->userSettingsService->getAsBoolean('success') ? 'checked="checked"' : '';
+		$notImplementedState = $this->userSettingsService->getAsBoolean('notimplemented') ? 'checked="checked"' : '';
+		$showMemoryAndTime = $this->userSettingsService->getAsBoolean('showMemoryAndTime') ? 'checked="checked"' : '';
+		$testdoxState = $this->userSettingsService->getAsBoolean('testdox') ? 'checked="checked"' : '';
 		$output .= '<input type="checkbox" id="SET_success" ' . $successState . ' /><label for="SET_success">Success</label>';
 		$output .= ' <input type="checkbox" id="SET_failure" ' . $failureState . ' /><label for="SET_failure">Failure</label>';
 		$output .= ' <input type="checkbox" id="SET_skipped" ' . $skippedState . ' /><label for="SET_skipped">Skipped</label>';
@@ -523,11 +523,11 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			$codecoverageDisable = ' disabled="disabled"';
 			$codecoverageForLabelWhenDisabled = ' title="Code coverage requires XDebug to be installed."';
 		}
-		$codeCoverageState = $this->userSettingsService->getAsString('codeCoverage') === 'on' ? 'checked="checked"' : '';
+		$codeCoverageState = $this->userSettingsService->getAsBoolean('codeCoverage') ? 'checked="checked"' : '';
 		$output .= ' <input type="checkbox" id="SET_codeCoverage" ' . $codecoverageDisable . ' ' . $codeCoverageState .
 			' /><label for="SET_codeCoverage"' . $codecoverageForLabelWhenDisabled .
 			'>Collect code-coverage data</label>';
-		$runSeleniumTests = $this->userSettingsService->getAsString('runSeleniumTests') === 'on' ? 'checked="checked"' : '';
+		$runSeleniumTests = $this->userSettingsService->getAsBoolean('runSeleniumTests') ? 'checked="checked"' : '';
 		$output .= ' <input type="checkbox" id="SET_runSeleniumTests" ' . $runSeleniumTests . '/><label for="SET_runSeleniumTests">' . $this->translate('run_selenium_tests') . '</label>';
 		$output .= '</div>';
 		$output .= '</form>';
@@ -573,7 +573,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 				&& ($class !== 'Tx_Phpunit_TestCase') && ($class !== 'Tx_Phpunit_Database_TestCase')
 			) {
 				$testSuite->addTestSuite($class);
-			} elseif ($this->userSettingsService->getAsString('runSeleniumTests') === 'on'
+			} elseif ($this->userSettingsService->getAsBoolean('runSeleniumTests')
 				&& $classReflection->isSubclassOf('Tx_Phpunit_Selenium_TestCase')
 				&& ((strtolower(substr($class, -8, 8)) === 'testcase') || (substr($class, -4, 4) === 'Test'))
 				&& ($class !== 'Tx_Phpunit_Selenium_TestCase')
@@ -589,11 +589,11 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			$this->coverage->start('PHPUnit');
 		}
 
-		if ($this->userSettingsService->getAsString('testdox') === 'on') {
+		if ($this->userSettingsService->getAsBoolean('testdox')) {
 			$this->testListener->useHumanReadableTextFormat();
 		}
 
-		if ($this->userSettingsService->getAsString('showMemoryAndTime') === 'on') {
+		if ($this->userSettingsService->getAsBoolean('showMemoryAndTime')) {
 			$this->testListener->enableShowMenoryAndTime();
 		}
 
@@ -874,8 +874,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * @return boolean whether code coverage information should be collected
 	 */
 	protected function shouldCollectCodeCoverageInformation() {
-		return ($GLOBALS['BE_USER']->uc['moduleData']['tools_txphpunitM1']['codeCoverage'] === 'on')
-			&& extension_loaded('xdebug');
+		return $this->userSettingsService->getAsBoolean('codeCoverage') && extension_loaded('xdebug');
 	}
 }
 ?>

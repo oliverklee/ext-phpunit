@@ -57,7 +57,7 @@ function setProgressBarClass(className) {
 		var target = Event.getTarget(event);
 		var display = target.checked ? 'block' : 'none';
 		var className = mapClasses(target.id);
-		var state = target.checked;
+		var state = target.checked ? "1" : "0";
 		var checkbox;
 		switch (target.id) {
 		case 'SET_failure':
@@ -92,14 +92,14 @@ function setProgressBarClass(className) {
 			{	success: function (responseObj) {},
 				failure: function (responseObj) {}
 			},
-			'ajaxID=Tx_Phpunit_BackEnd_Ajax&state='+state+'&checkbox='+checkbox
+			'ajaxID=Tx_Phpunit_BackEnd_Ajax&state=' + state + '&checkbox=' + checkbox
 		);
 		Dom.setStyle(Dom.getElementsByClassName(className), 'display', display);
 	}
 
 	var toggleCodeCoverage = function (event) {
 		var target = Event.getTarget(event);
-		var state = target.checked;
+		var state = target.checked ? "1" : "0";
 		YAHOO.util.Connect.asyncRequest('POST', 'ajax.php',
 				{	success: function (responseObj) {},
 					failure: function (responseObj) {}
@@ -155,8 +155,8 @@ function setProgressBarClass(className) {
 	 */
 	Event.onDOMReady(function () {
 		var checkboxes = Dom.get([
-			'SET_failure', 'SET_success', 'SET_error', 'SET_skipped',
-			'SET_notimplemented', 'SET_testdox', 'SET_showMemoryAndTime', 'SET_runSeleniumTests'
+			'SET_failure', 'SET_success', 'SET_error', 'SET_skipped', 'SET_notimplemented',
+			'SET_testdox', 'SET_showMemoryAndTime', 'SET_runSeleniumTests'
 		]);
 		var numberOfCheckboxes = checkboxes.length;
 		for (var i = 0; i < numberOfCheckboxes; i++) {
@@ -183,7 +183,7 @@ function setProgressBarClass(className) {
 			return;
 		}
 
-		setProgressBarClass("hadError")
+		setProgressBarClass("hadError");
 
 		var testContainers = Dom.getElementsByClassName('testcaseOutput');
 		var lastTestContainer = testContainers[testContainers.length - 1];

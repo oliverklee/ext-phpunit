@@ -83,8 +83,7 @@ class Tx_Phpunit_BackEnd_Ajax {
 	 * @return void
 	 */
 	public function ajaxBroker(array $unused, TYPO3AJAX $ajax) {
-		// Checks for legal input ('white-listing').
-		$state = t3lib_div::_POST('state') === 'true' ? 'on' : 'off';
+		$state = (boolean) t3lib_div::_POST('state');
 		$checkbox = t3lib_div::_POST('checkbox');
 		switch ($checkbox) {
 			case 'failure':

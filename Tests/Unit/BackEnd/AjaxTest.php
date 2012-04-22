@@ -69,33 +69,31 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
-	public function ajaxBrokerForFailureCheckboxParameterAndStateTrueSavesOnStateToUserSettings() {
+	public function ajaxBrokerForFailureCheckboxParameterAndStateTrueSavesTrueStateToUserSettings() {
 		$_POST['checkbox'] = 'failure';
-		$_POST['state'] = 'true';
+		$_POST['state'] = '1';
 
 		/** @var $ajax TYPO3AJAX|PHPUnit_Framework_MockObject_MockObject  */
 		$ajax = $this->getMock('TYPO3AJAX');
 		$this->fixture->ajaxBroker(array(), $ajax);
 
-		$this->assertSame(
-			'on',
-			$this->userSettingsService->getAsString('failure')
+		$this->assertTrue(
+			$this->userSettingsService->getAsBoolean('failure')
 		);
 	}
 
 	/**
 	 * @test
 	 */
-	public function ajaxBrokerForFailureCheckboxParameterAndMissingStateSavesOffStateToUserSettings() {
+	public function ajaxBrokerForFailureCheckboxParameterAndMissingStateSavesFalseStateToUserSettings() {
 		$_POST['checkbox'] = 'failure';
 
 		/** @var $ajax TYPO3AJAX|PHPUnit_Framework_MockObject_MockObject  */
 		$ajax = $this->getMock('TYPO3AJAX');
 		$this->fixture->ajaxBroker(array(), $ajax);
 
-		$this->assertSame(
-			'off',
-			$this->userSettingsService->getAsString('failure')
+		$this->assertFalse(
+			$this->userSettingsService->getAsBoolean('failure')
 		);
 	}
 
