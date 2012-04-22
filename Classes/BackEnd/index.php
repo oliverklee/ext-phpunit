@@ -57,10 +57,14 @@ $userSettingsService = t3lib_div::makeInstance('Tx_PhpUnit_Service_UserSettingsS
 $testListener = t3lib_div::makeInstance('Tx_PhpUnit_BackEnd_TestListener');
 $testListener->injectOutputService($outputService);
 
+/** @var $testFinder Tx_Phpunit_Service_TestFinder */
+$testFinder = t3lib_div::makeInstance('Tx_Phpunit_Service_TestFinder');
+
 /** @var $module Tx_Phpunit_BackEnd_Module */
 $module = t3lib_div::makeInstance('Tx_Phpunit_BackEnd_Module');
 $module->injectOutputService($outputService);
 $module->injectUserSettingsService($userSettingsService);
 $module->injectTestListener($testListener);
+$module->injectTestFinder($testFinder);
 $module->main();
 ?>

@@ -68,6 +68,11 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 */
 	private $getBackup = array();
 
+	/**
+	 * @var Tx_Phpunit_Service_TestFinder
+	 */
+	protected $testFinder = NULL;
+
 	public function setUp() {
 		$this->backEndUserBackup = $GLOBALS['BE_USER'];
 		$this->postBackup = $_POST;
@@ -83,6 +88,9 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		$this->userSettingsService = new Tx_Phpunit_Service_FakeSettingsService();
 		$this->fixture->injectUserSettingsService($this->userSettingsService);
+
+		$this->testFinder = new Tx_Phpunit_Service_TestFinder();
+		$this->fixture->injectTestFinder($this->testFinder);
 	}
 
 	public function tearDown() {
@@ -93,7 +101,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		$GLOBALS['BE_USER'] = $this->backEndUserBackup;
 
-		unset($this->fixture, $this->outputService, $this->userSettingsService, $this->backEndUserBackup);
+		unset($this->fixture, $this->outputService, $this->userSettingsService, $this->backEndUserBackup, $this->testFinder);
 	}
 
 	/*
@@ -111,9 +119,6 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		if (!class_exists($className, FALSE)) {
 			eval(
 				'class ' . $className . ' extends Tx_Phpunit_BackEnd_Module {' .
-				'  public function getTestFinder() {' .
-				'    return parent::getTestFinder();' .
-				'  }' .
 				'  public function runTests_render() {' .
 				'    parent::runTests_render();' .
 				'  }' .
@@ -168,16 +173,6 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
-	public function getTestFinderReturnsTestFinderInstance() {
-		$this->assertInstanceOf(
-			'Tx_Phpunit_Service_TestFinder',
-			$this->fixture->getTestFinder()
-		);
-	}
-
-	/**
-	 * @test
-	 */
 	public function mainForNoAdminBackEndUserShowsAdminRightsNeeded() {
 		$GLOBALS['BE_USER']->user['admin'] = FALSE;
 
@@ -214,6 +209,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			array('runTests_renderIntro', 'runTests_renderRunningTest')
 		);
 		$fixture->injectOutputService($this->outputService);
+		$fixture->injectTestFinder($this->testFinder);
 
 		$this->userSettingsService->set('extSel', 'phpunit');
 		$fixture->injectUserSettingsService($this->userSettingsService);
@@ -235,6 +231,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			array('runTests_renderIntro', 'runTests_renderRunningTest')
 		);
 		$fixture->injectOutputService($this->outputService);
+		$fixture->injectTestFinder($this->testFinder);
 
 		$this->userSettingsService->set('extSel', 'phpunit');
 		$fixture->injectUserSettingsService($this->userSettingsService);
@@ -256,6 +253,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			array('runTests_renderIntro', 'runTests_renderRunningTest')
 		);
 		$fixture->injectOutputService($this->outputService);
+		$fixture->injectTestFinder($this->testFinder);
 
 		$this->userSettingsService->set('extSel', 'phpunit');
 		$fixture->injectUserSettingsService($this->userSettingsService);
@@ -277,6 +275,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			array('runTests_renderIntro', 'runTests_renderRunningTest')
 		);
 		$fixture->injectOutputService($this->outputService);
+		$fixture->injectTestFinder($this->testFinder);
 
 		$this->userSettingsService->set('extSel', 'phpunit');
 		$fixture->injectUserSettingsService($this->userSettingsService);
@@ -298,6 +297,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			array('runTests_renderIntro', 'runTests_renderRunningTest')
 		);
 		$fixture->injectOutputService($this->outputService);
+		$fixture->injectTestFinder($this->testFinder);
 
 		$this->userSettingsService->set('extSel', 'phpunit');
 		$fixture->injectUserSettingsService($this->userSettingsService);
@@ -320,6 +320,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			array('runTests_renderIntro', 'runTests_renderRunningTest')
 		);
 		$fixture->injectOutputService($this->outputService);
+		$fixture->injectTestFinder($this->testFinder);
 
 		$this->userSettingsService->set('extSel', 'phpunit');
 		$fixture->injectUserSettingsService($this->userSettingsService);
@@ -342,6 +343,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			array('runTests_renderIntro', 'runTests_renderRunningTest')
 		);
 		$fixture->injectOutputService($this->outputService);
+		$fixture->injectTestFinder($this->testFinder);
 
 		$this->userSettingsService->set('extSel', 'phpunit');
 		$fixture->injectUserSettingsService($this->userSettingsService);
@@ -358,21 +360,20 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function runTests_renderIntroForNoExtensionsWithTestSuitesShowsErrorMessage() {
-		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder');
-		$testFinder->expects($this->any())->method('existsTestableForAnything')
-			->will($this->returnValue(FALSE));
-
 		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
 		$fixture = $this->getMock(
 			$this->createAccessibleProxy(),
-			array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector', 'getTestFinder')
+			array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector')
 		);
 		$fixture->injectOutputService($this->outputService);
 
+		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
+		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder');
+		$testFinder->expects($this->any())->method('existsTestableForAnything')->will($this->returnValue(FALSE));
+		$fixture->injectTestFinder($testFinder);
+
 		$this->userSettingsService->set('extSel', 'phpunit');
 		$fixture->injectUserSettingsService($this->userSettingsService);
-
-		$fixture->expects($this->any())->method('getTestFinder')->will($this->returnValue($testFinder));
 
 		$fixture->runTests_renderIntro();
 
@@ -386,21 +387,22 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function runTests_renderIntroForNoExtensionsWithTestSuitesNotRendersExtensionSelector() {
-		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder');
-		$testFinder->expects($this->any())->method('existsTestableForAnything')
-			->will($this->returnValue(FALSE));
-
 		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
 		$fixture = $this->getMock(
 			$this->createAccessibleProxy(),
-			array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector', 'getTestFinder')
+			array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector')
 		);
 		$fixture->injectOutputService($this->outputService);
+		$fixture->injectTestFinder($this->testFinder);
+
+		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
+		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder');
+		$testFinder->expects($this->any())->method('existsTestableForAnything')->will($this->returnValue(FALSE));
+		$fixture->injectTestFinder($testFinder);
 
 		$this->userSettingsService->set('extSel', 'phpunit');
 		$fixture->injectUserSettingsService($this->userSettingsService);
 
-		$fixture->expects($this->any())->method('getTestFinder')->will($this->returnValue($testFinder));
 		$fixture->expects($this->never())->method('createExtensionSelector')
 			->will($this->returnValue('extension selector'));
 
@@ -420,6 +422,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		$this->userSettingsService->set('extSel', 'phpunit');
 		$fixture->injectUserSettingsService($this->userSettingsService);
+		$fixture->injectTestFinder($this->testFinder);
 
 		$fixture->expects($this->once())->method('createExtensionSelector')
 			->will($this->returnValue('extension selector'));
@@ -444,6 +447,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector')
 		);
 		$fixture->injectOutputService($this->outputService);
+		$fixture->injectTestFinder($this->testFinder);
 
 		$this->userSettingsService->set('extSel', $selectedExtension);
 		$fixture->injectUserSettingsService($this->userSettingsService);
@@ -471,6 +475,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector')
 		);
 		$fixture->injectOutputService($this->outputService);
+		$fixture->injectTestFinder($this->testFinder);
 
 		$this->userSettingsService->set('extSel', $selectedExtension);
 		$fixture->injectUserSettingsService($this->userSettingsService);
@@ -498,6 +503,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector')
 		);
 		$fixture->injectOutputService($this->outputService);
+		$fixture->injectTestFinder($this->testFinder);
 
 		$this->userSettingsService->set('extSel', $selectedExtension);
 		$fixture->injectUserSettingsService($this->userSettingsService);
@@ -535,17 +541,12 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		vfsStreamWrapper::setRoot(new vfsStreamDirectory('Foo'));
 		$directory = 'vfs://Foo/';
 
-		$testFinderMock = $this->getMock(
-			'Tx_Phpunit_Service_TestFinder', array('findTestCaseFilesDirectory')
-		);
-		$testFinderMock->expects($this->once())->method('findTestCaseFilesDirectory')->with($directory);
+		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
+		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('findTestCaseFilesDirectory'));
+		$testFinder->expects($this->once())->method('findTestCaseFilesDirectory')->with($directory);
+		$this->fixture->injectTestFinder($testFinder);
 
-		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock($this->createAccessibleProxy(), array('getTestFinder'));
-		$fixture->expects($this->once())->method('getTestFinder')
-			->will($this->returnValue($testFinderMock));
-
-		$fixture->findTestCasesInDir($directory);
+		$this->fixture->findTestCasesInDir($directory);
 	}
 
 	/**
@@ -557,21 +558,14 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$directory = 'vfs://Foo/';
 		$testFiles = array('class.test1Test.php', 'class.test2Test.php');
 
-		$testFinderMock = $this->getMock(
-			'Tx_Phpunit_Service_TestFinder',
-			array('findTestCaseFilesDirectory')
-		);
-		$testFinderMock->expects($this->once())->method('findTestCaseFilesDirectory')
-			->will($this->returnValue($testFiles));
-
-		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock($this->createAccessibleProxy(), array('getTestFinder'));
-		$fixture->expects($this->once())->method('getTestFinder')
-			->will($this->returnValue($testFinderMock));
+		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
+		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('findTestCaseFilesDirectory'));
+		$testFinder->expects($this->once())->method('findTestCaseFilesDirectory')->will($this->returnValue($testFiles));
+		$this->fixture->injectTestFinder($testFinder);
 
 		$this->assertSame(
 			array($directory => $testFiles),
-			$fixture->findTestCasesInDir($directory)
+			$this->fixture->findTestCasesInDir($directory)
 		);
 	}
 
@@ -745,6 +739,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		$this->userSettingsService->set('extSel', $selectedExtension);
 		$fixture->injectUserSettingsService($this->userSettingsService);
+		$fixture->injectTestFinder($this->testFinder);
 
 		$this->assertRegExp(
 			'/<option[^>]*value="phpunit"/',
@@ -759,21 +754,13 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$testable = new Tx_Phpunit_Testable();
 		$testable->setKey('t3dd11');
 
-		$testFinderMock = $this->getMock(
-			'Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything')
-		);
-		$testFinderMock->expects($this->once())->method('getTestablesForEverything')
-			->will($this->returnValue(array($testable)));
-
-		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock($this->createAccessibleProxy(), array('getTestFinder'));
-		$fixture->injectUserSettingsService($this->userSettingsService);
-		$fixture->expects($this->once())->method('getTestFinder')
-			->will($this->returnValue($testFinderMock));
+		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
+		$testFinder->expects($this->once())->method('getTestablesForEverything')->will($this->returnValue(array($testable)));
+		$this->fixture->injectTestFinder($testFinder);
 
 		$this->assertRegExp(
 			'#<option [^>]*value="t3dd11">t3dd11</option>#',
-			$fixture->createExtensionSelector()
+			$this->fixture->createExtensionSelector()
 		);
 	}
 
