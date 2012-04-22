@@ -534,36 +534,118 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	}
 
 	/**
-	 * Renders the screen for the function "Run tests" which shows and
-	 * runs the actual unit tests.
+	 * Renders the screen for the function "Run tests" which shows and runs the actual unit tests.
 	 *
 	 * @return void
 	 */
 	protected function runTests_renderRunningTest() {
-		$selectedExtensionKey = $this->userSettingsService->getAsString('extSel');
+		$selectedTestableKey = $this->userSettingsService->getAsString('extSel');
+		$this->renderTestingHeader($selectedTestableKey);
 
-		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
-		$extensionKeysToProcess = $this->testFinder->getTestablesForEverything();
-		if ($selectedExtensionKey === Tx_Phpunit_Testable::ALL_EXTENSIONS) {
+		$testablesToProcess = $this->collectTestablesToProcess($selectedTestableKey);
+
+		$this->loadAllFilesContainingTestCasesForTestables($testablesToProcess);
+
+		$testSuite = $this->createTestSuiteWithAllTestCases();
+
+		$testResult = new PHPUnit_Framework_TestResult();
+
+		$this->configureTestListener();
+		$testResult->addListener($this->testListener);
+
+		$startMemory = memory_get_usage();
+		$startTime = microtime(TRUE);
+
+		if (t3lib_div::_GP('testname')) {
+			$this->runSingleTest($testSuite, $testResult);
+		} elseif (t3lib_div::_GP('testCaseFile')) {
+			$this->runTestCase($testSuite, $testResult);
+		} else {
+			$this->runAllTests($testSuite, $testResult);
+		}
+
+		$timeSpent = microtime(TRUE) - $startTime;
+		$leakedMemory = memory_get_usage() - $startMemory;
+		$this->renderTestStatistics($testResult, $timeSpent, $leakedMemory);
+
+		$this->renderReRunButton();
+
+		if ($this->shouldCollectCodeCoverageInformation()) {
+			$this->renderCodeCoverage();
+		}
+	}
+
+	/**
+	 * Renders and outputs the "Testing ..." header for the given testable key.
+	 *
+	 * @param string $testableKey the key of the selected testable
+	 *
+	 * @return void
+	 */
+	protected function renderTestingHeader($testableKey) {
+		if ($testableKey === Tx_Phpunit_Testable::ALL_EXTENSIONS) {
 			$this->outputService->output('<h1>' . $this->translate('testing_all_extensions') . '</h1>');
 		} else {
 			$this->outputService->output(
-				'<h1>' . $this->translate('testing_extension') . ': ' . htmlspecialchars($selectedExtensionKey) . '</h1>'
+				'<h1>' . $this->translate('testing_extension') . ': ' . htmlspecialchars($testableKey) . '</h1>'
 			);
-			$extensionKeysToProcess = array($extensionKeysToProcess[$selectedExtensionKey]);
+		}
+	}
+
+	/**
+	 * Collects the testables to process as directed by the given testable key.
+	 *
+	 * @param string $testableKey the key of the selected testable
+	 *
+	 * @return array<Tx_Phpunit_Testable> the testables to process
+	 */
+	protected function collectTestablesToProcess($testableKey) {
+		if ($testableKey === Tx_Phpunit_Testable::ALL_EXTENSIONS) {
+			$testablesToProcess = $this->testFinder->getTestablesForEverything();
+		} else {
+			$testablesToProcess = array($this->testFinder->getTestableForKey($testableKey));
 		}
 
-		// Loads the files containing test cases from extensions.
-		/** @var $extension Tx_Phpunit_Testable */
-		foreach ($extensionKeysToProcess as $extension) {
-			$testsPathOfExtension = $extension->getTestsPath();
-			$testSuites = $this->testFinder->findTestCaseFilesDirectory($testsPathOfExtension);
-			foreach ($testSuites as $fileName) {
-				require_once(realpath($testsPathOfExtension . $fileName));
-			}
-		}
+		return $testablesToProcess;
+	}
 
-		// Adds all classes to the test suite which end with "testcase" or "Test".
+	/**
+	 * Loads all files containing test cases for the given testables.
+	 *
+	 * @param array<Tx_Phpunit_Testable> $testables the testables for which to load all test case files
+	 *
+	 * @return void
+	 */
+	protected function loadAllFilesContainingTestCasesForTestables(array $testables) {
+		/** @var $testable Tx_Phpunit_Testable */
+		foreach ($testables as $testable) {
+			$this->loadAllFilesContainingTestCasesForSingleTestable($testable);
+		}
+	}
+
+	/**
+	 * Loads all files containing test cases for the given testable.
+	 *
+	 * @param Tx_Phpunit_Testable $testable the testable for which to load all test case files
+	 *
+	 * @return void
+	 */
+	protected function loadAllFilesContainingTestCasesForSingleTestable(Tx_Phpunit_Testable $testable) {
+		$testsPath = $testable->getTestsPath();
+		$testCaseFileNames = $this->testFinder->findTestCaseFilesDirectory($testsPath);
+		foreach ($testCaseFileNames as $testCaseFileName) {
+			require_once(realpath($testsPath . $testCaseFileName));
+		}
+	}
+
+	/**
+	 * Creates a test suite that contains all test cases in the systems (but filters out this extension's base test cases).
+	 *
+	 * @return PHPUnit_Framework_TestSuite the test suite with all test cases added
+	 */
+	protected function createTestSuiteWithAllTestCases() {
+		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
+
 		foreach (get_declared_classes() as $class) {
 			$classReflection = new ReflectionClass($class);
 			if ($classReflection->isSubclassOf('Tx_Phpunit_TestCase')
@@ -580,13 +662,15 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			}
 		}
 
-		$result = new PHPUnit_Framework_TestResult();
+		return $testSuite;
+	}
 
-		if ($this->shouldCollectCodeCoverageInformation()) {
-			$this->coverage = new PHP_CodeCoverage;
-			$this->coverage->start('PHPUnit');
-		}
-
+	/**
+	 * Configures the test listener as defined in the user settings.
+	 *
+	 * @return void
+	 */
+	protected function configureTestListener() {
 		if ($this->userSettingsService->getAsBoolean('testdox')) {
 			$this->testListener->useHumanReadableTextFormat();
 		}
@@ -594,107 +678,142 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		if ($this->userSettingsService->getAsBoolean('showMemoryAndTime')) {
 			$this->testListener->enableShowMenoryAndTime();
 		}
+	}
 
-		$result->addListener($this->testListener);
-
-		$startMemory = memory_get_usage();
-		$startTime = microtime(TRUE);
-
-		if (t3lib_div::_GP('testname')) {
-			$this->runTests_renderInfoAndProgressbar();
-			/** @var $testCases PHPUnit_Framework_TestSuite */
-			foreach ($testSuite->tests() as $testCases) {
-				foreach ($testCases->tests() as $test) {
+	/**
+	 * Runs a single test as given in the GET/POST variable "testname".
+	 *
+	 * @param PHPUnit_Framework_TestSuite $testSuiteWithAllTestCases suite with all test cases
+	 * @param PHPUnit_Framework_TestResult $testResult the test result (will be modified)
+	 *
+	 * @return void
+	 */
+	protected function runSingleTest(
+		PHPUnit_Framework_TestSuite $testSuiteWithAllTestCases, PHPUnit_Framework_TestResult $testResult
+	) {
+		$this->runTests_renderInfoAndProgressbar();
+		/** @var $testCases PHPUnit_Framework_TestSuite */
+		foreach ($testSuiteWithAllTestCases->tests() as $testCases) {
+			foreach ($testCases->tests() as $test) {
+				if ($test instanceof PHPUnit_Framework_TestSuite) {
+					/** @var $test PHPUnit_Framework_TestSuite */
+					list($testSuiteName, $testName) = explode('::', $test->getName());
+					$this->testListener->setTestSuiteName($testSuiteName);
+					$testIdentifier = $testName . '(' . $testSuiteName . ')';
+				} else {
+					$testIdentifier = $test->toString();
+					list($testSuiteName, $unused) = explode('::', $testIdentifier);
+					$this->testListener->setTestSuiteName($testSuiteName);
+				}
+				if ($testIdentifier === t3lib_div::_GP('testname')) {
 					if ($test instanceof PHPUnit_Framework_TestSuite) {
-						/** @var $test PHPUnit_Framework_TestSuite */
-						list($testSuiteName, $testName) = explode('::', $test->getName());
-						$this->testListener->setTestSuiteName($testSuiteName);
-						$testIdentifier = $testName . '(' . $testSuiteName . ')';
+						$this->testListener->setTotalNumberOfTests($test->count());
 					} else {
-						$testIdentifier = $test->toString();
-						list($testSuiteName, $unused) = explode('::', $testIdentifier);
-						$this->testListener->setTestSuiteName($testSuiteName);
+						$this->testListener->setTotalNumberOfTests(1);
 					}
-					if ($testIdentifier === t3lib_div::_GP('testname')) {
-						if ($test instanceof PHPUnit_Framework_TestSuite) {
-							$this->testListener->setTotalNumberOfTests($test->count());
-						} else {
-							$this->testListener->setTotalNumberOfTests(1);
-						}
-						$this->outputService->output('<h2 class="testSuiteName">Testsuite: ' . $testCases->getName() . '</h2>');
-						$test->run($result);
-					}
+					$this->outputService->output('<h2 class="testSuiteName">Testsuite: ' . $testCases->getName() . '</h2>');
+					$test->run($testResult);
 				}
 			}
-			if (!is_object($result)) {
-				$this->outputService->output(
-					'<h2 class="hadError">Error</h2><p>The test <strong> ' .
-						htmlspecialchars(t3lib_div::_GP('testCaseFile')) . '</strong> could not be found.</p>'
-				);
-				return;
-			}
-		} elseif (t3lib_div::_GP('testCaseFile')) {
-			$testCaseFileName = t3lib_div::_GP('testCaseFile');
-			$this->testListener->setTestSuiteName($testCaseFileName);
-
-			$suiteNameHasBeenDisplayed = FALSE;
-			$totalNumberOfTestCases = 0;
-			foreach ($testSuite->tests() as $testCases) {
-				foreach ($testCases->tests() as $test) {
-					if ($test instanceof PHPUnit_Framework_TestSuite) {
-						list($testIdentifier, $unused) = explode('::', $test->getName());
-					} else {
-						$testIdentifier = get_class($test);
-					}
-					if ($testIdentifier === $testCaseFileName) {
-						if ($test instanceof PHPUnit_Framework_TestSuite) {
-							$totalNumberOfTestCases += $test->count();
-						} else {
-							$totalNumberOfTestCases++;
-						}
-					}
-				}
-			}
-			$this->testListener->setTotalNumberOfTests($totalNumberOfTestCases);
-			$this->runTests_renderInfoAndProgressbar();
-
-			foreach ($testSuite->tests() as $testCases) {
-				foreach ($testCases->tests() as $test) {
-					if ($test instanceof PHPUnit_Framework_TestSuite) {
-						list($testIdentifier, $unused) = explode('::', $test->getName());
-					} else {
-						$testIdentifier = get_class($test);
-					}
-					if ($testIdentifier === $testCaseFileName) {
-						if (!$suiteNameHasBeenDisplayed) {
-							$this->outputService->output('<h2 class="testSuiteName">Testsuite: ' . $testCaseFileName . '</h2>');
-							$suiteNameHasBeenDisplayed = TRUE;
-						}
-						$test->run($result);
-					}
-				}
-			}
-			if (!is_object($result)) {
-				$this->outputService->output(
-					'<h2 class="hadError">Error</h2><p>The test <strong> ' .
-						htmlspecialchars(t3lib_div::_GP('testname')) . '</strong> could not be found.</p>'
-				);
-				return;
-			}
-		} else {
-			$this->testListener->setTotalNumberOfTests($testSuite->count());
-			$this->runTests_renderInfoAndProgressbar();
-			$testSuite->run($result);
 		}
+		if (!is_object($testResult)) {
+			$this->outputService->output(
+				'<h2 class="hadError">Error</h2><p>The test <strong> ' .
+					htmlspecialchars(t3lib_div::_GP('testCaseFile')) . '</strong> could not be found.</p>'
+			);
+		}
+	}
 
-		$timeSpent = microtime(TRUE) - $startTime;
-		$leakedMemory = memory_get_usage() - $startMemory;
+	/**
+	 * Runs a testcase as given in the GET/POST variable "testCaseFile".
+	 *
+	 * @param PHPUnit_Framework_TestSuite $testSuiteWithAllTestCases suite with all test cases
+	 * @param PHPUnit_Framework_TestResult $testResult the test result (will be modified)
+	 *
+	 * @return void
+	 */
+	protected function runTestCase(
+		PHPUnit_Framework_TestSuite $testSuiteWithAllTestCases, PHPUnit_Framework_TestResult $testResult
+	) {
+		$testCaseFileName = t3lib_div::_GP('testCaseFile');
+		$this->testListener->setTestSuiteName($testCaseFileName);
 
-		// Displays test statistics.
-		if ($result->wasSuccessful()) {
+		$suiteNameHasBeenDisplayed = FALSE;
+		$totalNumberOfTestCases = 0;
+		foreach ($testSuiteWithAllTestCases->tests() as $testCases) {
+			foreach ($testCases->tests() as $test) {
+				if ($test instanceof PHPUnit_Framework_TestSuite) {
+					list($testIdentifier, $unused) = explode('::', $test->getName());
+				} else {
+					$testIdentifier = get_class($test);
+				}
+				if ($testIdentifier === $testCaseFileName) {
+					if ($test instanceof PHPUnit_Framework_TestSuite) {
+						$totalNumberOfTestCases += $test->count();
+					} else {
+						$totalNumberOfTestCases++;
+					}
+				}
+			}
+		}
+		$this->testListener->setTotalNumberOfTests($totalNumberOfTestCases);
+		$this->runTests_renderInfoAndProgressbar();
+
+		foreach ($testSuiteWithAllTestCases->tests() as $testCases) {
+			foreach ($testCases->tests() as $test) {
+				if ($test instanceof PHPUnit_Framework_TestSuite) {
+					list($testIdentifier, $unused) = explode('::', $test->getName());
+				} else {
+					$testIdentifier = get_class($test);
+				}
+				if ($testIdentifier === $testCaseFileName) {
+					if (!$suiteNameHasBeenDisplayed) {
+						$this->outputService->output('<h2 class="testSuiteName">Testsuite: ' . $testCaseFileName . '</h2>');
+						$suiteNameHasBeenDisplayed = TRUE;
+					}
+					$test->run($testResult);
+				}
+			}
+		}
+		if (!is_object($testResult)) {
+			$this->outputService->output(
+				'<h2 class="hadError">Error</h2><p>The test <strong> ' .
+					htmlspecialchars(t3lib_div::_GP('testname')) . '</strong> could not be found.</p>'
+			);
+			return;
+		}
+	}
+
+	/**
+	 * Runs all tests.
+	 *
+	 * @param PHPUnit_Framework_TestSuite $testSuiteWithAllTestCases suite with all test cases
+	 * @param PHPUnit_Framework_TestResult $testResult the test result (will be modified)
+	 *
+	 * @return void
+	 */
+	protected function runAllTests(
+		PHPUnit_Framework_TestSuite $testSuiteWithAllTestCases, PHPUnit_Framework_TestResult $testResult
+	) {
+		$this->testListener->setTotalNumberOfTests($testSuiteWithAllTestCases->count());
+		$this->runTests_renderInfoAndProgressbar();
+		$testSuiteWithAllTestCases->run($testResult);
+	}
+
+	/**
+	 * Renders and output the tests statistics.
+	 *
+	 * @param PHPUnit_Framework_TestResult $testResult the test result
+	 * @param float $timeSpent the duration of the tests in seconds, must be >= 0.0
+	 * @param integer $leakedMemory the number of leaked bytes, must be >= 0
+	 *
+	 * @return void
+	 */
+	protected function renderTestStatistics(PHPUnit_Framework_TestResult $testResult, $timeSpent, $leakedMemory) {
+		if ($testResult->wasSuccessful()) {
 			$testStatistics = '<h2 class="wasSuccessful">' . $this->translate('testing_success') . '</h2>';
 		} else {
-			if ($result->errorCount() > 0) {
+			if ($testResult->errorCount() > 0) {
 				$testStatistics = '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadError");/*]]>*/</script>
 					<h2 class="hadError">' . $this->translate('testing_failure') . '</h2>';
 			} else {
@@ -702,16 +821,24 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 					<h2 class="hadFailure">' . $this->translate('testing_failure') . '</h2>';
 			}
 		}
-		$testStatistics .= '<p>' . $result->count() . ' ' . $this->translate('tests_total') . ', ' . $this->testListener->assertionCount() . ' ' .
-			$this->translate('assertions_total') . ', ' . $result->failureCount() . ' ' . $this->translate('tests_failures') .
-			', ' . $result->skippedCount() . ' ' . $this->translate('tests_skipped') . ', ' .
-			$result->notImplementedCount() . ' ' . $this->translate('tests_notimplemented') . ', ' . $result->errorCount() .
+		$testStatistics .= '<p>' . $testResult->count() . ' ' . $this->translate('tests_total') . ', ' . $this->testListener->assertionCount() . ' ' .
+			$this->translate('assertions_total') . ', ' . $testResult->failureCount() . ' ' . $this->translate('tests_failures') .
+			', ' . $testResult->skippedCount() . ' ' . $this->translate('tests_skipped') . ', ' .
+			$testResult->notImplementedCount() . ' ' . $this->translate('tests_notimplemented') . ', ' . $testResult->errorCount() .
 			' ' . $this->translate('tests_errors') . ', <span title="' . $timeSpent . '&nbsp;' .
 			$this->translate('tests_seconds') . '">' . round($timeSpent, 3) . '&nbsp;' . $this->translate('tests_seconds') .
 			', </span>' . t3lib_div::formatSize($leakedMemory) . 'B (' . $leakedMemory . ' B) ' .
 			$this->translate('tests_leaks') . '</p>';
 		$this->outputService->output($testStatistics);
 
+	}
+
+	/**
+	 * Renders and output the re-run button.
+	 *
+	 * @return void
+	 */
+	protected function renderReRunButton() {
 		$this->outputService->output(
 			'<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">
 				<p>
@@ -721,25 +848,30 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 					<input name="testCaseFile" type="hidden" value="' . t3lib_div::_GP('testCaseFile') . '" />
 				</p>
 			</form>' .
-			'<div id="testsHaveFinished"></div>'
+				'<div id="testsHaveFinished"></div>'
 		);
+	}
 
-		if ($this->shouldCollectCodeCoverageInformation()) {
-			$this->coverage->stop();
+	/**
+	 * Renders and outputs the code coverage report.
+	 *
+	 * @return void
+	 */
+	protected function renderCodeCoverage() {
+		$this->coverage->stop();
 
-			$codeCoverageDirectory = PATH_site . 'typo3temp/codecoverage/';
-			if (!is_readable($codeCoverageDirectory) && !is_dir($codeCoverageDirectory)) {
-				t3lib_div::mkdir($codeCoverageDirectory);
-			}
-
-			$coverageReport = new PHP_CodeCoverage_Report_HTML();
-			$coverageReport->process($this->coverage, $codeCoverageDirectory);
-			$this->outputService->output(
-				'<p><a target="_blank" href="../typo3temp/codecoverage/index.html">' .
-					'Click here to access the Code Coverage report</a></p>' .
-					'<p>Memory peak usage: ' . t3lib_div::formatSize(memory_get_peak_usage()) . 'B<p/>'
-			);
+		$codeCoverageDirectory = PATH_site . 'typo3temp/codecoverage/';
+		if (!is_readable($codeCoverageDirectory) && !is_dir($codeCoverageDirectory)) {
+			t3lib_div::mkdir($codeCoverageDirectory);
 		}
+
+		$coverageReport = new PHP_CodeCoverage_Report_HTML();
+		$coverageReport->process($this->coverage, $codeCoverageDirectory);
+		$this->outputService->output(
+			'<p><a target="_blank" href="../typo3temp/codecoverage/index.html">' .
+				'Click here to access the Code Coverage report</a></p>' .
+				'<p>Memory peak usage: ' . t3lib_div::formatSize(memory_get_peak_usage()) . 'B<p/>'
+		);
 	}
 
 	/**
