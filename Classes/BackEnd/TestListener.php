@@ -320,9 +320,9 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 		/** @var $test PHPUnit_Framework_TestCase */
 
 		$this->outputService->output(
-			'<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadNotImplemented");/*]]>*/</script>' .
+			'<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadIncomplete");/*]]>*/</script>' .
 				'<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
-				$this->currentDataProviderNumber . '","testcaseNotImplemented");/*]]>*/</script>' .
+				$this->currentDataProviderNumber . '","testcaseIncomplete");/*]]>*/</script>' .
 				'<strong>Incomplete test</strong> <em>' . htmlspecialchars($test->getName()) .
 				'</em> in file <em>' . $e->getFile() . '</em> line <em>' . $e->getLine() . '</em>:<br />' .
 				htmlspecialchars($e->getMessage()) . '<br />'

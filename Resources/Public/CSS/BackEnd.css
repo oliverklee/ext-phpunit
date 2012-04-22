@@ -128,7 +128,7 @@ body#typo3-mod-php {
 	background-color: #faa;
 }
 
-.testcaseNotImplemented h3 {
+.testcaseIncomplete h3 {
 	background-color: #d3d3d3;
 }
 

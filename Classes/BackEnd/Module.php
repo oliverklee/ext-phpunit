@@ -503,7 +503,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$errorState = $this->userSettingsService->getAsBoolean('error') ? 'checked="checked"' : '';
 		$skippedState = $this->userSettingsService->getAsBoolean('skipped') ? 'checked="checked"' : '';
 		$successState = $this->userSettingsService->getAsBoolean('success') ? 'checked="checked"' : '';
-		$notImplementedState = $this->userSettingsService->getAsBoolean('notimplemented') ? 'checked="checked"' : '';
+		$incompleteState = $this->userSettingsService->getAsBoolean('incomplete') ? 'checked="checked"' : '';
 		$showMemoryAndTime = $this->userSettingsService->getAsBoolean('showMemoryAndTime') ? 'checked="checked"' : '';
 		$testdoxState = $this->userSettingsService->getAsBoolean('testdox') ? 'checked="checked"' : '';
 		$output .= '<input type="checkbox" id="SET_success" ' . $successState . ' /><label for="SET_success">Success</label>';
@@ -512,8 +512,8 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$output .= ' <input type="checkbox" id="SET_error" ' . $errorState . ' /><label for="SET_error">Error</label>';
 		$output .= ' <input type="checkbox" id="SET_testdox" ' . $testdoxState .
 				   ' /><label for="SET_testdox">Show as human readable</label>';
-		$output .= ' <input type="checkbox" id="SET_notimplemented" ' . $notImplementedState .
-				   ' /><label for="SET_notimplemented">Not implemented</label>';
+		$output .= ' <input type="checkbox" id="SET_incomplete" ' . $incompleteState .
+				   ' /><label for="SET_incomplete">Incomplete</label>';
 		$output .= ' <input type="checkbox" id="SET_showMemoryAndTime" ' . $showMemoryAndTime .
 				   '/><label for="SET_showMemoryAndTime">Show memory & time</label>';
 

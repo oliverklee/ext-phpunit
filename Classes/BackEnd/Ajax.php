@@ -87,13 +87,21 @@ class Tx_Phpunit_BackEnd_Ajax {
 		$checkbox = t3lib_div::_POST('checkbox');
 		switch ($checkbox) {
 			case 'failure':
+				// The fall-through is intentional.
 			case 'success':
+				// The fall-through is intentional.
 			case 'error':
+				// The fall-through is intentional.
 			case 'skipped':
-			case 'notimplemented':
+				// The fall-through is intentional.
+			case 'incomplete':
+				// The fall-through is intentional.
 			case 'testdox':
+				// The fall-through is intentional.
 			case 'codeCoverage':
+				// The fall-through is intentional.
 			case 'showMemoryAndTime':
+				// The fall-through is intentional.
 			case 'runSeleniumTests':
 				break;
 			default:

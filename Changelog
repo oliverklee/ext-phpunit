@@ -1,4 +1,5 @@
 2012-04-22 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #36179: Change the wording from "not implemented" to "incomplete" in the code, comments and labels
 	* Fixed Bug #36411: In the settings, use booleans instead of the string "on"
 
 2012-04-21 Oliver Klee <typo3-coding@oliverklee.de>

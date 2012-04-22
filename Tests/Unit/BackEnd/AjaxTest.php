@@ -156,8 +156,8 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
-	public function ajaxBrokerForNotImplementedCheckboxParameterAddsSuccessContent() {
-		$_POST['checkbox'] = 'notimplemented';
+	public function ajaxBrokerForIncompleteCheckboxParameterAddsSuccessContent() {
+		$_POST['checkbox'] = 'incomplete';
 
 		/** @var $ajax TYPO3AJAX|PHPUnit_Framework_MockObject_MockObject */
 		$ajax = $this->getMock('TYPO3AJAX');

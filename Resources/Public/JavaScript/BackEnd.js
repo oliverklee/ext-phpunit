@@ -72,8 +72,8 @@ function setProgressBarClass(className) {
 		case 'SET_skipped':
 			checkbox = 'skipped';
 			break;
-		case 'SET_notimplemented':
-			checkbox = 'notimplemented';
+		case 'SET_incomplete':
+			checkbox = 'incomplete';
 			break;
 		case 'SET_testdox':
 			checkbox = 'testdox';
@@ -130,8 +130,8 @@ function setProgressBarClass(className) {
 		case 'SET_skipped':
 			className = 'testcaseSkipped';
 			break;
-		case 'SET_notimplemented':
-			className = 'testcaseNotImplemented';
+		case 'SET_incomplete':
+			className = 'testcaseIncomplete';
 			break;
 		case 'SET_testdox':
 			checkbox = 'testdox';
@@ -155,7 +155,7 @@ function setProgressBarClass(className) {
 	 */
 	Event.onDOMReady(function () {
 		var checkboxes = Dom.get([
-			'SET_failure', 'SET_success', 'SET_error', 'SET_skipped', 'SET_notimplemented',
+			'SET_failure', 'SET_success', 'SET_error', 'SET_skipped', 'SET_incomplete',
 			'SET_testdox', 'SET_showMemoryAndTime', 'SET_runSeleniumTests'
 		]);
 		var numberOfCheckboxes = checkboxes.length;
