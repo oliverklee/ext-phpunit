@@ -1,4 +1,5 @@
 2012-04-23 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #36441: Rename the back-end module method names to proper lowerCamelCase
 	* Fixed Bug #36472: Typo in method name: isAcceptedTestSuitClass
 	* Fixed Bug #36206: Refactor BackEnd_Module::runTests_renderRunningTest into several functions
 	* Fixed Bug #36227: Add a service for getting the extension settings from the EM

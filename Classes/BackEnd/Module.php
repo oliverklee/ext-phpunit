@@ -203,7 +203,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 				$this->doc->header(PHPUnit_Runner_Version::getVersionString())
 			);
 
-			$this->runTests_render();
+			$this->renderRunTests();
 
 			$this->outputService->output(
 				$this->doc->section(
@@ -216,7 +216,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 					<li>Safari, IE and Firefox 1.x: Use "Alt" button on Windows, "Ctrl" on Macs.</li>
 					<li>Firefox 2.x and 3.x: Use "Alt-Shift" on Windows, "Ctrl-Shift" on Macs</li>
 					</ul>' .
-					$this->doc->section('', $this->openNewWindowLink())
+					$this->doc->section('', $this->createOpenNewWindowLink())
 				)
 			);
 		} else {
@@ -245,7 +245,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 *
 	 * @return void
 	 */
-	protected function runTests_render() {
+	protected function renderRunTests() {
 		$selectedExtensionKey = $this->userSettingsService->getAsString('extSel');
 
 		if (($selectedExtensionKey !== Tx_Phpunit_Testable::ALL_EXTENSIONS)
@@ -261,11 +261,11 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			case 'runTestCaseFile':
 				// The fallthrough is intentional.
 			case 'runsingletest':
-				$this->runTests_renderIntro();
-				$this->runTests_renderRunningTest();
+				$this->renderRunTestsIntro();
+				$this->renderRunningTest();
 				break;
 			default:
-				$this->runTests_renderIntro();
+				$this->renderRunTestsIntro();
 		}
 	}
 
@@ -274,7 +274,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 *
 	 * @return void
 	 */
-	protected function runTests_renderIntro() {
+	protected function renderRunTestsIntro() {
 		if (!$this->testFinder->existsTestableForAnything()) {
 			/** @var $message t3lib_FlashMessage */
 			$message = t3lib_div::makeInstance(
@@ -538,7 +538,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 *
 	 * @return void
 	 */
-	protected function runTests_renderRunningTest() {
+	protected function renderRunningTest() {
 		$selectedTestableKey = $this->userSettingsService->getAsString('extSel');
 		$this->renderTestingHeader($selectedTestableKey);
 
@@ -691,7 +691,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	protected function runSingleTest(
 		PHPUnit_Framework_TestSuite $testSuiteWithAllTestCases, PHPUnit_Framework_TestResult $testResult
 	) {
-		$this->runTests_renderInfoAndProgressbar();
+		$this->renderProgressbar();
 		/** @var $testCases PHPUnit_Framework_TestSuite */
 		foreach ($testSuiteWithAllTestCases->tests() as $testCases) {
 			foreach ($testCases->tests() as $test) {
@@ -757,7 +757,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			}
 		}
 		$this->testListener->setTotalNumberOfTests($totalNumberOfTestCases);
-		$this->runTests_renderInfoAndProgressbar();
+		$this->renderProgressbar();
 
 		foreach ($testSuiteWithAllTestCases->tests() as $testCases) {
 			foreach ($testCases->tests() as $test) {
@@ -796,7 +796,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		PHPUnit_Framework_TestSuite $testSuiteWithAllTestCases, PHPUnit_Framework_TestResult $testResult
 	) {
 		$this->testListener->setTotalNumberOfTests($testSuiteWithAllTestCases->count());
-		$this->runTests_renderInfoAndProgressbar();
+		$this->renderProgressbar();
 		$testSuiteWithAllTestCases->run($testResult);
 	}
 
@@ -883,7 +883,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 *
 	 * @return void
 	 */
-	protected function runTests_renderInfoAndProgressbar() {
+	protected function renderProgressbar() {
 		$this->outputService->output(
 			'<div class="progress-bar-wrap">
 				<span id="progress-bar" class="wasSuccessful">&nbsp;</span>
@@ -903,7 +903,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 *
 	 * @return string
 	 */
-	protected function openNewWindowLink() {
+	protected function createOpenNewWindowLink() {
 		$url = t3lib_div::getIndpEnv('TYPO3_REQUEST_SCRIPT') . '?M=tools_txphpunitbeM1';
 		$onClick = "phpunitbeWin=window.open('" . $url .
 				   "','phpunitbe','width=790,status=0,menubar=1,resizable=1,location=0,scrollbars=1,toolbar=0');phpunitbeWin.focus();return false;";
