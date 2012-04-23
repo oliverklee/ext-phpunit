@@ -566,7 +566,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		vfsStreamWrapper::register();
 		vfsStreamWrapper::setRoot(new vfsStreamDirectory('Foo'));
 		$directory = 'vfs://Foo/';
-		$testFiles = array('class.test1Test.php', 'class.test2Test.php');
+		$testFiles = array('class.testOneTest.php', 'class.testTwoTest.php');
 
 		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
 		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('findTestCaseFilesDirectory'));

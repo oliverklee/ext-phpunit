@@ -34,13 +34,13 @@ class Tx_Phpunit_BackEnd_Fixtures_DataProviderTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
-	public function test1() {
+	public function testOne() {
 	}
 
 	/**
 	 * @test
 	 */
-	public function test2() {
+	public function testTwo() {
 	}
 
 	/**
@@ -69,13 +69,13 @@ class Tx_Phpunit_BackEnd_Fixtures_DataProviderTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
-	public function test3() {
+	public function testThree() {
 	}
 
 	/**
 	 * @test
 	 */
-	public function test4() {
+	public function testFour() {
 	}
 }
 ?>
