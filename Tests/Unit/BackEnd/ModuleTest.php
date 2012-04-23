@@ -153,8 +153,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 				'  public function createAndInitializeTestListener() {' .
 				'    return parent::createAndInitializeTestListener();' .
 				'  }' .
-				'  public function isAcceptedTestSuitClass($class) {' .
-				'    return parent::isAcceptedTestSuitClass($class);' .
+				'  public function isAcceptedTestSuiteClass($class) {' .
+				'    return parent::isAcceptedTestSuiteClass($class);' .
 				'  }' .
 				'}'
 			);
@@ -680,45 +680,45 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
-	public function isAcceptedTestSuitClassReturnsTrueForNonSpecialClass() {
+	public function isAcceptedTestSuiteClassReturnsTrueForNonSpecialClass() {
 		$this->assertTrue(
-			$this->fixture->isAcceptedTestSuitClass('foo')
+			$this->fixture->isAcceptedTestSuiteClass('foo')
 		);
 	}
 
 	/**
 	 * @test
 	 */
-	public function isAcceptedTestSuitClassReturnsTrueForTestCaseSubClass() {
+	public function isAcceptedTestSuiteClassReturnsTrueForTestCaseSubClass() {
 		$this->assertTrue(
-			$this->fixture->isAcceptedTestSuitClass(get_class($this))
+			$this->fixture->isAcceptedTestSuiteClass(get_class($this))
 		);
 	}
 
 	/**
 	 * @test
 	 */
-	public function isAcceptedTestSuitClassReturnsFalseForPhpunitTestCase() {
+	public function isAcceptedTestSuiteClassReturnsFalseForPhpunitTestCase() {
 		$this->assertFalse(
-			$this->fixture->isAcceptedTestSuitClass('Tx_Phpunit_TestCase')
+			$this->fixture->isAcceptedTestSuiteClass('Tx_Phpunit_TestCase')
 		);
 	}
 
 	/**
 	 * @test
 	 */
-	public function isAcceptedTestSuitClassReturnsFalseForPhpunitDatabaseTestCase() {
+	public function isAcceptedTestSuiteClassReturnsFalseForPhpunitDatabaseTestCase() {
 		$this->assertFalse(
-			$this->fixture->isAcceptedTestSuitClass('Tx_Phpunit_Database_TestCase')
+			$this->fixture->isAcceptedTestSuiteClass('Tx_Phpunit_Database_TestCase')
 		);
 	}
 
 	/**
 	 * @test
 	 */
-	public function isAcceptedTestSuitClassReturnsFalseForPhpunitSeleniumTestCase() {
+	public function isAcceptedTestSuiteClassReturnsFalseForPhpunitSeleniumTestCase() {
 		$this->assertFalse(
-			$this->fixture->isAcceptedTestSuitClass('Tx_Phpunit_Selenium_TestCase')
+			$this->fixture->isAcceptedTestSuiteClass('Tx_Phpunit_Selenium_TestCase')
 		);
 	}
 

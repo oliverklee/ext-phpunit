@@ -376,7 +376,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			$classReflection = new ReflectionClass($class);
 			if ((strtolower(substr($class, -8, 8)) === 'testcase' || substr($class, -4, 4) === 'Test')
 				&& $classReflection->isSubclassOf('PHPUnit_Framework_TestCase')
-				&& $this->isAcceptedTestSuitClass($class)
+				&& $this->isAcceptedTestSuiteClass($class)
 			) {
 				$testSuite->addTestSuite($class);
 			}
@@ -433,7 +433,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			$classReflection = new ReflectionClass($class);
 			if ((strtolower(substr($class, -8, 8)) === 'testcase' || substr($class, -4, 4) === 'Test')
 				&& $classReflection->isSubclassOf('PHPUnit_Framework_TestCase')
-				&& $this->isAcceptedTestSuitClass($class)
+				&& $this->isAcceptedTestSuiteClass($class)
 			) {
 				$testSuite->addTestSuite($class);
 			}
@@ -994,7 +994,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 *
 	 * @return boolean TRUE if the class is accepted, FALSE otherwise
 	 */
-	protected function isAcceptedTestSuitClass($class) {
+	protected function isAcceptedTestSuiteClass($class) {
 		return !in_array($class, $this->ignoredTestSuitClasses);
 	}
 
