@@ -106,7 +106,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	 *
 	 * @return boolean TRUE if a diff tool was found, FALSE otherwise
 	 */
-	public function isDiffToolAvailable() {
+	protected function isDiffToolAvailable() {
 		$filePath = t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/Backend/Fixtures/LoadMe.php';
 		// Makes sure everything is sent to the stdOutput.
 		$executeCommand = $GLOBALS['TYPO3_CONF_VARS']['BE']['diff_path'] . ' 2>&1 ' . $filePath . ' ' . $filePath;
