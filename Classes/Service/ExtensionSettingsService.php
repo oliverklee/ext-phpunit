@@ -24,7 +24,7 @@
  ***************************************************************/
 
 /**
- * This interface provides functions for reading the settings of the PHPUnit extension (as set in the extension manager).
+ * This class provides functions for reading the settings of the PHPUnit extension (as set in the extension manager).
  *
  * @package TYPO3
  * @subpackage tx_phpunit
