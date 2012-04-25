@@ -31,7 +31,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.,de>
  */
-class Tx_Phpunit_Service_ExtensionSettingsService extends Tx_Phpunit_Service_AbstractSettingsService
+class Tx_Phpunit_Service_ExtensionSettingsService extends Tx_Phpunit_AbstractDataContainer
 	implements Tx_Phpunit_Interface_ExtensionSettingsService, t3lib_Singleton
 {
 	/**

@@ -39,7 +39,7 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 	private $fixture = NULL;
 
 	/**
-	 * @var Tx_Phpunit_Service_FakeSettingsService
+	 * @var Tx_Phpunit_TestingDataContainer
 	 */
 	protected $userSettingsService = NULL;
 
@@ -56,7 +56,7 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 
 		$this->fixture = new Tx_Phpunit_BackEnd_Ajax(FALSE);
 
-		$this->userSettingsService = new Tx_Phpunit_Service_FakeSettingsService();
+		$this->userSettingsService = new Tx_Phpunit_TestingDataContainer();
 		$this->fixture->injectUserSettingsService($this->userSettingsService);
 	}
 

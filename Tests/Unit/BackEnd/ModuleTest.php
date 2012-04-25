@@ -45,7 +45,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	protected $outputService = NULL;
 
 	/**
-	 * @var Tx_Phpunit_Service_FakeSettingsService
+	 * @var Tx_Phpunit_TestingDataContainer
 	 */
 	protected $userSettingsService = NULL;
 
@@ -74,7 +74,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	protected $testFinder = NULL;
 
 	/**
-	 * @var Tx_Phpunit_Service_FakeSettingsService
+	 * @var Tx_Phpunit_TestingDataContainer
 	 */
 	protected $extensionSettingsService = NULL;
 
@@ -91,11 +91,11 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->outputService = new Tx_PhpUnit_Service_FakeOutputService();
 		$this->fixture->injectOutputService($this->outputService);
 
-		$this->userSettingsService = new Tx_Phpunit_Service_FakeSettingsService();
+		$this->userSettingsService = new Tx_Phpunit_TestingDataContainer();
 		$this->fixture->injectUserSettingsService($this->userSettingsService);
 
 		$this->testFinder = new Tx_Phpunit_Service_TestFinder();
-		$this->extensionSettingsService = new Tx_Phpunit_Service_FakeSettingsService();
+		$this->extensionSettingsService = new Tx_Phpunit_TestingDataContainer();
 		$this->testFinder->injectExtensionSettingsService($this->extensionSettingsService);
 		$this->fixture->injectTestFinder($this->testFinder);
 	}

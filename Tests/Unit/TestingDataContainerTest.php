@@ -24,21 +24,21 @@
  ***************************************************************/
 
 /**
- * Test case for class Tx_Phpunit_Service_FakeSettingsService.
+ * Test case for class Tx_Phpunit_TestingDataContainer.
  *
  * @package TYPO3
  * @subpackage tx_phpunit
  *
  * @author Oliver Klee <typo3-coding@oliverklee.,de>
  */
-class Tx_Phpunit_Service_FakeSettingsServiceTest extends Tx_Phpunit_TestCase {
+class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 	/**
-	 * @var Tx_Phpunit_Service_FakeSettingsService
+	 * @var Tx_Phpunit_TestingDataContainer
 	 */
 	protected $fixture = NULL;
 
 	public function setUp() {
-		$this->fixture = new Tx_Phpunit_Service_FakeSettingsService();
+		$this->fixture = new Tx_Phpunit_TestingDataContainer();
 	}
 
 	public function tearDown() {

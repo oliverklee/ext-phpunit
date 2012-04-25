@@ -38,12 +38,12 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 	private $fixture = NULL;
 
 	/**
-	 * @var Tx_Phpunit_Service_FakeSettingsService
+	 * @var Tx_Phpunit_TestingDataContainer
 	 */
 	protected $extensionSettingsService = NULL;
 
 	protected function setUp() {
-		$this->extensionSettingsService = new Tx_Phpunit_Service_FakeSettingsService();
+		$this->extensionSettingsService = new Tx_Phpunit_TestingDataContainer();
 		$this->fixture = $this->getMock(
 			$this->createAccessibleProxyClass(),
 			array('isSeleniumServerRunning'),

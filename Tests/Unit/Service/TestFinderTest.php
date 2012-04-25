@@ -51,7 +51,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	private $typo3ConfigurationVariablesBackup = array();
 
 	/**
-	 * @var Tx_Phpunit_Service_FakeSettingsService
+	 * @var Tx_Phpunit_TestingDataContainer
 	 */
 	protected $extensionSettingsService = NULL;
 
@@ -62,7 +62,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 		$this->fixture = $this->createAccessibleProxy();
 
-		$this->extensionSettingsService = new Tx_Phpunit_Service_FakeSettingsService();
+		$this->extensionSettingsService = new Tx_Phpunit_TestingDataContainer();
 		$this->fixture->injectExtensionSettingsService($this->extensionSettingsService);
 
 		$this->fixturesPath = t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/Service/Fixtures/';
