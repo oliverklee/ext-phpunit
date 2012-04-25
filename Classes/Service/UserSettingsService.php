@@ -39,12 +39,7 @@ class Tx_Phpunit_Service_UserSettingsService extends Tx_Phpunit_Service_Abstract
 	/**
 	 * @var string
 	 */
-	const MODULE_DATA_KEY = 'moduleData';
-
-	/**
-	 * @var string
-	 */
-	const PHPUNIT_SETTINGS_KEY = 'tools_txphpunitM1';
+	const PHPUNIT_SETTINGS_KEY = 'Tx_Phpunit_BackEndSettings';
 
 	/**
 	 * Returns the value stored for the key $key.
@@ -55,11 +50,11 @@ class Tx_Phpunit_Service_UserSettingsService extends Tx_Phpunit_Service_Abstract
 	 */
 	protected function get($key) {
 		$this->checkForNonEmptyKey($key);
-		if (!isset($GLOBALS['BE_USER']->uc[self::MODULE_DATA_KEY][self::PHPUNIT_SETTINGS_KEY][$key])) {
+		if (!isset($GLOBALS['BE_USER']->uc[self::PHPUNIT_SETTINGS_KEY][$key])) {
 			return NULL;
 		}
 
-		return $GLOBALS['BE_USER']->uc[self::MODULE_DATA_KEY][self::PHPUNIT_SETTINGS_KEY][$key];
+		return $GLOBALS['BE_USER']->uc[self::PHPUNIT_SETTINGS_KEY][$key];
 	}
 
 	/**
@@ -73,7 +68,7 @@ class Tx_Phpunit_Service_UserSettingsService extends Tx_Phpunit_Service_Abstract
 	public function set($key, $value) {
 		$this->checkForNonEmptyKey($key);
 
-		$GLOBALS['BE_USER']->uc[self::MODULE_DATA_KEY][self::PHPUNIT_SETTINGS_KEY][$key] = $value;
+		$GLOBALS['BE_USER']->uc[self::PHPUNIT_SETTINGS_KEY][$key] = $value;
 		$GLOBALS['BE_USER']->writeUC();
 	}
 }

@@ -91,7 +91,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getAsBooleanCanReturnFalseFromUserSettings() {
 		$key = 'foo';
-		$GLOBALS['BE_USER']->uc['moduleData']['tools_txphpunitM1'][$key] = FALSE;
+		$GLOBALS['BE_USER']->uc['Tx_Phpunit_BackEndSettings'][$key] = FALSE;
 
 		$this->assertFalse(
 			$this->fixture->getAsBoolean($key)
@@ -103,7 +103,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getAsBooleanCanReturnTrueFromUserSettings() {
 		$key = 'foo';
-		$GLOBALS['BE_USER']->uc['moduleData']['tools_txphpunitM1'][$key] = TRUE;
+		$GLOBALS['BE_USER']->uc['Tx_Phpunit_BackEndSettings'][$key] = TRUE;
 
 		$this->assertTrue(
 			$this->fixture->getAsBoolean($key)
@@ -115,7 +115,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getAsBooleanCanReturnOneStringFromUserSettingsAsTrue() {
 		$key = 'foo';
-		$GLOBALS['BE_USER']->uc['moduleData']['tools_txphpunitM1'][$key] = '1';
+		$GLOBALS['BE_USER']->uc['Tx_Phpunit_BackEndSettings'][$key] = '1';
 
 		$this->assertTrue(
 			$this->fixture->getAsBoolean($key)
@@ -162,7 +162,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	public function getAsIntegerForExistingValueReturnsValueFromUserSettings() {
 		$key = 'foo';
 		$value = 42;
-		$GLOBALS['BE_USER']->uc['moduleData']['tools_txphpunitM1'][$key] = $value;
+		$GLOBALS['BE_USER']->uc['Tx_Phpunit_BackEndSettings'][$key] = $value;
 
 		$this->assertSame(
 			$value,
@@ -176,7 +176,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	public function getAsIntegerForExistingStringValueReturnsIntegerValueFromUserSettings() {
 		$key = 'foo';
 		$value = 42;
-		$GLOBALS['BE_USER']->uc['moduleData']['tools_txphpunitM1'][$key] = (string) $value;
+		$GLOBALS['BE_USER']->uc['Tx_Phpunit_BackEndSettings'][$key] = (string) $value;
 
 		$this->assertSame(
 			$value,
@@ -253,7 +253,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	public function getAsStringForExistingValueReturnsValueFromUserSettings() {
 		$key = 'foo';
 		$value = 'bar';
-		$GLOBALS['BE_USER']->uc['moduleData']['tools_txphpunitM1'][$key] = $value;
+		$GLOBALS['BE_USER']->uc['Tx_Phpunit_BackEndSettings'][$key] = $value;
 
 		$this->assertSame(
 			$value,
@@ -267,7 +267,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	public function getAsStringForExistingIntegerValueReturnsStringValueFromUserSettings() {
 		$key = 'foo';
 		$value = '42';
-		$GLOBALS['BE_USER']->uc['moduleData']['tools_txphpunitM1'][$key] = intval($value);
+		$GLOBALS['BE_USER']->uc['Tx_Phpunit_BackEndSettings'][$key] = intval($value);
 
 		$this->assertSame(
 			$value,
@@ -331,7 +331,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	public function getAsArrayForExistingValueReturnsValueFromUserSettings() {
 		$key = 'foo';
 		$value = array('foo', 'bar');
-		$GLOBALS['BE_USER']->uc['moduleData']['tools_txphpunitM1'][$key] = $value;
+		$GLOBALS['BE_USER']->uc['Tx_Phpunit_BackEndSettings'][$key] = $value;
 
 		$this->assertSame(
 			$value,
@@ -344,7 +344,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getAsArrayForExistingIntegerValueReturnsEmptyArray() {
 		$key = 'foo';
-		$GLOBALS['BE_USER']->uc['moduleData']['tools_txphpunitM1'][$key] = 42;
+		$GLOBALS['BE_USER']->uc['Tx_Phpunit_BackEndSettings'][$key] = 42;
 
 		$this->assertSame(
 			array(),

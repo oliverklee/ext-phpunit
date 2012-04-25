@@ -68,20 +68,6 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	protected $userSettingsService = NULL;
 
 	/**
-	 * module menu items
-	 *
-	 * @var array
-	 */
-	public $MOD_MENU = array(
-		'function' => array(),
-		'extSel' => '',
-		'failure' => '',
-		'success' => '',
-		'error' => '',
-		'codeCoverage' => '',
-	);
-
-	/**
 	 * the names of classes which cannot be directly run as test cases
 	 *
 	 * @var array
@@ -246,15 +232,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * @return void
 	 */
 	protected function renderRunTests() {
-		$selectedExtensionKey = $this->userSettingsService->getAsString('extSel');
-
-		if (($selectedExtensionKey !== Tx_Phpunit_Testable::ALL_EXTENSIONS)
-			&& !$this->testFinder->existsTestableForKey($selectedExtensionKey)
-		) {
-			// We know that phpunit must be loaded.
-			$this->userSettingsService->set('extSel', 'phpunit');
-		}
-		$command = $this->userSettingsService->getAsString('extSel') ? t3lib_div::_GP('command') : '';
+		$command = ((string) t3lib_div::_GP('command') !== '') ? (string) t3lib_div::_GP('command') : '';
 		switch ($command) {
 			case 'runalltests':
 				// The fallthrough is intentional.
@@ -267,6 +245,36 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			default:
 				$this->renderRunTestsIntro();
 		}
+	}
+
+	/**
+	 * Gets the key of the currently selected testable and saves it to the user settings.
+	 *
+	 * @return string the currently selected testable key, will not be empty
+	 */
+	protected function getAndSaveSelectedTestableKey() {
+		$formData = t3lib_div::_GP('SET');
+		$testableKeyFromForm = isset($formData['extSel']) ? (string) $formData['extSel'] : '';
+		$testableKeyFromSettings = $this->userSettingsService->getAsString('extSel');
+
+		if ($testableKeyFromForm !== '') {
+			$selectedTestableKey = $testableKeyFromForm;
+		} else {
+			$selectedTestableKey = $testableKeyFromSettings;
+		}
+
+		if (($selectedTestableKey !== Tx_Phpunit_Testable::ALL_EXTENSIONS)
+			&& !$this->testFinder->existsTestableForKey($selectedTestableKey)
+		) {
+			// We know that phpunit must be loaded.
+			$selectedTestableKey = 'phpunit';
+		}
+
+		if ($selectedTestableKey !== $testableKeyFromSettings) {
+			$this->userSettingsService->set('extSel', $selectedTestableKey);
+		}
+
+		return $selectedTestableKey;
 	}
 
 	/**
@@ -288,9 +296,9 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		}
 
 		$output = $this->createExtensionSelector();
-		$selectedExtensionKey = $this->userSettingsService->getAsString('extSel');
+		$selectedExtensionKey = $this->getAndSaveSelectedTestableKey();
 
-		if (($selectedExtensionKey !== '') && ($selectedExtensionKey !== Tx_Phpunit_Testable::ALL_EXTENSIONS)) {
+		if ($selectedExtensionKey !== Tx_Phpunit_Testable::ALL_EXTENSIONS) {
 			$output .= $this->createTestCaseSelector($selectedExtensionKey) . $this->createTestSelector($selectedExtensionKey);
 		}
 		$output .= $this->createCheckboxes();
@@ -305,7 +313,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 *         HTML code for the drop-down and a surrounding form, will not be empty
 	 */
 	protected function createExtensionSelector() {
-		$selectedExtensionKey = $this->userSettingsService->getAsString('extSel');
+		$selectedExtensionKey = $this->getAndSaveSelectedTestableKey();
 
 		$options = array();
 		$options[] = '<option value="" disabled="disabled">' . $this->translate('select_extension') . '</option>';
@@ -539,7 +547,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * @return void
 	 */
 	protected function renderRunningTest() {
-		$selectedTestableKey = $this->userSettingsService->getAsString('extSel');
+		$selectedTestableKey = $this->getAndSaveSelectedTestableKey();
 		$this->renderTestingHeader($selectedTestableKey);
 
 		$testablesToProcess = $this->collectTestablesToProcess($selectedTestableKey);

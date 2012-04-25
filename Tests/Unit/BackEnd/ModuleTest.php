@@ -801,18 +801,6 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
-	public function createExtensionSelectorMarksNotSelectedExtensionAsNotSelected() {
-		$this->userSettingsService->set('extSel', 't3dd11');
-
-		$this->assertNotRegExp(
-			'#<option [^>]*selected="selected">phpunit</option>#',
-			$this->fixture->createExtensionSelector()
-		);
-	}
-
-	/**
-	 * @test
-	 */
 	public function createExtensionSelectorContainsKeyForAllExtensions() {
 		$this->assertRegExp(
 			'/<option [^>]*value="uuall"/',
