@@ -48,6 +48,11 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	protected $extensionPath = '';
 
 	/**
+	 * @var Tx_PhpUnit_Interface_Request
+	 */
+	protected $request = NULL;
+
+	/**
 	 * @var Tx_Phpunit_Service_TestFinder
 	 */
 	protected $testFinder = NULL;
@@ -96,7 +101,21 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * The destructor.
 	 */
 	public function __destruct() {
-		unset($this->testFinder, $this->coverage, $this->testListener, $this->outputService, $this->userSettingsService);
+		unset(
+			$this->request, $this->testFinder, $this->coverage, $this->testListener, $this->outputService,
+			$this->userSettingsService
+		);
+	}
+
+	/**
+	 * Injects the request.
+	 *
+	 * @param Tx_PhpUnit_Interface_Request $request the request to inject
+	 *
+	 * @return void
+	 */
+	public function injectRequest(Tx_PhpUnit_Interface_Request $request) {
+		$this->request = $request;
 	}
 
 	/**
@@ -232,7 +251,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * @return void
 	 */
 	protected function renderRunTests() {
-		$command = ((string) t3lib_div::_GP('command') !== '') ? (string) t3lib_div::_GP('command') : '';
+		$command = $this->request->getAsString('command');
 		switch ($command) {
 			case 'runalltests':
 				// The fallthrough is intentional.
@@ -253,12 +272,10 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * @return string the currently selected testable key, will not be empty
 	 */
 	protected function getAndSaveSelectedTestableKey() {
-		$formData = t3lib_div::_GP('SET');
-		$testableKeyFromForm = isset($formData['extSel']) ? (string) $formData['extSel'] : '';
 		$testableKeyFromSettings = $this->userSettingsService->getAsString('extSel');
 
-		if ($testableKeyFromForm !== '') {
-			$selectedTestableKey = $testableKeyFromForm;
+		if ($this->request->hasString('extSel')) {
+			$selectedTestableKey = $this->request->getAsString('extSel');
 		} else {
 			$selectedTestableKey = $testableKeyFromSettings;
 		}
@@ -342,14 +359,14 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$allOptions = implode(LF, $options);
 
 		$output = '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post"><p>' .
-				'<select style="' . $selectedExtensionStyle . '"name="SET[extSel]" onchange="jumpToUrl(\'' .
+				'<select style="' . $selectedExtensionStyle . '"name="tx_phpunit[extSel]" onchange="jumpToUrl(\'' .
 				htmlspecialchars($this->MCONF['_']) .
 				'&amp;SET[extSel]=\'+this.options[this.selectedIndex].value,this);">' .
 				$allOptions .
 				'</select> ' .
-				'<button type="submit" name="bingo" value="run" accesskey="a">' .
+				'<button type="submit" name="tx_phpunit[bingo}" value="run" accesskey="a">' .
 				$this->translate('run_all_tests') . '</button>' .
-				'<input type="hidden" name="command" value="runalltests" />' .
+				'<input type="hidden" name="tx_phpunit[command]" value="runalltests" />' .
 				'</p></form>';
 
 		return $output;
@@ -394,7 +411,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$testCaseFileOptionsArray = array();
 		/** @var $testCase PHPUnit_Framework_TestCase */
 		foreach ($testSuite->tests() as $testCase) {
-			$selected = ($testCase->toString() === t3lib_div::_GP('testCaseFile')) ? ' selected="selected"' : '';
+			$selected = ($testCase->toString() === $this->request->getAsString('testCaseFile')) ? ' selected="selected"' : '';
 			$testCaseFileOptionsArray[] = '<option value="' . $testCase->toString() . '"' . $selected . '>' .
 				htmlspecialchars($testCase->getName()) . '</option>';
 		}
@@ -403,11 +420,11 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 
 		return '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">' .
 				'<p>' .
-					'<select style="' . $currentStyle . '" name="testCaseFile">' .
+					'<select style="' . $currentStyle . '" name="tx_phpunit[testCaseFile]">' .
 					'<option value="">' . htmlspecialchars($this->translate('select_tests')) . '</option>' .
 					implode(LF, $testCaseFileOptionsArray) . '</select>' .
-					'<button type="submit" name="bingo" value="run" accesskey="f">' . $this->translate('runTestCaseFile') . '</button>' .
-					'<input type="hidden" name="command" value="runTestCaseFile" />' .
+					'<button type="submit" name="tx_phpunit[bingo]" value="run" accesskey="f">' . $this->translate('runTestCaseFile') . '</button>' .
+					'<input type="hidden" name="tx_phpunit[command]" value="runTestCaseFile" />' .
 				'</p>' .
 			'</form>';
 	}
@@ -449,7 +466,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 
 		// single test case
 		$testsOptionsArr = array();
-		$testCaseFile = t3lib_div::_GP('testCaseFile');
+		$testCaseFile = $this->request->getAsString('testCaseFile');
 		/** @var $testCase PHPUnit_Framework_TestSuite */
 		foreach ($testSuite->tests() as $testCase) {
 			if (!is_null($testCaseFile) && ($testCase->getName() !== $testCaseFile)) {
@@ -466,7 +483,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 					$testSuiteName = strstr($testIdentifier, '(');
 					$testSuiteName = trim($testSuiteName, '()');
 				}
-				$selected = ($testIdentifier === t3lib_div::_GP('testname')) ? ' selected="selected"' : '';
+				$selected = ($testIdentifier === $this->request->getAsString('testname')) ? ' selected="selected"' : '';
 				$testsOptionsArr[$testSuiteName][] .= '<option value="' . $testIdentifier . '"' . $selected . '>' .
 					htmlspecialchars($testName) . '</option>';
 			}
@@ -486,11 +503,11 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 
 		return '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">
 				<p>
-					<select style="' . $currentStyle . '" name="testname">
+					<select style="' . $currentStyle . '" name="tx_phpunit[testname]">
 					<option value="">' . $this->translate('select_tests') . '</option>' . $testOptionsHtml . '</select>
-					<button type="submit" name="bingo" value="run" accesskey="s">' . $this->translate('run_single_test') . '</button>
-					<input type="hidden" name="command" value="runsingletest" />
-					<input type="hidden" name="testCaseFile" value="' . $testCaseFile . '" />
+					<button type="submit" name="tx_phpunit[bingo]" value="run" accesskey="s">' . $this->translate('run_single_test') . '</button>
+					<input type="hidden" name="tx_phpunit[command]" value="runsingletest" />
+					<input type="hidden" name="tx_phpunit[testCaseFile]" value="' . $testCaseFile . '" />
 				</p>
 			</form>
 		';
@@ -564,9 +581,9 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$startMemory = memory_get_usage();
 		$startTime = microtime(TRUE);
 
-		if (t3lib_div::_GP('testname')) {
+		if ($this->request->hasString('testname')) {
 			$this->runSingleTest($testSuite, $testResult);
-		} elseif (t3lib_div::_GP('testCaseFile')) {
+		} elseif ($this->request->hasString('testCaseFile')) {
 			$this->runTestCase($testSuite, $testResult);
 		} else {
 			$this->runAllTests($testSuite, $testResult);
@@ -713,7 +730,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 					list($testSuiteName, $unused) = explode('::', $testIdentifier);
 					$this->testListener->setTestSuiteName($testSuiteName);
 				}
-				if ($testIdentifier === t3lib_div::_GP('testname')) {
+				if ($testIdentifier === $this->request->getAsString('testname')) {
 					if ($test instanceof PHPUnit_Framework_TestSuite) {
 						$this->testListener->setTotalNumberOfTests($test->count());
 					} else {
@@ -727,7 +744,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		if (!is_object($testResult)) {
 			$this->outputService->output(
 				'<h2 class="hadError">Error</h2><p>The test <strong> ' .
-					htmlspecialchars(t3lib_div::_GP('testCaseFile')) . '</strong> could not be found.</p>'
+					htmlspecialchars($this->request->getAsString('testCaseFile')) . '</strong> could not be found.</p>'
 			);
 		}
 	}
@@ -743,7 +760,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	protected function runTestCase(
 		PHPUnit_Framework_TestSuite $testSuiteWithAllTestCases, PHPUnit_Framework_TestResult $testResult
 	) {
-		$testCaseFileName = t3lib_div::_GP('testCaseFile');
+		$testCaseFileName = $this->request->getAsString('testCaseFile');
 		$this->testListener->setTestSuiteName($testCaseFileName);
 
 		$suiteNameHasBeenDisplayed = FALSE;
@@ -786,7 +803,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		if (!is_object($testResult)) {
 			$this->outputService->output(
 				'<h2 class="hadError">Error</h2><p>The test <strong> ' .
-					htmlspecialchars(t3lib_div::_GP('testname')) . '</strong> could not be found.</p>'
+					htmlspecialchars($this->request->getAsString('testname')) . '</strong> could not be found.</p>'
 			);
 			return;
 		}
@@ -850,10 +867,10 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$this->outputService->output(
 			'<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">
 				<p>
-					<button type="submit" name="bingo" value="run" accesskey="r">' . $this->translate('run_again') . '</button>
-					<input name="command" type="hidden" value="' . t3lib_div::_GP('command') . '" />
-					<input name="testname" type="hidden" value="' . t3lib_div::_GP('testname') . '" />
-					<input name="testCaseFile" type="hidden" value="' . t3lib_div::_GP('testCaseFile') . '" />
+					<button type="submit" name="tx_phpunit[bingo]" value="run" accesskey="r">' . $this->translate('run_again') . '</button>
+					<input name="tx_phpunit[command]" type="hidden" value="' . htmlspecialchars($this->request->getAsString('command')) . '" />
+					<input name="tx_phpunit[testname]" type="hidden" value="' . htmlspecialchars($this->request->getAsString('testname')) . '" />
+					<input name="tx_phpunit[testCaseFile]" type="hidden" value="' . htmlspecialchars($this->request->getAsString('testCaseFile')) . '" />
 				</p>
 			</form>' .
 				'<div id="testsHaveFinished"></div>'

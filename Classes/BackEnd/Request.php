@@ -24,21 +24,25 @@
  ***************************************************************/
 
 /**
- * This class provides functions for reading and writing testing data, e.g., fake settings or a fake request.
+ * This class provides functions for reading data from a POST/GET request.
  *
  * @package TYPO3
  * @subpackage tx_phpunit
  *
  * @author Oliver Klee <typo3-coding@oliverklee.,de>
  */
-class Tx_Phpunit_TestingDataContainer extends Tx_Phpunit_AbstractDataContainer
-	implements Tx_Phpunit_Interface_UserSettingsService, Tx_Phpunit_Interface_ExtensionSettingsService,
-	Tx_PhpUnit_Interface_Request
+class Tx_PhpUnit_BackEnd_Request extends Tx_Phpunit_AbstractDataContainer
+	implements Tx_PhpUnit_Interface_Request, t3lib_Singleton
 {
 	/**
 	 * @var array
 	 */
-	protected $data = array();
+	private $cachedRequestData = array();
+
+	/**
+	 * @var boolean
+	 */
+	private $requestDataHasBeenRetrieved = FALSE;
 
 	/**
 	 * Returns the value stored for the key $key.
@@ -49,25 +53,25 @@ class Tx_Phpunit_TestingDataContainer extends Tx_Phpunit_AbstractDataContainer
 	 */
 	protected function get($key) {
 		$this->checkForNonEmptyKey($key);
-		if (!isset($this->data[$key])) {
+		if (!$this->requestDataHasBeenRetrieved) {
+			$this->retrieveRequestData();
+		}
+		if (!isset($this->cachedRequestData[$key])) {
 			return NULL;
 		}
 
-		return $this->data[$key];
+		return $this->cachedRequestData[$key];
 	}
 
 	/**
-	 * Sets the value for the key $key.
-	 *
-	 * @param string $key the key of the value to set, must not be empty
-	 * @param mixed $value the value to set
+	 * Retrieves the EM configuration for the PHPUnit extionsion.
 	 *
 	 * @return void
 	 */
-	public function set($key, $value) {
-		$this->checkForNonEmptyKey($key);
+	protected function retrieveRequestData() {
+		$this->cachedRequestData = t3lib_div::_GP(Tx_PhpUnit_Interface_Request::PARAMETER_NAMESPACE);
 
-		$this->data[$key] = $value;
+		$this->requestDataHasBeenRetrieved = TRUE;
 	}
 }
 ?>

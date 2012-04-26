@@ -40,6 +40,11 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	private $fixture = NULL;
 
 	/**
+	 * @var Tx_Phpunit_TestingDataContainer
+	 */
+	protected $request = NULL;
+
+	/**
 	 * @var Tx_PhpUnit_Service_FakeOutputService
 	 */
 	protected $outputService = NULL;
@@ -55,20 +60,6 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	private $backEndUserBackup = NULL;
 
 	/**
-	 * backup of $_POST
-	 *
-	 * @var array
-	 */
-	private $postBackup = array();
-
-	/**
-	 * backup of $_GET
-	 *
-	 * @var array
-	 */
-	private $getBackup = array();
-
-	/**
 	 * @var Tx_Phpunit_Service_TestFinder
 	 */
 	protected $testFinder = NULL;
@@ -80,13 +71,12 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 	public function setUp() {
 		$this->backEndUserBackup = $GLOBALS['BE_USER'];
-		$this->postBackup = $_POST;
-		$this->getBackup = $_GET;
-		$_POST = array();
-		$_GET = array();
 
 		$fixtureClassName = $this->createAccessibleProxy();
 		$this->fixture = new $fixtureClassName();
+
+		$this->request = new Tx_Phpunit_TestingDataContainer();
+		$this->fixture->injectRequest($this->request);
 
 		$this->outputService = new Tx_PhpUnit_Service_FakeOutputService();
 		$this->fixture->injectOutputService($this->outputService);
@@ -103,14 +93,11 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	public function tearDown() {
 		$this->fixture->__destruct();
 
-		$_POST = $this->postBackup;
-		$_GET = $this->getBackup;
-
 		$GLOBALS['BE_USER'] = $this->backEndUserBackup;
 
 		unset(
-			$this->fixture, $this->outputService, $this->userSettingsService, $this->backEndUserBackup, $this->testFinder,
-			$this->extensionSettingsService
+			$this->fixture, $this->request, $this->outputService, $this->userSettingsService, $this->backEndUserBackup,
+			$this->testFinder, $this->extensionSettingsService
 		);
 	}
 
@@ -202,6 +189,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
 		$fixture = $this->getMock($this->createAccessibleProxy(), array('renderRunTests'));
+		$fixture->injectRequest($this->request);
 		$fixture->injectOutputService($this->outputService);
 		$fixture->injectUserSettingsService($this->userSettingsService);
 		$fixture->expects($this->once())->method('renderRunTests');
@@ -214,10 +202,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 */
 	public function renderRunTestsForEmptyCommandRendersIntro() {
 		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock(
-			$this->createAccessibleProxy(),
-			array('renderRunTestsIntro', 'renderRunningTest')
-		);
+		$fixture = $this->getMock($this->createAccessibleProxy(), array('renderRunTestsIntro', 'renderRunningTest'));
+		$fixture->injectRequest($this->request);
 		$fixture->injectOutputService($this->outputService);
 		$fixture->injectTestFinder($this->testFinder);
 
@@ -226,7 +212,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		$fixture->expects($this->once())->method('renderRunTestsIntro');
 
-		$_GET['command'] = '';
+		$this->request->set('command', '');
 
 		$fixture->renderRunTests();
 	}
@@ -236,10 +222,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 */
 	public function renderRunTestsForEmptyCommandNotRunsTests() {
 		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock(
-			$this->createAccessibleProxy(),
-			array('renderRunTestsIntro', 'renderRunningTest')
-		);
+		$fixture = $this->getMock($this->createAccessibleProxy(), array('renderRunTestsIntro', 'renderRunningTest'));
+		$fixture->injectRequest($this->request);
 		$fixture->injectOutputService($this->outputService);
 		$fixture->injectTestFinder($this->testFinder);
 
@@ -248,7 +232,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		$fixture->expects($this->never())->method('renderRunningTest');
 
-		$_GET['command'] = '';
+		$this->request->set('command', '');
 
 		$fixture->renderRunTests();
 	}
@@ -258,10 +242,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 */
 	public function renderRunTestsForInvalidCommandRendersIntro() {
 		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock(
-			$this->createAccessibleProxy(),
-			array('renderRunTestsIntro', 'renderRunningTest')
-		);
+		$fixture = $this->getMock($this->createAccessibleProxy(), array('renderRunTestsIntro', 'renderRunningTest'));
+		$fixture->injectRequest($this->request);
 		$fixture->injectOutputService($this->outputService);
 		$fixture->injectTestFinder($this->testFinder);
 
@@ -270,7 +252,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		$fixture->expects($this->once())->method('renderRunTestsIntro');
 
-		$_GET['command'] = 'invalid';
+		$this->request->set('command', 'invalid');
 
 		$fixture->renderRunTests();
 	}
@@ -280,10 +262,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 */
 	public function renderRunTestsForInvalidCommandNotRunsTests() {
 		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock(
-			$this->createAccessibleProxy(),
-			array('renderRunTestsIntro', 'renderRunningTest')
-		);
+		$fixture = $this->getMock($this->createAccessibleProxy(), array('renderRunTestsIntro', 'renderRunningTest'));
+		$fixture->injectRequest($this->request);
 		$fixture->injectOutputService($this->outputService);
 		$fixture->injectTestFinder($this->testFinder);
 
@@ -292,7 +272,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		$fixture->expects($this->never())->method('renderRunningTest');
 
-		$_GET['command'] = 'invalid';
+		$this->request->set('command', 'invalid');
 
 		$fixture->renderRunTests();
 	}
@@ -302,10 +282,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 */
 	public function renderRunTestsForRunAllTestsCommandRendersIntroAndTests() {
 		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock(
-			$this->createAccessibleProxy(),
-			array('renderRunTestsIntro', 'renderRunningTest')
-		);
+		$fixture = $this->getMock($this->createAccessibleProxy(), array('renderRunTestsIntro', 'renderRunningTest'));
+		$fixture->injectRequest($this->request);
 		$fixture->injectOutputService($this->outputService);
 		$fixture->injectTestFinder($this->testFinder);
 
@@ -315,7 +293,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$fixture->expects($this->once())->method('renderRunTestsIntro');
 		$fixture->expects($this->once())->method('renderRunningTest');
 
-		$_GET['command'] = 'runalltests';
+		$this->request->set('command', 'runalltests');
 
 		$fixture->renderRunTests();
 	}
@@ -325,10 +303,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 */
 	public function renderRunTestsForRunTestCaseFileCommandRendersIntroAndTests() {
 		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock(
-			$this->createAccessibleProxy(),
-			array('renderRunTestsIntro', 'renderRunningTest')
-		);
+		$fixture = $this->getMock($this->createAccessibleProxy(), array('renderRunTestsIntro', 'renderRunningTest'));
+		$fixture->injectRequest($this->request);
 		$fixture->injectOutputService($this->outputService);
 		$fixture->injectTestFinder($this->testFinder);
 
@@ -338,7 +314,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$fixture->expects($this->once())->method('renderRunTestsIntro');
 		$fixture->expects($this->once())->method('renderRunningTest');
 
-		$_GET['command'] = 'runTestCaseFile';
+		$this->request->set('command', 'runTestCaseFile');
 
 		$fixture->renderRunTests();
 	}
@@ -348,10 +324,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 */
 	public function renderRunTestsForRunSingleTestCommandRendersIntroAndTests() {
 		/** @var $fixture Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock(
-			$this->createAccessibleProxy(),
-			array('renderRunTestsIntro', 'renderRunningTest')
-		);
+		$fixture = $this->getMock($this->createAccessibleProxy(), array('renderRunTestsIntro', 'renderRunningTest'));
+		$fixture->injectRequest($this->request);
 		$fixture->injectOutputService($this->outputService);
 		$fixture->injectTestFinder($this->testFinder);
 
@@ -361,7 +335,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$fixture->expects($this->once())->method('renderRunTestsIntro');
 		$fixture->expects($this->once())->method('renderRunningTest');
 
-		$_GET['command'] = 'runsingletest';
+		$this->request->set('command', 'runsingletest');
 
 		$fixture->renderRunTests();
 	}
@@ -375,6 +349,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			$this->createAccessibleProxy(),
 			array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector')
 		);
+		$fixture->injectRequest($this->request);
 		$fixture->injectOutputService($this->outputService);
 
 		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
@@ -402,6 +377,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			$this->createAccessibleProxy(),
 			array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector')
 		);
+		$fixture->injectRequest($this->request);
 		$fixture->injectOutputService($this->outputService);
 		$fixture->injectTestFinder($this->testFinder);
 
@@ -428,6 +404,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			$this->createAccessibleProxy(),
 			array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector')
 		);
+		$fixture->injectRequest($this->request);
 		$fixture->injectOutputService($this->outputService);
 
 		$this->userSettingsService->set('extSel', 'phpunit');
@@ -456,6 +433,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			$this->createAccessibleProxy(),
 			array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector')
 		);
+		$fixture->injectRequest($this->request);
 		$fixture->injectOutputService($this->outputService);
 		$fixture->injectTestFinder($this->testFinder);
 
@@ -484,6 +462,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			$this->createAccessibleProxy(),
 			array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector')
 		);
+		$fixture->injectRequest($this->request);
 		$fixture->injectOutputService($this->outputService);
 		$fixture->injectTestFinder($this->testFinder);
 
@@ -512,6 +491,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			$this->createAccessibleProxy(),
 			array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector')
 		);
+		$fixture->injectRequest($this->request);
 		$fixture->injectOutputService($this->outputService);
 		$fixture->injectTestFinder($this->testFinder);
 
@@ -747,6 +727,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		/** @var $fixture Tx_Phpunit_BackEnd_Module */
 		$fixture = new $className();
 
+		$fixture->injectRequest($this->request);
 		$this->userSettingsService->set('extSel', $selectedExtension);
 		$fixture->injectUserSettingsService($this->userSettingsService);
 		$fixture->injectTestFinder($this->testFinder);
@@ -926,7 +907,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	public function createTestCaseSelectorMarksSelectedTestCaseAsSelected() {
 		$selectedExtension = 'phpunit';
 		$this->userSettingsService->set('extSel', $selectedExtension);
-		$_GET['testCaseFile'] = 'Tx_Phpunit_Service_TestFinderTest';
+		$this->request->set('testCaseFile', 'Tx_Phpunit_Service_TestFinderTest');
 
 		$this->assertRegExp(
 			'#<option [^>]* selected="selected">Tx_Phpunit_Service_TestFinderTest</option>#',
@@ -940,7 +921,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	public function createTestCaseSelectorMarksForOtherTestCaseSelectedTestCaseAsNotSelected() {
 		$selectedExtension = 'phpunit';
 		$this->userSettingsService->set('extSel', $selectedExtension);
-		$_GET['testCaseFile'] = 'Tx_Phpunit_Service_TestFinderTest';
+		$this->request->set('testCaseFile', 'Tx_Phpunit_Service_TestFinderTest');
 
 		$this->assertNotRegExp(
 			'#<option [^>]* selected="selected">Tx_Phpunit_BackEnd_ModuleTest</option>#',
@@ -954,7 +935,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	public function createTestCaseSelectorMarksNoTestCaseSelectedTestCaseAsNotSelected() {
 		$selectedExtension = 'phpunit';
 		$this->userSettingsService->set('extSel', $selectedExtension);
-		$_GET['testCaseFile'] = '';
+		$this->request->set('testCaseFile', '');
 
 		$this->assertNotRegExp(
 			'#<option [^>]* selected="selected">Tx_Phpunit_BackEnd_ModuleTest</option>#',

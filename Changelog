@@ -1,4 +1,5 @@
 2012-04-26 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #36576: Add a Request class
 	* Fixed Bug #36582: Rename AbstractSettingsService to AbstractDataContainer and FakeSettingsService to TestingDataContainer
 
 2012-04-25 Oliver Klee <typo3-coding@oliverklee.de>

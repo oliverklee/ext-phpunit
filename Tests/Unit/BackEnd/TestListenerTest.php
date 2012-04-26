@@ -697,7 +697,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		$test = $this->getMock('PHPUnit_Framework_TestCase', array(), array('myTest'));
 
 		$this->assertContains(
-			'command=runsingletest',
+			'tx_phpunit[command]=runsingletest',
 			$this->fixture->createReRunUrl($test)
 		);
 	}
@@ -712,7 +712,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		$this->fixture->setTestSuiteName('myTestCase');
 
 		$this->assertContains(
-			'testCaseFile=myTestCase',
+			'tx_phpunit[testCaseFile]=myTestCase',
 			$this->fixture->createReRunUrl($test)
 		);
 	}
@@ -727,7 +727,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		$this->fixture->setTestSuiteName('myTestCase');
 
 		$this->assertContains(
-			'testname=myTest',
+			'tx_phpunit[testname]=myTest',
 			$this->fixture->createReRunUrl($test)
 		);
 	}
