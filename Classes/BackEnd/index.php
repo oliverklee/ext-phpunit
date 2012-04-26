@@ -47,25 +47,25 @@ require_once('PHPUnit/Autoload.php');
 
 $GLOBALS['LANG']->includeLLFile('EXT:phpunit/Resources/Private/Language/locallang_backend.xml');
 
-/** @var $outputService Tx_PhpUnit_Service_OutputService */
-$outputService = t3lib_div::makeInstance('Tx_PhpUnit_Service_OutputService');
+/** @var $outputService Tx_Phpunit_Service_OutputService */
+$outputService = t3lib_div::makeInstance('Tx_Phpunit_Service_OutputService');
 
-/** @var $userSettingsService Tx_PhpUnit_Service_UserSettingsService */
-$userSettingsService = t3lib_div::makeInstance('Tx_PhpUnit_Service_UserSettingsService');
+/** @var $userSettingsService Tx_Phpunit_Service_UserSettingsService */
+$userSettingsService = t3lib_div::makeInstance('Tx_Phpunit_Service_UserSettingsService');
 
-/** @var $testListener Tx_PhpUnit_BackEnd_TestListener */
-$testListener = t3lib_div::makeInstance('Tx_PhpUnit_BackEnd_TestListener');
+/** @var $testListener Tx_Phpunit_BackEnd_TestListener */
+$testListener = t3lib_div::makeInstance('Tx_Phpunit_BackEnd_TestListener');
 $testListener->injectOutputService($outputService);
 
-/** @var $extensionSettingsService Tx_PhpUnit_Service_ExtensionSettingsService */
-$extensionSettingsService = t3lib_div::makeInstance('Tx_PhpUnit_Service_ExtensionSettingsService');
+/** @var $extensionSettingsService Tx_Phpunit_Service_ExtensionSettingsService */
+$extensionSettingsService = t3lib_div::makeInstance('Tx_Phpunit_Service_ExtensionSettingsService');
 
 /** @var $testFinder Tx_Phpunit_Service_TestFinder */
 $testFinder = t3lib_div::makeInstance('Tx_Phpunit_Service_TestFinder');
 $testFinder->injectExtensionSettingsService($extensionSettingsService);
 
-/** @var $request Tx_PhpUnit_BackEnd_Request */
-$request = t3lib_div::makeInstance('Tx_PhpUnit_BackEnd_Request');
+/** @var $request Tx_Phpunit_BackEnd_Request */
+$request = t3lib_div::makeInstance('Tx_Phpunit_BackEnd_Request');
 
 /** @var $module Tx_Phpunit_BackEnd_Module */
 $module = t3lib_div::makeInstance('Tx_Phpunit_BackEnd_Module');

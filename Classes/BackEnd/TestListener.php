@@ -33,9 +33,9 @@
  * @author Michael Klapper <michael.klapper@aoemedia.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener {
+class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener {
 	/**
-	 * @var Tx_PhpUnit_Service_OutputService
+	 * @var Tx_Phpunit_Service_OutputService
 	 */
 	protected $outputService = NULL;
 
@@ -147,11 +147,11 @@ class Tx_PhpUnit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	/**
 	 * Injects the output service.
 	 *
-	 * @param Tx_PhpUnit_Service_OutputService $outputService the output service to inject
+	 * @param Tx_Phpunit_Service_OutputService $outputService the output service to inject
 	 *
 	 * @return void
 	 */
-	public function injectOutputService(Tx_PhpUnit_Service_OutputService $outputService) {
+	public function injectOutputService(Tx_Phpunit_Service_OutputService $outputService) {
 		$this->outputService = $outputService;
 	}
 

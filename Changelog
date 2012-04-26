@@ -1,4 +1,5 @@
 2012-04-26 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #36583: Unify the class name prefixes to "Tx_Phpunit" (with an lowercase "U")
 	* Fixed Bug #36576: Add a Request class
 	* Fixed Bug #36582: Rename AbstractSettingsService to AbstractDataContainer and FakeSettingsService to TestingDataContainer
 

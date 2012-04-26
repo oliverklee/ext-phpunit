@@ -24,14 +24,14 @@
  ***************************************************************/
 
 /**
- * Test case for class Tx_PhpUnit_BackEnd_Request.
+ * Test case for class Tx_Phpunit_BackEnd_Request.
  *
  * @package TYPO3
  * @subpackage tx_phpunit
  *
  * @author Oliver Klee <typo3-coding@oliverklee.,de>
  */
-class Tx_PhpUnit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
+class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var boolean
 	 */
@@ -46,7 +46,7 @@ class Tx_PhpUnit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	protected $backupGlobalsBlacklist = array('TYPO3_DB');
 
 	/**
-	 * @var Tx_PhpUnit_BackEnd_Request
+	 * @var Tx_Phpunit_BackEnd_Request
 	 */
 	protected $fixture = NULL;
 
@@ -68,7 +68,7 @@ class Tx_PhpUnit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 		$GLOBALS['_GET'] = array();
 		$GLOBALS['_POST'] = array();
 
-		$this->fixture = new Tx_PhpUnit_BackEnd_Request();
+		$this->fixture = new Tx_Phpunit_BackEnd_Request();
 	}
 
 	public function tearDown() {
@@ -80,7 +80,7 @@ class Tx_PhpUnit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	 */
 	public function classIsRequest() {
 		$this->assertInstanceOf(
-			'Tx_PhpUnit_Interface_Request',
+			'Tx_Phpunit_Interface_Request',
 			$this->fixture
 		);
 	}

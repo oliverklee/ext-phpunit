@@ -48,7 +48,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	protected $extensionPath = '';
 
 	/**
-	 * @var Tx_PhpUnit_Interface_Request
+	 * @var Tx_Phpunit_Interface_Request
 	 */
 	protected $request = NULL;
 
@@ -58,12 +58,12 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	protected $testFinder = NULL;
 
 	/**
-	 * @var Tx_PhpUnit_BackEnd_TestListener
+	 * @var Tx_Phpunit_BackEnd_TestListener
 	 */
 	protected $testListener = NULL;
 
 	/**
-	 * @var Tx_PhpUnit_Service_OutputService
+	 * @var Tx_Phpunit_Service_OutputService
 	 */
 	protected $outputService = NULL;
 
@@ -110,33 +110,33 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	/**
 	 * Injects the request.
 	 *
-	 * @param Tx_PhpUnit_Interface_Request $request the request to inject
+	 * @param Tx_Phpunit_Interface_Request $request the request to inject
 	 *
 	 * @return void
 	 */
-	public function injectRequest(Tx_PhpUnit_Interface_Request $request) {
+	public function injectRequest(Tx_Phpunit_Interface_Request $request) {
 		$this->request = $request;
 	}
 
 	/**
 	 * Injects the test listener.
 	 *
-	 * @param Tx_PhpUnit_BackEnd_TestListener $testListener the test listener to inject
+	 * @param Tx_Phpunit_BackEnd_TestListener $testListener the test listener to inject
 	 *
 	 * @return void
 	 */
-	public function injectTestListener(Tx_PhpUnit_BackEnd_TestListener $testListener) {
+	public function injectTestListener(Tx_Phpunit_BackEnd_TestListener $testListener) {
 		$this->testListener = $testListener;
 	}
 
 	/**
 	 * Injects the output service.
 	 *
-	 * @param Tx_PhpUnit_Service_OutputService $service the service to inject
+	 * @param Tx_Phpunit_Service_OutputService $service the service to inject
 	 *
 	 * @return void
 	 */
-	public function injectOutputService(Tx_PhpUnit_Service_OutputService $service) {
+	public function injectOutputService(Tx_Phpunit_Service_OutputService $service) {
 		$this->outputService = $service;
 	}
 

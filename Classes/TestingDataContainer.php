@@ -33,7 +33,7 @@
  */
 class Tx_Phpunit_TestingDataContainer extends Tx_Phpunit_AbstractDataContainer
 	implements Tx_Phpunit_Interface_UserSettingsService, Tx_Phpunit_Interface_ExtensionSettingsService,
-	Tx_PhpUnit_Interface_Request
+	Tx_Phpunit_Interface_Request
 {
 	/**
 	 * @var array

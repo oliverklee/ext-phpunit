@@ -45,7 +45,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	protected $request = NULL;
 
 	/**
-	 * @var Tx_PhpUnit_Service_FakeOutputService
+	 * @var Tx_Phpunit_Service_FakeOutputService
 	 */
 	protected $outputService = NULL;
 
@@ -78,7 +78,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->request = new Tx_Phpunit_TestingDataContainer();
 		$this->fixture->injectRequest($this->request);
 
-		$this->outputService = new Tx_PhpUnit_Service_FakeOutputService();
+		$this->outputService = new Tx_Phpunit_Service_FakeOutputService();
 		$this->fixture->injectOutputService($this->outputService);
 
 		$this->userSettingsService = new Tx_Phpunit_TestingDataContainer();

@@ -37,12 +37,12 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	private $fixture;
 
 	/**
-	 * @var Tx_PhpUnit_Service_FakeOutputService
+	 * @var Tx_Phpunit_Service_FakeOutputService
 	 */
 	protected $outputService = NULL;
 
 	public function setUp() {
-		$this->outputService = new Tx_PhpUnit_Service_FakeOutputService();
+		$this->outputService = new Tx_Phpunit_Service_FakeOutputService();
 
 		$fixtureClassName = $this->createAccessibleProxy();
 		$this->fixture = new $fixtureClassName();

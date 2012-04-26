@@ -31,7 +31,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.,de>
  */
-interface Tx_PhpUnit_Interface_Request {
+interface Tx_Phpunit_Interface_Request {
 	/**
 	 * @var string
 	 */

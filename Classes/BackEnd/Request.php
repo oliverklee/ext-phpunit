@@ -31,8 +31,8 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.,de>
  */
-class Tx_PhpUnit_BackEnd_Request extends Tx_Phpunit_AbstractDataContainer
-	implements Tx_PhpUnit_Interface_Request, t3lib_Singleton
+class Tx_Phpunit_BackEnd_Request extends Tx_Phpunit_AbstractDataContainer
+	implements Tx_Phpunit_Interface_Request, t3lib_Singleton
 {
 	/**
 	 * @var array
@@ -69,7 +69,7 @@ class Tx_PhpUnit_BackEnd_Request extends Tx_Phpunit_AbstractDataContainer
 	 * @return void
 	 */
 	protected function retrieveRequestData() {
-		$this->cachedRequestData = t3lib_div::_GP(Tx_PhpUnit_Interface_Request::PARAMETER_NAMESPACE);
+		$this->cachedRequestData = t3lib_div::_GP(Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE);
 
 		$this->requestDataHasBeenRetrieved = TRUE;
 	}
