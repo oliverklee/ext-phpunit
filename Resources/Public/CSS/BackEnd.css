@@ -63,19 +63,11 @@ body#typo3-mod-php {
 	width: 800px;
 }
 
-#progress-bar,
-#transparent-bar  {
+#progress-bar {
 	border: 0;
 	height: 100%;
-}
-
-#progress-bar {
+	width: 0;
 	float: left;
-}
-
-#transparent-bar {
-	float: left;
-	background-color: #d3d3d3;
 }
 
 .alltests {

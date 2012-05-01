@@ -39,10 +39,7 @@ class Tx_Phpunit_ViewHelpers_ProgressBarViewHelper extends Tx_Phpunit_ViewHelper
 	 */
 	public function render() {
 		$this->outputService->output(
-			'<div class="progress-bar-wrap">' .
-				'<span id="progress-bar" class="wasSuccessful">&nbsp;</span>' .
-				'<span id="transparent-bar">&nbsp;</span>' .
-			'</div>'
+			'<div class="progress-bar-wrap"><span id="progress-bar" class="wasSuccessful"></span></div>'
 		);
 	}
 }

@@ -488,9 +488,7 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 		}
 		$output .= '</div>' .
 			'<script type="text/javascript">/*<![CDATA[*/document.getElementById("progress-bar").style.width = "' .
-			$percentDone . '%";/*]]>*/</script>' .
-			'<script type="text/javascript">/*<![CDATA[*/document.getElementById("transparent-bar").style.width = "' .
-			(100.0 - $percentDone) . '%";/*]]>*/</script>';
+			$percentDone . '%";/*]]>*/</script>';
 
 		$this->outputService->output($output);
 		$this->outputService->flushOutputBuffer();

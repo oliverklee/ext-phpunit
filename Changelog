@@ -1,4 +1,6 @@
 2012-05-01 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #13028: Rightmost pixel of progress bar alternates between dark grey and light grey while running the tests
+	* Fixed Bug #36757: Drop the transparent bar
 	* Fixed Bug #36755: Use the request namespace from the request interface when building forms and URLs
 	* Fixed Bug #36646: Move the form field names to the Request interface
 	* Fixed Bug #36753: Cannot select any other extension than phpunit in the drop-down
