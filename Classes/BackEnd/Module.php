@@ -361,7 +361,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$output = '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post"><p>' .
 				'<select style="' . $selectedExtensionStyle . '"name="tx_phpunit[extSel]" onchange="jumpToUrl(\'' .
 				htmlspecialchars($this->MCONF['_']) .
-				'&amp;SET[extSel]=\'+this.options[this.selectedIndex].value,this);">' .
+				'&amp;tx_phpunit[extSel]=\'+this.options[this.selectedIndex].value,this);">' .
 				$allOptions .
 				'</select> ' .
 				'<button type="submit" name="tx_phpunit[bingo}" value="run" accesskey="a">' .
