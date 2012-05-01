@@ -30,6 +30,8 @@ return array(
 	'tx_phpunit_testcase' => $extensionPath . 'Classes/TestCase.php',
 	'tx_phpunit_test_testsuite' => $extensionPath . 'Tests/tx_phpunit_testsuite.php',
 	'tx_phpunit_testingdatacontainer' => $extensionPath . 'Classes/TestingDataContainer.php',
+	'tx_phpunit_viewhelpers_abstractviewhelper' => $extensionPath . 'Classes/ViewHelpers/AbstractViewHelper.php',
+	'tx_phpunit_viewhelpers_progressbarviewhelper' => $extensionPath . 'Classes/ViewHelpers/ProgressBarViewHelper.php',
 	'vfsstream' => $vfsStreamPath . 'vfsStream.php',
 	'vfsstreamabstractContent' => $vfsStreamPath . 'vfsStreamAbstractContent.php',
 	'vfsstreamcontainer' => $vfsStreamPath . 'vfsStreamContainer.php',

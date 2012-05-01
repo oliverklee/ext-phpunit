@@ -909,12 +909,10 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * @return void
 	 */
 	protected function renderProgressbar() {
-		$this->outputService->output(
-			'<div class="progress-bar-wrap">
-				<span id="progress-bar" class="wasSuccessful">&nbsp;</span>
-				<span id="transparent-bar">&nbsp;</span>
-			</div>'
-		);
+		/** @var $progressBarViewHelper Tx_Phpunit_ViewHelpers_ProgressBarViewHelper */
+		$progressBarViewHelper = t3lib_div::makeInstance('Tx_Phpunit_ViewHelpers_ProgressBarViewHelper');
+		$progressBarViewHelper->injectOutputService($this->outputService);
+		$progressBarViewHelper->render();
 	}
 
 	/*********************************************************

@@ -69,6 +69,11 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 */
 	protected $extensionSettingsService = NULL;
 
+	/**
+	 * @var Tx_Phpunit_ViewHelpers_ProgressBarViewHelper|PHPUnit_Framework_MockObject_MockObject
+	 */
+	protected $progressBarViewHelper = NULL;
+
 	public function setUp() {
 		$this->backEndUserBackup = $GLOBALS['BE_USER'];
 
@@ -88,12 +93,17 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->extensionSettingsService = new Tx_Phpunit_TestingDataContainer();
 		$this->testFinder->injectExtensionSettingsService($this->extensionSettingsService);
 		$this->fixture->injectTestFinder($this->testFinder);
+
+		$this->progressBarViewHelper = $this->getMock('Tx_Phpunit_ViewHelpers_ProgressBarViewHelper');
+		t3lib_div::addInstance('Tx_Phpunit_ViewHelpers_ProgressBarViewHelper', $this->progressBarViewHelper);
 	}
 
 	public function tearDown() {
 		$this->fixture->__destruct();
 
 		$GLOBALS['BE_USER'] = $this->backEndUserBackup;
+
+		t3lib_div::purgeInstances();
 
 		unset(
 			$this->fixture, $this->request, $this->outputService, $this->userSettingsService, $this->backEndUserBackup,
