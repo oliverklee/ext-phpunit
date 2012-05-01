@@ -1,3 +1,6 @@
+2012-05-01 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #36169: Call to undefined method setBrowserUrl in Tx_Phpunit_Selenium_TestCase::__construct
+
 2012-04-26 Oliver Klee <typo3-coding@oliverklee.de>
 	* Fixed Bug #36583: Unify the class name prefixes to "Tx_Phpunit" (with an lowercase "U")
 	* Fixed Bug #36576: Add a Request class

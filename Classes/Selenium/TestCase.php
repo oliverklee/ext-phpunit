@@ -33,7 +33,7 @@
  * @author Bastian Waidelich <bastian@typo3.org>
  * @author Carsten Koenig <ck@carsten-koenig.de>
  */
-class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_SeleniumTestCase {
+class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_Selenium2TestCase {
 	/**
 	 * the default Selenium server host address
 	 *
