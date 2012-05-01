@@ -251,6 +251,116 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
+	public function callRefCanCallMethodWithoutParameter() {
+		$this->assertSame(
+			'0: ',
+			$this->accessibleMock->_callRef(
+				'argumentChecker'
+			)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function callRefCanPassOneParametersToMethod() {
+		$parameter = 1;
+		$this->assertSame(
+			'1: 1',
+			$this->accessibleMock->_callRef(
+				'argumentChecker',
+				$parameter
+			)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function callRefCanPassTwoParametersToMethod() {
+		$parameter = 1;
+		$this->assertSame(
+			'2: 1, 1',
+			$this->accessibleMock->_callRef(
+				'argumentChecker',
+				$parameter, $parameter
+			)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function callRefCanPassThreeParametersToMethod() {
+		$parameter = 1;
+		$this->assertSame(
+			'3: 1, 1, 1',
+			$this->accessibleMock->_callRef(
+				'argumentChecker',
+				$parameter, $parameter, $parameter
+			)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function callRefCanPassFourParametersToMethod() {
+		$parameter = 1;
+		$this->assertSame(
+			'4: 1, 1, 1, 1',
+			$this->accessibleMock->_callRef(
+				'argumentChecker',
+				$parameter, $parameter, $parameter, $parameter
+			)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function callRefCanPassFiveParametersToMethod() {
+		$parameter = 1;
+		$this->assertSame(
+			'5: 1, 1, 1, 1, 1',
+			$this->accessibleMock->_callRef(
+				'argumentChecker',
+				$parameter, $parameter, $parameter, $parameter, $parameter
+			)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function callRefCanPassSixParametersToMethod() {
+		$parameter = 1;
+		$this->assertSame(
+			'6: 1, 1, 1, 1, 1, 1',
+			$this->accessibleMock->_callRef(
+				'argumentChecker',
+				$parameter, $parameter, $parameter, $parameter, $parameter, $parameter
+			)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function callRefCanPassSevenParametersToMethod() {
+		$parameter = 1;
+		$this->assertSame(
+			'7: 1, 1, 1, 1, 1, 1, 1',
+			$this->accessibleMock->_callRef(
+				'argumentChecker',
+				$parameter, $parameter, $parameter, $parameter, $parameter, $parameter, $parameter
+			)
+		);
+	}
+
+	/**
+	 * @test
+	 */
 	public function callRefCanPassEightParametersToMethod() {
 		$parameter = 1;
 		$this->assertSame(
@@ -264,12 +374,26 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 
 	/**
 	 * @test
+	 */
+	public function callRefCanPassNineParametersToMethod() {
+		$parameter = 1;
+		$this->assertSame(
+			'9: 1, 1, 1, 1, 1, 1, 1, 1, 1',
+			$this->accessibleMock->_callRef(
+				'argumentChecker',
+				$parameter, $parameter, $parameter, $parameter, $parameter, $parameter, $parameter, $parameter, $parameter
+			)
+		);
+	}
+
+	/**
+	 * @test
 	 * @expectedException InvalidArgumentException
 	 */
-	public function callRefForNineParametersThrowsException() {
+	public function callRefForTenParametersThrowsException() {
 		$this->accessibleMock->_callRef(
 			'argumentChecker',
-			$parameter, $parameter, $parameter, $parameter, $parameter, $parameter, $parameter, $parameter, $parameter
+			$parameter, $parameter, $parameter, $parameter, $parameter, $parameter, $parameter, $parameter, $parameter, $parameter
 		);
 	}
 }

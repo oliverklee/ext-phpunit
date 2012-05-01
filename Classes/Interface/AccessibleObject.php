@@ -53,13 +53,12 @@ interface Tx_Phpunit_Interface_AccessibleObject {
 	 * @param mixed &$arg7 seventh argument given to method $methodName
 	 * @param mixed &$arg8 eighth argument given to method $methodName
 	 * @param mixed &$arg9 ninth argument given to method $methodName
-	 * @param mixed &$arg10 tenth argument given to method $methodName
 	 *
 	 * @return mixed the return value from the method $methodName
 	 */
 	public function _callRef(
 		$methodName, &$arg1 = NULL, &$arg2 = NULL, &$arg3 = NULL, &$arg4 = NULL, &$arg5= NULL, &$arg6 = NULL, &$arg7 = NULL,
-		&$arg8 = NULL, &$arg9 = NULL, &$arg10 = NULL
+		&$arg8 = NULL, &$arg9 = NULL
 	);
 
 	/**

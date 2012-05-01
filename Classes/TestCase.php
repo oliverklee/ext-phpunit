@@ -114,7 +114,7 @@ abstract class Tx_Phpunit_TestCase extends PHPUnit_Framework_TestCase {
 					'}' .
 					'public function _callRef(' .
 						'$methodName, &$arg1 = NULL, &$arg2 = NULL, &$arg3 = NULL, &$arg4 = NULL, &$arg5= NULL, &$arg6 = NULL, ' .
-						'&$arg7 = NULL, &$arg8 = NULL, &$arg9 = NULL, &$arg10 = NULL' .
+						'&$arg7 = NULL, &$arg8 = NULL, &$arg9 = NULL' .
 					') {' .
 						'if ($methodName === \'\') {' .
 							'throw new InvalidArgumentException(\'$methodName must not be empty.\', 1334664210);' .
@@ -150,9 +150,14 @@ abstract class Tx_Phpunit_TestCase extends PHPUnit_Framework_TestCase {
 							'case 9:' .
 								'$returnValue = $this->$methodName($arg1, $arg2, $arg3, $arg4, $arg5, $arg6, $arg7, $arg8);' .
 								'break;' .
+							'case 10:' .
+								'$returnValue = $this->$methodName(' .
+									'$arg1, $arg2, $arg3, $arg4, $arg5, $arg6, $arg7, $arg8, $arg9' .
+								');' .
+								'break;' .
 							'default:' .
 								'throw new InvalidArgumentException(' .
-									'\'_callRef currently only allows calls to methods with no more than 8 parameters.\'' .
+									'\'_callRef currently only allows calls to methods with no more than 9 parameters.\'' .
 								');' .
 						'}' .
 						'return $returnValue;' .
