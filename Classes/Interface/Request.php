@@ -31,55 +31,10 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.,de>
  */
-interface Tx_Phpunit_Interface_Request {
+interface Tx_Phpunit_Interface_Request extends Tx_Phpunit_Interface_ConvertService {
 	/**
 	 * @var string
 	 */
 	const PARAMETER_NAMESPACE = 'tx_phpunit';
-
-	/**
-	 * Returns the boolean value stored for the key $key.
-	 *
-	 * @param string $key the key of the value to retrieve, must not be empty
-	 *
-	 * @return boolean the value for the given key, will be FALSE if there is no value for the given key
-	 */
-	public function getAsBoolean($key);
-
-	/**
-	 * Returns the integer value stored for the key $key.
-	 *
-	 * @param string $key the key of the value to retrieve, must not be empty
-	 *
-	 * @return integer the value for the given key, will be 0 if there is no value for the given key
-	 */
-	public function getAsInteger($key);
-
-	/**
-	 * Checks whether there is a non-zero integer for $key.
-	 *
-	 * @param string $key the key of the value to check, must not be empty
-	 *
-	 * @return boolean whether there is a non-zero integer for $key
-	 */
-	public function hasInteger($key);
-
-	/**
-	 * Returns the string value stored for the key $key.
-	 *
-	 * @param string $key the key of the value to retrieve, must not be empty
-	 *
-	 * @return string the value for the given key, will be "" if there is no value for the given key
-	 */
-	public function getAsString($key);
-
-	/**
-	 * Checks whether there is a non-empty string for $key.
-	 *
-	 * @param string $key the key of the value to check, must not be empty
-	 *
-	 * @return boolean whether there is a non-empty string for $key
-	 */
-	public function hasString($key);
 }
 ?>
