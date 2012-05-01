@@ -89,6 +89,11 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	protected $coverage = NULL;
 
 	/**
+	 * @var Tx_Phpunit_BackEnd_TestStatistics
+	 */
+	protected $testStatistics = NULL;
+
+	/**
 	 * The constructor.
 	 */
 	public function __construct() {
@@ -103,7 +108,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	public function __destruct() {
 		unset(
 			$this->request, $this->testFinder, $this->coverage, $this->testListener, $this->outputService,
-			$this->userSettingsService
+			$this->userSettingsService, $this->testStatistics
 		);
 	}
 
@@ -555,7 +560,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$output .= ' <input type="checkbox" id="SET_incomplete" ' . $incompleteState .
 				   ' /><label for="SET_incomplete">Incomplete</label>';
 		$output .= ' <input type="checkbox" id="SET_showMemoryAndTime" ' . $showMemoryAndTime .
-				   '/><label for="SET_showMemoryAndTime">Show memory & time</label>';
+				   '/><label for="SET_showMemoryAndTime">Show memory &amp; time</label>';
 
 		$codecoverageDisable = '';
 		$codecoverageForLabelWhenDisabled = '';
@@ -595,8 +600,8 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$this->configureTestListener();
 		$testResult->addListener($this->testListener);
 
-		$startMemory = memory_get_usage();
-		$startTime = microtime(TRUE);
+		$this->testStatistics = t3lib_div::makeInstance('Tx_Phpunit_BackEnd_TestStatistics');
+		$this->testStatistics->start();
 
 		if ($this->request->hasString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST)) {
 			$this->runSingleTest($testSuite, $testResult);
@@ -606,9 +611,8 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			$this->runAllTests($testSuite, $testResult);
 		}
 
-		$timeSpent = microtime(TRUE) - $startTime;
-		$leakedMemory = memory_get_usage() - $startMemory;
-		$this->renderTestStatistics($testResult, $timeSpent, $leakedMemory);
+		$this->testStatistics->stop();
+		$this->renderTestStatistics($testResult);
 
 		$this->renderReRunButton();
 
@@ -848,12 +852,10 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * Renders and output the tests statistics.
 	 *
 	 * @param PHPUnit_Framework_TestResult $testResult the test result
-	 * @param float $timeSpent the duration of the tests in seconds, must be >= 0.0
-	 * @param integer $leakedMemory the number of leaked bytes, must be >= 0
 	 *
 	 * @return void
 	 */
-	protected function renderTestStatistics(PHPUnit_Framework_TestResult $testResult, $timeSpent, $leakedMemory) {
+	protected function renderTestStatistics(PHPUnit_Framework_TestResult $testResult) {
 		if ($testResult->wasSuccessful()) {
 			$testStatistics = '<h2 class="wasSuccessful">' . $this->translate('testing_success') . '</h2>';
 		} else {
@@ -869,9 +871,10 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			$this->translate('assertions_total') . ', ' . $testResult->failureCount() . ' ' . $this->translate('tests_failures') .
 			', ' . $testResult->skippedCount() . ' ' . $this->translate('tests_skipped') . ', ' .
 			$testResult->notImplementedCount() . ' ' . $this->translate('tests_notimplemented') . ', ' . $testResult->errorCount() .
-			' ' . $this->translate('tests_errors') . ', <span title="' . $timeSpent . '&nbsp;' .
-			$this->translate('tests_seconds') . '">' . round($timeSpent, 3) . '&nbsp;' . $this->translate('tests_seconds') .
-			', </span>' . t3lib_div::formatSize($leakedMemory) . 'B (' . $leakedMemory . ' B) ' .
+			' ' . $this->translate('tests_errors') . ', <span title="' . $this->testStatistics->getTime() . '&nbsp;' .
+			$this->translate('tests_seconds') . '">' . round($this->testStatistics->getTime(), 3) . '&nbsp;' .
+			$this->translate('tests_seconds') . ', </span>' .
+			t3lib_div::formatSize($this->testStatistics->getMemory()) . 'B (' . $this->testStatistics->getMemory() . ' B) ' .
 			$this->translate('tests_leaks') . '</p>';
 		$this->outputService->output($testStatistics);
 

@@ -7,6 +7,7 @@ return array(
 	'tx_phpunit_backend_module' => $extensionPath . 'Classes/BackEnd/Module.php',
 	'tx_phpunit_backend_request' => $extensionPath . 'Classes/BackEnd/Request.php',
 	'tx_phpunit_backend_testlistener' => $extensionPath . 'Classes/BackEnd/TestListener.php',
+	'tx_phpunit_backend_teststatistics' => $extensionPath . 'Classes/BackEnd/TestStatistics.php',
 	'tx_phpunit_cli_testrunner' => $extensionPath . 'Classes/Cli/TestRunner.php',
 	'tx_phpunit_database_testcase' => $extensionPath . 'Classes/Database/TestCase.php',
 	'tx_phpunit_exception_database' => $extensionPath . 'Classes/Exception/Database.php',
