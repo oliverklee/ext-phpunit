@@ -870,7 +870,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$testStatistics .= '<p>' . $testResult->count() . ' ' . $this->translate('tests_total') . ', ' . $this->testListener->assertionCount() . ' ' .
 			$this->translate('assertions_total') . ', ' . $testResult->failureCount() . ' ' . $this->translate('tests_failures') .
 			', ' . $testResult->skippedCount() . ' ' . $this->translate('tests_skipped') . ', ' .
-			$testResult->notImplementedCount() . ' ' . $this->translate('tests_notimplemented') . ', ' . $testResult->errorCount() .
+			$testResult->notImplementedCount() . ' ' . $this->translate('tests_incomplete') . ', ' . $testResult->errorCount() .
 			' ' . $this->translate('tests_errors') . ', <span title="' . $this->testStatistics->getTime() . '&nbsp;' .
 			$this->translate('tests_seconds') . '">' . round($this->testStatistics->getTime(), 3) . '&nbsp;' .
 			$this->translate('tests_seconds') . ', </span>' .
