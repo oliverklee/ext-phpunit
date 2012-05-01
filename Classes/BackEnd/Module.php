@@ -359,18 +359,18 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$allOptions = implode(LF, $options);
 
 		$output = '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post"><p>' .
-				'<select style="' . $selectedExtensionStyle . '"name="tx_phpunit[' .
+				'<select style="' . $selectedExtensionStyle . '"name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
 				Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE . ']" onchange="jumpToUrl(\'' .
 				htmlspecialchars($this->MCONF['_']) .
-				'&amp;tx_phpunit[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE .
-				']=\'+this.options[this.selectedIndex].value,this);">' .
+				'&amp;' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
+				Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE . ']=\'+this.options[this.selectedIndex].value,this);">' .
 				$allOptions .
 				'</select> ' .
-				'<button type="submit" name="tx_phpunit[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_EXECUTE .
-				']" value="run" accesskey="a">' .
+				'<button type="submit" name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE .
+				'[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_EXECUTE . ']" value="run" accesskey="a">' .
 				$this->translate('run_all_tests') . '</button>' .
-				'<input type="hidden" name="tx_phpunit[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND .
-				']" value="runalltests" />' .
+				'<input type="hidden" name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
+				Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND . ']" value="runalltests" />' .
 				'</p></form>';
 
 		return $output;
@@ -425,14 +425,15 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 
 		return '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">' .
 				'<p>' .
-					'<select style="' . $currentStyle . '" name="tx_phpunit[' .
+					'<select style="' . $currentStyle . '" name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
 					Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE . ']">' .
 					'<option value="">' . htmlspecialchars($this->translate('select_tests')) . '</option>' .
 					implode(LF, $testCaseFileOptionsArray) . '</select>' .
-					'<button type="submit" name="tx_phpunit[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_EXECUTE .
-					']" value="run" accesskey="f">' . $this->translate('runTestCaseFile') . '</button>' .
-					'<input type="hidden" name="tx_phpunit[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND .
-					']" value="runTestCaseFile" />' .
+					'<button type="submit" name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
+					Tx_Phpunit_Interface_Request::PARAMETER_KEY_EXECUTE . ']" value="run" accesskey="f">' .
+					$this->translate('runTestCaseFile') . '</button>' .
+					'<input type="hidden" name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
+					Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND . ']" value="runTestCaseFile" />' .
 				'</p>' .
 			'</form>';
 	}
@@ -512,13 +513,17 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 
 		return '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">
 				<p>
-					<select style="' . $currentStyle . '" name="tx_phpunit[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST . ']">
+					<select style="' . $currentStyle . '" name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
+					Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST . ']">
 					<option value="">' . $this->translate('select_tests') . '</option>' . $testOptionsHtml . '</select>
-					<button type="submit" name="tx_phpunit[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_EXECUTE .
+					<button type="submit" name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
+					Tx_Phpunit_Interface_Request::PARAMETER_KEY_EXECUTE .
 					']" value="run" accesskey="s">' . $this->translate('run_single_test') . '</button>
-					<input type="hidden" name="tx_phpunit[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND .
+					<input type="hidden" name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
+					Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND .
 					']" value="runsingletest" />
-					<input type="hidden" name="tx_phpunit[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE .
+					<input type="hidden" name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
+					Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE .
 					']" value="' . $testCaseFile . '" />
 				</p>
 			</form>
@@ -881,16 +886,18 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$this->outputService->output(
 			'<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">
 				<p>
-					<button type="submit" name="tx_phpunit[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_EXECUTE .
-					']" value="run" accesskey="r">' . $this->translate('run_again') . '</button>
-					<input name="tx_phpunit[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND . ']" type="hidden" value="' .
+					<button type="submit" name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . ' [' .
+					Tx_Phpunit_Interface_Request::PARAMETER_KEY_EXECUTE . ']" value="run" accesskey="r">' .
+					$this->translate('run_again') . '</button>
+					<input name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
+					Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND . ']" type="hidden" value="' .
 					htmlspecialchars($this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND)) . '" />
-					<input name="tx_phpunit[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST .
-					']" type="hidden" value="' . htmlspecialchars($this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST)) .
-					'" />
-					<input name="tx_phpunit[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE .
-					']" type="hidden" value="' . htmlspecialchars($this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE)) .
-					'" />
+					<input name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
+					Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST . ']" type="hidden" value="' .
+					htmlspecialchars($this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST)) . '" />
+					<input name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
+					Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE . ']" type="hidden" value="' .
+					htmlspecialchars($this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE)) . '" />
 				</p>
 			</form>' .
 				'<div id="testsHaveFinished"></div>'
