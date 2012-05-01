@@ -521,9 +521,9 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	protected function createReRunUrl(PHPUnit_Framework_TestCase $test) {
 		$options = array(
 			'M=tools_txphpunitbeM1',
-			'tx_phpunit[command]=runsingletest',
-			'tx_phpunit[testCaseFile]=' . $this->getTestCaseName(),
-			'tx_phpunit[testname]=' . $this->createTestId($test),
+			'tx_phpunit[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND . ']=runsingletest',
+			'tx_phpunit[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE . ']=' . $this->getTestCaseName(),
+			'tx_phpunit[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST . ']=' . $this->createTestId($test),
 		);
 
 		return htmlspecialchars('mod.php?' . implode('&', $options));
