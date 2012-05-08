@@ -38,79 +38,86 @@
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
+	/**
+	 * @var string
+	 */
+	const DB_PERMISSIONS_MESSAGE
+		= 'Please make sure that the current DB user has global SELECT, INSERT, CREATE, ALTER and DROP permissions.';
+
+	/**
+	 * @var t3lib_DB
+	 */
+	protected $db = NULL;
+
+	public function setUp() {
+		$this->createDatabaseAndCheckResult();
+		$this->db = $this->useTestDatabase();
+	}
+
 	public function tearDown() {
-		$this->dropDatabase();
+		$this->dropDatabasedAndCheckResult();
 		$this->switchToTypo3Database();
+
+		unset($this->db);
+	}
+
+	/*
+	 * Utility functions
+	 */
+
+	/**
+	 * Marks the current test as skipped, mentioning the necessary DB privileges.
+	 *
+	 * @return void
+	 */
+	protected function markTestAsSkipped() {
+		$this->markTestSkipped(self::DB_PERMISSIONS_MESSAGE);
 	}
 
 	/**
-	 * @test
+	 * Creates the test database and checks the result.
+	 *
+	 * If the test database cannot be created, the current test will be marked as skipped.
+	 *
+	 * @return void
 	 */
-	public function creatingTestDatabase() {
-		if (!$this->dropDatabase() || !$this->createDatabase()) {
-			$this->markTestSkipped(
-				'This test can only be run if the current DB user has the ' .
-					'permissions to CREATE and DROP databases.'
-			);
+	protected function createDatabaseAndCheckResult() {
+		if (!$this->createDatabase()) {
+			$this->markTestAsSkipped();
 		}
-
-		/** @var $db t3lib_DB */
-		$db = $GLOBALS['TYPO3_DB'];
-		$databaseNames = $db->admin_get_dbs();
-
-		$this->assertContains($this->testDatabase, $databaseNames);
 	}
 
 	/**
-	 * @test
+	 * Drops the test database and checks the result.
+	 *
+	 * If the test database cannot be dropped, the current test will be marked as skipped.
+	 *
+	 * @return void
 	 */
-	public function droppingTestDatabase() {
-		/** @var $db t3lib_DB */
-		$db = $GLOBALS['TYPO3_DB'];
-		$databaseNames = $db->admin_get_dbs();
-
-		if (!in_array($this->testDatabase, $databaseNames)) {
-			if (!$this->createDatabase()) {
-				$this->markTestSkipped(
-					'This test can only be run if the current DB user has the ' .
-						'permissions to CREATE and DROP databases.'
-				);
-			}
-			$databaseNames = $db->admin_get_dbs();
-			$this->assertContains($this->testDatabase, $databaseNames);
-		}
-
+	protected function dropDatabasedAndCheckResult() {
 		if (!$this->dropDatabase()) {
-			$this->markTestSkipped(
-				'This test can only be run if the current DB user has the ' .
-					'permissions to CREATE and DROP databases.'
-			);
+			$this->markTestAsSkipped();
 		}
-		$databaseNames = $db->admin_get_dbs();
-		$this->assertNotContains($this->testDatabase, $databaseNames);
 	}
 
 	/**
 	 * @test
 	 */
 	public function cleaningDatabase() {
-		if (!$this->createDatabase()) {
-			$this->markTestSkipped(
-				'This test can only be run if the current DB user has the ' .
-					'permissions to CREATE and DROP databases.'
-			);
-		}
 		$this->importExtensions(array('tsconfig_help'));
 
-		$db = $this->useTestDatabase();
 		/** @var $res resource */
-		$res = $db->sql_query('show tables');
+		$res = $this->db->sql_query('show tables');
 		$rows = mysql_num_rows($res);
 		$this->assertNotEquals(0, $rows);
 
+			// Check DROP privilege as it is needed for clean up
+		$this->dropDatabasedAndCheckResult();
+		$this->createDatabase();
 		$this->cleanDatabase();
 		/** @var $res resource */
-		$res = $db->sql_query('show tables');
+		$res = $this->db->sql_query('show tables');
+
 		$this->assertSame(
 			0,
 			mysql_num_rows($res)
@@ -121,20 +128,16 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 	 * @test
 	 */
 	public function importingExtension() {
-		if (!$this->createDatabase()) {
-			$this->markTestSkipped(
-				'This test can only be run if the current DB user has the ' .
-					'permissions to CREATE and DROP databases.'
-			);
-		}
-		$db = $this->useTestDatabase();
 		$this->importExtensions(array('tsconfig_help'));
 
 		/** @var $res resource */
-		$res = $db->sql_query('show tables');
+		$res = $this->db->sql_query('show tables');
 		$rows = mysql_num_rows($res);
 
-		$this->assertNotEquals(0, $rows);
+		$this->assertNotSame(
+			0,
+			$rows
+		);
 	}
 
 	/**
@@ -148,22 +151,27 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 			);
 		}
 
-		if (!$this->createDatabase()) {
-			$this->markTestSkipped(
-				'This test can only be run if the current DB user has the ' .
-					'permissions to CREATE and DROP databases.'
-			);
-		}
-		$db = $this->useTestDatabase();
 		$this->importExtensions(array('bbb'), TRUE);
 
 		$tableNames = $this->getDatabaseTables();
-		$this->assertContains('tx_bbb_test', $tableNames, 'Check that extension bbb is installed. The extension can be found in Tests/Unit/Fixtures/Extensions/.');
-		$this->assertContains('tx_aaa_test', $tableNames, 'Check that extension aaa is installed. The extension can be found in Tests/Unit/Fixtures/Extensions/.');
+		$this->assertContains(
+			'tx_bbb_test',
+			$tableNames,
+			'Check that extension bbb is installed. The extension can be found in Tests/Unit/Fixtures/Extensions/.'
+		);
+		$this->assertContains(
+			'tx_aaa_test',
+			$tableNames,
+			'Check that extension aaa is installed. The extension can be found in Tests/Unit/Fixtures/Extensions/.'
+		);
 
 		// extension BBB extends an AAA table
-		$columns = $db->admin_get_fields('tx_aaa_test');
-		$this->assertContains('tx_bbb_test', array_keys($columns));
+		$columns = $this->db->admin_get_fields('tx_aaa_test');
+		$this->assertContains(
+			'tx_bbb_test',
+			array_keys($columns),
+			self::DB_PERMISSIONS_MESSAGE
+		);
 	}
 
 	/**
@@ -179,13 +187,6 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 			);
 		}
 
-		if (!$this->createDatabase()) {
-			$this->markTestSkipped(
-				'This test can only be run if the current DB user has the ' .
-					'permissions to CREATE and DROP databases.'
-			);
-		}
-		$this->useTestDatabase();
 		$this->importExtensions(array('ccc', 'aaa'), TRUE);
 
 		$tableNames = $this->getDatabaseTables();
@@ -208,14 +209,6 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 			);
 		}
 
-		if (!$this->createDatabase()) {
-			$this->markTestSkipped(
-				'This test can only be run if the current DB user has the ' .
-					'permissions to CREATE and DROP databases.'
-			);
-		}
-		$this->useTestDatabase();
-
 		$toSkip = array('bbb');
 		$this->importExtensions(array('ccc', 'ddd'), TRUE, $toSkip);
 
@@ -223,7 +216,11 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 
 		$this->assertContains('tx_ccc_test', $tableNames, 'Check that extension ccc is installed. The extension can be found in Tests/Unit/Fixtures/Extensions/.');
 		$this->assertContains('tx_ddd_test', $tableNames, 'Check that extension ddd is installed. The extension can be found in Tests/Unit/Fixtures/Extensions/.');
-		$this->assertNotContains('tx_bbb_test', $tableNames);
+		$this->assertNotContains(
+			'tx_bbb_test',
+			$tableNames,
+			self::DB_PERMISSIONS_MESSAGE
+		);
 		$this->assertNotContains('tx_aaa_test', $tableNames);
 	}
 
@@ -238,20 +235,14 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 			);
 		}
 
-		if (!$this->createDatabase()) {
-			$this->markTestSkipped(
-				'This test can only be run if the current DB user has the ' .
-					'permissions to CREATE and DROP databases.'
-			);
-		}
-		$db = $this->useTestDatabase();
 		$this->importExtensions(array('ccc'));
 		$this->importDataSet(t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/Database/Fixtures/DataSet.xml');
 
-		$result = $db->exec_SELECTgetRows('*', 'tx_ccc_test', NULL);
+		$result = $this->db->exec_SELECTgetRows('*', 'tx_ccc_test', NULL);
 		$this->assertSame(
 			2,
-			count($result)
+			count($result),
+			self::DB_PERMISSIONS_MESSAGE
 		);
 		$this->assertSame(
 			'1',
@@ -262,7 +253,7 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 			$result[1]['uid']
 		);
 
-		$result = $db->exec_SELECTgetRows('*', 'tx_ccc_data', NULL);
+		$result = $this->db->exec_SELECTgetRows('*', 'tx_ccc_data', NULL);
 		$this->assertSame(
 			1,
 			count($result)
@@ -272,7 +263,7 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 			$result[0]['uid']
 		);
 
-		$result = $db->exec_SELECTgetRows('*', 'tx_ccc_data_test_mm', NULL);
+		$result = $this->db->exec_SELECTgetRows('*', 'tx_ccc_data_test_mm', NULL);
 		$this->assertSame(
 			2,
 			count($result)

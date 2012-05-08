@@ -1,4 +1,5 @@
 2012-05-08 Oliver Klee <typo3-coding@oliverklee.de>
+	* Fixed Bug #36314: Add failure messages for the DB tests mentioning the required DB permissions (thanks to Nicole Cordes)
 	* Fixed Bug #36205: Move the page header stuff from BackEndModule::main() to a a separate function (thanks to Nicole Cordes)
 	* Fixed Bug #36163: Rename the fixtures under Tests-Root to reflect proper path (thanks to Nicole Cordes)
 
