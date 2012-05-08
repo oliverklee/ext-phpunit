@@ -179,33 +179,18 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	}
 
 	/**
-	 * Main function of the module. Outputs all content directly instead of
-	 * collecting it and doing the output later.
+	 * Main function of the module. Outputs all content directly instead of collecting it and doing the output later.
 	 *
 	 * @return void
 	 */
 	public function main() {
 		if ($GLOBALS['BE_USER']->user['admin']) {
-			// Draw the header.
 			$this->doc = t3lib_div::makeInstance('bigDoc');
 			$this->doc->backPath = $GLOBALS['BACK_PATH'];
 			$this->doc->docType = 'xhtml_strict';
 			$this->doc->bodyTagAdditions = 'id="doc3"';
 
-			// JavaScript Libraries
-			$this->doc->loadJavascriptLib('contrib/prototype/prototype.js');
-			$this->doc->loadJavascriptLib($this->extensionPath . 'Resources/Public/YUI/yahoo-dom-event.js');
-			$this->doc->loadJavascriptLib($this->extensionPath . 'Resources/Public/YUI/connection-min.js');
-			$this->doc->loadJavascriptLib($this->extensionPath . 'Resources/Public/YUI/json-min.js');
-			$this->doc->loadJavascriptLib($this->extensionPath . 'Resources/Public/JavaScript/BackEnd.js');
-
-			// Mis-using JScode to insert CSS _after_ skin.
-			$this->doc->JScode = '<link rel="stylesheet" type="text/css" href="' . $this->extensionPath .
-				'Resources/Public/YUI/reset-fonts-grids.css" />';
-			$this->doc->JScode .= '<link rel="stylesheet" type="text/css" href="' . $this->extensionPath .
-				'Resources/Public/YUI/base-min.css" />';
-			$this->doc->JScode .= '<link rel="stylesheet" type="text/css" href="' . $this->extensionPath .
-				'Resources/Public/CSS/BackEnd.css" />';
+			$this->addAdditionalHeaderData();
 
 			t3lib_div::cleanOutputBuffers();
 			$this->outputService->output(
@@ -241,6 +226,26 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		}
 
 		$this->outputService->output($this->doc->endPage());
+	}
+
+	/**
+	 * Adds some JavaScript and CSS stuff to header data.
+	 *
+	 * @return void
+	 */
+	protected function addAdditionalHeaderData() {
+		$this->doc->loadJavascriptLib('contrib/prototype/prototype.js');
+		$this->doc->loadJavascriptLib($this->extensionPath . 'Resources/Public/YUI/yahoo-dom-event.js');
+		$this->doc->loadJavascriptLib($this->extensionPath . 'Resources/Public/YUI/connection-min.js');
+		$this->doc->loadJavascriptLib($this->extensionPath . 'Resources/Public/YUI/json-min.js');
+		$this->doc->loadJavascriptLib($this->extensionPath . 'Resources/Public/JavaScript/BackEnd.js');
+
+		$this->doc->JScode = '<link rel="stylesheet" type="text/css" href="' . $this->extensionPath .
+			'Resources/Public/YUI/reset-fonts-grids.css" />';
+		$this->doc->JScode .= '<link rel="stylesheet" type="text/css" href="' . $this->extensionPath .
+			'Resources/Public/YUI/base-min.css" />';
+		$this->doc->JScode .= '<link rel="stylesheet" type="text/css" href="' . $this->extensionPath .
+			'Resources/Public/CSS/BackEnd.css" />';
 	}
 
 
