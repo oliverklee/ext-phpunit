@@ -2,6 +2,6 @@
 /**
  * Test class.
  */
-class Tx_Phpunit_Fixtures_LoadMe {
+class Tx_Phpunit_Tests_Fixtures_LoadMe {
 }
 ?>

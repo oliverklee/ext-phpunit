@@ -30,7 +30,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_BackEnd_Fixtures_DataProviderTest extends Tx_Phpunit_TestCase {
+class Tx_Phpunit_Tests_BackEnd_Fixtures_DataProviderTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */

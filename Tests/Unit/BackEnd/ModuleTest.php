@@ -582,7 +582,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		);
 
 		$this->assertTrue(
-			class_exists('Tx_Phpunit_BackEnd_Fixtures_LoadMe', FALSE)
+			class_exists('Tx_Phpunit_Tests_BackEnd_Fixtures_LoadMe', FALSE)
 		);
 	}
 
@@ -600,7 +600,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		);
 
 		$this->assertTrue(
-			class_exists('Tx_Phpunit_BackEnd_Fixtures_LoadMeToo', FALSE)
+			class_exists('Tx_Phpunit_Tests_BackEnd_Fixtures_LoadMeToo', FALSE)
 		);
 	}
 
@@ -620,7 +620,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		);
 
 		$this->assertTrue(
-			class_exists('Tx_Phpunit_Fixtures_LoadMe', FALSE)
+			class_exists('Tx_Phpunit_Tests_Fixtures_LoadMe', FALSE)
 		);
 	}
 
