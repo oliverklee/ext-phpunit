@@ -118,3 +118,48 @@ CREATE TABLE tt_content (
 	tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
 	KEY phpunit_dummy (tx_phpunit_is_dummy_record)
 );
+
+
+#
+# Table structure for table 'sys_file'
+#
+CREATE TABLE sys_file (
+	tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
+	KEY phpunit_dummy (tx_phpunit_is_dummy_record)
+);
+
+
+#
+# Table structure for table 'sys_file_collection'
+#
+CREATE TABLE sys_file_collection (
+	tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
+	KEY phpunit_dummy (tx_phpunit_is_dummy_record)
+);
+
+
+#
+# Table structure for table 'sys_file_reference'
+#
+CREATE TABLE sys_file_reference (
+	tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
+	KEY phpunit_dummy (tx_phpunit_is_dummy_record)
+);
+
+
+#
+# Table structure for table 'sys_category'
+#
+CREATE TABLE sys_category (
+	tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
+	KEY phpunit_dummy (tx_phpunit_is_dummy_record)
+);
+
+
+#
+# Table structure for table 'sys_category_record_mm'
+#
+CREATE TABLE sys_category_record_mm (
+	tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
+	KEY phpunit_dummy (tx_phpunit_is_dummy_record)
+);

@@ -97,6 +97,28 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	// ---------------------------------------------------------------------
 
 	/**
+	 * Checks whether TYPO3 is in version 6.0.0 or higher. If it is lower, the current test will be skipped.
+	 *
+	 * @return void
+	 */
+	private function checkForTypo3SixOrHigher() {
+		if ($this->getCurrentTypo3Version() < 6000000) {
+			$this->markTestSkipped('Test can not be executed because it does not meet the minimum TYPO3 version');
+		}
+	}
+
+	/**
+	 * Computes the current TYPO3 version and returns it.
+	 *
+	 * @return integer
+	 */
+	private function getCurrentTypo3Version() {
+		return class_exists('t3lib_utility_VersionNumber')
+			? t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version)
+			: t3lib_div::int_from_ver(TYPO3_version);
+	}
+
+	/**
 	 * Returns the sorting value of the relation between the local UID given by
 	 * the first parameter $uidLocal and the foreign UID given by the second
 	 * parameter $uidForeign.
@@ -1464,19 +1486,65 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	}
 
 	/**
-     * @test
-     */
-    public function getAutoIncrementForTtContentTableIsAllowed() {
+	 * @test
+	 */
+	public function getAutoIncrementForTtContentTableIsAllowed() {
 		$this->fixture->getAutoIncrement('tt_content');
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function getAutoIncrementWithOtherSystemTableFails() {
+	 * @test
+	 * @expectedException InvalidArgumentException
+	 */
+	public function getAutoIncrementWithOtherSystemTableFails() {
 		$this->fixture->getAutoIncrement('sys_domains');
+	}
+
+	/**
+	 * @test
+	 */
+	public function getAutoIncrementForSysFileIsAllowed() {
+		$this->checkForTypo3SixOrHigher();
+
+		$this->fixture->getAutoIncrement('sys_file');
+	}
+
+	/**
+	 * @test
+	 */
+	public function getAutoIncrementForSysFileCollectionIsAllowed() {
+		$this->checkForTypo3SixOrHigher();
+
+		$this->fixture->getAutoIncrement('sys_file_collection');
+	}
+
+	/**
+	 * @test
+	 */
+	public function getAutoIncrementForSysFileReferenceIsAllowed() {
+		$this->checkForTypo3SixOrHigher();
+
+		$this->fixture->getAutoIncrement('sys_file_reference');
+	}
+
+	/**
+	 * @test
+	 */
+	public function getAutoIncrementForSysCategoryIsAllowed() {
+		$this->checkForTypo3SixOrHigher();
+
+		$this->fixture->getAutoIncrement('sys_category');
+	}
+
+	/**
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function getAutoIncrementForSysCategoryRecordMmFails() {
+		$this->checkForTypo3SixOrHigher();
+
+		$this->fixture->getAutoIncrement('sys_category_record_mm');
 	}
 
 	/**
@@ -1583,6 +1651,51 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
     public function countRecordsWithTtContentTableIsAllowed() {
 		$table = 'tt_content';
 		$this->fixture->countRecords($table);
+	}
+
+	/**
+	 * @test
+	 */
+	public function countRecordsWithSysFileTableTableIsAllowed() {
+		$this->checkForTypo3SixOrHigher();
+
+		$this->fixture->countRecords('sys_file');
+	}
+
+	/**
+	 * @test
+	 */
+	public function countRecordsWithSysFileCollectionTableTableIsAllowed() {
+		$this->checkForTypo3SixOrHigher();
+
+		$this->fixture->countRecords('sys_file_collection');
+	}
+
+	/**
+	 * @test
+	 */
+	public function countRecordsWithSysFileReferenceTableTableIsAllowed() {
+		$this->checkForTypo3SixOrHigher();
+
+		$this->fixture->countRecords('sys_file_reference');
+	}
+
+	/**
+	 * @test
+	 */
+	public function countRecordsWithSysCategoryTableTableIsAllowed() {
+		$this->checkForTypo3SixOrHigher();
+
+		$this->fixture->countRecords('sys_category');
+	}
+
+	/**
+	 * @test
+	 */
+	public function countRecordsWithSysCategoryRecordMmTableTableIsAllowed() {
+		$this->checkForTypo3SixOrHigher();
+
+		$this->fixture->countRecords('sys_category_record_mm');
 	}
 
 	/**
@@ -2046,12 +2159,59 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function resetAutoIncrementWithOtherSystemTableFails() {
+	 * @test
+	 * @expectedException InvalidArgumentException
+	 */
+	public function resetAutoIncrementWithOtherSystemTableFails() {
 		$this->fixture->resetAutoIncrement('sys_domains');
+	}
+
+	/**
+	 * @test
+	 */
+	public function resetAutoIncrementForSysFileTableIsAllowed() {
+		$this->checkForTypo3SixOrHigher();
+
+		$this->fixture->resetAutoIncrement('sys_file');
+	}
+
+	/**
+	 * @test
+	 *
+	 */
+	public function resetAutoIncrementForSysFileCollectionTableIsAllowed() {
+		$this->checkForTypo3SixOrHigher();
+
+		$this->fixture->resetAutoIncrement('sys_file_collection');
+	}
+
+	/**
+	 * @test
+	 *
+	 */
+	public function resetAutoIncrementForSysFileReferenceTableIsAllowed() {
+		$this->checkForTypo3SixOrHigher();
+
+		$this->fixture->resetAutoIncrement('sys_file_reference');
+	}
+
+	/**
+	 * @test
+	 */
+	public function resetAutoIncrementForSysCategoryTableIsAllowed() {
+		$this->checkForTypo3SixOrHigher();
+
+		$this->fixture->resetAutoIncrement('sys_category');
+	}
+
+	/**
+	 * @test
+	 *
+	 */
+	public function resetAutoIncrementForSysCategoryRecordMmTableIsAllowed() {
+		$this->checkForTypo3SixOrHigher();
+
+		$this->fixture->resetAutoIncrement('sys_category_record_mm');
 	}
 
 	/**
@@ -2123,12 +2283,56 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function resetAutoIncrementLazilyWithOtherSystemTableFails() {
+	 * @test
+	 * @expectedException InvalidArgumentException
+	 */
+	public function resetAutoIncrementLazilyWithOtherSystemTableFails() {
 		$this->fixture->resetAutoIncrementLazily('sys_domains');
+	}
+
+	/**
+	 * @test
+	 */
+	public function resetAutoIncrementLazilyForSysFileTableIsAllowed() {
+		$this->checkForTypo3SixOrHigher();
+
+		$this->fixture->resetAutoIncrementLazily('sys_file');
+	}
+
+	/**
+	 * @test
+	 */
+	public function resetAutoIncrementLazilyForSysFileCollectionTableIsAllowed() {
+		$this->checkForTypo3SixOrHigher();
+
+		$this->fixture->resetAutoIncrementLazily('sys_file_collection');
+	}
+
+	/**
+	 * @test
+	 */
+	public function resetAutoIncrementLazilyForSysFileReferenceTableIsAllowed() {
+		$this->checkForTypo3SixOrHigher();
+
+		$this->fixture->resetAutoIncrementLazily('sys_file_reference');
+	}
+
+	/**
+	 * @test
+	 */
+	public function resetAutoIncrementLazilyForSysCategoryTableIsAllowed() {
+		$this->checkForTypo3SixOrHigher();
+
+		$this->fixture->resetAutoIncrementLazily('sys_category');
+	}
+
+	/**
+	 * @test
+	 */
+	public function resetAutoIncrementLazilyForSysCategoryRecordMmTableIsAllowed() {
+		$this->checkForTypo3SixOrHigher();
+
+		$this->fixture->resetAutoIncrementLazily('sys_category_record_mm');
 	}
 
 	/**
