@@ -51,7 +51,7 @@
  * @author     Sebastian Bergmann <sebastian@phpunit.de>
  * @copyright  2001-2012 Sebastian Bergmann <sebastian@phpunit.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 3.6.10
+ * @version    Release: 3.6.11
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 2.0.0
  */
@@ -1343,9 +1343,9 @@ abstract class PHPUnit_Framework_Assert
      * Assert that the size of two arrays (or `Countable` or `Iterator` objects)
      * is the same.
      *
-     * @param integer $expected
-     * @param mixed   $actual
-     * @param string  $message
+     * @param array|Countable|Iterator $expected
+     * @param array|Countable|Iterator $actual
+     * @param string $message
      */
     public function assertSameSize($expected, $actual, $message = '')
     {
@@ -1372,9 +1372,9 @@ abstract class PHPUnit_Framework_Assert
      * Assert that the size of two arrays (or `Countable` or `Iterator` objects)
      * is not the same.
      *
-     * @param integer $expected
-     * @param mixed   $actual
-     * @param string  $message
+     * @param array|Countable|Iterator $expected
+     * @param array|Countable|Iterator $actual
+     * @param string $message
      */
     public function assertNotSameSize($expected, $actual, $message = '')
     {

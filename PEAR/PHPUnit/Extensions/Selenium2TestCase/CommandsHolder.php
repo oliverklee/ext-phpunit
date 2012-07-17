@@ -37,7 +37,7 @@
  * @package    PHPUnit_Selenium
  * @author     Giorgio Sironi <giorgio.sironi@asp-poli.it>
  * @copyright  2010-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link       http://www.phpunit.de/
  * @since      File available since Release 1.2.4
  */
@@ -48,8 +48,8 @@
  * @package    PHPUnit_Selenium
  * @author     Giorgio Sironi <giorgio.sironi@asp-poli.it>
  * @copyright  2010-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 1.2.4
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @version    Release: 1.2.7
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 1.2.4
  */
@@ -69,7 +69,7 @@ abstract class PHPUnit_Extensions_Selenium2TestCase_CommandsHolder
      * @var array   instances of 
      *              PHPUnit_Extensions_Selenium2TestCase_ElementCommand
      */
-    private $commands;
+    protected $commands;
 
     public function __construct($driver,
                                 PHPUnit_Extensions_Selenium2TestCase_URL $url)
@@ -89,18 +89,6 @@ abstract class PHPUnit_Extensions_Selenium2TestCase_CommandsHolder
     }
 
     /**
-     * @params string $commandClass     a class name, descending from
-                                        PHPUnit_Extensions_Selenium2TestCase_Command
-     * @return callable
-     */
-    private function factoryMethod($commandClass)
-    {
-        return function($jsonParameters, $url) use ($commandClass) {
-            return new $commandClass($jsonParameters, $url);
-        };
-    }
-
-    /**
      * @return array    class names, or
      *                  callables of the form function($parameter, $commandUrl)
      */
@@ -111,6 +99,26 @@ abstract class PHPUnit_Extensions_Selenium2TestCase_CommandsHolder
         $jsonParameters = $this->extractJsonParameters($arguments);
         $response = $this->driver->execute($this->newCommand($commandName, $jsonParameters));
         return $response->getValue();
+    }
+
+    protected function postCommand($name, PHPUnit_Extensions_Selenium2TestCase_ElementCriteria $criteria)
+    {
+        $response = $this->driver->curl('POST',
+                                        $this->url->addCommand($name),
+                                        $criteria->getArrayCopy());
+        return $response->getValue();
+    }
+
+    /**
+     * @params string $commandClass     a class name, descending from
+                                        PHPUnit_Extensions_Selenium2TestCase_Command
+     * @return callable
+     */
+    private function factoryMethod($commandClass)
+    {
+        return function($jsonParameters, $url) use ($commandClass) {
+            return new $commandClass($jsonParameters, $url);
+        };
     }
 
     private function extractJsonParameters($arguments)
@@ -128,14 +136,6 @@ abstract class PHPUnit_Extensions_Selenium2TestCase_CommandsHolder
         if (count($arguments) > 1) {
             throw new Exception('You cannot call a command with multiple method arguments.');
         }
-    }
-
-    private function postCommand($name, PHPUnit_Extensions_Selenium2TestCase_ElementCriteria $criteria)
-    {
-        $response = $this->driver->curl('POST',
-                                        $this->url->addCommand($name),
-                                        $criteria->getArrayCopy());
-        return $response->getValue();
     }
 
     private function newCommand($commandName, $jsonParameters)

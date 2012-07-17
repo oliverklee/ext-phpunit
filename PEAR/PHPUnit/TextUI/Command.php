@@ -52,7 +52,7 @@
  * @author     Sebastian Bergmann <sebastian@phpunit.de>
  * @copyright  2001-2012 Sebastian Bergmann <sebastian@phpunit.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 3.6.10
+ * @version    Release: 3.6.11
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 3.0.0
  */
@@ -956,7 +956,7 @@ Usage: phpunit [switches] UnitTest [UnitTest.php]
   --stop-on-incomplete      Stop execution upon first incomplete test.
   --strict                  Run tests in strict mode.
   -v|--verbose              Output more verbose information.
-  --debug                   Display debbuging information during test execution.
+  --debug                   Display debugging information during test execution.
 
   --process-isolation       Run each test in a separate PHP process.
   --no-globals-backup       Do not backup and restore \$GLOBALS for each test.

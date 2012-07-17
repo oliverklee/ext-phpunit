@@ -37,7 +37,7 @@
  * @package    PHPUnit_Selenium
  * @author     Giorgio Sironi <giorgio.sironi@asp-poli.it>
  * @copyright  2010-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link       http://www.phpunit.de/
  * @since      File available since Release 1.2.0
  */
@@ -50,8 +50,8 @@
  * @package    PHPUnit_Selenium
  * @author     Giorgio Sironi <giorgio.sironi@asp-poli.it>
  * @copyright  2010-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 1.2.4
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @version    Release: 1.2.7
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 1.2.0
  * @method void acceptAlert() Press OK on an alert, or confirms a dialog
@@ -81,9 +81,12 @@
  * @method void window($name) Changes the focus to another window
  * @method string windowHandle() Retrieves the current window handle
  * @method string windowHandles() Retrieves a list of all available window handles
+ * @method string keys() Send a sequence of key strokes to the active element.
  */
 abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_TestCase
 {
+    const VERSION = "1.2.7";
+
     /**
      * @var PHPUnit_Extensions_Selenium2TestCase_Session
      */
@@ -110,21 +113,48 @@ abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_Te
     private $browserUrl;
 
     /**
-     * @var boolean
+     * @var PHPUnit_Extensions_Selenium2TestCase_SessionStrategy
      */
-    private static $shareSession;
-
-    /**
-     * @var PHPUnit_Extensions_Selenium2TestCase_URL
-     */
-    private static $sharedSessionUrl;
+    private static $sessionStrategy;
 
     /**
      * @param boolean
      */
     public static function shareSession($shareSession)
     {
-        self::$shareSession = $shareSession;
+        if (!is_bool($shareSession)) {
+            throw new InvalidArgumentException("The shared session support can only be switched on or off.");
+        }
+        if (!$shareSession) {
+            self::$sessionStrategy = self::defaultSessionStrategy();
+        } else {
+            echo "Shared strategy\n";
+            self::$sessionStrategy = new PHPUnit_Extensions_Selenium2TestCase_SessionStrategy_Shared(self::defaultSessionStrategy());
+        }
+    }
+
+    private static function sessionStrategy()
+    {
+        if (!self::$sessionStrategy) {
+            self::$sessionStrategy = self::defaultSessionStrategy();
+        }
+        return self::$sessionStrategy;
+    }
+
+    private static function defaultSessionStrategy()
+    {
+        return new PHPUnit_Extensions_Selenium2TestCase_SessionStrategy_Isolated;
+    }
+
+    public function prepareSession()
+    {
+        if (!$this->session) {
+            $this->session = self::sessionStrategy()->session(array('host'      => $this->host,
+                                                                   'port'       => $this->port,
+                                                                   'browser'    => $this->browser,
+                                                                   'browserUrl' => $this->browserUrl));
+        }
+        return $this->session;
     }
 
     /**
@@ -132,35 +162,35 @@ abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_Te
      */
     protected function runTest()
     {
-        $driver = $this->getDriver();
+        $this->prepareSession();
 
-        if (self::$shareSession and self::$sharedSessionUrl !== NULL) {
-            $this->session = new PHPUnit_Extensions_Selenium2TestCase_Session($driver, self::$sharedSessionUrl, $this->browserUrl);
-            $this->session->window('');
-        } else {
-            $this->session = $driver->startSession($this->browser, $this->browserUrl);
-            self::$sharedSessionUrl = $this->session->getSessionUrl();
+        $thrownException = NULL;
+
+        try {
+            parent::runTest();
+
+            if (!empty($this->verificationErrors)) {
+                $this->fail(implode("\n", $this->verificationErrors));
+            }
+        } catch (Exception $e) {
+            $thrownException = $e;
         }
 
-        parent::runTest();
+        self::sessionStrategy()->endOfTest($this->session);
 
-        if (!empty($this->verificationErrors)) {
-            $this->fail(implode("\n", $this->verificationErrors));
-        }
-
-        if (!self::$shareSession) {
-            $this->session->stop();
+        if (NULL !== $thrownException) {
+            throw $thrownException;
         }
     }
 
     public function onNotSuccessfulTest(Exception $e)
     {
-        self::$sharedSessionUrl = NULL;
+        self::sessionStrategy()->notSuccessfulTest();
         parent::onNotSuccessfulTest($e);
     }
 
     /**
-     * Delegate method calls to the driver.
+     * Delegate method calls to the Session.
      *
      * @param  string $command
      * @param  array  $arguments
@@ -173,12 +203,6 @@ abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_Te
         );
 
         return $result;
-    }
-
-    private function getDriver()
-    {
-        $seleniumServerUrl = PHPUnit_Extensions_Selenium2TestCase_URL::fromHostAndPort($this->host, $this->port);
-        return new PHPUnit_Extensions_Selenium2TestCase_Driver($seleniumServerUrl);
     }
 
     /**

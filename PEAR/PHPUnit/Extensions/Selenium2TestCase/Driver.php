@@ -37,7 +37,7 @@
  * @package    PHPUnit_Selenium
  * @author     Giorgio Sironi <giorgio.sironi@asp-poli.it>
  * @copyright  2010-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link       http://www.phpunit.de/
  * @since      File available since Release 1.2.0
  */
@@ -48,8 +48,8 @@
  * @package    PHPUnit_Selenium
  * @author     Giorgio Sironi <giorgio.sironi@asp-poli.it>
  * @copyright  2010-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 1.2.4
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @version    Release: 1.2.7
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 1.2.0
  */
@@ -92,8 +92,12 @@ class PHPUnit_Extensions_Selenium2TestCase_Driver
         $curl = curl_init($url->getValue());
         curl_setopt($curl, CURLOPT_TIMEOUT, 60);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
-        curl_setopt($curl, CURLOPT_HTTPHEADER,
-                    array('application/json;charset=UTF-8'));
+        curl_setopt($curl,
+                    CURLOPT_HTTPHEADER,
+                    array(
+                        'Content-type: application/json;charset=UTF-8',
+                        'Accept: application/json;charset=UTF-8'
+                     ));
 
         if ($http_method === 'POST') {
             curl_setopt($curl, CURLOPT_POST, TRUE);
@@ -114,6 +118,14 @@ class PHPUnit_Extensions_Selenium2TestCase_Driver
         }
         curl_close($curl);
         $content = json_decode($rawResponse, TRUE);
+        if ($info['http_code'] == 500) {
+            if (isset($content['value']['message'])) {
+                $message = $content['value']['message'];
+            } else {
+                $message = "Internal server error while executing $http_method request at $url";
+            }
+            throw new RuntimeException($message);
+        }
         return new PHPUnit_Extensions_Selenium2TestCase_Response($content, $info);
     }
 

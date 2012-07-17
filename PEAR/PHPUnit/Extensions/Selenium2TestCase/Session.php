@@ -37,7 +37,7 @@
  * @package    PHPUnit_Selenium
  * @author     Giorgio Sironi <giorgio.sironi@asp-poli.it>
  * @copyright  2010-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link       http://www.phpunit.de/
  * @since      File available since Release 1.2.0
  */
@@ -48,10 +48,26 @@
  * @package    PHPUnit_Selenium
  * @author     Giorgio Sironi <giorgio.sironi@asp-poli.it>
  * @copyright  2010-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 1.2.4
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @version    Release: 1.2.7
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 1.2.0
+ * @method void acceptAlert() Press OK on an alert, or confirms a dialog
+ * @method mixed alertText($value = NULL) Gets the alert dialog text, or sets the text for a prompt dialog
+ * @method void back()
+ * @method void dismissAlert() Press Cancel on an alert, or does not confirm a dialog
+ * @method string execute($javaScriptCode) Injects arbitrary JavaScript in the page and returns the last
+ * @method string executeAsync($javaScriptCode) Injects arbitrary JavaScript and wait for the callback (last element of arguments) to be called
+ * @method void forward()
+ * @method void frame($elementId) Changes the focus to a frame in the page
+ * @method void refresh()
+ * @method string source() Returns the HTML source of the page
+ * @method string title()
+ * @method void|string url($url = NULL)
+ * @method void window($name) Changes the focus to another window
+ * @method string windowHandle() Retrieves the current window handle
+ * @method string windowHandles() Retrieves a list of all available window handles
+ * @method string keys() Send a sequence of key strokes to the active element.
  */
 class PHPUnit_Extensions_Selenium2TestCase_Session
     extends PHPUnit_Extensions_Selenium2TestCase_CommandsHolder
@@ -61,6 +77,11 @@ class PHPUnit_Extensions_Selenium2TestCase_Session
      *              which all relative URLs will refer to
      */
     private $baseUrl;
+
+    /**
+     * @var boolean
+     */
+    private $stopped = FALSE;
 
     public function __construct($driver,
                                 PHPUnit_Extensions_Selenium2TestCase_URL $url,
@@ -91,7 +112,8 @@ class PHPUnit_Extensions_Selenium2TestCase_Session
             },
             'window' => 'PHPUnit_Extensions_Selenium2TestCase_SessionCommand_Window',
             'windowHandle' => 'PHPUnit_Extensions_Selenium2TestCase_SessionCommand_GenericAccessor',
-            'windowHandles' => 'PHPUnit_Extensions_Selenium2TestCase_SessionCommand_GenericAccessor'
+            'windowHandles' => 'PHPUnit_Extensions_Selenium2TestCase_SessionCommand_GenericAccessor',
+            'keys' => 'PHPUnit_Extensions_Selenium2TestCase_SessionCommand_Keys'
         );
     }
 
@@ -126,7 +148,11 @@ class PHPUnit_Extensions_Selenium2TestCase_Session
      */
     public function stop()
     {
+        if ($this->stopped) {
+            return;
+        }
         $this->driver->curl('DELETE', $this->url);
+        $this->stopped = TRUE;
     }
 
     /**
@@ -196,12 +222,9 @@ class PHPUnit_Extensions_Selenium2TestCase_Session
     /**
      * @return PHPUnit_Extensions_Selenium2TestCase_Element
      */
-    public function element(PHPUnit_Extensions_Selenium2TestCase_ElementCriteria $jsonParameters)
+    public function element(PHPUnit_Extensions_Selenium2TestCase_ElementCriteria $criteria)
     {
-        $response = $this->driver->curl('POST',
-                                        $this->url->descend('element'),
-                                        $jsonParameters->getArrayCopy());
-        $value = $response->getValue();
+        $value = $this->postCommand('element', $criteria);
         return PHPUnit_Extensions_Selenium2TestCase_Element::fromResponseValue($value,
                                                                                $this->url->descend('element'),
                                                                                $this->driver);
@@ -251,11 +274,35 @@ class PHPUnit_Extensions_Selenium2TestCase_Session
         return base64_decode($this->screenshot());
     }
 
-    private function postCommand($name, PHPUnit_Extensions_Selenium2TestCase_ElementCriteria $criteria)
+    /**
+     * @return PHPUnit_Extensions_Selenium2TestCase_Window
+     */
+    public function currentWindow()
     {
-        $response = $this->driver->curl('POST',
-                                        $this->url->addCommand($name),
-                                        $criteria->getArrayCopy());
-        return $response->getValue();
+        $url = $this->url->descend('window')->descend($this->windowHandle());
+        return new PHPUnit_Extensions_Selenium2TestCase_Window($this->driver, $url);
+    }
+
+    public function closeWindow()
+    {
+        $this->driver->curl('DELETE', $this->url->descend('window'));
+    }
+
+    /**
+     * @return PHPUnit_Extensions_Selenium2TestCase_Session_Cookie
+     */
+    public function cookie()
+    {
+        $url = $this->url->descend('cookie');
+        return new PHPUnit_Extensions_Selenium2TestCase_Session_Cookie($this->driver, $url);
+    }
+
+    /**
+     * @return PHPUnit_Extensions_Selenium2TestCase_Session_Storage
+     */
+    public function localStorage()
+    {
+        $url = $this->url->addCommand('localStorage');
+        return new PHPUnit_Extensions_Selenium2TestCase_Session_Storage($this->driver, $url);
     }
 }

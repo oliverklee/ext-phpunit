@@ -92,7 +92,7 @@
  * @author     Sebastian Bergmann <sebastian@phpunit.de>
  * @copyright  2001-2012 Sebastian Bergmann <sebastian@phpunit.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 3.6.10
+ * @version    Release: 3.6.11
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 2.0.0
  */
@@ -1369,11 +1369,13 @@ abstract class PHPUnit_Framework_TestCase extends PHPUnit_Framework_Assert imple
             );
         }
 
-        eval(
-          PHPUnit_Framework_MockObject_Generator::generateClassFromWsdl(
-            $wsdlFile, $originalClassName, $methods
-          )
-        );
+        if (!class_exists($originalClassName)) {
+          eval(
+            PHPUnit_Framework_MockObject_Generator::generateClassFromWsdl(
+              $wsdlFile, $originalClassName, $methods
+            )
+          );
+        }
 
         return $this->getMock(
           $originalClassName,

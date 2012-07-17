@@ -37,7 +37,7 @@
  * @package    PHPUnit_Selenium
  * @author     Giorgio Sironi <giorgio.sironi@asp-poli.it>
  * @copyright  2010-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link       http://www.phpunit.de/
  * @since      File available since Release 1.2.2
  */
@@ -48,8 +48,8 @@
  * @package    PHPUnit_Selenium
  * @author     Giorgio Sironi <giorgio.sironi@asp-poli.it>
  * @copyright  2010-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 1.2.4
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @version    Release: 1.2.7
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 1.2.0
  */
@@ -60,4 +60,89 @@ class PHPUnit_Extensions_SeleniumTestSuite extends PHPUnit_Framework_TestSuite
      * @var boolean
      */
     protected $testCase = TRUE;
+
+    /**
+     * Making the method public.
+     */
+    public function addTestMethod(ReflectionClass $class, ReflectionMethod $method)
+    {
+        return parent::addTestMethod($class, $method);
+    }
+
+    /**
+     * @param string $className     extending PHPUnit_Extensions_SeleniumTestCase
+     * @return PHPUnit_Extensions_SeleniumTestSuite
+     */
+    public static function fromTestCaseClass($className)
+    {
+        $suite = new self();
+        $suite->setName($className);
+
+        $class            = new ReflectionClass($className);
+        $classGroups      = PHPUnit_Util_Test::getGroups($className);
+        $staticProperties = $class->getStaticProperties();
+
+        // Create tests from Selenese/HTML files.
+        if (isset($staticProperties['seleneseDirectory']) &&
+            is_dir($staticProperties['seleneseDirectory'])) {
+            $files = array_merge(
+              self::getSeleneseFiles($staticProperties['seleneseDirectory'], '.htm'),
+              self::getSeleneseFiles($staticProperties['seleneseDirectory'], '.html')
+            );
+
+            // Create tests from Selenese/HTML files for multiple browsers.
+            if (!empty($staticProperties['browsers'])) {
+                foreach ($staticProperties['browsers'] as $browser) {
+                    $browserSuite = PHPUnit_Extensions_SeleniumBrowserSuite::fromClassAndBrowser($className, $browser);
+
+                    foreach ($files as $file) {
+                        self::addGeneratedTestTo($browserSuite,
+                          new $className($file, array(), '', $browser),
+                          $classGroups
+                        );
+                    }
+
+                    $suite->addTest($browserSuite);
+                }
+            }
+            else {
+                // Create tests from Selenese/HTML files for single browser.
+                foreach ($files as $file) {
+                    self::addGeneratedTestTo($suite,
+                                              new $className($file),
+                                              $classGroups);
+                }
+            }
+        }
+
+        // Create tests from test methods for multiple browsers.
+        if (!empty($staticProperties['browsers'])) {
+            foreach ($staticProperties['browsers'] as $browser) {
+                $browserSuite = PHPUnit_Extensions_SeleniumBrowserSuite::fromClassAndBrowser($className, $browser);
+                foreach ($class->getMethods() as $method) {
+                    $browserSuite->addTestMethod($class, $method);
+                }
+                $browserSuite->setupSpecificBrowser($browser);
+
+                $suite->addTest($browserSuite);
+            }
+        }
+        else {
+            // Create tests from test methods for single browser.
+            foreach ($class->getMethods() as $method) {
+                $suite->addTestMethod($class, $method);
+            }
+        }
+
+        return $suite;
+    }
+
+    private static function addGeneratedTestTo(PHPUnit_Framework_TestSuite $suite, PHPUnit_Framework_TestCase $test, $classGroups)
+    {
+        list ($methodName, ) = explode(' ', $test->getName());
+        $test->setDependencies(
+              PHPUnit_Util_Test::getDependencies(get_class($test), $methodName)
+        );
+        $suite->addTest($test, $classGroups);
+    }
 }

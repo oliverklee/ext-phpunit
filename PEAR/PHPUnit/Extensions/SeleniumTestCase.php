@@ -37,7 +37,7 @@
  * @package    PHPUnit_Selenium
  * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @copyright  2010-2012 Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link       http://www.phpunit.de/
  * @since      File available since Release 1.0.0
  */
@@ -49,8 +49,8 @@
  * @package    PHPUnit_Selenium
  * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @copyright  2010-2012 Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 1.2.4
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @version    Release: 1.2.7
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 1.0.0
  *
@@ -69,6 +69,118 @@
  * @method unknown  answerOnNextPrompt()
  * @method unknown  assignId()
  * @method unknown  assignIdAndWait()
+ * @method unknown  assertAlert
+ * @method unknown  assertAlertNotPresent
+ * @method unknown  assertAlertPresent
+ * @method unknown  assertAllButtons
+ * @method unknown  assertAllFields
+ * @method unknown  assertAllLinks
+ * @method unknown  assertAllWindowIds
+ * @method unknown  assertAllWindowNames
+ * @method unknown  assertAllWindowTitles
+ * @method unknown  assertAttribute
+ * @method unknown  assertAttributeFromAllWindows
+ * @method unknown  assertBodyText
+ * @method unknown  assertChecked
+ * @method unknown  assertConfirmation
+ * @method unknown  assertConfirmationNotPresent
+ * @method unknown  assertConfirmationPresent
+ * @method unknown  assertCookie
+ * @method unknown  assertCookieByName
+ * @method unknown  assertCookieNotPresent
+ * @method unknown  assertCookiePresent
+ * @method unknown  assertCssCount
+ * @method unknown  assertCursorPosition
+ * @method unknown  assertEditable
+ * @method unknown  assertElementHeight
+ * @method unknown  assertElementIndex
+ * @method unknown  assertElementNotPresent
+ * @method unknown  assertElementPositionLeft
+ * @method unknown  assertElementPositionTop
+ * @method unknown  assertElementPresent
+ * @method unknown  assertElementWidth
+ * @method unknown  assertEval
+ * @method unknown  assertExpression
+ * @method unknown  assertHtmlSource
+ * @method unknown  assertLocation
+ * @method unknown  assertLogMessages
+ * @method unknown  assertMouseSpeed
+ * @method unknown  assertNotAlert
+ * @method unknown  assertNotAllButtons
+ * @method unknown  assertNotAllFields
+ * @method unknown  assertNotAllLinks
+ * @method unknown  assertNotAllWindowIds
+ * @method unknown  assertNotAllWindowNames
+ * @method unknown  assertNotAllWindowTitles
+ * @method unknown  assertNotAttribute
+ * @method unknown  assertNotAttributeFromAllWindows
+ * @method unknown  assertNotBodyText
+ * @method unknown  assertNotChecked
+ * @method unknown  assertNotConfirmation
+ * @method unknown  assertNotCookie
+ * @method unknown  assertNotCookieByName
+ * @method unknown  assertNotCssCount
+ * @method unknown  assertNotCursorPosition
+ * @method unknown  assertNotEditable
+ * @method unknown  assertNotElementHeight
+ * @method unknown  assertNotElementIndex
+ * @method unknown  assertNotElementPositionLeft
+ * @method unknown  assertNotElementPositionTop
+ * @method unknown  assertNotElementWidth
+ * @method unknown  assertNotEval
+ * @method unknown  assertNotExpression
+ * @method unknown  assertNotHtmlSource
+ * @method unknown  assertNotLocation
+ * @method unknown  assertNotLogMessages
+ * @method unknown  assertNotMouseSpeed
+ * @method unknown  assertNotOrdered
+ * @method unknown  assertNotPrompt
+ * @method unknown  assertNotSelectOptions
+ * @method unknown  assertNotSelectedId
+ * @method unknown  assertNotSelectedIds
+ * @method unknown  assertNotSelectedIndex
+ * @method unknown  assertNotSelectedIndexes
+ * @method unknown  assertNotSelectedLabel
+ * @method unknown  assertNotSelectedLabels
+ * @method unknown  assertNotSelectedValue
+ * @method unknown  assertNotSelectedValues
+ * @method unknown  assertNotSomethingSelected
+ * @method unknown  assertNotSpeed
+ * @method unknown  assertNotSpeedAndWait
+ * @method unknown  assertNotTable
+ * @method unknown  assertNotText
+ * @method unknown  assertNotTitle
+ * @method unknown  assertNotValue
+ * @method unknown  assertNotVisible
+ * @method unknown  assertNotWhetherThisFrameMatchFrameExpression
+ * @method unknown  assertNotWhetherThisWindowMatchWindowExpression
+ * @method unknown  assertNotXpathCount
+ * @method unknown  assertOrdered
+ * @method unknown  assertPrompt
+ * @method unknown  assertPromptNotPresent
+ * @method unknown  assertPromptPresent
+ * @method unknown  assertSelectOptions
+ * @method unknown  assertSelectedId
+ * @method unknown  assertSelectedIds
+ * @method unknown  assertSelectedIndex
+ * @method unknown  assertSelectedIndexes
+ * @method unknown  assertSelectedLabel
+ * @method unknown  assertSelectedLabels
+ * @method unknown  assertSelectedValue
+ * @method unknown  assertSelectedValues
+ * @method unknown  assertSomethingSelected
+ * @method unknown  assertSpeed
+ * @method unknown  assertSpeedAndWait
+ * @method unknown  assertTable
+ * @method unknown  assertText
+ * @method unknown  assertTextNotPresent
+ * @method unknown  assertTextPresent
+ * @method unknown  assertTitle
+ * @method unknown  assertValue
+ * @method unknown  assertVisible
+ * @method unknown  assertWhetherThisFrameMatchFrameExpression
+ * @method unknown  assertWhetherThisWindowMatchWindowExpression
+ * @method unknown  assertXpathCount 
  * @method unknown  attachFile()
  * @method unknown  break()
  * @method unknown  captureEntirePageScreenshot()
@@ -263,9 +375,121 @@
  * @method unknown  uncheckAndWait()
  * @method unknown  useXpathLibrary()
  * @method unknown  useXpathLibraryAndWait()
- * @method unknown  waitForCondition()
- * @method unknown  waitForPageToLoad()
- * @method unknown  waitForPopUp()
+ * @method unknown  waitForAlert
+ * @method unknown  waitForAlertNotPresent
+ * @method unknown  waitForAlertPresent
+ * @method unknown  waitForAllButtons
+ * @method unknown  waitForAllFields
+ * @method unknown  waitForAllLinks
+ * @method unknown  waitForAllWindowIds
+ * @method unknown  waitForAllWindowNames
+ * @method unknown  waitForAllWindowTitles
+ * @method unknown  waitForAttribute
+ * @method unknown  waitForAttributeFromAllWindows
+ * @method unknown  waitForBodyText
+ * @method unknown  waitForChecked
+ * @method unknown  waitForCondition() 
+ * @method unknown  waitForConfirmation
+ * @method unknown  waitForConfirmationNotPresent
+ * @method unknown  waitForConfirmationPresent
+ * @method unknown  waitForCookie
+ * @method unknown  waitForCookieByName
+ * @method unknown  waitForCookieNotPresent
+ * @method unknown  waitForCookiePresent
+ * @method unknown  waitForCssCount
+ * @method unknown  waitForCursorPosition
+ * @method unknown  waitForEditable
+ * @method unknown  waitForElementHeight
+ * @method unknown  waitForElementIndex
+ * @method unknown  waitForElementNotPresent
+ * @method unknown  waitForElementPositionLeft
+ * @method unknown  waitForElementPositionTop
+ * @method unknown  waitForElementPresent
+ * @method unknown  waitForElementWidth
+ * @method unknown  waitForEval
+ * @method unknown  waitForExpression
+ * @method unknown  waitForHtmlSource
+ * @method unknown  waitForLocation
+ * @method unknown  waitForLogMessages
+ * @method unknown  waitForMouseSpeed
+ * @method unknown  waitForNotAlert
+ * @method unknown  waitForNotAllButtons
+ * @method unknown  waitForNotAllFields
+ * @method unknown  waitForNotAllLinks
+ * @method unknown  waitForNotAllWindowIds
+ * @method unknown  waitForNotAllWindowNames
+ * @method unknown  waitForNotAllWindowTitles
+ * @method unknown  waitForNotAttribute
+ * @method unknown  waitForNotAttributeFromAllWindows
+ * @method unknown  waitForNotBodyText
+ * @method unknown  waitForNotChecked
+ * @method unknown  waitForNotConfirmation
+ * @method unknown  waitForNotCookie
+ * @method unknown  waitForNotCookieByName
+ * @method unknown  waitForNotCssCount
+ * @method unknown  waitForNotCursorPosition
+ * @method unknown  waitForNotEditable
+ * @method unknown  waitForNotElementHeight
+ * @method unknown  waitForNotElementIndex
+ * @method unknown  waitForNotElementPositionLeft
+ * @method unknown  waitForNotElementPositionTop
+ * @method unknown  waitForNotElementWidth
+ * @method unknown  waitForNotEval
+ * @method unknown  waitForNotExpression
+ * @method unknown  waitForNotHtmlSource
+ * @method unknown  waitForNotLocation
+ * @method unknown  waitForNotLogMessages
+ * @method unknown  waitForNotMouseSpeed
+ * @method unknown  waitForNotOrdered
+ * @method unknown  waitForNotPrompt
+ * @method unknown  waitForNotSelectOptions
+ * @method unknown  waitForNotSelectedId
+ * @method unknown  waitForNotSelectedIds
+ * @method unknown  waitForNotSelectedIndex
+ * @method unknown  waitForNotSelectedIndexes
+ * @method unknown  waitForNotSelectedLabel
+ * @method unknown  waitForNotSelectedLabels
+ * @method unknown  waitForNotSelectedValue
+ * @method unknown  waitForNotSelectedValues
+ * @method unknown  waitForNotSomethingSelected
+ * @method unknown  waitForNotSpeed
+ * @method unknown  waitForNotSpeedAndWait
+ * @method unknown  waitForNotTable
+ * @method unknown  waitForNotText
+ * @method unknown  waitForNotTitle
+ * @method unknown  waitForNotValue
+ * @method unknown  waitForNotVisible
+ * @method unknown  waitForNotWhetherThisFrameMatchFrameExpression
+ * @method unknown  waitForNotWhetherThisWindowMatchWindowExpression
+ * @method unknown  waitForNotXpathCount
+ * @method unknown  waitForOrdered
+ * @method unknown  waitForPageToLoad() 
+ * @method unknown  waitForPopUp() 
+ * @method unknown  waitForPrompt
+ * @method unknown  waitForPromptNotPresent
+ * @method unknown  waitForPromptPresent
+ * @method unknown  waitForSelectOptions
+ * @method unknown  waitForSelectedId
+ * @method unknown  waitForSelectedIds
+ * @method unknown  waitForSelectedIndex
+ * @method unknown  waitForSelectedIndexes
+ * @method unknown  waitForSelectedLabel
+ * @method unknown  waitForSelectedLabels
+ * @method unknown  waitForSelectedValue
+ * @method unknown  waitForSelectedValues
+ * @method unknown  waitForSomethingSelected
+ * @method unknown  waitForSpeed
+ * @method unknown  waitForSpeedAndWait
+ * @method unknown  waitForTable
+ * @method unknown  waitForText
+ * @method unknown  waitForTextNotPresent
+ * @method unknown  waitForTextPresent
+ * @method unknown  waitForTitle
+ * @method unknown  waitForValue
+ * @method unknown  waitForVisible
+ * @method unknown  waitForWhetherThisFrameMatchFrameExpression
+ * @method unknown  waitForWhetherThisWindowMatchWindowExpression
+ * @method unknown  waitForXpathCount
  * @method unknown  windowFocus()
  * @method unknown  windowMaximize()
  */
@@ -364,10 +588,15 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
      * @param  array  $browser
      * @throws InvalidArgumentException
      */
-    public function __construct($name = NULL, array $data = array(), $dataName = '', array $browser = array())
+    public function __construct($name = NULL, array $data = array(), $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
         $this->testId = md5(uniqid(rand(), TRUE));
+        $this->getDriver(array());
+    }
+
+    public function setupSpecificBrowser(array $browser)
+    {
         $this->getDriver($browser);
     }
 
@@ -386,99 +615,7 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
      */
     public static function suite($className)
     {
-        $suite = new PHPUnit_Extensions_SeleniumTestSuite();
-        $suite->setName($className);
-
-        $class            = new ReflectionClass($className);
-        $classGroups      = PHPUnit_Util_Test::getGroups($className);
-        $staticProperties = $class->getStaticProperties();
-
-        // Create tests from Selenese/HTML files.
-        if (isset($staticProperties['seleneseDirectory']) &&
-            is_dir($staticProperties['seleneseDirectory'])) {
-            $files = array_merge(
-              self::getSeleneseFiles($staticProperties['seleneseDirectory'], '.htm'),
-              self::getSeleneseFiles($staticProperties['seleneseDirectory'], '.html')
-            );
-
-            // Create tests from Selenese/HTML files for multiple browsers.
-            if (!empty($staticProperties['browsers'])) {
-                foreach ($staticProperties['browsers'] as $browser) {
-                    $browserSuite = new PHPUnit_Framework_TestSuite;
-                    $browserSuite->setName($className . ': ' . $browser['name']);
-
-                    foreach ($files as $file) {
-                        self::addConfiguredTestTo($browserSuite,
-                          new $className($file, array(), '', $browser),
-                          $classGroups
-                        );
-                    }
-
-                    $suite->addTest($browserSuite);
-                }
-            }
-
-            // Create tests from Selenese/HTML files for single browser.
-            else {
-                foreach ($files as $file) {
-                    self::addConfiguredTestTo($suite,
-                                              new $className($file),
-                                              $classGroups);
-                }
-            }
-        }
-
-        // Create tests from test methods for multiple browsers.
-        if (!empty($staticProperties['browsers'])) {
-            foreach ($staticProperties['browsers'] as $browser) {
-                $browserSuite = new PHPUnit_Framework_TestSuite;
-                $browserSuite->setName($className . ': ' . $browser['name']);
-
-                foreach ($class->getMethods() as $method) {
-                    if (PHPUnit_Framework_TestSuite::isPublicTestMethod($method)) {
-                        $name   = $method->getName();
-
-                        $test = PHPUnit_Framework_TestSuite::createTest($class, $name);
-                        if ($test instanceof PHPUnit_Framework_TestCase) {
-                            $groups = PHPUnit_Util_Test::getGroups($className, $name);
-                            self::addConfiguredTestTo($browserSuite, $test, $groups);
-                        } else {
-                            $browserSuite->addTest($test);
-                        }
-                    }
-                }
-
-                $suite->addTest($browserSuite);
-            }
-        }
-
-        // Create tests from test methods for single browser.
-        else {
-            foreach ($class->getMethods() as $method) {
-                if (PHPUnit_Framework_TestSuite::isPublicTestMethod($method)) {
-                    $name   = $method->getName();
-
-                    $test = PHPUnit_Framework_TestSuite::createTest($class, $name);
-                    if ($test instanceof PHPUnit_Framework_TestCase) {
-                        $groups = PHPUnit_Util_Test::getGroups($className, $name);
-                        self::addConfiguredTestTo($suite, $test, $groups);
-                    } else {
-                        $suite->addTest($test);
-                    }
-                }
-            }
-        }
-
-        return $suite;
-    }
-
-    private static function addConfiguredTestTo(PHPUnit_Framework_TestSuite $suite, PHPUnit_Framework_TestCase $test, $classGroups)
-    {
-        list ($methodName, ) = explode(' ', $test->getName());
-        $test->setDependencies(
-              PHPUnit_Util_Test::getDependencies(get_class($test), $methodName)
-        );
-        $suite->addTest($test, $classGroups);
+        return PHPUnit_Extensions_SeleniumTestSuite::fromTestCaseClass($className);
     }
 
     /**
@@ -590,22 +727,25 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
         $driver->setTestCase($this);
         $driver->setTestId($this->testId);
 
-        $this->drivers[] = $driver;
+        $this->drivers[0] = $driver;
 
         return $driver;
     }
 
     public function skipWithNoServerRunning()
     {
-        $this->serverRunning = @fsockopen($this->drivers[0]->getHost(), $this->drivers[0]->getPort(), $errno, $errstr, $this->serverConnectionTimeOut);
-        if (!$this->serverRunning) {
+        try {
+            fsockopen($this->drivers[0]->getHost(), $this->drivers[0]->getPort(), $errno, $errstr, $this->serverConnectionTimeOut);
+            $this->serverRunning = TRUE;
+        } catch (PHPUnit_Framework_Error_Warning $e) {
             $this->markTestSkipped(
-              sprintf(
-                'Could not connect to the Selenium Server on %s:%d.',
-                $this->drivers[0]->getHost(),
-                $this->drivers[0]->getPort()
-              )
+                sprintf(
+                    'Could not connect to the Selenium Server on %s:%d.',
+                    $this->drivers[0]->getHost(),
+                    $this->drivers[0]->getPort()
+                )
             );
+            $this->serverRunning = FALSE;
         }
     }
 
@@ -614,6 +754,10 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
      */
     protected function prepareTestSession()
     {
+        $testCaseClassVars = get_class_vars(get_class($this));
+        if ($testCaseClassVars['browsers']) {
+            return $this->start();
+        }
         if (self::$shareSession && self::$sessionId !== NULL) {
             $this->setSessionId(self::$sessionId);
             $this->selectWindow('null');
@@ -1039,19 +1183,23 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
             throw $e;
         }
 
-        $this->restoreSessionStateAfterFailedTest();
+        try {
+            $this->restoreSessionStateAfterFailedTest();
 
-        $buffer  = 'Current URL: ' . $this->drivers[0]->getLocation() .
-                   "\n";
+            $buffer  = 'Current URL: ' . $this->drivers[0]->getLocation() .
+                       "\n";
 
-        if ($this->captureScreenshotOnFailure) {
-            $screenshotInfo = $this->takeScreenshot();
-            if ($screenshotInfo != '') {
-                $buffer .= $screenshotInfo;
+            if ($this->captureScreenshotOnFailure) {
+                $screenshotInfo = $this->takeScreenshot();
+                if ($screenshotInfo != '') {
+                    $buffer .= $screenshotInfo;
+                }
             }
-        }
 
-        $this->stopSession();
+            $this->stopSession();
+        } catch (Exception $another) {
+            $buffer = "Issues while capturing the screenshot:\n" . $another->getMessage();
+        }
 
         if ($e instanceof PHPUnit_Framework_ExpectationFailedException
          && is_object($e->getComparisonFailure())) {
@@ -1075,12 +1223,12 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
         }
 
         // yes to stack trace, only for F tests
+        // PHPUnit issue 471 prevents getTrace() from being useful
         throw new PHPUnit_Framework_Error($buffer, $e->getCode(), $e->getFile(), $e->getLine(), $e->getTrace());
     }
 
     private function restoreSessionStateAfterFailedTest()
     {
-        $this->selectWindow('null');
         self::$sessionId = NULL;
     }
 
@@ -1105,7 +1253,7 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
      * Return an empty string if the screenshotPath and screenshotUrl
      * properties are empty.
      * Issue #88.
-     * 
+     *
      * @access protected
      * @return string
      */

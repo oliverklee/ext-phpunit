@@ -6,7 +6,7 @@ PHPUnit is the de-facto standard for unit testing in PHP projects. It provides b
 Requirements
 ------------
 
-* PHPUnit 3.6 requires PHP 5.2.7 (or later) but PHP 5.3.9 (or later) is highly recommended.
+* PHPUnit 3.6 requires PHP 5.2.7 (or later) but PHP 5.4.0 (or later) is highly recommended.
 * [PHP_CodeCoverage](http://github.com/sebastianbergmann/php-code-coverage), the library that is used by PHPUnit to collect and process code coverage information, depends on [Xdebug](http://xdebug.org/) 2.0.5 (or later) but Xdebug 2.1.3 (or later) is highly recommended.
 
 Installation
@@ -32,6 +32,10 @@ The documentation for PHPUnit is available in different formats:
 * [English, single HTML file](http://www.phpunit.de/manual/3.6/en/phpunit-book.html)
 * [English, PDF](http://www.phpunit.de/manual/3.6/en/phpunit-book.pdf)
 * [English, ePub](http://www.phpunit.de/manual/3.6/en/phpunit-book.epub)
+* [French, multiple HTML files](http://www.phpunit.de/manual/3.6/fr/index.html)
+* [French, single HTML file](http://www.phpunit.de/manual/3.6/fr/phpunit-book.html)
+* [French, PDF](http://www.phpunit.de/manual/3.6/fr/phpunit-book.pdf)
+* [French, ePub](http://www.phpunit.de/manual/3.6/fr/phpunit-book.epub)
 * [Japanese, multiple HTML files](http://www.phpunit.de/manual/3.6/ja/index.html)
 * [Japanese, single HTML file](http://www.phpunit.de/manual/3.6/ja/phpunit-book.html)
 * [Japanese, PDF](http://www.phpunit.de/manual/3.6/ja/phpunit-book.pdf)
@@ -61,6 +65,10 @@ The following commands can be used to perform the initial checkout of PHPUnit an
     git clone git://github.com/sebastianbergmann/php-invoker.git
 
 The `dbunit`, `php-code-coverage`, `php-file-iterator`, `php-text-template`, `php-timer`, `php-token-stream`, `phpunit`, `phpunit-mock-objects`, `phpunit-selenium`, `phpunit-story`, and `php-invoker` directories need to be added to the `include_path`.
+
+In addition to the checkouts listed above, the YAML component that is provided by the Symfony project is required:
+
+    pear install pear.symfony-project.com/YAML
 
 The `phpunit/phpunit.php` script can be used to invoke the PHPUnit test runner.
 

@@ -51,7 +51,7 @@
  * @author     Sebastian Bergmann <sebastian@phpunit.de>
  * @copyright  2001-2012 Sebastian Bergmann <sebastian@phpunit.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 3.6.10
+ * @version    Release: 3.6.11
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 3.0.0
  */
@@ -59,7 +59,7 @@ class PHPUnit_Util_Test
 {
     const REGEX_DATA_PROVIDER      = '/@dataProvider\s+([a-zA-Z0-9._:-\\\\x7f-\xff]+)/';
     const REGEX_EXPECTED_EXCEPTION = '(@expectedException\s+([:.\w\\\\x7f-\xff]+)(?:[\t ]+(\S*))?(?:[\t ]+(\S*))?\s*$)m';
-    const REGEX_REQUIRES           = '/@requires\s+(?P<name>PHP(?:Unit)?)\s+(?P<value>[\d\.]+)[ \t]*\r?$/m';
+    const REGEX_REQUIRES           = '/@requires\s+(?P<name>PHP(?:Unit)?)\s+(?P<value>[\d\.-]+(dev|(RC|alpha|beta)[\d\.])?)[ \t]*\r?$/m';
 
     const SMALL  = 0;
     const MEDIUM = 1;
@@ -261,8 +261,13 @@ class PHPUnit_Util_Test
         }
 
         if (!empty($methodName) && !isset(self::$annotationCache[$className . '::' . $methodName])) {
-            $method = new ReflectionMethod($className, $methodName);
-            self::$annotationCache[$className . '::' . $methodName] = self::parseAnnotations($method->getDocComment());
+            try {
+                $method = new ReflectionMethod($className, $methodName);
+                $annotations = self::parseAnnotations($method->getDocComment());
+            } catch (ReflectionException $e) {
+                $annotations = array();
+            }
+            self::$annotationCache[$className . '::' . $methodName] = $annotations;
         }
 
         return array(

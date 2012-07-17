@@ -37,7 +37,7 @@
  * @package    PHPUnit_Selenium
  * @author     Giorgio Sironi <giorgio.sironi@asp-poli.it>
  * @copyright  2010-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link       http://www.phpunit.de/
  * @since      File available since Release 1.2.0
  */
@@ -48,18 +48,18 @@
  * @package    PHPUnit_Selenium
  * @author     Giorgio Sironi <giorgio.sironi@asp-poli.it>
  * @copyright  2010-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 1.2.4
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @version    Release: 1.2.7
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 1.2.0
  */
 class PHPUnit_Extensions_Selenium2TestCase_SessionCommand_Url
     extends PHPUnit_Extensions_Selenium2TestCase_Command
 {
-    public function __construct($relativeUrl, $commandUrl, $baseUrl)
+    public function __construct($url, $commandUrl, PHPUnit_Extensions_Selenium2TestCase_URL $baseUrl)
     {
-        if ($relativeUrl !== NULL) {
-            $absoluteLocation = $baseUrl->addCommand($relativeUrl)->getValue();
+        if ($url !== NULL) {
+            $absoluteLocation = $baseUrl->jump($url)->getValue();
             $jsonParameters = array('url' => $absoluteLocation);
         } else {
             $jsonParameters = NULL;

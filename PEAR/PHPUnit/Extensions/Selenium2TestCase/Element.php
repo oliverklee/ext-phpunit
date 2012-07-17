@@ -37,7 +37,7 @@
  * @package    PHPUnit_Selenium
  * @author     Giorgio Sironi <giorgio.sironi@asp-poli.it>
  * @copyright  2010-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link       http://www.phpunit.de/
  * @since      File available since Release 1.2.0
  */
@@ -48,13 +48,13 @@
  * @package    PHPUnit_Selenium
  * @author     Giorgio Sironi <giorgio.sironi@asp-poli.it>
  * @copyright  2010-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 1.2.4
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @version    Release: 1.2.7
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 1.2.0
  * @method string attribute($name) Retrieves an element's attribute
  * @method void clear() Empties the content of a form element.
- * @method void click() 
+ * @method void click() Clicks on element
  * @method string css($propertyName) Retrieves the value of a CSS property
  * @method bool displayed() Checks an element's visibility
  * @method bool enabled() Checks a form element's state
@@ -70,30 +70,6 @@
 class PHPUnit_Extensions_Selenium2TestCase_Element
     extends PHPUnit_Extensions_Selenium2TestCase_CommandsHolder
 {
-    /**
-     * @var PHPUnit_Extensions_Selenium2TestCase_Driver
-     */
-    protected $driver;
-
-    /**
-     * @var string  the API URL for this element,
-     */
-    protected $url;
-
-    /**
-     * @var array   instances of 
-     *              PHPUnit_Extensions_Selenium2TestCase_ElementCommand
-     */
-    protected $commands;
-
-    public function __construct($driver,
-                                PHPUnit_Extensions_Selenium2TestCase_URL $url)
-    {
-        $this->driver = $driver;
-        $this->url = $url;
-        $this->commands = $this->initCommands();
-    }
-
     /**
      * @return integer
      */
@@ -123,20 +99,6 @@ class PHPUnit_Extensions_Selenium2TestCase_Element
             'text' => 'PHPUnit_Extensions_Selenium2TestCase_ElementCommand_GenericAccessor',
             'value' => 'PHPUnit_Extensions_Selenium2TestCase_ElementCommand_Value'
         );
-    }
-
-    public function __call($commandName, $arguments)
-    {
-        if (count($arguments) > 1) {
-            throw new InvalidArgumentException("At most 1 argument can be passed.");
-        }
-        if ($arguments === array()) {
-            $jsonParameters = NULL;
-        } else {
-            $jsonParameters = $arguments[0];
-        }
-        $response = $this->driver->execute($this->newCommand($commandName, $jsonParameters));
-        return $response->getValue();
     }
 
     /**
@@ -176,24 +138,5 @@ class PHPUnit_Extensions_Selenium2TestCase_Element
     protected function criteria($using)
     {
         return new PHPUnit_Extensions_Selenium2TestCase_ElementCriteria($using);
-    }
-
-    private function postCommand($name, PHPUnit_Extensions_Selenium2TestCase_ElementCriteria $criteria)
-    {
-        $response = $this->driver->curl('POST',
-                                        $this->url->addCommand($name),
-                                        $criteria->getArrayCopy());
-        return $response->getValue();
-    }
-
-    private function newCommand($commandName, $jsonParameters)
-    {
-        if (isset($this->commands[$commandName])) {
-            $className = $this->commands[$commandName];
-            $url = $this->url->addCommand($commandName);
-            $command = new $className($jsonParameters, $url);
-            return $command;
-        }
-        throw new RuntimeException("The command '$commandName' is not supported yet.");
     }
 }

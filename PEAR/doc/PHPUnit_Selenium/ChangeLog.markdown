@@ -3,6 +3,37 @@ PHPUnit_Selenium 1.2
 
 This is the list of changes for the PHPUnit_Selenium 1.2 release series.
 
+PHPUnit_Selenium 1.2.7
+----------------------
+
+* Implemented #130: version number available programmatically.
+* Implemented $this->keys().
+* Session is now closed on failure.
+* Added various docblocks for SeleniumTestCase.
+* Browser session can now be started even in setUp().
+
+PHPUnit_Selenium 1.2.6
+----------------------
+
+* Fixed #114 and #115: regressions of @depends/@dataProvider.
+* Added $this->cookie() for adding and removing cookies via a Builder.
+* Added Selenium2TestCase_Exception in the Cookie api.
+* Supporting absolute URLs (http://...) in $this->url().
+* Supporting uppercase URLs.
+* Raising error message for stale elements reference (#117).
+* No 500 errors when communicating with Selenium Server.
+* Supporting Selenium 2.20.
+* Tests for 404 pages.
+* Supporting @depends/@dataProvider and similar annotations in SeleniumTestCase.
+* Added getCssCount() in SeleniumTestCase.
+
+PHPUnit_Selenium 1.2.5
+----------------------
+
+* Added Window object accessible via $this->currentWindow().
+* Implemented $this->timeouts()->asyncScript().
+* Fixed #105: $browsers static property.
+
 PHPUnit_Selenium 1.2.4
 ----------------------
 

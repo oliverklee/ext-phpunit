@@ -37,7 +37,7 @@
  * @package    PHPUnit_Selenium
  * @author     Giorgio Sironi <giorgio.sironi@asp-poli.it>
  * @copyright  2010-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link       http://www.phpunit.de/
  * @since      File available since Release 1.2.2
  */
@@ -48,8 +48,8 @@
  * @package    PHPUnit_Selenium
  * @author     Giorgio Sironi <giorgio.sironi@asp-poli.it>
  * @copyright  2010-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 1.2.4
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @version    Release: 1.2.7
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 1.2.2
  */
@@ -86,7 +86,7 @@ class PHPUnit_Extensions_Selenium2TestCase_Element_Select
      */
     public function selectOptionByLabel($label)
     {
-        $toSelect = $this->criteria('xpath')->value("//option[.='$label']");
+        $toSelect = $this->criteria('xpath')->value("option[.='$label']");
         $this->selectOptionByCriteria($toSelect);
     }
 
@@ -96,7 +96,7 @@ class PHPUnit_Extensions_Selenium2TestCase_Element_Select
      */
     public function selectOptionByValue($value)
     {
-        $toSelect = $this->criteria('xpath')->value("//option[@value='$value']");
+        $toSelect = $this->criteria('xpath')->value("option[@value='$value']");
         $this->selectOptionByCriteria($toSelect);
     }
 

@@ -37,7 +37,7 @@
  * @package    PHPUnit_Selenium
  * @author     Giorgio Sironi <giorgio.sironi@asp-poli.it>
  * @copyright  2010-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link       http://www.phpunit.de/
  * @since      File available since Release 1.2.0
  */
@@ -48,8 +48,8 @@
  * @package    PHPUnit_Selenium
  * @author     Giorgio Sironi <giorgio.sironi@asp-poli.it>
  * @copyright  2010-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 1.2.4
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @version    Release: 1.2.7
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 1.2.0
  */
@@ -60,9 +60,22 @@ final class PHPUnit_Extensions_Selenium2TestCase_URL
      */
     private $value;
 
+    /**
+     * @param string $value
+     */
     public function __construct($value)
     {
         $this->value = $value;
+    }
+
+    /**
+     * @param string $host
+     * @param int port
+     * @return PHPUnit_Extensions_Selenium2TestCase_URL
+     */
+    public static function fromHostAndPort($host, $port)
+    {
+        return new self("http://{$host}:{$port}");
     }
 
     /**
@@ -78,6 +91,10 @@ final class PHPUnit_Extensions_Selenium2TestCase_URL
         return $this->getValue();
     }
 
+    /**
+     * @param string $addition
+     * @return PHPUnit_Extensions_Selenium2TestCase_URL
+     */
     public function descend($addition)
     {
         $newValue = rtrim($this->value, '/')
@@ -86,6 +103,9 @@ final class PHPUnit_Extensions_Selenium2TestCase_URL
         return new self($newValue);
     }
 
+    /**
+     * @return PHPUnit_Extensions_Selenium2TestCase_URL
+     */
     public function ascend()
     {
         $lastSlash = strrpos($this->value, "/");
@@ -102,9 +122,26 @@ final class PHPUnit_Extensions_Selenium2TestCase_URL
         return end($segments);
     }
 
+    /**
+     * @param string $command
+     * @return PHPUnit_Extensions_Selenium2TestCase_URL
+     */
     public function addCommand($command)
     {
         return $this->descend($this->camelCaseToUnderScores($command));
+    }
+
+    /**
+     * @param string $newUrl
+     * @return PHPUnit_Extensions_Selenium2TestCase_URL
+     */
+    public function jump($newUrl)
+    {
+        if ($this->isAbsolute($newUrl)) {
+            return new self($newUrl);
+        } else {
+            return $this->descend($newUrl);
+        }
     }
 
     private function camelCaseToUnderScores($string)
@@ -114,8 +151,8 @@ final class PHPUnit_Extensions_Selenium2TestCase_URL
         return str_replace(' ', '_', $string);
     }
 
-    public static function fromHostAndPort($host, $port)
+    private function isAbsolute($urlValue)
     {
-        return new self("http://{$host}:{$port}");
+        return preg_match('/^(http|https):\/\//', $urlValue) > 0;
     }
 }

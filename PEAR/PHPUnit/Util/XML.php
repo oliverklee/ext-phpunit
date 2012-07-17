@@ -51,7 +51,7 @@
  * @author     Sebastian Bergmann <sebastian@phpunit.de>
  * @copyright  2001-2012 Sebastian Bergmann <sebastian@phpunit.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 3.6.10
+ * @version    Release: 3.6.11
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 3.2.0
  */
@@ -622,6 +622,13 @@ class PHPUnit_Util_XML
                     }
                 }
 
+                // match empty string
+                else if ($options['content'] === '') {
+                    if (self::getNodeText($node) !== '') {
+                        $invalid = TRUE;
+                    }
+                }
+
                 // match by exact string
                 else if (strstr(self::getNodeText($node), $options['content']) === FALSE) {
                     $invalid = TRUE;
@@ -692,7 +699,7 @@ class PHPUnit_Util_XML
             foreach ($nodes as $node) {
                 $parent = $node->parentNode;
 
-                while ($parent->nodeType != XML_HTML_DOCUMENT_NODE) {
+                while ($parent && $parent->nodeType != XML_HTML_DOCUMENT_NODE) {
                     if ($parent === $ancestorNode) {
                         $filtered[] = $node;
                     }

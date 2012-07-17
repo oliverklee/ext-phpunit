@@ -37,7 +37,7 @@
  * @package    PHPUnit_Selenium
  * @author     Giorgio Sironi <giorgio.sironi@asp-poli.it>
  * @copyright  2010-2012 Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link       http://www.phpunit.de/
  * @since      File available since Release 1.2.4
  */
@@ -48,10 +48,12 @@
  * @package    PHPUnit_Selenium
  * @author     Giorgio Sironi <giorgio.sironi@asp-poli.it>
  * @copyright  2010-2012 Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version    Release: 1.2.4
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @version    Release: 1.2.7
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 1.2.4
+ * @method implicitWait(int $ms) Sets timeout when searching for elements
+ * @method asyncScript(int $ms) Sets timeout for asynchronous scripts executed by Session::executeAsync()
  */
 class PHPUnit_Extensions_Selenium2TestCase_Session_Timeouts
     extends PHPUnit_Extensions_Selenium2TestCase_CommandsHolder
@@ -62,7 +64,12 @@ class PHPUnit_Extensions_Selenium2TestCase_Session_Timeouts
             'implicitWait' => function ($parameter, $commandUrl) {
                 $jsonParameters = array('ms' => $parameter);
                 return new PHPUnit_Extensions_Selenium2TestCase_ElementCommand_GenericPost($jsonParameters, $commandUrl);
-            }
+            },
+            'asyncScript' => function ($parameter, $commandUrl) {
+                $jsonParameters = array('ms' => $parameter);
+                return new PHPUnit_Extensions_Selenium2TestCase_ElementCommand_GenericPost($jsonParameters, $commandUrl);
+            },
+
         );
     }
 }
