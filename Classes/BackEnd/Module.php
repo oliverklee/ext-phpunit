@@ -608,6 +608,11 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$this->testStatistics = t3lib_div::makeInstance('Tx_Phpunit_BackEnd_TestStatistics');
 		$this->testStatistics->start();
 
+		if ($this->shouldCollectCodeCoverageInformation()) {
+			$this->coverage = t3lib_div::makeInstance('PHP_CodeCoverage');
+			$this->coverage->start('phpunit');
+		}
+
 		if ($this->request->hasString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST)) {
 			$this->runSingleTest($testSuite, $testResult);
 		} elseif ($this->request->hasString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE)) {
