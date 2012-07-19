@@ -42,10 +42,12 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	protected $outputService = NULL;
 
 	public function setUp() {
+		$namePrettifier = new PHPUnit_Util_TestDox_NamePrettifier();
 		$this->outputService = new Tx_Phpunit_Service_FakeOutputService();
 
 		$fixtureClassName = $this->createAccessibleProxy();
 		$this->fixture = new $fixtureClassName();
+		$this->fixture->injectNamePrettifier($namePrettifier);
 		$this->fixture->injectOutputService($this->outputService);
 	}
 
