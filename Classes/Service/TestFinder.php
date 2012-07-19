@@ -167,7 +167,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 		$testFiles = array();
 		$allPhpFiles = t3lib_div::getAllFilesAndFoldersInPath(array(), $directory, 'php');
 		foreach ($allPhpFiles as $filePath) {
-			if ($this->isTestCaseFileName($filePath)) {
+			if ($this->isNotFixturesPath($filePath) && $this->isTestCaseFileName($filePath)) {
 				$testFiles[] = substr($filePath, $directoryLength);
 			}
 		}
@@ -175,6 +175,17 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 		sort($testFiles, SORT_STRING);
 
 		return $testFiles;
+	}
+
+	/**
+	 * Checks that a path does not contain "Fixtures" or "fixtures".
+	 *
+	 * @param string $path the absolute path of a file to check, may be empty
+	 *
+	 * @return boolean TRUE if $fileName is a valid testcase path, FALSE otherwise
+	 */
+	protected function isNotFixturesPath($path) {
+		return (stristr($path, '/fixtures/') === FALSE);
 	}
 
 	/**
