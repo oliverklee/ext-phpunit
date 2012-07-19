@@ -57,6 +57,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 	public function setUp() {
 		$this->typo3ConfigurationVariablesBackup = $GLOBALS['TYPO3_CONF_VARS'];
+
 		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'] = '';
 		$GLOBALS['TYPO3_CONF_VARS']['EXT']['requiredExt'] = '';
 
@@ -856,6 +857,29 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getLoadedExtensionKeysReturnsKeysOfLoadedExtensions() {
+			// TODO: Use t3lib_utility_VersionNumber::convertVersionNumberToInteger() as soon as TYPO3 6.0 is released
+		if (!method_exists('t3lib_extMgm', 'getLoadedExtensionListArray')) {
+			$this->markTestSkipped('This test is available in TYPO3 6.0 and above.');
+		}
+
+		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extListArray'] = array('bar');
+		$GLOBALS['TYPO3_CONF_VARS']['EXT']['requiredExt'] = '';
+
+		$this->assertContains(
+			'bar',
+			$this->fixture->getLoadedExtensionKeys()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getLoadedExtensionKeysReturnsKeysOfLoadedExtensionsBelowVersionSix() {
+			// TODO: Use t3lib_utility_VersionNumber::convertVersionNumberToInteger() as soon as TYPO3 6.0 is released
+		if (method_exists('t3lib_extMgm', 'getLoadedExtensionListArray')) {
+			$this->markTestSkipped('This test is available in TYPO3 below version 6.0.');
+		}
+
 		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'] = 'bar';
 		$GLOBALS['TYPO3_CONF_VARS']['EXT']['requiredExt'] = '';
 
@@ -895,6 +919,27 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getLoadedExtensionKeysReturnsKeysThatAreBothLoadedAndRequiredOnlyOnce() {
+		if (!method_exists('t3lib_extMgm', 'getLoadedExtensionListArray')) {
+			$this->markTestSkipped('This test is available in TYPO3 6.0 and above.');
+		}
+
+		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extListArray'] = array('foo');
+		$GLOBALS['TYPO3_CONF_VARS']['EXT']['requiredExt'] = array('foo');
+
+		$this->assertSame(
+			explode(',', REQUIRED_EXTENSIONS . ',foo'),
+			$this->fixture->getLoadedExtensionKeys()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getLoadedExtensionKeysReturnsKeysThatAreBothLoadedAndRequiredOnlyOnceBelowVersionSix() {
+		if (method_exists('t3lib_extMgm', 'getLoadedExtensionListArray')) {
+			$this->markTestSkipped('This test is available in TYPO3 below version 6.0.');
+		}
+
 		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'] = 'foo';
 		$GLOBALS['TYPO3_CONF_VARS']['EXT']['requiredExt'] = 'foo';
 

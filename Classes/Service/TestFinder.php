@@ -372,13 +372,20 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 * @return array<string> the keys of the loaded extensions, might be empty
 	 */
 	protected function getLoadedExtensionKeys() {
-		$requiredExtensionList = t3lib_extMgm::getRequiredExtensionList();
+			// TODO: Use t3lib_utility_VersionNumber::convertVersionNumberToInteger() as soon as TYPO3 6.0 is released
+		if (method_exists('t3lib_extMgm', 'getLoadedExtensionListArray')) {
+			$allExtensionKeys = t3lib_extMgm::getLoadedExtensionListArray();
+		} else {
+			$requiredExtensionList = t3lib_extMgm::getRequiredExtensionList();
+			$loadedExtensionList = isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'])
+				? $GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'] : '';
 
-		$loadedExtensionList = isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'])
-			? $GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'] : '';
-		$allExtensionKeys = t3lib_div::trimExplode(',', $loadedExtensionList . ',' . $requiredExtensionList, TRUE);
+			$allExtensionKeys = array_unique(
+				t3lib_div::trimExplode(',', $loadedExtensionList . ',' . $requiredExtensionList, TRUE)
+			);
+		}
 
-		return array_unique($allExtensionKeys);
+		return $allExtensionKeys;
 	}
 
 	/**
