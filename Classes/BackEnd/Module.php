@@ -322,9 +322,10 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			return;
 		}
 
-		$output = $this->createExtensionSelector();
+		$this->createExtensionSelector();
 		$selectedExtensionKey = $this->getAndSaveSelectedTestableKey();
 
+		$output = '';
 		if ($selectedExtensionKey !== Tx_Phpunit_Testable::ALL_EXTENSIONS) {
 			$output .= $this->createTestCaseSelector($selectedExtensionKey) . $this->createTestSelector($selectedExtensionKey);
 		}
@@ -336,54 +337,19 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	/**
 	 * Creates the extension drop-down.
 	 *
-	 * @return string
-	 *         HTML code for the drop-down and a surrounding form, will not be empty
+	 * @return void
 	 */
 	protected function createExtensionSelector() {
-		$selectedExtensionKey = $this->getAndSaveSelectedTestableKey();
+		$this->getAndSaveSelectedTestableKey();
 
-		$options = array();
-		$options[] = '<option value="" disabled="disabled">' . $this->translate('select_extension') . '</option>';
+		/** @var $extensionSelectorViewHelper Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper */
+		$extensionSelectorViewHelper = t3lib_div::makeInstance('Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper');
+		$extensionSelectorViewHelper->injectOutputService($this->outputService);
+		$extensionSelectorViewHelper->injectUserSettingService($this->userSettingsService);
+		$extensionSelectorViewHelper->injectTestFinder($this->testFinder);
+		$extensionSelectorViewHelper->setAction($this->MCONF['_']);
 
-		$allIsSelected = ($selectedExtensionKey === Tx_Phpunit_Testable::ALL_EXTENSIONS) ? ' selected="selected"' : '';
-		$options[] = '<option class="alltests" value="uuall"' . $allIsSelected . '>' .
-			$this->translate('all_extensions') . '</option>';
-
-		$selectedExtensionStyle = '';
-
-		$testables = $this->testFinder->getTestablesForEverything();
-		/** @var  $testable Tx_Phpunit_Testable */
-		foreach ($testables as $testable) {
-			$style = 'background: url(' . $testable->getIconPath() . ') no-repeat 3px 50% white; padding: 1px 1px 1px 24px;';
-			if ($selectedExtensionKey === $testable->getKey()) {
-				$selected = ' selected="selected"';
-				$selectedExtensionStyle = $style;
-			} else {
-				$selected = '';
-			}
-
-			$options[] = '<option style="' . $style . '" value="' . htmlspecialchars($testable->getKey()) . '"' . $selected . '>' .
-				htmlspecialchars($testable->getKey()) . '</option>';
-		}
-
-		$allOptions = implode(LF, $options);
-
-		$output = '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post"><p>' .
-				'<select style="' . $selectedExtensionStyle . '"name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
-				Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE . ']" onchange="jumpToUrl(\'' .
-				htmlspecialchars($this->MCONF['_']) .
-				'&amp;' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
-				Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE . ']=\'+this.options[this.selectedIndex].value,this);">' .
-				$allOptions .
-				'</select> ' .
-				'<button type="submit" name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE .
-				'[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_EXECUTE . ']" value="run" accesskey="a">' .
-				$this->translate('run_all_tests') . '</button>' .
-				'<input type="hidden" name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
-				Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND . ']" value="runalltests" />' .
-				'</p></form>';
-
-		return $output;
+		$extensionSelectorViewHelper->render();
 	}
 
 	/**
