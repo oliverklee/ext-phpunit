@@ -26,17 +26,24 @@ if (!defined('TYPO3_cliMode')) {
 	die('Access denied: CLI only.');
 }
 
-require_once('PHPUnit/Autoload.php');
-
 /**
- * This class runs PHPUnit in CLI mode.
+ * Abstract TestRunner class. Can be used to implement
+ * other TestRunners which need CLI scope.
+ * Currently only ManualCliTestRunner and IdeTestRunner are implemented.
  *
  * @package TYPO3
  * @subpackage tx_phpunit
  *
  * @author Michael Klapper <michael.klapper@aoemedia.de>
  */
-class Tx_Phpunit_Cli_TestRunner extends t3lib_cli {
+abstract class Tx_Phpunit_TestRunner_AbstractCliTestRunner extends t3lib_cli {
+	/**
+	 * Additional help text for the command line
+	 *
+	 * @var array
+	 */
+	protected $additionalHelp = array();
+
 	/**
 	 * definition of the extension name
 	 *
@@ -49,37 +56,13 @@ class Tx_Phpunit_Cli_TestRunner extends t3lib_cli {
 	 */
 	public function __construct() {
 		setlocale(LC_NUMERIC, 'C');
-
 		parent::__construct();
 
-		$this->cli_options = array_merge($this->cli_options, array());
 		$this->cli_help = array_merge(
 			$this->cli_help,
-			array(
-				'name' => 'tx_phpunit_cli_phpunit',
-				'synopsis' => $this->extKey . ' command [clientId] ###OPTIONS###',
-				'description' => 'This script can update a list of several caches (per CLI-call can one cache be updated)',
-				'examples' => 'typo3/cli_dispatch.phpsh',
-				'author' => '(c) 2009-2012 AOE media GmbH <dev@aoemedia.de>',
-			)
+			$this->additionalHelp
 		);
-	}
-
-	/**
-	 * Detects the action and calls the related methods.
-	 *
-	 * @return void
-	 */
-	public function run() {
-		/**
-		 * @var string
-		 */
-		define('PHPUnit_MAIN_METHOD', 'PHPUnit_TextUI_Command::main');
-		PHPUnit_TextUI_Command::main();
 	}
 }
 
-/* @var $phpUnit Tx_Phpunit_Cli_TestRunner */
-$phpUnit = t3lib_div::makeInstance('Tx_Phpunit_Cli_TestRunner');
-$phpUnit->run();
 ?>

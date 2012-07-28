@@ -22,8 +22,12 @@ $GLOBALS['TYPO3_CONF_VARS']['BE']['AJAX']['Tx_Phpunit_BackEnd_Ajax']
 	= 'typo3conf/ext/phpunit/Classes/BackEnd/Ajax.php:Tx_Phpunit_BackEnd_Ajax->ajaxBroker';
 
 if (TYPO3_MODE === 'BE') {
-	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['GLOBAL']['cliKeys'][$_EXTKEY] = array(
-		'EXT:' . $_EXTKEY . '/Classes/Cli/TestRunner.php',
+	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['GLOBAL']['cliKeys']['phpunit'] = array(
+		'EXT:' . $_EXTKEY . '/Classes/TestRunner/ManualCliTestRunner.php',
+		'_CLI_phpunit',
+	);
+	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['GLOBAL']['cliKeys']['phpunit_ide_testrunner'] = array(
+		'EXT:' . $_EXTKEY . '/Classes/TestRunner/IdeTestRunner.php',
 		'_CLI_phpunit',
 	);
 }

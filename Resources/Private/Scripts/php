@@ -1,0 +1,77 @@
+#!/bin/sh
+
+# Copyright notice
+# (c) 2012 Helmut Hummel <helmut.hummel@typo3.org>
+# All rights reserved
+#
+# This script is part of the TYPO3 project. The TYPO3 project is
+# free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# The GNU General Public License can be found at
+# http://www.gnu.org/copyleft/gpl.html.
+#
+# This script is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# This copyright notice MUST APPEAR in all copies of the script!
+
+
+# Absolute path of your php binary
+# e.g. /Applications/MAMP/bin/php5.3/bin/php
+PHP='/usr/bin/php'
+
+# Name of the testrunner of your IDE (ide-phpunit.php in case of PhpStorm)
+IDE_PHP_UNIT_TESTRUNNER_NAME='ide-phpunit.php'
+
+# Path to the TYPO3 installation. NO trailing slash!!
+# phpunit extension needs to be installed and prepared for CLI access
+# Instead of setting this variable, you can set the
+# environment variable ENV_TYPO3_SITE_PATH instead
+#TYPO3_SITE_PATH='/Users/helmut/Sites/htdocs/4-5'
+
+#####################################################################################################
+################################### DO NOT CHANGE ANYTHING BELOW ####################################
+#####################################################################################################
+
+if [ -n "${ENV_TYPO3_SITE_PATH}" ]
+then
+	TYPO3_SITE_PATH=${ENV_TYPO3_SITE_PATH}
+fi
+
+# TODO implement sanity checks
+
+CLI_PATH="${TYPO3_SITE_PATH}/typo3/cli_dispatch.phpsh phpunit_ide"
+
+params=$*
+phpParams=''
+
+# Find the testrunner script and shift away options for the php binary
+for param in ${params}
+do
+	if echo ${param} | grep -q ${IDE_PHP_UNIT_TESTRUNNER_NAME}
+	then
+		testRunnerFound=1
+		break
+	else
+		phpParams="${phpParams}${param} "
+		shift
+	fi
+done
+
+# If no ide test runner is found, just pass the parameters to the PHP binary and do not involve TYPO3
+if [ -n "${testRunnerFound}" ]
+then
+	COMPLETE_PARAMS="${phpParams} ${CLI_PATH} $*"
+else
+	COMPLETE_PARAMS="${phpParams}"
+fi
+
+[ -n "${ENV_DEBUG}" ] && echo "running: $PHP ${COMPLETE_PARAMS}"
+
+# Let's dance!
+$PHP ${COMPLETE_PARAMS}
