@@ -163,22 +163,34 @@ abstract class Tx_Phpunit_TestCase extends PHPUnit_Framework_TestCase {
 						'return $returnValue;' .
 					'}' .
 					'public function _set($propertyName, $value) {' .
-						'if ($propertyName == \'\') {' .
+						'if ($propertyName === \'\') {' .
 							'throw new InvalidArgumentException(\'$propertyName must not be empty.\', 1334664355);' .
 						'}' .
 						'$this->$propertyName = $value;' .
 					'}' .
 					'public function _setRef($propertyName, &$value) {' .
-						'if ($propertyName == \'\') {' .
+						'if ($propertyName === \'\') {' .
 							'throw new InvalidArgumentException(\'$propertyName must not be empty.\', 1334664545);' .
 						'}' .
 						'$this->$propertyName = $value;' .
 					'}' .
+					'public function _setStatic($propertyName, $value) {' .
+						'if ($propertyName === \'\') {' .
+							'throw new InvalidArgumentException(\'$propertyName must not be empty.\', 1344242602);' .
+						'}' .
+						'self::$$propertyName = $value;' .
+					'}' .
 					'public function _get($propertyName) {' .
-						'if ($propertyName == \'\') {' .
+						'if ($propertyName === \'\') {' .
 							'throw new InvalidArgumentException(\'$propertyName must not be empty.\', 1334664967);' .
 						'}' .
 						'return $this->$propertyName;' .
+					'}' .
+					'public function _getStatic($propertyName) {' .
+						'if ($propertyName === \'\') {' .
+							'throw new InvalidArgumentException(\'$propertyName must not be empty.\', 1344242603);' .
+						'}' .
+						'return self::$$propertyName;' .
 					'}' .
 			'}'
 		);

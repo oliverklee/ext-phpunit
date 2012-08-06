@@ -82,6 +82,16 @@ interface Tx_Phpunit_Interface_AccessibleObject {
 	public function _setRef($propertyName, &$value);
 
 	/**
+	 * Sets the value of a static property.
+	 *
+	 * @param string $propertyName name of property to set value for, must not be empty
+	 * @param mixed $value the new value for the property defined in $propertyName
+	 *
+	 * @return void
+	 */
+	public function _setStatic($propertyName, $value);
+
+	/**
 	 * Gets the value of the given property.
 	 *
 	 * @param string $propertyName name of property to return value of, must not be empty
@@ -89,5 +99,14 @@ interface Tx_Phpunit_Interface_AccessibleObject {
 	 * @return mixed the value of the property $propertyName
 	 */
 	public function _get($propertyName);
+
+	/**
+	 * Gets the value of the given static property.
+	 *
+	 * @param string $propertyName name of property to return value of, must not be empty
+	 *
+	 * @return mixed the value of the static property $propertyName
+	 */
+	public function _getStatic($propertyName);
 }
 ?>
