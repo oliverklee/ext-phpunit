@@ -9,6 +9,7 @@ var searchData=
   ['getautoincrement',['getAutoIncrement',['../classTx__Phpunit__Framework.html#a46c0616ac69c8138850e96c5799d7b5f',1,'Tx_Phpunit_Framework']]],
   ['getblacklist',['getBlacklist',['../classTx__Phpunit__Testable.html#a1987c2e8db2ebde639a79619db0756b0',1,'Tx_Phpunit_Testable']]],
   ['getcodepath',['getCodePath',['../classTx__Phpunit__Testable.html#ac368b0965da7489994c5a2ee66b72982',1,'Tx_Phpunit_Testable']]],
+  ['getcurrenttypo3version',['getCurrentTypo3Version',['../classTx__Phpunit__Framework.html#ae227844036b63c7faa536b562dc48b38',1,'Tx_Phpunit_Framework']]],
   ['getdummycolumnname',['getDummyColumnName',['../classTx__Phpunit__Framework.html#a5ab2ee5a922d2fc5a33e21e2b7906115',1,'Tx_Phpunit_Framework']]],
   ['gethooks',['getHooks',['../classTx__Phpunit__Framework.html#af028408b1055c57acd480b71cb0707d1',1,'Tx_Phpunit_Framework']]],
   ['geticonpath',['getIconPath',['../classTx__Phpunit__Testable.html#ad20449d30372ed38dfa5d505fe300ac3',1,'Tx_Phpunit_Testable']]],
