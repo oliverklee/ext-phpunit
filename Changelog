@@ -1,673 +1,468 @@
-2012-05-08 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #36314: Add failure messages for the DB tests mentioning the required DB permissions (thanks to Nicole Cordes)
-	* Fixed Bug #36205: Move the page header stuff from BackEndModule::main() to a a separate function (thanks to Nicole Cordes)
-	* Fixed Bug #36163: Rename the fixtures under Tests-Root to reflect proper path (thanks to Nicole Cordes)
-
-2012-05-02 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #36650: Fix Tx_Phpunit_Interface_AccessibleObject (thanks to Nicole Cordes)
-
-2012-05-01 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #36763: Label for incomplete tests is missing in the summary (thanks to Nicole Cordes)
-	* Fixed Bug #36471: Add and use a TestStatistics model
-	* Fixed Bug #13028: Rightmost pixel of progress bar alternates between dark grey and light grey while running the tests
-	* Fixed Bug #36757: Drop the transparent bar
-	* Fixed Bug #36755: Use the request namespace from the request interface when building forms and URLs
-	* Fixed Bug #36646: Move the form field names to the Request interface
-	* Fixed Bug #36753: Cannot select any other extension than phpunit in the drop-down
-	* Fixed Bug #36681: Fatal error for multiuse of different interfaces (thanks to Nicole Cordes)
-	* Fixed Bug #36173: Add and use a ProgressBarViewHelper
-	* Fixed Bug #36169: Call to undefined method setBrowserUrl in Tx_Phpunit_Selenium_TestCase::__construct
-
-2012-04-26 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #36583: Unify the class name prefixes to "Tx_Phpunit" (with an lowercase "U")
-	* Fixed Bug #36576: Add a Request class
-	* Fixed Bug #36582: Rename AbstractSettingsService to AbstractDataContainer and FakeSettingsService to TestingDataContainer
-
-2012-04-25 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #36412: Use a different part of the user settings for storing the settings and drop MOD_MENU/MOD_SETTINGS
-
-2012-04-23 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #36476: TestListenerTest::isDiffToolAvailable should be protected instead of public
-	* Fixed Bug #36474: Tx_Phpunit_TestCase::getAccessibleMock must be protected
-	* Fixed Bug #36473: Rename all method and field names to not contain numbers
-	* Fixed Bug #36441: Rename the back-end module method names to proper lowerCamelCase
-	* Fixed Bug #36472: Typo in method name: isAcceptedTestSuitClass
-	* Fixed Bug #36206: Refactor BackEnd_Module::runTests_renderRunningTest into several functions
-	* Fixed Bug #36227: Add a service for getting the extension settings from the EM
-
-2012-04-22 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #36116: Drop BackEnd_Module::getTestFinder and use dependency injection instead
-	* Fixed Bug #36179: Change the wording from "not implemented" to "incomplete" in the code, comments and labels
-	* Fixed Bug #36411: In the settings, use booleans instead of the string "on"
-
-2012-04-21 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #36413: Fix CGL issues
-	* Fixed Bug #36226: Add a service for getting the extension settings from the BE user
-
-2012-04-20 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #36232: Crash in Database Testcase in TYPO3 < 4.6
-
-2012-04-18 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #36265: Change class names in ext_autoload.php to lowercase
-	* Fixed Bug #36107: Add features for accessing protected functions and fields (thanks to Nicole Cordes)
-
-2012-04-17 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #13642: Use the testFinder/testableCode classes for creating the icons
-	* Fixed Bug #36186: Add and use TestFinder::getTestableForKey
-	* Fixed Bug #36188: Rename TestFinder::findTestCasesInDirectory to findTestCaseFilesDirectory
-	* Fixed Bug #36213: All our test extensions need to have the "experimental" stage and add some more meta data
-	* Fixed Bug #36187: Rename "TestableCode" to "Testable"
-	* Fixed Bug #36204: Drop BackEndModule::isExtensionLoaded and use TestFinder::existsTestableCodeForKey instead
-	* Fixed Bug #36212: Make all records from our testing extensions hidden in the BE and clean up the test extensions
-
-2012-04-16 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #36182: Database::createRecursivePageList needs to return a string even for integer $startPages and zero $recursionDepth
-	* Fixed Bug #36180: Framework::getAutoIncrement and FrameworkTest::getSortingOfRelation need to return integers
-	* Fixed Bug #36170: Use assertSame instead of assertEquals in our unit tests
-	* Fixed Bug #35696: Move the echo, output buffer flushing etc. to an output service
-
-2012-04-15 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #36118: Skip test if an fixture extension is not installed (thanks to Nicole Cordes)
-	* Fixed Bug #36098: Replace old "oelib" strings
-	* Fixed Bug #12255: The progress bar should have less rounding errors and also use fractions of per cents
-	* Fixed Bug #26830: The demo extension A, B, C etc. need to have workspace-relevant columns
-	* Fixed Bug #36092: Require PHP >= 5.2.7 and recommend PHP >= 5.3.9
-	* Fixed Bug #36034: Test isExtensionLoadedForCoreWithoutExistingTestsReturnsFalse is called without accessible Core Tests (thanks to Nicole Cordes)
-	* Fixed Bug #36084: Test addFailureWithComparisonFailureOutputsHtmlSpecialcharedExpectedString fails when no diff tool is available (thanks to Nicole Cordes)
-
-2012-04-14 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #13637: Use InvalidArgumentException and t3lib_exception in Service_Database and add exception codes
-	* Fixed Bug #13616: Remove the old fake FE code
-	* Fixed Bug #35700: Require TYPO3 >= 4.5
-	* Fixed Bug #35942: Fix the use of deprecated functions (thanks to Nicole Cordes)
-	* Fixed Bug #36028: Add documentation for running CLI on MAMP/XAMPP etc. (thanks to Hendrik Nadler)
-	* Fixed Bug #36019: findTestCasesInDirectoryForEmptyDirectoryReturnsEmptyArray fails
-
-2012-04-13 Oliver Klee <typo3-coding@oliverklee.de>
-	* Release version 3.6.10
-	* Fixed Bug #12242: The code coverage report should be in typo3temp, not in the extension directory
-	* Fixed Bug #33534: Missing cachingframework tables might break database tests (thanks to Tolleiv Nietsch)
-	* Fixed Bug #28069: Document how to use the phpunit CLI script with MAMP (thanks to Dimitri Koenig)
-	* Fixed Bug #35774: Crash if the tests of the currently selected extension have been removed
-	* Fixed Bug #35943: Fix PhpStorm code inspection warnings
-
-2012-04-12 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug: The BE test runner needs to escape test names and testcase names (thanks to Andreas Lappe)
-	* Fixed Bug #35880: phpunit wrongly assumes that typo3_src does exist (thanks to Philipp Gampe)
-
-2012-04-04 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #35438: Code coverage is broken with 3.6
-	* Fixed Bug #35691: Make the results bar the same length as the progress bar
-
-2012-04-01 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #26089: Tests from required extensions are not found (thanks to Christian Kuhn)
-
-2012-03-31 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #35419: The progress bar should have a fixed width
-	* Fixed Bug #35374: If there is an error, the results bar at the bottom needs to be red instead of yellow
-
-2012-03-29 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #12154: Use the whole frame width for the bar and the test names
-	* Fixed Bug #32078: Change colors
-	* Fixed Bug #33820: Fix all deprecation log warnings
-	* Fixed Bug #33588: path to locallang in ext_tables.php is wrong
-	* Fixed Bug #34701: Update the copyrights to 2012
-
-2012-03-09 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #28117: Update to the latest versions of PHPUnit and vfsStream
-
-2011-07-12 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #11732: Document how to test protected methods
-	* Fixed Bug #27497: Move unit tests to Tests/Unit/
-	* Fixed Bug #12733: solr tests are not found (thanks to Ingo Renner)
-
-2011-07-10 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #13400: Use the test finder when building the extensions drop-down
-
-2011-06-21 Oliver Klee <typo3-coding@oliverklee.de>
-	* Release version 3.5.14
-	* Fixed Bug #26573: Mark function assertType as deprecated in auto suggest
-	* Fixed Bug #13556: Update to the latest versions of PHPUnit and vfsStream
-
-2011-05-31 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #12165: Make the BE module testable and add some basic tests (part 7, thanks to Christian Kuhn)
-
-2011-05-01 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #14056: Trace wrong: Tests report wrong fail location on Windows (thanks to Christopher Lörken)
-
-2011-04-30 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #26389: Document how to run tests of BE modules on the CLI
-	* Fixed Bug #26229: Drop the second parameter for BackEnd_Module::getLL
-	* Fixed Bug #12165: Make the BE module testable and add some basic tests (part 6)
-	* Fixed Bug #26506: Fatal Error if core using the PHP5 constructor
-	* Fixed Bug #26523: Polish the CSS a bit (thanks to Patrick Shriner)
-
-2011-04-29 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #26424: Fix some phpcs warnings
-
-2011-04-26 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #12165: Make the BE module testable and add some basic tests (part 5)
-
-2011-04-22 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #12165: Make the BE module testable and add some basic tests (parts 3 and 4)
-	* Fixed Bug #13945: Framework::cleanUp provides an instance of itself that is not required in the interface
-	* Fixed Bug #13901: Crash with failling assertSame with objects
-	* Fixed Bug #8340: Add support for Selenium tests (thanks to Bastian Waidelich and Carsten Koenig)
-
-2011-03-05 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #12165: Make the BE module testable and add some basic tests (part 2)
-	* Fixed Bug #13481: The locallang files contain some strings that have no hash and orig_language entries
-
-2011-03-04 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #13615: Deprecate the old fake FE code
-	* Fixed Bug #11682: Port the testing framework from oelib (parts 3, 4, 5 and 6)
-
-2011-03-03 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #11682: Port the testing framework from oelib (parts 1 and 2)
-
-2011-03-02 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #12165: Make the BE module testable and add some basic tests (part 1)
-	* Fixed Bug #13501: Add a cache for the extensions, an "exists check" and a dummy extension filter to the test finder
-	* Fixed Bug #13485: Crash when running Tx_Phpunit_Database_TestCaseTest on TYPO3 4.5
-	* Fixed Bug #11688: Move the back-end module to Classes
-
-2011-03-01 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #13399: Add a class for an extension etc. with tests (parts 4 and 5)
-
-2011-02-28 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #13449: Drop the (broken) "out-of-line tests" feature
-	* Fixed Bug #13399: Add a class for an extension etc. with tests (parts 1-3)
-	* Fixed Bug #13427: Use $GLOBALS['TYPO3_CONF_VARS'] instead of $TYPO3_CONF_VARS
-
-2011-02-27 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #13069: Copy'n'paste of the testnames also copies the text "Run this test only"
-	* Fixed Bug #11861: Double-clicking a test name also selects the "run this test" icon
-	* Fixed Bug #13419: Regression: Cannot select extension other than "phpunit" in the drop-down
-	* Fixed Bug #13420: PHP warnings in the TYPO3 log when running the phpunit unit tests
-	* Fixed Bug #13401: Document which functions are called in what order for test cases with data providers
-	* Fixed Bug #13402: The locallang files are not recognized by the llxmltranslate extension
-	* Fixed Bug #13407: The compare output differences are not side-by-side
-	* Fixed Bug #5558: Drop the "about" section from the BE module
-	* Fixed Bug #11695: Display the excluded extensions in the reports module
-	* Fixed Bug #11694: Display the phpunit include path in the reports module
-	* Fixed Bug #12262: Add a check for the memory limit being >= 256 MB to the reports module
-
-2011-02-25 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #12137: compare output is htmlspecialchared twice
-	* Fixed Bug #13278: vfsStreamWrapper cannot be used if it is not included
-
-2011-02-14 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #13033: Progress bar is too long (thanks to Patrick Shriner)
-	* Fixed Bug #11741: Progress bar is too short after running some tests (thanks to Patrick Shriner)
-
-2011-02-12 Oliver Klee <typo3-coding@oliverklee.de>
-	* Release version 3.5.10
-	* Fixed Bug #12241: Update PHPUnit to 3.5.10
-
-2011-02-11 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #11731: Make the test listener testable (parts 5, 6 and 7)
-
-2011-01-17 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #12268: There should be empty PHP files where the test base classes have been
-
-2011-01-15 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #11700: Move the credits from the About page to the manual
-	* Fixed Bug #11755: Code-Coverage Report fails due to error in included PHPUnit, patch by Andreas Lappe
-	* Fixed Bug #12167: Move the test base classes to Classes/
-	* Fixed Bug #11731: Make the test listener testable (part 4)
-	* Fixed Bug #11696: Display the Xdebug status in the reports module
-
-2011-01-13 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #12152: tx_phpunit_BackEnd_TestListenerTest does not handle extbase-style names
-	* Fixed Bug #12153: prettifyTestClass does not handle the "Test" suffix
-	* Fixed Bug #12151: prettifyTestClass adds leading space for the test class name "tx_phpunit_BackEnd_TestListenerTest"
-	* Fixed Bug #11731: Make the test listener testable (parts 1-3)
-	* Fixed Bug #11687: Move the test listener to Classes/
-	* Fixed Bug #11689: Move the CLI runner to Classes/
-	* Fixed Bug #11678: Move the Reports class to Classes/
-
-2011-01-12 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #11686: Move all locallang files to Resources/Private/Language
-	* Fixed Bug #11705: Move the Icons, CSS and JS to Resources/
-	* Fixed Bug #11737: Use less static functions
-	* Fixed Bug #11827: Use strict comparisons
-	* Fixed Bug #12145: Update PHPUnit to 3.5.7
-
-2011-01-01 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #11684: Update copyrights in class comments and manual to 2011
-	* Fixed Bug #11703: Add the missing PHPDoc comments
-
-2010-12-27 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #11743: Crash when assertNull, assertNotNull, assertTrue or assertFalse fails
-
-2010-12-26 Oliver Klee <typo3-coding@oliverklee.de>
-	* Release version 3.5.6
-	* Fixed Bug #5270: Improve failed assertEquals with strings as with NUnit
-	* Fixed Bug #7394: Fix single test links with data providers
-	* Fixed Bug #10829: Test-Crash output should be formatted
-	* Fixed Bug #7390: bar is too long when using data provides
-	* Fixed Bug #11675: Module background color is different below the "scroll fold"
-	* Fixed Bug #8090: TYPO3 icon in extension drop-down is misaligned in latest TYPO3 trunk
-	* Fixed Bug #7822: Include vfsStream for mocking the filesystem in unit tests
-	* Fixed Bug #11727: Add a link to the bugtracker to the manual
-	* Fixed Bug #11728: Document how to write extbase tests
-	* Fixed Bug #11704: Provide the PHPUnit files via an autoloader
-	* Fixed Bug #11690: Drop the version number from the PHPUnit path
-	* Fixed Bug #7478: Update PHPUnit to the latest version
-
-2010-12-25 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #11709: Exceptions in tests are displayed with empty line number and file
-
-2010-12-24 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #11712: testlistener::startTest reads a non-existent field
-	* Fixed Bug #11713: Drop the unused JsonPrettyPrinter.php file
-	* Fixed Bug #11711: Drop code for the experimental progress bar
-	* Fixed Bug #10135: phpunit shows green bar, although test execution failed with fatal error
-	* Fixed Bug #5903: Only JavaScript-hide the test contents if all test have completed
-	* Fixed Bug #11681: Cleanup: Use guard clauses
-	* Fixed Bug #11685: Drop deprecated classes and functions
-	* Fixed Bug #9094: Hidden MAC backup files should not be loaded
-	* Fixed Bug #11679: Use the new XCLASS format
-
-2010-12-23 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #5570: Reformat the code to conform to the CGL
-	* Fixed Bug #7273: Use the null time tracker for TYPO3 >= 4.3
-	* Fixed Bug #7240: Rely on the autoloader for TYPO3 >= 4.3
-	* Fixed Bug #10690: Require TYPO3 >= 4.3
-	* Fixed Bug #11570: Add functions to find the relative and absolute path to the Core tests directory
-	* Fixed Bug #11676: Rename the tests/ directory to Tests/
-
-2010-10-22 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #7979: Change Typo3 into TYPO3 in the manual
-	* Fixed Bug #9895: The CLI script needs to set the locale
-
-2010-09-10 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #9678: Convert all files to UNIX line endings
-
-2010-05-28 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #7963: "Run this test only" link from within running a single test is broken
-	* Fixed Bug #6101: Testcase drop-down is empty in single test view
-	* Fixed Task #6924: Drop the warnings from the main page for TYPO3 >= 4.3
-	* Add Feature #6921: Move the eaccelerator warning to the main page and the reports module
-	* Fixed Bug #7609: The fake FE should be off by default
-	* Fixed Bug #7735: Wrong group list if fake TSFE (thanks to Francois Suter)
-
-2010-04-27 Oliver Klee <typo3-coding@oliverklee.de>
-	* Release version 3.4.12.
-	* Fixed Bug #7230: Update PHPUnit to the latest version
-	* Fixed Bug #7234: Update some things in the manual
-
-2010-04-15 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #5544: Invalid IDs for the checkboxes
-
-2010-04-14 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #7228: Typo in the CSS file
-
-2010-04-13 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #5560: "All extensions" cannot be selected
-
-2010-04-12 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Task #6922: Rename the test cases from *_testcase to *Test
-
-2010-03-19 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #5550: Convert all locallang files to XML
-	* Add Feature #5553: Make the PHP comments warning a flash message
-
-2010-03-18 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #5902: Link for running single test doesn't work from within running a testcase
-
-2010-03-03 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #6638: Support for *Test.php names instead of _testcase.php, patch by Sebastian Kurfürst
-	* Fixed Bug #6672: Files included twice, patch by Ingo Renner
-	* Fixed Bug #6561: Remove the .project file from SVN
-
-2010-02-18 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #5542: Add CDATA for all script tags
-	* Fixed Bug #5569: Add and clean up the class documentation comments
-	* Fixed Bug #6452: Update PHPUnit version 3.4.7 to 3.4.11
-	* Fixed Bug #5511: Show a warning if PHP comments are stripped
-
-2010-01-25 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #5836: Don't use makeInstanceClassName in TYPO3 4.3
-
-2010-01-19 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #5557: Drop the display of the changelog
-	* Fixed bug #5900: Update PHPUnit to 3.4.7
-	* Fixed Bug #5555: Register all classes for the autoloader
-	* Fixed Bug #5950: Remove the mentioning of the ECT from the extension description
-
-2010-01-18 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed Bug #5510: Make sure all phpunit tests actually run
-
-2010-01-06 Oliver Klee <typo3-coding@oliverklee.de>
-    * Fixed bug #5568: Change all tests to use the @test annotation
-
-2010-01-05 Oliver Klee <typo3-coding@oliverklee.de>
-    * Release version 3.4.3
-
-2009-12-25 Oliver Klee <typo3-coding@oliverklee.de>
-	* Add Feature #5559: When running a testcase or a single test, display the name of the test suite
-	* Fixed bug #5548: "Run this test only" icon/link is broken
-	* Fixed Bug #5258: Blank page with BE output compression (thanks to Steffen Gebert)
-	* Fixed Bug #4198: Calculation of progress bar width broken
-	* Fixed Bug #5543: There are some literal \n between the options in the testcase drop-down
-	* Fixed Bug #5549: Use real access modifiers and drop the @access annotations
-	* Fixed bug #5552: Update the "about" section in the BE module with the new contributors
-	* Fixed Bug #5537: Update ext_emconf.php with the new team structure
-	* Fixed Bug #5547: Remove unused variables
-	* Fixed Bug #5546: Delete commented-out code
-
-2009-12-20 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed bug #5727: Incorrect path used in tx_phpunit_module1::traversePathForTestCases, patch by Mikkel Ricky
-
-2009-12-07 Oliver Klee <typo3-coding@oliverklee.de>
-	* Fixed bug #5566: Update PHPUnit to 3.4.3
-
-2009-11-30 Michael Klapper <michael.klapper@aoemedia.de>
-	* Fixed bug #5581: Add missing flag 'doNotLoadInFE' to ext_emconf.php
-
-2009-10-26 Michael Klapper <michael.klapper@aoemedia.de>
-	* Update PHPUnit to version 3.4.2
-
-2009-10-20 Michael Klapper <michael.klapper@aoemedia.de>
-	* Remove $this->cli_validateArgs() from the tx_phpunit_cli_phpunit because the PHPUnit validate the params by it self.
-
-2009-10-16 Michael Klapper <michael.klapper@aoemedia.de>
-	* Add PHPUnit_Util_Filter::addFileToFilter to tx_phpunit_* classes
-
-2009-10-12 Michael Klapper <michael.klapper@aoemedia.de>
-	* Add Feature #4775: Support Data Providers
-
-2009-10-11 Michael Klapper <michael.klapper@aoemedia.de>
-	* Fixed Bug #3423: having many tests the select is "unhandy"
-
-2009-10-09 Michael Klapper <michael.klapper@aoemedia.de>
-	* Fixed Bug #3838: Test with data provider fails if test or parent class extends PHPUnit_Framework_TestCase constructor
-	* Fixed Bug #4239: marktTestSkipped - If an extension to import not installed.
-	* Add Feature #4793: Enable suffix "Test" for classes and filenames
-	* Add Feature #4455: show the time and memory usage of each test
-	* Major Feature #3340: Add PHPUnit to cli_dispatch (Thanks to Axel Jung)
-	* Fixed Bug #4815: EXT:phpunit does not work together with PHPUnit-3.4.0
-	* Bug #3349: hardcoded typo3_src source for core tests
-	* Update PHPUnit vertion to 3.4.0
-
-2009-05-24 Kasper Ligaard <kasperligaard@gmail.com>
-    * (Trying) to address upper/lower case problem with new extbase conventions, confer to http://forge.typo3.org/issues/show/3424
-
-2009-05-22 Michael Klapper <michael.klapper@aoemedia.de>
-    * Add feature #: Add total count of assertions to the user interface
-
-2009-05-19 Michael Klapper <michael.klapper@aoemedia.de>
-	* Add feature #2762: it's not possible to run all tests of a testcase
-
-2009-05-12 Michael Klapper <michael.klapper@aoemedia.de>
-	* Add support for "skipped" and "not implemented" to "tx_phpunit_testlistener" and extend the user interface.
-
-23. May 2009: 3.3.12.
-    + Added PHPUnit 3.3.16, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.1610-Apr-2009
-    - Removed PHPUnit 3.3.15.
-    + Issue #2762: Make it possible to run all tests of a testcase, http://forge.typo3.org/issues/show/2762. Thanks to Michael Klapper.
-    + Issue #3367: Display test case name as human readable text, http://forge.typo3.org/issues/show/3367. Thanks to Michael Klapper.
-    + Issue #3431: Add total count of assertions to the user interface, http://forge.typo3.org/issues/show/3431. Thanks to Michael Klapper.
-    + Issue #3408: Import StdDB-feature for database tests, http://forge.typo3.org/issues/show/3408. Thanks goes to Tolleiv Nietsch.
-    ~ Updated the included YUI! files to version 2.7.0. The changes from 2.6 to 2.7 can be found here:
-        http://developer.yahoo.com/yui/releasenotes/README.base,
-        http://developer.yahoo.com/yui/releasenotes/README.connection,
-        http://developer.yahoo.com/yui/releasenotes/README.json,
-        http://developer.yahoo.com/yui/releasenotes/README.reset,
-        http://developer.yahoo.com/yui/releasenotes/README.fonts,
-        http://developer.yahoo.com/yui/releasenotes/README.grids,
-        http://developer.yahoo.com/yui/releasenotes/README.yahoo,
-        http://developer.yahoo.com/yui/releasenotes/README.dom,
-        http://developer.yahoo.com/yui/releasenotes/README.event.
-
-06. March 2009: 3.3.11.
-    ~ Initialize content object (tslib_cObj) on demand, http://forge.typo3.org/issues/show/2767
-
-05. March 2009: 3.3.10.
-    ~ Test cases can not end in "TestCase", but always must end in "testcase", http://forge.typo3.org/issues/show/2753
-
-03. March 2009: 3.3.9.
-    ~ Sorting unittests by their classnames for a better overview, http://bugs.typo3.org/view.php?id=10584
-    * Background color of selectors is grey but was white, http://forge.typo3.org/issues/show/2718
-
-25. February 2009: 3.3.8. A big thank you to Oliver Klee, who did all the heavy lifting for this release.
-    + Feature #2503 (Resolved): Allow running unit tests for the TYPO3 core, http://forge.typo3.org/issues/show/2503
-    + Added PHPUnit 3.3.15, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.1524-Feb-2009
-    - Removed PHPUnit 3.3.5.
-    ~ Task #2640 (Resolved): Static variables should not be backuped, http://forge.typo3.org/issues/show/2640
-    * Two fixes for upcoming Typo3 4.3:
-        * Bug #2512 (Resolved): Fatal error: Call to a member function push() on a non-object in class.tsli..., http://forge.typo3.org/issues/show/2512
-        * BE output is buffered with current TYPO3 4.2 branch, http://forge.typo3.org/issues/show/2348
-    * Task #2499 (Resolved): Clean up the code, http://forge.typo3.org/issues/show/2499
-
-21. November 2008: 3.3.7
-	+ Added PHPUnit 3.3.5, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.523-Nov-2008
-	- Removed PHPUnit 3.3.4.
-	* Corrected instructions for keyboard shortcut on Macs: It is Ctrl (and not Meta) that should be depressed.
-
-10. November 2008: 3.3.6
-	+ Added PHPUnit 3.3.4, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.408-Nov-2008 and http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.303-Nov-2008
-	- Removed PHPUnit 3.3.2.
-	~ Fix forge bug #1828, http://forge.typo3.org/issues/show/1828
-
-20. October 2008: 3.3.5
-	+ Added PHPUnit 3.3.2, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.220-Oct-2008
-	- Removed PHPUnit 3.3.1.
-	~ Comment out JavaScript calls to console.log().
-	* Fix forge #1698: Showing NEWS file from drop-down menu breaks with symlinks. Cf. http://forge.typo3.org/issues/show/1698
-
-19. October 2008: 3.3.4
-	+ Added keyboard short-cuts.
-	+ Added select YUI! 2.6.0 files.
-	- Removed old cruft files: and options.
-	~ Upped requirements to Typo3 4.2.x (from 4.1) since phpunit now uses loadJavascriptLib() from template.php.
-	~ Re-factored JavaScript Prototype parts to use YUI!
-	~ Moved 'Collect code coverage' from Extension Manager to a per user setup, done from inside phpunit (point'n'click).
-	~ Changed header of page.
-	~ Misc. other stuff. See Subversion history, revisions #12953 to #13145.
-	* Fixed 'suggest' when installing and also upped version number on suggested extensions: pear 2.3.6 (up from 2.3.5), oelib 0.4.2 (up from 0.4.0).
-	* Fixed opening in new window.
-
-01. October 2008: 3.3.3
-	+ Display the leaked memory after the tests. Closes forge #1627. Note that this measurement is only indicative; it will be tried out now, but is the utility is limited, then it will be removed or turned into an option.
-
-27. September 2008: 3.3.2
-	+ Added links to forge.typo3.org.
-	~ Moved text around at little bit to have added links more prominent, compared to the old links (which are left for completeness).
-	* Add the colored bar even when executing single tests. Closes forge #1594, thanks goes to Oliver Klee.
-	* Javascript for experimental progress bar executed although the option is disabled. Closes forge #1595, thanks goes to Oliver Klee.
-	* Error when calling non-existing test. Closes #1596, thanks goes to Oliver Klee.
-	* Message flows out of box. Closes forge # 1597, thanks goes to Oliver Klee.
-
-24. September 2008: 3.3.1
-	+ Added PHPUnit 3.3.1, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.123-Sep-2008
-	- Removed PHPUnit 3.3.0.
-
-18. September 2008: 3.3.0
-	+ Added PHPUnit 3.3.0, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.015-Sep-2008
-	- Removed PHPUnit 3.2.21.
-
-08. September 2008: 3.2.21
-	+ Added PHPUnit 3.2.21, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog32#PHPUnit3.2.2116-Jun-2008.
-	+ Added benchmarking single tests. Solves Forge issue #1317, http://forge.typo3.org/issues/show/1317. Thanks to Oliver Klee.
-	~ Changed manual.sxw to use latest documentation template (EXT:doc_template version 1.2.5).
-	~ Fixed some validation issues. Solves Forge issue #1316, http://forge.typo3.org/issues/show/1316. Thanks to Oliver Klee.
-	~ Changed default in ext_conf_template.txt for field 'excludeextensions': Now extension keys 'lib' and 'div' are per default excluded, since their testsuites try to load extension key 't3unit', which probably does not exist on peoples machines.
-	- Removed line including non-existant file 'common.js'. Solves Forge issue #1320, http://forge.typo3.org/issues/show/1317. Thanks goes to Niels Pardon.
-	- Removed PHPUnit 3.2.19 (btw. there never was a release phpunit release including PHPUnit 3.2.20).
-	* Fixed bug where phpunit could get stuck with 'Extension not loaded [...]'. Now, instead phpunit will default to extension key 'phpunit', if the chosen key does not exist anymore (which can happen if the extension is removed).
-
-06. May 2008: 3.2.20
-	~ Changed hook key in mod1/index.php (by request).
-
-24. April 2008: 3.2.19
-	+ Added PHPUnit 3.2.19, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog32#PHPUnit3.2.1924-Apr-2008
-	- Removed PHPUnit 3.2.18.
-
-20. April 2008: 3.2.18
-	~ Switched to xhtml-rendering, fixes issue #8173, http://bugs.typo3.org/view.php?id=8173, Thanks to Oliver Klee.
-	* Fixed some typos, code-beautification, fixes issue #8173, http://bugs.typo3.org/view.php?id=8173, Thanks to Oliver Klee
-
-14. April 2008: 3.2.17
-	+ Added extension 'oelib' as a suggested install: It provides helper classes for writing unit tests for Typo3.
-	~ Updated manual to include a section about Typo3 unit testing helper classes (specifically: oelib).
-
-07. April 2008: 3.2.16
-	+ Added possibility to 'hook' which class to run. You will need to implement two methods, init() and main().
-	~ Re-inserted $backupGlobals = false.
-
-06. April 2008: 3.2.15
-	- Removed setting $backupGlobals=false. This should be unnecessary after PHPUnit issue #421 was solved, http://www.phpunit.de/ticket/421.
-	* Bugfix: Commented out calls to Graphviz. This is a future feature, that had sneaked in prematurely, causing fatal error for users. Closes issue #8037, http://bugs.typo3.org/view.php?id=8037.
-	~ Moved NEWS file from 'About PHPUnit BE' to an entry of its own in the dropdown selector.
-	* Made two private methods, getLL() and getSL(), protected.
-
-04. April 2008: 3.2.14
-	+ Added PHPUnit 3.2.18, see Changelog at http://www.phpunit.de/wiki/ChangeLog32#PHPUnit3.2.1804-Apr-2008
-	- Removed PHPUnit 3.2.17.
-	* Changes to stylesheet, to mitigate some of the most glaring usability issues in the Typo3 4 default skin.
-	~ Tweaked NEWS file.
-
-04. April 2008: 3.2.13
-	* Bugfix: Moved setting of $backupGlobals from tx_phpunit_database_testcase.php to tx_phpunit_testcase.php. This fixes a 'Fatal Error' on Windows. Thanks goes to Morten Lovbjerg.
-
-02. April 2008: 3.2.12
-	+ Added re-run icon to each test: Clicking it, will re-run that test only. Closes issue #6972, http://bugs.typo3.org/view.php?id=6972 (does not work with Experimental UI).
-	+ Added NEWS file to end of 'About PHPUnit BE', to make it easier to access.
-	+ Added option 'alwaysSimulateFrontendEnvironment' which defaults to true, since that is backwards compatible.
-	+ Added method 'simulateFrontendEnvironment()' to tx_phpunit_testcase class. Call this method to load a (simple) simulation of the FE environment.
-	+ Added lib/ directory. Might be removed later, let's see...
-	- Removed clear.gif.
-	+ Added icon mod1/runner.gif
-	* Made all files follow the GT3 coding conventions (a derivative of Typo3 CGL, but not a subset).
-
-31. March 2008: Version 3.2.11
-	+ Added test file for test suite in tests/class.tx_phpunit_testsuite.php
-	~ Improvement to test suite finding in Experimental UI, courtesy of Mikkel Ricky.
-
-31. March 2008: Version 3.2.10
-	* Using strtolower() on database names in tx_phpunit_database_testcase->__construct(), courtesy of Mikkel Ricky, Morten Lovbjerg and Soren Soltveit.
-	* Fixed Experimental UI to work on Windows, courtesy of Mikkel Ricky.
-
-31. March 2008: Version 3.2.9
-	~ Moved database tests out of class tx_phpunit_testcase and into tx_phpunit_database_testcase.
-	* Drops database in createDatabase() before trying to create it.
-
-31. March 2008: Version 3.2.8
-	* Bug fix release. Removed call in mod1/class.tx_phpunit_module1.php to Typo3 4.2 specific function loadJavascriptLib().
-
-30. March 2008: Version 3.2.7
-	* Bug fix release. Fixes #7964, http://bugs.typo3.org/view.php?id=7964
-
-29. March 2008: Version 3.2.6
-	+ Added extension icons to selector boxes (note: not working with Opera).
-	+ Added PHPUnit 3.2.17, see Changelog at http://phpunit.de/wiki/ChangeLog32#PHPUnit3.2.1729-Mar-2008
-	- Removed PHPUnit 3.2.16.
-
-27. March 2008: Version 3.2.5
-	+ Added new UI for running tests: You will need to set the new option ' Experimental test interface' in the Extension Manager (EM).  This adresses issue #6965, http://bugs.typo3.org/view.php?id=6965. Thanks to Mikkel Ricky who provided the new implementation.
-
-24. March 2008: Version 3.2.4
-	+ Experimental support for Code Coverage reporting. Turned of by default, since you need to setup XDebug and it slows down unit testing considerably!
-	+ Previously there was a total timelimit of 30 seconds. Now the timelimit is per testcase; this is done by inserting a call to set_time_limit(30) in the testlistener.
-	+ Expanded 'About PHPUnit BE': Added links to bugs.typo3.org and phpunit on typo3xdev.sf.net. Added Søren Soltveit to contributor list. Added test for XDebug extension (needed for code coverage) and test for memory limit, which should be set to something like 256MB, when using code coverage!
-	+ New (experimental) progressbar: First stab at bugs #6972 and #6975. Turned off by default. Works badly: Overflows to the right, when there are many tests.
-	+ Added PHPUnit 3.2.16, see Changelog at http://www.phpunit.de/wiki/ChangeLog32#PHPUnit3.2.1622-Mar-2008.
-	+ Removed PHPUnit 3.2.15.
-	- Removed variable addAttrib in SVN revision 8639. Solves issue #7011, http://bugs.typo3.org/view.php?id=7011
-	~ Use t3lib_div::trimExplode in various places, where it was appropriate.
-	~ ext_emconf.php: 'Namespace' variables better (in typo3confvars).
-	~ Added array type hint to function getFirstNonPHPUnitTrace in class tx_phpunit_testlistener.
-	* Errors are now marked red (instead of yellow). Solves bug #6977, http://bugs.typo3.org/view.php?id=6977.
-
-18. March 2008: Version 3.2.3
-	+ New helper functions in tx_phpunit_testcase: You can now use the Typo3 database from your tests. E.g. for creating new tables for your tests. Reminder: Never run tests in a production environment.
-	+ Tests for new helper functions added in class database_testcase. Note: You will need to manually install the four extensions named 'aaa', 'bbb', 'ccc' and 'ddd' (they can be found in tests/res/).
-	~ Upgraded PHPUnit from 3.2.6 to 3.2.15. Changelog: http://www.phpunit.de/wiki/ChangeLog32#PHPUnit3.2.1521-Feb-2008
-	~ ext_emconf now states in description that the phpunit extension is based on PHPUnit 3.2 (instead of just PHPUnit 3).
-	* (Temporary) fix for issue #7631, http://bugs.typo3.org/view.php?id=7631#c19761, courtesy Mario Rimann.
-
-19. December 2007: Version 3.2.2
-	~ Changed header in BE module: It now writes the version string from the PHPUnit currently in use. This makes it easier to verify that the correct version is used. Closes http://bugs.typo3.org/view.php?id=6985
-	* Removed white background from phpunit-be.css.
-	* Changed path in ext_localconf.php to uppercase. Solves problem, where using the shipped PHPUnit did not work on systems where upper case / lower case is respected (e.g. Linux systems).
-
-17. December 2007: Version 3.2.1 - The 'Remember PEAR file structure!' release.
-	* Moved files in PHPUnit-3.2.6 directory to a PHPUnit sub-directory. Closes http://bugs.typo3.org/view.php?id=6994
-	~ Updated News part of manual.
-
-17. December 2007: Version 3.2.0 - The 'There is money to be made' release!
-	~ Bumped version number, since phpunit now ships with PHPUnit version 3.2.6
-	+ Added a NEWS file, which holds the info which was previously in the Changelog file.
-	~ Changed the Changelog file to hold Subversion commits. This is meant to be added by a pre-commit hook on svn, when extension development is moved to typo3xdev.sf.net.
-
-22. October 2007: Version 3.1.15
-	~ Extension test selector now groups the tests under the test suite they are part of (Usability request from Elmar Hinz of the ECT).
-
-17. October 2007: Version 3.1.14
-	+ Added German translation, thanks to Mario Rimann :-)
-
-17. October 2007: Version 3.1.13
-	+ Option to use extension pear as default. If PHPUnit is not installed via pear, then phpunit uses its own PHPUnit version as fallback. (proposal from Extension Coordination Team, ECT).
-	+ Added info to 'About' if 'use pear' is set, but pear is not loaded. Defaults to phpunit provided PHPunit in that case (instead of just aborting).
-	~ Updated manual to mention pear integration and made the Changelog current (and updated index).
-
-17. October 2007: Version 3.1.12
-	+ Added 'Exclude extensions' option in extension manager setup. This allows you to set extension that phpunit should never search for tests (also applies to 'out of line'-paths).
-	+ Added info about currently excluded extensions to 'About phpunit BE' submodule.
-
-17. October 2007: Version 3.1.11
-	* Two identically named tests in different testsuites are now distinguished.
-	* Having the same extension installed as both local and global now works: Tests in the active one is run.
-
-15. October 2007: Version 3.1.10
-	+ Added 'out-of-line' tests: These are tests that are now in the extension itself, but found on a path you give in the extension manager.
-	+ Added information notice to eAccelerator 0.9.5.1 users about optimizer bug in eAccelerator.
-	+ Added 'Contributors' section to About box.
-	+ Fully translated into danish (except for the texts coming from PHPUnit).
-	+ Added stylesheet file, phpunit-be.css.
-	~ Changed layout of test runs to make them more easily readable.
-	~ Changed the two failing tests, that comes with phpunit: Now they give a message that they are meant to fail.
-	~ Factored out inline styles on elements (now controllable from phpunit-be.css).
-	* Corrected display of failure notices from failed tests: Assertion types/values are shown again.
-	* Corrected logo image display in About box.
-
-
-10. October 2007: Version 3.1.9
-	+ Added 'include_path' output to the 'About' sub-module. This can be used to check where the extension is looking for PHPUnit.
-	+ Added extension manager configuration option to point to another PHPUnit, than the one provided by the extension (could be a PEAR installed PHPUnit).
-	+ Added PHPUnit version 3.1.9
-	+ Added PHPUnit version 3.0.6: You must provide the absolute path to it in the extension manager conf (including ending slash) to use this version.
-	- Removed PHPUnit version 3.0.5
-	~ Changed to using Typo3 v. 4.1.x feature of mod.php for the backend module, cf.  http://typo3.org/documentation/document-library/core-documentation/doc_core_inside/4.1.0/view/3/5/#id3561091
-	~ Changed version number to 3.1.9.
-	~ Changed state to beta.
-	~ Changed ChangeLog Legend and updated the complete file to reflect this.
-	* Corrected the way the lib is found: Now you only have do do it in one place. Note that PHPUnit is expected to be in a sub-directory called 'PHPUnit' of the place you write.
-	* Corrected the progressbar, so now it stays within the browser window (Thanks to Mikkel Ricky for the fix :-)
-	* Corrected a bug, where an error about class tx_t3unit_testcase was spewed (Thanks to Mario Rimann for pointing out and Mikkel Ricky for fixing).
-
-13. March 2007: Version 3.0.52
-	+ Added class tx_t3unit_testcase for providing backwards compatibility with t3unit (suggested by Robert Lemke).
-	+ Added t3unit and pear_phpunit2 to conflicts in file ext_emconf.php (suggested by Robert Lemke).
-	~ Changed version number in file ext_emconf.php to 3.0.52.
-	* Corrected depends in file ext_emconf.php (suggested by Robert Lemke)
-		from: 'php' => '5.2.1-0.0.0', 'typo3' => '4.1-0.0.0',
-		to: 'php' => '5.2.1-', 'typo3' => '4.1-',
-	* Corrected paragraph in manual about version numbering convention to match reality (I hope!).
-
-11. March 2007: Version 3.0.51
-	+ Added tests/ directory to phpunit itself.
-	+ Added test file in tests/ directory (test file includes only dummy tests).
-	+ Added 'Legend' to Changelog file.
-	~ Bumped version number to 3.0.5.1.
-
-11. March 2007: Version 3.0.5
-	+ Merged T3Unit and PEAR_phpunit.
-	+ Upgraded to PHPUnit 3.0.5.
-	+ Revised documentation (still needs a lot of work).
-	+ Marked as experimental.
-	+ Set version to 3.0.5.
-	+ Upload to TER.
-    * Corrected EM Conf. so extension is not marked as shy.
+b46d4ec [TASK] Update the API documentation of the testing framework again
+cfd1f5b [TASK] Rework the extension description in ext_emconf.php
+43eddb9 [FEATURE] Provide methods to access static properties of a mocked object
+d17c137 [TASK] Add dummy field to some System tables
+f5bbe73 [FEATURE] Add TestRunner for IDEs
+7567ab1 [TASK] Update the API documentation of the testing framework
+c14e88b [BUGFIX] Adapt to the new localconf handling in TYPO3 6.0
+1fc244d [BUGFIX] TestFinder::findTestCaseFilesInDirectory finds Fixture classes
+954f8d3 [TASK] Use dependency injection to provide the test listener with a name prettifier
+2eb7d9a [BUGFIX] Set a TYPO3 maximum version in ext_emconf.php
+8dcb612 [BUG] Code coverage crashes in the BE module
+c5c57d6 [TASK] Add a .gitignore file
+693861b [BUGFIX] Test failure in Tx_Phpunit_Service_TestFinderTest
+60b02e0 [BUGFIX] findTestCaseFilesDirectoryForEmptyDirectoryReturnsEmptyArray fails
+58c4b9b [TASK] Update PHPUnit to 3.6.11
+96bca9f Fixed Bug #36314: Add failure messages for the DB tests mentioning the required DB permissions (thanks to Nicole Cordes)
+9d7cbf3 Fixed Bug #36205: Move the page header stuff from BackEndModule::main() to a a separate function (thanks to Nicole Cordes)
+1f96bee Fixed Bug #36163: Rename the fixtures under Tests-Root to reflect proper path (thanks to Nicole Cordes)
+e385e20 Fixed Bug #36650: Fix Tx_Phpunit_Interface_AccessibleObject (thanks to Nicole Cordes)
+7d7f3bd Fixed Bug #36763: Label for incomplete tests is missing in the summary (thanks to Nicole Cordes)
+65834d7 Update the manual.
+fa5572c Fixed Bug #36471: Add and use a TestStatistics model
+f004ae0 Fixed Bug #36757: Drop the transparent bar
+ac6230b Fixed Bug #36755: Use the request namespace from the request interface when building forms and URLs
+f6a7fb1 Fixed Bug #36646: Move the form field names to the Request interface
+03a93e5 Fixed Bug #36753: Cannot select any other extension than phpunit in the drop-down
+c2505af [BUGFIX] Fix a typo in my e-mail address in the @author annotations.
+695be85 Fixed Bug #36681: Fatal error for multiuse of different interfaces (thanks to Nicole Cordes)
+14aeac0 Fixed Bug #36173: Add and use a ProgressBarViewHelper
+b960115 Fixed Bug #36169: Call to undefined method setBrowserUrl in Tx_Phpunit_Selenium_TestCase::__construct
+ce95e54 Fixed Bug #36583: Unify the class name prefixes to "Tx_Phpunit" (with an lowercase "U")
+c4ab9fd Fixed Bug #36576: Add a Request class
+4104cb2 [TASK] Fix a copy'n'paste error in a class documentation comment.
+4d1f6cc Fixed Bug #36582: Rename AbstractSettingsService to AbstractDataContainer and FakeSettingsService to TestingData
+db5fcc1 Fixed Bug #36412: Use a different part of the user settings for storing the settings and drop MOD_MENU/MOD_SETTINGS
+c11ab89 Fixed Bug #36476: TestListenerTest::isDiffToolAvailable should be protected instead of public
+e846aa7 Fixed Bug #36474: Tx_Phpunit_TestCase::getAccessibleMock must be protected
+6dc330b Fixed Bug #36473: Rename all method and field names to not contain numbers
+ff42404 Fixed Bug #36441: Rename the back-end module method names to proper lowerCamelCase
+c9a1c78 Fixed Bug #36472: Typo in method name: isAcceptedTestSuitClass
+7d3ad81 Fixed Bug #36206: Refactor BackEnd_Module::runTests_renderRunningTest into several functions
+5194ccb Fixed Bug #36227: Add a service for getting the extension settings from the EM
+6ea23d2 Add a missing @var.
+60b3b87 Fixed Bug #36116: Drop BackEnd_Module::getTestFinder and use dependency injection instead
+3e638bd Fixed Bug #36179: Change the wording from "not implemented" to "incomplete" in the code, comments and labels
+74e78f6 Fixed Bug #36411: In the settings, use booleans instead of the string "on"
+f26b85f Fixed Bug #36413: Fix CGL issues
+e918910 Fixed Bug #36226: Add a service for getting the extension settings from the BE user
+7d1f84b [TASK] Some CGL cleanup for the AccessibleObject interface.
+5283acc [CLEANUP] Drop a surplus space.
+46a2ccb [TASK] FIx an @return comment.
+3a9a824 Fixed Bug #36232: Crash in Database Testcase in TYPO3 < 4.6
+e3bba3d Fixed Bug #36265: Change class names in ext_autoload.php to lowercase
+2b86c26 Fixed Bug #36107: Add features for accessing protected functions and fields (thanks to Nicole Cordes)
+6b0b3b7 Fixed Bug #13642: Use the testFinder/testableCode classes for creating the icons
+8107940 Fixed Bug #36186: Add and use TestFinder::getTestableForKey
+a9c763b Fixed Bug #36188: Rename TestFinder::findTestCasesInDirectory to findTestCaseFilesDirectory
+c11dfac Fixed Bug #36188: Rename TestFinder::findTestCasesInDirectory to findTestCaseFilesDirectory
+6492286 Fixed Bug #36213: All our test extensions need to have the "experimental" stage and add some more meta data
+a999a3a Fixed Bug #36187: Rename "TestableCode" to "Testable"
+1ccd932 Fixed Bug #36204: Drop BackEndModule::isExtensionLoaded and use TestFinder::existsTestableCodeForKey instead
+9d4ce14 Fixed Bug #36212: Make all records from our testing extensions hidden in the BE and clean up the test extensions
+c6e42cb Add myself as @author.
+fb1e13c Fixed Bug #36182: Database::createRecursivePageList needs to return a string even for integer $startPages and zero $recursionDepth
+9e99e7c Fixed Bug #36170: Use assertSame instead of assertEquals in our unit tests (follow-up)
+76f016f Fixed Bug #36180: Framework::getAutoIncrement and FrameworkTest::getSortingOfRelation need to return integers
+9fae1dc Fixed Bug #36170: Use assertSame instead of assertEquals in our unit tests
+558f822 Fixed Bug #35696: Move the echo, output buffer flushing etc. to an output service
+6cf667a Fixed Bug #36118: Skip test if an fixture extension is not installed (thanks to Nicole Cordes)
+be13b6a Fixed Bug #36098: Replace old "oelib" strings
+2e65255 Fixed Bug #12255: The progress bar should have less rounding errors and also use fractions of per cents
+96667c5 Fixed Bug #26830: The demo extension A, B, C etc. need to have workspace-relevant columns
+9a3ef5d Fixed Bug #36092: Require PHP >= 5.2.7 and recommend PHP >= 5.3.9
+6345205 Fixed Bug #36034: Test isExtensionLoadedForCoreWithoutExistingTestsReturnsFalse is called without accessible Core Tests (thanks to Nicole Cordes)
+32a869b Fixed Bug #36084: Test addFailureWithComparisonFailureOutputsHtmlSpecialcharedExpectedString fails when no diff tool is available (thanks to Nicole Cordes)
+c78c59f Fixed Bug #13637: Use InvalidArgumentException and t3lib_exception in Service_Database and add exception codes
+fadfd40 Fixed Bug #13616: Remove the old fake FE code
+174edad Fixed Bug #35700: Require TYPO3 >= 4.5
+03807e4 Fixed Bug #35942: Fix the use of deprecated functions (thanks to Nicole Cordes)
+5b0b3d6 Fixed Bug #36028: Add documentation for running CLI on MAMP/XAMPP etc. (thanks to Hendrik Nadler)
+aa11afe Fixed Bug #36019: findTestCasesInDirectoryForEmptyDirectoryReturnsEmptyArray fails
+20802fd Release PHPUnit 3.6.10.
+9f8bcf7 Fixed Bug #12242: The code coverage report should be in typo3temp, not in the extension directory
+e991e85 Fixed Bug #33534: Missing cachingframework tables might break database tests (thanks to Tolleiv Nietsch)
+9adf0a6 Fixed Bug #28069: Document how to use the phpunit CLI script with MAMP (thanks to Dimitri Koenig)
+be74128 Fixed Bug #35774: Crash if the tests of the currently selected extension have been removed
+0f099dd Fixed Bug #35943: Fix PhpStorm code inspection warnings
+3a41e57 Fixed Bug: The BE test runner needs to escape test names and testcase names (thanks to Andreas Lappe)
+72b9b70 Fixed Bug #35880: phpunit wrongly assumes that typo3_src does exist (thanks to Philipp Gampe)
+132429c Fixed Bug #35438: Code coverage is broken with 3.6
+41ed1af Fixed Bug #35691: Make the results bar the same length as the progress bar
+673192b Fixed Bug #26089: Tests from required extensions are not found (thanks to Christian Kuhn)
+f0688f3 Fixed Bug #35419: The progress bar should have a fixed width
+801c2e7 Fixed Bug #35374: If there is an error, the results bar at the bottom needs to be red instead of yellow
+15f9932 Fixed Bug #12154: Use the whole frame width for the bar and the test names
+990cc52 Fixed Bug #32078: Change colors
+a761c18 Fixed Bug #33820: Fix all deprecation log warnings
+a62b436 Fixed Bug #33588: path to locallang in ext_tables.php is wrong
+18f599a Fixed Bug #34701: Update the copyrights to 2012
+c1df61e Fixed Bug #28117: Update to the latest versions of PHPUnit and vfsStream
+043a263 Fixed Bug #28117: Update to the latest versions of PHPUnit and vfsStream
+6e70e36 Task #13504: Use the test finder when building the tests drop-down (part 4)
+6f2f5d1 Task #13504 Use the test finder when building the tests drop-down (part 3)
+8741ffd Task #13504: Use the test finder when building the tests drop-down (part 2)
+f7474fd Task #13504: Use the test finder when building the tests drop-down (part 1)
+033d34f Task #11732: Document how to test protected methods
+89babd0 Task #27497: Move unit tests to Tests/Unit/
+a73ca47 Bug #12733: solr tests are not found (thanks to Ingo Renner)
+bc3b225 Feature #13400: Use the test finder when building the extensions drop-down
+4d67fbc Release phpunit 3.5.14.
+67a46ce Task #13556: Update to the latest versions of PHPUnit and vfsStream
+6e42d78 Task #12165: Make the BE module testable and add some basic tests (part 7), thanks to Christian Kuhn
+972682e Update the manual.
+913c6ca Bug #14056: Trace wrong: Tests report wrong fail location on Windows (thanks to Christopher Lörken)
+d7f5dfe Task #26389: Document how to run tests of BE modules on the CLI
+e5674d8 Task #26229: Drop the second parameter for BackEnd_Module::getLL
+ef77fee Task #12165: Make the BE module testable and add some basic tests, part 6
+f119228 Bug #26506: Fatal Error if core using the PHP5 constructors
+54b20f4 Bug #26506: Fatal Error if core using the PHP5 constructors
+825ced1 Task #26523: Polish the CSS a bit (thanks to Patrick Shriner)
+43faf0d Bug #26424: Fix some phpcs warnings
+79e9b9f Task #12165: Make the BE module testable and add some basic tests
+5f539fb Task #12165: Make the BE module testable and add some basic tests
+c084942 Task #12165: Make the BE module testable and add some basic tests
+efda027 Bug #13945: Framework::cleanUp provides an instance of itself that is not required in the interface
+d624b85 Bug #13901: Crash with failling assertSame with objects
+3f4f355 Feature #8340: Add support for Selenium tests (thanks to Bastian Waidelich and Carsten Koenig)
+394a86d Add Bastian Waidelich and Carsten Koenig as contributors in the manual.
+19de55e Fix a left-over "oelib".
+36a93c8 Add a paragraph on running the tests from CLI to the manual.
+3fe6b61 Fix a typo in the comments.
+a718654 Fix a whitespace formatting nit.
+e6ce9f3 Task #12165: Make the BE module testable and add some basic tests, part 2: add a test class, make the private methods protected, and and use an output function
+e465c46 Clean up the autoload file a bit by putting the vfsStream directory in a local variable.
+9972fa5 Bug #13481: The locallang files contain some strings that have no hash and orig_language entries
+4944229 Add doxygen documentation for Tx_Phpunit_Framework.
+cf9bcad Task #13615: Deprecate the old fake FE code
+385c191 Add documentation for the testing framework.
+a63301b Drop the old TODO file.
+c2f1e64 Feature #11682: Port the testing framework from oelib (part 6)
+7221e86 Feature #11682: Port the testing framework from oelib (part 5)
+b04efaa Replace some left-over "Oelib" in the unit test names.
+d23e374 Feature #11682: Port the testing framework from oelib (part 4)
+22c1daf Feature #11682: Port the testing framework from oelib (part 3)
+cb03044 Feature #11682: Port the testing framework from oelib (part 3)
+d3612ec Feature #11682: Port the testing framework from oelib (part 1)
+04bc29e Cleanup: Replace parent::init() with $this->init() in the BE module class.
+9b5577f Task #12165: Make the BE module testable and add some basic tests (part 1)
+01a257c Task #13501: Add a cache for the extensions, an "exists check" and a dummy extension filter to the test finder
+9742d35 Rename a local variable to better communicate its meaning.
+66d69fb Task #13501: Add a cache for the extensions, an "exists check" and a dummy extension filter to the test finder
+41c92dc Bug #13485: Crash when running Tx_Phpunit_Database_TestCaseTest on TYPO3 4.5
+aa9f145 Task #11688: Move the back-end module to Classes
+ee9e2d7 Drop XCLASS inclusion code.
+3534195 Task #13399: Add a class for an extension etc. with tests
+157dc49 Task #13399: Add a class for an extension etc. with tests (part 4)
+fc2ad44 Task #13449: Drop the (broken) "out-of-line tests" feature
+0443f8e Task #13399: Add a class for an extension etc. with tests (part 3)
+2c8eb22 Task #13399: Add a class for an extension etc. with tests (oart 3)
+0189f54 Task #13399; Add a class for an extension etc. with tests (oart 2)
+45d3a97 Task #13399; Add a class for an extension etc. with tests (oart 1)
+6039ae4 Bug #13427: Use $GLOBALS['TYPO3_CONF_VARS'] instead of $TYPO3_CONF_VARS
+df3cc53 Bug #13069: Copy'n'paste of the testnames also copies the text "Run this test only"
+291f839 Bug #11861: Double-clicking a test name also selects the "run this test" icon
+0536e44 Bug #13419: Regression: Cannot select extension other than "phpunit" in the drop-down
+315dfcb Bug #13420: PHP warnings in the TYPO3 log when running the phpunit unit tests
+28715ac Task #13401: Document which functions are called in what order for test cases with data providers
+64164e8 Bug #13402: The locallang files are not recognized by the llxmltranslate extension
+6d883ea Bug #13402: The locallang files are not recognized by the llxmltranslate extension
+7cd69ab Bug #13402: The locallang files are not recognized by the llxmltranslate extension
+79123df Bug #13407: The compare output differences are not side-by-side
+527bad6 Task #5558: Drop the "about" section from the BE module
+ebee1ec Feature #11695: Display the excluded extensions in the reports module
+8b93e5a Feature #11694: Display the phpunit include path in the reports module
+42cf53a Task #12262: Add a check for the memory limit being >= 256 MB to the reports module
+34b3b6a Refactor the report status class.
+2dd8962 Fix a typo in the changelog.
+d91cef8 Bug #12137: compare output is htmlspecialchared twice
+f8f4039 Bug #13278: vfsStreamWrapper cannot be used if it is not included
+52b8e0a Bug #13278: vfsStreamWrapper cannot be used if it is not included
+fcbcb6a Bug #13033: Progress bar is too long (part 2), thanks to Patrick Shriner
+a757947 Bug #13033: Progress bar is too long (thanks to Patrick Shriner)
+dc63db4 Bug #11741: Progress bar ist too short after running some tests (thanks to Patrick Shriner)
+81dbd83 Release phpunit 3.5.10.
+0a49b05 Release phpunit 3.5.10.
+0f1d4e1 Task #12241: Update PHPUnit to 3.5.10
+249dea8 Task #11731: Make the test listener testable (part 7)
+6fd1d17 Task #11731: Make the test listener testable (part 6)
+ab18468 Task #11731: Make the test listener testable (part 5)
+bbc2d0c Fix the changelog.
+da30199 Bug #12268: There should be empty PHP files where the test base classes have been
+1f7aaab Task #11700: Move the credits from the About page to the manual
+2cd44fe Bug #11755: Code-Coverage Report fails due to error in included PHPUnit
+47c1010 Task #12167: Move the test base classes to Classes/
+587bdc3 Task #11731: Make the test listener testable and add some tests (part 4)
+ab0c5cf Feature #11696: Display the Xdebug status in the reports module
+2b22d1d Feature #11696: Display the Xdebug status in the reports module
+db247d6 Drop an unresolved issue from the changelog.
+34ba5a6 Task #11731: Make the test listener testable (part 3)
+d458b11 Task #11731: Make the test listener testable (part 2)
+ac52ece Bug #12152: tx_phpunit_BackEnd_TestListenerTest does not handle extbase-style names
+a94b5c3 Bug #12151: prettifyTestClass adds leading space for the test class name "tx_phpunit_BackEnd_TestListenerTest" Bug #12153: prettifyTestClass does not handle the "Test" suffix
+aa1e743 Task #11731: Make the test listener testable (part 1)
+a20ad58 Don't trigger the autoloader with class_exists.
+63bf25d Task #11687: Move the test listener to Classes
+ef80985 Task #11689: Move the CLI runner to Classes/
+90d365b Task #11678: Move the Reports class to Classes/
+b0de001 Task #11678: Move the Reports class to Classes/
+7c4bc42 Task #11678: Move the Reports class to Classes/
+2a3ad8c Task #11705: Move the Icons, CSS and JS to Resources/
+141cd4c Task #11686: Move all locallang files to Resources/Private/Language
+84ae5b2 Task #11705: Move the Icons, CSS and JS to Resources/
+1be6da5 Task #11737: Use less static functions
+8cb058d Task #11827: Use strict comparisons
+f09ddd3 Task #12145: Update PHPUnit to 3.5.7
+993a0a1 Task #12145: Update PHPUnit to 3.5.7
+c1d0fbe Bug #11755: Code-Coverage Report fails due to error in included PHPUnit
+06bace6 Task #11703: Add the missing PHPDoc comments
+a7325de Task #11684: Update copyrights in class comments and manual to 2011
+71c7ed5 Task #11703: Add the missing PHPDoc comments
+faeae1d Bug #11743: Crash when assertNull, assertNotNull, assertTrue or assertFalse fails
+270b166 Release phpunit 3.5.6.
+7b29db1 Feature #5270: Improve failed assertEquals with strings as with NUnit
+7a4e4f1 Bug #7394: Fix single test links with data providers
+3a45a71 Feature #10829: Test-Crash output should be formatted
+8d858d5 Bug #7390: bar is too long when using data provides
+0b9c1b2 Bug #11675: Module background color is different below the "scroll fold"
+242b029 Bug #8090: TYPO3 icon in extension drop-down is misaligned in latest TYPO3 trunk
+aeffca4 Feature #7822: Include vfsStream for mocking the filesystem in unit tests
+dbf66d9 Bug #11727: Add a link to the bugtracker to the manual Bug #11728: Document how to write extbase tests
+a7f1008 Bug #11704: Provide the PHPUnit files via an autoloader Bug #11690: Drop the version number from the PHPUnit path Bug #7478: Update PHPUnit to the latest version
+48832a0 Bug #11709: Exceptions in tests are displayed with empty line number and file
+10d05e6 Bug #11712: testlistener::startTest reads a non-existent field
+4dd581b Task #11713: Drop the unused JsonPrettyPrinter.php file
+d516ef0 Bug #11711: Drop code for the experimental progress bar
+c988dcb Drop commented-out code.
+b191b93 Bug #10135: phpunit shows green bar, although test execution failed with fatal error
+cf5207b Fix bug #5903: Only JavaScript-hide the test contents if all test have completed
+65c7fe0 Fix bug #11681: Cleanup: Use guard clauses
+21b793b phpunit #11685: Drop deprecated classes and functions
+2ebe09e Bug #9094: Hidden MAC backup files should not be loaded (part 2)
+17f13a9 phpunit #9094: Hidden MAC backup files should not be loaded (part 1)
+cf21c6f phpunit #9094: Hidden MAC backup files should not be loaded (part 1)
+b60cfce phpunit #9094: Hidden MAC backup files should not be loaded (part 1)
+7e07a44 phpunit #11570: Add functions to find the relative and absolute path to the Core tests directory
+4e19c53 Fix the formatting of field documentation comments.
+83398c6 phpunit #11679: Use the new XCLASS format
+3f3e704 phpunit #5570: Reformat the code to conform to the CGL
+cf78098 phpunit #7273: Use the null time tracker for TYPO3 >= 4.3
+06b130d phpunit #7240: Rely on the autoloader for TYPO3 >= 4.3
+8c241b6 Fix the coding style in ext_tables.php.
+1486b5b phpunit 10690: Require TYPO3 >= 4.3
+12fd6e8 phpunit #11570: Add functions to find the relative and absolute path to the Core tests directory
+2aedc85 Cleanup: Make the constructor the first method in the mod1 class.
+a096c70 phpunit #11676: Rename the tests/ directory to Tests/
+7408485 [phpunit #5570] Reformat the code to conform to the CGL
+1e6dc13 [phpunit #5570] Reformat the code to conform to the CGL
+9878a50 Bug #9158 Broken link in the manual
+30e2b47 [Bug 7979] Change Typo3 into TYPO3 in the manual
+5748fd4 Update a copyright to 2010.
+16e04f2 [Bug 9895] The CLI script needs to set the locale
+e7a7e32 Document how to test extbase-based extensions.
+c7e8b54 [Bug 9678] Convert all files to UNIX line endings, no review
+f953bba phpunit Bug #7963: "Run this test only" link from within running a single test is broken, no review
+daf2dad phpunit Bug #6101: Testcase drop-down is empty in single test view, no review
+4ff4168 phpunit Task #6924: Drop the warnings from the main page for TYPO3 >= 4.3, no review
+3d94196 phpunit Feature #6921: Move the eaccelerator warning to the main page and the reports module, no review
+99169d2 phpunit Bug #7609: The fake FE should be off by default, no review
+3481598 phpunit bug #7735: Wrong group list if fake TSFE (thanks to Francois Suter), r=me
+e3b6e83 phpunit bug #7735: Wrong group list if fake TSFE (thanks to Francois Suter), r=me
+ebaf67d Fixed a typo in hte manual.
+aaf746d Update the manual.
+5a17318 Release phpunit 3.4.12.
+ff6bd7a [phpunit #72304] Update PHPUnit to the latest version, no review
+38fdb88 [phpunit #7234] Update some things in the manual
+42b006b [phpunit - Bug #5544] Invalid IDs for the checkboxes, r=stefano
+634bd35 [phpunit - Bug #7228] Typo in the CSS file, r=stefano
+fc5d808 [phpunit - Bug #5560] "All extensions" cannot be selected, r=stefano
+3c8558a [phpunit - Bug #6922] Rename the test cases from *_testcase to *Test, no review
+42394e1 Drop the NEWS file as this now is part of the changelog.
+4fb1c8a [phpunit - Bug #5550] Convert all locallang files to XML, no review
+ea70598 [phpunit - Bug #5550] Convert all locallang files to XML, no review
+f558b1a [phpunit - Bug #5553] Make the PHP comments warning a flash message, r=stefano
+da73ecc [phpunit - Bug #5902] Link for running single test doesn't work from within running a testcase, r=axel
+961b390 Copy the contents of NEWS.txt into the Changelog file.
+2f617b2 [phpunit - Bug #6638] Support for *Test.php names instead of _testcase.php, patch by Sebastian Kurfürst, r=me
+cb6563f [phpunit - Bug #6672] Files included twice, patch by Ingo Renner, r=me
+180b731 [phpunit - Bug #6561] Remove the .project file from SVN, no review
+ba6a12e [phpunit - Bug #6561] Remove the .project file from SVN, no review
+ffd947b [phpunit - Bug #5542] Add CDATA for all script tags, no review
+6444559 [phpunit - Bug #5569] Add and clean up the class documentation comments, no review
+13711ed [phpunit - Bug #6452] Update PHPUnit version 3.4.7 to 3.4.11, no review
+04054f3 [phpunit - Bug #55511] Show a warning if PHP comments are stripped, r=axel
+cedde12 Use tabs and spaces for indentation in the right places.
+e27fc75 [phpunit - Bug #5836] Don't use makeInstanceClassName in TYPO3 4.3, r=axel
+9a4bff5 [phpunit - Task #5557] Drop the display of the changelog, r=axel
+afb40d6 [phpunit - Bug #5900] Update PHPUnit to 3.4.7, no review
+b1bec5a [phpunit - Bug #5555] Register all classes for the autoloader, no review
+3fecd7e [phpunit - Bug #5950] Remove the mentioning of the ECT from the extension description, no review
+baa4368 [phpunit - Bug #5510] Make sure all phpunit tests actually run, r=axel
+a5a221a Fixed bug #5568: Change all tests to use the @test annotation, no review
+917d889 Release phpunit 3.4.3.
+d85848e Update the copyrights to 2010, no review.
+789e19c Update the manual.
+53d228d [phpunit - Feature #5559] When running a testcase or a single test,	display the name of the test suite, r=niels
+5c97ccf [phpunit - Bug #5548] Progressbar is not filled when running single	tests, r=niels
+b8574b6 [phpunit - Bug #5258] Blank page with BE output compression, r=niels
+35e0373 [phpunit - Bug #4198] Calculation of progress bar width broken, r=niels
+28546ff [phpunit - Bug #5543] There are some literal \n between the options	in the testcase drop-down, r=niels
+6dadfb0 [phpunit - Task #5549] Use real access modifiers and drop the @access	annotations, r=niels
+6bbe7d0 [phpunit - Bug #5552] Update the "about" section in the BE module	with the new contributors, r=niels
+30f4b52 [phpunit - Task #5537] Update ext_emconf.php with the new team	structure, r=niels
+c6db97e [phpunit - Bug #5547] Delete unused variables, r=niels
+dd5658e [phpunit - Task #5546] Delete commented-out code, r=niels
+31c4884 #5727: Incorrect path used in tx_phpunit_module1::traversePathForTestCases, patch by Mikkel Ricky, r=me
+8e8d9ef Task #5566: Update PHPUnit to 3.4.3, no review
+502c93b Task #5566: Update PHPUnit to 3.4.3, no review
+11469ca Add a missing bug number in the changelog.
+46a010a Switch the changelog to an international date format (and drop trailing whitespace from the changelog)
+35e6506 Drop the project name from .project.
+7a4359c Drop the project name from .project.
+fa0e1be Add the Eclipse .project.
+ccaedd5 Fixed bug: Add missing flag 'doNotLoadInFE' to ext_emconf.php
+2dd5b52 Minor code formatting issue
+5066566 Change include path of PHPUnit to current version
+ea543c8 Update PHPUnit to version 3.4.2
+5ae917b Remove PHPUnit 3.4.0
+f32a3e3 Remove $this->cli_validateArgs() from the tx_phpunit_cli_phpunit because the PHPUnit validate the params by it self.
+d387878 Add PHPUnit_Util_Filter::addFileToFilter to tx_phpunit_* classes
+d08b9b7 Add Feature #4775: Support Data Providers
+d358988 Fixed Bug #3423: having many tests the select is "unhandy"
+020fe66 Remove whitespace
+c11251b Increase version no
+9d8eb2f Update PHPUnit to version 3.4.0
+630da14 Add hook to importExtensions
+a084627 Fixed Bug #3349: hardcoded typo3_src source for core tests
+508832a Fixed Bug #4815: EXT:phpunit does not work together with PHPUnit-3.4.0
+1356734 Major Feature #3340: Add PHPUnit to cli_dispatch (Thanks to Axel Jung)
+bdf4dba Add Feature #4455: show the time and memory usage of each test
+0155cfa Add Feature #4793: Enable suffix "Test" for classes and filenames
+4f0fba7 Fixed Bug #4239: marktTestSkipped - If an extension to import not installed.
+c188f8a Fixed Bug #3838: Test with data provider fails if test or parent class extends PHPUnit_Framework_TestCase constructor
+5e2cd4f (Trying) to address uppar/lower case problem with introduction of new directory naming conventions in extbase (will be part of Typo3 4.3). See http://forge.typo3.org/issues/show/3424.
+1a3aad6 Rooted out items in TODO list that have been fixed (some had been fixed many months ago).
+4c53ec8 phpunit 3.3.12 as uploaded to TER.
+3d16f24 Preparing release of phpunit 3.3.12. ~ Updated NEWS and manual. ~ Updated the included YUI! files to version 2.7.0. The changes from 2.6 to 2.7 can be found here:         http://developer.yahoo.com/yui/releasenotes/README.base,         http://developer.yahoo.com/yui/releasenotes/README.connection,         http://developer.yahoo.com/yui/releasenotes/README.json,         http://developer.yahoo.com/yui/releasenotes/README.reset,         http://developer.yahoo.com/yui/releasenotes/README.fonts,         http://developer.yahoo.com/yui/releasenotes/README.grids,         http://developer.yahoo.com/yui/releasenotes/README.yahoo,         http://developer.yahoo.com/yui/releasenotes/README.dom,         http://developer.yahoo.com/yui/releasenotes/README.event.
+75b745e + Issue #3408: Import StdDB-feature for database tests, http://forge.typo3.org/issues/show/3408
+29931e4 + Issue #3431: Add total count of assertions to the user interface, http://forge.typo3.org/issues/show/3431
+ede1d5b + Issue #2762: Make it possible to run all tests of a testcase, http://forge.typo3.org/issues/show/2762 + Issue #3367: Display test case name as human readable text, http://forge.typo3.org/issues/show/3367
+1a0f83d Fix bug #2833: PHPUnit uses livedatabase if test database can not be created
+fb330c4 Add feature: #3269 Testlistener: Add support for "skipped" and "not implemented"
+247e7ba Removing PHPUnit-3.3.15 (apparently Subclipse is not up to the task).
+8c20a14 - Removing PHPUnit 3.3.15 + Adding PHPUnit 3.3.16 ~ Updating ext_localconf to point to 3.3.16.
+ad41cd3 phpunit 3.3.11 as uploaded to TER.
+deab12d ~ Initialize content object (tslib_cObj) on demand, http://forge.typo3.org/issues/show/2767
+86fe2eb phpunit 3.3.10 as uploaded to TER.
+f7f4c40 Really fix forge issue #2753.
+4500be5 phpunit 3.3.9 as uploaded to TER.
+a968f8e ~ (Resolved) Test cases can not end in "TestCase", but always must end in "testcase", http://forge.typo3.org/issues/show/2753
+6d5bc5f ~ Sorting unittests by their classnames for a better overview, http://bugs.typo3.org/view.php?id=10584 * Background color of selectors is grey but was white, http://forge.typo3.org/issues/show/2718
+4eacf8c phpunit 3.3.8 as uploaded to TER.
+6af30d6 * Corrected ext_localconf to point to PHPUnit 3.3.15 (instead of 3.3.5). ~ Updated NEWS file and manual. ~ Updated years to 2009 in various places.
+f0ca872 Using tortoiseSVN to root out the parts of PHPUnit that Eclipse just can not do (bahh, Eclipse. Shame on you!).
+798d386 Remove remnants of PHPUnit 3.3.5.
+2359ae8 The following has been implemented in this revision: - Task #2640 (Resolved): Static variables should not be backuped, http://forge.typo3.org/issues/show/2640 - Bug #2512 (Resolved): Fatal error: Call to a member function push() on a non-object in class.tsli..., http://forge.typo3.org/issues/show/2512 - Feature #2503 (Resolved): Allow running unit tests for the TYPO3 core, http://forge.typo3.org/issues/show/2503 - Task #2499 (Resolved): Clean up the code, http://forge.typo3.org/issues/show/2499 - Bug #2348 (Needs Feedback): BE output is buffered with current TYPO3 4.2 branch, http://forge.typo3.org/issues/show/2348 - Swithed PHPUnit from 3.3.5 to 3.3.15, http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.1524-Feb-2009
+73f0c75 - Delete PHPUnit 3.3.4 directories (remnants from previous commit). Hopefully it will work this time.
+7110720 More PHPUnit 3.3.4 directory deletion...
+f428033 - Remove PHPUnit 3.3.4 directories (remnants from previous commit). - Updated ext_emconf.php.
+2d2a39b + Added PHPUnit 3.3.5 - Removed PHPUnit 3.3.4
+62c5eb1 phpunit version 3.3.6 as uploaded to TER
+f4cc314 git-svn-id: https://svn.typo3.org/TYPO3v4/Extensions/phpunit/trunk@13969 735d13b6-9817-0410-8766-e36946ffe9aa
+292e64c Prepare phpunit version 3.3.6: + Added PHPUnit 3.3.4, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.408-Nov-2008 and http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.303-Nov-2008 - Removed PHPUnit 3.3.2. ~ Fix forge bug #1828, http://forge.typo3.org/issues/show/1828
+c007f9c Fix forge bug #1828: "Running single tests by clicking on the little runner icon still executes all tests". The fix consists of reverting to t3lib_div::_GP() instead og t3lib_div::_POST(). The latter is preferred, but until I get the time, _GP() will have to do.
+919c608 Version 3.3.5 as uploaded to TER.
+fbd3b05 Preparing release 3.3.5: + Added PHPUnit 3.3.2, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.220-Oct-2008 - Removed PHPUnit 3.3.1. ~ Comment out JavaScript calls to console.log(). * Fix forge #1698: Showing NEWS file from drop-down menu breaks with symlinks. Cf. http://forge.typo3.org/issues/show/1698
+635d387 Comment out JavaScript calls to console.log().
+e199710 Fix forge #1698: Showing NEWS file from drop-down menu breaks with symlinks.
+419556b Version 3.3.4 as uploaded to TER2.
+14397cd Updated NEWS file and manual.sxw in preparation of 3.3.4 release.
+f0ecf3d - Added access keys: Use "a" for running all tests, use "s" for running a single test and use "r" to re-run the latest tests; to open phpunit in a new window, use "n".
+6b0516f Did a Safari hack, http://dustinbrewer.com/css-hackgetting-safari-to-behave/ to have the extension icon shown nicely in the drop-down menu.
+3e808b0 - Corrected check for 'collect code coverage' state.
+335efbd Clean-up: - Removed unused require_onces. - Removed to user session vars, that were not used.
+c2cc382 - Changed header of page. - Added per-user setting for code coverage. Remove Extension Manager setting. - Fixed 'open-in-new-window' button. - Added YUI! base-min.css, cf. http://developer.yahoo.com/yui/base/ - CSS fixes on top of YUI! base min.
+40847a5 Use Dom.get() to fetch element references. Fixes IE JavaScript error.
+f442268 - unified $testResult and $result variables, since the were references to the same object. - Added $extRelPath as object variable and refactored code througout. - Added files json-min.js and reset-fonts-grids.css. The latter file is not used yet.
+63e9ee5 Re-implemented parts that was previously using Prototype in YUI! instead.
+09a01ae - Added yui 2.6.0 files. I will base my implementation on YUI! (not Prototype). - Removed '2.6.0/' directory. - Changed a bit in the Prototype Ajax parameters property. (although the Prototype code will be removed shortly, anyway).
+1d393af - Removed 'ExperimentalAJAXUI' option. - Introduced three buttons for selecting whether to show successful tests, errors and failures (all done with instant apply and 'AJAX-style'). - Started work on finer-grained memory and benchmarking. - Changed class names testCase to testcase. - Introduced __construct() which calls parent::init(). Removing calls $SOBE->init(). - Added background-color to css for errors and failures. - Refactored quite a bit of code. Escp. JavaScript code.
+b1f270c Removed files mod1/class.tx_phpunit_module1_mikkelricky.php and mod1/styles.css (the CSS file was used by the mikkelricky module). Removed 'ExperimentalUI' option from ext_conf_template.txt.
+0f61014 Upped requirements: - Typo3 4.2 (up from 4.1). Now we use loadJavascriptLib() to load Prototype.
+156ee9c Fix typo in comment.
+ba49882 Version 3.3.3, as uploaded to TER2.
+09cbbb0 + Display the leaked memory after the tests. Closes forge #1627. Note that this measurement is only indicative; it will be tried out now, but is the utility is limited, then it will be removed or turned into an option.
+3578a89 Version 3.3.2, as uploaded to TER2.
+ae6d8a9 + Added links to forge.typo3.org. ~ Moved text around at little bit to have added links more prominent, compared to the old links (which are left for completeness). * Add the colored bar even when executing single tests. Closes forge #1594, thanks goes to Oliver Klee. * Javascript for experimental progress bar executed although the option is disabled. Closes forge #1595, thanks goes to Oliver Klee. * Error when calling non-existing test. Closes #1596, thanks goes to Oliver Klee. * Message flows out of box. Closes forge # 1597, thanks goes to Oliver Klee.
+91ca785 + Added links to forge.typo3.org. ~ Moved text around at little bit to have added links more prominent, compared to the old links (which are left for completeness).
+0ee19db phpunit 3.3.1 as uploaded to TER2.
+e5225fc Removing directories. Leftover from what seems to be a bad commit..?
+b57e0af Preparing to release phpunit 3.3.1: + Added PHPUnit 3.3.1, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.123-Sep-2008 - Removed PHPUnit 3.3.0.
+1b01454 phpunit 3.3.0 as uploaded to TER2.
+03fd648 Ready for release of phpunit 3.3.0.
+b5a22af Preparing to release phpunit with the upgraded PHPUnit 3.3.0: + Added PHPUnit 3.3.0, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog33#PHPUnit3.3.015-Sep-2008 - Removed PHPUnit 3.2.21.
+24879b5 phpunit version 3.2.21, as uploaded to TER.
+d0015cb Final preparation for release of version 3.2.21. Changes: ~ Changed default in ext_conf_template.txt for field 'excludeextensions': Now extension keys 'lib' and 'div' are per default excluded, since their testsuites try to load extension key 't3unit', which probably does not exist on peoples machines. * Fixed bug where phpunit could get stuck with 'Extension not loaded [...]'. Now, instead phpunit will default to extension key 'phpunit', if the chosen key does not exist anymore (which can happen if the extension is removed).
+9177d0a Preparing release 3.2.21. Changes: + Added PHPUnit 3.2.21, see ChangeLog at http://www.phpunit.de/wiki/ChangeLog32#PHPUnit3.2.2116-Jun-2008. + Added benchmarking single tests. Solves Forge issue #1317, http://forge.typo3.org/issues/show/1317. Thanks to Oliver Klee. ~ Changed manual.sxw to use latest documentation template (EXT:doc_template version 1.2.5). ~ Fixed some validation issues. Solves Forge issue #1316, http://forge.typo3.org/issues/show/1316. Thanks to Oliver Klee. - Removed line including non-existant file 'common.js'. Solves Forge issue #1320, http://forge.typo3.org/issues/show/1317. Thanks goes to Niels Pardon. - Removed PHPUnit 3.2.19 (btw. there never was a release with PHPUnit 3.2.20).
+35771c3 Version 3.2.20 as uploaded to TER.
+3e62f62 ~ Changed hook key in mod1/index.php.
+f13e1cb Version 3.2.19.
+c2159a8 Small bugs fixed.
+2b9d320 Added PHPUnit 3.2.19
+4bcd5ca Remove 3.2.18.
+adf1193 Version 3.2.18 as uploaded to TER.
+3725fa2 ~ Switched to xhtml-rendering, fixes issue #8173, http://bugs.typo3.org/view.php?id=8173, Thanks to Oliver Klee. * Fixed some typos, code-beautification, fixes issue #8173, http://bugs.typo3.org/view.php?id=8173, Thanks to Oliver Klee.
+8c1f20d Version 3.2.17.
+32c6e68 + Added 'oelib' as a suggested extension to install, when installing phpunit. ~ Updated manual accordingly.
+4813e9c Version 3.2.16.
+3497003 + Added possibility to 'hook' which class to run. You will need to implement two methods, init() and main(). ~ Re-inserted $backupGlobals = false. + Added note to TODO.
+58ef61e git-svn-id: https://svn.typo3.org/TYPO3v4/Extensions/phpunit/trunk@8833 735d13b6-9817-0410-8766-e36946ffe9aa
+6d80154 git-svn-id: https://svn.typo3.org/TYPO3v4/Extensions/phpunit/trunk@8831 735d13b6-9817-0410-8766-e36946ffe9aa
+e744163 Initial steps towards new UI (looks broken to the untrained eye ;-)).
+42409e4 Version 3.2.15.
+2555d44 * Bugfix: Commented out calls to Graphviz. This is a future feature, that had sneaked in prematurely, causing fatal error for users. Closes issue #8037, http://bugs.typo3.org/view.php?id=8037.
+0ef2977 git-svn-id: https://svn.typo3.org/TYPO3v4/Extensions/phpunit/trunk@8819 735d13b6-9817-0410-8766-e36946ffe9aa
+c343337 - Removed setting $backupGlobals=false. This should be unnecessary after PHPUnit issue #421 was solved, http://www.phpunit.de/ticket/421. ~ Moved NEWS file from 'About PHPUnit BE' to an entry of its own in the dropdown selector.
+8fa5972 Removed a few files, that had sneaked in.
+79afd1e Fix <H1> tag in 'About'.
+bca50ec Commit cleaned up ext_emconf.php for version 3.2.14.
+90abe7d + Added PHPUnit 3.2.18, see Changelog at http://www.phpunit.de/wiki/ChangeLog32#PHPUnit3.2.1804-Apr-2008 - Removed PHPUnit 3.2.17. * Changes to stylesheet, to mitigate some of the most glaring usability issues in the Typo3 4 default skin. ~ Tweaked NEWS file.
+2248fd1 (Prepared) Check for codecoverage directory exists and is read- and writeable.
+96b64a3 * Bugfix: Moved setting of $backupGlobals from tx_phpunit_database_testcase.php to tx_phpunit_testcase.php. This fixes a 'Fatal Error' on Windows. Thanks goes to Morten Lovbjerg.
+5f4cd4c Version 3.2.12.
+3093428 git-svn-id: https://svn.typo3.org/TYPO3v4/Extensions/phpunit/trunk@8803 735d13b6-9817-0410-8766-e36946ffe9aa
+f3bbd54 Noted in NEWS that re-run icons does not work with Experimental UI.
+241f8da Fixed re-run icon problem in case only one test.
+f11e762 + Added re-run icon to each test: Clicking it, will re-run that test only. Closes issue #6972, http://bugs.typo3.org/view.php?id=6972
+c0444fa Small code corrections.
+e2e5bb2 GT3 CodeSniffer.
+5f67a43 git-svn-id: https://svn.typo3.org/TYPO3v4/Extensions/phpunit/trunk@8797 735d13b6-9817-0410-8766-e36946ffe9aa
+479dbc0 git-svn-id: https://svn.typo3.org/TYPO3v4/Extensions/phpunit/trunk@8796 735d13b6-9817-0410-8766-e36946ffe9aa
+670f8eb * Made all files follow the GT3 coding conventions (a derivative of Typo3 CGL, but not a subset).
+3937382 - Removed clear.gif.
+1ea5f91 + Added NEWS file to end of 'About PHPUnit BE', to make it easier to access. + Added option 'alwaysSimulateFrontendEnvironment' which defaults to true, since that is backwards compatible. + Added method 'simulateFrontendEnvironment()' to tx_phpunit_testcase class. Call this method to load a (simple) simulation of the FE environment. + Added lib/ directory. Might be removed later, let's see... + Added testsuite testcase from Mikkel Ricky.
+6ad1ad5 Version 3.2.11.
+7f7dc5f Added file tests/class.tx_phpunit_testsuite.php. Improved test suite finding in Experimental UI.
+5cace07 Fix for running on Windows in Experimental UI. Fix for mixed case in database testcase, needed strtolower.
+b693cf7 Moved database tests to class tx_phpunit_database_testcase. Drop database before trying to create.
+8fd8abd Removed Typo3 4.2 specific call to loadJavascriptLib()
+310f765 Single tests can not (currently) have code coverage. Hammered a nail in, to avoid trying to collect code coverage information for single test.
+6f95f95 To make ajax class runnable, added 'extends tx_phpunit_module1'.
+77412c1 Release 3.2.7.
+744de33 Corrected error introduced when adding icons to dropdown boxes. Closes #7964, http://bugs.typo3.org/view.php?id=7964.
+d153d88 Initial steps in Ajax/Json implementation. Far from working, but since it will require Typo3 4.2, that is OK for now (and it is turned off by default).
+110cc93 Corrected path to PHPUnit 3.2.17.
+5e77e4c Updated PHPUnit to 3.2.17. Added extension icons to dropdown boxes.
+c51ec60 + Added new UI for running tests: You will need to set the new option ' Experimental test interface' in the Extension Manager (EM).  This adresses issue #6965, http://bugs.typo3.org/view.php?id=6965. Thanks to Mikkel Ricky who provided the new implementation.
+e5a05d6 Version 3.2.4.
+cbe9ce6 + Experimental support for Code Coverage reporting. Turned of by default, since you need to setup XDebug and it slows down unit testing considerably! + Added test for memory limit, which should be set to something like 256MB, when using code coverage! + New (experimental) progressbar: First stab at bugs #6972 and #6975. Turned off by default. Works badly: Overflows to the right, when there are many tests. * Errors are now marked red (instead of yellow). Solves bug #6977, http://bugs.typo3.org/view.php?id=6977.
+a547944 Initial look at bugs #6975 and #6972.
+8389541 Initial steps to allow code coverage reporting.
+ca68c41 Removed to stray files from PHPUnit.
+8957c6f Removed undefine and unused variable addAttrib. Solves issue 7011, http://bugs.typo3.org/view.php?id=7011
+eebcc79 Version 3.2.3: 	+ New helper functions in tx_phpunit_testcase: You can now use the Typo3 database from your tests. E.g. for creating new tables for your tests. Reminder: Never run tests in a production environment. 	+ Tests for new helper functions added in class database_testcase. Note: You will need to manually install the four extensions named 'aaa', 'bbb', 'ccc' and 'ddd' (they can be found in tests/res/). 	~ Upgraded PHPUnit from 3.2.6 to 3.2.15. 	~ ext_emconf now states in description that the phpunit extension is based on PHPUnit 3.2 (instead of just PHPUnit 3). 	* (Temporary) fix for issue #7631, http://bugs.typo3.org/view.php?id=7631#c19761, courtesy Mario Rimann.
+09cb535 ~ Changed header in BE module: It now writes the version string from the PHPUnit currently in use. This makes it easier to verify that the correct version is used. Closes http://bugs.typo3.org/view.php?id=6985 * Removed white background from phpunit-be.css. * Changed path in ext_localconf.php to uppercase. Solves problem, where using the shipped PHPUnit did not work on systems where upper case / lower case is respected (e.g. Linux systems).
+3bb7929 * Removed white background from phpunit-be.css.
+06076e4 * Moved shipped PHPUnit to a PHPUnit sub-directory of PHPUnit-3.2.6. Closes http://bugs.typo3.org/view.php?id=6994. ~ Changed manual: 'Changelog' section renamed to 'News'. * Re-introduced suggestion of pear extension version 2.3.5 (or higher) in ext_emconf.php (to comply with the ECT effort).
+a6c368c Initial upload of phpunit extension. (this is version 3.2.0).
+9fb5d6a git-svn-id: https://svn.typo3.org/TYPO3v4/Extensions/phpunit/trunk@7587 735d13b6-9817-0410-8766-e36946ffe9aa
