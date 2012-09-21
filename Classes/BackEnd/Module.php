@@ -704,9 +704,10 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 
 		foreach (get_declared_classes() as $class) {
 			$classReflection = new ReflectionClass($class);
-			if ($classReflection->isSubclassOf('Tx_Phpunit_TestCase')
+			if (($classReflection->isSubclassOf('Tx_Phpunit_TestCase')
 				&& ((strtolower(substr($class, -8, 8)) === 'testcase') || (substr($class, -4, 4) === 'Test'))
-				&& ($class !== 'Tx_Phpunit_TestCase') && ($class !== 'Tx_Phpunit_Database_TestCase')
+				&& ($class !== 'Tx_Phpunit_TestCase') && ($class !== 'Tx_Phpunit_Database_TestCase'))
+				|| (class_exists('TYPO3\\CMS\\Core\\Tests\\UnitTestCase') && $classReflection->isSubclassOf('TYPO3\\CMS\\Core\\Tests\\UnitTestCase'))
 			) {
 				$testSuite->addTestSuite($class);
 			} elseif ($this->userSettingsService->getAsBoolean('runSeleniumTests')
