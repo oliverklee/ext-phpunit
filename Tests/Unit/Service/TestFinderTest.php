@@ -1365,7 +1365,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
-	public function getTestablesForExtensionsProvidesTestableInstanceWithIconPath() {
+	public function getTestablesForExtensionsWithGifIconProvidesTestableInstanceWithIconPath() {
 		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
 		$testFinder = $this->getMock(
 			'Tx_Phpunit_Service_TestFinder',
@@ -1380,6 +1380,35 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 		$testable = array_pop($testFinder->getTestablesForExtensions());
 		$this->assertSame(
 			t3lib_extMgm::extRelPath('phpunit') . 'ext_icon.gif',
+			$testable->getIconPath()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTestablesForExtensionsWithPngIconProvidesTestableInstanceWithIconPath() {
+		if (!t3lib_extMgm::isLoaded('user_phpunittest')) {
+			$this->markTestSkipped(
+				'The Extension user_phpunittest is not installed, but needs to be installed. ' .
+					'Please install it from EXT:phpunit/Tests/Unit/Fixtures/Extensions/user_phpunittest/.'
+			);
+		}
+
+		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
+		$testFinder = $this->getMock(
+			'Tx_Phpunit_Service_TestFinder',
+			array('getLoadedExtensionKeys', 'getExcludedExtensionKeys', 'findTestsPathForExtension', 'retrieveExtensionTitle')
+		);
+		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('user_phpunittest')));
+		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
+		$testFinder->expects($this->once())->method('findTestsPathForExtension')
+			->with('user_phpunittest')->will($this->returnValue(t3lib_extMgm::extPath('user_phpunittest') . 'Tests/'));
+
+		/** @var $testable Tx_Phpunit_Testable */
+		$testable = array_pop($testFinder->getTestablesForExtensions());
+		$this->assertSame(
+			t3lib_extMgm::extRelPath('user_phpunittest') . 'ext_icon.png',
 			$testable->getIconPath()
 		);
 	}
