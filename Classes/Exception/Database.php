@@ -24,7 +24,7 @@
 
 /**
  * This class represents an exception that should be thrown when a database
- * error has occured.
+ * error has occurred.
  *
  * The exception automatically will use an error message, the error message
  * from the DB and the last query.

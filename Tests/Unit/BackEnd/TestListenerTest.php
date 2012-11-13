@@ -104,7 +104,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	/**
 	 * Helper function to check for a working diff tool on a system.
 	 *
-	 * Tests same file to be sure there isn't any error message.
+	 * Tests same file to be sure there is not any error message.
 	 *
 	 * @return boolean TRUE if a diff tool was found, FALSE otherwise
 	 */

@@ -22,7 +22,7 @@
 * This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-// In the back end, PATH_tslib isn't defined yet.
+// In the back end, PATH_tslib is not defined yet.
 if (!defined('PATH_tslib')) {
 	/**
 	 * @var string
@@ -75,7 +75,7 @@ class Tx_Phpunit_Framework {
 	protected $additionalAllowedTables = array();
 
 	/**
-	 * all sytem table names to which this instance of the testing framework
+	 * all system table names to which this instance of the testing framework
 	 * has access
 	 *
 	 * @var array
@@ -578,7 +578,7 @@ class Tx_Phpunit_Framework {
 	 *
 	 * Important: Only dummy records from non-system tables can be deleted with
 	 * this method. Should there for any reason exist a real record with that
-	 * UID, it won't be deleted.
+	 * UID, it would not be deleted.
 	 *
 	 * @param string $tableName
 	 *        name of the table from which the record should be deleted, must
@@ -713,7 +713,7 @@ class Tx_Phpunit_Framework {
 	 *
 	 * Important: Only dummy records can be deleted with this method. Should there
 	 * for any reason exist a real record with that combination of local and
-	 * foreign UID, it won't be deleted!
+	 * foreign UID, it would not be deleted!
 	 *
 	 * @param string $tableName
 	 *        name of the table from which the record should be deleted, must
@@ -802,7 +802,7 @@ class Tx_Phpunit_Framework {
 			$dummyColumnName = $this->getDummyColumnName($currentTable);
 
 			// Runs a delete query for each allowed table. A
-			// "one-query-deletes-them-all" approach was tested but we didn't
+			// "one-query-deletes-them-all" approach was tested but we did not
 			// find a working solution for that.
 			Tx_Phpunit_Service_Database::delete($currentTable, $dummyColumnName . ' = 1');
 
@@ -904,7 +904,7 @@ class Tx_Phpunit_Framework {
 		foreach ($contents as $pathToFile) {
 			if (!file_exists($pathToFile)) {
 				throw new t3lib_exception(
-					'The provided path "' . $pathToFile . '" does not point to an exisiting file.', 1334439306
+					'The provided path "' . $pathToFile . '" does not point to an existing file.', 1334439306
 				);
 			}
 			$zip->addFile($pathToFile, $this->getPathRelativeToUploadDirectory($pathToFile));
@@ -1619,7 +1619,7 @@ class Tx_Phpunit_Framework {
 	 * UID + 1 if the current auto increment value is higher than a certain
 	 * threshold over the current maximum UID.
 	 *
-	 * The threshhold is 100 by default and can be set using
+	 * The threshold is 100 by default and can be set using
 	 * setResetAutoIncrementThreshold.
 	 *
 	 * @param string $tableName
@@ -1804,10 +1804,10 @@ class Tx_Phpunit_Framework {
 	/**
 	 * Returns the next sorting value of the relation table which should be used.
 	 *
-	 * TODO: This function doesn't take already existing relations in the
+	 * TODO: This function does not take already existing relations in the
 	 * database - which were created without using the testing framework - into
 	 * account. So you always should create new dummy records and create a
-	 * relation between these two dummy records, so you're sure there aren't
+	 * relation between these two dummy records, so you're sure there are not
 	 * already relations for a local UID in the database.
 	 *
 	 * @param string $tableName

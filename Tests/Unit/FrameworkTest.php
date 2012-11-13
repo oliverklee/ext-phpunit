@@ -655,7 +655,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 			$this->fixture->countRecords('tx_phpunit_test', 'uid=' . $uid)
 		);
 
-		// Runs our delete function - it should run through even when it can't
+		// Runs our delete function - it should run through even when it cannot
 		// delete a record.
 		$this->fixture->deleteRecord('tx_phpunit_test', $uid);
 	}
@@ -1103,7 +1103,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 			)
 		);
 
-		// Runs our delete function - it should run through even when it can't
+		// Runs our delete function - it should run through even when it cannot
 		// delete a record.
 		$this->fixture->removeRelation(
 			'tx_phpunit_test_article_mm', $uidLocal, $uidForeign
@@ -2381,7 +2381,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	/**
      * @test
      */
-    public function resetAutoIncrementLazilyCleansUpsAfterOneNewRecordWithThreshholdOfOne() {
+    public function resetAutoIncrementLazilyCleansUpsAfterOneNewRecordWithThresholdOfOne() {
 		$oldAutoIncrement = $this->fixture->getAutoIncrement('tx_phpunit_test');
 		$this->fixture->setResetAutoIncrementThreshold(1);
 
