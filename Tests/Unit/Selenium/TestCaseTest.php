@@ -100,7 +100,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 
 
 	/*
-	 * Tests for the utitility functions
+	 * Tests for the utility functions
 	 */
 
 	/**

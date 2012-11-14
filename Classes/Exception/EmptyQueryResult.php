@@ -24,7 +24,7 @@
 
 /**
  * This class represents an exception that should be thrown when a database
- * query has an empty result, but shouldn't have.
+ * query has an empty result, but should not have.
  *
  * The exception automatically will use an error message and the last query.
  *

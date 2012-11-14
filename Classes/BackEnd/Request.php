@@ -64,7 +64,7 @@ class Tx_Phpunit_BackEnd_Request extends Tx_Phpunit_AbstractDataContainer
 	}
 
 	/**
-	 * Retrieves the EM configuration for the PHPUnit extionsion.
+	 * Retrieves the EM configuration for the PHPUnit extension.
 	 *
 	 * @return void
 	 */

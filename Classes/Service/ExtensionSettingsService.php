@@ -69,7 +69,7 @@ class Tx_Phpunit_Service_ExtensionSettingsService extends Tx_Phpunit_AbstractDat
 	}
 
 	/**
-	 * Retrieves the EM configuration for the PHPUnit extionsion.
+	 * Retrieves the EM configuration for the PHPUnit extension.
 	 *
 	 * @return void
 	 */

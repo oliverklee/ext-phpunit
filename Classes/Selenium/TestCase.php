@@ -96,7 +96,7 @@ class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_Selenium2TestCase 
 	 * Runs the test if the Selenium RC Server is reachable.
 	 *
 	 * If the server is not reachable, the tests will be marked as skipped, and
-	 * a message will be displayed giving a hint on wich host/port the client
+	 * a message will be displayed giving a hint on which host/port the client
 	 * was looking for the Selenium server.
 	 *
 	 * @see PHPUnit_Extensions_SeleniumTestCase::runTest()
@@ -157,7 +157,7 @@ class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_Selenium2TestCase 
 	 * This functions returns 4444 (the standard Selenium RC port) if no port is
 	 * is configured
 	 *
-	 * @return integer the elenium RC server port, will be > 0
+	 * @return integer the Selenium RC server port, will be > 0
 	 */
 	protected function getSeleniumPort() {
 		return $this->extensionSettingsService->hasInteger('selenium_port')

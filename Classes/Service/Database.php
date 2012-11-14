@@ -219,7 +219,7 @@ class Tx_Phpunit_Service_Database {
 	 *
 	 * @return integer the number of affected rows, might be 0
 	 *
-	 * @throws Tx_Phpunit_Exception_Database if an error has occured
+	 * @throws Tx_Phpunit_Exception_Database if an error has occurred
 	 */
 	public static function delete($tableName, $whereClause) {
 		if ($tableName == '') {
@@ -249,7 +249,7 @@ class Tx_Phpunit_Service_Database {
 	 *
 	 * @return integer the number of affected rows, might be 0
 	 *
-	 * @throws Tx_Phpunit_Exception_Database if an error has occured
+	 * @throws Tx_Phpunit_Exception_Database if an error has occurred
 	 */
 	public static function update($tableName, $whereClause, array $fields) {
 		if ($tableName == '') {
@@ -279,7 +279,7 @@ class Tx_Phpunit_Service_Database {
 	 * @return integer
 	 *         the UID of the created record, will be 0 if the table has no UID column
 	 *
-	 * @throws Tx_Phpunit_Exception_Database if an error has occured
+	 * @throws Tx_Phpunit_Exception_Database if an error has occurred
 	 */
 	public static function insert($tableName, array $recordData) {
 		if ($tableName == '') {
@@ -318,7 +318,7 @@ class Tx_Phpunit_Service_Database {
 	 *
 	 * @return resource MySQL result pointer
 	 *
-	 * @throws Tx_Phpunit_Exception_Database if an error has occured
+	 * @throws Tx_Phpunit_Exception_Database if an error has occurred
 	 */
 	public static function select(
 		$fields, $tableNames, $whereClause = '', $groupBy = '', $orderBy = '', $limit = ''
@@ -362,7 +362,7 @@ class Tx_Phpunit_Service_Database {
 	 *
 	 * @return array the single result row, will not be empty
 	 *
-	 * @throws Tx_Phpunit_Exception_Database if an error has occured
+	 * @throws Tx_Phpunit_Exception_Database if an error has occurred
 	 * @throws Tx_Phpunit_Exception_EmptyQueryResult if there is no matching record
 	 */
 	public static function selectSingle(
@@ -399,7 +399,7 @@ class Tx_Phpunit_Service_Database {
 	 * @return array
 	 *         the query result rows, will be empty if there are no matching records
 	 *
-	 * @throws Tx_Phpunit_Exception_Database if an error has occured
+	 * @throws Tx_Phpunit_Exception_Database if an error has occurred
 	 */
 	public static function selectMultiple(
 		$fieldNames, $tableNames, $whereClause = '', $groupBy = '', $orderBy = '', $limit = ''
@@ -440,7 +440,7 @@ class Tx_Phpunit_Service_Database {
 	 *         one column from the the query result rows, will be empty if there
 	 *         are no matching records
 	 *
-	 * @throws Tx_Phpunit_Exception_Database if an error has occured
+	 * @throws Tx_Phpunit_Exception_Database if an error has occurred
 	 */
 	public static function selectColumnForMultiple(
 		$fieldName, $tableNames, $whereClause = '', $groupBy = '', $orderBy = '', $limit = ''
@@ -469,7 +469,7 @@ class Tx_Phpunit_Service_Database {
 	 *
 	 * @return integer the number of matching records, will be >= 0
 	 *
-	 * @throws Tx_Phpunit_Exception_Database if an error has occured
+	 * @throws Tx_Phpunit_Exception_Database if an error has occurred
 	 */
 	public static function count($tableNames, $whereClause = '') {
 		$isOnlyOneTable = ((strpos($tableNames, ',') === FALSE)
