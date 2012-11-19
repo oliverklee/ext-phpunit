@@ -2,11 +2,11 @@
 excludeextensions = lib, div
   # cat=basic; type=string; label=Path to PHPUnit: The PHPUnit must be in a sub-directory named 'PHPUnit'. Point to directory just above that. Setting this will have preference over a PHPUnit from pear, even if pear is set. Remember that you can check the includepath used by phpunit in the 'About PHPUnit BE' drop-down in the PHPUnit module.
 phpunitlib =
-  # cat=selenium; type=short; label=Host of the Selenium RC server
+  # cat=selenium; type=small; label=Host of the Selenium RC server
 selenium_host = localhost
   # cat=selenium; type=int+; label=Port of the Selenium RC server
 selenium_port = 4444
-  # cat=selenium; type=short; label=Browser that should be used to run Selenium tests: Allowed values are *firefox, *mock, *firefoxproxy, *pifirefox, *chrome, *iexploreproxy, *iexplore, *firefox3, *safariproxy, *googlechrome, *konqueror, *firefox2, *safari, *piiexplore, *firefoxchrome, *opera, *iehta, *custom
+  # cat=selenium; type=small; label=Browser that should be used to run Selenium tests: Allowed values are *firefox, *mock, *firefoxproxy, *pifirefox, *chrome, *iexploreproxy, *iexplore, *firefox3, *safariproxy, *googlechrome, *konqueror, *firefox2, *safari, *piiexplore, *firefoxchrome, *opera, *iehta, *custom
 selenium_browser = *firefox
-  # cat=selenium; type=short; label=Default Selenium Browser URL: Leave empty to use domain of this TYPO3 installation (TYPO3_SITE_URL)
+  # cat=selenium; type=small; label=Default Selenium Browser URL: Leave empty to use domain of this TYPO3 installation (TYPO3_SITE_URL)
 selenium_browserurl =
