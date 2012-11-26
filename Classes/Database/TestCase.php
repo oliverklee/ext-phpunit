@@ -82,7 +82,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 		$databaseNames = $db->admin_get_dbs();
 
 		if (!in_array($this->testDatabase, $databaseNames)) {
-			if ($db->admin_query('CREATE DATABASE ' . $this->testDatabase) === FALSE) {
+			if ($db->admin_query('CREATE DATABASE `' . $this->testDatabase . '`') === FALSE) {
 				$success = FALSE;
 			}
 		}
@@ -106,7 +106,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 
 		$tables = $this->getDatabaseTables();
 		foreach ($tables as $tableName) {
-			$db->admin_query('DROP TABLE ' . $tableName);
+			$db->admin_query('DROP TABLE `' . $tableName . '`');
 		}
 	}
 
@@ -125,7 +125,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 
 		$db->sql_select_db($this->testDatabase);
 
-		return ($db->admin_query('DROP DATABASE ' . $this->testDatabase) !== FALSE);
+		return ($db->admin_query('DROP DATABASE `' .  $this->testDatabase . '`' ) !== FALSE);
 	}
 
 	/**
@@ -325,7 +325,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 		$schema = '';
 		$db->sql_query('SET SQL_QUOTE_SHOW_CREATE = 0');
 		foreach ($tables as $tableName) {
-			$res = $db->sql_query('show create table ' . $tableName);
+			$res = $db->sql_query('show create table `' . $tableName . '`');
 			$row = $db->sql_fetch_row($res);
 
 			// modifies statement to be accepted by TYPO3
