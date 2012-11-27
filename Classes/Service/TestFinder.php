@@ -424,7 +424,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 		$testable = t3lib_div::makeInstance('Tx_Phpunit_Testable');
 		$testable->setType(Tx_Phpunit_Testable::TYPE_EXTENSION);
 		$testable->setKey($extensionKey);
-		$testable->setTitle($this->retrieveExtensionTitle($extensionKey));
+		$testable->setTitle($extensionKey);
 		$testable->setCodePath(t3lib_extMgm::extPath($extensionKey));
 		$testable->setTestsPath($testsPath);
 		$possibleIconFileNames = array('ext_icon.gif', 'ext_icon.png');
@@ -471,25 +471,6 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 		}
 
 		return $testsPath;
-	}
-
-	/**
-	 * Retrieves the title of an installed extension.
-	 *
-	 * @param string $extensionKey the key of the extension to retrieve, must not be empty
-	 *
-	 * @return string the title of the extension with the given key, might be empty
-	 */
-	protected function retrieveExtensionTitle($extensionKey) {
-		if ($extensionKey === '') {
-			throw new InvalidArgumentException('$extensionKey must not be empty.', 1334439838);
-		}
-
-		$EM_CONF = array();
-		$_EXTKEY = $extensionKey;
-		include(t3lib_extMgm::extPath($extensionKey) . 'ext_emconf.php');
-
-		return $EM_CONF[$extensionKey]['title'];
 	}
 }
 ?>
