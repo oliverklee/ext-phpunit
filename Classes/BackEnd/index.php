@@ -63,9 +63,13 @@ $testListener->injectOutputService($outputService);
 /** @var $extensionSettingsService Tx_Phpunit_Service_ExtensionSettingsService */
 $extensionSettingsService = t3lib_div::makeInstance('Tx_Phpunit_Service_ExtensionSettingsService');
 
+/** @var $extensionSettingsService Tx_Phpunit_Service_UserSettingsService */
+$userSettingsService = t3lib_div::makeInstance('Tx_Phpunit_Service_UserSettingsService');
+
 /** @var $testFinder Tx_Phpunit_Service_TestFinder */
 $testFinder = t3lib_div::makeInstance('Tx_Phpunit_Service_TestFinder');
 $testFinder->injectExtensionSettingsService($extensionSettingsService);
+$testFinder->injectUserSettingsService($userSettingsService);
 
 /** @var $request Tx_Phpunit_BackEnd_Request */
 $request = t3lib_div::makeInstance('Tx_Phpunit_BackEnd_Request');

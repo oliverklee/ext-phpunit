@@ -92,6 +92,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->testFinder = new Tx_Phpunit_Service_TestFinder();
 		$this->extensionSettingsService = new Tx_Phpunit_TestingDataContainer();
 		$this->testFinder->injectExtensionSettingsService($this->extensionSettingsService);
+		$this->testFinder->injectUserSettingsService($this->userSettingsService);
 		$this->fixture->injectTestFinder($this->testFinder);
 
 		$this->progressBarViewHelper = $this->getMock('Tx_Phpunit_ViewHelpers_ProgressBarViewHelper');

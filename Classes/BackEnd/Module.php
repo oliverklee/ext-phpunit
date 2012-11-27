@@ -374,16 +374,10 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			require_once($testsPathOfExtension . $fileName);
 		}
 
-		// Adds all classes to the test suite which end with "testcase" (case-insensitive)
-		// or "Test", except the two special classes used as superclasses.
 		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
-		foreach (get_declared_classes() as $class) {
-			$classReflection = new ReflectionClass($class);
-			if ((strtolower(substr($class, -8, 8)) === 'testcase' || substr($class, -4, 4) === 'Test')
-				&& $classReflection->isSubclassOf('PHPUnit_Framework_TestCase')
-				&& $this->isAcceptedTestSuiteClass($class)
-			) {
-				$testSuite->addTestSuite($class);
+		foreach (get_declared_classes() as $className) {
+			if ($this->testFinder->isValidTestCaseClassName($className)) {
+				$testSuite->addTestSuite($className);
 			}
 		}
 
@@ -437,15 +431,9 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			require_once($testsPathOfExtension . $fileName);
 		}
 
-		// Adds all classes to the test suite which end with "testcase" (case-insensitive)
-		// or "Test", except the two special classes used as superclasses.
-		foreach (get_declared_classes() as $class) {
-			$classReflection = new ReflectionClass($class);
-			if ((strtolower(substr($class, -8, 8)) === 'testcase' || substr($class, -4, 4) === 'Test')
-				&& $classReflection->isSubclassOf('PHPUnit_Framework_TestCase')
-				&& $this->isAcceptedTestSuiteClass($class)
-			) {
-				$testSuite->addTestSuite($class);
+		foreach (get_declared_classes() as $className) {
+			if ($this->testFinder->isValidTestCaseClassName($className)) {
+				$testSuite->addTestSuite($className);
 			}
 		}
 
@@ -668,20 +656,9 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	protected function createTestSuiteWithAllTestCases() {
 		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
 
-		foreach (get_declared_classes() as $class) {
-			$classReflection = new ReflectionClass($class);
-			if (($classReflection->isSubclassOf('Tx_Phpunit_TestCase')
-				&& ((strtolower(substr($class, -8, 8)) === 'testcase') || (substr($class, -4, 4) === 'Test'))
-				&& ($class !== 'Tx_Phpunit_TestCase') && ($class !== 'Tx_Phpunit_Database_TestCase'))
-				|| (class_exists('TYPO3\\CMS\\Core\\Tests\\UnitTestCase') && $classReflection->isSubclassOf('TYPO3\\CMS\\Core\\Tests\\UnitTestCase'))
-			) {
-				$testSuite->addTestSuite($class);
-			} elseif ($this->userSettingsService->getAsBoolean('runSeleniumTests')
-				&& $classReflection->isSubclassOf('Tx_Phpunit_Selenium_TestCase')
-				&& ((strtolower(substr($class, -8, 8)) === 'testcase') || (substr($class, -4, 4) === 'Test'))
-				&& ($class !== 'Tx_Phpunit_Selenium_TestCase')
-			) {
-				$testSuite->addTestSuite($class);
+		foreach (get_declared_classes() as $className) {
+			if ($this->testFinder->isValidTestCaseClassName($className)) {
+				$testSuite->addTestSuite($className);
 			}
 		}
 

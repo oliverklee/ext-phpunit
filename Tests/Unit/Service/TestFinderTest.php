@@ -55,6 +55,11 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 */
 	protected $extensionSettingsService = NULL;
 
+	/**
+	 * @var Tx_Phpunit_TestingDataContainer
+	 */
+	protected $userSettingsService = NULL;
+
 	public function setUp() {
 		$this->typo3ConfigurationVariablesBackup = $GLOBALS['TYPO3_CONF_VARS'];
 
@@ -66,12 +71,15 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 		$this->extensionSettingsService = new Tx_Phpunit_TestingDataContainer();
 		$this->fixture->injectExtensionSettingsService($this->extensionSettingsService);
 
+		$this->userSettingsService = new Tx_Phpunit_TestingDataContainer();
+		$this->fixture->injectUserSettingsService($this->userSettingsService);
+
 		$this->fixturesPath = t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/Service/Fixtures/';
 	}
 
 	public function tearDown() {
 		$this->fixture->__destruct();
-		unset($this->fixture, $this->extensionSettingsService);
+		unset($this->fixture, $this->extensionSettingsService, $this->userSettingsService);
 
 		$GLOBALS['TYPO3_CONF_VARS'] = $this->typo3ConfigurationVariablesBackup;
 	}
@@ -1405,6 +1413,122 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 		$this->assertSame(
 			t3lib_extMgm::extRelPath('user_phpunittest') . 'ext_icon.png',
 			$testable->getIconPath()
+		);
+	}
+
+	/*
+	 * Tests concerning isValidTestCaseClassName
+	 */
+
+	/**
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function isValidTestCaseClassNameForEmptyStringThrowsException() {
+		$this->fixture->isValidTestCaseClassName('');
+	}
+
+	/**
+	 * Data provider for valid test case class names.
+	 *
+	 * @return array<array>
+	 */
+	public function validTestCaseClassNameDataProvider() {
+		// Note: This currently does not contain any other classes as loading any other valid test case classes would
+		// cause them to be listed as valid test cases in the user interface.
+		$classNames = array(
+			'subclass of Tx_Phpunit_TestCase' => array(get_class($this)),
+		);
+
+		return $classNames;
+	}
+
+	/**
+	 * @test
+	 *
+	 * @dataProvider validTestCaseClassNameDataProvider
+	 *
+	 * @param string $className
+	 */
+	public function isValidTestCaseClassNameForValidClassNamesReturnsTrue($className) {
+		$this->assertTrue(
+			$this->fixture->isValidTestCaseClassName($className)
+		);
+	}
+
+	/**
+	 * Data provider for invalid test case class names.
+	 *
+	 * @return array<array>
+	 */
+	public function invalidTestCaseClassNameDataProvider() {
+		$this->createDummyInvalidTestCaseClasses();
+
+		$invalidClassNames = array(
+			'stdClass' => array('stdClass'),
+			'inexistent class without valid suffix' => array('InexistentClassWithoutValidSuffix'),
+			'inexistent class with valid Test suffix' => array('InexistentClassTest'),
+			'inexistent class with valid _testcase suffix' => array('InexistentClass_testcase'),
+			'existing class with valid Test suffix without valid base class' => array('SomeDummyInvalidTest'),
+			'existing class with valid _testcase suffix without valid base class' => array('SomeDummyInvalid_testcase'),
+			'PHPUnit extension base test class' => array('Tx_Phpunit_TestCase'),
+			'PHPUnit framework base test class' => array('PHPUnit_Framework_TestCase'),
+			'PHPUnit extension selenium base test class' => array('Tx_Phpunit_Selenium_TestCase'),
+			'PHPUnit framework selenium base test class' => array('PHPUnit_Extensions_Selenium2TestCase'),
+			'PHPUnit extension database base test class' => array('Tx_Phpunit_Database_TestCase'),
+			'abstract subclass of PHPUnit extension base test class' => array('Tx_Phpunit_TestCase'),
+		);
+
+		$classNamesThatMightNotExist = array(
+			'extbase selenium base test class (before 6.0)' => array('Tx_Extbase_SeleniumBaseTestCase'),
+			'extbase selenium base test class (since 6.0)' => array('\\TYPO3\\CMS\\Extbase\\Tests\\SeleniumBaseTestCase'),
+			'extbase base test class (before 1.3)' => array('Tx_Extbase_BaseTestCase'),
+			'extbase base test class (1.3-4.7)' => array('Tx_Extbase_Tests_Unit_BaseTestCase'),
+			'extbase unit base test class (since 6.0)' => array('TYPO3\\CMS\\Extbase\\Tests\\Unit\\BaseTestCase'),
+			'extbase functional base test class (since 6.0)' => array('Tx_Extbase_Tests_Functional_BaseTestCase'),
+			'Core base test class (since 6.0)' => array('TYPO3\\CMS\\Core\\Tests\\BaseTestCase'),
+			'Core unit base test class (since 6.0)' => array('TYPO3\\CMS\\Core\\Tests\\UnitTestCase'),
+			'Core functional base test class (since 6.0)' => array('TYPO3\\CMS\\Core\\Tests\\FunctionalTestCase'),
+		);
+		foreach ($classNamesThatMightNotExist as $key => $className) {
+			if (class_exists($className, TRUE)) {
+				$invalidClassNames[$key] = $className;
+			}
+		}
+
+		return $invalidClassNames;
+	}
+
+	/**
+	 * Creates some dummy invalid test case classes used for invalidTestCaseClassNameDataProvider.
+	 *
+	 * @return void
+	 */
+	protected function createDummyInvalidTestCaseClasses() {
+		$classNamesWithoutBaseClasses = array('SomeDummyInvalidTest', 'SomeDummyInvalid_testcase');
+		foreach ($classNamesWithoutBaseClasses as $className) {
+			if (!class_exists($className, FALSE)) {
+				eval('class ' . $className . ' {}');
+			}
+		}
+
+		$abstractSubclassTestcaseName = 'AbstractDummyTestcase';
+		if (!class_exists($abstractSubclassTestcaseName, FALSE)) {
+			eval('class ' . $abstractSubclassTestcaseName . ' extends Tx_Phpunit_TestCase {}');
+		}
+	}
+
+	/**
+	 * @test
+	 *
+	 * @dataProvider invalidTestCaseClassNameDataProvider
+	 *
+	 * @param string $className
+	 */
+	public function isValidTestCaseClassNameForInvalidClassNamesReturnsFalse($className) {
+		$this->assertFalse(
+			$this->fixture->isValidTestCaseClassName($className)
 		);
 	}
 }

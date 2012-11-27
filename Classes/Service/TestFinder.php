@@ -32,6 +32,16 @@
  */
 class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	/**
+	 * @var string
+	 */
+	const BASE_TEST_CASE_CLASS_NAME = 'PHPUnit_Framework_TestCase';
+
+	/**
+	 * @var string
+	 */
+	const SELENIUM_BASE_TEST_CASE_CLASS_NAME = 'PHPUnit_Extensions_Selenium2TestCase';
+
+	/**
 	 * suffixes that indicate that a file is a testcase
 	 *
 	 * @var array<string>
@@ -74,6 +84,11 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	protected $extensionSettingsService = NULL;
 
 	/**
+	 * @var Tx_Phpunit_Interface_UserSettingsService
+	 */
+	protected $userSettingsService = NULL;
+
+	/**
 	 * Injects the extension settings service.
 	 *
 	 * @param Tx_Phpunit_Interface_ExtensionSettingsService $service the service to inject
@@ -85,9 +100,21 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	}
 
 	/**
+	 * Injects the user settings service.
+	 *
+	 * @param Tx_Phpunit_Interface_UserSettingsService $service the service to inject
+	 *
+	 * @return void
+	 */
+	public function injectUserSettingsService(Tx_Phpunit_Interface_UserSettingsService $service) {
+		$this->userSettingsService = $service;
+	}
+
+	/**
 	 * The destructor.
 	 */
 	public function __destruct() {
+		unset($this->extensionSettingsService, $this->userSettingsService);
 	}
 
 	/**
@@ -471,6 +498,71 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 		}
 
 		return $testsPath;
+	}
+
+	/**
+	 * Checks whether $className is the name of a valid test case class, i.e., whether it follows the naming guidelines,
+	 * is a subclass of one of the test base classes, is not one of the base classes itself and is not abstract.
+	 *
+	 * @param string $className the class name to check, must not be empty
+	 *
+	 * @throws InvalidArgumentException
+	 *
+	 * @return boolean whether $className is the name of a valid test case class
+	 */
+	public function isValidTestCaseClassName($className) {
+		if ($className === '') {
+			throw new \InvalidArgumentException('$className must not be empty.', 1354018635);
+		}
+		if (!$this->classNameHasTestCaseSuffix($className) || !class_exists($className, TRUE)
+			|| ! $this->classNameIsNonAbstractSubclassOfValidBaseTestCase($className)
+		) {
+			return FALSE;
+		}
+
+		return TRUE;
+	}
+
+	/**
+	 * Checks whether a class name has a name suffix that is allowed for test cases.
+	 *
+	 * @param string $className the class name to check, must not be empty
+	 *
+	 * @return boolean whether the class name has a suffix that is supported for test cases
+	 */
+	protected function classNameHasTestCaseSuffix($className) {
+		$allowedSuffixes = array('Test', '_testcase');
+
+		$hasTestCaseSuffix = FALSE;
+
+		foreach ($allowedSuffixes as $suffixToCheck) {
+			if (substr($className, - strlen($suffixToCheck)) === $suffixToCheck) {
+				$hasTestCaseSuffix = TRUE;
+				break;
+			}
+		}
+
+		return $hasTestCaseSuffix;
+	}
+
+	/**
+	 * Checks whether $className is the name of a non-abstract subclass of the test case base class.
+	 *
+	 * This function also checks for Selenium test cases whether Selenium tests are enabled in the user settings.
+	 *
+	 * @param string $className the class name to check, must not be empty
+	 *
+	 * @return boolean whether the corresponding class is both non-abstract and a subclass of the test case base class
+	 */
+	protected function classNameIsNonAbstractSubclassOfValidBaseTestCase($className) {
+		$classReflection = new \ReflectionClass($className);
+		$result = !$classReflection->isAbstract() && $classReflection->isSubclassOf(self::BASE_TEST_CASE_CLASS_NAME);
+
+		if (!$this->userSettingsService->getAsBoolean('runSeleniumTests')) {
+			$result = $result && !$classReflection->isSubclassOf(self::SELENIUM_BASE_TEST_CASE_CLASS_NAME);
+		}
+
+		return $result;
 	}
 }
 ?>
