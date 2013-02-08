@@ -2,7 +2,7 @@
 /***************************************************************
  * Copyright notice
  *
- * (c) 2011-2012 Carsten Koenig (ck@carsten-koenig.de)
+ * (c) 2011-2013 Carsten Koenig (ck@carsten-koenig.de)
  * All rights reserved
  *
  * This script is part of the TYPO3 project. The TYPO3 project is
