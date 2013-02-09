@@ -43,15 +43,19 @@ then
 	TYPO3_SITE_PATH=${ENV_TYPO3_SITE_PATH}
 fi
 
+if [ -n "${ENV_PHP}" ]
+then
+	PHP=${ENV_PHP}
+fi
+
 # TODO implement sanity checks
 
-CLI_PATH="${TYPO3_SITE_PATH}/typo3/cli_dispatch.phpsh phpunit_ide"
+CLI_PATH="${TYPO3_SITE_PATH}/typo3/cli_dispatch.phpsh phpunit_ide_testrunner"
 
-params=$*
 phpParams=''
 
 # Find the testrunner script and shift away options for the php binary
-for param in ${params}
+for param in "$@"
 do
 	if echo ${param} | grep -q ${IDE_PHP_UNIT_TESTRUNNER_NAME}
 	then
@@ -63,10 +67,18 @@ do
 	fi
 done
 
+phpUnitParams=''
+for param in "$@"
+do
+	phpUnitParams="${phpUnitParams}\"${param}\" "
+	shift
+done
+
+
 # If no ide test runner is found, just pass the parameters to the PHP binary and do not involve TYPO3
 if [ -n "${testRunnerFound}" ]
 then
-	COMPLETE_PARAMS="${phpParams} ${CLI_PATH} $*"
+	COMPLETE_PARAMS="${phpParams} ${CLI_PATH} ${phpUnitParams}"
 else
 	COMPLETE_PARAMS="${phpParams}"
 fi
@@ -74,4 +86,4 @@ fi
 [ -n "${ENV_DEBUG}" ] && echo "running: $PHP ${COMPLETE_PARAMS}"
 
 # Let's dance!
-$PHP ${COMPLETE_PARAMS}
+eval $PHP ${COMPLETE_PARAMS}
