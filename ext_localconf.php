@@ -6,11 +6,11 @@ if (!defined('TYPO3_MODE')) {
 /** @var $extensionSettingsService Tx_Phpunit_Service_ExtensionSettingsService */
 $extensionSettingsService = t3lib_div::makeInstance('Tx_Phpunit_Service_ExtensionSettingsService');
 if ($extensionSettingsService->hasString('phpunitlib')
-	&& is_dir($extensionSettingsService->getAsString('phpunitlib') . PATH_SEPARATOR . 'PHPUnit')
+	&& is_dir($extensionSettingsService->getAsString('phpunitlib') . DIRECTORY_SEPARATOR . 'PHPUnit')
 ) {
-	$phpunitlib = $extensionSettingsService->getAsString('phpunitlib') . PATH_SEPARATOR;
+	$phpunitlib = $extensionSettingsService->getAsString('phpunitlib') . DIRECTORY_SEPARATOR;
 } else {
-	$phpunitlib = t3lib_extMgm::extPath('phpunit') . 'PEAR/';
+	$phpunitlib = t3lib_extMgm::extPath('phpunit') . 'PEAR' . DIRECTORY_SEPARATOR;
 }
 unset($extensionSettingsService);
 
