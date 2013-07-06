@@ -1,0 +1,6 @@
+﻿.. |img-5|      image:: ../../Images/manual_html_38993241.png
+   :height: 543
+   :width: 544
+.. :align: left
+.. :border: 0
+.. :name: Grafik3

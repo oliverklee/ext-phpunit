@@ -1,0 +1,7 @@
+﻿.. |img-4|      image:: ../../Images/manual_html_m1e64e578.png
+   :height: 164
+   :width: 639
+.. :align: left
+.. :border: 0
+.. :name: Grafik1
+
