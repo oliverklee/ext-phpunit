@@ -22,7 +22,9 @@
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-require_once(PATH_typo3 . 'template.php');
+if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) < 6000000) {
+	require_once(PATH_typo3 . 'template.php');
+}
 $GLOBALS['LANG']->includeLLFile('EXT:phpunit/Resources/Private/Language/locallang_backend.xml');
 
 /**
