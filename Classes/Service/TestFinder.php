@@ -559,7 +559,9 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 		$result = !$classReflection->isAbstract() && $classReflection->isSubclassOf(self::BASE_TEST_CASE_CLASS_NAME);
 
 		if (!$this->userSettingsService->getAsBoolean('runSeleniumTests')) {
-			$result = $result && !$classReflection->isSubclassOf(self::SELENIUM_BASE_TEST_CASE_CLASS_NAME);
+			if (class_exists(self::SELENIUM_BASE_TEST_CASE_CLASS_NAME, TRUE)) {
+				$result = $result && !$classReflection->isSubclassOf(self::SELENIUM_BASE_TEST_CASE_CLASS_NAME);
+			}
 		}
 
 		return $result;

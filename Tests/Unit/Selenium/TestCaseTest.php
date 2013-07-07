@@ -43,6 +43,10 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 	protected $extensionSettingsService = NULL;
 
 	protected function setUp() {
+		if (!class_exists('PHPUnit_Extensions_Selenium2TestCase', TRUE)) {
+			$this->markTestSkipped('PHPUnit Selenium is not installed.');
+		}
+
 		$this->extensionSettingsService = new Tx_Phpunit_TestingDataContainer();
 		$this->fixture = $this->getMock(
 			$this->createAccessibleProxyClass(),
