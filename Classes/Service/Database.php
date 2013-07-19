@@ -316,7 +316,7 @@ class Tx_Phpunit_Service_Database {
 	 * @param string $limit
 	 *        LIMIT value ([begin,]max), may be empty
 	 *
-	 * @return resource MySQL result pointer
+	 * @return mysqli_result|resource MySQL result pointer
 	 *
 	 * @throws Tx_Phpunit_Exception_Database if an error has occurred
 	 */

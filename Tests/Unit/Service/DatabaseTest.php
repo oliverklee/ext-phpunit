@@ -812,9 +812,27 @@ class Tx_Phpunit_Service_DatabaseTest extends tx_phpunit_testcase {
 	/**
 	 * @test
 	 */
-	public function selectReturnsRessource() {
+	public function selectReturnsResource() {
+		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 6001000) {
+			$this->markTestSkipped('This test only applies to TYPO3 CMS < 6.1.');
+		}
+
 		$this->assertTrue(
 			is_resource(Tx_Phpunit_Service_Database::select('title', 'tx_phpunit_test'))
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function selectMySqliResult() {
+		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) < 6001000) {
+			$this->markTestSkipped('This test only applies to TYPO3 CMS >= 6.1.');
+		}
+
+		$this->assertInstanceOf(
+			'mysqli_result',
+			Tx_Phpunit_Service_Database::select('title', 'tx_phpunit_test')
 		);
 	}
 

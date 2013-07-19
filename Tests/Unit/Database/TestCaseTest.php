@@ -106,7 +106,7 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 	public function cleaningDatabase() {
 		$this->importExtensions(array('tsconfig_help'));
 
-		/** @var $res resource */
+		/** @var $res mysqli_result|resource */
 		$res = $this->db->sql_query('show tables');
 		$rows = mysql_num_rows($res);
 		$this->assertNotEquals(0, $rows);
@@ -115,7 +115,7 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 		$this->dropDatabasedAndCheckResult();
 		$this->createDatabase();
 		$this->cleanDatabase();
-		/** @var $res resource */
+		/** @var $res mysqli_result|resource */
 		$res = $this->db->sql_query('show tables');
 
 		$this->assertSame(
@@ -130,7 +130,7 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 	public function importingExtension() {
 		$this->importExtensions(array('tsconfig_help'));
 
-		/** @var $res resource */
+		/** @var $res mysqli_result|resource */
 		$res = $this->db->sql_query('show tables');
 		$rows = mysql_num_rows($res);
 
