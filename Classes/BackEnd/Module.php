@@ -192,7 +192,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 
 			$this->addAdditionalHeaderData();
 
-			t3lib_div::cleanOutputBuffers();
+			$this->cleanOutputBuffers();
 			$this->outputService->output(
 				$this->doc->startPage($this->translate('title')) .
 				$this->doc->header(PHPUnit_Runner_Version::getVersionString())
@@ -246,6 +246,17 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			'Resources/Public/YUI/base-min.css" />';
 		$this->doc->JScode .= '<link rel="stylesheet" type="text/css" href="' . $this->extensionPath .
 			'Resources/Public/CSS/BackEnd.css" />';
+	}
+
+	/**
+	 * Ends and cleans all output buffers.
+	 *
+	 * @return void
+	 */
+	protected function cleanOutputBuffers() {
+		do {
+			$hasMoreBuffers = ob_end_clean();
+		} while ($hasMoreBuffers);
 	}
 
 

@@ -76,6 +76,16 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 */
 	protected $progressBarViewHelper = NULL;
 
+	/**
+	 * @var mediumDoc|PHPUnit_Framework_MockObject_MockObject
+	 */
+	protected $mediumDocumentTemplate = NULL;
+
+	/**
+	 * @var bigDoc|PHPUnit_Framework_MockObject_MockObject
+	 */
+	protected $bigDocumentTemplate = NULL;
+
 	public function setUp() {
 		$this->backEndUserBackup = $GLOBALS['BE_USER'];
 
@@ -99,6 +109,18 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		$this->progressBarViewHelper = $this->getMock('Tx_Phpunit_ViewHelpers_ProgressBarViewHelper');
 		t3lib_div::addInstance('Tx_Phpunit_ViewHelpers_ProgressBarViewHelper', $this->progressBarViewHelper);
+
+		$this->mediumDocumentTemplate = $this->getMock('mediumDoc', array('startPage'));
+		$this->bigDocumentTemplate = $this->getMock('bigDoc', array('startPage'));
+		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) < 6000000) {
+			$classNameMediumDoc = 'mediumDoc';
+			$classNameBigDoc    = 'bigDoc';
+		} else {
+			$classNameMediumDoc = 'TYPO3\\CMS\\Backend\\Template\\MediumDocumentTemplate';
+			$classNameBigDoc    = 'TYPO3\\CMS\\Backend\\Template\\BigDocumentTemplate';
+		}
+		t3lib_div::addInstance($classNameMediumDoc, $this->mediumDocumentTemplate);
+		t3lib_div::addInstance($classNameBigDoc, $this->bigDocumentTemplate);
 	}
 
 	public function tearDown() {
@@ -110,7 +132,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		unset(
 			$this->fixture, $this->request, $this->outputService, $this->userSettingsService, $this->backEndUserBackup,
-			$this->testFinder, $this->extensionSettingsService
+			$this->testFinder, $this->extensionSettingsService, $this->progressBarViewHelper, $this->mediumDocumentTemplate,
+			$this->bigDocumentTemplate
 		);
 	}
 
