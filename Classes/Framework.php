@@ -194,23 +194,12 @@ class Tx_Phpunit_Framework {
 		$this->createListOfAdditionalAllowedTables();
 		$this->uploadFolderPath = PATH_site . 'uploads/' . $this->tablePrefix . '/';
 
-		if ($this->getCurrentTypo3Version() >= 6000000) {
+		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 6000000) {
 			$this->allowedSystemTables = array_merge(
 				$this->allowedSystemTables,
 				array('sys_file', 'sys_file_collection', 'sys_file_reference', 'sys_category', 'sys_category_record_mm')
 			);
 		}
-	}
-
-	/**
-	 * Computes the current TYPO3 version and returns it.
-	 *
-	 * @return integer
-	 */
-	protected function getCurrentTypo3Version() {
-		return class_exists('t3lib_utility_VersionNumber')
-			? t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version)
-			: t3lib_div::int_from_ver(TYPO3_version);
 	}
 
 	/**
