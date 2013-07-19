@@ -104,11 +104,11 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 	 * @test
 	 */
 	public function cleaningDatabase() {
-		$this->importExtensions(array('tsconfig_help'));
+		$this->importExtensions(array('extbase'));
 
 		/** @var $res mysqli_result|resource */
 		$res = $this->db->sql_query('show tables');
-		$rows = mysql_num_rows($res);
+		$rows = $this->db->sql_num_rows($res);
 		$this->assertNotEquals(0, $rows);
 
 			// Check DROP privilege as it is needed for clean up
@@ -120,7 +120,7 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 
 		$this->assertSame(
 			0,
-			mysql_num_rows($res)
+			$this->db->sql_num_rows($res)
 		);
 	}
 
@@ -128,11 +128,11 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 	 * @test
 	 */
 	public function importingExtension() {
-		$this->importExtensions(array('tsconfig_help'));
+		$this->importExtensions(array('extbase'));
 
 		/** @var $res mysqli_result|resource */
 		$res = $this->db->sql_query('show tables');
-		$rows = mysql_num_rows($res);
+		$rows = $this->db->sql_num_rows($res);
 
 		$this->assertNotSame(
 			0,
