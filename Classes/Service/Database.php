@@ -724,7 +724,9 @@ class Tx_Phpunit_Service_Database {
 			throw new BadMethodCallException('The table "' . $tableName . '" does not exist.', 1331315679);
 		}
 
-		t3lib_div::loadTCA($tableName);
+		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) < 6001000) {
+			t3lib_div::loadTCA($tableName);
+		}
 		if (!isset($GLOBALS['TCA'][$tableName])) {
 			throw new BadMethodCallException('The table "' . $tableName . '" has no TCA.', 1331315694);
 		}
