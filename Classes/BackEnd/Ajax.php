@@ -43,6 +43,21 @@ class Tx_Phpunit_BackEnd_Ajax {
 	protected $userSettingsService = NULL;
 
 	/**
+	 * @var array<string>
+	 */
+	protected $validCheckboxKeys = array(
+		'failure',
+		'success',
+		'error',
+		'skipped',
+		'incomplete',
+		'testdox',
+		'codeCoverage',
+		'showMemoryAndTime',
+		'runSeleniumTests',
+	);
+
+	/**
 	 * The constructor.
 	 *
 	 * @param boolean $initializeUserSettingsService whether to automatically initialize the user settings service
@@ -85,30 +100,8 @@ class Tx_Phpunit_BackEnd_Ajax {
 	public function ajaxBroker(array $unused, TYPO3AJAX $ajax) {
 		$state = (boolean) t3lib_div::_POST('state');
 		$checkbox = t3lib_div::_POST('checkbox');
-		switch ($checkbox) {
-			case 'failure':
-				// The fall-through is intentional.
-			case 'success':
-				// The fall-through is intentional.
-			case 'error':
-				// The fall-through is intentional.
-			case 'skipped':
-				// The fall-through is intentional.
-			case 'incomplete':
-				// The fall-through is intentional.
-			case 'testdox':
-				// The fall-through is intentional.
-			case 'codeCoverage':
-				// The fall-through is intentional.
-			case 'showMemoryAndTime':
-				// The fall-through is intentional.
-			case 'runSeleniumTests':
-				break;
-			default:
-				$checkbox = FALSE;
-		}
 
-		if ($checkbox) {
+		if (in_array($checkbox, $this->validCheckboxKeys, TRUE)) {
 			$ajax->setContentFormat('json');
 			$this->userSettingsService->set($checkbox, $state);
 			$ajax->addContent('success', TRUE);

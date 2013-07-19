@@ -56,6 +56,7 @@ class Tx_Phpunit_VfsStreamTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 *
 	 * @expectedException vfsStreamException
+	 * @throws vfsStreamException
 	 */
 	public function vfsStreamExceptionCanBeThrown() {
 		throw new vfsStreamException('some message', 1234);

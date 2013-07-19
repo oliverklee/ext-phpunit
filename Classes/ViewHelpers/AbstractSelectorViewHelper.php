@@ -148,7 +148,7 @@ abstract class Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper extends Tx_Phpu
 			throw new InvalidArgumentException('$tagName must not be empty.', 1343763729);
 		}
 
-		$output =  '<' . htmlspecialchars($tagName);
+		$output = '<' . htmlspecialchars($tagName);
 
 		foreach ($attributes as $key => $value) {
 			$output .= ' ' . htmlspecialchars($key) . '="' . htmlspecialchars($value) . '"';

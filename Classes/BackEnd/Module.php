@@ -453,7 +453,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$testCaseFile = $this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE);
 		/** @var $testCase PHPUnit_Framework_TestSuite */
 		foreach ($testSuite->tests() as $testCase) {
-			if (!is_null($testCaseFile) && ($testCase->getName() !== $testCaseFile)) {
+			if (($testCaseFile !== NULL) && ($testCase->getName() !== $testCaseFile)) {
 				continue;
 			}
 			/** @var $test PHPUnit_Framework_TestCase */
@@ -526,11 +526,11 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$output .= ' <input type="checkbox" id="SET_skipped" ' . $skippedState . ' /><label for="SET_skipped">Skipped</label>';
 		$output .= ' <input type="checkbox" id="SET_error" ' . $errorState . ' /><label for="SET_error">Error</label>';
 		$output .= ' <input type="checkbox" id="SET_testdox" ' . $testdoxState .
-				   ' /><label for="SET_testdox">Show as human readable</label>';
+			' /><label for="SET_testdox">Show as human readable</label>';
 		$output .= ' <input type="checkbox" id="SET_incomplete" ' . $incompleteState .
-				   ' /><label for="SET_incomplete">Incomplete</label>';
+			' /><label for="SET_incomplete">Incomplete</label>';
 		$output .= ' <input type="checkbox" id="SET_showMemoryAndTime" ' . $showMemoryAndTime .
-				   '/><label for="SET_showMemoryAndTime">Show memory &amp; time</label>';
+			'/><label for="SET_showMemoryAndTime">Show memory &amp; time</label>';
 
 		$codecoverageDisable = '';
 		$codecoverageForLabelWhenDisabled = '';
@@ -924,11 +924,11 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	protected function createOpenNewWindowLink() {
 		$url = t3lib_div::getIndpEnv('TYPO3_REQUEST_SCRIPT') . '?M=tools_txphpunitbeM1';
 		$onClick = "phpunitbeWin=window.open('" . $url .
-				   "','phpunitbe','width=790,status=0,menubar=1,resizable=1,location=0,scrollbars=1,toolbar=0');phpunitbeWin.focus();return false;";
+			"','phpunitbe','width=790,status=0,menubar=1,resizable=1,location=0,scrollbars=1,toolbar=0');phpunitbeWin.focus();return false;";
 		$content = '<a id="opennewwindow" href="" onclick="' . htmlspecialchars($onClick) . '" accesskey="n">
-				<img' . t3lib_iconWorks::skinImg($GLOBALS['BACK_PATH'], 'gfx/open_in_new_window.gif', 'width="19" height="14"') . ' title="' .
-				   $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.openInNewWindow', 1) . '" class="absmiddle" alt="" />
-				Ope<span class="access-key">n</span> in separate window.
+			<img' . t3lib_iconWorks::skinImg($GLOBALS['BACK_PATH'], 'gfx/open_in_new_window.gif', 'width="19" height="14"') . ' title="' .
+			$GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.openInNewWindow', 1) . '" class="absmiddle" alt="" />
+			Ope<span class="access-key">n</span> in separate window.
 			</a>
 			<script type="text/javascript">/*<![CDATA[*/if (window.name === "phpunitbe") { document.getElementById("opennewwindow").style.display = "none"; }/*]]>*/</script>';
 

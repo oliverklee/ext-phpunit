@@ -37,21 +37,21 @@ class Tx_Phpunit_Service_Database {
 	 *
 	 * @var t3lib_pageSelect
 	 */
-	private static $pageForEnableFields = NULL;
+	static private $pageForEnableFields = NULL;
 
 	/**
 	 * cached results for the enableFields function
 	 *
 	 * @var array
 	 */
-	private static $enableFieldsCache = array();
+	static private $enableFieldsCache = array();
 
 	/**
 	 * @var array cache for the results of existsTable with the table names
 	 *            as keys and the table SHOW STATUS information (in an array)
 	 *            as values
 	 */
-	private static $tableNameCache = array();
+	static private $tableNameCache = array();
 
 	/**
 	 * cache for the results of hasTableColumn with the column names as keys and
@@ -59,21 +59,21 @@ class Tx_Phpunit_Service_Database {
 	 *
 	 * @var array
 	 */
-	private static $tableColumnCache = array();
+	static private $tableColumnCache = array();
 
 	/**
 	 * cache for all TCA arrays
 	 *
 	 * @var array
 	 */
-	private static $tcaCache = array();
+	static private $tcaCache = array();
 
 	/**
 	 * Enables query logging in TYPO3's DB class.
 	 *
 	 * @return void
 	 */
-	public static function enableQueryLogging() {
+	static public function enableQueryLogging() {
 		$GLOBALS['TYPO3_DB']->store_lastBuiltQuery = TRUE;
 	}
 
@@ -104,13 +104,17 @@ class Tx_Phpunit_Service_Database {
 	 *        preview settings which might otherwise disable enableFields.
 	 *
 	 * @return string the WHERE clause starting like " AND ...=... AND ...=..."
+	 *
+	 * @throws InvalidArgumentException
 	 */
-	public static function enableFields(
+	static public function enableFields(
 		$tableName, $showHidden = -1, array $ignoreArray = array(),
 		$noVersionPreview = FALSE
 	) {
 		if (!in_array($showHidden, array(-1, 0, 1))) {
-			throw new InvalidArgumentException('$showHidden may only be -1, 0 or 1, but actually is ' . $showHidden, 1331315445);
+			throw new InvalidArgumentException(
+				'$showHidden may only be -1, 0 or 1, but actually is ' . $showHidden, 1331315445
+			);
 		}
 
 		// maps $showHidden (-1..1) to (0..2) which ensures valid array keys
@@ -136,7 +140,7 @@ class Tx_Phpunit_Service_Database {
 	 *
 	 * @return void
 	 */
-	private static function retrievePageForEnableFields() {
+	static private function retrievePageForEnableFields() {
 		if (!is_object(self::$pageForEnableFields)) {
 			if (isset($GLOBALS['TSFE'])
 				&& is_object($GLOBALS['TSFE']->sys_page)
@@ -169,8 +173,10 @@ class Tx_Phpunit_Service_Database {
 	 * @return string
 	 *         comma-separated list of subpage UIDs including the  UIDs provided
 	 *         in $startPages, will be empty if $startPages is empty
+	 *
+	 * @throws InvalidArgumentException
 	 */
-	public static function createRecursivePageList($startPages, $recursionDepth = 0) {
+	static public function createRecursivePageList($startPages, $recursionDepth = 0) {
 		if ($recursionDepth < 0) {
 			throw new InvalidArgumentException('$recursionDepth must be >= 0.', 1331315492);
 		}
@@ -188,15 +194,13 @@ class Tx_Phpunit_Service_Database {
 		);
 
 		$subPages = array();
-		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbResult)) {
+		while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbResult))) {
 			$subPages[] = $row['uid'];
 		}
 		$GLOBALS['TYPO3_DB']->sql_free_result($dbResult);
 
 		if (!empty($subPages)) {
-			$result = $startPages . ',' . self::createRecursivePageList(
-				implode(',', $subPages), $recursionDepth - 1
-			);
+			$result = $startPages . ',' . self::createRecursivePageList(implode(',', $subPages), $recursionDepth - 1);
 		} else {
 			$result = $startPages;
 		}
@@ -205,9 +209,9 @@ class Tx_Phpunit_Service_Database {
 	}
 
 
-	////////////////////////////////
-	// Wrappers for common queries
-	////////////////////////////////
+	/*
+	 * Wrappers for common queries
+	 */
 
 	/**
 	 * Executes a DELETE query.
@@ -219,9 +223,10 @@ class Tx_Phpunit_Service_Database {
 	 *
 	 * @return integer the number of affected rows, might be 0
 	 *
+	 * @throws InvalidArgumentException
 	 * @throws Tx_Phpunit_Exception_Database if an error has occurred
 	 */
-	public static function delete($tableName, $whereClause) {
+	static public function delete($tableName, $whereClause) {
 		if ($tableName == '') {
 			throw new InvalidArgumentException('The table name must not be empty.', 1331315508);
 		}
@@ -249,9 +254,10 @@ class Tx_Phpunit_Service_Database {
 	 *
 	 * @return integer the number of affected rows, might be 0
 	 *
+	 * @throws InvalidArgumentException
 	 * @throws Tx_Phpunit_Exception_Database if an error has occurred
 	 */
-	public static function update($tableName, $whereClause, array $fields) {
+	static public function update($tableName, $whereClause, array $fields) {
 		if ($tableName == '') {
 			throw new InvalidArgumentException('The table name must not be empty.', 1331315523);
 		}
@@ -279,9 +285,10 @@ class Tx_Phpunit_Service_Database {
 	 * @return integer
 	 *         the UID of the created record, will be 0 if the table has no UID column
 	 *
+	 * @throws InvalidArgumentException
 	 * @throws Tx_Phpunit_Exception_Database if an error has occurred
 	 */
-	public static function insert($tableName, array $recordData) {
+	static public function insert($tableName, array $recordData) {
 		if ($tableName == '') {
 			throw new InvalidArgumentException('The table name must not be empty.', 1331315544);
 		}
@@ -318,9 +325,10 @@ class Tx_Phpunit_Service_Database {
 	 *
 	 * @return mysqli_result|resource MySQL result pointer
 	 *
+	 * @throws InvalidArgumentException
 	 * @throws Tx_Phpunit_Exception_Database if an error has occurred
 	 */
-	public static function select(
+	static public function select(
 		$fields, $tableNames, $whereClause = '', $groupBy = '', $orderBy = '', $limit = ''
 	) {
 		if ($tableNames == '') {
@@ -362,10 +370,9 @@ class Tx_Phpunit_Service_Database {
 	 *
 	 * @return array the single result row, will not be empty
 	 *
-	 * @throws Tx_Phpunit_Exception_Database if an error has occurred
 	 * @throws Tx_Phpunit_Exception_EmptyQueryResult if there is no matching record
 	 */
-	public static function selectSingle(
+	static public function selectSingle(
 		$fields, $tableNames, $whereClause = '', $groupBy = '', $orderBy = '', $offset = 0
 	) {
 		$result = self::selectMultiple(
@@ -401,7 +408,7 @@ class Tx_Phpunit_Service_Database {
 	 *
 	 * @throws Tx_Phpunit_Exception_Database if an error has occurred
 	 */
-	public static function selectMultiple(
+	static public function selectMultiple(
 		$fieldNames, $tableNames, $whereClause = '', $groupBy = '', $orderBy = '', $limit = ''
 	) {
 		$result = array();
@@ -409,7 +416,7 @@ class Tx_Phpunit_Service_Database {
 			$fieldNames, $tableNames, $whereClause, $groupBy, $orderBy, $limit
 		);
 
-		while ($recordData = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbResult)) {
+		while (($recordData = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbResult))) {
 			$result[] = $recordData;
 		}
 		$GLOBALS['TYPO3_DB']->sql_free_result($dbResult);
@@ -442,7 +449,7 @@ class Tx_Phpunit_Service_Database {
 	 *
 	 * @throws Tx_Phpunit_Exception_Database if an error has occurred
 	 */
-	public static function selectColumnForMultiple(
+	static public function selectColumnForMultiple(
 		$fieldName, $tableNames, $whereClause = '', $groupBy = '', $orderBy = '', $limit = ''
 	) {
 		$rows = self::selectMultiple(
@@ -471,7 +478,7 @@ class Tx_Phpunit_Service_Database {
 	 *
 	 * @throws Tx_Phpunit_Exception_Database if an error has occurred
 	 */
-	public static function count($tableNames, $whereClause = '') {
+	static public function count($tableNames, $whereClause = '') {
 		$isOnlyOneTable = ((strpos($tableNames, ',') === FALSE)
 			&& (stripos(trim($tableNames), ' JOIN ') === FALSE));
 		if ($isOnlyOneTable && self::tableHasColumnUid($tableNames)) {
@@ -501,7 +508,7 @@ class Tx_Phpunit_Service_Database {
 	 * @return boolean
 	 *         TRUE if there is at least one matching record, FALSE otherwise
 	 */
-	public static function existsRecord($tableName, $whereClause = '') {
+	static public function existsRecord($tableName, $whereClause = '') {
 		return (self::count($tableName, $whereClause) > 0);
 	}
 
@@ -518,7 +525,7 @@ class Tx_Phpunit_Service_Database {
 	 * @return boolean
 	 *         TRUE if there is exactly one matching record, FALSE otherwise
 	 */
-	public static function existsExactlyOneRecord($tableName, $whereClause = '') {
+	static public function existsExactlyOneRecord($tableName, $whereClause = '') {
 		return (self::count($tableName, $whereClause) == 1);
 	}
 
@@ -538,8 +545,10 @@ class Tx_Phpunit_Service_Database {
 	 *        or be completely empty
 	 *
 	 * @return boolean TRUE if there is a matching record, FALSE otherwise
+	 *
+	 * @throws InvalidArgumentException
 	 */
-	public static function existsRecordWithUid(
+	static public function existsRecordWithUid(
 		$tableName, $uid, $additionalWhereClause = ''
 	) {
 		if ($uid <= 0) {
@@ -552,9 +561,9 @@ class Tx_Phpunit_Service_Database {
 	}
 
 
-	/////////////////////////////////////
-	// Functions concerning table names
-	/////////////////////////////////////
+	/*
+	 * Functions concerning table names
+	 */
 
 	/**
 	 * Returns a list of all table names that are available in the current
@@ -562,7 +571,7 @@ class Tx_Phpunit_Service_Database {
 	 *
 	 * @return array list of table names
 	 */
-	public static function getAllTableNames() {
+	static public function getAllTableNames() {
 		self::retrieveTableNames();
 
 		return array_keys(self::$tableNameCache);
@@ -577,7 +586,7 @@ class Tx_Phpunit_Service_Database {
 	 *
 	 * @return void
 	 */
-	private static function retrieveTableNames() {
+	static private function retrieveTableNames() {
 		if (!empty(self::$tableNameCache)) {
 			return;
 		}
@@ -592,8 +601,10 @@ class Tx_Phpunit_Service_Database {
 	 *        the name of the table to check for, must not be empty
 	 *
 	 * @return boolean TRUE if the table $tableName exists, FALSE otherwise
+	 *
+	 * @throws InvalidArgumentException
 	 */
-	public static function existsTable($tableName) {
+	static public function existsTable($tableName) {
 		if ($tableName == '') {
 			throw new InvalidArgumentException('The table name must not be empty.', 1331315636);
 		}
@@ -604,9 +615,9 @@ class Tx_Phpunit_Service_Database {
 	}
 
 
-	////////////////////////////////////////////////
-	// Functions concerning the columns of a table
-	////////////////////////////////////////////////
+	/*
+	 * Functions concerning the columns of a table
+	 */
 
 	/**
 	 * Gets the column data for a table.
@@ -619,7 +630,7 @@ class Tx_Phpunit_Service_Database {
 	 *         the column data for the table $tableName with the column names as
 	 *         keys and the SHOW COLUMNS field information (in an array) as values
 	 */
-	public static function getColumnsInTable($tableName) {
+	static public function getColumnsInTable($tableName) {
 		self::retrieveColumnsForTable($tableName);
 
 		return self::$tableColumnCache[$tableName];
@@ -638,7 +649,7 @@ class Tx_Phpunit_Service_Database {
 	 * @return array
 	 *         the field definition for the field in $tableName, will not be empty
 	 */
-	public static function getColumnDefinition($tableName, $column) {
+	static public function getColumnDefinition($tableName, $column) {
 		self::retrieveColumnsForTable($tableName);
 
 		return self::$tableColumnCache[$tableName][$column];
@@ -655,8 +666,10 @@ class Tx_Phpunit_Service_Database {
 	 *        retrieved, must not be empty
 	 *
 	 * @return void
+	 *
+	 * @throws BadMethodCallException
 	 */
-	private static function retrieveColumnsForTable($tableName) {
+	static private function retrieveColumnsForTable($tableName) {
 		if (!isset(self::$tableColumnCache[$tableName])) {
 			if (!self::existsTable($tableName)) {
 				throw new BadMethodCallException('The table "' . $tableName . '" does not exist.', 1331315659);
@@ -680,7 +693,7 @@ class Tx_Phpunit_Service_Database {
 	 * @return boolean
 	 *         TRUE if the column with the provided name exists, FALSE otherwise
 	 */
-	public static function tableHasColumn($tableName, $column) {
+	static public function tableHasColumn($tableName, $column) {
 		if ($column == '') {
 			return FALSE;
 		}
@@ -698,14 +711,14 @@ class Tx_Phpunit_Service_Database {
 	 *
 	 * @return boolean TRUE if a valid column was found, FALSE otherwise
 	 */
-	public static function tableHasColumnUid($tableName) {
+	static public function tableHasColumnUid($tableName) {
 		return self::tableHasColumn($tableName, 'uid');
 	}
 
 
-	/////////////////////////////////
-	// Functions concerning the TCA
-	/////////////////////////////////
+	/*
+	 * Functions concerning the TCA
+	 */
 
 	/**
 	 * Returns the TCA for a certain table.
@@ -714,8 +727,10 @@ class Tx_Phpunit_Service_Database {
 	 *        the table name to look up, must not be empty
 	 *
 	 * @return array associative array with the TCA description for this table
+	 *
+	 * @throws BadMethodCallException
 	 */
-	public static function getTcaForTable($tableName) {
+	static public function getTcaForTable($tableName) {
 		if (isset(self::$tcaCache[$tableName])) {
 			return self::$tcaCache[$tableName];
 		}

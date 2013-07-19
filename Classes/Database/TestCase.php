@@ -220,7 +220,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 		$tableNames = array();
 
 		$res = $db->sql_query('show tables');
-		while ($row = $db->sql_fetch_row($res)) {
+		while (($row = $db->sql_fetch_row($res))) {
 			$tableNames[] = $row[0];
 		}
 
@@ -353,6 +353,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	private function findDependencies($extKey) {
 		$path = t3lib_div::getFileAbsFileName(t3lib_extMgm::extPath($extKey) . 'ext_emconf.php');
 		$_EXTKEY = $extKey;
+		// This include is allowed. This is an exception in the TYPO3CMS standard.
 		include($path);
 
 		$dependencies = $EM_CONF[$_EXTKEY]['constraints']['depends'];

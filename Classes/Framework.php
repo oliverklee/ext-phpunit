@@ -144,7 +144,7 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @var t3lib_basicFileFunctions
 	 */
-	protected static $fileNameProcessor = NULL;
+	static protected $fileNameProcessor = NULL;
 
 	/**
 	 * whether a fake front end has been created
@@ -220,6 +220,8 @@ class Tx_Phpunit_Framework {
 	 *        record, may be empty, but must not contain the key "uid"
 	 *
 	 * @return integer the UID of the new record, will be > 0
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function createRecord($tableName, array $recordData = array()) {
 		if (!$this->isNoneSystemTableNameAllowed($tableName)) {
@@ -310,6 +312,8 @@ class Tx_Phpunit_Framework {
 	 *        may be empty, but must not contain the keys "uid", "pid" or "doktype"
 	 *
 	 * @return integer the UID of the new record, will be > 0
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	protected function createGeneralPageRecord($documentType, $parentId, array $recordData) {
 		if (isset($recordData['uid'])) {
@@ -344,6 +348,8 @@ class Tx_Phpunit_Framework {
 	 *        element, may be empty, but must not contain the keys "uid" or "pid"
 	 *
 	 * @return integer the UID of the new content element, will be > 0
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function createContentElement($pageId = 0, array $recordData = array()) {
 		if (isset($recordData['uid'])) {
@@ -373,6 +379,8 @@ class Tx_Phpunit_Framework {
 	 *        template, may be empty, but must not contain the keys "uid" or "pid"
 	 *
 	 * @return integer the UID of the new template, will be > 0
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function createTemplate($pageId, array $recordData = array()) {
 		if ($pageId <= 0) {
@@ -399,6 +407,8 @@ class Tx_Phpunit_Framework {
 	 *        group record, may be empty, but must not contain the key "uid"
 	 *
 	 * @return integer the UID of the new user group, will be > 0
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function createFrontEndUserGroup(array $recordData = array()) {
 		if (isset($recordData['uid'])) {
@@ -421,6 +431,8 @@ class Tx_Phpunit_Framework {
 	 *        "usergroup"
 	 *
 	 * @return integer the UID of the new FE user, will be > 0
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function createFrontEndUser(
 		$frontEndUserGroups = '', array $recordData = array()
@@ -479,6 +491,8 @@ class Tx_Phpunit_Framework {
 	 *        record, may be empty, but must not contain the key "uid"
 	 *
 	 * @return integer the UID of the new BE user, will be > 0
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function createBackEndUser(array $recordData = array()) {
 		if (isset($recordData['uid'])) {
@@ -496,6 +510,8 @@ class Tx_Phpunit_Framework {
 	 *        group record, may be empty, but must not contain the key "uid"
 	 *
 	 * @return integer the UID of the new user group, will be > 0
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function createBackEndUserGroup(array $recordData = array()) {
 		if (isset($recordData['uid'])) {
@@ -523,6 +539,9 @@ class Tx_Phpunit_Framework {
 	 *        of the record that need to be changed, must not be empty
 	 *
 	 * @return void
+	 *
+	 * @throws InvalidArgumentException
+	 * @throws Tx_Phpunit_Exception_Database
 	 */
 	public function changeRecord($tableName, $uid, array $recordData) {
 		$dummyColumnName = $this->getDummyColumnName($tableName);
@@ -551,7 +570,7 @@ class Tx_Phpunit_Framework {
 				1334439125
 			);
 		}
-		if (!$this->countRecords($tableName, 'uid='.$uid)) {
+		if (!$this->countRecords($tableName, 'uid=' . $uid)) {
 			throw new Tx_Phpunit_Exception_Database(1334439132);
 		}
 
@@ -576,6 +595,8 @@ class Tx_Phpunit_Framework {
 	 *        UID of the record to delete, must be > 0
 	 *
 	 * @return void
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function deleteRecord($tableName, $uid) {
 		if (!$this->isNoneSystemTableNameAllowed($tableName)) {
@@ -605,6 +626,8 @@ class Tx_Phpunit_Framework {
 	 *        sorting
 	 *
 	 * @return void
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function createRelation($tableName, $uidLocal, $uidForeign, $sorting = 0) {
 		if (!$this->isNoneSystemTableNameAllowed($tableName)) {
@@ -651,6 +674,9 @@ class Tx_Phpunit_Framework {
 	 *        updated, must not be empty
 	 *
 	 * @return void
+	 *
+	 * @throws InvalidArgumentException
+	 * @throws t3lib_exception
 	 */
 	public function createRelationAndUpdateCounter(
 		$tableName, $uidLocal, $uidForeign, $columnName
@@ -713,6 +739,8 @@ class Tx_Phpunit_Framework {
 	 *        UID on the foreign table, must be > 0
 	 *
 	 * @return void
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function removeRelation($tableName, $uidLocal, $uidForeign) {
 		if (!$this->isNoneSystemTableNameAllowed($tableName)) {
@@ -741,6 +769,8 @@ class Tx_Phpunit_Framework {
 	 *        whether a deep clean up should be performed
 	 *
 	 * @return void
+	 *
+	 * @throws t3lib_exception
 	 */
 	public function cleanUp($performDeepCleanUp = FALSE) {
 		$this->cleanUpTableSet(FALSE, $performDeepCleanUp);
@@ -842,6 +872,8 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @return string
 	 *         the absolute path of the created dummy file, will not be empty
+	 *
+	 * @throws t3lib_exception
 	 */
 	public function createDummyFile($fileName = 'test.txt', $content = '') {
 		$this->createDummyUploadFolder();
@@ -897,7 +929,7 @@ class Tx_Phpunit_Framework {
 				);
 			}
 			$zip->addFile($pathToFile, $this->getPathRelativeToUploadDirectory($pathToFile));
-        }
+		}
 
 		$zip->close();
 		$this->addToDummyFileList($uniqueFileName);
@@ -928,6 +960,9 @@ class Tx_Phpunit_Framework {
 	 *        $this->uploadFolderPath, must not be empty
 	 *
 	 * @return void
+	 *
+	 * @throws InvalidArgumentException
+	 * @throws t3lib_exception
 	 */
 	public function deleteDummyFile($fileName) {
 		$absolutePathToFile = $this->uploadFolderPath . $fileName;
@@ -959,6 +994,8 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @return string
 	 *         the absolute path of the created dummy folder, will not be empty
+	 *
+	 * @throws t3lib_exception
 	 */
 	public function createDummyFolder($folderName) {
 		$this->createDummyUploadFolder();
@@ -973,8 +1010,7 @@ class Tx_Phpunit_Framework {
 		// Adds the created dummy folder to the top of $this->dummyFolders so
 		// it gets deleted before previously created folders through
 		// $this->cleanUpFolders(). This is needed for nested dummy folders.
-		$this->dummyFolders = array($relativeUniqueFolderName => $relativeUniqueFolderName)
-			+ $this->dummyFolders;
+		$this->dummyFolders = array($relativeUniqueFolderName => $relativeUniqueFolderName) + $this->dummyFolders;
 
 		return $uniqueFolderName;
 	}
@@ -988,6 +1024,9 @@ class Tx_Phpunit_Framework {
 	 *        $this->uploadFolderPath, must not be empty
 	 *
 	 * @return void
+	 *
+	 * @throws InvalidArgumentException
+	 * @throws t3lib_exception
 	 */
 	public function deleteDummyFolder($folderName) {
 		$absolutePathToFolder = $this->uploadFolderPath . $folderName;
@@ -1017,6 +1056,8 @@ class Tx_Phpunit_Framework {
 	 * Creates the upload folder if it does not exist yet.
 	 *
 	 * @return void
+	 *
+	 * @throws t3lib_exception
 	 */
 	protected function createDummyUploadFolder() {
 		if (is_dir($this->getUploadFolderPath())) {
@@ -1078,6 +1119,8 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @return string
 	 *         the path relative to the calling extension's upload directory
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function getPathRelativeToUploadDirectory($absolutePath) {
 		if (!preg_match(
@@ -1103,6 +1146,8 @@ class Tx_Phpunit_Framework {
 	 *        upload directory, must not be empty
 	 *
 	 * @return string the unique absolut path of a file or folder
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function getUniqueFileOrFolderPath($path) {
 		if (empty($path)) {
@@ -1139,6 +1184,8 @@ class Tx_Phpunit_Framework {
 	 *        UID of a page record to use, must be >= 0
 	 *
 	 * @return integer the UID of the used front-end page, will be > 0
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function createFakeFrontEnd($pageUid = 0) {
 		if ($pageUid < 0) {
@@ -1257,6 +1304,7 @@ class Tx_Phpunit_Framework {
 	 * @return void
 	 *
 	 * @throws t3lib_exception if no front end has been created
+	 * @throws InvalidArgumentException
 	 */
 	public function loginFrontEndUser($userId) {
 		if (intval($userId) === 0) {
@@ -1370,7 +1418,7 @@ class Tx_Phpunit_Framework {
 		$matches = array();
 
 		preg_match_all(
-			'/(('.$additionalTablePrefixes.')_[a-z0-9]+[a-z0-9_]*)(,|$)/', $allTables, $matches
+			'/((' . $additionalTablePrefixes . ')_[a-z0-9]+[a-z0-9_]*)(,|$)/', $allTables, $matches
 		);
 
 		if (isset($matches[1])) {
@@ -1493,6 +1541,8 @@ class Tx_Phpunit_Framework {
 	 *        counted in that case)
 	 *
 	 * @return integer the number of records that have been found, will be >= 0
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function countRecords($tableName, $whereClause = '') {
 		if (!$this->isTableNameAllowed($tableName)) {
@@ -1536,6 +1586,8 @@ class Tx_Phpunit_Framework {
 	 *        the UID of the record to look up, must be > 0
 	 *
 	 * @return boolean TRUE if there is a matching record, FALSE otherwise
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function existsRecordWithUid($tableName, $uid) {
 		if ($uid <= 0) {
@@ -1573,6 +1625,9 @@ class Tx_Phpunit_Framework {
 	 * @see resetAutoIncrementLazily
 	 *
 	 * @return void
+	 *
+	 * @throws InvalidArgumentException
+	 * @throws Tx_Phpunit_Exception_Database
 	 */
 	public function resetAutoIncrement($tableName) {
 		if (!$this->isTableNameAllowed($tableName)) {
@@ -1618,6 +1673,8 @@ class Tx_Phpunit_Framework {
 	 * @see resetAutoIncrement
 	 *
 	 * @return void
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function resetAutoIncrementLazily($tableName) {
 		if (!$this->isTableNameAllowed($tableName)) {
@@ -1649,6 +1706,8 @@ class Tx_Phpunit_Framework {
 	 * @see resetAutoIncrementLazily
 	 *
 	 * @return void
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function setResetAutoIncrementThreshold($threshold) {
 		if ($threshold <= 0) {
@@ -1688,6 +1747,9 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @return integer
 	 *         the current auto_increment value of table $tableName, will be > 0
+	 *
+	 * @throws InvalidArgumentException
+	 * @throws Tx_Phpunit_Exception_Database
 	 */
 	public function getAutoIncrement($tableName) {
 		if (!$this->isTableNameAllowed($tableName)) {
@@ -1750,6 +1812,8 @@ class Tx_Phpunit_Framework {
 	 *        the list of dirty tables, must not be empty
 	 *
 	 * @return void
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function markTableAsDirty($tableNames) {
 		foreach (t3lib_div::trimExplode(',', $tableNames) as $currentTable) {
@@ -1793,8 +1857,8 @@ class Tx_Phpunit_Framework {
 	/**
 	 * Returns the next sorting value of the relation table which should be used.
 	 *
-	 * TODO: This function does not take already existing relations in the
-	 * database - which were created without using the testing framework - into
+	 * Note: This function does not take already existing relations in the
+	 * database (which were created without using the testing framework) into
 	 * account. So you always should create new dummy records and create a
 	 * relation between these two dummy records, so you're sure there are not
 	 * already relations for a local UID in the database.
@@ -1832,6 +1896,9 @@ class Tx_Phpunit_Framework {
 	 *        the field name of the field to modify, must not be empty
 	 *
 	 * @return void
+	 *
+	 * @throws InvalidArgumentException
+	 * @throws Tx_Phpunit_Exception_Database
 	 */
 	public function increaseRelationCounter($tableName, $uid, $fieldName) {
 		if (!$this->isTableNameAllowed($tableName)) {

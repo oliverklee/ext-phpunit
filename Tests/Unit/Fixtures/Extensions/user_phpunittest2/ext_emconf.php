@@ -1,14 +1,14 @@
 <?php
 
-########################################################################
-# Extension Manager/Repository config file for ext "user_phpunittest2".
-#
-# Auto generated 17-04-2012 12:58
-#
-# Manual updates:
-# Only the data in the array - everything else is removed by next
-# writing. "version" and "dependencies" must not be touched!
-########################################################################
+/***************************************************************
+ * Extension Manager/Repository config file for ext "user_phpunittest2".
+ *
+ * Auto generated 07-07-2013 16:38
+ *
+ * Manual updates:
+ * Only the data in the array - everything else is removed by next
+ * writing. "version" and "dependencies" must not be touched!
+ ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'Second test extension for tx_phpunit',
@@ -17,7 +17,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'author' => 'Niels Pardon',
 	'author_email' => 'mail@niels-pardon.de',
 	'shy' => 1,
-	'dependencies' => 'phpunit,user_phpunittest',
+	'dependencies' => '',
 	'conflicts' => '',
 	'priority' => '',
 	'module' => '',
@@ -38,7 +38,7 @@ $EM_CONF[$_EXTKEY] = array(
 		'suggests' => array(
 		),
 	),
-	'_md5_values_when_last_written' => 'a:4:{s:12:"ext_icon.gif";s:4:"5f50";s:14:"ext_tables.php";s:4:"078d";s:14:"ext_tables.sql";s:4:"3b51";s:7:"tca.php";s:4:"f3a8";}',
+	'_md5_values_when_last_written' => 'a:4:{s:12:"ext_icon.gif";s:4:"5f50";s:14:"ext_tables.php";s:4:"fdf3";s:14:"ext_tables.sql";s:4:"3b51";s:7:"tca.php";s:4:"f3a8";}',
 	'suggests' => array(
 	),
 );

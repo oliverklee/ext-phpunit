@@ -57,8 +57,8 @@ interface Tx_Phpunit_Interface_AccessibleObject {
 	 * @return mixed the return value from the method $methodName
 	 */
 	public function _callRef(
-		$methodName, &$arg1 = NULL, &$arg2 = NULL, &$arg3 = NULL, &$arg4 = NULL, &$arg5= NULL, &$arg6 = NULL, &$arg7 = NULL,
-		&$arg8 = NULL, &$arg9 = NULL
+		$methodName, &$arg1 = NULL, &$arg2 = NULL, &$arg3 = NULL, &$arg4 = NULL, &$arg5 = NULL, &$arg6 = NULL,
+		&$arg7 = NULL, &$arg8 = NULL, &$arg9 = NULL
 	);
 
 	/**

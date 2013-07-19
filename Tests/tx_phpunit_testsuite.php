@@ -29,7 +29,7 @@
  *
  * @author Kasper Ligaard <kasperligaard@gmail.com>
  */
-class tx_phpunit_test_testsuite extends PHPUnit_Framework_TestSuite {
+class Tx_Phpunit_Test_TestSuite extends PHPUnit_Framework_TestSuite {
 	/**
 	 * The constructor.
 	 */

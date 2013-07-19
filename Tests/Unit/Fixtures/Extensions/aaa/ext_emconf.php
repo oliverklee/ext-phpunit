@@ -1,14 +1,14 @@
 <?php
 
-########################################################################
-# Extension Manager/Repository config file for ext "aaa".
-#
-# Auto generated 17-04-2012 12:58
-#
-# Manual updates:
-# Only the data in the array - everything else is removed by next
-# writing. "version" and "dependencies" must not be touched!
-########################################################################
+/***************************************************************
+ * Extension Manager/Repository config file for ext "aaa".
+ *
+ * Auto generated 07-07-2013 16:40
+ *
+ * Manual updates:
+ * Only the data in the array - everything else is removed by next
+ * writing. "version" and "dependencies" must not be touched!
+ ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'AAA',
@@ -17,7 +17,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'author' => 'Oliver Klee',
 	'author_email' => 'typo3-coding@oliverklee.de',
 	'shy' => 1,
-	'dependencies' => 'phpunit',
+	'dependencies' => '',
 	'conflicts' => '',
 	'priority' => '',
 	'module' => '',
@@ -38,7 +38,7 @@ $EM_CONF[$_EXTKEY] = array(
 		'suggests' => array(
 		),
 	),
-	'_md5_values_when_last_written' => 'a:4:{s:12:"ext_icon.gif";s:4:"5f50";s:14:"ext_tables.php";s:4:"509f";s:14:"ext_tables.sql";s:4:"2cf6";s:7:"tca.php";s:4:"3126";}',
+	'_md5_values_when_last_written' => 'a:6:{s:12:"ext_icon.gif";s:4:"5f50";s:14:"ext_tables.php";s:4:"509f";s:14:"ext_tables.sql";s:4:"2cf6";s:7:"tca.php";s:4:"3126";s:22:"Tests/Unit/OneTest.php";s:4:"5a22";s:35:"Tests/Unit/fixtures/AnotherTest.php";s:4:"8416";}',
 	'suggests' => array(
 	),
 );

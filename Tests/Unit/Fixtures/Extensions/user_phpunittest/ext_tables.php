@@ -16,7 +16,7 @@ $TCA['user_phpunittest_test'] = array(
 			'endtime' => 'endtime',
 		),
 		'hideTable' => TRUE,
-		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY).'tca.php',
+		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'tca.php',
 	),
 );
 ?>

@@ -63,6 +63,8 @@ class Tx_Phpunit_BackEnd_TestStatistics {
 	 * Note: This function may only be called once.
 	 *
 	 * @return void
+	 *
+	 * @throws BadMethodCallException
 	 */
 	public function start() {
 		if ($this->isRunning) {
@@ -81,6 +83,8 @@ class Tx_Phpunit_BackEnd_TestStatistics {
 	 * Note: This function may only be called once.
 	 *
 	 * @return void
+	 *
+	 * @throws BadMethodCallException
 	 */
 	public function stop() {
 		if (!$this->isRunning) {

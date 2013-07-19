@@ -177,16 +177,20 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 * @return array<string>
 	 *         sorted file names of the testcases in the directory $directory relative
 	 *         to $directory, will be empty if no testcases have been found
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function findTestCaseFilesDirectory($directory) {
 		if ($directory === '') {
 			throw new InvalidArgumentException('$directory must not be empty.', 1334439798);
 		}
 		if (!is_dir($directory)) {
-			throw new InvalidArgumentException('The directory '. $directory . ' does not exist.', 1334439804);
+			throw new InvalidArgumentException('The directory ' . $directory . ' does not exist.', 1334439804);
 		}
 		if (!is_readable($directory)) {
-			throw new InvalidArgumentException('The directory '. $directory . ' exists, but is not readable.', 1334439813);
+			throw new InvalidArgumentException(
+				'The directory ' . $directory . ' exists, but is not readable.', 1334439813
+			);
 		}
 
 		$directoryLength = strlen($directory);
@@ -289,6 +293,9 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 *        the key for which to get the testable, must an extension key or the core key, must not be empty
 	 *
 	 * @return Tx_Phpunit_Testable the testable for the given key
+	 *
+	 * @throws InvalidArgumentException
+	 * @throws BadMethodCallException
 	 */
 	public function getTestableForKey($key) {
 		if ($key === '') {
@@ -399,8 +406,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 * @return array<string> the keys of the loaded extensions, might be empty
 	 */
 	protected function getLoadedExtensionKeys() {
-			// TODO: Use t3lib_utility_VersionNumber::convertVersionNumberToInteger() as soon as TYPO3 6.0 is released
-		if (method_exists('t3lib_extMgm', 'getLoadedExtensionListArray')) {
+		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 6000000) {
 			$allExtensionKeys = t3lib_extMgm::getLoadedExtensionListArray();
 		} else {
 			$requiredExtensionList = t3lib_extMgm::getRequiredExtensionList();
@@ -475,6 +481,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 *         (might differ in case from the actual tests directory on case-insensitive
 	 *         file systems)
 	 *
+	 * @throws InvalidArgumentException
 	 * @throws Tx_Phpunit_Exception_NoTestsDirectory if the given extension has no tests directory
 	 */
 	protected function findTestsPathForExtension($extensionKey) {
@@ -512,7 +519,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 */
 	public function isValidTestCaseClassName($className) {
 		if ($className === '') {
-			throw new \InvalidArgumentException('$className must not be empty.', 1354018635);
+			throw new InvalidArgumentException('$className must not be empty.', 1354018635);
 		}
 		if (!$this->classNameHasTestCaseSuffix($className) || !class_exists($className, TRUE)
 			|| ! $this->classNameIsNonAbstractSubclassOfValidBaseTestCase($className)
@@ -555,7 +562,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 * @return boolean whether the corresponding class is both non-abstract and a subclass of the test case base class
 	 */
 	protected function classNameIsNonAbstractSubclassOfValidBaseTestCase($className) {
-		$classReflection = new \ReflectionClass($className);
+		$classReflection = new ReflectionClass($className);
 		$result = !$classReflection->isAbstract() && $classReflection->isSubclassOf(self::BASE_TEST_CASE_CLASS_NAME);
 
 		if (!$this->userSettingsService->getAsBoolean('runSeleniumTests')) {

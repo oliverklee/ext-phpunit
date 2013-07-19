@@ -16,7 +16,7 @@ class Tx_Phpunit_Tests_Fixtures_ProtectedClass {
 	/**
 	 * @var string
 	 */
-	protected static $protectedStaticProperty = 'This is a protected static property.';
+	static protected $protectedStaticProperty = 'This is a protected static property.';
 
 	/**
 	 * Protected test function which returns TRUE when processed.

@@ -862,8 +862,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getLoadedExtensionKeysReturnsKeysOfLoadedExtensions() {
-			// TODO: Use t3lib_utility_VersionNumber::convertVersionNumberToInteger() as soon as TYPO3 6.0 is released
-		if (!method_exists('t3lib_extMgm', 'getLoadedExtensionListArray')) {
+		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) < 6000000) {
 			$this->markTestSkipped('This test is available in TYPO3 6.0 and above.');
 		}
 
@@ -880,8 +879,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getLoadedExtensionKeysReturnsKeysOfLoadedExtensionsBelowVersionSix() {
-			// TODO: Use t3lib_utility_VersionNumber::convertVersionNumberToInteger() as soon as TYPO3 6.0 is released
-		if (method_exists('t3lib_extMgm', 'getLoadedExtensionListArray')) {
+		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 6000000) {
 			$this->markTestSkipped('This test is available in TYPO3 below version 6.0.');
 		}
 

@@ -2,7 +2,7 @@
 /***************************************************************
 * Copyright notice
 *
-* (c) 2012 Nicole Cordes <nicole.cordes@googlemail.com>
+* (c) 2012-2013 Nicole Cordes <nicole.cordes@googlemail.com>
 * All rights reserved
 *
 * This script is part of the TYPO3 project. The TYPO3 project is
@@ -32,6 +32,6 @@
  *
  * @author Nicole Cordes <nicole.cordes@googlemail.com>
  */
-class Tx_Aaa_Tests_fixtures_AnotherTest extends Tx_Phpunit_TestCase {
+class Tx_Aaa_Tests_Fixtures_AnotherTest extends Tx_Phpunit_TestCase {
 }
 ?>

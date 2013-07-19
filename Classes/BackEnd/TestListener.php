@@ -210,6 +210,8 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 * @param float $time ?
 	 *
 	 * @return void
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function addError(PHPUnit_Framework_Test $test, Exception $e, $time) {
 		if (!$test instanceof PHPUnit_Framework_TestCase) {
@@ -242,6 +244,8 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 * @param float $time ?
 	 *
 	 * @return void
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time) {
 		if (!$test instanceof PHPUnit_Framework_TestCase) {
@@ -314,6 +318,8 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 * @param float $time ?
 	 *
 	 * @return void
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
 		if (!$test instanceof PHPUnit_Framework_TestCase) {
@@ -341,6 +347,8 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 * @param float $time ?
 	 *
 	 * @return void
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
 		if (!$test instanceof PHPUnit_Framework_TestCase) {
@@ -415,6 +423,8 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 * @param PHPUnit_Framework_Test $test the test that has started
 	 *
 	 * @return void
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function startTest(PHPUnit_Framework_Test $test) {
 		if (!$test instanceof PHPUnit_Framework_TestCase) {

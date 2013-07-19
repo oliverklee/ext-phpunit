@@ -33,7 +33,7 @@
  * @author Saskia Metzler <saskia@merlin.owl.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
+class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	/**
 	 * @var Tx_Phpunit_Framework
 	 */
@@ -123,7 +123,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 		$row = Tx_Phpunit_Service_Database::selectSingle(
 			'sorting',
 			'tx_phpunit_test_article_mm',
-			'uid_local = ' . $uidLocal.' AND uid_foreign = ' . $uidForeign
+			'uid_local = ' . $uidLocal . ' AND uid_foreign = ' . $uidForeign
 		);
 
 		return intval($row['sorting']);
@@ -483,7 +483,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 
 		$this->assertSame(
 			1,
-			$this->fixture->countRecords('pages', 'uid='.$pid.' AND title="bar"')
+			$this->fixture->countRecords('pages', 'uid=' . $pid . ' AND title="bar"')
 		);
 	}
 
@@ -505,7 +505,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 
 		$this->assertSame(
 			1,
-			$this->fixture->countRecords('tt_content', 'uid=' . $uid.' AND titleText="bar"')
+			$this->fixture->countRecords('tt_content', 'uid=' . $uid . ' AND titleText="bar"')
 		);
 	}
 
@@ -740,7 +740,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 			1,
 			$this->fixture->countRecords(
 				'tx_phpunit_test_article_mm',
-				'uid_local=' . $uidLocal.' AND uid_foreign=' . $uidForeign
+				'uid_local=' . $uidLocal . ' AND uid_foreign=' . $uidForeign
 			)
 		);
 	}
@@ -1052,7 +1052,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 			0,
 			$this->fixture->countRecords(
 				'tx_phpunit_test_article_mm',
-				'uid_local=' . $uidLocal.' AND uid_foreign=' . $uidForeign
+				'uid_local=' . $uidLocal . ' AND uid_foreign=' . $uidForeign
 			)
 		);
 	}
@@ -1088,7 +1088,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 			0,
 			$this->fixture->countRecords(
 				'tx_phpunit_test_article_mm',
-				'uid_local=' . $uidLocal.' AND uid_foreign=' . $uidForeign
+				'uid_local=' . $uidLocal . ' AND uid_foreign=' . $uidForeign
 			)
 		);
 
@@ -1251,7 +1251,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 			$this->assertSame(
 				0,
 				$this->fixture->countRecords($currentTable),
-				'Some test records were not deleted from table "'.$currentTable.'"'
+				'Some test records were not deleted from table "' . $currentTable . '"'
 			);
 		}
 	}
@@ -1424,14 +1424,16 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	}
 
 
-	// ---------------------------------------------------------------------
-	// Tests regarding getAutoIncrement()
-	// ---------------------------------------------------------------------
+	/*
+	 * Tests regarding getAutoIncrement()
+	 */
 
 	/**
-     * @test
-     */
-    public function getAutoIncrementReturnsOneForTruncatedTable() {
+	 * @test
+	 *
+	 * @throws Tx_Phpunit_Exception_Database
+	 */
+	public function getAutoIncrementReturnsOneForTruncatedTable() {
 		Tx_Phpunit_Service_Database::enableQueryLogging();
 		$dbResult = $GLOBALS['TYPO3_DB']->sql_query(
 			'TRUNCATE TABLE tx_phpunit_test;'
@@ -4009,7 +4011,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 		$feUserGroupUidTwo = $this->fixture->createFrontEndUserGroup();
 		$feUserGroupUidThree = $this->fixture->createFrontEndUserGroup();
 		$uid = $this->fixture->createFrontEndUser(
-			$feUserGroupUidOne.', '.$feUserGroupUidTwo.', '.$feUserGroupUidThree
+			$feUserGroupUidOne . ', ' . $feUserGroupUidTwo . ', ' . $feUserGroupUidThree
 		);
 
 		$this->assertNotEquals(
@@ -4094,7 +4096,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 		$feUserGroupUidThree = $this->fixture->createFrontEndUserGroup();
 
 		$this->fixture->createFrontEndUser(
-			$feUserGroupUidOne.', '.$feUserGroupUidTwo.', 0, '.$feUserGroupUidThree
+			$feUserGroupUidOne . ', ' . $feUserGroupUidTwo . ', 0, ' . $feUserGroupUidThree
 		);
 	}
 
@@ -4107,7 +4109,7 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 		$feUserGroupUid = $this->fixture->createFrontEndUserGroup();
 
 		$this->fixture->createFrontEndUser(
-			$feUserGroupUid.', abc'
+			$feUserGroupUid . ', abc'
 		);
 	}
 
@@ -4925,9 +4927,9 @@ class Tx_Phpunit_FrameworkTest extends tx_phpunit_testcase {
 	}
 
 
-	////////////////////////////////////////////
-	// Tests concerning createBackEndUserGroup
-	////////////////////////////////////////////
+	/*
+	 * Tests concerning createBackEndUserGroup
+	 */
 
 	/**
 	 * @test

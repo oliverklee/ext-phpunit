@@ -1,5 +1,5 @@
 <?php
- /***************************************************************
+/***************************************************************
  * Copyright notice
  *
  * (c) 2005-2013 Robert Lemke (robert@typo3.org)
@@ -65,6 +65,8 @@ abstract class Tx_Phpunit_TestCase extends PHPUnit_Framework_TestCase {
 	 *
 	 * @return PHPUnit_Framework_MockObject_MockObject|Tx_Phpunit_Interface_AccessibleObject
 	 *         a mock of $originalClassName with access methods added
+	 *
+	 * @throws InvalidArgumentException
 	 *
 	 * @see Tx_Extbase_Tests_Unit_BaseTestCase::getAccessibleMock
 	 */

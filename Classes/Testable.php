@@ -125,6 +125,8 @@ class Tx_Phpunit_Testable {
 	 * @param string $key the key, must not be empty
 	 *
 	 * @return void
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function setKey($key) {
 		if ($key === '') {
@@ -171,6 +173,8 @@ class Tx_Phpunit_Testable {
 	 *        the type, must be either TYPE_EXTENSION or TYPE_CORE
 	 *
 	 * @return void
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function setType($type) {
 		$allowedTypes = array(self::TYPE_EXTENSION, self::TYPE_CORE);
@@ -202,6 +206,8 @@ class Tx_Phpunit_Testable {
 	 * @param string $codePath the code path, must not be empty
 	 *
 	 * @return void
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function setCodePath($codePath) {
 		if ($codePath === '') {
@@ -232,6 +238,8 @@ class Tx_Phpunit_Testable {
 	 * @param string $testsPath the tests path, must not be empty
 	 *
 	 * @return void
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function setTestsPath($testsPath) {
 		if ($testsPath === '') {
@@ -304,6 +312,8 @@ class Tx_Phpunit_Testable {
 	 * @param string $iconPath the icon path, must not be empty
 	 *
 	 * @return void
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function setIconPath($iconPath) {
 		if ($iconPath === '') {
