@@ -1492,7 +1492,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 			'Core functional base test class (since 6.0)' => array('TYPO3\\CMS\\Core\\Tests\\FunctionalTestCase'),
 		);
 		foreach ($classNamesThatMightNotExist as $key => $className) {
-			if (class_exists($className, TRUE)) {
+			if (class_exists($className[0], TRUE)) {
 				$invalidClassNames[$key] = $className;
 			}
 		}
