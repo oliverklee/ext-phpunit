@@ -826,7 +826,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 */
 	public function selectMySqliResult() {
 		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) < 6001000) {
-			$this->markTestSkipped('This test only applies to TYPO3 CMS >= 6.1.');
+			$this->markTestSkipped('This test is available in TYPO3 6.1 and above.');
 		}
 
 		$this->assertInstanceOf(

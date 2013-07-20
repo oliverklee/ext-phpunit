@@ -247,7 +247,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 */
 	public function hasCoreTestsForCoreTestsDirectlyInSitePathReturnsTrue() {
 		if (!file_exists(PATH_site . 'tests/')) {
-			$this->markTestSkipped('This test can only be run if the Core tests are located in typo3_src/tests/.');
+			$this->markTestSkipped('This test can only be run if the Core tests are located in tests/.');
 		}
 
 		$this->assertTrue(

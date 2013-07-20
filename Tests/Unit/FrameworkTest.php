@@ -103,7 +103,7 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	 */
 	private function checkForTypo3SixOrHigher() {
 		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) < 6000000) {
-			$this->markTestSkipped('Test can not be executed because it does not meet the minimum TYPO3 version');
+			$this->markTestSkipped('This test is available in TYPO3 6.0 and above.');
 		}
 	}
 
