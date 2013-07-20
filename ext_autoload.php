@@ -24,6 +24,7 @@ return array(
 	'tx_phpunit_service_extensionsettingsservice' => $extensionPath . 'Classes/Service/ExtensionSettingsService.php',
 	'tx_phpunit_service_fakeoutputservice' => $extensionPath . 'Classes/Service/FakeOutputService.php',
 	'tx_phpunit_service_outputservice' => $extensionPath . 'Classes/Service/OutputService.php',
+	'tx_phpunit_service_testcaseservice' => $extensionPath . 'Classes/Service/TestCaseService.php',
 	'tx_phpunit_service_testfinder' => $extensionPath . 'Classes/Service/TestFinder.php',
 	'tx_phpunit_service_usersettingsservice' => $extensionPath . 'Classes/Service/UserSettingsService.php',
 	'tx_phpunit_testable' => $extensionPath . 'Classes/Testable.php',

@@ -23,7 +23,7 @@
 ***************************************************************/
 
 /**
- * This class provides functions for finding testcases.
+ * This class provides functions for finding test cases.
  *
  * @package TYPO3
  * @subpackage tx_phpunit
@@ -31,25 +31,6 @@
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
-	/**
-	 * @var string
-	 */
-	const BASE_TEST_CASE_CLASS_NAME = 'PHPUnit_Framework_TestCase';
-
-	/**
-	 * @var string
-	 */
-	const SELENIUM_BASE_TEST_CASE_CLASS_NAME = 'PHPUnit_Extensions_Selenium2TestCase';
-
-	/**
-	 * suffixes that indicate that a file is a testcase
-	 *
-	 * @var array<string>
-	 */
-	static protected $testcaseFileSuffixes = array(
-		'Test.php', 'test.php', '_testcase.php', 'testcase.php'
-	);
-
 	/**
 	 * allowed test directory names
 	 *
@@ -84,11 +65,6 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	protected $extensionSettingsService = NULL;
 
 	/**
-	 * @var Tx_Phpunit_Interface_UserSettingsService
-	 */
-	protected $userSettingsService = NULL;
-
-	/**
 	 * Injects the extension settings service.
 	 *
 	 * @param Tx_Phpunit_Interface_ExtensionSettingsService $service the service to inject
@@ -100,21 +76,10 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	}
 
 	/**
-	 * Injects the user settings service.
-	 *
-	 * @param Tx_Phpunit_Interface_UserSettingsService $service the service to inject
-	 *
-	 * @return void
-	 */
-	public function injectUserSettingsService(Tx_Phpunit_Interface_UserSettingsService $service) {
-		$this->userSettingsService = $service;
-	}
-
-	/**
 	 * The destructor.
 	 */
 	public function __destruct() {
-		unset($this->extensionSettingsService, $this->userSettingsService);
+		unset($this->extensionSettingsService);
 	}
 
 	/**
@@ -165,93 +130,6 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 */
 	public function hasCoreTests() {
 		return ($this->getRelativeCoreTestsPath() !== '');
-	}
-
-	/**
-	 * Finds all files that are named like test files in the directory $directory
-	 * and recursively all its subdirectories.
-	 *
-	 * @param string $directory
-	 *        the absolute path of the directory in which to look for test cases
-	 *
-	 * @return array<string>
-	 *         sorted file names of the testcases in the directory $directory relative
-	 *         to $directory, will be empty if no testcases have been found
-	 *
-	 * @throws InvalidArgumentException
-	 */
-	public function findTestCaseFilesInDirectory($directory) {
-		if ($directory === '') {
-			throw new InvalidArgumentException('$directory must not be empty.', 1334439798);
-		}
-		if (!is_dir($directory)) {
-			throw new InvalidArgumentException('The directory ' . $directory . ' does not exist.', 1334439804);
-		}
-		if (!is_readable($directory)) {
-			throw new InvalidArgumentException(
-				'The directory ' . $directory . ' exists, but is not readable.', 1334439813
-			);
-		}
-
-		$directoryLength = strlen($directory);
-
-		$testFiles = array();
-		$allPhpFiles = t3lib_div::getAllFilesAndFoldersInPath(array(), $directory, 'php');
-		foreach ($allPhpFiles as $filePath) {
-			if ($this->isNotFixturesPath($filePath) && $this->isTestCaseFileName($filePath)) {
-				$testFiles[] = substr($filePath, $directoryLength);
-			}
-		}
-
-		sort($testFiles, SORT_STRING);
-
-		return $testFiles;
-	}
-
-	/**
-	 * Checks that a path does not contain "Fixtures" or "fixtures".
-	 *
-	 * @param string $path the absolute path of a file to check, may be empty
-	 *
-	 * @return boolean TRUE if $fileName is a valid testcase path, FALSE otherwise
-	 */
-	protected function isNotFixturesPath($path) {
-		return (stristr($path, '/fixtures/') === FALSE);
-	}
-
-	/**
-	 * Checks whether a file name is named like a testcase file name should be.
-	 *
-	 * @param string $path the absolute path of a file to check
-	 *
-	 * @return boolean TRUE if $fileName is names like a proper testcase, FALSE otherwise
-	 */
-	protected function isTestCaseFileName($path) {
-		$fileName = basename($path);
-		if ($this->isHiddenMacFile($fileName)) {
-			return FALSE;
-		}
-
-		$isTestCase = FALSE;
-		foreach (self::$testcaseFileSuffixes as $suffix) {
-			if (substr($fileName, - strlen($suffix)) === $suffix) {
-				$isTestCase = TRUE;
-				break;
-			}
-		}
-
-		return $isTestCase;
-	}
-
-	/**
-	 * Checks whether $fileName is a hidden Mac file.
-	 *
-	 * @param string $fileName base name of a file to check
-	 *
-	 * @return boolean TRUE if $fileName is a hidden Mac file, FALSE otherwise
-	 */
-	protected function isHiddenMacFile($fileName) {
-		return (substr($fileName, 0, 2) === '._');
 	}
 
 	/**
@@ -505,73 +383,6 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 		}
 
 		return $testsPath;
-	}
-
-	/**
-	 * Checks whether $className is the name of a valid test case class, i.e., whether it follows the naming guidelines,
-	 * is a subclass of one of the test base classes, is not one of the base classes itself and is not abstract.
-	 *
-	 * @param string $className the class name to check, must not be empty
-	 *
-	 * @throws InvalidArgumentException
-	 *
-	 * @return boolean whether $className is the name of a valid test case class
-	 */
-	public function isValidTestCaseClassName($className) {
-		if ($className === '') {
-			throw new InvalidArgumentException('$className must not be empty.', 1354018635);
-		}
-		if (!$this->classNameHasTestCaseSuffix($className) || !class_exists($className, TRUE)
-			|| ! $this->classNameIsNonAbstractSubclassOfValidBaseTestCase($className)
-		) {
-			return FALSE;
-		}
-
-		return TRUE;
-	}
-
-	/**
-	 * Checks whether a class name has a name suffix that is allowed for test cases.
-	 *
-	 * @param string $className the class name to check, must not be empty
-	 *
-	 * @return boolean whether the class name has a suffix that is supported for test cases
-	 */
-	protected function classNameHasTestCaseSuffix($className) {
-		$allowedSuffixes = array('Test', '_testcase');
-
-		$hasTestCaseSuffix = FALSE;
-
-		foreach ($allowedSuffixes as $suffixToCheck) {
-			if (substr($className, - strlen($suffixToCheck)) === $suffixToCheck) {
-				$hasTestCaseSuffix = TRUE;
-				break;
-			}
-		}
-
-		return $hasTestCaseSuffix;
-	}
-
-	/**
-	 * Checks whether $className is the name of a non-abstract subclass of the test case base class.
-	 *
-	 * This function also checks for Selenium test cases whether Selenium tests are enabled in the user settings.
-	 *
-	 * @param string $className the class name to check, must not be empty
-	 *
-	 * @return boolean whether the corresponding class is both non-abstract and a subclass of the test case base class
-	 */
-	protected function classNameIsNonAbstractSubclassOfValidBaseTestCase($className) {
-		$classReflection = new ReflectionClass($className);
-		$result = !$classReflection->isAbstract() && $classReflection->isSubclassOf(self::BASE_TEST_CASE_CLASS_NAME);
-
-		if (!$this->userSettingsService->getAsBoolean('runSeleniumTests')) {
-			if (class_exists(self::SELENIUM_BASE_TEST_CASE_CLASS_NAME, TRUE)) {
-				$result = $result && !$classReflection->isSubclassOf(self::SELENIUM_BASE_TEST_CASE_CLASS_NAME);
-			}
-		}
-
-		return $result;
 	}
 }
 ?>

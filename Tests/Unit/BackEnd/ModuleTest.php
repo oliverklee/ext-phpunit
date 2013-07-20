@@ -67,6 +67,11 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	protected $testFinder = NULL;
 
 	/**
+	 * @var Tx_Phpunit_Service_TestCaseService
+	 */
+	protected $testCaseService = NULL;
+
+	/**
 	 * @var Tx_Phpunit_TestingDataContainer
 	 */
 	protected $extensionSettingsService = NULL;
@@ -99,8 +104,11 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->testFinder = new Tx_Phpunit_Service_TestFinder();
 		$this->extensionSettingsService = new Tx_Phpunit_TestingDataContainer();
 		$this->testFinder->injectExtensionSettingsService($this->extensionSettingsService);
-		$this->testFinder->injectUserSettingsService($this->userSettingsService);
 		$this->fixture->injectTestFinder($this->testFinder);
+
+		$this->testCaseService = new Tx_Phpunit_Service_TestCaseService();
+		$this->testCaseService->injectUserSettingsService($this->userSettingsService);
+		$this->fixture->injectTestCaseService($this->testCaseService);
 
 		$this->progressBarViewHelper = $this->getMock('Tx_Phpunit_ViewHelpers_ProgressBarViewHelper');
 		t3lib_div::addInstance('Tx_Phpunit_ViewHelpers_ProgressBarViewHelper', $this->progressBarViewHelper);
@@ -122,8 +130,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		unset(
 			$this->fixture, $this->request, $this->outputService, $this->userSettingsService, $this->backEndUserBackup,
-			$this->testFinder, $this->extensionSettingsService, $this->progressBarViewHelper, $this->mediumDocumentTemplate,
-			$this->bigDocumentTemplate
+			$this->testFinder, $this->extensionSettingsService, $this->progressBarViewHelper,
+			$this->bigDocumentTemplate, $this->testCaseService
 		);
 	}
 
@@ -432,6 +440,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->userSettingsService->set('extSel', 'phpunit');
 		$fixture->injectUserSettingsService($this->userSettingsService);
 		$fixture->injectTestFinder($this->testFinder);
+		$fixture->injectTestCaseService($this->testCaseService);
 
 		$fixture->expects($this->once())->method('createExtensionSelector');
 
@@ -542,15 +551,15 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
-	public function findTestCasesInDirCallsFindTestCasesInDirectoryOfTestFinderObject() {
+	public function findTestCasesInDirCallsFindTestCasesInDirectoryOfTestCaseService() {
 		vfsStreamWrapper::register();
 		vfsStreamWrapper::setRoot(new vfsStreamDirectory('Foo'));
 		$directory = 'vfs://Foo/';
 
-		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
-		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('findTestCaseFilesInDirectory'));
-		$testFinder->expects($this->once())->method('findTestCaseFilesInDirectory')->with($directory);
-		$this->fixture->injectTestFinder($testFinder);
+		/** @var $testCaseService Tx_Phpunit_Service_TestCaseService|PHPUnit_Framework_MockObject_MockObject */
+		$testCaseService = $this->getMock('Tx_Phpunit_Service_TestCaseService', array('findTestCaseFilesInDirectory'));
+		$testCaseService->expects($this->once())->method('findTestCaseFilesInDirectory')->with($directory);
+		$this->fixture->injectTestCaseService($testCaseService);
 
 		$this->fixture->findTestCasesInDir($directory);
 	}
@@ -564,10 +573,10 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$directory = 'vfs://Foo/';
 		$testFiles = array('class.testOneTest.php', 'class.testTwoTest.php');
 
-		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
-		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('findTestCaseFilesInDirectory'));
-		$testFinder->expects($this->once())->method('findTestCaseFilesInDirectory')->will($this->returnValue($testFiles));
-		$this->fixture->injectTestFinder($testFinder);
+		/** @var $testCaseService Tx_Phpunit_Service_TestCaseService|PHPUnit_Framework_MockObject_MockObject */
+		$testCaseService = $this->getMock('Tx_Phpunit_Service_TestCaseService', array('findTestCaseFilesInDirectory'));
+		$testCaseService->expects($this->once())->method('findTestCaseFilesInDirectory')->will($this->returnValue($testFiles));
+		$this->fixture->injectTestCaseService($testCaseService);
 
 		$this->assertSame(
 			array($directory => $testFiles),

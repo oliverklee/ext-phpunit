@@ -58,6 +58,11 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	protected $testFinder = NULL;
 
 	/**
+	 * @var Tx_Phpunit_Service_TestCaseService
+	 */
+	protected $testCaseService = NULL;
+
+	/**
 	 * @var Tx_Phpunit_BackEnd_TestListener
 	 */
 	protected $testListener = NULL;
@@ -97,7 +102,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	public function __destruct() {
 		unset(
 			$this->request, $this->testFinder, $this->coverage, $this->testListener, $this->outputService,
-			$this->userSettingsService, $this->testStatistics
+			$this->userSettingsService, $this->testStatistics, $this->testCaseService
 		);
 	}
 
@@ -154,6 +159,17 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 */
 	public function injectTestFinder(Tx_Phpunit_Service_TestFinder $testFinder) {
 		$this->testFinder = $testFinder;
+	}
+
+	/**
+	 * Injects the test case service.
+	 *
+	 * @param Tx_Phpunit_Service_TestCaseService $testCaseService the test case service to inject
+	 *
+	 * @return void
+	 */
+	public function injectTestCaseService(Tx_Phpunit_Service_TestCaseService $testCaseService) {
+		$this->testCaseService = $testCaseService;
 	}
 
 	/**
@@ -368,7 +384,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		}
 
 		$testsPathOfExtension = $this->testFinder->getTestableForKey($extensionKey)->getTestsPath();
-		$testSuites = $this->testFinder->findTestCaseFilesInDirectory($testsPathOfExtension);
+		$testSuites = $this->testCaseService->findTestCaseFilesInDirectory($testsPathOfExtension);
 
 		foreach ($testSuites as $fileName) {
 			require_once($testsPathOfExtension . $fileName);
@@ -376,7 +392,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 
 		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
 		foreach (get_declared_classes() as $className) {
-			if ($this->testFinder->isValidTestCaseClassName($className)) {
+			if ($this->testCaseService->isValidTestCaseClassName($className)) {
 				$testSuite->addTestSuite($className);
 			}
 		}
@@ -425,14 +441,14 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
 
 		$testsPathOfExtension = $this->testFinder->getTestableForKey($extensionKey)->getTestsPath();
-		$testSuites = $this->testFinder->findTestCaseFilesInDirectory($testsPathOfExtension);
+		$testSuites = $this->testCaseService->findTestCaseFilesInDirectory($testsPathOfExtension);
 
 		foreach ($testSuites as $fileName) {
 			require_once($testsPathOfExtension . $fileName);
 		}
 
 		foreach (get_declared_classes() as $className) {
-			if ($this->testFinder->isValidTestCaseClassName($className)) {
+			if ($this->testCaseService->isValidTestCaseClassName($className)) {
 				$testSuite->addTestSuite($className);
 			}
 		}
@@ -655,7 +671,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 */
 	protected function loadAllFilesContainingTestCasesForSingleTestable(Tx_Phpunit_Testable $testable) {
 		$testsPath = $testable->getTestsPath();
-		$testCaseFileNames = $this->testFinder->findTestCaseFilesInDirectory($testsPath);
+		$testCaseFileNames = $this->testCaseService->findTestCaseFilesInDirectory($testsPath);
 		foreach ($testCaseFileNames as $testCaseFileName) {
 			require_once(realpath($testsPath . $testCaseFileName));
 		}
@@ -670,7 +686,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
 
 		foreach (get_declared_classes() as $className) {
-			if ($this->testFinder->isValidTestCaseClassName($className)) {
+			if ($this->testCaseService->isValidTestCaseClassName($className)) {
 				$testSuite->addTestSuite($className);
 			}
 		}
@@ -954,7 +970,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			return array();
 		}
 
-		$testCaseFileNames = $this->testFinder->findTestCaseFilesInDirectory($directory);
+		$testCaseFileNames = $this->testCaseService->findTestCaseFilesInDirectory($directory);
 
 		$extensionsArr = array();
 		if (!empty($testCaseFileNames)) {

@@ -207,7 +207,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function setTestsPathSetsTestsPath() {
-		$path = t3lib_extMgm::extPath('phpunit');
+		$path = t3lib_extMgm::extPath('phpunit') . 'Tests/';
 		$this->fixture->setTestsPath($path);
 
 		$this->assertSame(
