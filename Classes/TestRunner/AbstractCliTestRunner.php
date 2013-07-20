@@ -27,9 +27,9 @@ if (!defined('TYPO3_cliMode')) {
 }
 
 /**
- * Abstract TestRunner class. Can be used to implement
- * other TestRunners which need CLI scope.
- * Currently only ManualCliTestRunner and IdeTestRunner are implemented.
+ * Abstract TestRunner class. Can be used to implement other TestRunners which need CLI scope.
+ *
+ * Currently only CliTestRunner and IdeTestRunner are implemented.
  *
  * @package TYPO3
  * @subpackage tx_phpunit
@@ -64,5 +64,4 @@ abstract class Tx_Phpunit_TestRunner_AbstractCliTestRunner extends t3lib_cli {
 		);
 	}
 }
-
 ?>

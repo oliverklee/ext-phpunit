@@ -21,26 +21,8 @@
  *
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-/**
- * This class runs PHPUnit in CLI mode and includes the PHP boot script of an IDE.
- *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
- * @author Helmut Hummel <helmut.hummel@typo3.org>
- */
-class Tx_Phpunit_TestRunner_IdeTestRunner extends Tx_Phpunit_TestRunner_AbstractCliTestRunner {
-	/**
-	 * Additional help text for the command line
-	 *
-	 * @var array
-	 */
-	protected $additionalHelp = array(
-		'name' => 'Tx_Phpunit_TestRunner_IdeTestRunner',
-		'synopsis' => 'phpunit_ide_testrunner <test or test folder> ###OPTIONS###',
-		'description' => 'This script should only be run through an IDE.',
-		'examples' => '',
-		'author' => '(c) 2012-2013 Helmut Hummel <helmut.hummel@typo3.org>',
-	);
-}
+
+/* @var $phpUnit Tx_Phpunit_TestRunner_CliTestRunner */
+$phpUnit = t3lib_div::makeInstance('Tx_Phpunit_TestRunner_CliTestRunner');
+$phpUnit->run();
 ?>

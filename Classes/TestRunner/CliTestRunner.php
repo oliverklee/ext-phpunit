@@ -2,7 +2,7 @@
 /***************************************************************
  * Copyright notice
  *
- * (c) 2012 Helmut Hummel <helmut.hummel@typo3.org>
+ * (c) 2012-2013 Helmut Hummel <helmut.hummel@typo3.org>
  * All rights reserved
  *
  * This script is part of the TYPO3 project. The TYPO3 project is
@@ -23,7 +23,7 @@
  ***************************************************************/
 
 /**
- * With this TestRunner you can run PHPUnit manually from the command line.
+ * With this TestRunner, you can run PHPUnit manually from the command line.
  *
  * @package TYPO3
  * @subpackage tx_phpunit
@@ -32,21 +32,15 @@
  */
 class Tx_Phpunit_TestRunner_CliTestRunner extends Tx_Phpunit_TestRunner_AbstractCliTestRunner {
 	/**
-	 * Runs PHPUnit
+	 * Runs PHPUnit.
 	 *
 	 * @return void
 	 */
 	public function run() {
 		require_once('PHPUnit/Autoload.php');
-		/**
-		 * @var string
-		 */
+		/** @var string */
 		define('PHPUnit_MAIN_METHOD', 'PHPUnit_TextUI_Command::main');
 		PHPUnit_TextUI_Command::main();
 	}
 }
-
-/* @var $phpUnit Tx_Phpunit_TestRunner_CliTestRunner */
-$phpUnit = t3lib_div::makeInstance('Tx_Phpunit_TestRunner_CliTestRunner');
-$phpUnit->run();
 ?>
