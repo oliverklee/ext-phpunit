@@ -25,7 +25,7 @@
 /**
  * This is a fixture testcase.
  *
- * It should be found by Testfinder::findTestCaseFilesDirectory function.
+ * It should be found by Testfinder::findTestCaseFilesInDirectory function.
  *
  * @package TYPO3
  * @subpackage tx_aaa

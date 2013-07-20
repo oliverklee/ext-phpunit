@@ -551,8 +551,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$directory = 'vfs://Foo/';
 
 		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
-		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('findTestCaseFilesDirectory'));
-		$testFinder->expects($this->once())->method('findTestCaseFilesDirectory')->with($directory);
+		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('findTestCaseFilesInDirectory'));
+		$testFinder->expects($this->once())->method('findTestCaseFilesInDirectory')->with($directory);
 		$this->fixture->injectTestFinder($testFinder);
 
 		$this->fixture->findTestCasesInDir($directory);
@@ -568,8 +568,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$testFiles = array('class.testOneTest.php', 'class.testTwoTest.php');
 
 		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
-		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('findTestCaseFilesDirectory'));
-		$testFinder->expects($this->once())->method('findTestCaseFilesDirectory')->will($this->returnValue($testFiles));
+		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('findTestCaseFilesInDirectory'));
+		$testFinder->expects($this->once())->method('findTestCaseFilesInDirectory')->will($this->returnValue($testFiles));
 		$this->fixture->injectTestFinder($testFinder);
 
 		$this->assertSame(

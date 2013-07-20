@@ -180,7 +180,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 *
 	 * @throws InvalidArgumentException
 	 */
-	public function findTestCaseFilesDirectory($directory) {
+	public function findTestCaseFilesInDirectory($directory) {
 		if ($directory === '') {
 			throw new InvalidArgumentException('$directory must not be empty.', 1334439798);
 		}
