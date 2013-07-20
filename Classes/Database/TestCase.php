@@ -61,7 +61,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	 * @return void
 	 */
 	protected function switchToTypo3Database() {
-		$GLOBALS['TYPO3_DB']->sql_select_db(TYPO3_db);
+		$this->selectDatabase(TYPO3_db, $GLOBALS['TYPO3_DB']);
 	}
 
 	/**
@@ -102,7 +102,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 			return;
 		}
 
-		$db->sql_select_db($this->testDatabase);
+		$this->selectDatabase($this->testDatabase, $db);
 
 		$tables = $this->getDatabaseTables();
 		foreach ($tables as $tableName) {
@@ -123,7 +123,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 			return TRUE;
 		}
 
-		$db->sql_select_db($this->testDatabase);
+		$this->selectDatabase($this->testDatabase, $db);
 
 		return ($db->admin_query('DROP DATABASE `' .  $this->testDatabase . '`' ) !== FALSE);
 	}
@@ -143,11 +143,30 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 		/** @var $db t3lib_DB */
 		$db = $GLOBALS['TYPO3_DB'];
 
-		if ($db->sql_select_db($databaseName ? $databaseName : $this->testDatabase) !== TRUE) {
+		if ($this->selectDatabase($databaseName ? $databaseName : $this->testDatabase, $db) !== TRUE) {
 			$this->markTestSkipped('This test is skipped because the test database is not available.');
 		}
 
 		return $db;
+	}
+
+	/**
+	 * Selects the database depending on TYPO3 version.
+	 *
+	 * @param string $databaseName the name of the database to select
+	 * @param t3lib_DB $database database object to process the change
+	 *
+	 * @return boolean
+	 */
+	protected function selectDatabase($databaseName, t3lib_DB $database) {
+		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) < 6001000) {
+			$result = $database->sql_select_db($databaseName);
+		} else {
+			$database->setDatabaseName($databaseName);
+			$result = $database->sql_select_db();
+		}
+
+		return $result;
 	}
 
 	/**
