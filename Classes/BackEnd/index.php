@@ -43,8 +43,6 @@ if (!defined('PATH_tslib')) {
 	define('PATH_tslib', t3lib_extMgm::extPath('cms') . 'tslib/');
 }
 
-require_once('PHPUnit/Autoload.php');
-
 $GLOBALS['LANG']->includeLLFile('EXT:phpunit/Resources/Private/Language/locallang_backend.xml');
 
 $namePrettifier = new PHPUnit_Util_TestDox_NamePrettifier();
