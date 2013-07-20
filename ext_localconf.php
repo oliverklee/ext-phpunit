@@ -10,7 +10,7 @@ if ($extensionSettingsService->hasString('phpunitlib')
 ) {
 	$phpunitlib = $extensionSettingsService->getAsString('phpunitlib') . DIRECTORY_SEPARATOR;
 } else {
-	$phpunitlib = t3lib_extMgm::extPath('phpunit') . 'PEAR' . DIRECTORY_SEPARATOR;
+	$phpunitlib = t3lib_extMgm::extPath('phpunit') . 'Composer/vendor/phpunit/phpunit';
 }
 unset($extensionSettingsService);
 
