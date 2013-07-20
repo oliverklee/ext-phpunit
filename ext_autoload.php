@@ -1,6 +1,5 @@
 <?php
 $extensionPath = t3lib_extMgm::extPath('phpunit');
-$vfsStreamPath = $extensionPath . 'PEAR/vfsStream/';
 return array(
 	'tx_phpunit_abstractdatacontainer' => $extensionPath . 'Classes/AbstractDataContainer.php',
 	'tx_phpunit_backend_ajax' => $extensionPath . 'Classes/BackEnd/Ajax.php',
@@ -37,15 +36,6 @@ return array(
 	'tx_phpunit_viewhelpers_abstractselectorviewhelper' => $extensionPath . '/Classes/ViewHelpers/AbstractSelectorViewHelper.php',
 	'tx_phpunit_viewhelpers_abstractviewhelper' => $extensionPath . 'Classes/ViewHelpers/AbstractViewHelper.php',
 	'tx_phpunit_viewhelpers_extensionselectorviewhelper' => $extensionPath . 'Classes/ViewHelpers/ExtensionSelectorViewHelper.php',
-	'tx_phpunit_viewhelpers_progressbarviewhelper' => $extensionPath . 'Classes/ViewHelpers/ProgressBarViewHelper.php',
-	'vfsstream' => $vfsStreamPath . 'vfsStream.php',
-	'vfsstreamabstractContent' => $vfsStreamPath . 'vfsStreamAbstractContent.php',
-	'vfsstreamcontainer' => $vfsStreamPath . 'vfsStreamContainer.php',
-	'vfsstreamcontaineriterator' => $vfsStreamPath . 'vfsStreamContainerIterator.php',
-	'vfsstreamcontent' => $vfsStreamPath . 'vfsStreamContent.php',
-	'vfsstreamdirectory' => $vfsStreamPath . 'vfsStreamDirectory.php',
-	'vfsstreamexception' => $vfsStreamPath . 'vfsStreamException.php',
-	'vfsstreamfile' => $vfsStreamPath . 'vfsStreamFile.php',
-	'vfsstreamwrapper' => $vfsStreamPath . 'vfsStreamWrapper.php',
+	'tx_phpunit_viewhelpers_progressbarviewhelper' => $extensionPath . 'Classes/ViewHelpers/ProgressBarViewHelper.php'
 );
 ?>

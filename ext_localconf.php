@@ -3,6 +3,9 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
+require_once(t3lib_extMgm::extPath('phpunit') . 'Composer/vendor/autoload.php');
+require_once(t3lib_extMgm::extPath('phpunit') . 'Migrations/vfsStream.php');
+
 /** @var $extensionSettingsService Tx_Phpunit_Service_ExtensionSettingsService */
 $extensionSettingsService = t3lib_div::makeInstance('Tx_Phpunit_Service_ExtensionSettingsService');
 $composerPhpUnitPath = t3lib_extMgm::extPath('phpunit') . 'Composer/vendor/phpunit/phpunit/';
