@@ -3690,15 +3690,40 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException t3lib_exception
-     */
-    public function deleteDummyFolderWithNonEmptyDummyFolderThrowsException() {
+	 * @test
+	 *
+	 * @expectedException PHPUnit_Framework_Error_Warning
+	 */
+	public function deleteDummyFolderWithNonEmptyDummyFolderRaisesWarning() {
+		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 6002000) {
+			$this->markTestSkipped('This test is available in TYPO3 below version 6.2.');
+		}
+
 		$dummyFolder = $this->fixture->createDummyFolder('test_folder');
 		$this->fixture->createDummyFile(
 			$this->fixture->getPathRelativeToUploadDirectory($dummyFolder) .
-				'/test.txt'
+			'/test.txt'
+		);
+
+		$this->fixture->deleteDummyFolder(
+			$this->fixture->getPathRelativeToUploadDirectory($dummyFolder)
+		);
+	}
+
+	/**
+	 * @test
+	 *
+	 * @expectedException t3lib_exception
+	 */
+	public function deleteDummyFolderWithNonEmptyDummyFolderThrowsException() {
+		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) < 6002000) {
+			$this->markTestSkipped('This test is available in TYPO3 6.2 and above.');
+		}
+
+		$dummyFolder = $this->fixture->createDummyFolder('test_folder');
+		$this->fixture->createDummyFile(
+			$this->fixture->getPathRelativeToUploadDirectory($dummyFolder) .
+			'/test.txt'
 		);
 
 		$this->fixture->deleteDummyFolder(
