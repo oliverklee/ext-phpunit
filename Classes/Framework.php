@@ -1066,7 +1066,7 @@ class Tx_Phpunit_Framework {
 
 		if (t3lib_div::mkdir($this->getUploadFolderPath())) {
 			// registers the upload folder as dummy folder
-			$this->dummyFolders['uploadFolder'] = '';
+			$this->dummyFolders['uploadFolder'] = $this->getUploadFolderPath();
 		} else {
 			throw new t3lib_exception('The upload folder ' . $this->getUploadFolderPath() . ' could not be created.', 1334439408);
 		}
