@@ -27,7 +27,7 @@ if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) < 
 }
 
 /**
- * Testcase for the Tx_Phpunit_BackEnd_Ajax class.
+ * Test case.
  *
  * @package TYPO3
  * @subpackage tx_phpunit

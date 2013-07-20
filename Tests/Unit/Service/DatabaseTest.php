@@ -23,7 +23,7 @@
  ***************************************************************/
 
 /**
- * Testcase for the Tx_Phpunit_Service_Database class in the "phpunit" extension.
+ * Test case.
  *
  * @package TYPO3
  * @subpackage tx_phpunit

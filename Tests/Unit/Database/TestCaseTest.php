@@ -23,9 +23,9 @@
  ***************************************************************/
 
 /**
- * Testcase for the database functions of the "phpunit" extension.
+ * Test case.
  *
- * These testcases require that the following extensions are installed:
+ * These test cases require that the following extensions are installed:
  *  1. aaa
  *  2. bbb (depends on aaa and alters aaa' tables)
  *  3. ccc (depends on bbb)

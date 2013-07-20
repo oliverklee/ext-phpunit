@@ -24,7 +24,7 @@
  ***************************************************************/
 
 /**
- * Test case for class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper.
+ * Test case.
  *
  * @package TYPO3
  * @subpackage tx_phpunit

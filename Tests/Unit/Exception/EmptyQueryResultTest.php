@@ -23,7 +23,7 @@
 ***************************************************************/
 
 /**
- * Testcase for the Tx_Phpunit_Exception_EmptyQueryResultTest class.
+ * Test case.
  *
  * @package TYPO3
  * @subpackage tx_phpunit

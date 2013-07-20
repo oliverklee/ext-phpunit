@@ -23,7 +23,7 @@
 ***************************************************************/
 
 /**
- * Testcase for the Tx_Phpunit_Framework class.
+ * Test case.
  *
  * @package TYPO3
  * @subpackage tx_phpunit

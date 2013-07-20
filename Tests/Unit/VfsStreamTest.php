@@ -23,7 +23,7 @@
 ***************************************************************/
 
 /**
- * Testcase for the vfsStream classes.
+ * Test case.
  *
  * @package TYPO3
  * @subpackage tx_phpunit

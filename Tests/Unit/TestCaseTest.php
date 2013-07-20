@@ -25,7 +25,7 @@
 require_once(t3lib_extMgm::extPath('phpunit') .  'Tests/Unit/Fixtures/ProtectedClass.php');
 
 /**
- * Test case for the Tx_Phpunit_TestCase class.
+ * Test case.
  *
  * @author Kasper Ligaard <kasperligaard@gmail.com>
  * @author Nicole Cordes <nicole.cordes@googlemail.com>

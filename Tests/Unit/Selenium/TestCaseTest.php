@@ -23,7 +23,7 @@
  ***************************************************************/
 
 /**
- * Test case for the Tx_Phpunit_Selenium_TestCase class.
+ * Test case.
  *
  * @package TYPO3
  * @subpackage tx_phpunit

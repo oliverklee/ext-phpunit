@@ -28,7 +28,7 @@ if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) < 
 $GLOBALS['LANG']->includeLLFile('EXT:phpunit/Resources/Private/Language/locallang_backend.xml');
 
 /**
- * Testcase for the Tx_Phpunit_BackEnd_Module class.
+ * Test case.
  *
  * @package TYPO3
  * @subpackage tx_phpunit

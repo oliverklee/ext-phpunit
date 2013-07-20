@@ -23,7 +23,7 @@
 ***************************************************************/
 
 /**
- * Testcase for the Tx_Phpunit_BackEnd_TestListener class.
+ * Test case.
  *
  * @package TYPO3
  * @subpackage tx_phpunit

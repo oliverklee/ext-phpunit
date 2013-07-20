@@ -23,7 +23,7 @@
 ***************************************************************/
 
 /**
- * Testcase for the Tx_Phpunit_Testable class.
+ * Test case.
  *
  * @package TYPO3
  * @subpackage tx_
