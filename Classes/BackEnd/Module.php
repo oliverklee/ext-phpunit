@@ -215,7 +215,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 				)
 			);
 		} else {
-			$this->doc = t3lib_div::makeInstance('mediumDoc');
+			$this->doc = t3lib_div::makeInstance('bigDoc');
 			$this->doc->backPath = $GLOBALS['BACK_PATH'];
 
 			$this->outputService->output(
