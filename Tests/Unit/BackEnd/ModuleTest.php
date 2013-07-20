@@ -166,9 +166,6 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 				'  public function createAndInitializeTestListener() {' .
 				'    return parent::createAndInitializeTestListener();' .
 				'  }' .
-				'  public function isAcceptedTestSuiteClass($class) {' .
-				'    return parent::isAcceptedTestSuiteClass($class);' .
-				'  }' .
 				'}'
 			);
 		}
@@ -676,50 +673,6 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->fixture->createIconStyle('');
 	}
 
-	/**
-	 * @test
-	 */
-	public function isAcceptedTestSuiteClassReturnsTrueForNonSpecialClass() {
-		$this->assertTrue(
-			$this->fixture->isAcceptedTestSuiteClass('foo')
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function isAcceptedTestSuiteClassReturnsTrueForTestCaseSubClass() {
-		$this->assertTrue(
-			$this->fixture->isAcceptedTestSuiteClass(get_class($this))
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function isAcceptedTestSuiteClassReturnsFalseForPhpunitTestCase() {
-		$this->assertFalse(
-			$this->fixture->isAcceptedTestSuiteClass('Tx_Phpunit_TestCase')
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function isAcceptedTestSuiteClassReturnsFalseForPhpunitDatabaseTestCase() {
-		$this->assertFalse(
-			$this->fixture->isAcceptedTestSuiteClass('Tx_Phpunit_Database_TestCase')
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function isAcceptedTestSuiteClassReturnsFalseForPhpunitSeleniumTestCase() {
-		$this->assertFalse(
-			$this->fixture->isAcceptedTestSuiteClass('Tx_Phpunit_Selenium_TestCase')
-		);
-	}
 
 	/*
 	 * Tests concerning createTestCaseSelector

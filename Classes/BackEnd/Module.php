@@ -73,17 +73,6 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	protected $userSettingsService = NULL;
 
 	/**
-	 * the names of classes which cannot be directly run as test cases
-	 *
-	 * @var array
-	 */
-	protected $ignoredTestSuitClasses = array(
-		'Tx_Phpunit_TestCase',
-		'Tx_Phpunit_Database_TestCase',
-		'Tx_Phpunit_Selenium_TestCase',
-	);
-
-	/**
 	 * @var PHP_CodeCoverage
 	 */
 	protected $coverage = NULL;
@@ -1015,18 +1004,6 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$testable = $this->testFinder->getTestableForKey($extensionKey);
 
 		return 'background: url(' . $testable->getIconPath() . ') 3px 50% white no-repeat; padding: 1px 1px 1px 24px;';
-	}
-
-	/**
-	 * Tests whether $class is the name of a class which can be run in the test
-	 * runner.
-	 *
-	 * @param string $class class name to test, must not be empty
-	 *
-	 * @return boolean TRUE if the class is accepted, FALSE otherwise
-	 */
-	protected function isAcceptedTestSuiteClass($class) {
-		return !in_array($class, $this->ignoredTestSuitClasses);
 	}
 
 	/**
