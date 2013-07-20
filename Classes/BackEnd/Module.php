@@ -556,6 +556,8 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * @return void
 	 */
 	protected function renderRunningTest() {
+		$this->setPhpUnitErrorHandler();
+
 		$selectedTestableKey = $this->getAndSaveSelectedTestableKey();
 		$this->renderTestingHeader($selectedTestableKey);
 
@@ -594,6 +596,17 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		if ($this->shouldCollectCodeCoverageInformation()) {
 			$this->renderCodeCoverage();
 		}
+	}
+
+	/**
+	 * Sets the PHPUnit error handler to catch all errors.
+	 * This is important as PHPUnit only sets its error handler if nothing has been set before,
+	 * but typically an error handler is set during by TYPO3 during the initialization.
+	 *
+	 * @return void
+	 */
+	protected function setPhpUnitErrorHandler() {
+		set_error_handler(array('PHPUnit_Util_ErrorHandler', 'handleError'), E_ALL | E_STRICT);
 	}
 
 	/**
