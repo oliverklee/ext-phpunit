@@ -5,18 +5,18 @@ if (!defined('TYPO3_MODE')) {
 
 /** @var $extensionSettingsService Tx_Phpunit_Service_ExtensionSettingsService */
 $extensionSettingsService = t3lib_div::makeInstance('Tx_Phpunit_Service_ExtensionSettingsService');
-if ($extensionSettingsService->hasString('phpunitlib')
-	&& is_dir($extensionSettingsService->getAsString('phpunitlib') . DIRECTORY_SEPARATOR . 'PHPUnit')
-) {
-	$phpunitlib = $extensionSettingsService->getAsString('phpunitlib') . DIRECTORY_SEPARATOR;
-} else {
-	$phpunitlib = t3lib_extMgm::extPath('phpunit') . 'Composer/vendor/phpunit/phpunit';
+$composerPhpUnitPath = t3lib_extMgm::extPath('phpunit') . 'Composer/vendor/phpunit/phpunit/';
+if ($extensionSettingsService->hasString('phpunitlib')) {
+	$userPhpUnitPath = rtrim(t3lib_div::fixWindowsFilePath($extensionSettingsService->getAsString('phpunitlib')), '/');
+	if (is_dir($userPhpUnitPath . '/PHPUnit')) {
+		$composerPhpUnitPath = $userPhpUnitPath . '/';
+	}
 }
 unset($extensionSettingsService);
 
-define(TX_PHPUNITLIB_EXTPATH, $phpunitlib);
+define(TX_PHPUNITLIB_EXTPATH, $composerPhpUnitPath);
 set_include_path(TX_PHPUNITLIB_EXTPATH . PATH_SEPARATOR . get_include_path());
-unset($phpunitlib);
+unset($composerPhpUnitPath);
 
 $GLOBALS['TYPO3_CONF_VARS']['BE']['AJAX']['Tx_Phpunit_BackEnd_Ajax']
 	= 'typo3conf/ext/phpunit/Classes/BackEnd/Ajax.php:Tx_Phpunit_BackEnd_Ajax->ajaxBroker';

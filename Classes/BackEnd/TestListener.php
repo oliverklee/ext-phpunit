@@ -301,7 +301,7 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 		$testCaseTraceData = array();
 
 		foreach ($traceData as $singleTraceArr) {
-			if (!stristr($singleTraceArr['file'], 'Framework' . DIRECTORY_SEPARATOR . 'Assert.php')) {
+			if (!stristr(t3lib_div::fixWindowsFilePath($singleTraceArr['file']), 'Framework/Assert.php')) {
 				$testCaseTraceData = $singleTraceArr;
 				break;
 			}
