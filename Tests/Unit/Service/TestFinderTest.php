@@ -149,8 +149,8 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getRelativeCoreTestsPathCanFindTestsInCoreSourceInSitePath() {
-		if (!file_exists(PATH_site . 'typo3_src/tests/')) {
-			$this->markTestSkipped('This test can only be run if the Core tests are located in typo3_src/tests/.');
+		if (!file_exists(PATH_site . 'typo3_src/tests/') || file_exists(PATH_site . 'tests/')) {
+			$this->markTestSkipped('This test can only be run if the Core tests are located in typo3_src/tests/ only.');
 		}
 
 		$this->assertSame(
@@ -191,8 +191,8 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getAbsoluteCoreTestsPathCanFindTestsInCoreSourceInSitePath() {
-		if (!file_exists(PATH_site . 'typo3_src/tests/')) {
-			$this->markTestSkipped('This test can only be run if the Core tests are located in typo3_src/tests/.');
+		if (!file_exists(PATH_site . 'typo3_src/tests/') || file_exists(PATH_site . 'tests/')) {
+			$this->markTestSkipped('This test can only be run if the Core tests are located in typo3_src/tests/ only.');
 		}
 
 		$this->assertSame(
