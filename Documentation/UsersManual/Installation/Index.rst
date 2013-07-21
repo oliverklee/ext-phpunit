@@ -34,7 +34,7 @@ These are basic requirements for using this extension:
 
 If you would like to run the unit tests of the phpunit extension
 itself, you'll also need to install the following dummy extension
-which are located in EXT:phpunit/Tests/Fixtures/Extensions/:
+which are located in EXT:phpunit/TestExtensions/:
 
 - aaa
 
