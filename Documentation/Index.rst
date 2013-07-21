@@ -39,4 +39,5 @@ The content of this document is related to TYPO3 - a GNU/GPL CMS/Framework avail
    TheIncludedTestingFrameworkClass/Index
    AcceptanceTestingUsingPhpunitAndSelenium/Index
    TechnicalDocumentation/Index
+   ContinuousIntegration/Index
 
