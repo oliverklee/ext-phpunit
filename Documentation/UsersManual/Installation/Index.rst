@@ -61,3 +61,6 @@ MySQL user with the following global permissions:
 
 - ALTER
 
+If you would like to use the PHPUnit package installed in your system via PEAR
+or via Composer, please make sure that your PHPUnit is version 3.7.18 or higher.
+This is necessary to avoid problems with the PHPUnit autoloader.
