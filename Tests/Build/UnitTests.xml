@@ -7,7 +7,6 @@
 	<testsuites>
 		<testsuite name="EXT:phpunit all tests">
 			<directory>../Unit</directory>
-			<exclude>../Unit/Fixtures/Extensions</exclude>
 		</testsuite>
 	</testsuites>
 </phpunit>
