@@ -1,3 +1,61 @@
+1e9d06c [TASK] Allow loading Composer-installed PHPUnit/vfsStream
+6fc4614 [TASK] Update the PHPDoc
+ee43bc7 [TASK] Remove the exclude section from the UnitTests.xml file
+e5da92b [TASK] Run the unit tests on TravisCI
+d19c514 [FEATURE] Add a TestCaseService
+35a7089 [TASK] Add information about local PHPUnit requirements
+c1c065a [TASK] Set the extension status to stable
+7c95762 [TASK] Move the test extensions away from Tests/
+df28936 [TASK] Change setExpectedException to @expectedException
+973583e [TASK] Switch to the non-PEAR vfsstream
+aa9389c [CLEANUP] Drop BackEndModule::isAcceptedTestSuiteClass
+fde6456 [BUGFIX] Fix failing test in TYPO3 < 6.2
+712d2c4 [TASK] Stop using the DIRECTORY_SEPARATOR constant
+2e3607d [FEATURE] Create a phpunit.xml
+46a14c7 [TASK] Convert the manual to ReST
+7c9072a [TASK] Update PHPUnit to 3.7
+3e14ea3 [FEATURE] Add PHPUnit error handler as default
+9188add [TASK] Rename TestFinder::findTestCaseFilesDirectory
+7973208 [TASK] Avoid calls to deprecated functions from 4.5 to 6.2
+1cee6de [TASK] Improve messages for skipped tests
+99b1f9f [TASK] Make test runner class files side-effect free
+3e30685 [BUGFIX] Tx_Phpunit_Service_TestFinderTest throws errors
+106bb83 [BUGFIX] class Tx_Phpunit_FrameworkTest throws error
+b4a3016 [CLEANUP] Change the test case class comments to "Test case."
+501a928 [BUGFIX] Clean tearDown for database testcase tests
+2a243df [CLEANUP] PHPCS issues
+3928c3b [BUGFIX] class Tx_Phpunit_BackEnd_ModuleTest throws failures
+ef7bccd [BUGFIX] class Tx_Phpunit_Database_TestCaseTest throws failures
+91c2d28 [CLEANUP] Drop the class_exists('t3lib_utility_VersionNumber') calls
+0a5ed2c [TASK] Avoid using loadTCA with TYPO3 >= 6.1
+a421578 [BUGFIX] Incorrect @var type annotation in BackEnd/Index.php
+3d0f4a0 [BUGFIX] class Tx_Phpunit_BackEnd_AjaxTest throws errors and failures
+e2e6394 [BUGFIX] Tx_Phpunit_Service_DatabaseTest::selectReturnsRessource Test fails on 6.1+
+f231626 [BUGFIX] Fatal error: class_exists()
+a194fce [BUGFIX] Tests fatal on TYPO3 6.2
+d141658 [BUGFIX] Wrong SEPARATOR constant in ext_localconf.php
+d65897f [BUGFIX] Crash when using the system PHPUnit without PHPUnit Selenium
+0d9c18c [TASK] Update version constraints in ext_emconf.php
+e101036 [BUGFIX] Improve and fix shell runner script
+ced8d9b [TASK] Update the copyrights to 2013
+e076e7a [TASK] Release PHPUnit 3.6.12.
+ae36837 [BUGFIX] BaseTestCase throws a warning because of missing tests
+61d21fa [TASK] Drop TestFinder::retrieveExtensionTitle
+1a6d16e Merge "[BUGFIX] Missing quotes in database test"
+72a6701 [BUGFIX] Missing quotes in database test
+ba81ac0 Merge "[BUGFIX] Extension configuration uses wrong type"
+0a6dc3c [BUGFIX] Extension configuration uses wrong type
+f5d6e3a [TASK] Require PHP >= 5.3
+13444a5 [BUGFIX] Use the new TYPO3 logo
+ba29756 [BUGFIX] Crash in 4.5: ExtensionSelectorViewHelper class not found
+7f779dd Merge "[TASK] Move creating the extension drop-down to a ViewHelper"
+e8bc756 Merge "[BUGFIX] Fix some spelling mistakes"
+8a2b22d [BUGFIX] Fix some spelling mistakes
+7e586c7 [TASK] Move creating the extension drop-down to a ViewHelper
+aa8ec07 [BUGFIX] PHPUnit has to support ext_icon.png too
+975fc64 [TASK] Find tests of TYPO3 6.0
+777bb6b Release PHPUnit 3.6.11.
+c33238b [TASK] Update the changelog
 b46d4ec [TASK] Update the API documentation of the testing framework again
 cfd1f5b [TASK] Rework the extension description in ext_emconf.php
 43eddb9 [FEATURE] Provide methods to access static properties of a mocked object
