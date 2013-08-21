@@ -53,6 +53,15 @@ fi
 CLI_PATH="${TYPO3_SITE_PATH}/typo3/cli_dispatch.phpsh phpunit_ide_testrunner"
 
 phpParams=''
+testRunner=''
+isFunctionalTestRun=''
+
+# When checking if we are being asked to execute a functional test or not,
+# we assume that the string "Functional" must appear in the command line option for for functional tests
+if echo "$@" | grep -q "/Functional"
+then
+	isFunctionalTestRun=1
+fi
 
 # Find the testrunner script and shift away options for the php binary
 for param in "$@"
@@ -60,6 +69,8 @@ do
 	if echo ${param} | grep -q ${IDE_PHP_UNIT_TESTRUNNER_NAME}
 	then
 		testRunnerFound=1
+		testRunner="${param}"
+		shift
 		break
 	else
 		phpParams="${phpParams}${param} "
@@ -67,23 +78,39 @@ do
 	fi
 done
 
-phpUnitParams=''
+# If we are in functional testing context we need to supply some custom parameters
+if [ -n "${isFunctionalTestRun}" ]
+then
+	phpUnitParams="--process-isolation --bootstrap ${TYPO3_SITE_PATH}/typo3/sysext/core/Build/FunctionalTestsBootstrap.php "
+# Use this line, if you need xdebug for a single test
+#	phpUnitParams="--bootstrap ${TYPO3_SITE_PATH}/typo3/sysext/core/Build/FunctionalTestsBootstrap.php "
+else
+	phpUnitParams=''
+fi
+
 for param in "$@"
 do
 	phpUnitParams="${phpUnitParams}\"${param}\" "
 	shift
 done
 
-
 # If no ide test runner is found, just pass the parameters to the PHP binary and do not involve TYPO3
 if [ -n "${testRunnerFound}" ]
 then
-	COMPLETE_PARAMS="${phpParams} ${CLI_PATH} ${phpUnitParams}"
+	if [ -n "${isFunctionalTestRun}" ]
+	then
+		COMPLETE_PARAMS="${phpParams} ${testRunner} ${phpUnitParams}"
+	else
+		COMPLETE_PARAMS="${phpParams} ${CLI_PATH} ${testRunner} ${phpUnitParams}"
+	fi
 else
 	COMPLETE_PARAMS="${phpParams}"
 fi
 
 [ -n "${ENV_DEBUG}" ] && echo "running: $PHP ${COMPLETE_PARAMS}"
+
+# Be nice and go to the web root
+cd ${TYPO3_SITE_PATH}
 
 # Let's dance!
 eval $PHP ${COMPLETE_PARAMS}
