@@ -48,7 +48,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var Tx_Phpunit_BackEnd_Request
 	 */
-	protected $fixture = NULL;
+	protected $subject = NULL;
 
 	/**
 	 * @var array
@@ -68,11 +68,11 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 		$GLOBALS['_GET'] = array();
 		$GLOBALS['_POST'] = array();
 
-		$this->fixture = new Tx_Phpunit_BackEnd_Request();
+		$this->subject = new Tx_Phpunit_BackEnd_Request();
 	}
 
 	public function tearDown() {
-		unset($this->fixture);
+		unset($this->subject);
 	}
 
 	/**
@@ -81,7 +81,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	public function classIsRequest() {
 		$this->assertInstanceOf(
 			'Tx_Phpunit_Interface_Request',
-			$this->fixture
+			$this->subject
 		);
 	}
 
@@ -90,7 +90,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getAsBooleanForMissingValueReturnsFalse() {
 		$this->assertFalse(
-			$this->fixture->getAsBoolean('foo')
+			$this->subject->getAsBoolean('foo')
 		);
 	}
 
@@ -101,7 +101,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 		$GLOBALS['_GET']['tx_phpunit'] = $this->testData;
 
 		$this->assertFalse(
-			$this->fixture->getAsBoolean('testValueFalse')
+			$this->subject->getAsBoolean('testValueFalse')
 		);
 	}
 
@@ -112,7 +112,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 		$GLOBALS['_GET']['tx_phpunit'] = $this->testData;
 
 		$this->assertTrue(
-			$this->fixture->getAsBoolean('testValueTrue')
+			$this->subject->getAsBoolean('testValueTrue')
 		);
 	}
 
@@ -123,7 +123,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 		$GLOBALS['_GET']['tx_phpunit'] = $this->testData;
 
 		$this->assertTrue(
-			$this->fixture->getAsBoolean('testValueOneInteger')
+			$this->subject->getAsBoolean('testValueOneInteger')
 		);
 	}
 
@@ -133,7 +133,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	public function getAsIntegerForMissingValueReturnsZero() {
 		$this->assertSame(
 			0,
-			$this->fixture->getAsInteger('foo')
+			$this->subject->getAsInteger('foo')
 		);
 	}
 
@@ -145,7 +145,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			42,
-			$this->fixture->getAsInteger('testValuePositiveInteger')
+			$this->subject->getAsInteger('testValuePositiveInteger')
 		);
 	}
 
@@ -156,7 +156,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 		$GLOBALS['_GET']['tx_phpunit'] = $this->testData;
 
 		$this->assertFalse(
-			$this->fixture->hasInteger('testValueZeroInteger')
+			$this->subject->hasInteger('testValueZeroInteger')
 		);
 	}
 
@@ -167,7 +167,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 		$GLOBALS['_GET']['tx_phpunit'] = $this->testData;
 
 		$this->assertTrue(
-			$this->fixture->hasInteger('testValuePositiveInteger')
+			$this->subject->hasInteger('testValuePositiveInteger')
 		);
 	}
 
@@ -178,7 +178,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 		$GLOBALS['_GET']['tx_phpunit'] = $this->testData;
 
 		$this->assertTrue(
-			$this->fixture->hasInteger('testValueNegativeInteger')
+			$this->subject->hasInteger('testValueNegativeInteger')
 		);
 	}
 
@@ -188,7 +188,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	public function getAsStringForMissingValueReturnsEmptyString() {
 		$this->assertSame(
 			'',
-			$this->fixture->getAsString('foo')
+			$this->subject->getAsString('foo')
 		);
 	}
 
@@ -200,7 +200,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			'Hello world!',
-			$this->fixture->getAsString('testValueString')
+			$this->subject->getAsString('testValueString')
 		);
 	}
 
@@ -212,7 +212,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			'42',
-			$this->fixture->getAsString('testValuePositiveInteger')
+			$this->subject->getAsString('testValuePositiveInteger')
 		);
 	}
 
@@ -223,7 +223,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 		$GLOBALS['_GET']['tx_phpunit'] = $this->testData;
 
 		$this->assertFalse(
-			$this->fixture->hasString('testValueEmptyString')
+			$this->subject->hasString('testValueEmptyString')
 		);
 	}
 
@@ -234,7 +234,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 		$GLOBALS['_GET']['tx_phpunit'] = $this->testData;
 
 		$this->assertTrue(
-			$this->fixture->hasString('testValueString')
+			$this->subject->hasString('testValueString')
 		);
 	}
 
@@ -245,7 +245,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 		$GLOBALS['_POST']['tx_phpunit'] = $this->testData;
 
 		$this->assertFalse(
-			$this->fixture->getAsBoolean('testValueFalse')
+			$this->subject->getAsBoolean('testValueFalse')
 		);
 	}
 
@@ -256,7 +256,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 		$GLOBALS['_POST']['tx_phpunit'] = $this->testData;
 
 		$this->assertTrue(
-			$this->fixture->getAsBoolean('testValueTrue')
+			$this->subject->getAsBoolean('testValueTrue')
 		);
 	}
 
@@ -267,7 +267,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 		$GLOBALS['_POST']['tx_phpunit'] = $this->testData;
 
 		$this->assertTrue(
-			$this->fixture->getAsBoolean('testValueOneInteger')
+			$this->subject->getAsBoolean('testValueOneInteger')
 		);
 	}
 
@@ -279,7 +279,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			42,
-			$this->fixture->getAsInteger('testValuePositiveInteger')
+			$this->subject->getAsInteger('testValuePositiveInteger')
 		);
 	}
 
@@ -290,7 +290,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 		$GLOBALS['_POST']['tx_phpunit'] = $this->testData;
 
 		$this->assertFalse(
-			$this->fixture->hasInteger('testValueZeroInteger')
+			$this->subject->hasInteger('testValueZeroInteger')
 		);
 	}
 
@@ -301,7 +301,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 		$GLOBALS['_POST']['tx_phpunit'] = $this->testData;
 
 		$this->assertTrue(
-			$this->fixture->hasInteger('testValuePositiveInteger')
+			$this->subject->hasInteger('testValuePositiveInteger')
 		);
 	}
 
@@ -312,7 +312,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 		$GLOBALS['_POST']['tx_phpunit'] = $this->testData;
 
 		$this->assertTrue(
-			$this->fixture->hasInteger('testValueNegativeInteger')
+			$this->subject->hasInteger('testValueNegativeInteger')
 		);
 	}
 
@@ -324,7 +324,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			'Hello world!',
-			$this->fixture->getAsString('testValueString')
+			$this->subject->getAsString('testValueString')
 		);
 	}
 
@@ -336,7 +336,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			'42',
-			$this->fixture->getAsString('testValuePositiveInteger')
+			$this->subject->getAsString('testValuePositiveInteger')
 		);
 	}
 
@@ -347,7 +347,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 		$GLOBALS['_POST']['tx_phpunit'] = $this->testData;
 
 		$this->assertFalse(
-			$this->fixture->hasString('testValueEmptyString')
+			$this->subject->hasString('testValueEmptyString')
 		);
 	}
 
@@ -358,7 +358,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 		$GLOBALS['_POST']['tx_phpunit'] = $this->testData;
 
 		$this->assertTrue(
-			$this->fixture->hasString('testValueString')
+			$this->subject->hasString('testValueString')
 		);
 	}
 
@@ -371,7 +371,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			'postValue',
-			$this->fixture->getAsString('foo')
+			$this->subject->getAsString('foo')
 		);
 	}
 }

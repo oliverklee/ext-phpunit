@@ -35,7 +35,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var Tx_Phpunit_Service_UserSettingsService
 	 */
-	protected $fixture = NULL;
+	protected $subject = NULL;
 
 	/**
 	 * backup of $GLOBALS['BE_USER']
@@ -48,13 +48,13 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 		$this->backEndUserBackup = $GLOBALS['BE_USER'];
 		$GLOBALS['BE_USER'] = $this->getMock('t3lib_beUserAuth');
 
-		$this->fixture = new Tx_Phpunit_Service_UserSettingsService();
+		$this->subject = new Tx_Phpunit_Service_UserSettingsService();
 	}
 
 	public function tearDown() {
 		$GLOBALS['BE_USER'] = $this->backEndUserBackup;
 
-		unset($this->fixture, $this->backEndUserBackup);
+		unset($this->subject, $this->backEndUserBackup);
 	}
 
 	/**
@@ -63,7 +63,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	public function classIsSingleton() {
 		$this->assertInstanceOf(
 			't3lib_Singleton',
-			$this->fixture
+			$this->subject
 		);
 	}
 
@@ -73,7 +73,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	public function classIsSingletonUserSettings() {
 		$this->assertInstanceOf(
 			'Tx_Phpunit_Interface_UserSettingsService',
-			$this->fixture
+			$this->subject
 		);
 	}
 
@@ -82,7 +82,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getAsBooleanForMissingValueReturnsFalse() {
 		$this->assertFalse(
-			$this->fixture->getAsBoolean('foo')
+			$this->subject->getAsBoolean('foo')
 		);
 	}
 
@@ -94,7 +94,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 		$GLOBALS['BE_USER']->uc['Tx_Phpunit_BackEndSettings'][$key] = FALSE;
 
 		$this->assertFalse(
-			$this->fixture->getAsBoolean($key)
+			$this->subject->getAsBoolean($key)
 		);
 	}
 
@@ -106,7 +106,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 		$GLOBALS['BE_USER']->uc['Tx_Phpunit_BackEndSettings'][$key] = TRUE;
 
 		$this->assertTrue(
-			$this->fixture->getAsBoolean($key)
+			$this->subject->getAsBoolean($key)
 		);
 	}
 
@@ -118,7 +118,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 		$GLOBALS['BE_USER']->uc['Tx_Phpunit_BackEndSettings'][$key] = '1';
 
 		$this->assertTrue(
-			$this->fixture->getAsBoolean($key)
+			$this->subject->getAsBoolean($key)
 		);
 	}
 
@@ -127,10 +127,10 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	public function setCanSetBooleanValueToFalse() {
 		$key = 'foo';
-		$this->fixture->set($key, FALSE);
+		$this->subject->set($key, FALSE);
 
 		$this->assertFalse(
-			$this->fixture->getAsBoolean($key)
+			$this->subject->getAsBoolean($key)
 		);
 	}
 
@@ -139,10 +139,10 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	public function setCanSetBooleanValueToTrue() {
 		$key = 'foo';
-		$this->fixture->set($key, TRUE);
+		$this->subject->set($key, TRUE);
 
 		$this->assertTrue(
-			$this->fixture->getAsBoolean($key)
+			$this->subject->getAsBoolean($key)
 		);
 	}
 
@@ -152,7 +152,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	public function getAsIntegerForMissingValueReturnsZero() {
 		$this->assertSame(
 			0,
-			$this->fixture->getAsInteger('foo')
+			$this->subject->getAsInteger('foo')
 		);
 	}
 
@@ -166,7 +166,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			$value,
-			$this->fixture->getAsInteger($key)
+			$this->subject->getAsInteger($key)
 		);
 	}
 
@@ -180,7 +180,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			$value,
-			$this->fixture->getAsInteger($key)
+			$this->subject->getAsInteger($key)
 		);
 	}
 
@@ -190,11 +190,11 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	public function setCanSetIntegerValue() {
 		$key = 'foo';
 		$value = 9;
-		$this->fixture->set($key, $value);
+		$this->subject->set($key, $value);
 
 		$this->assertSame(
 			$value,
-			$this->fixture->getAsInteger($key)
+			$this->subject->getAsInteger($key)
 		);
 	}
 
@@ -204,10 +204,10 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	public function hasIntegerForZeroReturnsFalse() {
 		$key = 'foo';
 		$value = 0;
-		$this->fixture->set($key, $value);
+		$this->subject->set($key, $value);
 
 		$this->assertFalse(
-			$this->fixture->hasInteger($key)
+			$this->subject->hasInteger($key)
 		);
 	}
 
@@ -217,10 +217,10 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	public function hasIntegerForPositiveIntegerReturnsTrue() {
 		$key = 'foo';
 		$value = 2;
-		$this->fixture->set($key, $value);
+		$this->subject->set($key, $value);
 
 		$this->assertTrue(
-			$this->fixture->hasInteger($key)
+			$this->subject->hasInteger($key)
 		);
 	}
 
@@ -230,10 +230,10 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	public function hasIntegerForNegativeIntegerReturnsTrue() {
 		$key = 'foo';
 		$value = -1;
-		$this->fixture->set($key, $value);
+		$this->subject->set($key, $value);
 
 		$this->assertTrue(
-			$this->fixture->hasInteger($key)
+			$this->subject->hasInteger($key)
 		);
 	}
 
@@ -243,7 +243,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	public function getAsStringForMissingValueReturnsEmptyString() {
 		$this->assertSame(
 			'',
-			$this->fixture->getAsString('foo')
+			$this->subject->getAsString('foo')
 		);
 	}
 
@@ -257,7 +257,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			$value,
-			$this->fixture->getAsString($key)
+			$this->subject->getAsString($key)
 		);
 	}
 
@@ -271,7 +271,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			$value,
-			$this->fixture->getAsString($key)
+			$this->subject->getAsString($key)
 		);
 	}
 
@@ -281,11 +281,11 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	public function setCanSetStringValue() {
 		$key = 'foo';
 		$value = 'Hello world!';
-		$this->fixture->set($key, $value);
+		$this->subject->set($key, $value);
 
 		$this->assertSame(
 			$value,
-			$this->fixture->getAsString($key)
+			$this->subject->getAsString($key)
 		);
 	}
 
@@ -295,10 +295,10 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	public function hasStringForEmptyStringReturnsFalse() {
 		$key = 'foo';
 		$value = '';
-		$this->fixture->set($key, $value);
+		$this->subject->set($key, $value);
 
 		$this->assertFalse(
-			$this->fixture->hasString($key)
+			$this->subject->hasString($key)
 		);
 	}
 
@@ -308,10 +308,10 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	public function hasStringForNonEmptyStringReturnsTrue() {
 		$key = 'foo';
 		$value = 'bar';
-		$this->fixture->set($key, $value);
+		$this->subject->set($key, $value);
 
 		$this->assertTrue(
-			$this->fixture->hasString($key)
+			$this->subject->hasString($key)
 		);
 	}
 
@@ -321,7 +321,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	public function getAsArrayForMissingValueReturnsEmptyArray() {
 		$this->assertSame(
 			array(),
-			$this->fixture->getAsArray('foo')
+			$this->subject->getAsArray('foo')
 		);
 	}
 
@@ -335,7 +335,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			$value,
-			$this->fixture->getAsArray($key)
+			$this->subject->getAsArray($key)
 		);
 	}
 
@@ -348,7 +348,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			array(),
-			$this->fixture->getAsArray($key)
+			$this->subject->getAsArray($key)
 		);
 	}
 
@@ -358,11 +358,11 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	public function setCanSetArrayValue() {
 		$key = 'foo';
 		$value = array('hello', 'world');
-		$this->fixture->set($key, $value);
+		$this->subject->set($key, $value);
 
 		$this->assertSame(
 			$value,
-			$this->fixture->getAsArray($key)
+			$this->subject->getAsArray($key)
 		);
 	}
 
@@ -372,7 +372,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	public function setWritesUserSettings() {
 		$GLOBALS['BE_USER']->expects($this->once())->method('writeUC');
 
-		$this->fixture->set('foo', 'bar');
+		$this->subject->set('foo', 'bar');
 	}
 }
 ?>

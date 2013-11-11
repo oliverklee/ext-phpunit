@@ -35,14 +35,14 @@ class Tx_Phpunit_BackEnd_TestStatisticsTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var Tx_Phpunit_BackEnd_TestStatistics
 	 */
-	protected $fixture = NULL;
+	protected $subject = NULL;
 
 	public function setUp() {
-		$this->fixture = new Tx_Phpunit_BackEnd_TestStatistics();
+		$this->subject = new Tx_Phpunit_BackEnd_TestStatistics();
 	}
 
 	public function tearDown() {
-		unset($this->fixture);
+		unset($this->subject);
 	}
 
 	/**
@@ -50,8 +50,8 @@ class Tx_Phpunit_BackEnd_TestStatisticsTest extends Tx_Phpunit_TestCase {
 	 * @expectedException BadMethodCallException
 	 */
 	public function startCalledTwoTimesThrowsException() {
-		$this->fixture->start();
-		$this->fixture->start();
+		$this->subject->start();
+		$this->subject->start();
 	}
 
 	/**
@@ -59,7 +59,7 @@ class Tx_Phpunit_BackEnd_TestStatisticsTest extends Tx_Phpunit_TestCase {
 	 * @expectedException BadMethodCallException
 	 */
 	public function stopWithoutStartThrowsException() {
-		$this->fixture->stop();
+		$this->subject->stop();
 	}
 
 	/**
@@ -67,9 +67,9 @@ class Tx_Phpunit_BackEnd_TestStatisticsTest extends Tx_Phpunit_TestCase {
 	 * @expectedException BadMethodCallException
 	 */
 	public function stopCalledTwoTimesAfterStartThrowsException() {
-		$this->fixture->start();
-		$this->fixture->stop();
-		$this->fixture->stop();
+		$this->subject->start();
+		$this->subject->stop();
+		$this->subject->stop();
 	}
 
 	/**
@@ -78,7 +78,7 @@ class Tx_Phpunit_BackEnd_TestStatisticsTest extends Tx_Phpunit_TestCase {
 	public function getTimeInitiallyReturnsZero() {
 		$this->assertSame(
 			0.0,
-			$this->fixture->getTime()
+			$this->subject->getTime()
 		);
 	}
 
@@ -90,7 +90,7 @@ class Tx_Phpunit_BackEnd_TestStatisticsTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			0.0,
-			$this->fixture->getTime()
+			$this->subject->getTime()
 		);
 	}
 
@@ -98,12 +98,12 @@ class Tx_Phpunit_BackEnd_TestStatisticsTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getTimeAfterStartAfterPauseReturnsPassedTime() {
-		$this->fixture->start();
+		$this->subject->start();
 		usleep(100000);
 
 		$this->assertEquals(
 			0.1,
-			$this->fixture->getTime(),
+			$this->subject->getTime(),
 			'', 0.02
 		);
 	}
@@ -112,13 +112,13 @@ class Tx_Phpunit_BackEnd_TestStatisticsTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getTimeAfterStartAndStopReturnsPauseBeforeStop() {
-		$this->fixture->start();
+		$this->subject->start();
 		usleep(100000);
-		$this->fixture->stop();
+		$this->subject->stop();
 
 		$this->assertEquals(
 			0.1,
-			$this->fixture->getTime(),
+			$this->subject->getTime(),
 			'', 0.02
 		);
 	}
@@ -129,7 +129,7 @@ class Tx_Phpunit_BackEnd_TestStatisticsTest extends Tx_Phpunit_TestCase {
 	public function getMemoryInitiallyReturnsZero() {
 		$this->assertSame(
 			0,
-			$this->fixture->getMemory()
+			$this->subject->getMemory()
 		);
 	}
 
@@ -141,7 +141,7 @@ class Tx_Phpunit_BackEnd_TestStatisticsTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			0,
-			$this->fixture->getMemory()
+			$this->subject->getMemory()
 		);
 	}
 
@@ -149,12 +149,12 @@ class Tx_Phpunit_BackEnd_TestStatisticsTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getMemoryAfterStartAfterMemoryUsageReturnsGreaterThanZero() {
-		$this->fixture->start();
+		$this->subject->start();
 		array();
 
 		$this->assertGreaterThan(
 			0,
-			$this->fixture->getMemory()
+			$this->subject->getMemory()
 		);
 	}
 }

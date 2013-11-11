@@ -34,7 +34,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var Tx_Phpunit_Service_TestFinder
 	 */
-	private $fixture = NULL;
+	private $subject = NULL;
 
 	/**
 	 * the absolute path to the fixtures directory for this testcase
@@ -61,17 +61,17 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'] = '';
 		$GLOBALS['TYPO3_CONF_VARS']['EXT']['requiredExt'] = '';
 
-		$this->fixture = $this->createAccessibleProxy();
+		$this->subject = $this->createAccessibleProxy();
 
 		$this->extensionSettingsService = new Tx_Phpunit_TestingDataContainer();
-		$this->fixture->injectExtensionSettingsService($this->extensionSettingsService);
+		$this->subject->injectExtensionSettingsService($this->extensionSettingsService);
 
 		$this->fixturesPath = t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/Service/Fixtures/';
 	}
 
 	public function tearDown() {
-		$this->fixture->__destruct();
-		unset($this->fixture, $this->extensionSettingsService);
+		$this->subject->__destruct();
+		unset($this->subject, $this->extensionSettingsService);
 
 		$GLOBALS['TYPO3_CONF_VARS'] = $this->typo3ConfigurationVariablesBackup;
 	}
@@ -130,7 +130,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 */
 	public function classIsSingleton() {
 		$this->assertTrue(
-			$this->fixture instanceof t3lib_Singleton
+			$this->subject instanceof t3lib_Singleton
 		);
 	}
 
@@ -144,7 +144,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			'typo3_src/tests/',
-			$this->fixture->getRelativeCoreTestsPath()
+			$this->subject->getRelativeCoreTestsPath()
 		);
 	}
 
@@ -158,7 +158,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			'tests/',
-			$this->fixture->getRelativeCoreTestsPath()
+			$this->subject->getRelativeCoreTestsPath()
 		);
 	}
 
@@ -172,7 +172,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			'',
-			$this->fixture->getRelativeCoreTestsPath()
+			$this->subject->getRelativeCoreTestsPath()
 		);
 	}
 
@@ -186,7 +186,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			PATH_site . 'typo3_src/tests/',
-			$this->fixture->getAbsoluteCoreTestsPath()
+			$this->subject->getAbsoluteCoreTestsPath()
 		);
 	}
 
@@ -200,7 +200,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			PATH_site . 'tests/',
-			$this->fixture->getAbsoluteCoreTestsPath()
+			$this->subject->getAbsoluteCoreTestsPath()
 		);
 	}
 
@@ -214,7 +214,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			'',
-			$this->fixture->getAbsoluteCoreTestsPath()
+			$this->subject->getAbsoluteCoreTestsPath()
 		);
 	}
 
@@ -227,7 +227,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 		}
 
 		$this->assertTrue(
-			$this->fixture->hasCoreTests()
+			$this->subject->hasCoreTests()
 		);
 	}
 
@@ -240,7 +240,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 		}
 
 		$this->assertTrue(
-			$this->fixture->hasCoreTests()
+			$this->subject->hasCoreTests()
 		);
 	}
 
@@ -253,7 +253,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 		}
 
 		$this->assertFalse(
-			$this->fixture->hasCoreTests()
+			$this->subject->hasCoreTests()
 		);
 	}
 
@@ -262,12 +262,12 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 * @expectedException InvalidArgumentException
 	 */
 	public function getTestableForKeyForEmptyKeyThrowsException() {
-		/** @var $fixture Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$fixture->expects($this->any())->method('getTestablesForEverything')
+		/** @var $subject Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
+		$subject = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
+		$subject->expects($this->any())->method('getTestablesForEverything')
 			->will($this->returnValue(array('foo' => new Tx_Phpunit_Testable())));
 
-		$fixture->getTestableForKey('');
+		$subject->getTestableForKey('');
 	}
 
 	/**
@@ -276,13 +276,13 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	public function getTestableForKeyForExistingKeyReturnsTestableForKey() {
 		$testable = new Tx_Phpunit_Testable();
 
-		/** @var $fixture Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$fixture->expects($this->any())->method('getTestablesForEverything')->will($this->returnValue(array('foo' => $testable)));
+		/** @var $subject Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
+		$subject = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
+		$subject->expects($this->any())->method('getTestablesForEverything')->will($this->returnValue(array('foo' => $testable)));
 
 		$this->assertSame(
 			$testable,
-			$fixture->getTestableForKey('foo')
+			$subject->getTestableForKey('foo')
 		);
 	}
 
@@ -291,25 +291,25 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 * @expectedException BadMethodCallException
 	 */
 	public function getTestableForKeyForInexistentKeyThrowsException() {
-		/** @var $fixture Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$fixture->expects($this->any())->method('getTestablesForEverything')
+		/** @var $subject Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
+		$subject = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
+		$subject->expects($this->any())->method('getTestablesForEverything')
 			->will($this->returnValue(array('foo' => new Tx_Phpunit_Testable())));
 
-		$fixture->getTestableForKey('bar');
+		$subject->getTestableForKey('bar');
 	}
 
 	/**
 	 * @test
 	 */
 	public function existsTestableForKeyForEmptyKeyReturnsFalse() {
-		/** @var $fixture Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$fixture->expects($this->any())->method('getTestablesForEverything')
+		/** @var $subject Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
+		$subject = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
+		$subject->expects($this->any())->method('getTestablesForEverything')
 			->will($this->returnValue(array('foo' => new Tx_Phpunit_Testable())));
 
 		$this->assertFalse(
-			$fixture->existsTestableForKey('')
+			$subject->existsTestableForKey('')
 		);
 	}
 
@@ -317,13 +317,13 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function existsTestableForKeyForExistingKeyReturnsTrue() {
-		/** @var $fixture Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$fixture->expects($this->any())->method('getTestablesForEverything')
+		/** @var $subject Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
+		$subject = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
+		$subject->expects($this->any())->method('getTestablesForEverything')
 			->will($this->returnValue(array('foo' => new Tx_Phpunit_Testable())));
 
 		$this->assertTrue(
-			$fixture->existsTestableForKey('foo')
+			$subject->existsTestableForKey('foo')
 		);
 	}
 
@@ -331,13 +331,13 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function existsTestableForKeyForInexistentKeyReturnsFalse() {
-		/** @var $fixture Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$fixture->expects($this->any())->method('getTestablesForEverything')
+		/** @var $subject Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
+		$subject = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
+		$subject->expects($this->any())->method('getTestablesForEverything')
 			->will($this->returnValue(array('foo' => new Tx_Phpunit_Testable())));
 
 		$this->assertFalse(
-			$fixture->existsTestableForKey('bar')
+			$subject->existsTestableForKey('bar')
 		);
 	}
 
@@ -645,7 +645,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 		$this->assertContains(
 			'bar',
-			$this->fixture->getLoadedExtensionKeys()
+			$this->subject->getLoadedExtensionKeys()
 		);
 	}
 
@@ -662,7 +662,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 		$this->assertContains(
 			'bar',
-			$this->fixture->getLoadedExtensionKeys()
+			$this->subject->getLoadedExtensionKeys()
 		);
 	}
 
@@ -675,7 +675,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 		$this->assertContains(
 			'foo',
-			$this->fixture->getLoadedExtensionKeys()
+			$this->subject->getLoadedExtensionKeys()
 		);
 	}
 
@@ -688,7 +688,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 		$this->assertContains(
 			'cms',
-			$this->fixture->getLoadedExtensionKeys()
+			$this->subject->getLoadedExtensionKeys()
 		);
 	}
 
@@ -705,7 +705,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			explode(',', REQUIRED_EXTENSIONS . ',foo'),
-			$this->fixture->getLoadedExtensionKeys()
+			$this->subject->getLoadedExtensionKeys()
 		);
 	}
 
@@ -722,7 +722,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			array('foo'),
-			array_filter($this->fixture->getLoadedExtensionKeys(), array($this, 'keepOnlyFooElements'))
+			array_filter($this->subject->getLoadedExtensionKeys(), array($this, 'keepOnlyFooElements'))
 		);
 	}
 
@@ -745,7 +745,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			array('foo', 'bar'),
-			$this->fixture->getExcludedExtensionKeys()
+			$this->subject->getExcludedExtensionKeys()
 		);
 	}
 
@@ -757,7 +757,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			array(),
-			$this->fixture->getExcludedExtensionKeys()
+			$this->subject->getExcludedExtensionKeys()
 		);
 	}
 
@@ -767,7 +767,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	public function getExcludedExtensionKeysForNoPhpUnitConfigurationReturnsEmptyArray() {
 		$this->assertSame(
 			array(),
-			$this->fixture->getExcludedExtensionKeys()
+			$this->subject->getExcludedExtensionKeys()
 		);
 	}
 
@@ -777,7 +777,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	public function getDummyExtensionKeysReturnsKeysOfPhpUnitDummyExtensions() {
 		$this->assertSame(
 			array('aaa', 'bbb', 'ccc', 'ddd'),
-			$this->fixture->getDummyExtensionKeys()
+			$this->subject->getDummyExtensionKeys()
 		);
 	}
 
@@ -865,7 +865,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 * @expectedException InvalidArgumentException
 	 */
 	public function findTestsPathForExtensionForExtensionWithEmptyExtensionKeyThrowsException() {
-		$this->fixture->findTestsPathForExtension('');
+		$this->subject->findTestsPathForExtension('');
 	}
 
 	/**
@@ -880,7 +880,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 			);
 		}
 
-		$this->fixture->findTestsPathForExtension('ccc');
+		$this->subject->findTestsPathForExtension('ccc');
 	}
 
 	/**
@@ -892,7 +892,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	public function findTestsPathForExtensionForExtensionWithUpperFirstTestsDirectoryReturnsThatDirectory() {
 		$this->assertSame(
 			strtolower(t3lib_extMgm::extPath('phpunit') . 'Tests/'),
-			strtolower($this->fixture->findTestsPathForExtension('phpunit'))
+			strtolower($this->subject->findTestsPathForExtension('phpunit'))
 		);
 	}
 
@@ -911,7 +911,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			strtolower(t3lib_extMgm::extPath('bbb') . 'tests/'),
-			strtolower($this->fixture->findTestsPathForExtension('bbb'))
+			strtolower($this->subject->findTestsPathForExtension('bbb'))
 		);
 	}
 

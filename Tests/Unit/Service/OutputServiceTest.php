@@ -35,14 +35,14 @@ class Tx_Phpunit_Service_OutputServiceTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var Tx_Phpunit_Service_OutputService
 	 */
-	protected $fixture = NULL;
+	protected $subject = NULL;
 
 	public function setUp() {
-		$this->fixture = new Tx_Phpunit_Service_OutputService();
+		$this->subject = new Tx_Phpunit_Service_OutputService();
 	}
 
 	public function tearDown() {
-		unset($this->fixture);
+		unset($this->subject);
 	}
 
 	/**
@@ -51,7 +51,7 @@ class Tx_Phpunit_Service_OutputServiceTest extends Tx_Phpunit_TestCase {
 	public function classIsSingleton() {
 		$this->assertInstanceOf(
 			't3lib_Singleton',
-			$this->fixture
+			$this->subject
 		);
 	}
 
@@ -62,7 +62,7 @@ class Tx_Phpunit_Service_OutputServiceTest extends Tx_Phpunit_TestCase {
 		$output = 'Hello world!';
 
 		ob_start();
-		$this->fixture->output($output);
+		$this->subject->output($output);
 
 		$this->assertSame(
 			$output,

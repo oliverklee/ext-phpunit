@@ -35,7 +35,7 @@ class Tx_Phpunit_ViewHelpers_ProgressBarViewHelperTest extends Tx_Phpunit_TestCa
 	/**
 	 * @var Tx_Phpunit_ViewHelpers_ProgressBarViewHelper
 	 */
-	protected $fixture = NULL;
+	protected $subject = NULL;
 
 	/**
 	 * @var Tx_Phpunit_Service_FakeOutputService
@@ -43,14 +43,14 @@ class Tx_Phpunit_ViewHelpers_ProgressBarViewHelperTest extends Tx_Phpunit_TestCa
 	protected $outputService = NULL;
 
 	public function setUp() {
-		$this->fixture = new Tx_Phpunit_ViewHelpers_ProgressBarViewHelper();
+		$this->subject = new Tx_Phpunit_ViewHelpers_ProgressBarViewHelper();
 
 		$this->outputService = new Tx_Phpunit_Service_FakeOutputService();
-		$this->fixture->injectOutputService($this->outputService);
+		$this->subject->injectOutputService($this->outputService);
 	}
 
 	public function tearDown() {
-		unset($this->fixture, $this->outputService);
+		unset($this->subject, $this->outputService);
 	}
 
 	/**
@@ -59,7 +59,7 @@ class Tx_Phpunit_ViewHelpers_ProgressBarViewHelperTest extends Tx_Phpunit_TestCa
 	public function classIsSubclassAbstractViewHelper() {
 		$this->assertInstanceOf(
 			'Tx_Phpunit_ViewHelpers_AbstractViewHelper',
-			$this->fixture
+			$this->subject
 		);
 	}
 
@@ -67,7 +67,7 @@ class Tx_Phpunit_ViewHelpers_ProgressBarViewHelperTest extends Tx_Phpunit_TestCa
 	 * @test
 	 */
 	public function renderCreatesProgressBarHtmlId() {
-		$this->fixture->render();
+		$this->subject->render();
 
 		$this->assertContains(
 			'id="progress-bar"',

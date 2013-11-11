@@ -35,14 +35,14 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var Tx_Phpunit_TestingDataContainer
 	 */
-	protected $fixture = NULL;
+	protected $subject = NULL;
 
 	public function setUp() {
-		$this->fixture = new Tx_Phpunit_TestingDataContainer();
+		$this->subject = new Tx_Phpunit_TestingDataContainer();
 	}
 
 	public function tearDown() {
-		unset($this->fixture);
+		unset($this->subject);
 	}
 
 	/**
@@ -51,7 +51,7 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 	public function classIsSingletonUserSettings() {
 		$this->assertInstanceOf(
 			'Tx_Phpunit_Interface_UserSettingsService',
-			$this->fixture
+			$this->subject
 		);
 	}
 
@@ -60,7 +60,7 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getAsBooleanForMissingValueReturnsFalse() {
 		$this->assertFalse(
-			$this->fixture->getAsBoolean('foo')
+			$this->subject->getAsBoolean('foo')
 		);
 	}
 
@@ -69,10 +69,10 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 	 */
 	public function setCanSetBooleanValueToFalse() {
 		$key = 'foo';
-		$this->fixture->set($key, FALSE);
+		$this->subject->set($key, FALSE);
 
 		$this->assertFalse(
-			$this->fixture->getAsBoolean($key)
+			$this->subject->getAsBoolean($key)
 		);
 	}
 
@@ -81,10 +81,10 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 	 */
 	public function setCanSetBooleanValueToTrue() {
 		$key = 'foo';
-		$this->fixture->set($key, TRUE);
+		$this->subject->set($key, TRUE);
 
 		$this->assertTrue(
-			$this->fixture->getAsBoolean($key)
+			$this->subject->getAsBoolean($key)
 		);
 	}
 
@@ -93,10 +93,10 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getAsBooleanCanReturnOneStringAsTrue() {
 		$key = 'foo';
-		$this->fixture->set($key, '1');
+		$this->subject->set($key, '1');
 
 		$this->assertTrue(
-			$this->fixture->getAsBoolean($key)
+			$this->subject->getAsBoolean($key)
 		);
 	}
 
@@ -106,7 +106,7 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 	public function getAsIntegerForMissingValueReturnsZero() {
 		$this->assertSame(
 			0,
-			$this->fixture->getAsInteger('foo')
+			$this->subject->getAsInteger('foo')
 		);
 	}
 
@@ -116,11 +116,11 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 	public function setCanSetIntegerValue() {
 		$key = 'foo';
 		$value = 42;
-		$this->fixture->set($key, $value);
+		$this->subject->set($key, $value);
 
 		$this->assertSame(
 			$value,
-			$this->fixture->getAsInteger($key)
+			$this->subject->getAsInteger($key)
 		);
 	}
 
@@ -130,10 +130,10 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 	public function hasIntegerForZeroReturnsFalse() {
 		$key = 'foo';
 		$value = 0;
-		$this->fixture->set($key, $value);
+		$this->subject->set($key, $value);
 
 		$this->assertFalse(
-			$this->fixture->hasInteger($key)
+			$this->subject->hasInteger($key)
 		);
 	}
 
@@ -143,10 +143,10 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 	public function hasIntegerForPositiveIntegerReturnsTrue() {
 		$key = 'foo';
 		$value = 2;
-		$this->fixture->set($key, $value);
+		$this->subject->set($key, $value);
 
 		$this->assertTrue(
-			$this->fixture->hasInteger($key)
+			$this->subject->hasInteger($key)
 		);
 	}
 
@@ -156,10 +156,10 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 	public function hasIntegerForNegativeIntegerReturnsTrue() {
 		$key = 'foo';
 		$value = -1;
-		$this->fixture->set($key, $value);
+		$this->subject->set($key, $value);
 
 		$this->assertTrue(
-			$this->fixture->hasInteger($key)
+			$this->subject->hasInteger($key)
 		);
 	}
 
@@ -169,7 +169,7 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 	public function getAsStringForMissingValueReturnsEmptyString() {
 		$this->assertSame(
 			'',
-			$this->fixture->getAsString('foo')
+			$this->subject->getAsString('foo')
 		);
 	}
 
@@ -179,11 +179,11 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 	public function setCanSetStringValue() {
 		$key = 'foo';
 		$value = 'Hello world!';
-		$this->fixture->set($key, $value);
+		$this->subject->set($key, $value);
 
 		$this->assertSame(
 			$value,
-			$this->fixture->getAsString($key)
+			$this->subject->getAsString($key)
 		);
 	}
 
@@ -193,10 +193,10 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 	public function hasStringForEmptyStringReturnsFalse() {
 		$key = 'foo';
 		$value = '';
-		$this->fixture->set($key, $value);
+		$this->subject->set($key, $value);
 
 		$this->assertFalse(
-			$this->fixture->hasString($key)
+			$this->subject->hasString($key)
 		);
 	}
 
@@ -206,10 +206,10 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 	public function hasStringForNonEmptyStringReturnsTrue() {
 		$key = 'foo';
 		$value = 'bar';
-		$this->fixture->set($key, $value);
+		$this->subject->set($key, $value);
 
 		$this->assertTrue(
-			$this->fixture->hasString($key)
+			$this->subject->hasString($key)
 		);
 	}
 
@@ -219,7 +219,7 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 	public function getAsArrayForMissingValueReturnsEmptyArray() {
 		$this->assertSame(
 			array(),
-			$this->fixture->getAsArray('foo')
+			$this->subject->getAsArray('foo')
 		);
 	}
 
@@ -229,11 +229,11 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 	public function setCanSetArrayValue() {
 		$key = 'foo';
 		$value = array('foo', 'foobar');
-		$this->fixture->set($key, $value);
+		$this->subject->set($key, $value);
 
 		$this->assertSame(
 			$value,
-			$this->fixture->getAsArray($key)
+			$this->subject->getAsArray($key)
 		);
 	}
 }

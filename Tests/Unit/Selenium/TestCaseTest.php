@@ -35,7 +35,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var Tx_Phpunit_Selenium_TestCase|PHPUnit_Framework_MockObject_MockObject
 	 */
-	private $fixture = NULL;
+	private $subject = NULL;
 
 	/**
 	 * @var Tx_Phpunit_TestingDataContainer
@@ -48,16 +48,16 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 		}
 
 		$this->extensionSettingsService = new Tx_Phpunit_TestingDataContainer();
-		$this->fixture = $this->getMock(
+		$this->subject = $this->getMock(
 			$this->createAccessibleProxyClass(),
 			array('isSeleniumServerRunning'),
 			array(NULL, array(), '', $this->extensionSettingsService)
 		);
-		$this->fixture->expects($this->any())->method('isSeleniumServerRunning')->will($this->returnValue(TRUE));
+		$this->subject->expects($this->any())->method('isSeleniumServerRunning')->will($this->returnValue(TRUE));
 	}
 
 	protected function tearDown() {
-		unset($this->fixture, $this->extensionSettingsService);
+		unset($this->subject, $this->extensionSettingsService);
 	}
 
 	/*
@@ -132,7 +132,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			$url,
-			$this->fixture->getSeleniumBrowserUrl()
+			$this->subject->getSeleniumBrowserUrl()
 		);
 	}
 
@@ -147,7 +147,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			$expected,
-			$this->fixture->getSeleniumBrowserUrl()
+			$this->subject->getSeleniumBrowserUrl()
 		);
 	}
 
@@ -160,7 +160,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			$browser,
-			$this->fixture->getSeleniumBrowser()
+			$this->subject->getSeleniumBrowser()
 		);
 	}
 
@@ -170,7 +170,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 	public function getSeleniumBrowserForNoConfiguredBrowserReturnsDefaultBrowser() {
 		$this->assertSame(
 			Tx_Phpunit_Selenium_TestCase::DEFAULT_SELENIUM_BROWSER,
-			$this->fixture->getSeleniumBrowser()
+			$this->subject->getSeleniumBrowser()
 		);
 	}
 
@@ -183,7 +183,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			$port,
-			$this->fixture->getSeleniumPort()
+			$this->subject->getSeleniumPort()
 		);
 	}
 
@@ -193,7 +193,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 	public function getSeleniumPortForNoConfiguredPortReturnsDefaultPort() {
 		$this->assertSame(
 			Tx_Phpunit_Selenium_TestCase::DEFAULT_SELENIUM_PORT,
-			$this->fixture->getSeleniumPort()
+			$this->subject->getSeleniumPort()
 		);
 	}
 
@@ -206,7 +206,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 
 		$this->assertSame(
 			$host,
-			$this->fixture->getSeleniumHost()
+			$this->subject->getSeleniumHost()
 		);
 	}
 
@@ -216,7 +216,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 	public function getSeleniumHostForNotConfiguredHostReturnsTheDefaultHost() {
 		$this->assertSame(
 			Tx_Phpunit_Selenium_TestCase::DEFAULT_SELENIUM_HOST,
-			$this->fixture->getSeleniumHost()
+			$this->subject->getSeleniumHost()
 		);
 	}
 
@@ -229,11 +229,11 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 		$this->extensionSettingsService->set('selenium_host', 'http://example.invalid');
 
 		$className = $this->createAccessibleProxyClass();
-		/** @var $fixture Tx_Phpunit_BackEnd_Module */
-		$fixture = new $className();
+		/** @var $subject Tx_Phpunit_BackEnd_Module */
+		$subject = new $className();
 
 		$this->assertFalse(
-			$fixture->isSeleniumServerRunning()
+			$subject->isSeleniumServerRunning()
 		);
 	}
 
@@ -243,10 +243,10 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 	public function runTestWhenServerIsNotRunningMarksTestAsSkipped() {
 		$this->extensionSettingsService->set('selenium_host', 'http://example.invalid');
 
-		$fixture = new Tx_Phpunit_Selenium_TestCase();
+		$subject = new Tx_Phpunit_Selenium_TestCase();
 
 		try {
-			$fixture->runTest();
+			$subject->runTest();
 		} catch (PHPUnit_Framework_SkippedTestError $e) {
 			$this->assertTrue(TRUE);
 		}

@@ -35,7 +35,7 @@ class Tx_Phpunit_Service_ExtensionSettingsServiceTest extends Tx_Phpunit_TestCas
 	/**
 	 * @var Tx_Phpunit_Service_ExtensionSettingsService
 	 */
-	protected $fixture = NULL;
+	protected $subject = NULL;
 
 	/**
 	 * @var string
@@ -61,13 +61,13 @@ class Tx_Phpunit_Service_ExtensionSettingsServiceTest extends Tx_Phpunit_TestCas
 		$this->extensionConfigurationBackup = $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'];
 		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['phpunit'] = serialize($this->testConfiguration);
 
-		$this->fixture = new Tx_Phpunit_Service_ExtensionSettingsService();
+		$this->subject = new Tx_Phpunit_Service_ExtensionSettingsService();
 	}
 
 	public function tearDown() {
 		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'] = $this->extensionConfigurationBackup;
 
-		unset($this->fixture, $this->extensionConfigurationBackup);
+		unset($this->subject, $this->extensionConfigurationBackup);
 	}
 
 	/**
@@ -76,7 +76,7 @@ class Tx_Phpunit_Service_ExtensionSettingsServiceTest extends Tx_Phpunit_TestCas
 	public function classIsSingleton() {
 		$this->assertInstanceOf(
 			't3lib_Singleton',
-			$this->fixture
+			$this->subject
 		);
 	}
 
@@ -86,7 +86,7 @@ class Tx_Phpunit_Service_ExtensionSettingsServiceTest extends Tx_Phpunit_TestCas
 	public function classIsSingletonExtensionSettings() {
 		$this->assertInstanceOf(
 			'Tx_Phpunit_Interface_ExtensionSettingsService',
-			$this->fixture
+			$this->subject
 		);
 	}
 
@@ -95,7 +95,7 @@ class Tx_Phpunit_Service_ExtensionSettingsServiceTest extends Tx_Phpunit_TestCas
 	 */
 	public function getAsBooleanForMissingValueReturnsFalse() {
 		$this->assertFalse(
-			$this->fixture->getAsBoolean('foo')
+			$this->subject->getAsBoolean('foo')
 		);
 	}
 
@@ -104,7 +104,7 @@ class Tx_Phpunit_Service_ExtensionSettingsServiceTest extends Tx_Phpunit_TestCas
 	 */
 	public function getAsBooleanCanReturnFalseFromExtensionSettings() {
 		$this->assertFalse(
-			$this->fixture->getAsBoolean('testValueFalse')
+			$this->subject->getAsBoolean('testValueFalse')
 		);
 	}
 
@@ -113,7 +113,7 @@ class Tx_Phpunit_Service_ExtensionSettingsServiceTest extends Tx_Phpunit_TestCas
 	 */
 	public function getAsBooleanCanReturnTrueFromExtensionSettings() {
 		$this->assertTrue(
-			$this->fixture->getAsBoolean('testValueTrue')
+			$this->subject->getAsBoolean('testValueTrue')
 		);
 	}
 
@@ -122,7 +122,7 @@ class Tx_Phpunit_Service_ExtensionSettingsServiceTest extends Tx_Phpunit_TestCas
 	 */
 	public function getAsBooleanCanReturnOneStringFromExtensionSettingsAsTrue() {
 		$this->assertTrue(
-			$this->fixture->getAsBoolean('testValueOneInteger')
+			$this->subject->getAsBoolean('testValueOneInteger')
 		);
 	}
 
@@ -132,7 +132,7 @@ class Tx_Phpunit_Service_ExtensionSettingsServiceTest extends Tx_Phpunit_TestCas
 	public function getAsIntegerForMissingValueReturnsZero() {
 		$this->assertSame(
 			0,
-			$this->fixture->getAsInteger('foo')
+			$this->subject->getAsInteger('foo')
 		);
 	}
 
@@ -142,7 +142,7 @@ class Tx_Phpunit_Service_ExtensionSettingsServiceTest extends Tx_Phpunit_TestCas
 	public function getAsIntegerForExistingValueReturnsValueFromExtensionSettings() {
 		$this->assertSame(
 			42,
-			$this->fixture->getAsInteger('testValuePositiveInteger')
+			$this->subject->getAsInteger('testValuePositiveInteger')
 		);
 	}
 
@@ -151,7 +151,7 @@ class Tx_Phpunit_Service_ExtensionSettingsServiceTest extends Tx_Phpunit_TestCas
 	 */
 	public function hasIntegerForZeroReturnsFalse() {
 		$this->assertFalse(
-			$this->fixture->hasInteger('testValueZeroInteger')
+			$this->subject->hasInteger('testValueZeroInteger')
 		);
 	}
 
@@ -160,7 +160,7 @@ class Tx_Phpunit_Service_ExtensionSettingsServiceTest extends Tx_Phpunit_TestCas
 	 */
 	public function hasIntegerForPositiveIntegerReturnsTrue() {
 		$this->assertTrue(
-			$this->fixture->hasInteger('testValuePositiveInteger')
+			$this->subject->hasInteger('testValuePositiveInteger')
 		);
 	}
 
@@ -169,7 +169,7 @@ class Tx_Phpunit_Service_ExtensionSettingsServiceTest extends Tx_Phpunit_TestCas
 	 */
 	public function hasIntegerForNegativeIntegerReturnsTrue() {
 		$this->assertTrue(
-			$this->fixture->hasInteger('testValueNegativeInteger')
+			$this->subject->hasInteger('testValueNegativeInteger')
 		);
 	}
 
@@ -179,7 +179,7 @@ class Tx_Phpunit_Service_ExtensionSettingsServiceTest extends Tx_Phpunit_TestCas
 	public function getAsStringForMissingValueReturnsEmptyString() {
 		$this->assertSame(
 			'',
-			$this->fixture->getAsString('foo')
+			$this->subject->getAsString('foo')
 		);
 	}
 
@@ -189,7 +189,7 @@ class Tx_Phpunit_Service_ExtensionSettingsServiceTest extends Tx_Phpunit_TestCas
 	public function getAsStringForExistingValueReturnsValueFromExtensionSettings() {
 		$this->assertSame(
 			'Hello world!',
-			$this->fixture->getAsString('testValueString')
+			$this->subject->getAsString('testValueString')
 		);
 	}
 
@@ -199,7 +199,7 @@ class Tx_Phpunit_Service_ExtensionSettingsServiceTest extends Tx_Phpunit_TestCas
 	public function getAsStringForExistingIntegerValueReturnsStringValueFromExtensionSettings() {
 		$this->assertSame(
 			'42',
-			$this->fixture->getAsString('testValuePositiveInteger')
+			$this->subject->getAsString('testValuePositiveInteger')
 		);
 	}
 
@@ -208,7 +208,7 @@ class Tx_Phpunit_Service_ExtensionSettingsServiceTest extends Tx_Phpunit_TestCas
 	 */
 	public function hasStringForEmptyStringReturnsFalse() {
 		$this->assertFalse(
-			$this->fixture->hasString('testValueEmptyString')
+			$this->subject->hasString('testValueEmptyString')
 		);
 	}
 
@@ -217,7 +217,7 @@ class Tx_Phpunit_Service_ExtensionSettingsServiceTest extends Tx_Phpunit_TestCas
 	 */
 	public function hasStringForNonEmptyStringReturnsTrue() {
 		$this->assertTrue(
-			$this->fixture->hasString('testValueString')
+			$this->subject->hasString('testValueString')
 		);
 	}
 
@@ -227,7 +227,7 @@ class Tx_Phpunit_Service_ExtensionSettingsServiceTest extends Tx_Phpunit_TestCas
 	public function getAsArrayForMissingValueReturnsEmptyArray() {
 		$this->assertSame(
 			array(),
-			$this->fixture->getAsArray('foo')
+			$this->subject->getAsArray('foo')
 		);
 	}
 
@@ -237,7 +237,7 @@ class Tx_Phpunit_Service_ExtensionSettingsServiceTest extends Tx_Phpunit_TestCas
 	public function getAsArrayForExistingValueReturnsValueFromExtensionSettings() {
 		$this->assertSame(
 			array('foo', 'bar'),
-			$this->fixture->getAsArray('testValueArray')
+			$this->subject->getAsArray('testValueArray')
 		);
 	}
 
@@ -247,7 +247,7 @@ class Tx_Phpunit_Service_ExtensionSettingsServiceTest extends Tx_Phpunit_TestCas
 	public function getAsArrayForExistingIntegerValueReturnsEmptyArray() {
 		$this->assertSame(
 			array(),
-			$this->fixture->getAsArray('testValuePositiveInteger')
+			$this->subject->getAsArray('testValuePositiveInteger')
 		);
 	}
 }

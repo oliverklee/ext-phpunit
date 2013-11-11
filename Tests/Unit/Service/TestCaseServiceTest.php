@@ -34,7 +34,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var Tx_Phpunit_Service_TestCaseService
 	 */
-	private $fixture = NULL;
+	private $subject = NULL;
 
 	/**
 	 * the absolute path to the fixtures directory for this test case
@@ -49,17 +49,17 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	protected $userSettingsService = NULL;
 
 	public function setUp() {
-		$this->fixture = new Tx_Phpunit_Service_TestCaseService();
+		$this->subject = new Tx_Phpunit_Service_TestCaseService();
 
 		$this->userSettingsService = new Tx_Phpunit_TestingDataContainer();
-		$this->fixture->injectUserSettingsService($this->userSettingsService);
+		$this->subject->injectUserSettingsService($this->userSettingsService);
 
 		$this->fixturesPath = t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/Service/Fixtures/';
 	}
 
 	public function tearDown() {
-		$this->fixture->__destruct();
-		unset($this->fixture, $this->userSettingsService);
+		$this->subject->__destruct();
+		unset($this->subject, $this->userSettingsService);
 	}
 
 	/**
@@ -67,7 +67,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	public function classIsSingleton() {
 		$this->assertTrue(
-			$this->fixture instanceof t3lib_Singleton
+			$this->subject instanceof t3lib_Singleton
 		);
 	}
 
@@ -78,7 +78,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 * @expectedException InvalidArgumentException
 	 */
 	public function findTestCaseFilesInDirectoryForEmptyPathThrowsException() {
-		$this->fixture->findTestCaseFilesInDirectory('');
+		$this->subject->findTestCaseFilesInDirectory('');
 	}
 
 	/**
@@ -87,7 +87,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 * @expectedException InvalidArgumentException
 	 */
 	public function findTestCaseFilesInDirectoryForInexistentPathThrowsException() {
-		$this->fixture->findTestCaseFilesInDirectory(
+		$this->subject->findTestCaseFilesInDirectory(
 			$this->fixturesPath . 'DoesNotExist/'
 		);
 	}
@@ -98,7 +98,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	public function findTestCaseFilesInDirectoryForEmptyDirectoryReturnsEmptyArray() {
 		$this->assertSame(
 			array(),
-			$this->fixture->findTestCaseFilesInDirectory($this->fixturesPath . 'Empty/')
+			$this->subject->findTestCaseFilesInDirectory($this->fixturesPath . 'Empty/')
 		);
 	}
 
@@ -108,15 +108,15 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	public function findTestCaseFilesInDirectoryFindsFileWithProperTestcaseFileName() {
 		$path = 'OneTest.php';
 
-		/** @var $fixture Tx_Phpunit_Service_TestCaseService|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock('Tx_Phpunit_Service_TestCaseService', array('isNotFixturesPath', 'isTestCaseFileName'));
-		$fixture->expects($this->any())->method('isNotFixturesPath')->will(($this->returnValue(TRUE)));
-		$fixture->expects($this->at(1))->method('isTestCaseFileName')
+		/** @var $subject Tx_Phpunit_Service_TestCaseService|PHPUnit_Framework_MockObject_MockObject */
+		$subject = $this->getMock('Tx_Phpunit_Service_TestCaseService', array('isNotFixturesPath', 'isTestCaseFileName'));
+		$subject->expects($this->any())->method('isNotFixturesPath')->will(($this->returnValue(TRUE)));
+		$subject->expects($this->at(1))->method('isTestCaseFileName')
 			->with($this->fixturesPath . $path)->will($this->returnValue(TRUE));
 
 		$this->assertContains(
 			$path,
-			$fixture->findTestCaseFilesInDirectory($this->fixturesPath)
+			$subject->findTestCaseFilesInDirectory($this->fixturesPath)
 		);
 	}
 
@@ -126,15 +126,15 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	public function findTestCaseFilesInDirectoryNotFindsFileWithNonProperTestcaseFileName() {
 		$path = 'OneTest.php';
 
-		/** @var $fixture Tx_Phpunit_Service_TestCaseService|PHPUnit_Framework_MockObject_MockObject */
-		$fixture = $this->getMock('Tx_Phpunit_Service_TestCaseService', array('isNotFixturesPath','isTestCaseFileName'));
-		$fixture->expects($this->any())->method('isNotFixturesPath')->will(($this->returnValue(TRUE)));
-		$fixture->expects($this->at(1))->method('isTestCaseFileName')
+		/** @var $subject Tx_Phpunit_Service_TestCaseService|PHPUnit_Framework_MockObject_MockObject */
+		$subject = $this->getMock('Tx_Phpunit_Service_TestCaseService', array('isNotFixturesPath','isTestCaseFileName'));
+		$subject->expects($this->any())->method('isNotFixturesPath')->will(($this->returnValue(TRUE)));
+		$subject->expects($this->at(1))->method('isTestCaseFileName')
 			->with($this->fixturesPath . $path)->will($this->returnValue(FALSE));
 
 		$this->assertNotContains(
 			$path,
-			$fixture->findTestCaseFilesInDirectory($this->fixturesPath)
+			$subject->findTestCaseFilesInDirectory($this->fixturesPath)
 		);
 	}
 
@@ -146,7 +146,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 
 		$this->assertContains(
 			$path,
-			$this->fixture->findTestCaseFilesInDirectory(t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/')
+			$this->subject->findTestCaseFilesInDirectory(t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/')
 		);
 	}
 
@@ -154,7 +154,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function findTestCaseFilesInDirectoryAcceptsPathWithTrailingSlash() {
-		$result = $this->fixture->findTestCaseFilesInDirectory(t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/Service');
+		$result = $this->subject->findTestCaseFilesInDirectory(t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/Service');
 
 		$this->assertFalse(
 			empty($result)
@@ -165,7 +165,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function findTestCaseFilesInDirectoryAcceptsPathWithoutTrailingSlash() {
-		$result = $this->fixture->findTestCaseFilesInDirectory(
+		$result = $this->subject->findTestCaseFilesInDirectory(
 			t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/Service'
 		);
 
@@ -178,7 +178,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function findTestCaseFilesInDirectorySortsFileNamesInAscendingOrder() {
-		$result = $this->fixture->findTestCaseFilesInDirectory(t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/Service/');
+		$result = $this->subject->findTestCaseFilesInDirectory(t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/Service/');
 
 		$fileName1 = 'DatabaseTest.php';
 		$fileName2 = 'TestFinderTest.php';
@@ -196,7 +196,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 
 		$this->assertNotContains(
 			$path,
-			$this->fixture->findTestCaseFilesInDirectory($this->fixturesPath)
+			$this->subject->findTestCaseFilesInDirectory($this->fixturesPath)
 		);
 	}
 
@@ -215,7 +215,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 
 		$this->assertNotContains(
 			$fileName,
-			$this->fixture->findTestCaseFilesInDirectory($path)
+			$this->subject->findTestCaseFilesInDirectory($path)
 		);
 	}
 
@@ -229,7 +229,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	public function isTestCaseFileNameForTestSuffixReturnsTrue() {
 		$this->assertTrue(
-			$this->fixture->isTestCaseFileName(
+			$this->subject->isTestCaseFileName(
 				$this->fixturesPath . 'OneTest.php'
 			)
 		);
@@ -240,7 +240,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	public function isTestCaseFileNameForLowercaseTestSuffixReturnsTrue() {
 		$this->assertTrue(
-			$this->fixture->isTestCaseFileName(
+			$this->subject->isTestCaseFileName(
 				$this->fixturesPath . 'onetest.php'
 			)
 		);
@@ -251,7 +251,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	public function isTestCaseFileNameForLowercaseTestcaseSuffixReturnsTrue() {
 		$this->assertTrue(
-			$this->fixture->isTestCaseFileName(
+			$this->subject->isTestCaseFileName(
 				$this->fixturesPath . 'Another_testcase.php'
 			)
 		);
@@ -262,7 +262,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	public function isTestCaseFileNameForLowercaseNoUnderscoreTestcaseSuffixReturnsTrue() {
 		$this->assertTrue(
-			$this->fixture->isTestCaseFileName(
+			$this->subject->isTestCaseFileName(
 				$this->fixturesPath . 'anothertestcase.php'
 			)
 		);
@@ -273,7 +273,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	public function isTestCaseFileNameForOtherPhpFileReturnsFalse() {
 		$this->assertFalse(
-			$this->fixture->isTestCaseFileName(
+			$this->subject->isTestCaseFileName(
 				$this->fixturesPath . 'SomethingDifferent.php'
 			)
 		);
@@ -286,7 +286,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	public function isTestCaseFileNameForHiddenMacFileReturnsFalse() {
 		$this->assertFalse(
-			$this->fixture->isTestCaseFileName(
+			$this->subject->isTestCaseFileName(
 				$this->fixturesPath . '._tx_tendbook_testTest.php'
 			)
 		);
@@ -303,7 +303,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 * @expectedException InvalidArgumentException
 	 */
 	public function isValidTestCaseClassNameForEmptyStringThrowsException() {
-		$this->fixture->isValidTestCaseClassName('');
+		$this->subject->isValidTestCaseClassName('');
 	}
 
 	/**
@@ -330,7 +330,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	public function isValidTestCaseClassNameForValidClassNamesReturnsTrue($className) {
 		$this->assertTrue(
-			$this->fixture->isValidTestCaseClassName($className)
+			$this->subject->isValidTestCaseClassName($className)
 		);
 	}
 
@@ -405,7 +405,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	public function isValidTestCaseClassNameForInvalidClassNamesReturnsFalse($className) {
 		$this->assertFalse(
-			$this->fixture->isValidTestCaseClassName($className)
+			$this->subject->isValidTestCaseClassName($className)
 		);
 	}
 }

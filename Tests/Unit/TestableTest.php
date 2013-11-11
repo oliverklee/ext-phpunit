@@ -34,14 +34,14 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var Tx_Phpunit_Testable
 	 */
-	private $fixture;
+	private $subject;
 
 	public function setUp() {
-		$this->fixture = new Tx_Phpunit_Testable();
+		$this->subject = new Tx_Phpunit_Testable();
 	}
 
 	public function tearDown() {
-		unset($this->fixture);
+		unset($this->subject);
 	}
 
 	/**
@@ -50,7 +50,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	public function getKeyInitiallyReturnsEmptyString() {
 		$this->assertSame(
 			'',
-			$this->fixture->getKey()
+			$this->subject->getKey()
 		);
 	}
 
@@ -58,11 +58,11 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function setKeySetsKey() {
-		$this->fixture->setKey('foo');
+		$this->subject->setKey('foo');
 
 		$this->assertSame(
 			'foo',
-			$this->fixture->getKey()
+			$this->subject->getKey()
 		);
 	}
 
@@ -72,7 +72,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 * @expectedException InvalidArgumentException
 	 */
 	public function setKeyWithEmptyStringThrowsException() {
-		$this->fixture->setKey('');
+		$this->subject->setKey('');
 	}
 
 	/**
@@ -81,7 +81,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	public function getTitleInitiallyReturnsEmptyString() {
 		$this->assertSame(
 			'',
-			$this->fixture->getTitle()
+			$this->subject->getTitle()
 		);
 	}
 
@@ -89,11 +89,11 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function setTitleSetsTitle() {
-		$this->fixture->setTitle('White Russian');
+		$this->subject->setTitle('White Russian');
 
 		$this->assertSame(
 			'White Russian',
-			$this->fixture->getTitle()
+			$this->subject->getTitle()
 		);
 	}
 
@@ -101,11 +101,11 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function setTitleCanSetTitleToEmptyString() {
-		$this->fixture->setTitle('');
+		$this->subject->setTitle('');
 
 		$this->assertSame(
 			'',
-			$this->fixture->getTitle()
+			$this->subject->getTitle()
 		);
 	}
 
@@ -115,7 +115,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	public function getTypeInitiallyReturnsUndefined() {
 		$this->assertSame(
 			Tx_Phpunit_Testable::TYPE_UNDEFINED,
-			$this->fixture->getType()
+			$this->subject->getType()
 		);
 	}
 
@@ -123,11 +123,11 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function setTypeCanSetTypeToExtension() {
-		$this->fixture->setType(Tx_Phpunit_Testable::TYPE_EXTENSION);
+		$this->subject->setType(Tx_Phpunit_Testable::TYPE_EXTENSION);
 
 		$this->assertSame(
 			Tx_Phpunit_Testable::TYPE_EXTENSION,
-			$this->fixture->getType()
+			$this->subject->getType()
 		);
 	}
 
@@ -135,11 +135,11 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function setTypeCanSetTypeToCore() {
-		$this->fixture->setType(Tx_Phpunit_Testable::TYPE_CORE);
+		$this->subject->setType(Tx_Phpunit_Testable::TYPE_CORE);
 
 		$this->assertSame(
 			Tx_Phpunit_Testable::TYPE_CORE,
-			$this->fixture->getType()
+			$this->subject->getType()
 		);
 	}
 
@@ -149,7 +149,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 * @expectedException InvalidArgumentException
 	 */
 	public function setTypeForUndefinedTypeThrowsException() {
-		$this->fixture->setType(Tx_Phpunit_Testable::TYPE_UNDEFINED);
+		$this->subject->setType(Tx_Phpunit_Testable::TYPE_UNDEFINED);
 	}
 
 	/**
@@ -158,7 +158,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 * @expectedException InvalidArgumentException
 	 */
 	public function setTypeForInvalidTypeThrowsException() {
-		$this->fixture->setType(-1);
+		$this->subject->setType(-1);
 	}
 
 	/**
@@ -167,7 +167,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	public function getCodePathInitiallyReturnsEmptyString() {
 		$this->assertSame(
 			'',
-			$this->fixture->getCodePath()
+			$this->subject->getCodePath()
 		);
 	}
 
@@ -176,11 +176,11 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 */
 	public function setCodePathSetsCodePath() {
 		$path = t3lib_extMgm::extPath('phpunit');
-		$this->fixture->setCodePath($path);
+		$this->subject->setCodePath($path);
 
 		$this->assertSame(
 			$path,
-			$this->fixture->getCodePath()
+			$this->subject->getCodePath()
 		);
 	}
 
@@ -190,7 +190,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 * @expectedException InvalidArgumentException
 	 */
 	public function setCodePathWithEmptyStringThrowsException() {
-		$this->fixture->setCodePath('');
+		$this->subject->setCodePath('');
 	}
 
 	/**
@@ -199,7 +199,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	public function getTestsPathInitiallyReturnsEmptyString() {
 		$this->assertSame(
 			'',
-			$this->fixture->getTestsPath()
+			$this->subject->getTestsPath()
 		);
 	}
 
@@ -208,11 +208,11 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 */
 	public function setTestsPathSetsTestsPath() {
 		$path = t3lib_extMgm::extPath('phpunit') . 'Tests/';
-		$this->fixture->setTestsPath($path);
+		$this->subject->setTestsPath($path);
 
 		$this->assertSame(
 			$path,
-			$this->fixture->getTestsPath()
+			$this->subject->getTestsPath()
 		);
 	}
 
@@ -222,7 +222,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 * @expectedException InvalidArgumentException
 	 */
 	public function setTestsPathWithEmptyStringThrowsException() {
-		$this->fixture->setTestsPath('');
+		$this->subject->setTestsPath('');
 	}
 
 	/**
@@ -231,7 +231,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	public function getBlacklistInitiallyReturnsEmptyArray() {
 		$this->assertSame(
 			array(),
-			$this->fixture->getBlacklist()
+			$this->subject->getBlacklist()
 		);
 	}
 
@@ -240,11 +240,11 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 */
 	public function setBlacklistSetsBlacklist() {
 		$fileNames = array('one file', 'another file');
-		$this->fixture->setBlacklist($fileNames);
+		$this->subject->setBlacklist($fileNames);
 
 		$this->assertSame(
 			$fileNames,
-			$this->fixture->getBlacklist()
+			$this->subject->getBlacklist()
 		);
 	}
 
@@ -252,11 +252,11 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function setBlacklistCanSetEmptyBlacklist() {
-		$this->fixture->setBlacklist(array());
+		$this->subject->setBlacklist(array());
 
 		$this->assertSame(
 			array(),
-			$this->fixture->getBlacklist()
+			$this->subject->getBlacklist()
 		);
 	}
 
@@ -266,7 +266,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	public function getWhitelistInitiallyReturnsEmptyArray() {
 		$this->assertSame(
 			array(),
-			$this->fixture->getWhitelist()
+			$this->subject->getWhitelist()
 		);
 	}
 
@@ -275,11 +275,11 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 */
 	public function setWhitelistSetsWhitelist() {
 		$fileNames = array('one file', 'another file');
-		$this->fixture->setWhitelist($fileNames);
+		$this->subject->setWhitelist($fileNames);
 
 		$this->assertSame(
 			$fileNames,
-			$this->fixture->getWhitelist()
+			$this->subject->getWhitelist()
 		);
 	}
 
@@ -287,11 +287,11 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function setWhitelistCanSetEmptyWhitelist() {
-		$this->fixture->setWhitelist(array());
+		$this->subject->setWhitelist(array());
 
 		$this->assertSame(
 			array(),
-			$this->fixture->getWhitelist()
+			$this->subject->getWhitelist()
 		);
 	}
 
@@ -301,7 +301,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	public function getIconPathInitiallyReturnsEmptyString() {
 		$this->assertSame(
 			'',
-			$this->fixture->getIconPath()
+			$this->subject->getIconPath()
 		);
 	}
 
@@ -309,11 +309,11 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function setIconPathSetsIconPath() {
-		$this->fixture->setIconPath('someIcon.gif');
+		$this->subject->setIconPath('someIcon.gif');
 
 		$this->assertSame(
 			'someIcon.gif',
-			$this->fixture->getIconPath()
+			$this->subject->getIconPath()
 		);
 	}
 
@@ -323,7 +323,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 * @expectedException InvalidArgumentException
 	 */
 	public function setIconPathWithEmptyStringThrowsException() {
-		$this->fixture->setIconPath('');
+		$this->subject->setIconPath('');
 	}
 }
 ?>

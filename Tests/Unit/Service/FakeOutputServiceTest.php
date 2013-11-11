@@ -35,14 +35,14 @@ class Tx_Phpunit_Service_FakeOutputServiceTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var Tx_Phpunit_Service_FakeOutputService
 	 */
-	protected $fixture = NULL;
+	protected $subject = NULL;
 
 	public function setUp() {
-		$this->fixture = new Tx_Phpunit_Service_FakeOutputService();
+		$this->subject = new Tx_Phpunit_Service_FakeOutputService();
 	}
 
 	public function tearDown() {
-		unset($this->fixture);
+		unset($this->subject);
 	}
 
 	/**
@@ -51,7 +51,7 @@ class Tx_Phpunit_Service_FakeOutputServiceTest extends Tx_Phpunit_TestCase {
 	public function classIsSubclassOfRealOutputService() {
 		$this->assertInstanceOf(
 			'Tx_Phpunit_Service_OutputService',
-			$this->fixture
+			$this->subject
 		);
 	}
 
@@ -60,7 +60,7 @@ class Tx_Phpunit_Service_FakeOutputServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	public function outputWithNonEmptyStringNotEchosAnything() {
 		ob_start();
-		$this->fixture->output('Hello world!');
+		$this->subject->output('Hello world!');
 
 		$this->assertSame(
 			'',
@@ -75,11 +75,11 @@ class Tx_Phpunit_Service_FakeOutputServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getCollectedOutputAfterOneOutputCallReturnsOutput() {
 		$output = 'Hello world!';
-		$this->fixture->output($output);
+		$this->subject->output($output);
 
 		$this->assertSame(
 			$output,
-			$this->fixture->getCollectedOutput()
+			$this->subject->getCollectedOutput()
 		);
 	}
 
@@ -88,13 +88,13 @@ class Tx_Phpunit_Service_FakeOutputServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getCollectedOutputAfterTwoOutputCallReturnsOutputsInCallingOrder() {
 		$output1 = 'Hello world ...';
-		$this->fixture->output($output1);
+		$this->subject->output($output1);
 		$output2 = ' and hello again.';
-		$this->fixture->output($output2);
+		$this->subject->output($output2);
 
 		$this->assertSame(
 			$output1 . $output2,
-			$this->fixture->getCollectedOutput()
+			$this->subject->getCollectedOutput()
 		);
 	}
 
@@ -104,7 +104,7 @@ class Tx_Phpunit_Service_FakeOutputServiceTest extends Tx_Phpunit_TestCase {
 	public function getNumberOfFlushCallsInitiallyReturnsZero() {
 		$this->assertSame(
 			0,
-			$this->fixture->getNumberOfFlushCalls()
+			$this->subject->getNumberOfFlushCalls()
 		);
 	}
 
@@ -112,11 +112,11 @@ class Tx_Phpunit_Service_FakeOutputServiceTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getNumberOfFlushCallsAfterOneCallToFlushOutputBufferReturnsOne() {
-		$this->fixture->flushOutputBuffer();
+		$this->subject->flushOutputBuffer();
 
 		$this->assertSame(
 			1,
-			$this->fixture->getNumberOfFlushCalls()
+			$this->subject->getNumberOfFlushCalls()
 		);
 	}
 
@@ -124,12 +124,12 @@ class Tx_Phpunit_Service_FakeOutputServiceTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getNumberOfFlushCallsAfterTwoCallsToFlushOutputBufferReturnsTwo() {
-		$this->fixture->flushOutputBuffer();
-		$this->fixture->flushOutputBuffer();
+		$this->subject->flushOutputBuffer();
+		$this->subject->flushOutputBuffer();
 
 		$this->assertSame(
 			2,
-			$this->fixture->getNumberOfFlushCalls()
+			$this->subject->getNumberOfFlushCalls()
 		);
 	}
 }

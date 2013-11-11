@@ -74,11 +74,11 @@ class Tx_Phpunit_Exception_EmptyQueryResultTest extends Tx_Phpunit_TestCase {
 	 */
 	public function messageAfterQueryWithLastQueryEnabledContainsLastQuery() {
 		$GLOBALS['TYPO3_DB']->exec_SELECTquery('title', 'tx_phpunit_test', '');
-		$fixture = new Tx_Phpunit_Exception_EmptyQueryResult();
+		$subject = new Tx_Phpunit_Exception_EmptyQueryResult();
 
 		$this->assertContains(
 			'SELECT',
-			$fixture->getMessage()
+			$subject->getMessage()
 		);
 	}
 }

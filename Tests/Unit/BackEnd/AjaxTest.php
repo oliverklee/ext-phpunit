@@ -38,7 +38,7 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var Tx_Phpunit_BackEnd_Ajax
 	 */
-	private $fixture = NULL;
+	private $subject = NULL;
 
 	/**
 	 * @var Tx_Phpunit_TestingDataContainer
@@ -56,16 +56,16 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 		$this->postBackup = $GLOBALS['_POST'];
 		$GLOBALS['_POST'] = array();
 
-		$this->fixture = new Tx_Phpunit_BackEnd_Ajax(FALSE);
+		$this->subject = new Tx_Phpunit_BackEnd_Ajax(FALSE);
 
 		$this->userSettingsService = new Tx_Phpunit_TestingDataContainer();
-		$this->fixture->injectUserSettingsService($this->userSettingsService);
+		$this->subject->injectUserSettingsService($this->userSettingsService);
 	}
 
 	public function tearDown() {
 		$GLOBALS['_POST'] = $this->postBackup;
 
-		unset($this->fixture, $this->postBackup, $this->userSettingsService);
+		unset($this->subject, $this->postBackup, $this->userSettingsService);
 	}
 
 	/**
@@ -77,7 +77,7 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 
 		/** @var $ajax TYPO3AJAX|PHPUnit_Framework_MockObject_MockObject  */
 		$ajax = $this->getMock('TYPO3AJAX', array(), array(''));
-		$this->fixture->ajaxBroker(array(), $ajax);
+		$this->subject->ajaxBroker(array(), $ajax);
 
 		$this->assertTrue(
 			$this->userSettingsService->getAsBoolean('failure')
@@ -92,7 +92,7 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 
 		/** @var $ajax TYPO3AJAX|PHPUnit_Framework_MockObject_MockObject  */
 		$ajax = $this->getMock('TYPO3AJAX', array(), array(''));
-		$this->fixture->ajaxBroker(array(), $ajax);
+		$this->subject->ajaxBroker(array(), $ajax);
 
 		$this->assertFalse(
 			$this->userSettingsService->getAsBoolean('failure')
@@ -110,7 +110,7 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 		$ajax->expects($this->once())->method('addContent')->with('success', TRUE);
 		$ajax->expects($this->never())->method('setError');
 
-		$this->fixture->ajaxBroker(array(), $ajax);
+		$this->subject->ajaxBroker(array(), $ajax);
 	}
 
 	/**
@@ -124,7 +124,7 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 		$ajax->expects($this->once())->method('addContent')->with('success', TRUE);
 		$ajax->expects($this->never())->method('setError');
 
-		$this->fixture->ajaxBroker(array(), $ajax);
+		$this->subject->ajaxBroker(array(), $ajax);
 	}
 
 	/**
@@ -138,7 +138,7 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 		$ajax->expects($this->once())->method('addContent')->with('success', TRUE);
 		$ajax->expects($this->never())->method('setError');
 
-		$this->fixture->ajaxBroker(array(), $ajax);
+		$this->subject->ajaxBroker(array(), $ajax);
 	}
 
 	/**
@@ -152,7 +152,7 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 		$ajax->expects($this->once())->method('addContent')->with('success', TRUE);
 		$ajax->expects($this->never())->method('setError');
 
-		$this->fixture->ajaxBroker(array(), $ajax);
+		$this->subject->ajaxBroker(array(), $ajax);
 	}
 
 	/**
@@ -166,7 +166,7 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 		$ajax->expects($this->once())->method('addContent')->with('success', TRUE);
 		$ajax->expects($this->never())->method('setError');
 
-		$this->fixture->ajaxBroker(array(), $ajax);
+		$this->subject->ajaxBroker(array(), $ajax);
 	}
 
 	/**
@@ -180,7 +180,7 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 		$ajax->expects($this->once())->method('addContent')->with('success', TRUE);
 		$ajax->expects($this->never())->method('setError');
 
-		$this->fixture->ajaxBroker(array(), $ajax);
+		$this->subject->ajaxBroker(array(), $ajax);
 	}
 
 	/**
@@ -194,7 +194,7 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 		$ajax->expects($this->once())->method('addContent')->with('success', TRUE);
 		$ajax->expects($this->never())->method('setError');
 
-		$this->fixture->ajaxBroker(array(), $ajax);
+		$this->subject->ajaxBroker(array(), $ajax);
 	}
 
 	/**
@@ -208,7 +208,7 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 		$ajax->expects($this->once())->method('addContent')->with('success', TRUE);
 		$ajax->expects($this->never())->method('setError');
 
-		$this->fixture->ajaxBroker(array(), $ajax);
+		$this->subject->ajaxBroker(array(), $ajax);
 	}
 
 	/**
@@ -222,7 +222,7 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 		$ajax->expects($this->once())->method('addContent')->with('success', TRUE);
 		$ajax->expects($this->never())->method('setError');
 
-		$this->fixture->ajaxBroker(array(), $ajax);
+		$this->subject->ajaxBroker(array(), $ajax);
 	}
 
 	/**
@@ -233,7 +233,7 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 		$ajax = $this->getMock('TYPO3AJAX', array(), array(''));
 		$ajax->expects($this->once())->method('setError');
 
-		$this->fixture->ajaxBroker(array(), $ajax);
+		$this->subject->ajaxBroker(array(), $ajax);
 	}
 
 	/**
@@ -246,7 +246,7 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 		$ajax = $this->getMock('TYPO3AJAX', array(), array(''));
 		$ajax->expects($this->once())->method('setError');
 
-		$this->fixture->ajaxBroker(array(), $ajax);
+		$this->subject->ajaxBroker(array(), $ajax);
 	}
 }
 ?>
