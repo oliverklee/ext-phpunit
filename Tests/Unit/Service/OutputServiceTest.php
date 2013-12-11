@@ -72,4 +72,3 @@ class Tx_Phpunit_Service_OutputServiceTest extends Tx_Phpunit_TestCase {
 		ob_end_clean();
 	}
 }
-?>

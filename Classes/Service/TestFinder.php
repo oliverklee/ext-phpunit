@@ -385,4 +385,3 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 		return $testsPath;
 	}
 }
-?>

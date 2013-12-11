@@ -76,4 +76,3 @@ class Tx_Phpunit_VfsStreamTest extends Tx_Phpunit_TestCase {
 		new vfsStreamWrapper();
 	}
 }
-?>

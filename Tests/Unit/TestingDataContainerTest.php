@@ -237,4 +237,3 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 		);
 	}
 }
-?>

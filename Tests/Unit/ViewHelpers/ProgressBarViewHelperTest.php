@@ -75,4 +75,3 @@ class Tx_Phpunit_ViewHelpers_ProgressBarViewHelperTest extends Tx_Phpunit_TestCa
 		);
 	}
 }
-?>

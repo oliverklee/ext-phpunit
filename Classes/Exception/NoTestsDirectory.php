@@ -33,4 +33,3 @@
  */
 class Tx_Phpunit_Exception_NoTestsDirectory extends t3lib_exception {
 }
-?>

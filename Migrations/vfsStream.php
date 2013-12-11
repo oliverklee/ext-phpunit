@@ -1,5 +1,4 @@
 <?php
-
 interface vfsStreamContainer extends \org\bovigo\vfs\vfsStreamContainer {}
 
 interface vfsStreamContent extends \org\bovigo\vfs\vfsStreamContent {}
@@ -17,5 +16,3 @@ class vfsStreamException extends \org\bovigo\vfs\vfsStreamException {}
 class vfsStreamFile extends \org\bovigo\vfs\vfsStreamFile {}
 
 class vfsStreamWrapper extends \org\bovigo\vfs\vfsStreamWrapper {}
-
-?>

@@ -127,4 +127,3 @@ abstract class Tx_Phpunit_AbstractDataContainer {
 		}
 	}
 }
-?>

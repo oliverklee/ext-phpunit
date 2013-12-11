@@ -40,4 +40,3 @@ $TCA['tx_ccc_data'] = array(
 		),
 	),
 );
-?>

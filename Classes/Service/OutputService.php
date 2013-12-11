@@ -52,4 +52,3 @@ class Tx_Phpunit_Service_OutputService implements t3lib_Singleton {
 		flush();
 	}
 }
-?>

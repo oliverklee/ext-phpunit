@@ -409,4 +409,3 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 		);
 	}
 }
-?>

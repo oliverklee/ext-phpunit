@@ -323,4 +323,3 @@ class Tx_Phpunit_Testable {
 		$this->iconPath = $iconPath;
 	}
 }
-?>

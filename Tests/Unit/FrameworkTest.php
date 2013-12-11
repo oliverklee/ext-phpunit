@@ -4995,4 +4995,3 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 		);
 	}
 }
-?>

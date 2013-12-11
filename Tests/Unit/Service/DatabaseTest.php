@@ -1466,4 +1466,3 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 		);
 	}
 }
-?>

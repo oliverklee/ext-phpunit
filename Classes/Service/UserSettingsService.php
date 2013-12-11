@@ -72,4 +72,3 @@ class Tx_Phpunit_Service_UserSettingsService extends Tx_Phpunit_AbstractDataCont
 		$GLOBALS['BE_USER']->writeUC();
 	}
 }
-?>

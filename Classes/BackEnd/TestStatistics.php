@@ -124,4 +124,3 @@ class Tx_Phpunit_BackEnd_TestStatistics {
 
 	}
 }
-?>

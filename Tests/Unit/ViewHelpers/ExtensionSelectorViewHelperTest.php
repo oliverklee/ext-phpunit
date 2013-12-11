@@ -353,4 +353,3 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_
 		);
 	}
 }
-?>

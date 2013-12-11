@@ -34,4 +34,3 @@
  */
 class Tx_Aaa_Tests_OneTest extends Tx_Phpunit_TestCase {
 }
-?>

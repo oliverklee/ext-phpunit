@@ -375,4 +375,3 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 		);
 	}
 }
-?>

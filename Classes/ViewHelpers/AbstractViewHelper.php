@@ -62,4 +62,3 @@ abstract class Tx_Phpunit_ViewHelpers_AbstractViewHelper {
 	 */
 	abstract public function render();
 }
-?>

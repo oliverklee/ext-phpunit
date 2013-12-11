@@ -87,4 +87,3 @@ interface Tx_Phpunit_Interface_ConvertService {
 	 */
 	public function getAsArray($key);
 }
-?>

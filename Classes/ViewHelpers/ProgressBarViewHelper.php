@@ -43,4 +43,3 @@ class Tx_Phpunit_ViewHelpers_ProgressBarViewHelper extends Tx_Phpunit_ViewHelper
 		);
 	}
 }
-?>

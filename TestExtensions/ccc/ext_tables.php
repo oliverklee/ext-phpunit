@@ -30,4 +30,3 @@ $TCA['tx_ccc_data'] = array(
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'tca.php',
 	),
 );
-?>

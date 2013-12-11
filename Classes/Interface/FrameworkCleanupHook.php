@@ -39,4 +39,3 @@ interface Tx_Phpunit_Interface_FrameworkCleanupHook {
 	 */
 	public function cleanUp();
 }
-?>

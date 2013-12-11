@@ -251,4 +251,3 @@ class Tx_Phpunit_Service_ExtensionSettingsServiceTest extends Tx_Phpunit_TestCas
 		);
 	}
 }
-?>

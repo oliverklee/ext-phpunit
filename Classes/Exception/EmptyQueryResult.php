@@ -49,4 +49,3 @@ class Tx_Phpunit_Exception_EmptyQueryResult extends t3lib_exception {
 		parent::__construct($message, $code);
 	}
 }
-?>

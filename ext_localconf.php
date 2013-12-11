@@ -34,4 +34,3 @@ if (TYPO3_MODE === 'BE') {
 		'_CLI_phpunit',
 	);
 }
-?>

@@ -435,4 +435,3 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 		}
 	}
 }
-?>

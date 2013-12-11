@@ -375,4 +375,3 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 		$this->subject->set('foo', 'bar');
 	}
 }
-?>

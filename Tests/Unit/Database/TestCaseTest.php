@@ -286,4 +286,3 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 		);
 	}
 }
-?>

@@ -111,4 +111,3 @@ class Tx_Phpunit_BackEnd_Ajax {
 		}
 	}
 }
-?>

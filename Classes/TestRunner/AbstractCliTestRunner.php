@@ -64,4 +64,3 @@ abstract class Tx_Phpunit_TestRunner_AbstractCliTestRunner extends t3lib_cli {
 		);
 	}
 }
-?>

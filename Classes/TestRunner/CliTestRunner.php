@@ -43,4 +43,3 @@ class Tx_Phpunit_TestRunner_CliTestRunner extends Tx_Phpunit_TestRunner_Abstract
 		PHPUnit_TextUI_Command::main();
 	}
 }
-?>

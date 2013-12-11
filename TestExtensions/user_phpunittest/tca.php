@@ -30,4 +30,3 @@ $TCA['user_phpunittest_test'] = array(
 		),
 	),
 );
-?>

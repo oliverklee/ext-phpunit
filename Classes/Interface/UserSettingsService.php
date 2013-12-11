@@ -42,4 +42,3 @@ interface Tx_Phpunit_Interface_UserSettingsService extends Tx_Phpunit_Interface_
 	 */
 	public function set($key, $value);
 }
-?>

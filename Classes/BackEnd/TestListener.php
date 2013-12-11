@@ -633,4 +633,3 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 		return $this->testAssertions;
 	}
 }
-?>

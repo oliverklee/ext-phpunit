@@ -62,4 +62,3 @@ interface Tx_Phpunit_Interface_Request extends Tx_Phpunit_Interface_ConvertServi
 	 */
 	const PARAMETER_KEY_EXECUTE = 'bingo';
 }
-?>

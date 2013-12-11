@@ -811,4 +811,3 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		);
 	}
 }
-?>

@@ -65,4 +65,3 @@ class Tx_Phpunit_Tests_Fixtures_ProtectedClass {
 		self::$protectedStaticProperty = $value;
 	}
 }
-?>

@@ -30,4 +30,3 @@ if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) < 
 }
 t3lib_extMgm::addTCAcolumns('tx_aaa_test', $tempColumns, 1);
 t3lib_extMgm::addToAllTCAtypes('tx_aaa_test', 'tx_bbb_test;;;;1-1-1');
-?>

@@ -200,4 +200,3 @@ abstract class Tx_Phpunit_TestCase extends PHPUnit_Framework_TestCase {
 		return $accessibleClassName;
 	}
 }
-?>

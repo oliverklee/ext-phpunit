@@ -42,4 +42,3 @@ class Tx_Phpunit_Exception_DatabaseTest extends Tx_Phpunit_TestCase {
 		throw new Tx_Phpunit_Exception_Database(1334438897);
 	}
 }
-?>

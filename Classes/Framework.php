@@ -1975,4 +1975,3 @@ class Tx_Phpunit_Framework {
 		self::$hooksHaveBeenRetrieved = FALSE;
 	}
 }
-?>

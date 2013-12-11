@@ -25,4 +25,3 @@
 /* @var $phpUnit Tx_Phpunit_TestRunner_CliTestRunner */
 $phpUnit = t3lib_div::makeInstance('Tx_Phpunit_TestRunner_CliTestRunner');
 $phpUnit->run();
-?>

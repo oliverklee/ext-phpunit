@@ -84,4 +84,3 @@ $module->injectTestListener($testListener);
 $module->injectTestFinder($testFinder);
 $module->injectTestCaseService($testCaseService);
 $module->main();
-?>

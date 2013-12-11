@@ -38,4 +38,3 @@ if (empty($ideBootScript) || !is_file($ideBootScript)) {
 $phpUnit = t3lib_div::makeInstance('Tx_Phpunit_TestRunner_IdeTestRunner');
 
 require_once($ideBootScript);
-?>

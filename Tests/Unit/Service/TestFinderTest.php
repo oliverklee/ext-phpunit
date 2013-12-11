@@ -1188,4 +1188,3 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 		);
 	}
 }
-?>

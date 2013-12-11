@@ -34,4 +34,3 @@
  */
 class Tx_Aaa_Tests_Fixtures_AnotherTest extends Tx_Phpunit_TestCase {
 }
-?>

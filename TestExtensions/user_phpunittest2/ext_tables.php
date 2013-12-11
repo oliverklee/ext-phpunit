@@ -19,4 +19,3 @@ $TCA['user_phpunittest2_test'] = array(
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'tca.php',
 	),
 );
-?>

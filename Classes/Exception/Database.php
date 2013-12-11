@@ -50,4 +50,3 @@ class Tx_Phpunit_Exception_Database extends t3lib_exception {
 		parent::__construct($message, $code);
 	}
 }
-?>

@@ -26,7 +26,7 @@
  * Test case.
  *
  * @package TYPO3
- * @subpackage tx_
+ * @subpackage tx_phpunit
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
@@ -326,4 +326,3 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 		$this->subject->setIconPath('');
 	}
 }
-?>

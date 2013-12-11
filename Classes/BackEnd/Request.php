@@ -74,4 +74,3 @@ class Tx_Phpunit_BackEnd_Request extends Tx_Phpunit_AbstractDataContainer
 		$this->requestDataHasBeenRetrieved = TRUE;
 	}
 }
-?>

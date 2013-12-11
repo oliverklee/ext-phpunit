@@ -42,4 +42,3 @@ class Tx_Phpunit_Exception_NoTestsDirectoryTest extends Tx_Phpunit_TestCase {
 		throw new Tx_Phpunit_Exception_NoTestsDirectory('some message', 12345);
 	}
 }
-?>

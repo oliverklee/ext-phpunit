@@ -43,4 +43,3 @@ class Tx_Phpunit_TestRunner_IdeTestRunner extends Tx_Phpunit_TestRunner_Abstract
 		'author' => '(c) 2012-2013 Helmut Hummel <helmut.hummel@typo3.org>',
 	);
 }
-?>

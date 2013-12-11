@@ -13,4 +13,3 @@ $TCA['tx_bbb_test'] = array(
 		),
 	),
 );
-?>

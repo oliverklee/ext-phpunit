@@ -16,4 +16,3 @@ $TCA['tx_aaa_test'] = array(
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'tca.php',
 	),
 );
-?>

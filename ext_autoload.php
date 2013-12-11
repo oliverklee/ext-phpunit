@@ -39,4 +39,3 @@ return array(
 	'tx_phpunit_viewhelpers_extensionselectorviewhelper' => $extensionPath . 'Classes/ViewHelpers/ExtensionSelectorViewHelper.php',
 	'tx_phpunit_viewhelpers_progressbarviewhelper' => $extensionPath . 'Classes/ViewHelpers/ProgressBarViewHelper.php'
 );
-?>

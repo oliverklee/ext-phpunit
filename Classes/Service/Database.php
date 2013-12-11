@@ -750,4 +750,3 @@ class Tx_Phpunit_Service_Database {
 		return self::$tcaCache[$tableName];
 	}
 }
-?>

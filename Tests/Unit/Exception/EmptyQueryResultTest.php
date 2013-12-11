@@ -82,4 +82,3 @@ class Tx_Phpunit_Exception_EmptyQueryResultTest extends Tx_Phpunit_TestCase {
 		);
 	}
 }
-?>

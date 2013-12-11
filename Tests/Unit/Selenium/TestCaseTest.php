@@ -252,4 +252,3 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 		}
 	}
 }
-?>

@@ -109,4 +109,3 @@ interface Tx_Phpunit_Interface_AccessibleObject {
 	 */
 	public function _getStatic($propertyName);
 }
-?>

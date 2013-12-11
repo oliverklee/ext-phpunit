@@ -163,4 +163,3 @@ abstract class Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper extends Tx_Phpu
 		return $output;
 	}
 }
-?>

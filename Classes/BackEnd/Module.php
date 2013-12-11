@@ -1031,4 +1031,3 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		return $this->userSettingsService->getAsBoolean('codeCoverage') && extension_loaded('xdebug');
 	}
 }
-?>

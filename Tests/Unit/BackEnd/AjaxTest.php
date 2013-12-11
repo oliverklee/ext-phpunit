@@ -249,4 +249,3 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 		$this->subject->ajaxBroker(array(), $ajax);
 	}
 }
-?>

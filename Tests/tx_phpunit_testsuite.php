@@ -38,4 +38,3 @@ class Tx_Phpunit_Test_TestSuite extends PHPUnit_Framework_TestSuite {
 		$this->addTestFile(dirname(__FILE__) . '/database_testcase.php');
 	}
 }
-?>

@@ -292,4 +292,3 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 		);
 	}
 }
-?>

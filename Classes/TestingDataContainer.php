@@ -70,4 +70,3 @@ class Tx_Phpunit_TestingDataContainer extends Tx_Phpunit_AbstractDataContainer
 		$this->data[$key] = $value;
 	}
 }
-?>

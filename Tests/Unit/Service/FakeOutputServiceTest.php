@@ -133,4 +133,3 @@ class Tx_Phpunit_Service_FakeOutputServiceTest extends Tx_Phpunit_TestCase {
 		);
 	}
 }
-?>

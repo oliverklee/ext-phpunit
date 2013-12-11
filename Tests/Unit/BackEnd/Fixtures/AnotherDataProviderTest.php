@@ -78,4 +78,3 @@ class Tx_Phpunit_Tests_BackEnd_Fixtures_AnotherDataProviderTest extends Tx_Phpun
 	public function testFour() {
 	}
 }
-?>

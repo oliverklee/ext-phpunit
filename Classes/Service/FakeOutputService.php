@@ -80,4 +80,3 @@ class Tx_Phpunit_Service_FakeOutputService extends Tx_Phpunit_Service_OutputServ
 		return $this->numberOfFlushCalls;
 	}
 }
-?>

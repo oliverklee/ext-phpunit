@@ -238,4 +238,3 @@ class Tx_Phpunit_Service_TestCaseService implements t3lib_Singleton {
 		return $result;
 	}
 }
-?>

@@ -158,4 +158,3 @@ class Tx_Phpunit_BackEnd_TestStatisticsTest extends Tx_Phpunit_TestCase {
 		);
 	}
 }
-?>

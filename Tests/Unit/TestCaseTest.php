@@ -27,6 +27,9 @@ require_once(t3lib_extMgm::extPath('phpunit') .  'Tests/Unit/Fixtures/ProtectedC
 /**
  * Test case.
  *
+ * @package TYPO3
+ * @subpackage tx_phpunit
+ *
  * @author Kasper Ligaard <kasperligaard@gmail.com>
  * @author Nicole Cordes <nicole.cordes@googlemail.com>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
@@ -476,4 +479,3 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 		);
 	}
 }
-?>

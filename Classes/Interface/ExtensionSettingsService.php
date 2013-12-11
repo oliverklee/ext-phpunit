@@ -33,4 +33,3 @@
  */
 interface Tx_Phpunit_Interface_ExtensionSettingsService extends Tx_Phpunit_Interface_ConvertService {
 }
-?>
