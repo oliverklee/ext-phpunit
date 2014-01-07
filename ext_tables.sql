@@ -2,7 +2,7 @@
 # Table structure for table 'tx_phpunit_test'
 #
 CREATE TABLE tx_phpunit_test (
-	uid int(11) unsigned DEFAULT '0' NOT NULL auto_increment,
+	uid int(11) unsigned NOT NULL auto_increment,
 	pid int(11) unsigned DEFAULT '0' NOT NULL,
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE tx_phpunit_test (
 # Table structure for table 'tx_phpunit_testchild'
 #
 CREATE TABLE tx_phpunit_testchild (
-	uid int(11) unsigned DEFAULT '0' NOT NULL auto_increment,
+	uid int(11) unsigned NOT NULL auto_increment,
 	pid int(11) unsigned DEFAULT '0' NOT NULL,
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
