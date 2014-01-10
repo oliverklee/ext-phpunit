@@ -287,10 +287,29 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	 * @return void
 	 */
 	protected function importStdDb() {
-		$sqlFilename = t3lib_div::getFileAbsFileName(PATH_t3lib . 'stddb/tables.sql');
-		$fileContent = t3lib_div::getUrl($sqlFilename);
+		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 6002000) {
+			/** @var \TYPO3\CMS\Install\Service\SqlExpectedSchemaService $sqlExpectedSchemaService */
+			$sqlExpectedSchemaService = t3lib_div::makeInstance('TYPO3\\CMS\\Install\\Service\\SqlExpectedSchemaService');
+			$databaseDefinitions = $sqlExpectedSchemaService->getTablesDefinitionString(TRUE);
+		} elseif (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 6001000) {
+			$sqlString = array();
+			// Find all ext_tables.sql of loaded extensions
+			$loadedExtensionInformation = $GLOBALS['TYPO3_LOADED_EXT'];
+			foreach ($loadedExtensionInformation as $extensionConfiguration) {
+				if ((is_array($extensionConfiguration) || $extensionConfiguration instanceof \ArrayAccess)
+					&& $extensionConfiguration['ext_tables.sql']
+				) {
+					$sqlString[] = t3lib_div::getUrl($extensionConfiguration['ext_tables.sql']);
+				}
+			}
+			$databaseDefinitions = implode(LF . LF . LF . LF, $sqlString);
+			unset($sqlString);
+		} else {
+			$sqlFilename = t3lib_div::getFileAbsFileName(PATH_t3lib . 'stddb/tables.sql');
+			$databaseDefinitions = t3lib_div::getUrl($sqlFilename);
+		}
 
-		$this->importDatabaseDefinitions($fileContent);
+		$this->importDatabaseDefinitions($databaseDefinitions);
 
 		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 4006000) {
 			// make sure missing caching framework tables do not get into the way
