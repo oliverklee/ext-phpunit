@@ -80,6 +80,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 		/** @var $db t3lib_DB */
 		$db = $GLOBALS['TYPO3_DB'];
 		$databaseNames = $db->admin_get_dbs();
+		$this->switchToOriginalTypo3Database($db);
 
 		if (!in_array($this->testDatabase, $databaseNames)) {
 			if ($db->admin_query('CREATE DATABASE `' . $this->testDatabase . '`') === FALSE) {
@@ -98,7 +99,10 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	protected function cleanDatabase() {
 		/** @var $db t3lib_DB */
 		$db = $GLOBALS['TYPO3_DB'];
-		if (!in_array($this->testDatabase, $db->admin_get_dbs())) {
+		$databaseNames = $db->admin_get_dbs();
+		$this->switchToOriginalTypo3Database($db);
+
+		if (!in_array($this->testDatabase, $databaseNames)) {
 			return;
 		}
 
@@ -119,7 +123,10 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	protected function dropDatabase() {
 		/** @var $db t3lib_DB */
 		$db = $GLOBALS['TYPO3_DB'];
-		if (!in_array($this->testDatabase, $db->admin_get_dbs())) {
+		$databaseNames = $db->admin_get_dbs();
+		$this->switchToOriginalTypo3Database($db);
+
+		if (!in_array($this->testDatabase, $databaseNames)) {
 			return TRUE;
 		}
 
@@ -167,6 +174,17 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Switch to the original database
+	 *
+	 * @param \TYPO3\CMS\Core\Database\DatabaseConnection $databaseObject The database object
+	 *
+	 * @return void
+	 */
+	protected function switchToOriginalTypo3Database($databaseObject){
+		$this->selectDatabase($GLOBALS['TYPO3_CONF_VARS']['DB']['database'], $databaseObject);
 	}
 
 	/**
