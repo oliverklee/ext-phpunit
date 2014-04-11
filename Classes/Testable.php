@@ -82,14 +82,14 @@ class Tx_Phpunit_Testable {
 	/**
 	 * files that should be excluded from code coverage
 	 *
-	 * @var array<string>
+	 * @var string[]
 	 */
 	protected $blacklist = array();
 
 	/**
 	 * files that should be included in code coverage
 	 *
-	 * @var array<string>
+	 * @var string[]
 	 */
 	protected $whitelist = array();
 
@@ -253,7 +253,7 @@ class Tx_Phpunit_Testable {
 	 * Returns the blacklist, i.e., the absolute paths to the files that should
 	 * be excluded from the code coverage report.
 	 *
-	 * @return array<string>
+	 * @return string[]
 	 *         the absolute paths to the blacklisted files, might be empty
 	 */
 	public function getBlacklist() {
@@ -264,8 +264,8 @@ class Tx_Phpunit_Testable {
 	 * Sets the blacklist, i.e., the absolute paths to the files that should
 	 * be excluded from the code coverage report.
 	 *
-	 * @param array<string> $files
-	 *         the absolute paths to the blacklisted files, may be empty
+	 * @param string[] $files
+	 *        the absolute paths to the blacklisted files, may be empty
 	 *
 	 * @return void
 	 */
@@ -277,7 +277,7 @@ class Tx_Phpunit_Testable {
 	 * Returns the whitelist, i.e., the absolute paths to the files that should
 	 * be included in the code coverage report.
 	 *
-	 * @return array<string>
+	 * @return string[]
 	 *         the absolute paths to the whitelisted files, might be empty
 	 */
 	public function getWhitelist() {
@@ -288,8 +288,8 @@ class Tx_Phpunit_Testable {
 	 * Sets the whitelist, i.e., the absolute paths to the files that should
 	 * be included in the code coverage report.
 	 *
-	 * @param array<string> $files
-	 *         the absolute paths to the whitelisted files, may be empty
+	 * @param string[] $files
+	 *        the absolute paths to the whitelisted files, may be empty
 	 *
 	 * @return void
 	 */

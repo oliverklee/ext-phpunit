@@ -145,7 +145,7 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper extends Tx_Phpunit_View
 	/**
 	 * Gets all options rendered as an array
 	 *
-	 * @return array<array> all options, will not be empty
+	 * @return array[] all options, will not be empty
 	 */
 	protected function getOptions() {
 		$options = array();

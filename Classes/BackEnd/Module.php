@@ -636,7 +636,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 *
 	 * @param string $testableKey the key of the selected testable
 	 *
-	 * @return array<Tx_Phpunit_Testable> the testables to process
+	 * @return Tx_Phpunit_Testable[] the testables to process
 	 */
 	protected function collectTestablesToProcess($testableKey) {
 		if ($testableKey === Tx_Phpunit_Testable::ALL_EXTENSIONS) {
@@ -651,7 +651,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	/**
 	 * Loads all files containing test cases for the given testables.
 	 *
-	 * @param array<Tx_Phpunit_Testable> $testables the testables for which to load all test case files
+	 * @param Tx_Phpunit_Testable[] $testables the testables for which to load all test case files
 	 *
 	 * @return void
 	 */
@@ -960,7 +960,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 *        the absolute path of the directory in which to look for test cases,
 	 *        must not be empty
 	 *
-	 * @return array<array><string>
+	 * @return array[]
 	 *         files names of the test cases in the directory $dir and all
 	 *         its subdirectories relative to $dir, will be empty if no
 	 *         test cases have been found
@@ -983,7 +983,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	/**
 	 * Includes all PHP files given in $paths.
 	 *
-	 * @param array<strings> $paths
+	 * @param strings[] $paths
 	 *        array keys: absolute path
 	 *        array values: file names in that path
 	 *

@@ -117,7 +117,7 @@ abstract class Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper extends Tx_Phpu
 	/**
 	 * Gets all options rendered as an array.
 	 *
-	 * @return array<array> all option parameter as a multi-dimensional array, might be empty
+	 * @return array[] all option parameter as a multi-dimensional array, might be empty
 	 */
 	abstract protected function getOptions();
 
@@ -134,7 +134,7 @@ abstract class Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper extends Tx_Phpu
 	 * If the content is empty, the tag gets rendered as a self-closing tag.
 	 *
 	 * @param string $tagName
-	 * @param array<string> $attributes
+	 * @param string[] $attributes
 	 *        use HTML attribute as key, might not be empty
 	 *        use attribute value as array value, might be empty
 	 * @param string $content

@@ -248,8 +248,8 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	 *        if none is provided, the name of the current TYPO3 database plus a
 	 *        suffix "_test" is used
 	 *
-	 * @return array<string>
-	 *        the names of all tables in the database $databaseName, might be empty
+	 * @return string[]
+	 *         the names of all tables in the database $databaseName, might be empty
 	 */
 	protected function getDatabaseTables($databaseName = NULL) {
 		$db = $this->useTestDatabase($databaseName);
@@ -383,7 +383,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	 *
 	 * @param string $extKey the key of an installed extension, must not be empty
 	 *
-	 * @return array<string>|NULL
+	 * @return string[]|NULL
 	 *         the keys of all extensions on which the given extension depends,
 	 *         will be NULL if the dependencies could not be determined
 	 */

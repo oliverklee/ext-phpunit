@@ -44,7 +44,7 @@ class Tx_Phpunit_Service_TestCaseService implements t3lib_Singleton {
 	/**
 	 * suffixes that indicate that a file is a test case
 	 *
-	 * @var array<string>
+	 * @var string[]
 	 */
 	static protected $testCaseFileSuffixes = array(
 		'Test.php',
@@ -56,7 +56,7 @@ class Tx_Phpunit_Service_TestCaseService implements t3lib_Singleton {
 	/**
 	 * class name suffixes that indicate that a class is a test case
 	 *
-	 * @var array<string>
+	 * @var string[]
 	 */
 	static protected $testCaseClassNameSuffixes = array(
 		'Test',
@@ -93,7 +93,7 @@ class Tx_Phpunit_Service_TestCaseService implements t3lib_Singleton {
 	 * @param string $directory
 	 *        the absolute path of the directory in which to look for test cases
 	 *
-	 * @return array<string>
+	 * @return string[]
 	 *         sorted file names of the test cases in the directory $directory relative
 	 *         to $directory, will be empty if no test cases have been found
 	 *

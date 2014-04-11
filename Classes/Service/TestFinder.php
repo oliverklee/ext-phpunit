@@ -34,14 +34,14 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	/**
 	 * allowed test directory names
 	 *
-	 * @var array<string>
+	 * @var string[]
 	 */
 	static protected $allowedTestDirectoryNames = array('Tests/', 'tests/');
 
 	/**
 	 * keys of the dummy extensions of the phpunit extension
 	 *
-	 * @var array<string>
+	 * @var string[]
 	 */
 	static protected $dummyExtensionKeys = array('aaa', 'bbb', 'ccc', 'ddd');
 
@@ -191,7 +191,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 * Returns the testable code instance for everything, i.e., the core and
 	 * all installed extensions.
 	 *
-	 * @return array<Tx_Phpunit_Testable>
+	 * @return Tx_Phpunit_Testable[]
 	 *         testable code for everything using the extension keys or the core key
 	 *         as array keys, might be empty
 	 */
@@ -210,7 +210,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	/**
 	 * Returns the testable code for the TYPO3 Core.
 	 *
-	 * @return array<Tx_Phpunit_Testable>
+	 * @return Tx_Phpunit_Testable[]
 	 *         testable code for the TYPO3 core, will have exactly one element if
 	 *         there are Core tests (using the core key as array key),
 	 *         will be empty if there are no Core tests
@@ -239,7 +239,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 * Extensions without a test directory and extensions in the "exclude list"
 	 * will be skipped.
 	 *
-	 * @return array<Tx_Phpunit_Testable>
+	 * @return Tx_Phpunit_Testable[]
 	 *         testable code for the installed extensions using the extension keys
 	 *         as array keys, might be empty
 	 */
@@ -281,7 +281,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	/**
 	 * Returns the keys of the loaded extensions.
 	 *
-	 * @return array<string> the keys of the loaded extensions, might be empty
+	 * @return string[] the keys of the loaded extensions, might be empty
 	 */
 	protected function getLoadedExtensionKeys() {
 		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 6000000) {
@@ -303,7 +303,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 * Returns the keys of the extensions excluded from unit testing via the
 	 * phpunit configuration.
 	 *
-	 * @return array<string> the keys of the excluded extensions, might be empty
+	 * @return string[] the keys of the excluded extensions, might be empty
 	 */
 	protected function getExcludedExtensionKeys() {
 		return t3lib_div::trimExplode(',', $this->extensionSettingsService->getAsString('excludeextensions'), TRUE);
@@ -313,7 +313,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 * Returns the keys of the extensions excluded from unit testing because
 	 * they are the dummy extensions of phpunit.
 	 *
-	 * @return array<string> the keys of the dummy extensions, will not be empty
+	 * @return string[] the keys of the dummy extensions, will not be empty
 	 */
 	public function getDummyExtensionKeys() {
 		return self::$dummyExtensionKeys;

@@ -43,7 +43,7 @@ class Tx_Phpunit_BackEnd_Ajax {
 	protected $userSettingsService = NULL;
 
 	/**
-	 * @var array<string>
+	 * @var string[]
 	 */
 	protected $validCheckboxKeys = array(
 		'failure',

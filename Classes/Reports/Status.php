@@ -62,7 +62,7 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 	/**
 	 * Returns the status of this extension.
 	 *
-	 * @return array<tx_reports_reports_status_Status>
+	 * @return tx_reports_reports_status_Status[]
 	 *         status reports for this extension
 	 */
 	public function getStatus() {

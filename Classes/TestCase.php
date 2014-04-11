@@ -56,7 +56,7 @@ abstract class Tx_Phpunit_TestCase extends PHPUnit_Framework_TestCase {
 	 * Creates a mock object which allows for calling protected methods and access of protected properties.
 	 *
 	 * @param string $originalClassName name of class to create the mock object of, must not be empty
-	 * @param array<string> $methods name of the methods to mock
+	 * @param string[] $methods name of the methods to mock
 	 * @param array $arguments arguments to pass to constructor
 	 * @param string $mockClassName the class name to use for the mock class
 	 * @param boolean $callOriginalConstructor whether to call the constructor
