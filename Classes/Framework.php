@@ -1139,7 +1139,7 @@ class Tx_Phpunit_Framework {
 	}
 
 	/**
-	 * Returns a unique absolut path of a file or folder.
+	 * Returns a unique absolute path of a file or folder.
 	 *
 	 * @param string $path
 	 *        the path of a file or folder relative to the calling extension's
@@ -1199,6 +1199,7 @@ class Tx_Phpunit_Framework {
 
 		/** @var $frontEnd tslib_fe */
 		$frontEnd = t3lib_div::makeInstance('tslib_fe', $GLOBALS['TYPO3_CONF_VARS'], $pageUid, 0);
+		$GLOBALS['TSFE'] = $frontEnd;
 
 		// simulates a normal FE without any logged-in FE or BE user
 		$frontEnd->beUserLogin = FALSE;
@@ -1211,7 +1212,7 @@ class Tx_Phpunit_Framework {
 
 		$frontEnd->tmpl->getFileName_backPath = PATH_site;
 
-		if (($pageUid > 0) && in_array('sys_template', $this->dirtySystemTables)) {
+		if (($pageUid > 0) && in_array('sys_template', $this->dirtySystemTables, TRUE)) {
 			$frontEnd->tmpl->runThroughTemplates($frontEnd->sys_page->getRootLine($pageUid), 0);
 			$frontEnd->tmpl->generateConfig();
 			$frontEnd->tmpl->loaded = 1;
@@ -1221,12 +1222,10 @@ class Tx_Phpunit_Framework {
 
 		$frontEnd->newCObj();
 
-		$GLOBALS['TSFE'] = $frontEnd;
-
 		$this->hasFakeFrontEnd = TRUE;
 		$this->logoutFrontEndUser();
 
-		return $GLOBALS['TSFE']->id;
+		return $frontEnd->id;
 	}
 
 	/**
