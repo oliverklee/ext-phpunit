@@ -531,17 +531,16 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 * @return string the htmlspecialchared URL to re-run the given test, will not be empty
 	 */
 	protected function createReRunUrl(PHPUnit_Framework_TestCase $test) {
-		$options = array(
-			'M=tools_txphpunitbeM1',
+		$urlParameters = array(
 			Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE .
-				'[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND . ']=runsingletest',
+				'[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND . ']' => 'runsingletest',
 			Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE .
-				'[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE . ']=' . $this->getTestCaseName(),
+				'[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE . ']' => $this->getTestCaseName(),
 			Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE .
-				'[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST . ']=' . $this->createTestId($test),
+				'[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST . ']' => $this->createTestId($test),
 		);
 
-		return htmlspecialchars('mod.php?' . implode('&', $options));
+		return htmlspecialchars(\TYPO3\CMS\Backend\Utility\BackendUtility::getModuleUrl('tools_txphpunitbeM1', $urlParameters));
 	}
 
 	/**

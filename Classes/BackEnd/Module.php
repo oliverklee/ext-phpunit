@@ -940,7 +940,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * @return string
 	 */
 	protected function createOpenNewWindowLink() {
-		$url = t3lib_div::getIndpEnv('TYPO3_REQUEST_SCRIPT') . '?M=tools_txphpunitbeM1';
+		$url = \TYPO3\CMS\Backend\Utility\BackendUtility::getModuleUrl('tools_txphpunitbeM1');
 		$onClick = "phpunitbeWin=window.open('" . $url .
 			"','phpunitbe','width=790,status=0,menubar=1,resizable=1,location=0,scrollbars=1,toolbar=0');phpunitbeWin.focus();return false;";
 		$content = '<a id="opennewwindow" href="" onclick="' . htmlspecialchars($onClick) . '" accesskey="n">
