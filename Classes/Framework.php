@@ -1202,6 +1202,7 @@ class Tx_Phpunit_Framework {
 
 		// simulates a normal FE without any logged-in FE or BE user
 		$frontEnd->beUserLogin = FALSE;
+		$frontEnd->renderCharset = 'utf-8';
 		$frontEnd->workspacePreview = '';
 		$frontEnd->initFEuser();
 		$frontEnd->determineId();
