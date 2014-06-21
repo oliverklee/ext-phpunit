@@ -41,6 +41,11 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	const EXTENSION_KEY = 'phpunit';
 
 	/**
+	 * @var string
+	 */
+	const MODULE_NAME = 'tools_txphpunitbeM1';
+
+	/**
 	 * the relative path to this extension
 	 *
 	 * @var string
@@ -940,9 +945,9 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * @return string
 	 */
 	protected function createOpenNewWindowLink() {
-		$url = \TYPO3\CMS\Backend\Utility\BackendUtility::getModuleUrl('tools_txphpunitbeM1');
-		$onClick = "phpunitbeWin=window.open('" . $url .
-			"','phpunitbe','width=790,status=0,menubar=1,resizable=1,location=0,scrollbars=1,toolbar=0');phpunitbeWin.focus();return false;";
+		$url = t3lib_BEfunc::getModuleUrl(Tx_Phpunit_BackEnd_Module::MODULE_NAME, array(), FALSE, TRUE);
+		$onClick = "phpunitbeWin=window.open(" . t3lib_div::quoteJSvalue($url) .
+			",'phpunitbe','width=790,status=0,menubar=1,resizable=1,location=0,scrollbars=1,toolbar=0');phpunitbeWin.focus();return false;";
 		$content = '<a id="opennewwindow" href="" onclick="' . htmlspecialchars($onClick) . '" accesskey="n">
 			<img' . t3lib_iconWorks::skinImg($GLOBALS['BACK_PATH'], 'gfx/open_in_new_window.gif', 'width="19" height="14"') . ' title="' .
 			$GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.openInNewWindow', 1) . '" class="absmiddle" alt="" />

@@ -1,6 +1,6 @@
 <?php
 // DO NOT REMOVE OR CHANGE THESE 3 LINES:
-$MCONF['name'] = 'tools_txphpunitM1';
+$MCONF['name'] = 'tools_txphpunitbeM1';
 $MCONF['access'] = 'admin';
 $MCONF['script'] = '_DISPATCH';
 
