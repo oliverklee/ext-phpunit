@@ -588,11 +588,11 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
      * @param  array  $browser
      * @throws InvalidArgumentException
      */
-    public function __construct($name = NULL, array $data = array(), $dataName = '')
+    public function __construct($name = NULL, array $data = array(), $dataName = '', array $browser = array())
     {
         parent::__construct($name, $data, $dataName);
         $this->testId = md5(uniqid(rand(), TRUE));
-        $this->getDriver(array());
+        $this->getDriver($browser);
     }
 
     public function setupSpecificBrowser(array $browser)
@@ -1196,12 +1196,13 @@ abstract class PHPUnit_Extensions_SeleniumTestCase extends PHPUnit_Framework_Tes
             return '';
         }
     }
-    
+
     /**
      * Pause support for runSelenese() HTML cases
      * @param $milliseconds
      */
-    protected function pause($milliseconds){
-		sleep(round($milliseconds/1000));
-	}
+    protected function pause($milliseconds)
+    {
+		    sleep(round($milliseconds/1000));
+	  }
 }

@@ -21,6 +21,7 @@
 *
 * This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
+use SebastianBergmann\Comparator\ComparisonFailure;
 
 /**
  * Test case.
@@ -210,7 +211,8 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		/** @var $testCase PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject */
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array('aTestName'));
 		$error = new PHPUnit_Framework_ExpectationFailedException(
-			'', new PHPUnit_Framework_ComparisonFailure(
+			'',
+			new ComparisonFailure(
 				'expected&correct', 'actual&incorrect', 'expected&correct', 'actual&incorrect'
 			)
 		);
@@ -231,7 +233,8 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		/** @var $testCase PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject */
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array('aTestName'));
 		$error = new PHPUnit_Framework_ExpectationFailedException(
-			'', new PHPUnit_Framework_ComparisonFailure(
+			'',
+			new ComparisonFailure(
 				'expected&correct', 'actual&incorrect', 'expected&correct', 'actual&incorrect'
 			)
 		);
@@ -252,7 +255,8 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		/** @var $testCase PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject */
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array('aTestName'));
 		$error = new PHPUnit_Framework_ExpectationFailedException(
-			'', new PHPUnit_Framework_ComparisonFailure(
+			'',
+			new ComparisonFailure(
 				'expected&correct', 'actual&incorrect', 'expected&correct', 'actual&incorrect'
 			)
 		);

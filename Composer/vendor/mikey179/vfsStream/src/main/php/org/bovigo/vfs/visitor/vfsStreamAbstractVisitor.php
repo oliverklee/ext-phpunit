@@ -32,10 +32,7 @@ abstract class vfsStreamAbstractVisitor implements vfsStreamVisitor
                 break;
 
             case vfsStreamContent::TYPE_DIR:
-                if (!$content->isDot()) {
-                    $this->visitDirectory($content);
-                }
-
+                $this->visitDirectory($content);
                 break;
 
             default:

@@ -70,6 +70,9 @@
  * @method string windowHandle() Retrieves the current window handle
  * @method string windowHandles() Retrieves a list of all available window handles
  * @method string keys() Send a sequence of key strokes to the active element.
+ * @method string file($file_path) Upload a local file. Returns the fully qualified path to the transferred file.
+ * @method array log(string $type) Get the log for a given log type. Log buffer is reset after each request.
+ * @method array logTypes() Get available log types.
  */
 class PHPUnit_Extensions_Selenium2TestCase_Session
     extends PHPUnit_Extensions_Selenium2TestCase_Element_Accessor
@@ -130,6 +133,8 @@ class PHPUnit_Extensions_Selenium2TestCase_Session
             'screenshot' => 'PHPUnit_Extensions_Selenium2TestCase_ElementCommand_GenericAccessor',
             'source' => 'PHPUnit_Extensions_Selenium2TestCase_SessionCommand_GenericAccessor',
             'title' => 'PHPUnit_Extensions_Selenium2TestCase_SessionCommand_GenericAccessor',
+            'log' => 'PHPUnit_Extensions_Selenium2TestCase_SessionCommand_Log',
+            'logTypes' => $this->attributeCommandFactoryMethod('log/types'),
             'url' => function ($jsonParameters, $commandUrl) use ($baseUrl) {
                 return new PHPUnit_Extensions_Selenium2TestCase_SessionCommand_Url($jsonParameters, $commandUrl, $baseUrl);
             },
@@ -142,8 +147,17 @@ class PHPUnit_Extensions_Selenium2TestCase_Session
             'touchScroll' => $this->touchCommandFactoryMethod('touch/scroll'),
             'flick' => $this->touchCommandFactoryMethod('touch/flick'),
             'location' => 'PHPUnit_Extensions_Selenium2TestCase_SessionCommand_Location',
-            'orientation' => 'PHPUnit_Extensions_Selenium2TestCase_SessionCommand_Orientation'
+            'orientation' => 'PHPUnit_Extensions_Selenium2TestCase_SessionCommand_Orientation',
+            'file' => 'PHPUnit_Extensions_Selenium2TestCase_SessionCommand_File'
         );
+    }
+
+    private function attributeCommandFactoryMethod($urlSegment)
+    {
+        $url = $this->url->addCommand($urlSegment);
+        return function ($jsonParameters, $commandUrl) use ($url) {
+            return new PHPUnit_Extensions_Selenium2TestCase_SessionCommand_GenericAttribute($jsonParameters, $url);
+        };
     }
 
     private function touchCommandFactoryMethod($urlSegment)

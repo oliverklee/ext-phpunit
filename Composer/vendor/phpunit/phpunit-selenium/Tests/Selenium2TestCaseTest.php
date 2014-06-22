@@ -185,7 +185,8 @@ class Extensions_Selenium2TestCaseTest extends Tests_Selenium2TestCase_BaseTestC
         $this->assertEquals('The right div', $element->text());
     }
 
-    public function getObjectsWithAccessToElement() {
+    public function getObjectsWithAccessToElement()
+    {
         return array(
             array(function($s) { return $s; }),
             array(function($s) { return $s->byXPath('//body'); })
@@ -295,6 +296,14 @@ class Extensions_Selenium2TestCaseTest extends Tests_Selenium2TestCase_BaseTestC
     {
         $this->url('html/test_click_page1.html');
         $link = $this->byLinkText('Click here for next page');
+        $link->click();
+        $this->assertEquals('Click Page Target', $this->title());
+    }
+
+    public function testByPartialLinkText()
+    {
+        $this->url('html/test_click_page1.html');
+        $link = $this->byPartialLinkText('next page');
         $link->click();
         $this->assertEquals('Click Page Target', $this->title());
     }
@@ -437,7 +446,8 @@ class Extensions_Selenium2TestCaseTest extends Tests_Selenium2TestCase_BaseTestC
     /**
      * Ticket 119
      */
-    public function testSelectOptionSelectsDescendantElement(){
+    public function testSelectOptionSelectsDescendantElement()
+    {
         $this->url('html/test_select.html');
         $select = $this->select($this->byCssSelector('#secondSelect'));
         $this->assertEquals("option2", $select->selectedValue());
@@ -452,7 +462,8 @@ class Extensions_Selenium2TestCaseTest extends Tests_Selenium2TestCase_BaseTestC
     /**
      * Ticket 170
      */
-    public function testSelectOptgroupDoNotGetInTheWay(){
+    public function testSelectOptgroupDoNotGetInTheWay()
+    {
         $this->url('html/test_select.html');
         $select = $this->select($this->byCssSelector('#selectWithOptgroup'));
 
@@ -556,7 +567,8 @@ class Extensions_Selenium2TestCaseTest extends Tests_Selenium2TestCase_BaseTestC
     {
         $this->url('html/test_form_events.html');
         $eventLog = $this->byId('eventlog');
-        $this->assertEquals('', $eventLog->value());
+        $eventLog->clear();
+
         $this->clickOnElement('theLink');
         $this->assertEquals('link clicked', $this->alertText());
         $this->acceptAlert();
@@ -567,7 +579,8 @@ class Extensions_Selenium2TestCaseTest extends Tests_Selenium2TestCase_BaseTestC
     {
         $this->url('html/test_form_events.html');
         $eventLog = $this->byId('eventlog');
-        $this->assertEquals('', $eventLog->value());
+        $eventLog->clear();
+
         $this->clickOnElement('theButton');
         $this->assertContains('{focus(theButton)}', $eventLog->value());
         $this->assertContains('{click(theButton)}', $eventLog->value());
@@ -582,8 +595,7 @@ class Extensions_Selenium2TestCaseTest extends Tests_Selenium2TestCase_BaseTestC
         $this->url('html/test_form_events.html');
         $select = $this->select($this->byId('theSelect'));
         $eventLog = $this->byId('eventlog');
-        $this->assertEquals('', $select->selectedValue());
-        $this->assertEquals('', $eventLog->value());
+        $eventLog->clear();
 
         $select->selectOptionByLabel('First Option');
         $this->assertEquals('option1', $select->selectedValue());
@@ -790,7 +802,7 @@ class Extensions_Selenium2TestCaseTest extends Tests_Selenium2TestCase_BaseTestC
         $this->frame('my_iframe_id');
         $this->assertEquals('This is a test of the open command.', $this->byCssSelector('body')->text());
 
-        $this->frame(null);
+        $this->frame(NULL);
         $this->assertContains('This page contains frames.', $this->byCssSelector('body')->text());
     }
 
@@ -800,7 +812,7 @@ class Extensions_Selenium2TestCaseTest extends Tests_Selenium2TestCase_BaseTestC
         $this->frame(0);
         $this->assertEquals('This is a test of the open command.', $this->byCssSelector('body')->text());
 
-        $this->frame(null);
+        $this->frame(NULL);
         $this->assertContains('This page contains frames.', $this->byCssSelector('body')->text());
     }
 
@@ -810,7 +822,7 @@ class Extensions_Selenium2TestCaseTest extends Tests_Selenium2TestCase_BaseTestC
         $this->frame('my_iframe_name');
         $this->assertEquals('This is a test of the open command.', $this->byCssSelector('body')->text());
 
-        $this->frame(null);
+        $this->frame(NULL);
         $this->assertContains('This page contains frames.', $this->byCssSelector('body')->text());
     }
 
@@ -821,7 +833,7 @@ class Extensions_Selenium2TestCaseTest extends Tests_Selenium2TestCase_BaseTestC
         $this->frame($frame);
         $this->assertEquals('This is a test of the open command.', $this->byCssSelector('body')->text());
 
-        $this->frame(null);
+        $this->frame(NULL);
         $this->assertContains('This page contains frames.', $this->byCssSelector('body')->text());
     }
 
@@ -852,7 +864,6 @@ class Extensions_Selenium2TestCaseTest extends Tests_Selenium2TestCase_BaseTestC
         $size = $popup->size();
         $this->assertEquals(100, $size['width']);
         $this->assertEquals(200, $size['height']);
-
 
         $this->markTestIncomplete("We should wait for the window to be moved. How? With aynshcrnous javascript specific for this test");
         //$popup->position(array('x' => 300, 'y' => 400));
@@ -939,23 +950,54 @@ class Extensions_Selenium2TestCaseTest extends Tests_Selenium2TestCase_BaseTestC
 
     public function testTheMouseCanBeMovedToAKnownPosition()
     {
-        $this->markTestIncomplete();
+        // @TODO: remove markTestIncomplete() when the following bugs are fixed
+        // @see https://code.google.com/p/selenium/issues/detail?id=5939
+        // @see https://code.google.com/p/selenium/issues/detail?id=3578
+        $this->markTestIncomplete('This is broken in a firefox driver yet');
+        $this->url('html/test_moveto.html');
         $this->moveto(array(
-            'element' => 'id', // or Element object
-            'xoffset' => 0,
-            'yofsset' => 0
+            'element' => $this->byId('moveto'),
+            'xoffset' => 10,
+            'yoffset' => 10,
         ));
-        $this->click();
+        $this->buttondown();
+
+        $deltaX = 42;
+        $deltaY = 11;
+        $this->moveto(array(
+            'xoffset' => $deltaX,
+            'yoffset' => $deltaY,
+        ));
+        $this->buttonup();
+
+        $down = explode(',', $this->byId('down')->text());
+        $up = explode(',', $this->byId('up')->text());
+
+        $this->assertCount(2, $down);
+        $this->assertCount(2, $up);
+        $this->assertEquals($deltaX, $up[0] - $down[0]);
+        $this->assertEquals($deltaY, $up[1] - $down[1]);
     }
 
-    public function testMouseButtonsCanBeHeldAndReleasedOverAnElement()
+    public function testMoveToRequiresElementParamToBeValidElement()
     {
-        $this->url('html/movements.html');
-        $this->moveto($this->byId('to_move'));
-        $this->buttondown();
-        $this->moveto($this->byId('target'));
-        $this->buttonup();
-        $this->markTestIncomplete('Should write something in the input, but while manually drag and drop does work, it doesn\'t with this commands.');
+        $this->url('html/test_moveto.html');
+
+        try {
+            $this->moveto('moveto');
+            $this->fail('A single non-element parameter should cause an exception');
+        } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e) {
+            $this->assertStringStartsWith('Only moving over an element is supported', $e->getMessage());
+        }
+
+        try {
+            $this->moveto(array(
+                'element' => 'moveto'
+            ));
+            $this->fail('An "element" array parameter with non-element value should cause an exception');
+        } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e) {
+            $this->assertStringStartsWith('Only moving over an element is supported', $e->getMessage());
+        }
     }
 
     public function testMouseButtonsCanBeClickedMultipleTimes()
@@ -1097,5 +1139,17 @@ class Extensions_Selenium2TestCaseTest extends Tests_Selenium2TestCase_BaseTestC
     public function testSessionClickNotAValidValue()
     {
         $this->click(3);
+    }
+
+    public function testGetSelectedOptionDataInMultiselect()
+    {
+        $this->url('html/test_multiselect.html');
+        $this->assertSame('Second Option', $this->select($this->byId('theSelect'))->selectedLabel());
+        $this->assertSame('option2', $this->select($this->byId('theSelect'))->selectedValue());
+        $this->assertSame('o2', $this->select($this->byId('theSelect'))->selectedId());
+        $this->select($this->byId('theSelect'))->clearSelectedOptions();
+        $this->assertSame('', $this->select($this->byId('theSelect'))->selectedLabel());
+        $this->assertSame('', $this->select($this->byId('theSelect'))->selectedValue());
+        $this->assertSame('', $this->select($this->byId('theSelect'))->selectedId());
     }
 }

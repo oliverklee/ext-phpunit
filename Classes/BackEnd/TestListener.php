@@ -237,6 +237,18 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	}
 
 	/**
+	 * A risky test has been detected.
+	 *
+	 * @param PHPUnit_Framework_Test $test
+	 * @param Exception $e
+	 * @param float $time
+	 * @return void
+	 */
+	public function addRiskyTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
+		// We don't treat those kind of tests yet.
+	}
+
+	/**
 	 * A test has failed.
 	 *
 	 * @param PHPUnit_Framework_Test $test the test that has failed
@@ -277,7 +289,7 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 		if ($e instanceof PHPUnit_Framework_ExpectationFailedException) {
 			/** @var $e PHPUnit_Framework_ExpectationFailedException */
 			$comparisonFailure = $e->getComparisonFailure();
-			if ($comparisonFailure instanceof PHPUnit_Framework_ComparisonFailure) {
+			if ($comparisonFailure instanceof SebastianBergmann\Comparator\ComparisonFailure) {
 				/** @var $comparisonFailure PHPUnit_Framework_ComparisonFailure */
 				$expected = $comparisonFailure->getExpectedAsString();
 				$actual = $comparisonFailure->getActualAsString();

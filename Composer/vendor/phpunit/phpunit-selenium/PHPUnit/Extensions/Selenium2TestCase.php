@@ -86,11 +86,15 @@
  * @method string windowHandle() Retrieves the current window handle
  * @method string windowHandles() Retrieves a list of all available window handles
  * @method string keys() Send a sequence of key strokes to the active element.
+ * @method string file($file_path) Upload a local file. Returns the fully qualified path to the transferred file.
+ * @method array log(string $type) Get the log for a given log type. Log buffer is reset after each request.
+ * @method array logTypes() Get available log types.
  * @method void closeWindow() Close the current window.
+ * @method void close() Close the current window and clear session data.
  */
 abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_TestCase
 {
-    const VERSION = '1.3.1';
+    const VERSION = '1.3.3';
 
     /**
      * @var string  override to provide code coverage data from the server
@@ -226,10 +230,11 @@ abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_Te
 
     private function getStrategy()
     {
-        if ($this->localSessionStrategy)
+        if ($this->localSessionStrategy) {
             return $this->localSessionStrategy;
-        else
+        } else {
             return self::sessionStrategy();
+        }
     }
 
     public function prepareSession()
@@ -251,7 +256,6 @@ abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_Te
         if ($result === NULL) {
             $result = $this->createResult();
         }
-
 
         $this->collectCodeCoverageInformation = $result->getCollectCodeCoverageInformation();
 
@@ -297,7 +301,6 @@ abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_Te
         } catch (Exception $e) {
             $thrownException = $e;
         }
-
 
         if (NULL !== $thrownException) {
             throw $thrownException;
@@ -454,9 +457,9 @@ abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_Te
      */
     public function getSessionId()
     {
-        if ($this->session)
+        if ($this->session) {
             return $this->session->id();
-
+        }
         return FALSE;
     }
 
@@ -467,7 +470,7 @@ abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_Te
      * @param null $timeout
      * @return mixed
      */
-    public function waitUntil($callback, $timeout = null)
+    public function waitUntil($callback, $timeout = NULL)
     {
         $waitUntil = new PHPUnit_Extensions_Selenium2TestCase_WaitUntil($this);
         return $waitUntil->run($callback, $timeout);
