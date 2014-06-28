@@ -135,8 +135,6 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		$GLOBALS['BE_USER'] = $this->backEndUserBackup;
 
-		t3lib_div::purgeInstances();
-
 		unset(
 			$this->subject, $this->request, $this->outputService, $this->userSettingsService, $this->backEndUserBackup,
 			$this->testFinder, $this->extensionSettingsService, $this->progressBarViewHelper,
@@ -146,6 +144,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 6000000) {
 			\TYPO3\CMS\Core\Utility\GeneralUtility::purgeInstances();
 			\TYPO3\CMS\Core\Utility\GeneralUtility::resetSingletonInstances($this->singletonInstances);
+		} else {
+			t3lib_div::purgeInstances();
 		}
 	}
 
