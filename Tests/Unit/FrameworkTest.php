@@ -4392,10 +4392,30 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function loginUserIsZeroAfterCreateFakeFrontEnd() {
+		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 6002000) {
+			$this->markTestSkipped('This test is available in TYPO3 below version 6.2.');
+		}
+
 		$this->subject->createFakeFrontEnd();
 
 		$this->assertSame(
 			0,
+			$GLOBALS['TSFE']->loginUser
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function loginUserIsFalseAfterCreateFakeFrontEnd() {
+		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) < 6002000) {
+			$this->markTestSkipped('This test is available in TYPO3 in version 6.2 and above.');
+		}
+
+		$this->subject->createFakeFrontEnd();
+
+		$this->assertSame(
+			FALSE,
 			$GLOBALS['TSFE']->loginUser
 		);
 	}
@@ -4705,12 +4725,32 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
      * @test
      */
     public function logoutFrontEndUserSetsLoginUserToZero() {
+	    if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 6002000) {
+		    $this->markTestSkipped('This test is available in TYPO3 below version 6.2.');
+	    }
 		$this->subject->createFakeFrontEnd();
 
 		$this->subject->logoutFrontEndUser();
 
 		$this->assertSame(
 			0,
+			$GLOBALS['TSFE']->loginUser
+		);
+	}
+
+	/**
+     * @test
+     */
+    public function logoutFrontEndUserSetsLoginUserToFalse() {
+	    if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) < 6002000) {
+		    $this->markTestSkipped('This test is available in TYPO3 in version 6.2 and above.');
+	    }
+		$this->subject->createFakeFrontEnd();
+
+		$this->subject->logoutFrontEndUser();
+
+		$this->assertSame(
+			FALSE,
 			$GLOBALS['TSFE']->loginUser
 		);
 	}
