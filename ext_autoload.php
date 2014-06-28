@@ -12,6 +12,7 @@ return array(
 	'tx_phpunit_exception_emptyqueryresult' => $extensionPath . 'Classes/Exception/EmptyQueryResult.php',
 	'tx_phpunit_exception_notestsdirectory' => $extensionPath . 'Classes/Exception/NoTestsDirectory.php',
 	'tx_phpunit_framework' => $extensionPath . 'Classes/Framework.php',
+	'tx_phpunit_frontend_userwithoutcookies' => $extensionPath . 'Classes/Frontend/UserWithoutCookies.php',
 	'tx_phpunit_interface_accessibleobject' => $extensionPath . 'Classes/Interface/AccessibleObject.php',
 	'tx_phpunit_interface_convertservice' => $extensionPath . 'Classes/Interface/ConvertService.php',
 	'tx_phpunit_interface_extensionsettingsservice' => $extensionPath . 'Classes/Interface/ExtensionSettingsService.php',
