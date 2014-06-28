@@ -358,12 +358,17 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 		}
 
 		$testsPath = '';
-		$extensionPath = t3lib_extMgm::extPath($extensionKey);
-		foreach (self::$allowedTestDirectoryNames as $testDirectoryName) {
-			if (is_dir($extensionPath . $testDirectoryName)) {
-				$testsPath = $extensionPath . $testDirectoryName;
-				break;
+		try {
+			$extensionPath = t3lib_extMgm::extPath($extensionKey);
+
+			foreach (self::$allowedTestDirectoryNames as $testDirectoryName) {
+				if (is_dir($extensionPath . $testDirectoryName)) {
+					$testsPath = $extensionPath . $testDirectoryName;
+					break;
+				}
 			}
+		} catch (BadFunctionCallException $e) {
+			// Silently ignore missing extensions (e.g. extension directory does not exist)
 		}
 
 		if ($testsPath === '') {
