@@ -82,6 +82,11 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	protected $progressBarViewHelper = NULL;
 
 	/**
+	 * @var array
+	 */
+	protected $singletonInstances = array();
+
+	/**
 	 * @var bigDoc|PHPUnit_Framework_MockObject_MockObject
 	 */
 	protected $bigDocumentTemplate = NULL;
@@ -119,6 +124,10 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		} else {
 			t3lib_div::addInstance('TYPO3\\CMS\\Backend\\Template\\BigDocumentTemplate', $this->bigDocumentTemplate);
 		}
+
+		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 6000000) {
+			$this->singletonInstances = \TYPO3\CMS\Core\Utility\GeneralUtility::getSingletonInstances();
+		}
 	}
 
 	public function tearDown() {
@@ -133,6 +142,11 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			$this->testFinder, $this->extensionSettingsService, $this->progressBarViewHelper,
 			$this->bigDocumentTemplate, $this->testCaseService
 		);
+
+		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 6000000) {
+			\TYPO3\CMS\Core\Utility\GeneralUtility::purgeInstances();
+			\TYPO3\CMS\Core\Utility\GeneralUtility::resetSingletonInstances($this->singletonInstances);
+		}
 	}
 
 	/*
