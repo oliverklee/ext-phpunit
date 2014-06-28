@@ -26,24 +26,6 @@ $TCA['tx_phpunit_test'] = array(
 	)
 );
 
-//$TCA['tx_phpunit_testchild'] = array(
-//	'ctrl' => array(
-//		'title' => 'LLL:EXT:phpunit/Resource/Private/Language/locallang_backend.xml:tx_phpunit_test',
-//		'readOnly' => 1,
-//		'adminOnly' => 1,
-//		'rootLevel' => 1,
-//		'label' => 'title',
-//		'tstamp' => 'tstamp',
-//		'crdate' => 'crdate',
-//		'cruser_id' => 'cruser_id',
-//		'versioningWS' => FALSE,
-//		'default_sortby' => 'ORDER BY uid',
-//		'delete' => 'deleted',
-//		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/TCA.php',
-//		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'ext_icon.gif',
-//	)
-//);
-
 if (TYPO3_MODE === 'BE') {
 	t3lib_extMgm::addModule('tools', 'txphpunitbeM1', '', t3lib_extMgm::extPath($_EXTKEY) . 'Classes/BackEnd/');
 
