@@ -1122,9 +1122,14 @@ class Tx_Phpunit_Framework {
 			);
 		}
 
+		$lengthFullPath = mb_strlen($absolutePath);
+		$lengthExtensionUploadPath = mb_strlen($this->getUploadFolderPath());
+
 		return mb_substr(
 			$absolutePath,
-			mb_strlen($this->getUploadFolderPath())
+			$lengthExtensionUploadPath,
+			$lengthFullPath - $lengthExtensionUploadPath,
+			'UTF-8'
 		);
 	}
 
