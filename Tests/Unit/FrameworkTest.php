@@ -2088,6 +2088,8 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
      * @test
      */
     public function resetAutoIncrementForTestTableSucceeds() {
+		$this->subject->resetAutoIncrement('tx_phpunit_test');
+
 		$latestUid = $this->subject->createRecord('tx_phpunit_test');
 		$this->subject->deleteRecord('tx_phpunit_test', $latestUid);
 		$this->subject->resetAutoIncrement('tx_phpunit_test');
@@ -2369,6 +2371,8 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
      * @test
      */
     public function resetAutoIncrementLazilyCleansUpsAfterOneNewRecordWithThresholdOfOne() {
+		$this->subject->resetAutoIncrement('tx_phpunit_test');
+
 		$oldAutoIncrement = $this->subject->getAutoIncrement('tx_phpunit_test');
 		$this->subject->setResetAutoIncrementThreshold(1);
 
@@ -2386,6 +2390,8 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
      * @test
      */
     public function resetAutoIncrementLazilyCleansUpsAfter100NewRecordsByDefault() {
+		$this->subject->resetAutoIncrement('tx_phpunit_test');
+
 		$oldAutoIncrement = $this->subject->getAutoIncrement('tx_phpunit_test');
 
 		for ($i = 0; $i < 100; $i++) {
