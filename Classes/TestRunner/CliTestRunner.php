@@ -27,7 +27,6 @@ class Tx_Phpunit_TestRunner_CliTestRunner extends Tx_Phpunit_TestRunner_Abstract
 	 * @return void
 	 */
 	public function run() {
-		require_once('PHPUnit/Autoload.php');
 		/** @var string */
 		define('PHPUnit_MAIN_METHOD', 'PHPUnit_TextUI_Command::main');
 		PHPUnit_TextUI_Command::main();
