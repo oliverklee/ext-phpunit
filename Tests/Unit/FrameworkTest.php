@@ -197,9 +197,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function markTableAsDirty() {
+	 * @test
+	 */
+	public function markTableAsDirty() {
 		$this->assertSame(
 			array(),
 			$this->subject->getListOfDirtyTables()
@@ -215,9 +215,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function markTableAsDirtyWillCleanUpNonSystemTable() {
+	 * @test
+	 */
+	public function markTableAsDirtyWillCleanUpNonSystemTable() {
 		$uid = Tx_Phpunit_Service_Database::insert(
 			'tx_phpunit_test', array('is_dummy_record' => 1)
 		);
@@ -231,9 +231,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function markTableAsDirtyWillCleanUpSystemTable() {
+	 * @test
+	 */
+	public function markTableAsDirtyWillCleanUpSystemTable() {
 		$uid = Tx_Phpunit_Service_Database::insert (
 			'pages', array('tx_phpunit_is_dummy_record' => 1)
 		);
@@ -247,9 +247,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function markTableAsDirtyWillCleanUpAdditionalAllowedTable() {
+	 * @test
+	 */
+	public function markTableAsDirtyWillCleanUpAdditionalAllowedTable() {
 		$this->checkIfExtensionUserPhpUnittestIsLoaded();
 
 		$uid = Tx_Phpunit_Service_Database::insert(
@@ -265,45 +265,45 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function markTableAsDirtyFailsOnInexistentTable() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function markTableAsDirtyFailsOnInexistentTable() {
 		$this->subject->markTableAsDirty('tx_phpunit_DOESNOTEXIST');
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function markTableAsDirtyFailsOnNotAllowedSystemTable() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function markTableAsDirtyFailsOnNotAllowedSystemTable() {
 		$this->subject->markTableAsDirty('sys_domain');
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function markTableAsDirtyFailsOnForeignTable() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function markTableAsDirtyFailsOnForeignTable() {
 		$this->subject->markTableAsDirty('tx_seminars_seminars');
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function markTableAsDirtyFailsWithEmptyTableName() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function markTableAsDirtyFailsWithEmptyTableName() {
 		$this->subject->markTableAsDirty('');
 	}
 
 	/**
-     * @test
-     */
-    public function markTableAsDirtyAcceptsCommaSeparatedListOfTableNames() {
+	 * @test
+	 */
+	public function markTableAsDirtyAcceptsCommaSeparatedListOfTableNames() {
 		$this->subject->markTableAsDirty('tx_phpunit_test,tx_phpunit_test_article_mm');
 		$this->assertSame(
 			array(
@@ -320,9 +320,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function createRecordOnValidTableWithNoData() {
+	 * @test
+	 */
+	public function createRecordOnValidTableWithNoData() {
 		$this->assertNotEquals(
 			0,
 			$this->subject->createRecord('tx_phpunit_test', array())
@@ -330,9 +330,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createRecordWithValidData() {
+	 * @test
+	 */
+	public function createRecordWithValidData() {
 		$title = 'TEST record';
 		$uid = $this->subject->createRecord(
 			'tx_phpunit_test',
@@ -358,38 +358,38 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function createRecordOnInvalidTable() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function createRecordOnInvalidTable() {
 		$this->subject->createRecord('tx_phpunit_DOESNOTEXIST', array());
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function createRecordWithEmptyTableName() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function createRecordWithEmptyTableName() {
 		$this->subject->createRecord('', array());
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function createRecordWithUidFails() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function createRecordWithUidFails() {
 		$this->subject->createRecord(
 			'tx_phpunit_test', array('uid' => 99999)
 		);
 	}
 
 	/**
-     * @test
-     */
-    public function createRecordOnValidAdditionalAllowedTableWithValidDataSucceeds() {
+	 * @test
+	 */
+	public function createRecordOnValidAdditionalAllowedTableWithValidDataSucceeds() {
 		$this->checkIfExtensionUserPhpUnittestIsLoaded();
 
 		$title = 'TEST record';
@@ -407,9 +407,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function changeRecordWithExistingRecord() {
+	 * @test
+	 */
+	public function changeRecordWithExistingRecord() {
 		$uid = $this->subject->createRecord(
 			'tx_phpunit_test',
 			array('title' => 'foo')
@@ -434,11 +434,11 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function changeRecordFailsOnForeignTable() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function changeRecordFailsOnForeignTable() {
 		$this->subject->changeRecord(
 			'tx_seminars_seminars',
 			99999,
@@ -447,11 +447,11 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function changeRecordFailsOnInexistentTable() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function changeRecordFailsOnInexistentTable() {
 		$this->subject->changeRecord(
 			'tx_phpunit_DOESNOTEXIST',
 			99999,
@@ -460,9 +460,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function changeRecordOnAllowedSystemTableForPages() {
+	 * @test
+	 */
+	public function changeRecordOnAllowedSystemTableForPages() {
 		$pid = $this->subject->createFrontEndPage(0, array('title' => 'foo'));
 
 		$this->subject->changeRecord(
@@ -478,9 +478,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function changeRecordOnAllowedSystemTableForContent() {
+	 * @test
+	 */
+	public function changeRecordOnAllowedSystemTableForContent() {
 		$pid = $this->subject->createFrontEndPage(0, array('title' => 'foo'));
 		$uid = $this->subject->createContentElement(
 			$pid,
@@ -500,11 +500,11 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function changeRecordFailsOnOtherSystemTable() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function changeRecordFailsOnOtherSystemTable() {
 		$this->subject->changeRecord(
 			'sys_domain',
 			1,
@@ -513,9 +513,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function changeRecordOnAdditionalAllowedTableSucceeds() {
+	 * @test
+	 */
+	public function changeRecordOnAdditionalAllowedTableSucceeds() {
 		$this->checkIfExtensionUserPhpUnittestIsLoaded();
 
 		$uid = $this->subject->createRecord(
@@ -531,20 +531,20 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function changeRecordFailsWithUidZero() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function changeRecordFailsWithUidZero() {
 		$this->subject->changeRecord('tx_phpunit_test', 0, array('title' => 'foo'));
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function changeRecordFailsWithEmptyData() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function changeRecordFailsWithEmptyData() {
 		$uid = $this->subject->createRecord('tx_phpunit_test', array());
 
 		$this->subject->changeRecord(
@@ -553,11 +553,11 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function changeRecordFailsWithUidFieldInRecordData() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function changeRecordFailsWithUidFieldInRecordData() {
 		$uid = $this->subject->createRecord('tx_phpunit_test', array());
 
 		$this->subject->changeRecord(
@@ -566,11 +566,11 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function changeRecordFailsWithDummyRecordFieldInRecordData() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function changeRecordFailsWithDummyRecordFieldInRecordData() {
 		$uid = $this->subject->createRecord('tx_phpunit_test', array());
 
 		$this->subject->changeRecord(
@@ -579,11 +579,11 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException Tx_Phpunit_Exception_Database
-     */
-    public function changeRecordFailsOnInexistentRecord() {
+	 * @test
+	 *
+	 * @expectedException Tx_Phpunit_Exception_Database
+	 */
+	public function changeRecordFailsOnInexistentRecord() {
 		$uid = $this->subject->createRecord('tx_phpunit_test', array());
 
 		$this->subject->changeRecord(
@@ -597,9 +597,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function deleteRecordOnValidDummyRecord() {
+	 * @test
+	 */
+	public function deleteRecordOnValidDummyRecord() {
 		// Creates and directly destroys a dummy record.
 		$uid = $this->subject->createRecord('tx_phpunit_test', array());
 		$this->subject->deleteRecord('tx_phpunit_test', $uid);
@@ -612,9 +612,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function deleteRecordOnValidDummyRecordOnAdditionalAllowedTableSucceeds() {
+	 * @test
+	 */
+	public function deleteRecordOnValidDummyRecordOnAdditionalAllowedTableSucceeds() {
 		$this->checkIfExtensionUserPhpUnittestIsLoaded();
 
 		// Creates and directly destroys a dummy record.
@@ -623,9 +623,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function deleteRecordOnInexistentRecord() {
+	 * @test
+	 */
+	public function deleteRecordOnInexistentRecord() {
 		$uid = 99999;
 
 		// Checks that the record is inexistent before testing on it.
@@ -640,11 +640,11 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function deleteRecordOnForeignTable() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function deleteRecordOnForeignTable() {
 		$table = 'tx_seminars_seminars';
 		$uid = 99999;
 
@@ -652,11 +652,11 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function deleteRecordOnInexistentTable() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function deleteRecordOnInexistentTable() {
 		$table = 'tx_phpunit_DOESNOTEXIST';
 		$uid = 99999;
 
@@ -664,11 +664,11 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function deleteRecordWithEmptyTableName() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function deleteRecordWithEmptyTableName() {
 		$table = '';
 		$uid = 99999;
 
@@ -676,9 +676,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function deleteRecordOnNonTestRecordNotDeletesRecord() {
+	 * @test
+	 */
+	public function deleteRecordOnNonTestRecordNotDeletesRecord() {
 		// Create a new record that looks like a real record, i.e. the
 		// is_dummy_record flag is set to 0.
 		$uid = Tx_Phpunit_Service_Database::insert(
@@ -715,9 +715,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function createRelationWithValidData() {
+	 * @test
+	 */
+	public function createRelationWithValidData() {
 		$uidLocal = $this->subject->createRecord('tx_phpunit_test');
 		$uidForeign = $this->subject->createRecord('tx_phpunit_test');
 
@@ -736,9 +736,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createRelationWithValidDataOnAdditionalAllowedTableSucceeds() {
+	 * @test
+	 */
+	public function createRelationWithValidDataOnAdditionalAllowedTableSucceeds() {
 		$this->checkIfExtensionUserPhpUnittestIsLoaded();
 
 		$uidLocal = $this->subject->createRecord('user_phpunittest_test');
@@ -750,11 +750,11 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function createRelationWithInvalidTable() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function createRelationWithInvalidTable() {
 		$table = 'tx_phpunit_test_DOESNOTEXIST_mm';
 		$uidLocal = 99999;
 		$uidForeign = 199999;
@@ -763,59 +763,59 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function createRelationWithEmptyTableName() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function createRelationWithEmptyTableName() {
 		$this->subject->createRelation('', 99999, 199999);
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function createRelationWithZeroFirstUid() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function createRelationWithZeroFirstUid() {
 		$uid = $this->subject->createRecord('tx_phpunit_test');
 		$this->subject->createRelation('tx_phpunit_test_article_mm', 0, $uid);
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function createRelationWithZeroSecondUid() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function createRelationWithZeroSecondUid() {
 		$uid = $this->subject->createRecord('tx_phpunit_test');
 		$this->subject->createRelation('tx_phpunit_test_article_mm', $uid, 0);
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function createRelationWithNegativeFirstUid() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function createRelationWithNegativeFirstUid() {
 		$uid = $this->subject->createRecord('tx_phpunit_test');
 		$this->subject->createRelation('tx_phpunit_test_article_mm', -1, $uid);
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function createRelationWithNegativeSecondUid() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function createRelationWithNegativeSecondUid() {
 		$uid = $this->subject->createRecord('tx_phpunit_test');
 		$this->subject->createRelation('tx_phpunit_test_article_mm', $uid, -1);
 	}
 
 
 	/**
-     * @test
-     */
-    public function createRelationWithAutomaticSorting() {
+	 * @test
+	 */
+	public function createRelationWithAutomaticSorting() {
 		$uidLocal = $this->subject->createRecord('tx_phpunit_test');
 		$uidForeign = $this->subject->createRecord('tx_phpunit_test');
 		$this->subject->createRelation(
@@ -839,9 +839,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createRelationWithManualSorting() {
+	 * @test
+	 */
+	public function createRelationWithManualSorting() {
 		$uidLocal = $this->subject->createRecord('tx_phpunit_test');
 		$uidForeign = $this->subject->createRecord('tx_phpunit_test');
 		$sorting = 99999;
@@ -862,9 +862,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function createRelationAndUpdateCounterIncreasesZeroValueCounterByOne() {
+	 * @test
+	 */
+	public function createRelationAndUpdateCounterIncreasesZeroValueCounterByOne() {
 		$firstRecordUid = $this->subject->createRecord('tx_phpunit_test');
 		$secondRecordUid = $this->subject->createRecord('tx_phpunit_test');
 
@@ -888,9 +888,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createRelationAndUpdateCounterIncreasesNonZeroValueCounterToOne() {
+	 * @test
+	 */
+	public function createRelationAndUpdateCounterIncreasesNonZeroValueCounterToOne() {
 		$firstRecordUid = $this->subject->createRecord(
 			'tx_phpunit_test',
 			array('related_records' => 1)
@@ -917,9 +917,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createRelationAndUpdateCounterCreatesRecordInRelationTable() {
+	 * @test
+	 */
+	public function createRelationAndUpdateCounterCreatesRecordInRelationTable() {
 		$firstRecordUid = $this->subject->createRecord('tx_phpunit_test');
 		$secondRecordUid = $this->subject->createRecord('tx_phpunit_test');
 
@@ -1023,9 +1023,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function removeRelationOnValidDummyRecord() {
+	 * @test
+	 */
+	public function removeRelationOnValidDummyRecord() {
 		$uidLocal = $this->subject->createRecord('tx_phpunit_test');
 		$uidForeign = $this->subject->createRecord('tx_phpunit_test');
 
@@ -1048,9 +1048,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function removeRelationOnValidDummyRecordOnAdditionalAllowedTableSucceeds() {
+	 * @test
+	 */
+	public function removeRelationOnValidDummyRecordOnAdditionalAllowedTableSucceeds() {
 		$this->checkIfExtensionUserPhpUnittestIsLoaded();
 
 		$uidLocal = $this->subject->createRecord('user_phpunittest_test');
@@ -1066,9 +1066,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function removeRelationOnInexistentRecord() {
+	 * @test
+	 */
+	public function removeRelationOnInexistentRecord() {
 		$uid = $this->subject->createRecord('tx_phpunit_test');
 		$uidLocal = $uid + 1;
 		$uidForeign = $uid + 2;
@@ -1090,11 +1090,11 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function removeRelationOnForeignTable() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function removeRelationOnForeignTable() {
 		$table = 'tx_seminars_seminars_places_mm';
 		$uidLocal = 99999;
 		$uidForeign = 199999;
@@ -1103,11 +1103,11 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function removeRelationOnInexistentTable() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function removeRelationOnInexistentTable() {
 		$table = 'tx_phpunit_DOESNOTEXIST';
 		$uidLocal = 99999;
 		$uidForeign = 199999;
@@ -1116,11 +1116,11 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function removeRelationWithEmptyTableName() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function removeRelationWithEmptyTableName() {
 		$table = '';
 		$uidLocal = 99999;
 		$uidForeign = 199999;
@@ -1129,9 +1129,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function removeRelationOnRealRecordNotRemovesRelation() {
+	 * @test
+	 */
+	public function removeRelationOnRealRecordNotRemovesRelation() {
 		$uidLocal = $this->subject->createRecord('tx_phpunit_test');
 		$uidForeign = $this->subject->createRecord('tx_phpunit_test');
 
@@ -1340,9 +1340,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function createListOfAllowedTablesContainsOurTestTable() {
+	 * @test
+	 */
+	public function createListOfAllowedTablesContainsOurTestTable() {
 		$allowedTables = $this->subject->getListOfOwnAllowedTableNames();
 		$this->assertContains(
 			'tx_phpunit_test',
@@ -1351,9 +1351,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createListOfAllowedTablesDoesNotContainForeignTables() {
+	 * @test
+	 */
+	public function createListOfAllowedTablesDoesNotContainForeignTables() {
 		$allowedTables = $this->subject->getListOfOwnAllowedTableNames();
 		$this->assertNotContains(
 			'be_users',
@@ -1368,9 +1368,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function createListOfAdditionalAllowedTablesContainsOurTestTable() {
+	 * @test
+	 */
+	public function createListOfAdditionalAllowedTablesContainsOurTestTable() {
 		$this->checkIfExtensionUserPhpUnittestIsLoaded();
 
 		$allowedTables = $this->subject->getListOfAdditionalAllowedTableNames();
@@ -1381,9 +1381,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createListOfAdditionalAllowedTablesDoesNotContainForeignTables() {
+	 * @test
+	 */
+	public function createListOfAdditionalAllowedTablesDoesNotContainForeignTables() {
 		$allowedTables = $this->subject->getListOfAdditionalAllowedTableNames();
 		$this->assertNotContains(
 			'be_users',
@@ -1392,9 +1392,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createListOfAdditionalAllowedTablesContainsOurTestTables() {
+	 * @test
+	 */
+	public function createListOfAdditionalAllowedTablesContainsOurTestTables() {
 		$this->checkIfExtensionUserPhpUnittestIsLoaded();
 		$this->checkIfExtensionUserPhpUnittest2IsLoaded();
 
@@ -1439,9 +1439,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function getAutoIncrementGetsCurrentAutoIncrement() {
+	 * @test
+	 */
+	public function getAutoIncrementGetsCurrentAutoIncrement() {
 		$uid = $this->subject->createRecord('tx_phpunit_test');
 
 		// $uid will equals be the previous auto increment value, so $uid + 1
@@ -1453,16 +1453,16 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function getAutoIncrementForFeUsersTableIsAllowed() {
+	 * @test
+	 */
+	public function getAutoIncrementForFeUsersTableIsAllowed() {
 		$this->subject->getAutoIncrement('fe_users');
 	}
 
 	/**
-     * @test
-     */
-    public function getAutoIncrementForPagesTableIsAllowed() {
+	 * @test
+	 */
+	public function getAutoIncrementForPagesTableIsAllowed() {
 		$this->subject->getAutoIncrement('pages');
 	}
 
@@ -1529,38 +1529,38 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function getAutoIncrementWithEmptyTableNameFails() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function getAutoIncrementWithEmptyTableNameFails() {
 		$this->subject->getAutoIncrement('');
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function getAutoIncrementWithForeignTableFails() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function getAutoIncrementWithForeignTableFails() {
 		$this->subject->getAutoIncrement('tx_seminars_seminars');
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function getAutoIncrementWithInexistentTableFails() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function getAutoIncrementWithInexistentTableFails() {
 		$this->subject->getAutoIncrement('tx_phpunit_DOESNOTEXIST');
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function getAutoIncrementWithTableWithoutUidFails() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function getAutoIncrementWithTableWithoutUidFails() {
 		$this->subject->getAutoIncrement('tx_phpunit_test_article_mm');
 	}
 
@@ -1570,66 +1570,66 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function countRecordsWithEmptyWhereClauseIsAllowed() {
+	 * @test
+	 */
+	public function countRecordsWithEmptyWhereClauseIsAllowed() {
 		$this->subject->countRecords('tx_phpunit_test', '');
 	}
 
 	/**
-     * @test
-     */
-    public function countRecordsWithMissingWhereClauseIsAllowed() {
+	 * @test
+	 */
+	public function countRecordsWithMissingWhereClauseIsAllowed() {
 		$this->subject->countRecords('tx_phpunit_test');
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function countRecordsWithEmptyTableNameThrowsException() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function countRecordsWithEmptyTableNameThrowsException() {
 		$this->subject->countRecords('');
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function countRecordsWithInvalidTableNameThrowsException() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function countRecordsWithInvalidTableNameThrowsException() {
 		$table = 'foo_bar';
 		$this->subject->countRecords($table);
 	}
 
 	/**
-     * @test
-     */
-    public function countRecordsWithFeGroupsTableIsAllowed() {
+	 * @test
+	 */
+	public function countRecordsWithFeGroupsTableIsAllowed() {
 		$table = 'fe_groups';
 		$this->subject->countRecords($table);
 	}
 
 	/**
-     * @test
-     */
-    public function countRecordsWithFeUsersTableIsAllowed() {
+	 * @test
+	 */
+	public function countRecordsWithFeUsersTableIsAllowed() {
 		$table = 'fe_users';
 		$this->subject->countRecords($table);
 	}
 
 	/**
-     * @test
-     */
-    public function countRecordsWithPagesTableIsAllowed() {
+	 * @test
+	 */
+	public function countRecordsWithPagesTableIsAllowed() {
 		$table = 'pages';
 		$this->subject->countRecords($table);
 	}
 
 	/**
-     * @test
-     */
-    public function countRecordsWithTtContentTableIsAllowed() {
+	 * @test
+	 */
+	public function countRecordsWithTtContentTableIsAllowed() {
 		$table = 'tt_content';
 		$this->subject->countRecords($table);
 	}
@@ -1680,18 +1680,18 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function countRecordsWithOtherTableThrowsException() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function countRecordsWithOtherTableThrowsException() {
 		$this->subject->countRecords('sys_domain');
 	}
 
 	/**
-     * @test
-     */
-    public function countRecordsReturnsZeroForNoMatches() {
+	 * @test
+	 */
+	public function countRecordsReturnsZeroForNoMatches() {
 		$this->assertSame(
 			0,
 			$this->subject->countRecords('tx_phpunit_test', 'title = "foo"')
@@ -1699,9 +1699,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function countRecordsReturnsOneForOneDummyRecordMatch() {
+	 * @test
+	 */
+	public function countRecordsReturnsOneForOneDummyRecordMatch() {
 		$this->subject->createRecord(
 			'tx_phpunit_test', array('title' => 'foo')
 		);
@@ -1713,9 +1713,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function countRecordsWithMissingWhereClauseReturnsOneForOneDummyRecordMatch() {
+	 * @test
+	 */
+	public function countRecordsWithMissingWhereClauseReturnsOneForOneDummyRecordMatch() {
 		$this->subject->createRecord(
 			'tx_phpunit_test', array('title' => 'foo')
 		);
@@ -1727,9 +1727,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function countRecordsReturnsTwoForTwoMatches() {
+	 * @test
+	 */
+	public function countRecordsReturnsTwoForTwoMatches() {
 		$this->subject->createRecord(
 			'tx_phpunit_test', array('title' => 'foo')
 		);
@@ -1744,16 +1744,16 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function countRecordsForPagesTableIsAllowed() {
+	 * @test
+	 */
+	public function countRecordsForPagesTableIsAllowed() {
 		$this->subject->countRecords('pages');
 	}
 
 	/**
-     * @test
-     */
-    public function countRecordsIgnoresNonDummyRecords() {
+	 * @test
+	 */
+	public function countRecordsIgnoresNonDummyRecords() {
 		Tx_Phpunit_Service_Database::insert(
 			'tx_phpunit_test', array('title' => 'foo')
 		);
@@ -1782,51 +1782,51 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function existsRecordWithEmptyWhereClauseIsAllowed() {
+	 * @test
+	 */
+	public function existsRecordWithEmptyWhereClauseIsAllowed() {
 		$this->subject->existsRecord('tx_phpunit_test', '');
 	}
 
 	/**
-     * @test
-     */
-    public function existsRecordWithMissingWhereClauseIsAllowed() {
+	 * @test
+	 */
+	public function existsRecordWithMissingWhereClauseIsAllowed() {
 		$this->subject->existsRecord('tx_phpunit_test');
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function existsRecordWithEmptyTableNameThrowsException() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function existsRecordWithEmptyTableNameThrowsException() {
 		$this->subject->existsRecord('');
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function existsRecordWithInvalidTableNameThrowsException() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function existsRecordWithInvalidTableNameThrowsException() {
 		$table = 'foo_bar';
 		$this->subject->existsRecord($table);
 	}
 
 	/**
-     * @test
-     */
-    public function existsRecordForNoMatchesReturnsFalse() {
+	 * @test
+	 */
+	public function existsRecordForNoMatchesReturnsFalse() {
 		$this->assertFalse(
 			$this->subject->existsRecord('tx_phpunit_test', 'title = "foo"')
 		);
 	}
 
 	/**
-     * @test
-     */
-    public function existsRecordForOneMatchReturnsTrue() {
+	 * @test
+	 */
+	public function existsRecordForOneMatchReturnsTrue() {
 		$this->subject->createRecord(
 			'tx_phpunit_test', array('title' => 'foo')
 		);
@@ -1837,9 +1837,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function existsRecordForTwoMatchesReturnsTrue() {
+	 * @test
+	 */
+	public function existsRecordForTwoMatchesReturnsTrue() {
 		$this->subject->createRecord(
 			'tx_phpunit_test', array('title' => 'foo')
 		);
@@ -1853,9 +1853,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function existsRecordIgnoresNonDummyRecords() {
+	 * @test
+	 */
+	public function existsRecordIgnoresNonDummyRecords() {
 		Tx_Phpunit_Service_Database::insert(
 			'tx_phpunit_test', array('title' => 'foo')
 		);
@@ -1883,46 +1883,46 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function existsRecordWithUidWithZeroUidThrowsException() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function existsRecordWithUidWithZeroUidThrowsException() {
 		$this->subject->existsRecordWithUid('tx_phpunit_test', 0);
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function existsRecordWithUidWithNegativeUidThrowsException() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function existsRecordWithUidWithNegativeUidThrowsException() {
 		$this->subject->existsRecordWithUid('tx_phpunit_test', -1);
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function existsRecordWithUidWithEmptyTableNameThrowsException() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function existsRecordWithUidWithEmptyTableNameThrowsException() {
 		$this->subject->existsRecordWithUid('', 1);
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function existsRecordWithUidWithInvalidTableNameThrowsException() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function existsRecordWithUidWithInvalidTableNameThrowsException() {
 		$table = 'foo_bar';
 		$this->subject->existsRecordWithUid($table, 1);
 	}
 
 	/**
-     * @test
-     */
-    public function existsRecordWithUidForNoMatcheReturnsFalse() {
+	 * @test
+	 */
+	public function existsRecordWithUidForNoMatcheReturnsFalse() {
 		$uid = $this->subject->createRecord('tx_phpunit_test');
 		$this->subject->deleteRecord('tx_phpunit_test', $uid);
 
@@ -1934,9 +1934,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function existsRecordWithUidForMatchReturnsTrue() {
+	 * @test
+	 */
+	public function existsRecordWithUidForMatchReturnsTrue() {
 		$uid = $this->subject->createRecord('tx_phpunit_test');
 
 		$this->assertTrue(
@@ -1945,9 +1945,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function existsRecordWithUidIgnoresNonDummyRecords() {
+	 * @test
+	 */
+	public function existsRecordWithUidIgnoresNonDummyRecords() {
 		$uid = Tx_Phpunit_Service_Database::insert(
 			'tx_phpunit_test', array('title' => 'foo')
 		);
@@ -1974,42 +1974,42 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function existsExactlyOneRecordWithEmptyWhereClauseIsAllowed() {
+	 * @test
+	 */
+	public function existsExactlyOneRecordWithEmptyWhereClauseIsAllowed() {
 		$this->subject->existsExactlyOneRecord('tx_phpunit_test', '');
 	}
 
 	/**
-     * @test
-     */
-    public function existsExactlyOneRecordWithMissingWhereClauseIsAllowed() {
+	 * @test
+	 */
+	public function existsExactlyOneRecordWithMissingWhereClauseIsAllowed() {
 		$this->subject->existsExactlyOneRecord('tx_phpunit_test');
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function existsExactlyOneRecordWithEmptyTableNameThrowsException() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function existsExactlyOneRecordWithEmptyTableNameThrowsException() {
 		$this->subject->existsExactlyOneRecord('');
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function existsExactlyOneRecordWithInvalidTableNameThrowsException() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function existsExactlyOneRecordWithInvalidTableNameThrowsException() {
 		$table = 'foo_bar';
 		$this->subject->existsExactlyOneRecord($table);
 	}
 
 	/**
-     * @test
-     */
-    public function existsExactlyOneRecordForNoMatchesReturnsFalse() {
+	 * @test
+	 */
+	public function existsExactlyOneRecordForNoMatchesReturnsFalse() {
 		$this->assertFalse(
 			$this->subject->existsExactlyOneRecord(
 				'tx_phpunit_test', 'title = "foo"'
@@ -2018,9 +2018,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function existsExactlyOneRecordForOneMatchReturnsTrue() {
+	 * @test
+	 */
+	public function existsExactlyOneRecordForOneMatchReturnsTrue() {
 		$this->subject->createRecord(
 			'tx_phpunit_test', array('title' => 'foo')
 		);
@@ -2033,9 +2033,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function existsExactlyOneRecordForTwoMatchesReturnsFalse() {
+	 * @test
+	 */
+	public function existsExactlyOneRecordForTwoMatchesReturnsFalse() {
 		$this->subject->createRecord(
 			'tx_phpunit_test', array('title' => 'foo')
 		);
@@ -2049,9 +2049,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function existsExactlyOneRecordIgnoresNonDummyRecords() {
+	 * @test
+	 */
+	public function existsExactlyOneRecordIgnoresNonDummyRecords() {
 		Tx_Phpunit_Service_Database::insert(
 			'tx_phpunit_test', array('title' => 'foo')
 		);
@@ -2079,9 +2079,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function resetAutoIncrementForTestTableSucceeds() {
+	 * @test
+	 */
+	public function resetAutoIncrementForTestTableSucceeds() {
 		$this->subject->resetAutoIncrement('tx_phpunit_test');
 
 		$latestUid = $this->subject->createRecord('tx_phpunit_test');
@@ -2095,16 +2095,16 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function resetAutoIncrementForUnchangedTestTableCanBeRun() {
+	 * @test
+	 */
+	public function resetAutoIncrementForUnchangedTestTableCanBeRun() {
 		$this->subject->resetAutoIncrement('tx_phpunit_test');
 	}
 
 	/**
-     * @test
-     */
-    public function resetAutoIncrementForAdditionalAllowedTableSucceeds() {
+	 * @test
+	 */
+	public function resetAutoIncrementForAdditionalAllowedTableSucceeds() {
 		$this->checkIfExtensionUserPhpUnittestIsLoaded();
 
 		// Creates and deletes a record and then resets the auto increment.
@@ -2114,30 +2114,30 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function resetAutoIncrementForTableWithoutUidIsAllowed() {
+	 * @test
+	 */
+	public function resetAutoIncrementForTableWithoutUidIsAllowed() {
 		$this->subject->resetAutoIncrement('tx_phpunit_test_article_mm');
 	}
 
 	/**
-     * @test
-     */
-    public function resetAutoIncrementForFeUsersTableIsAllowed() {
+	 * @test
+	 */
+	public function resetAutoIncrementForFeUsersTableIsAllowed() {
 		$this->subject->resetAutoIncrement('fe_users');
 	}
 
 	/**
-     * @test
-     */
-    public function resetAutoIncrementForPagesTableIsAllowed() {
+	 * @test
+	 */
+	public function resetAutoIncrementForPagesTableIsAllowed() {
 		$this->subject->resetAutoIncrement('pages');
 	}
 
 	/**
-     * @test
-     */
-    public function resetAutoIncrementForTtContentTableIsAllowed() {
+	 * @test
+	 */
+	public function resetAutoIncrementForTtContentTableIsAllowed() {
 		$this->subject->resetAutoIncrement('tt_content');
 	}
 
@@ -2198,29 +2198,29 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function resetAutoIncrementWithEmptyTableNameFails() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function resetAutoIncrementWithEmptyTableNameFails() {
 		$this->subject->resetAutoIncrement('');
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function resetAutoIncrementWithForeignTableFails() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function resetAutoIncrementWithForeignTableFails() {
 		$this->subject->resetAutoIncrement('tx_seminars_seminars');
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function resetAutoIncrementWithInexistentTableFails() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function resetAutoIncrementWithInexistentTableFails() {
 		$this->subject->resetAutoIncrement('tx_phpunit_DOESNOTEXIST');
 	}
 
@@ -2231,37 +2231,37 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function resetAutoIncrementLazilyForTestTableIsAllowed() {
+	 * @test
+	 */
+	public function resetAutoIncrementLazilyForTestTableIsAllowed() {
 		$this->subject->resetAutoIncrementLazily('tx_phpunit_test');
 	}
 
 	/**
-     * @test
-     */
-    public function resetAutoIncrementLazilyForTableWithoutUidIsAllowed() {
+	 * @test
+	 */
+	public function resetAutoIncrementLazilyForTableWithoutUidIsAllowed() {
 		$this->subject->resetAutoIncrementLazily('tx_phpunit_test_article_mm');
 	}
 
 	/**
-     * @test
-     */
-    public function resetAutoIncrementLazilyForFeUsersTableIsAllowed() {
+	 * @test
+	 */
+	public function resetAutoIncrementLazilyForFeUsersTableIsAllowed() {
 		$this->subject->resetAutoIncrementLazily('fe_users');
 	}
 
 	/**
-     * @test
-     */
-    public function resetAutoIncrementLazilyForPagesTableIsAllowed() {
+	 * @test
+	 */
+	public function resetAutoIncrementLazilyForPagesTableIsAllowed() {
 		$this->subject->resetAutoIncrementLazily('pages');
 	}
 
 	/**
-     * @test
-     */
-    public function resetAutoIncrementLazilyForTtContentTableIsAllowed() {
+	 * @test
+	 */
+	public function resetAutoIncrementLazilyForTtContentTableIsAllowed() {
 		$this->subject->resetAutoIncrementLazily('tt_content');
 	}
 
@@ -2319,36 +2319,36 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function resetAutoIncrementLazilyWithEmptyTableNameFails() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function resetAutoIncrementLazilyWithEmptyTableNameFails() {
 		$this->subject->resetAutoIncrementLazily('');
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function resetAutoIncrementLazilyWithForeignTableFails() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function resetAutoIncrementLazilyWithForeignTableFails() {
 		$this->subject->resetAutoIncrementLazily('tx_seminars_seminars');
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function resetAutoIncrementLazilyWithInexistentTableFails() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function resetAutoIncrementLazilyWithInexistentTableFails() {
 		$this->subject->resetAutoIncrementLazily('tx_phpunit_DOESNOTEXIST');
 	}
 
 	/**
-     * @test
-     */
-    public function resetAutoIncrementLazilyDoesNothingAfterOneNewRecordByDefault() {
+	 * @test
+	 */
+	public function resetAutoIncrementLazilyDoesNothingAfterOneNewRecordByDefault() {
 		$this->subject->resetAutoIncrement('tx_phpunit_test');
 
 		$oldAutoIncrement = $this->subject->getAutoIncrement('tx_phpunit_test');
@@ -2364,9 +2364,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function resetAutoIncrementLazilyCleansUpsAfterOneNewRecordWithThresholdOfOne() {
+	 * @test
+	 */
+	public function resetAutoIncrementLazilyCleansUpsAfterOneNewRecordWithThresholdOfOne() {
 		$this->subject->resetAutoIncrement('tx_phpunit_test');
 
 		$oldAutoIncrement = $this->subject->getAutoIncrement('tx_phpunit_test');
@@ -2383,34 +2383,34 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function setResetAutoIncrementThresholdForOneIsAllowed() {
+	 * @test
+	 */
+	public function setResetAutoIncrementThresholdForOneIsAllowed() {
 		$this->subject->setResetAutoIncrementThreshold(1);
 	}
 
 	/**
-     * @test
-     */
-    public function setResetAutoIncrementThresholdFor100IsAllowed() {
+	 * @test
+	 */
+	public function setResetAutoIncrementThresholdFor100IsAllowed() {
 		$this->subject->setResetAutoIncrementThreshold(100);
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function setResetAutoIncrementThresholdForZeroFails() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function setResetAutoIncrementThresholdForZeroFails() {
 		$this->subject->setResetAutoIncrementThreshold(0);
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function setResetAutoIncrementThresholdForMinus1Fails() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function setResetAutoIncrementThresholdForMinus1Fails() {
 		$this->subject->setResetAutoIncrementThreshold(-1);
 	}
 
@@ -2420,9 +2420,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function frontEndPageCanBeCreated() {
+	 * @test
+	 */
+	public function frontEndPageCanBeCreated() {
 		$uid = $this->subject->createFrontEndPage();
 
 		$this->assertNotEquals(
@@ -2439,9 +2439,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createFrontEndPageSetsPageDocumentType() {
+	 * @test
+	 */
+	public function createFrontEndPageSetsPageDocumentType() {
 		$uid = $this->subject->createFrontEndPage();
 
 		$this->assertNotEquals(
@@ -2462,9 +2462,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function frontEndPageWillBeCreatedOnRootPage() {
+	 * @test
+	 */
+	public function frontEndPageWillBeCreatedOnRootPage() {
 		$uid = $this->subject->createFrontEndPage();
 
 		$this->assertNotEquals(
@@ -2485,9 +2485,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function frontEndPageCanBeCreatedOnOtherPage() {
+	 * @test
+	 */
+	public function frontEndPageCanBeCreatedOnOtherPage() {
 		$parent = $this->subject->createFrontEndPage();
 		$uid = $this->subject->createFrontEndPage($parent);
 
@@ -2509,9 +2509,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function frontEndPageCanBeDirty() {
+	 * @test
+	 */
+	public function frontEndPageCanBeDirty() {
 		$this->assertSame(
 			0,
 			count($this->subject->getListOfDirtySystemTables())
@@ -2529,9 +2529,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function frontEndPageWillBeCleanedUp() {
+	 * @test
+	 */
+	public function frontEndPageWillBeCleanedUp() {
 		$uid = $this->subject->createFrontEndPage();
 		$this->assertNotEquals(
 			0,
@@ -2548,9 +2548,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function frontEndPageHasNoTitleByDefault() {
+	 * @test
+	 */
+	public function frontEndPageHasNoTitleByDefault() {
 		$uid = $this->subject->createFrontEndPage();
 
 		$row = Tx_Phpunit_Service_Database::selectSingle(
@@ -2566,9 +2566,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function frontEndPageCanHaveTitle() {
+	 * @test
+	 */
+	public function frontEndPageCanHaveTitle() {
 		$uid = $this->subject->createFrontEndPage(
 			0,
 			array('title' => 'Test title')
@@ -2587,56 +2587,56 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function frontEndPageMustHaveNoZeroPid() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function frontEndPageMustHaveNoZeroPid() {
 		$this->subject->createFrontEndPage(0, array('pid' => 0));
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function frontEndPageMustHaveNoNonZeroPid() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function frontEndPageMustHaveNoNonZeroPid() {
 		$this->subject->createFrontEndPage(0, array('pid' => 99999));
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function frontEndPageMustHaveNoZeroUid() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function frontEndPageMustHaveNoZeroUid() {
 		$this->subject->createFrontEndPage(0, array('uid' => 0));
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function frontEndPageMustHaveNoNonZeroUid() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function frontEndPageMustHaveNoNonZeroUid() {
 		$this->subject->createFrontEndPage(0, array('uid' => 99999));
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function frontEndPageMustHaveNoZeroDoktype() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function frontEndPageMustHaveNoZeroDoktype() {
 		$this->subject->createFrontEndPage(0, array('doktype' => 0));
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function frontEndPageMustHaveNoNonZeroDoktype() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function frontEndPageMustHaveNoNonZeroDoktype() {
 		$this->subject->createFrontEndPage(0, array('doktype' => 99999));
 	}
 
@@ -2646,9 +2646,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function systemFolderCanBeCreated() {
+	 * @test
+	 */
+	public function systemFolderCanBeCreated() {
 		$uid = $this->subject->createSystemFolder();
 
 		$this->assertNotEquals(
@@ -2665,9 +2665,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createSystemFolderSetsSystemFolderDocumentType() {
+	 * @test
+	 */
+	public function createSystemFolderSetsSystemFolderDocumentType() {
 		$uid = $this->subject->createSystemFolder();
 
 		$this->assertNotEquals(
@@ -2688,9 +2688,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function systemFolderWillBeCreatedOnRootPage() {
+	 * @test
+	 */
+	public function systemFolderWillBeCreatedOnRootPage() {
 		$uid = $this->subject->createSystemFolder();
 
 		$this->assertNotEquals(
@@ -2711,9 +2711,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function systemFolderCanBeCreatedOnOtherPage() {
+	 * @test
+	 */
+	public function systemFolderCanBeCreatedOnOtherPage() {
 		$parent = $this->subject->createSystemFolder();
 		$uid = $this->subject->createSystemFolder($parent);
 
@@ -2735,9 +2735,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function systemFolderCanBeDirty() {
+	 * @test
+	 */
+	public function systemFolderCanBeDirty() {
 		$this->assertSame(
 			0,
 			count($this->subject->getListOfDirtySystemTables())
@@ -2755,9 +2755,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function systemFolderWillBeCleanedUp() {
+	 * @test
+	 */
+	public function systemFolderWillBeCleanedUp() {
 		$uid = $this->subject->createSystemFolder();
 		$this->assertNotEquals(
 			0,
@@ -2774,9 +2774,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function systemFolderHasNoTitleByDefault() {
+	 * @test
+	 */
+	public function systemFolderHasNoTitleByDefault() {
 		$uid = $this->subject->createSystemFolder();
 
 		$row = Tx_Phpunit_Service_Database::selectSingle(
@@ -2792,9 +2792,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function systemFolderCanHaveTitle() {
+	 * @test
+	 */
+	public function systemFolderCanHaveTitle() {
 		$uid = $this->subject->createSystemFolder(
 			0,
 			array('title' => 'Test title')
@@ -2813,56 +2813,56 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function systemFolderMustHaveNoZeroPid() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function systemFolderMustHaveNoZeroPid() {
 		$this->subject->createSystemFolder(0, array('pid' => 0));
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function systemFolderMustHaveNoNonZeroPid() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function systemFolderMustHaveNoNonZeroPid() {
 		$this->subject->createSystemFolder(0, array('pid' => 99999));
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function systemFolderMustHaveNoZeroUid() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function systemFolderMustHaveNoZeroUid() {
 		$this->subject->createSystemFolder(0, array('uid' => 0));
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function systemFolderMustHaveNoNonZeroUid() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function systemFolderMustHaveNoNonZeroUid() {
 		$this->subject->createSystemFolder(0, array('uid' => 99999));
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function systemFolderMustHaveNoZeroDoktype() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function systemFolderMustHaveNoZeroDoktype() {
 		$this->subject->createSystemFolder(0, array('doktype' => 0));
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function systemFolderMustHaveNoNonZeroDoktype() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function systemFolderMustHaveNoNonZeroDoktype() {
 		$this->subject->createSystemFolder(0, array('doktype' => 99999));
 	}
 
@@ -2872,9 +2872,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function contentElementCanBeCreated() {
+	 * @test
+	 */
+	public function contentElementCanBeCreated() {
 		$uid = $this->subject->createContentElement();
 
 		$this->assertNotEquals(
@@ -2891,9 +2891,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function contentElementWillBeCreatedOnRootPage() {
+	 * @test
+	 */
+	public function contentElementWillBeCreatedOnRootPage() {
 		$uid = $this->subject->createContentElement();
 
 		$this->assertNotEquals(
@@ -2914,9 +2914,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function contentElementCanBeCreatedOnNonRootPage() {
+	 * @test
+	 */
+	public function contentElementCanBeCreatedOnNonRootPage() {
 		$parent = $this->subject->createSystemFolder();
 		$uid = $this->subject->createContentElement($parent);
 
@@ -2938,9 +2938,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function contentElementCanBeDirty() {
+	 * @test
+	 */
+	public function contentElementCanBeDirty() {
 		$this->assertSame(
 			0,
 			count($this->subject->getListOfDirtySystemTables())
@@ -2958,9 +2958,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function contentElementWillBeCleanedUp() {
+	 * @test
+	 */
+	public function contentElementWillBeCleanedUp() {
 		$uid = $this->subject->createContentElement();
 		$this->assertNotEquals(
 			0,
@@ -2977,9 +2977,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function contentElementHasNoHeaderByDefault() {
+	 * @test
+	 */
+	public function contentElementHasNoHeaderByDefault() {
 		$uid = $this->subject->createContentElement();
 
 		$row = Tx_Phpunit_Service_Database::selectSingle(
@@ -2995,9 +2995,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function contentElementCanHaveHeader() {
+	 * @test
+	 */
+	public function contentElementCanHaveHeader() {
 		$uid = $this->subject->createContentElement(
 			0,
 			array('header' => 'Test header')
@@ -3016,9 +3016,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function contentElementIsTextElementByDefault() {
+	 * @test
+	 */
+	public function contentElementIsTextElementByDefault() {
 		$uid = $this->subject->createContentElement();
 
 		$row = Tx_Phpunit_Service_Database::selectSingle(
@@ -3034,9 +3034,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function contentElementCanHaveOtherType() {
+	 * @test
+	 */
+	public function contentElementCanHaveOtherType() {
 		$uid = $this->subject->createContentElement(
 			0,
 			array('CType' => 'list')
@@ -3055,38 +3055,38 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function contentElementMustHaveNoZeroPid() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function contentElementMustHaveNoZeroPid() {
 		$this->subject->createContentElement(0, array('pid' => 0));
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function contentElementMustHaveNoNonZeroPid() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function contentElementMustHaveNoNonZeroPid() {
 		$this->subject->createContentElement(0, array('pid' => 99999));
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function contentElementMustHaveNoZeroUid() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function contentElementMustHaveNoZeroUid() {
 		$this->subject->createContentElement(0, array('uid' => 0));
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function contentElementMustHaveNoNonZeroUid() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function contentElementMustHaveNoNonZeroUid() {
 		$this->subject->createContentElement(0, array('uid' => 99999));
 	}
 
@@ -3096,9 +3096,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function templateCanBeCreatedOnNonRootPage() {
+	 * @test
+	 */
+	public function templateCanBeCreatedOnNonRootPage() {
 		$pageId = $this->subject->createFrontEndPage();
 		$uid = $this->subject->createTemplate($pageId);
 
@@ -3116,27 +3116,27 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function templateCannotBeCreatedOnRootPage() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function templateCannotBeCreatedOnRootPage() {
 		$this->subject->createTemplate(0);
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function templateCannotBeCreatedWithNegativePageNumber() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function templateCannotBeCreatedWithNegativePageNumber() {
 		$this->subject->createTemplate(-1);
 	}
 
 	/**
-     * @test
-     */
-    public function templateCanBeDirty() {
+	 * @test
+	 */
+	public function templateCanBeDirty() {
 		$this->assertSame(
 			0,
 			count($this->subject->getListOfDirtySystemTables())
@@ -3156,9 +3156,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function templateWillBeCleanedUp() {
+	 * @test
+	 */
+	public function templateWillBeCleanedUp() {
 		$pageId = $this->subject->createFrontEndPage();
 		$uid = $this->subject->createTemplate($pageId);
 		$this->assertNotEquals(
@@ -3176,9 +3176,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function templateInitiallyHasNoConfig() {
+	 * @test
+	 */
+	public function templateInitiallyHasNoConfig() {
 		$pageId = $this->subject->createFrontEndPage();
 		$uid = $this->subject->createTemplate($pageId);
 		$row = Tx_Phpunit_Service_Database::selectSingle(
@@ -3193,9 +3193,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function templateCanHaveConfig() {
+	 * @test
+	 */
+	public function templateCanHaveConfig() {
 		$pageId = $this->subject->createFrontEndPage();
 		$uid = $this->subject->createTemplate(
 			$pageId,
@@ -3214,9 +3214,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function templateInitiallyHasNoConstants() {
+	 * @test
+	 */
+	public function templateInitiallyHasNoConstants() {
 		$pageId = $this->subject->createFrontEndPage();
 		$uid = $this->subject->createTemplate($pageId);
 		$row = Tx_Phpunit_Service_Database::selectSingle(
@@ -3231,9 +3231,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function templateCanHaveConstants() {
+	 * @test
+	 */
+	public function templateCanHaveConstants() {
 		$pageId = $this->subject->createFrontEndPage();
 		$uid = $this->subject->createTemplate(
 			$pageId,
@@ -3252,38 +3252,38 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function templateMustNotHaveZeroPid() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function templateMustNotHaveZeroPid() {
 		$this->subject->createTemplate(42, array('pid' => 0));
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function templateMustNotHaveNonZeroPid() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function templateMustNotHaveNonZeroPid() {
 		$this->subject->createTemplate(42, array('pid' => 99999));
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function templateMustHaveNoZeroUid() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function templateMustHaveNoZeroUid() {
 		$this->subject->createTemplate(42, array('uid' => 0));
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function templateMustNotHaveNonZeroUid() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function templateMustNotHaveNonZeroUid() {
 		$this->subject->createTemplate(42, array('uid' => 99999));
 	}
 
@@ -3293,18 +3293,18 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function createDummyFileCreatesFile() {
+	 * @test
+	 */
+	public function createDummyFileCreatesFile() {
 		$dummyFile = $this->subject->createDummyFile();
 
 		$this->assertTrue(file_exists($dummyFile));
 	}
 
 	/**
-     * @test
-     */
-    public function createDummyFileCreatesFileInSubfolder() {
+	 * @test
+	 */
+	public function createDummyFileCreatesFileInSubfolder() {
 		$dummyFolder = $this->subject->createDummyFolder('test_folder');
 		$dummyFile = $this->subject->createDummyFile(
 			$this->subject->getPathRelativeToUploadDirectory($dummyFolder) .
@@ -3315,9 +3315,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createDummyFileCreatesFileWithTheProvidedContent() {
+	 * @test
+	 */
+	public function createDummyFileCreatesFileWithTheProvidedContent() {
 		$dummyFile = $this->subject->createDummyFile('test.txt', 'Hello world!');
 
 		$this->assertSame(
@@ -3327,9 +3327,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createDummyFileForNonExistentUploadFolderSetCreatesUploadFolder() {
+	 * @test
+	 */
+	public function createDummyFileForNonExistentUploadFolderSetCreatesUploadFolder() {
 		$this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
 		$this->subject->createDummyFile();
 
@@ -3337,9 +3337,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createDummyFileForNonExistentUploadFolderSetCreatesFileInCreatedUploadFolder() {
+	 * @test
+	 */
+	public function createDummyFileForNonExistentUploadFolderSetCreatesFileInCreatedUploadFolder() {
 		$this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
 		$dummyFile = $this->subject->createDummyFile();
 
@@ -3352,9 +3352,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function createDummyZipArchiveForNoContentProvidedCreatesZipArchive() {
+	 * @test
+	 */
+	public function createDummyZipArchiveForNoContentProvidedCreatesZipArchive() {
 		$this->markAsSkippedForNoZipArchive();
 
 		$dummyFile = $this->subject->createDummyZipArchive();
@@ -3363,9 +3363,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createDummyZipArchiveForFileNameInSubFolderProvidedCreatesZipArchiveInSubFolder() {
+	 * @test
+	 */
+	public function createDummyZipArchiveForFileNameInSubFolderProvidedCreatesZipArchiveInSubFolder() {
 		$this->markAsSkippedForNoZipArchive();
 
 		$this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
@@ -3380,9 +3380,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createDummyZipArchiveForNoContentProvidedCreatesZipArchiveWithDummyFile() {
+	 * @test
+	 */
+	public function createDummyZipArchiveForNoContentProvidedCreatesZipArchiveWithDummyFile() {
 		$this->markAsSkippedForNoZipArchive();
 
 		$this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
@@ -3398,9 +3398,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createDummyZipArchiveForFileProvidedCreatesZipArchiveWithThatFile() {
+	 * @test
+	 */
+	public function createDummyZipArchiveForFileProvidedCreatesZipArchiveWithThatFile() {
 		$this->markAsSkippedForNoZipArchive();
 
 		$this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
@@ -3418,9 +3418,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createDummyZipArchiveForFileProvidedWithContentCreatesZipArchiveWithThatFileAndContentInIt() {
+	 * @test
+	 */
+	public function createDummyZipArchiveForFileProvidedWithContentCreatesZipArchiveWithThatFileAndContentInIt() {
 		$this->markAsSkippedForNoZipArchive();
 
 		$this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
@@ -3439,9 +3439,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createDummyZipArchiveForTwoFilesProvidedCreatesZipArchiveWithTheseFiles() {
+	 * @test
+	 */
+	public function createDummyZipArchiveForTwoFilesProvidedCreatesZipArchiveWithTheseFiles() {
 		$this->markAsSkippedForNoZipArchive();
 
 		$this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
@@ -3465,9 +3465,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createDummyZipArchiveForFileInSubFolderOfUploadFolderProvidedCreatesZipArchiveWithFileInSubFolder() {
+	 * @test
+	 */
+	public function createDummyZipArchiveForFileInSubFolderOfUploadFolderProvidedCreatesZipArchiveWithFileInSubFolder() {
 		$this->markAsSkippedForNoZipArchive();
 
 		$this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
@@ -3486,9 +3486,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createDummyZipArchiveForNonExistentUploadFolderSetCreatesUploadFolder() {
+	 * @test
+	 */
+	public function createDummyZipArchiveForNonExistentUploadFolderSetCreatesUploadFolder() {
 		$this->markAsSkippedForNoZipArchive();
 
 		$this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
@@ -3498,9 +3498,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createDummyZipArchiveForNonExistentUploadFolderSetCreatesFileInCreatedUploadFolder() {
+	 * @test
+	 */
+	public function createDummyZipArchiveForNonExistentUploadFolderSetCreatesFileInCreatedUploadFolder() {
 		$this->markAsSkippedForNoZipArchive();
 
 		$this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
@@ -3515,9 +3515,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function deleteDummyFileDeletesCreatedDummyFile() {
+	 * @test
+	 */
+	public function deleteDummyFileDeletesCreatedDummyFile() {
 		$dummyFile = $this->subject->createDummyFile();
 		$this->subject->deleteDummyFile(basename($dummyFile));
 
@@ -3525,9 +3525,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function deleteDummyFileWithAlreadyDeletedFileThrowsNoException() {
+	 * @test
+	 */
+	public function deleteDummyFileWithAlreadyDeletedFileThrowsNoException() {
 		$dummyFile = $this->subject->createDummyFile();
 		unlink($dummyFile);
 
@@ -3535,22 +3535,22 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function deleteDummyFileWithInexistentFileThrowsException() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function deleteDummyFileWithInexistentFileThrowsException() {
 		$uniqueFileName = $this->subject->getUniqueFileOrFolderPath('test.txt');
 
 		$this->subject->deleteDummyFile(basename($uniqueFileName));
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function deleteDummyFileWithForeignFileThrowsException() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function deleteDummyFileWithForeignFileThrowsException() {
 		$uniqueFileName = $this->subject->getUniqueFileOrFolderPath('test.txt');
 		t3lib_div::writeFile($uniqueFileName, '');
 		$this->foreignFileToDelete = $uniqueFileName;
@@ -3564,18 +3564,18 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function createDummyFolderCreatesFolder() {
+	 * @test
+	 */
+	public function createDummyFolderCreatesFolder() {
 		$dummyFolder = $this->subject->createDummyFolder('test_folder');
 
 		$this->assertTrue(is_dir($dummyFolder));
 	}
 
 	/**
-     * @test
-     */
-    public function createDummyFolderCanCreateFolderInDummyFolder() {
+	 * @test
+	 */
+	public function createDummyFolderCanCreateFolderInDummyFolder() {
 		$outerDummyFolder = $this->subject->createDummyFolder('test_folder');
 		$innerDummyFolder = $this->subject->createDummyFolder(
 			$this->subject->getPathRelativeToUploadDirectory($outerDummyFolder) .
@@ -3586,9 +3586,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createDummyFolderForNonExistentUploadFolderSetCreatesUploadFolder() {
+	 * @test
+	 */
+	public function createDummyFolderForNonExistentUploadFolderSetCreatesUploadFolder() {
 		$this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
 		$this->subject->createDummyFolder('test_folder');
 
@@ -3596,9 +3596,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createDummyFolderForNonExistentUploadFolderSetCreatesFileInCreatedUploadFolder() {
+	 * @test
+	 */
+	public function createDummyFolderForNonExistentUploadFolderSetCreatesFileInCreatedUploadFolder() {
 		$this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
 		$dummyFolder = $this->subject->createDummyFolder('test_folder');
 
@@ -3611,9 +3611,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function deleteDummyFolderDeletesCreatedDummyFolder() {
+	 * @test
+	 */
+	public function deleteDummyFolderDeletesCreatedDummyFolder() {
 		$dummyFolder = $this->subject->createDummyFolder('test_folder');
 		$this->subject->deleteDummyFolder(
 			$this->subject->getPathRelativeToUploadDirectory($dummyFolder)
@@ -3623,11 +3623,11 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function deleteDummyFolderWithInexistentFolderThrowsException() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function deleteDummyFolderWithInexistentFolderThrowsException() {
 		$uniqueFolderName = $this->subject->getUniqueFileOrFolderPath('test_folder');
 
 		$this->subject->deleteDummyFolder(
@@ -3636,11 +3636,11 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function deleteDummyFolderWithForeignFolderThrowsException() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function deleteDummyFolderWithForeignFolderThrowsException() {
 		$uniqueFolderName = $this->subject->getUniqueFileOrFolderPath('test_folder');
 		t3lib_div::mkdir($uniqueFolderName);
 		$this->foreignFolderToDelete = $uniqueFolderName;
@@ -3649,9 +3649,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function deleteDummyFolderCanDeleteCreatedDummyFolderInDummyFolder() {
+	 * @test
+	 */
+	public function deleteDummyFolderCanDeleteCreatedDummyFolderInDummyFolder() {
 		$outerDummyFolder = $this->subject->createDummyFolder('test_folder');
 		$innerDummyFolder = $this->subject->createDummyFolder(
 			$this->subject->getPathRelativeToUploadDirectory($outerDummyFolder) .
@@ -3709,9 +3709,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function deleteDummyFolderWithFolderNameConsistingOnlyOfNumbersDoesNotThrowAnException() {
+	 * @test
+	 */
+	public function deleteDummyFolderWithFolderNameConsistingOnlyOfNumbersDoesNotThrowAnException() {
 		$dummyFolder = $this->subject->createDummyFolder('123');
 
 		$this->subject->deleteDummyFolder(
@@ -3725,9 +3725,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function getUploadFolderPathReturnsUploadFolderPathIncludingTablePrefix() {
+	 * @test
+	 */
+	public function getUploadFolderPathReturnsUploadFolderPathIncludingTablePrefix() {
 		$this->assertRegExp(
 			'/\/uploads\/tx_phpunit\/$/',
 			$this->subject->getUploadFolderPath()
@@ -3735,9 +3735,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function getUploadFolderPathAfterSetReturnsSetUploadFolderPath() {
+	 * @test
+	 */
+	public function getUploadFolderPathAfterSetReturnsSetUploadFolderPath() {
 		$this->subject->setUploadFolderPath('/foo/bar/');
 
 		$this->assertSame(
@@ -3747,11 +3747,11 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException t3lib_exception
-     */
-    public function setUploadFolderPathAfterCreatingDummyFileThrowsException() {
+	 * @test
+	 *
+	 * @expectedException t3lib_exception
+	 */
+	public function setUploadFolderPathAfterCreatingDummyFileThrowsException() {
 		$this->subject->createDummyFile();
 		$this->subject->setUploadFolderPath('/foo/bar/');
 	}
@@ -3762,11 +3762,11 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function getPathRelativeToUploadDirectoryWithPathOutsideUploadDirectoryThrowsException() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function getPathRelativeToUploadDirectoryWithPathOutsideUploadDirectoryThrowsException() {
 		$this->subject->getPathRelativeToUploadDirectory(PATH_site);
 	}
 
@@ -3776,11 +3776,11 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function getUniqueFileOrFolderPathWithEmptyPathThrowsException() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function getUniqueFileOrFolderPathWithEmptyPathThrowsException() {
 		$this->subject->getUniqueFileOrFolderPath('');
 	}
 
@@ -3790,9 +3790,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function frontEndUserGroupCanBeCreated() {
+	 * @test
+	 */
+	public function frontEndUserGroupCanBeCreated() {
 		$uid = $this->subject->createFrontEndUserGroup();
 
 		$this->assertNotEquals(
@@ -3809,9 +3809,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function frontEndUserGroupTableCanBeDirty() {
+	 * @test
+	 */
+	public function frontEndUserGroupTableCanBeDirty() {
 		$this->assertSame(
 			0,
 			count($this->subject->getListOfDirtySystemTables())
@@ -3829,9 +3829,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function frontEndUserGroupTableWillBeCleanedUp() {
+	 * @test
+	 */
+	public function frontEndUserGroupTableWillBeCleanedUp() {
 		$uid = $this->subject->createFrontEndUserGroup();
 		$this->assertNotEquals(
 			0,
@@ -3848,9 +3848,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function frontEndUserGroupHasNoTitleByDefault() {
+	 * @test
+	 */
+	public function frontEndUserGroupHasNoTitleByDefault() {
 		$uid = $this->subject->createFrontEndUserGroup();
 
 		$row = Tx_Phpunit_Service_Database::selectSingle(
@@ -3866,9 +3866,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function frontEndUserGroupCanHaveTitle() {
+	 * @test
+	 */
+	public function frontEndUserGroupCanHaveTitle() {
 		$uid = $this->subject->createFrontEndUserGroup(
 			array('title' => 'Test title')
 		);
@@ -3886,20 +3886,20 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function frontEndUserGroupMustHaveNoZeroUid() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function frontEndUserGroupMustHaveNoZeroUid() {
 		$this->subject->createFrontEndUserGroup(array('uid' => 0));
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function frontEndUserGroupMustHaveNoNonZeroUid() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function frontEndUserGroupMustHaveNoNonZeroUid() {
 		$this->subject->createFrontEndUserGroup(array('uid' => 99999));
 	}
 
@@ -3909,9 +3909,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function frontEndUserCanBeCreated() {
+	 * @test
+	 */
+	public function frontEndUserCanBeCreated() {
 		$uid = $this->subject->createFrontEndUser();
 
 		$this->assertNotEquals(
@@ -3928,9 +3928,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function frontEndUserTableCanBeDirty() {
+	 * @test
+	 */
+	public function frontEndUserTableCanBeDirty() {
 		$this->assertSame(
 			0,
 			count($this->subject->getListOfDirtySystemTables())
@@ -3948,9 +3948,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function frontEndUserTableWillBeCleanedUp() {
+	 * @test
+	 */
+	public function frontEndUserTableWillBeCleanedUp() {
 		$uid = $this->subject->createFrontEndUser();
 		$this->assertNotEquals(
 			0,
@@ -3967,9 +3967,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function frontEndUserHasNoUserNameByDefault() {
+	 * @test
+	 */
+	public function frontEndUserHasNoUserNameByDefault() {
 		$uid = $this->subject->createFrontEndUser();
 
 		$row = Tx_Phpunit_Service_Database::selectSingle(
@@ -3985,9 +3985,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function frontEndUserCanHaveUserName() {
+	 * @test
+	 */
+	public function frontEndUserCanHaveUserName() {
 		$uid = $this->subject->createFrontEndUser(
 			'',
 			array('username' => 'Test name')
@@ -4006,9 +4006,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function frontEndUserCanHaveSeveralUserGroups() {
+	 * @test
+	 */
+	public function frontEndUserCanHaveSeveralUserGroups() {
 		$feUserGroupUidOne = $this->subject->createFrontEndUserGroup();
 		$feUserGroupUidTwo = $this->subject->createFrontEndUserGroup();
 		$feUserGroupUidThree = $this->subject->createFrontEndUserGroup();
@@ -4030,56 +4030,56 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function frontEndUserMustHaveNoZeroUid() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function frontEndUserMustHaveNoZeroUid() {
 		$this->subject->createFrontEndUser('', array('uid' => 0));
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function frontEndUserMustHaveNoNonZeroUid() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function frontEndUserMustHaveNoNonZeroUid() {
 		$this->subject->createFrontEndUser('', array('uid' => 99999));
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function frontEndUserMustHaveNoZeroUserGroupInTheDataArray() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function frontEndUserMustHaveNoZeroUserGroupInTheDataArray() {
 		$this->subject->createFrontEndUser('', array('usergroup' => 0));
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function frontEndUserMustHaveNoNonZeroUserGroupInTheDataArray() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function frontEndUserMustHaveNoNonZeroUserGroupInTheDataArray() {
 		$this->subject->createFrontEndUser('', array('usergroup' => 99999));
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function frontEndUserMustHaveNoUserGroupListInTheDataArray() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function frontEndUserMustHaveNoUserGroupListInTheDataArray() {
 		$this->subject->createFrontEndUser(
 			'', array('usergroup' => '1,2,4,5')
 		);
 	}
 
 	/**
-     * @test
-     */
-    public function createFrontEndUserWithEmptyGroupCreatesGroup() {
+	 * @test
+	 */
+	public function createFrontEndUserWithEmptyGroupCreatesGroup() {
 		$this->subject->createFrontEndUser('');
 
 		$this->assertTrue(
@@ -4088,11 +4088,11 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function frontEndUserMustHaveNoZeroUserGroupEvenIfSeveralGroupsAreProvided() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function frontEndUserMustHaveNoZeroUserGroupEvenIfSeveralGroupsAreProvided() {
 		$feUserGroupUidOne = $this->subject->createFrontEndUserGroup();
 		$feUserGroupUidTwo = $this->subject->createFrontEndUserGroup();
 		$feUserGroupUidThree = $this->subject->createFrontEndUserGroup();
@@ -4103,11 +4103,11 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function frontEndUserMustHaveNoAlphabeticalCharactersInTheUserGroupList() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function frontEndUserMustHaveNoAlphabeticalCharactersInTheUserGroupList() {
 		$feUserGroupUid = $this->subject->createFrontEndUserGroup();
 
 		$this->subject->createFrontEndUser(
@@ -4121,9 +4121,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function createBackEndUserReturnsUidGreaterZero() {
+	 * @test
+	 */
+	public function createBackEndUserReturnsUidGreaterZero() {
 		$this->assertNotEquals(
 			0,
 			$this->subject->createBackEndUser()
@@ -4131,9 +4131,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createBackEndUserCreatesBackEndUserRecordInTheDatabase() {
+	 * @test
+	 */
+	public function createBackEndUserCreatesBackEndUserRecordInTheDatabase() {
 		$this->assertSame(
 			1,
 			$this->subject->countRecords(
@@ -4143,9 +4143,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createBackEndUserMarksBackEndUserTableAsDirty() {
+	 * @test
+	 */
+	public function createBackEndUserMarksBackEndUserTableAsDirty() {
 		$this->assertSame(
 			0,
 			count($this->subject->getListOfDirtySystemTables())
@@ -4172,9 +4172,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createBackEndUserCreatesRecordWithoutUserNameByDefault() {
+	 * @test
+	 */
+	public function createBackEndUserCreatesRecordWithoutUserNameByDefault() {
 		$uid = $this->subject->createBackEndUser();
 
 		$row = Tx_Phpunit_Service_Database::selectSingle('username', 'be_users', 'uid = ' . $uid);
@@ -4186,9 +4186,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createBackEndUserForUserNameProvidedCreatesRecordWithUserName() {
+	 * @test
+	 */
+	public function createBackEndUserForUserNameProvidedCreatesRecordWithUserName() {
 		$uid = $this->subject->createBackEndUser(array('username' => 'Test name'));
 
 		$row = Tx_Phpunit_Service_Database::selectSingle('username', 'be_users', 'uid = ' . $uid);
@@ -4200,20 +4200,20 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function createBackEndUserWithZeroUidProvidedInRecordDataThrowsExeption() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function createBackEndUserWithZeroUidProvidedInRecordDataThrowsExeption() {
 		$this->subject->createBackEndUser(array('uid' => 0));
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function createBackEndUserWithNonZeroUidProvidedInRecordDataThrowsExeption() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function createBackEndUserWithNonZeroUidProvidedInRecordDataThrowsExeption() {
 		$this->subject->createBackEndUser(array('uid' => 999999));
 	}
 
@@ -4223,9 +4223,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function createFakeFrontEndCreatesGlobalFrontEnd() {
+	 * @test
+	 */
+	public function createFakeFrontEndCreatesGlobalFrontEnd() {
 		$GLOBALS['TSFE'] = NULL;
 		$this->subject->createFakeFrontEnd();
 
@@ -4235,9 +4235,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createFakeFrontEndReturnsPositivePageUidIfCalledWithoutParameters() {
+	 * @test
+	 */
+	public function createFakeFrontEndReturnsPositivePageUidIfCalledWithoutParameters() {
 		$this->assertGreaterThan(
 			0,
 			$this->subject->createFakeFrontEnd()
@@ -4245,9 +4245,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createFakeFrontEndReturnsCurrentFrontEndPageUid() {
+	 * @test
+	 */
+	public function createFakeFrontEndReturnsCurrentFrontEndPageUid() {
 		$GLOBALS['TSFE'] = NULL;
 		$result = $this->subject->createFakeFrontEnd();
 
@@ -4270,9 +4270,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createFakeFrontEndCreatesSysPage() {
+	 * @test
+	 */
+	public function createFakeFrontEndCreatesSysPage() {
 		$GLOBALS['TSFE'] = NULL;
 		$this->subject->createFakeFrontEnd();
 
@@ -4282,9 +4282,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createFakeFrontEndCreatesFrontEndUser() {
+	 * @test
+	 */
+	public function createFakeFrontEndCreatesFrontEndUser() {
 		$GLOBALS['TSFE'] = NULL;
 		$this->subject->createFakeFrontEnd();
 
@@ -4294,9 +4294,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createFakeFrontEndCreatesContentObject() {
+	 * @test
+	 */
+	public function createFakeFrontEndCreatesContentObject() {
 		$GLOBALS['TSFE'] = NULL;
 		$this->subject->createFakeFrontEnd();
 
@@ -4306,9 +4306,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createFakeFrontEndCreatesTemplate() {
+	 * @test
+	 */
+	public function createFakeFrontEndCreatesTemplate() {
 		$GLOBALS['TSFE'] = NULL;
 		$this->subject->createFakeFrontEnd();
 
@@ -4318,9 +4318,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createFakeFrontEndReadsTypoScriptSetupFromPage() {
+	 * @test
+	 */
+	public function createFakeFrontEndReadsTypoScriptSetupFromPage() {
 		$pageUid = $this->subject->createFrontEndPage();
 		$this->subject->createTemplate(
 			$pageUid,
@@ -4354,9 +4354,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createFakeFrontEndCreatesConfiguration() {
+	 * @test
+	 */
+	public function createFakeFrontEndCreatesConfiguration() {
 		$GLOBALS['TSFE'] = NULL;
 		$this->subject->createFakeFrontEnd();
 
@@ -4410,9 +4410,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function discardFakeFrontEndNullsOutGlobalFrontEnd() {
+	 * @test
+	 */
+	public function discardFakeFrontEndNullsOutGlobalFrontEnd() {
 		$this->subject->createFakeFrontEnd();
 		$this->subject->discardFakeFrontEnd();
 
@@ -4422,9 +4422,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function discardFakeFrontEndNullsOutGlobalTimeTrack() {
+	 * @test
+	 */
+	public function discardFakeFrontEndNullsOutGlobalTimeTrack() {
 		$this->subject->createFakeFrontEnd();
 		$this->subject->discardFakeFrontEnd();
 
@@ -4434,26 +4434,26 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function discardFakeFrontEndCanBeCalledTwoTimes() {
+	 * @test
+	 */
+	public function discardFakeFrontEndCanBeCalledTwoTimes() {
 		$this->subject->discardFakeFrontEnd();
 		$this->subject->discardFakeFrontEnd();
 	}
 
 	/**
-     * @test
-     */
-    public function hasFakeFrontEndInitiallyIsFalse() {
+	 * @test
+	 */
+	public function hasFakeFrontEndInitiallyIsFalse() {
 		$this->assertFalse(
 			$this->subject->hasFakeFrontEnd()
 		);
 	}
 
 	/**
-     * @test
-     */
-    public function hasFakeFrontEndIsTrueAfterCreateFakeFrontEnd() {
+	 * @test
+	 */
+	public function hasFakeFrontEndIsTrueAfterCreateFakeFrontEnd() {
 		$this->subject->createFakeFrontEnd();
 
 		$this->assertTrue(
@@ -4462,9 +4462,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function hasFakeFrontEndIsFalseAfterCreateAndDiscardFakeFrontEnd() {
+	 * @test
+	 */
+	public function hasFakeFrontEndIsFalseAfterCreateAndDiscardFakeFrontEnd() {
 		$this->subject->createFakeFrontEnd();
 		$this->subject->discardFakeFrontEnd();
 
@@ -4486,9 +4486,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createFakeFrontEndReturnsProvidedPageUid() {
+	 * @test
+	 */
+	public function createFakeFrontEndReturnsProvidedPageUid() {
 		$pageUid = $this->subject->createFrontEndPage();
 
 		$this->assertSame(
@@ -4498,9 +4498,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createFakeFrontEndUsesProvidedPageUidAsFrontEndId() {
+	 * @test
+	 */
+	public function createFakeFrontEndUsesProvidedPageUidAsFrontEndId() {
 		$pageUid = $this->subject->createFrontEndPage();
 		$this->subject->createFakeFrontEnd($pageUid);
 
@@ -4511,11 +4511,11 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function createFakeFrontThrowsExceptionForNegativePageUid() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function createFakeFrontThrowsExceptionForNegativePageUid() {
 		$this->subject->createFakeFrontEnd(-1);
 	}
 
@@ -4531,9 +4531,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// executed script which is the FE index.php or the PHPUnit BE module
 	// index.php. This results getImageDimensions not returning anything useful.
 	/**
-     * @test
-     */
-    public function fakeFrontEndCobjImageCreatesImageTagForExistingImageFile() {
+	 * @test
+	 */
+	public function fakeFrontEndCobjImageCreatesImageTagForExistingImageFile() {
 		$this->subject->createFakeFrontEnd();
 
 		$this->assertContains(
@@ -4550,9 +4550,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function isLoggedInInitiallyIsFalse() {
+	 * @test
+	 */
+	public function isLoggedInInitiallyIsFalse() {
 		$this->subject->createFakeFrontEnd();
 
 		$this->assertFalse(
@@ -4561,18 +4561,18 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException t3lib_exception
-     */
-    public function isLoggedThrowsExceptionWithoutFrontEnd() {
+	 * @test
+	 *
+	 * @expectedException t3lib_exception
+	 */
+	public function isLoggedThrowsExceptionWithoutFrontEnd() {
 		$this->subject->isLoggedIn();
 	}
 
 	/**
-     * @test
-     */
-    public function loginFrontEndUserSwitchesToLoggedIn() {
+	 * @test
+	 */
+	public function loginFrontEndUserSwitchesToLoggedIn() {
 		$this->subject->createFakeFrontEnd();
 
 		$feUserId = $this->subject->createFrontEndUser();
@@ -4598,9 +4598,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function loginFrontEndUserSetsLoginUserToOne() {
+	 * @test
+	 */
+	public function loginFrontEndUserSetsLoginUserToOne() {
 		$this->subject->createFakeFrontEnd();
 
 		$feUserId = $this->subject->createFrontEndUser();
@@ -4613,9 +4613,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function loginFrontEndUserRetrievesNameOfUser() {
+	 * @test
+	 */
+	public function loginFrontEndUserRetrievesNameOfUser() {
 		$this->subject->createFakeFrontEnd();
 
 		$feUserId = $this->subject->createFrontEndUser(
@@ -4630,30 +4630,30 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function loginFrontEndUserWithZeroUidThrowsException() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function loginFrontEndUserWithZeroUidThrowsException() {
 		$this->subject->createFakeFrontEnd();
 
 		$this->subject->loginFrontEndUser(0);
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException t3lib_exception
-     */
-    public function loginFrontEndUserWithoutFrontEndThrowsException() {
+	 * @test
+	 *
+	 * @expectedException t3lib_exception
+	 */
+	public function loginFrontEndUserWithoutFrontEndThrowsException() {
 		$feUserId = $this->subject->createFrontEndUser();
 		$this->subject->loginFrontEndUser($feUserId);
 	}
 
 	/**
-     * @test
-     */
-    public function loginFrontEndUserSetsGroupDataOfUser() {
+	 * @test
+	 */
+	public function loginFrontEndUserSetsGroupDataOfUser() {
 		$this->subject->createFakeFrontEnd();
 
 		$feUserGroupUid = $this->subject->createFrontEndUserGroup(
@@ -4669,9 +4669,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function logoutFrontEndUserAfterLoginSwitchesToNotLoggedIn() {
+	 * @test
+	 */
+	public function logoutFrontEndUserAfterLoginSwitchesToNotLoggedIn() {
 		$this->subject->createFakeFrontEnd();
 
 		$feUserId = $this->subject->createFrontEndUser();
@@ -4699,9 +4699,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function logoutFrontEndUserSetsLoginUserToZero() {
+	 * @test
+	 */
+	public function logoutFrontEndUserSetsLoginUserToZero() {
 	    if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 6002000) {
 		    $this->markTestSkipped('This test is available in TYPO3 below version 6.2.');
 	    }
@@ -4716,9 +4716,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function logoutFrontEndUserSetsLoginUserToFalse() {
+	 * @test
+	 */
+	public function logoutFrontEndUserSetsLoginUserToFalse() {
 	    if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) < 6002000) {
 		    $this->markTestSkipped('This test is available in TYPO3 in version 6.2 and above.');
 	    }
@@ -4733,18 +4733,18 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException t3lib_exception
-     */
-    public function logoutFrontEndUserWithoutFrontEndThrowsException() {
+	 * @test
+	 *
+	 * @expectedException t3lib_exception
+	 */
+	public function logoutFrontEndUserWithoutFrontEndThrowsException() {
 		$this->subject->logoutFrontEndUser();
 	}
 
 	/**
-     * @test
-     */
-    public function logoutFrontEndUserCanBeCalledTwoTimes() {
+	 * @test
+	 */
+	public function logoutFrontEndUserCanBeCalledTwoTimes() {
 		$this->subject->createFakeFrontEnd();
 
 		$this->subject->logoutFrontEndUser();
@@ -4752,9 +4752,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createAndLogInFrontEndUserCreatesFrontEndUser() {
+	 * @test
+	 */
+	public function createAndLogInFrontEndUserCreatesFrontEndUser() {
 		$this->subject->createFakeFrontEnd();
 		$this->subject->createAndLogInFrontEndUser();
 
@@ -4765,9 +4765,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createAndLogInFrontEndUserWithRecordDataCreatesFrontEndUserWithThatData() {
+	 * @test
+	 */
+	public function createAndLogInFrontEndUserWithRecordDataCreatesFrontEndUserWithThatData() {
 		$this->subject->createFakeFrontEnd();
 		$this->subject->createAndLogInFrontEndUser(
 			'', array('name' => 'John Doe')
@@ -4780,9 +4780,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createAndLogInFrontEndUserLogsInFrontEndUser() {
+	 * @test
+	 */
+	public function createAndLogInFrontEndUserLogsInFrontEndUser() {
 		$this->subject->createFakeFrontEnd();
 		$this->subject->createAndLogInFrontEndUser();
 
@@ -4792,9 +4792,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createAndLogInFrontEndUserWithFrontEndUserGroupCreatesFrontEndUser() {
+	 * @test
+	 */
+	public function createAndLogInFrontEndUserWithFrontEndUserGroupCreatesFrontEndUser() {
 		$this->subject->createFakeFrontEnd();
 		$frontEndUserGroupUid = $this->subject->createFrontEndUserGroup();
 		$this->subject->createAndLogInFrontEndUser($frontEndUserGroupUid);
@@ -4806,9 +4806,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createAndLogInFrontEndUserWithFrontEndUserGroupCreatesFrontEndUserWithGivenGroup() {
+	 * @test
+	 */
+	public function createAndLogInFrontEndUserWithFrontEndUserGroupCreatesFrontEndUserWithGivenGroup() {
 		$this->subject->createFakeFrontEnd();
 		$frontEndUserGroupUid = $this->subject->createFrontEndUserGroup();
 		$frontEndUserUid = $this->subject->createAndLogInFrontEndUser(
@@ -4828,9 +4828,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createAndLogInFrontEndUserWithFrontEndUserGroupDoesNotCreateFrontEndUserGroup() {
+	 * @test
+	 */
+	public function createAndLogInFrontEndUserWithFrontEndUserGroupDoesNotCreateFrontEndUserGroup() {
 		$this->subject->createFakeFrontEnd();
 		$frontEndUserGroupUid = $this->subject->createFrontEndUserGroup();
 		$this->subject->createAndLogInFrontEndUser(
@@ -4844,9 +4844,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     */
-    public function createAndLogInFrontEndUserWithFrontEndUserGroupLogsInFrontEndUser() {
+	 * @test
+	 */
+	public function createAndLogInFrontEndUserWithFrontEndUserGroupLogsInFrontEndUser() {
 		$this->subject->createFakeFrontEnd();
 		$frontEndUserGroupUid = $this->subject->createFrontEndUserGroup();
 		$this->subject->createAndLogInFrontEndUser($frontEndUserGroupUid);
@@ -4862,9 +4862,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	// ---------------------------------------------------------------------
 
 	/**
-     * @test
-     */
-    public function increaseRelationCounterIncreasesNonZeroFieldValueByOne() {
+	 * @test
+	 */
+	public function increaseRelationCounterIncreasesNonZeroFieldValueByOne() {
 		$uid = $this->subject->createRecord(
 			'tx_phpunit_test',
 			array('related_records' => 41)
@@ -4889,11 +4889,11 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException Tx_Phpunit_Exception_Database
-     */
-    public function increaseRelationCounterThrowsExceptionOnInvalidUid() {
+	 * @test
+	 *
+	 * @expectedException Tx_Phpunit_Exception_Database
+	 */
+	public function increaseRelationCounterThrowsExceptionOnInvalidUid() {
 		$uid = $this->subject->createRecord('tx_phpunit_test');
 		$invalidUid = $uid + 1;
 
@@ -4905,11 +4905,11 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function increaseRelationCounterThrowsExceptionOnInvalidTableName() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function increaseRelationCounterThrowsExceptionOnInvalidTableName() {
 		$uid = $this->subject->createRecord('tx_phpunit_test');
 
 		$this->subject->increaseRelationCounter(
@@ -4920,11 +4920,11 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	}
 
 	/**
-     * @test
-     *
-     * @expectedException InvalidArgumentException
-     */
-    public function increaseRelationCounterThrowsExceptionOnInexistentFieldName() {
+	 * @test
+	 *
+	 * @expectedException InvalidArgumentException
+	 */
+	public function increaseRelationCounterThrowsExceptionOnInexistentFieldName() {
 		$uid = $this->subject->createRecord('tx_phpunit_test');
 		$this->subject->increaseRelationCounter(
 			'tx_phpunit_test',
