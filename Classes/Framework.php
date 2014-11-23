@@ -33,6 +33,16 @@ if (!defined('PATH_tslib')) {
  */
 class Tx_Phpunit_Framework {
 	/**
+	 * @var int
+	 */
+	const AUTO_INCREMENT_THRESHOLD_WITHOUT_ROOTLINE_CACHE = 100;
+
+	/**
+	 * @var int
+	 */
+	const AUTO_INCREMENT_THRESHOLD_WITH_ROOTLINE_CACHE = 5000;
+
+	/**
 	 * prefix of the extension for which this instance of the testing framework
 	 * was instantiated (e.g. "tx_seminars")
 	 *
@@ -99,12 +109,16 @@ class Tx_Phpunit_Framework {
 	protected $relationSorting = array();
 
 	/**
-	 * the number of unusable UIDs after the maximum UID in a table before the
-	 * auto increment value will be reset by resetAutoIncrementLazily
+	 * The number of unusable UIDs after the maximum UID in a table before the auto increment value will be reset by
+	 * resetAutoIncrementLazily.
 	 *
-	 * @var integer
+	 * This value needs to be high enough so that no two page UIDs will be the same within on request as the local
+	 * root-line cache of TYPO3 CMS otherwise might create false cache hits, causing failures for unit tests relying on
+	 * the root line.
+	 *
+	 * @var int
 	 */
-	protected $resetAutoIncrementThreshold = 100;
+	protected $resetAutoIncrementThreshold = 0;
 
 	/**
 	 * the names of the created dummy files relative to the upload folder of the
@@ -183,6 +197,7 @@ class Tx_Phpunit_Framework {
 		$this->createListOfOwnAllowedTables();
 		$this->createListOfAdditionalAllowedTables();
 		$this->uploadFolderPath = PATH_site . 'uploads/' . $this->tablePrefix . '/';
+		$this->determineAndSetAutoIncrementThreshold();
 
 		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 6000000) {
 			$this->allowedSystemTables = array_merge(
@@ -190,6 +205,18 @@ class Tx_Phpunit_Framework {
 				array('sys_file', 'sys_file_collection', 'sys_file_reference', 'sys_category', 'sys_category_record_mm')
 			);
 		}
+	}
+
+	/**
+	 * Determines a good value for the auto increment threshold and sets it.
+	 *
+	 * @return void
+	 */
+	protected function determineAndSetAutoIncrementThreshold() {
+		$resetAutoIncrementThreshold = ($this->hasRootlineCache() && !$this->hasRootlineCachePurgingFunction())
+			? self::AUTO_INCREMENT_THRESHOLD_WITH_ROOTLINE_CACHE : self::AUTO_INCREMENT_THRESHOLD_WITHOUT_ROOTLINE_CACHE;
+
+		$this->setResetAutoIncrementThreshold($resetAutoIncrementThreshold);
 	}
 
 	/**
@@ -778,6 +805,10 @@ class Tx_Phpunit_Framework {
 			/** @var $hook Tx_Phpunit_Interface_FrameworkCleanupHook */
 			$hook->cleanUp();
 		}
+
+		if ($this->hasRootlineCachePurgingFunction()) {
+			\TYPO3\CMS\Core\Utility\RootlineUtility::purgeCaches();
+		}
 	}
 
 	/**
@@ -1050,16 +1081,19 @@ class Tx_Phpunit_Framework {
 	 * @throws t3lib_exception
 	 */
 	protected function createDummyUploadFolder() {
-		if (is_dir($this->getUploadFolderPath())) {
+		$uploadFolderPath = $this->getUploadFolderPath();
+		if (is_dir($uploadFolderPath)) {
 			return;
 		}
 
-		if (t3lib_div::mkdir($this->getUploadFolderPath())) {
-			// registers the upload folder as dummy folder
-			$this->dummyFolders['uploadFolder'] = $this->getUploadFolderPath();
-		} else {
-			throw new t3lib_exception('The upload folder ' . $this->getUploadFolderPath() . ' could not be created.', 1334439408);
+		$creationSuccessful = t3lib_div::mkdir($uploadFolderPath);
+		if (!$creationSuccessful) {
+			throw new RuntimeException(
+				'The upload folder ' . $uploadFolderPath . ' could not be created.', 1334439408
+			);
 		}
+
+		$this->dummyFolders['uploadFolder'] = $uploadFolderPath;
 	}
 
 	/**
@@ -1103,34 +1137,31 @@ class Tx_Phpunit_Framework {
 	 * Returns the path relative to the calling extension's upload directory for
 	 * a path given in the first parameter $absolutePath.
 	 *
-	 * @param string $absolutePath
-	 *        the absolute path to process, must be within the calling
-	 *        extension's upload directory, must not be empty
+	 * @throws exception if the first parameter $absolutePath is not within
+	 *                   the calling extension's upload directory
 	 *
-	 * @return string
-	 *         the path relative to the calling extension's upload directory
+	 * @param string $absolutePath
+	 *        the absolute path to process, must be within the calling extension's upload directory, must not be empty
+	 *
+	 * @return string the path relative to the calling extension's upload directory
 	 *
 	 * @throws InvalidArgumentException
 	 */
 	public function getPathRelativeToUploadDirectory($absolutePath) {
 		if (!preg_match(
-				'/^' . str_replace('/', '\/', $this->getUploadFolderPath()) . '.*$/',
-				$absolutePath
+			'/^' . str_replace('/', '\\/', $this->getUploadFolderPath()) . '.*$/',
+			$absolutePath
 		)) {
 			throw new InvalidArgumentException(
 				'The first parameter $absolutePath is not within the calling extension\'s upload directory.', 1334439445
 			);
 		}
 
-		$lengthFullPath = mb_strlen($absolutePath, 'UTF-8');
-		$lengthExtensionUploadPath = mb_strlen($this->getUploadFolderPath(), 'UTF-8');
+		$encoding = mb_detect_encoding($this->getUploadFolderPath());
+		$uploadFolderPathLength = mb_strlen($this->getUploadFolderPath(), $encoding);
+		$absolutePathLength = mb_strlen($absolutePath, $encoding);
 
-		return mb_substr(
-			$absolutePath,
-			$lengthExtensionUploadPath,
-			$lengthFullPath - $lengthExtensionUploadPath,
-			'UTF-8'
-		);
+		return mb_substr($absolutePath, $uploadFolderPathLength, $absolutePathLength, $encoding);
 	}
 
 	/**
@@ -1140,7 +1171,7 @@ class Tx_Phpunit_Framework {
 	 *        the path of a file or folder relative to the calling extension's
 	 *        upload directory, must not be empty
 	 *
-	 * @return string the unique absolut path of a file or folder
+	 * @return string the unique absolute path of a file or folder
 	 *
 	 * @throws InvalidArgumentException
 	 */
@@ -1217,6 +1248,7 @@ class Tx_Phpunit_Framework {
 
 		$frontEnd->newCObj();
 
+
 		$this->hasFakeFrontEnd = TRUE;
 		$this->logoutFrontEndUser();
 
@@ -1276,6 +1308,11 @@ class Tx_Phpunit_Framework {
 		$GLOBALS['_POST']['FE_SESSION_KEY'] = '';
 		$GLOBALS['_GET']['FE_SESSION_KEY'] = '';
 		$GLOBALS['TYPO3_CONF_VARS']['FE']['dontSetCookie'] = 1;
+
+		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 6002000) {
+			$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['TYPO3\\CMS\\Frontend\\Authentication\\FrontendUserAuthentication']
+				= array('className' => 'Tx_Phpunit_FrontEnd_UserWithoutCookies');
+		}
 	}
 
 
@@ -1968,5 +2005,34 @@ class Tx_Phpunit_Framework {
 	public function purgeHooks() {
 		self::$hooks = array();
 		self::$hooksHaveBeenRetrieved = FALSE;
+	}
+
+	/**
+	 * Returns the current front-end instance.
+	 *
+	 * This method must only be called when there is a front-end instance.
+	 *
+	 * @return tslib_fe
+	 */
+	protected function getFrontEnd() {
+		return $GLOBALS['TSFE'];
+	}
+
+	/**
+	 * Checks whether the TYPO3 CMS Core has a rootline cache.
+	 *
+	 * @return bool
+	 */
+	public function hasRootlineCache() {
+		return t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 6000000;
+	}
+
+	/**
+	 * Checks whether the TYPO3 CMS core has a function for purging the rootline cache.
+	 *
+	 * @return bool
+	 */
+	public function hasRootlineCachePurgingFunction() {
+		return $this->hasRootlineCache() && method_exists('TYPO3\\CMS\\Core\\Utility\\RootlineUtility', 'purgeCaches');
 	}
 }

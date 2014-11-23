@@ -66,12 +66,6 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 		$this->t3VarBackup = $GLOBALS['T3_VAR']['getUserObj'];
 
 		$this->subject = new Tx_Phpunit_Framework('tx_phpunit', array('user_phpunittest'));
-
-		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 6002000) {
-			$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['TYPO3\\CMS\\Frontend\\Authentication\\FrontendUserAuthentication'] = array(
-				'className' => 'Tx_Phpunit_FrontEnd_UserWithoutCookies',
-			);
-		}
 	}
 
 	public function tearDown() {
@@ -2355,6 +2349,8 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
      * @test
      */
     public function resetAutoIncrementLazilyDoesNothingAfterOneNewRecordByDefault() {
+		$this->subject->resetAutoIncrement('tx_phpunit_test');
+
 		$oldAutoIncrement = $this->subject->getAutoIncrement('tx_phpunit_test');
 
 		$latestUid = $this->subject->createRecord('tx_phpunit_test');
@@ -2378,27 +2374,6 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 
 		$latestUid = $this->subject->createRecord('tx_phpunit_test');
 		$this->subject->deleteRecord('tx_phpunit_test', $latestUid);
-		$this->subject->resetAutoIncrementLazily('tx_phpunit_test');
-
-		$this->assertSame(
-			$oldAutoIncrement,
-			$this->subject->getAutoIncrement('tx_phpunit_test')
-		);
-	}
-
-	/**
-     * @test
-     */
-    public function resetAutoIncrementLazilyCleansUpsAfter100NewRecordsByDefault() {
-		$this->subject->resetAutoIncrement('tx_phpunit_test');
-
-		$oldAutoIncrement = $this->subject->getAutoIncrement('tx_phpunit_test');
-
-		for ($i = 0; $i < 100; $i++) {
-			$latestUid = $this->subject->createRecord('tx_phpunit_test');
-			$this->subject->deleteRecord('tx_phpunit_test', $latestUid);
-		}
-
 		$this->subject->resetAutoIncrementLazily('tx_phpunit_test');
 
 		$this->assertSame(
