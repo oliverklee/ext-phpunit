@@ -205,6 +205,14 @@ class Tx_Phpunit_Framework {
 				array('sys_file', 'sys_file_collection', 'sys_file_reference', 'sys_category', 'sys_category_record_mm')
 			);
 		}
+
+		/** @var array $rootLineCacheConfiguration */
+		$rootLineCacheConfiguration = (array) $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['cache_rootline'];
+		$rootLineCacheConfiguration['backend'] = 't3lib_cache_backend_NullBackend';
+		$cacheConfigurations = array('cache_rootline' => $rootLineCacheConfiguration);
+		/** @var t3lib_cache_Manager $cacheManager */
+		$cacheManager = t3lib_div::makeInstance('t3lib_cache_Manager');
+		$cacheManager->setCacheConfigurations($cacheConfigurations);
 	}
 
 	/**
