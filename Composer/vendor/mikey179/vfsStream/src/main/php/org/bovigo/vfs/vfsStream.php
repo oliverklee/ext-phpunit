@@ -19,37 +19,43 @@ class vfsStream
     /**
      * url scheme
      */
-    const SCHEME           = 'vfs';
+    const SCHEME            = 'vfs';
     /**
      * owner: root
      */
-    const OWNER_ROOT       = 0;
+    const OWNER_ROOT        = 0;
     /**
      * owner: user 1
      */
-    const OWNER_USER_1      = 1;
+    const OWNER_USER_1       = 1;
     /**
      * owner: user 2
      */
-    const OWNER_USER_2      = 2;
+    const OWNER_USER_2       = 2;
     /**
      * group: root
      */
-    const GROUP_ROOT        = 0;
+    const GROUP_ROOT         = 0;
     /**
      * group: user 1
      */
-    const GROUP_USER_1      = 1;
+    const GROUP_USER_1       = 1;
     /**
      * group: user 2
      */
-    const GROUP_USER_2      = 2;
+    const GROUP_USER_2       = 2;
     /**
      * initial umask setting
      *
      * @type  int
      */
-    protected static $umask = 0000;
+    protected static $umask  = 0000;
+    /**
+     * switch whether dotfiles are enabled in directory listings
+     *
+     * @type  bool
+     */
+    private static $dotFiles = true;
 
     /**
      * prepends the scheme to the given URL
@@ -70,8 +76,8 @@ class vfsStream
      */
     public static function path($url)
     {
-        // remove line feeds and trailing whitespaces
-        $path = trim($url, " \t\r\n\0\x0B/");
+        // remove line feeds and trailing whitespaces and path separators
+        $path = trim($url, " \t\r\n\0\x0B/\\");
         $path = substr($path, strlen(self::SCHEME . '://'));
         $path = str_replace('\\', '/', $path);
         // replace double slashes with single slashes
@@ -218,7 +224,13 @@ class vfsStream
             if (is_array($data) === true) {
                 self::addStructure($data, self::newDirectory($name)->at($baseDir));
             } elseif (is_string($data) === true) {
-                self::newFile($name)->withContent($data)->at($baseDir);
+                $matches = null;
+                preg_match('/^\[(.*)\]$/', $name, $matches);
+                if ($matches !== array()) {
+                    self::newBlock($matches[1])->withContent($data)->at($baseDir);
+                } else {
+                    self::newFile($name)->withContent($data)->at($baseDir);
+                }
             }
         }
 
@@ -323,6 +335,18 @@ class vfsStream
     }
 
     /**
+     * returns a new block with the given name
+     *
+     * @param   string  $name           name of the block device
+     * @param   int     $permissions    permissions of block to create
+     * @return vfsStreamBlock
+     */
+    public static function newBlock($name, $permissions = null)
+    {
+        return new vfsStreamBlock($name, $permissions);
+    }
+
+    /**
      * returns current user
      *
      * If the system does not support posix_getuid() the current user will be root (0).
@@ -384,6 +408,37 @@ class vfsStream
     public static function setQuota($bytes)
     {
         vfsStreamWrapper::setQuota(new Quota($bytes));
+    }
+
+    /**
+     * checks if vfsStream lists dotfiles in directory listings
+     *
+     * @return  bool
+     * @since   1.3.0
+     */
+    public static function useDotfiles()
+    {
+        return self::$dotFiles;
+    }
+
+    /**
+     * disable dotfiles in directory listings
+     *
+     * @since  1.3.0
+     */
+    public static function disableDotfiles()
+    {
+        self::$dotFiles = false;
+    }
+
+    /**
+     * enable dotfiles in directory listings
+     *
+     * @since  1.3.0
+     */
+    public static function enableDotfiles()
+    {
+        self::$dotFiles = true;
     }
 }
 ?>
