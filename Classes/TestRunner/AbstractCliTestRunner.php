@@ -12,6 +12,8 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Controller\CommandLineController;
+
 if (!defined('TYPO3_cliMode')) {
 	die('Access denied: CLI only.');
 }
@@ -26,7 +28,7 @@ if (!defined('TYPO3_cliMode')) {
  *
  * @author Michael Klapper <michael.klapper@aoemedia.de>
  */
-abstract class Tx_Phpunit_TestRunner_AbstractCliTestRunner extends t3lib_cli {
+abstract class Tx_Phpunit_TestRunner_AbstractCliTestRunner extends CommandLineController {
 	/**
 	 * Additional help text for the command line
 	 *

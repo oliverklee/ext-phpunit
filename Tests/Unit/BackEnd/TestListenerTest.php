@@ -13,6 +13,8 @@
  */
 
 use SebastianBergmann\Comparator\ComparisonFailure;
+use TYPO3\CMS\Core\Utility\CommandUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
  * Test case.
@@ -101,11 +103,11 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	 * @return boolean TRUE if a diff tool was found, FALSE otherwise
 	 */
 	protected function isDiffToolAvailable() {
-		$filePath = t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/Backend/Fixtures/LoadMe.php';
+		$filePath = ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Backend/Fixtures/LoadMe.php';
 		// Makes sure everything is sent to the stdOutput.
 		$executeCommand = $GLOBALS['TYPO3_CONF_VARS']['BE']['diff_path'] . ' 2>&1 ' . $filePath . ' ' . $filePath;
 		$result = array();
-		t3lib_utility_Command::exec($executeCommand, $result);
+		CommandUtility::exec($executeCommand, $result);
 
 		return empty($result);
 	}
@@ -873,30 +875,6 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		$this->assertSame(
 			'Phpunit BackEnd TestListener',
 			$this->subject->prettifyTestClass('Tx_Phpunit_BackEnd_TestListenerTest')
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function prettifyTestClassForCoreTestByDefaultReturnsNameUnchanged() {
-		$camelCaseName = 't3lib_formprotection_InstallToolFormProtectionTest';
-
-		$this->assertSame(
-			$camelCaseName,
-			$this->subject->prettifyTestClass($camelCaseName)
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function prettifyTestClassForCoreTestAndForTestSuffixAfterUseHumanReadableTextFormatConvertCamelCaseToWords() {
-		$this->subject->useHumanReadableTextFormat();
-
-		$this->assertSame(
-			't3lib formprotection InstallToolFormProtection',
-			$this->subject->prettifyTestClass('t3lib_formprotection_InstallToolFormProtectionTest')
 		);
 	}
 

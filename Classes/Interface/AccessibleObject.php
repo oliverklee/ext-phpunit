@@ -13,7 +13,7 @@
  */
 
 /**
- * This interface defines the methods provided by Tx_Phpunit_TestCase::getAccessibleMock.::
+ * This interface defines the methods provided by Tx_Phpunit_TestCase::getAccessibleMock.
  *
  * @package TYPO3
  * @subpackage tx_phpunit

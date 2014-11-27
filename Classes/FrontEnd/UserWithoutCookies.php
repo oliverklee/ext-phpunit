@@ -12,10 +12,12 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
+
 /**
  * Class Tx_Phpunit_FrontEnd_UserWithoutCookies
  */
-class Tx_Phpunit_FrontEnd_UserWithoutCookies extends \TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication {
+class Tx_Phpunit_FrontEnd_UserWithoutCookies extends FrontendUserAuthentication {
 
 	/**
 	 * Sets no session cookie at all.

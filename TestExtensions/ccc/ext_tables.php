@@ -1,4 +1,6 @@
 <?php
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 if (!defined('TYPO3_MODE')) {
 	die('Access denied.');
 }
@@ -13,7 +15,7 @@ $TCA['tx_ccc_test'] = array(
 			'disabled' => 'hidden',
 		),
 		'hideTable' => TRUE,
-		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'tca.php',
+		'dynamicConfigFile' => ExtensionManagementUtility::extPath($_EXTKEY) . 'tca.php',
 	),
 );
 
@@ -27,6 +29,6 @@ $TCA['tx_ccc_data'] = array(
 			'disabled' => 'hidden',
 		),
 		'hideTable' => TRUE,
-		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'tca.php',
+		'dynamicConfigFile' => ExtensionManagementUtility::extPath($_EXTKEY) . 'tca.php',
 	),
 );

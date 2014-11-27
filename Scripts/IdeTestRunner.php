@@ -12,6 +12,8 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * This runs PHPUnit in CLI mode, and includes the PHP boot script of an IDE.
  */
@@ -25,6 +27,6 @@ if (empty($ideBootScript) || !is_file($ideBootScript)) {
 }
 
 /* @var $phpUnit Tx_Phpunit_TestRunner_IdeTestRunner */
-$phpUnit = t3lib_div::makeInstance('Tx_Phpunit_TestRunner_IdeTestRunner');
+$phpUnit = GeneralUtility::makeInstance('Tx_Phpunit_TestRunner_IdeTestRunner');
 
 require_once($ideBootScript);

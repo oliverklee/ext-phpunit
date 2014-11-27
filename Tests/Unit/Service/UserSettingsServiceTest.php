@@ -12,6 +12,8 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+
 /**
  * Test case.
  *
@@ -29,13 +31,13 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	/**
 	 * backup of $GLOBALS['BE_USER']
 	 *
-	 * @var t3lib_beUserAuth
+	 * @var BackendUserAuthentication
 	 */
 	private $backEndUserBackup = NULL;
 
 	public function setUp() {
 		$this->backEndUserBackup = $GLOBALS['BE_USER'];
-		$GLOBALS['BE_USER'] = $this->getMock('t3lib_beUserAuth');
+		$GLOBALS['BE_USER'] = $this->getMock('TYPO3\\CMS\\Core\\Authentication\\BackendUserAuthentication');
 
 		$this->subject = new Tx_Phpunit_Service_UserSettingsService();
 	}
@@ -51,7 +53,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	public function classIsSingleton() {
 		$this->assertInstanceOf(
-			't3lib_Singleton',
+			'TYPO3\\CMS\\Core\\SingletonInterface',
 			$this->subject
 		);
 	}

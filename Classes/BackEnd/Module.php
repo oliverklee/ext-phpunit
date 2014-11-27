@@ -12,6 +12,13 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Backend\Module\BaseScriptClass;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Backend\Utility\IconUtility;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * Back-end module "PHPUnit".
  *
@@ -24,7 +31,7 @@
  * @author Bastian Waidelich <bastian@typo3.org>
  * @author Carsten Koenig <ck@carsten-koenig.de>
  */
-class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
+class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 	/**
 	 * @var string
 	 */
@@ -88,7 +95,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	public function __construct() {
 		$this->init();
 
-		$this->extensionPath = t3lib_extMgm::extRelPath(self::EXTENSION_KEY);
+		$this->extensionPath = ExtensionManagementUtility::extRelPath(self::EXTENSION_KEY);
 	}
 
 	/**
@@ -184,9 +191,10 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * @return void
 	 */
 	public function main() {
+		$this->doc = GeneralUtility::makeInstance('TYPO3\\CMS\\Backend\\Template\\BigDocumentTemplate');
+		$this->doc->backPath = $GLOBALS['BACK_PATH'];
+
 		if ($GLOBALS['BE_USER']->user['admin']) {
-			$this->doc = t3lib_div::makeInstance('bigDoc');
-			$this->doc->backPath = $GLOBALS['BACK_PATH'];
 			$this->doc->docType = 'xhtml_strict';
 			$this->doc->bodyTagAdditions = 'id="doc3"';
 
@@ -215,9 +223,6 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 				)
 			);
 		} else {
-			$this->doc = t3lib_div::makeInstance('bigDoc');
-			$this->doc->backPath = $GLOBALS['BACK_PATH'];
-
 			$this->outputService->output(
 				$this->doc->startPage($this->translate('title')) .
 				$this->doc->header($this->translate('title')) .
@@ -322,12 +327,12 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 */
 	protected function renderRunTestsIntro() {
 		if (!$this->testFinder->existsTestableForAnything()) {
-			/** @var $message t3lib_FlashMessage */
-			$message = t3lib_div::makeInstance(
-				't3lib_FlashMessage',
+			/** @var $message FlashMessage */
+			$message = GeneralUtility::makeInstance(
+				'TYPO3\\CMS\\Core\\Messaging\\FlashMessage',
 				$this->translate('could_not_find_exts_with_tests'),
 				'',
-				t3lib_FlashMessage::WARNING
+				FlashMessage::WARNING
 			);
 			$this->outputService->output($message->render());
 			return;
@@ -354,7 +359,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$this->getAndSaveSelectedTestableKey();
 
 		/** @var $extensionSelectorViewHelper Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper */
-		$extensionSelectorViewHelper = t3lib_div::makeInstance('Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper');
+		$extensionSelectorViewHelper = GeneralUtility::makeInstance('Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper');
 		$extensionSelectorViewHelper->injectOutputService($this->outputService);
 		$extensionSelectorViewHelper->injectUserSettingService($this->userSettingsService);
 		$extensionSelectorViewHelper->injectTestFinder($this->testFinder);
@@ -467,7 +472,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 					$testSuiteName = strstr($testIdentifier, '(');
 					$testSuiteName = trim($testSuiteName, '()');
 				}
-				$selected = ($testIdentifier === $this->request->getAsString(' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST . '))
+				$selected = ($testIdentifier === $this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST))
 					? ' selected="selected"' : '';
 				$testsOptionsArr[$testSuiteName][] .= '<option value="' . $testIdentifier . '"' . $selected . '>' .
 					htmlspecialchars($testName) . '</option>';
@@ -572,11 +577,11 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$this->configureTestListener();
 		$testResult->addListener($this->testListener);
 
-		$this->testStatistics = t3lib_div::makeInstance('Tx_Phpunit_BackEnd_TestStatistics');
+		$this->testStatistics = GeneralUtility::makeInstance('Tx_Phpunit_BackEnd_TestStatistics');
 		$this->testStatistics->start();
 
 		if ($this->shouldCollectCodeCoverageInformation()) {
-			$this->coverage = t3lib_div::makeInstance('PHP_CodeCoverage');
+			$this->coverage = GeneralUtility::makeInstance('PHP_CodeCoverage');
 			$this->coverage->start('phpunit');
 		}
 
@@ -852,7 +857,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 			' ' . $this->translate('tests_errors') . ', <span title="' . $this->testStatistics->getTime() . '&nbsp;' .
 			$this->translate('tests_seconds') . '">' . round($this->testStatistics->getTime(), 3) . '&nbsp;' .
 			$this->translate('tests_seconds') . ', </span>' .
-			t3lib_div::formatSize($this->testStatistics->getMemory()) . 'B (' . $this->testStatistics->getMemory() . ' B) ' .
+			GeneralUtility::formatSize($this->testStatistics->getMemory()) . 'B (' . $this->testStatistics->getMemory() . ' B) ' .
 			$this->translate('tests_leaks') . '</p>';
 		$this->outputService->output($testStatistics);
 
@@ -895,7 +900,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 
 		$codeCoverageDirectory = PATH_site . 'typo3temp/codecoverage/';
 		if (!is_readable($codeCoverageDirectory) && !is_dir($codeCoverageDirectory)) {
-			t3lib_div::mkdir($codeCoverageDirectory);
+			GeneralUtility::mkdir($codeCoverageDirectory);
 		}
 
 		$coverageReport = new PHP_CodeCoverage_Report_HTML();
@@ -903,7 +908,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 		$this->outputService->output(
 			'<p><a target="_blank" href="../typo3temp/codecoverage/index.html">' .
 				'Click here to access the Code Coverage report</a></p>' .
-				'<p>Memory peak usage: ' . t3lib_div::formatSize(memory_get_peak_usage()) . 'B<p/>'
+				'<p>Memory peak usage: ' . GeneralUtility::formatSize(memory_get_peak_usage()) . 'B<p/>'
 		);
 	}
 
@@ -918,7 +923,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 */
 	protected function renderProgressbar() {
 		/** @var $progressBarViewHelper Tx_Phpunit_ViewHelpers_ProgressBarViewHelper */
-		$progressBarViewHelper = t3lib_div::makeInstance('Tx_Phpunit_ViewHelpers_ProgressBarViewHelper');
+		$progressBarViewHelper = GeneralUtility::makeInstance('Tx_Phpunit_ViewHelpers_ProgressBarViewHelper');
 		$progressBarViewHelper->injectOutputService($this->outputService);
 		$progressBarViewHelper->render();
 	}
@@ -935,11 +940,11 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	 * @return string
 	 */
 	protected function createOpenNewWindowLink() {
-		$url = t3lib_BEfunc::getModuleUrl(Tx_Phpunit_BackEnd_Module::MODULE_NAME, array(), FALSE, TRUE);
-		$onClick = "phpunitbeWin=window.open(" . t3lib_div::quoteJSvalue($url) .
+		$url = BackendUtility::getModuleUrl(Tx_Phpunit_BackEnd_Module::MODULE_NAME, array(), FALSE, TRUE);
+		$onClick = "phpunitbeWin=window.open(" . GeneralUtility::quoteJSvalue($url) .
 			",'phpunitbe','width=790,status=0,menubar=1,resizable=1,location=0,scrollbars=1,toolbar=0');phpunitbeWin.focus();return false;";
 		$content = '<a id="opennewwindow" href="" onclick="' . htmlspecialchars($onClick) . '" accesskey="n">
-			<img' . t3lib_iconWorks::skinImg($GLOBALS['BACK_PATH'], 'gfx/open_in_new_window.gif', 'width="19" height="14"') . ' title="' .
+			<img' . IconUtility::skinImg($GLOBALS['BACK_PATH'], 'gfx/open_in_new_window.gif', 'width="19" height="14"') . ' title="' .
 			$GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.openInNewWindow', 1) . '" class="absmiddle" alt="" />
 			Ope<span class="access-key">n</span> in separate window.
 			</a>
@@ -978,7 +983,7 @@ class Tx_Phpunit_BackEnd_Module extends t3lib_SCbase {
 	/**
 	 * Includes all PHP files given in $paths.
 	 *
-	 * @param strings[] $paths
+	 * @param string[] $paths
 	 *        array keys: absolute path
 	 *        array values: file names in that path
 	 *

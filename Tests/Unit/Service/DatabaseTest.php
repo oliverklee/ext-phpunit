@@ -12,6 +12,9 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * Test case.
  *
@@ -54,7 +57,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 			return array();
 		}
 
-		$numbers = t3lib_div::intExplode(',', $valueList);
+		$numbers = GeneralUtility::intExplode(',', $valueList);
 		sort($numbers, SORT_NUMERIC);
 
 		return ($numbers);
@@ -179,30 +182,6 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 			)
 		);
 	}
-
-	/**
-	 * Note: This test does not work until the full versioning feature is implemented in the testing framework.
-	 *
-	 * @see https://bugs.oliverklee.com/show_bug.cgi?id=2180
-	 */
-	/**
-	 * @test
-	 */
-	public function enableFieldsCanBeDifferentForDifferentVersionParameters() {
-		$this->markTestSkipped(
-			'This test does not work until the full versioning feature is implemented in the testing framework.'
-		);
-
-		$this->assertNotEquals(
-			Tx_Phpunit_Service_Database::enableFields(
-				'tx_phpunit_test', 0, array(), FALSE
-			),
-			Tx_Phpunit_Service_Database::enableFields(
-				'tx_phpunit_test', 0, array(), TRUE
-			)
-		);
-	}
-
 
 	/*
 	 * Tests concerning createRecursivePageList
@@ -781,24 +760,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	/**
 	 * @test
 	 */
-	public function selectReturnsResource() {
-		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 6001000) {
-			$this->markTestSkipped('This test only applies to TYPO3 CMS < 6.1.');
-		}
-
-		$this->assertTrue(
-			is_resource(Tx_Phpunit_Service_Database::select('title', 'tx_phpunit_test'))
-		);
-	}
-
-	/**
-	 * @test
-	 */
 	public function selectReturnsMySqliResult() {
-		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) < 6001000) {
-			$this->markTestSkipped('This test is available in TYPO3 6.1 and above.');
-		}
-
 		$this->assertInstanceOf(
 			'mysqli_result',
 			Tx_Phpunit_Service_Database::select('title', 'tx_phpunit_test')
@@ -1100,7 +1062,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function getTcaForTableCanLoadFieldsAddedByExtensions() {
-		if (!t3lib_extMgm::isLoaded('sr_feuser_register')) {
+		if (!ExtensionManagementUtility::isLoaded('sr_feuser_register')) {
 			$this->markTestSkipped(
 				'This test is only applicable if sr_feuser_register is loaded.'
 			);

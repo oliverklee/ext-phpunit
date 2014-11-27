@@ -22,24 +22,6 @@
  */
 class Tx_Phpunit_Testable {
 	/**
-	 * @var integer
-	 */
-	const TYPE_UNDEFINED = 0;
-	/**
-	 * @var integer
-	 */
-	const TYPE_EXTENSION = 1;
-	/**
-	 * @var integer
-	 */
-	const TYPE_CORE = 2;
-
-	/**
-	 * @var string
-	 */
-	const CORE_KEY = 'typo3';
-
-	/**
 	 * @var string
 	 */
 	const ALL_EXTENSIONS = 'uuall';
@@ -53,11 +35,6 @@ class Tx_Phpunit_Testable {
 	 * @var string
 	 */
 	protected $title = '';
-
-	/**
-	 * @var integer
-	 */
-	protected $type = self::TYPE_UNDEFINED;
 
 	/**
 	 * @var string
@@ -144,37 +121,6 @@ class Tx_Phpunit_Testable {
 	 */
 	public function setTitle($title) {
 		$this->title = $title;
-	}
-
-	/**
-	 * Returns the type of this testable code.
-	 *
-	 * @return integer
-	 *         the type, will be either TYPE_UNDEFINED, TYPE_EXTENSION or TYPE_CORE
-	 */
-	public function getType() {
-		return $this->type;
-	}
-
-	/**
-	 * Sets the type of this testable code.
-	 *
-	 * @param integer $type
-	 *        the type, must be either TYPE_EXTENSION or TYPE_CORE
-	 *
-	 * @return void
-	 *
-	 * @throws InvalidArgumentException
-	 */
-	public function setType($type) {
-		$allowedTypes = array(self::TYPE_EXTENSION, self::TYPE_CORE);
-		if (!in_array($type, $allowedTypes, TRUE)) {
-			throw new InvalidArgumentException(
-				'$type must be one of TYPE_EXTENSION, TYPE_CORE, but actually was ' . $type . '.', 1334439659
-			);
-		}
-
-		$this->type = $type;
 	}
 
 	/**

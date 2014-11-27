@@ -12,6 +12,8 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\SingletonInterface;
+
 /**
  * This class provides functions for outputting content.
  *
@@ -20,7 +22,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Service_OutputService implements t3lib_Singleton {
+class Tx_Phpunit_Service_OutputService implements SingletonInterface {
 	/**
 	 * Echoes $output.
 	 *

@@ -12,6 +12,10 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * This class provides functions for finding test cases.
  *
@@ -20,7 +24,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
+class Tx_Phpunit_Service_TestFinder implements SingletonInterface {
 	/**
 	 * allowed test directory names
 	 *
@@ -70,56 +74,6 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 */
 	public function __destruct() {
 		unset($this->extensionSettingsService);
-	}
-
-	/**
-	 * Gets the path of the TYPO3 Core unit tests relative to PATH_site.
-	 *
-	 * If there is no tests directory for the Core, this function will return an empty string.
-	 *
-	 * @return string
-	 *         the path of the TYPO3 Core unit tests relative to PATH_site,
-	 *         will be empty if there is no Core tests directory
-	 */
-	public function getRelativeCoreTestsPath() {
-		$possibleTestsPath1 = 'tests/';
-		$possibleTestsPath2 = 'typo3_src/tests/';
-
-		if (file_exists(PATH_site .  $possibleTestsPath1)) {
-			$testsPath = $possibleTestsPath1;
-		} elseif (file_exists(PATH_site . $possibleTestsPath2)) {
-			$testsPath = $possibleTestsPath2;
-		} else {
-			$testsPath = '';
-		}
-
-		return $testsPath;
-	}
-
-	/**
-	 * Gets the absolute path of the TYPO3 Core unit tests.
-	 *
-	 * If there is no tests directory for the Core, this function will return an empty string.
-	 *
-	 * @return string
-	 *         the absolute path of the TYPO3 Core unit tests,
-	 *         will be empty if there is no Core tests directory
-	 */
-	public function getAbsoluteCoreTestsPath() {
-		if (!$this->hasCoreTests()) {
-			return '';
-		}
-
-		return PATH_site . $this->getRelativeCoreTestsPath();
-	}
-
-	/**
-	 * Checks whether the TYPO3 Core has a tests directory.
-	 *
-	 * @return boolean TRUE if the TYPO3 Core has a tests directory, FALSE otherwise
-	 */
-	public function hasCoreTests() {
-		return ($this->getRelativeCoreTestsPath() !== '');
 	}
 
 	/**
@@ -187,39 +141,11 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 */
 	public function getTestablesForEverything() {
 		if (!$this->allTestablesAreCached) {
-			$this->allTestables = array_merge(
-				$this->getTestablesForExtensions(), $this->getTestableForCore()
-			);
-
+			$this->allTestables = $this->getTestablesForExtensions();
 			$this->allTestablesAreCached = TRUE;
 		}
 
 		return $this->allTestables;
-	}
-
-	/**
-	 * Returns the testable code for the TYPO3 Core.
-	 *
-	 * @return Tx_Phpunit_Testable[]
-	 *         testable code for the TYPO3 core, will have exactly one element if
-	 *         there are Core tests (using the core key as array key),
-	 *         will be empty if there are no Core tests
-	 */
-	public function getTestableForCore() {
-		if (!$this->hasCoreTests()) {
-			return array();
-		}
-
-		/** @var $coreTests Tx_Phpunit_Testable */
-		$coreTests = t3lib_div::makeInstance('Tx_Phpunit_Testable');
-		$coreTests->setType(Tx_Phpunit_Testable::TYPE_CORE);
-		$coreTests->setKey(Tx_Phpunit_Testable::CORE_KEY);
-		$coreTests->setTitle('TYPO3 Core');
-		$coreTests->setCodePath(PATH_site);
-		$coreTests->setTestsPath($this->getAbsoluteCoreTestsPath());
-		$coreTests->setIconPath(t3lib_extMgm::extRelPath('phpunit') . 'Resources/Public/Icons/Typo3.png');
-
-		return array(Tx_Phpunit_Testable::CORE_KEY => $coreTests);
 	}
 
 	/**
@@ -274,19 +200,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 * @return string[] the keys of the loaded extensions, might be empty
 	 */
 	protected function getLoadedExtensionKeys() {
-		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 6000000) {
-			$allExtensionKeys = t3lib_extMgm::getLoadedExtensionListArray();
-		} else {
-			$requiredExtensionList = t3lib_extMgm::getRequiredExtensionList();
-			$loadedExtensionList = isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'])
-				? $GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'] : '';
-
-			$allExtensionKeys = array_unique(
-				t3lib_div::trimExplode(',', $loadedExtensionList . ',' . $requiredExtensionList, TRUE)
-			);
-		}
-
-		return $allExtensionKeys;
+		return ExtensionManagementUtility::getLoadedExtensionListArray();
 	}
 
 	/**
@@ -296,7 +210,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 	 * @return string[] the keys of the excluded extensions, might be empty
 	 */
 	protected function getExcludedExtensionKeys() {
-		return t3lib_div::trimExplode(',', $this->extensionSettingsService->getAsString('excludeextensions'), TRUE);
+		return GeneralUtility::trimExplode(',', $this->extensionSettingsService->getAsString('excludeextensions'), TRUE);
 	}
 
 	/**
@@ -322,16 +236,15 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 		$testsPath = $this->findTestsPathForExtension($extensionKey);
 
 		/** @var $testable Tx_Phpunit_Testable */
-		$testable = t3lib_div::makeInstance('Tx_Phpunit_Testable');
-		$testable->setType(Tx_Phpunit_Testable::TYPE_EXTENSION);
+		$testable = GeneralUtility::makeInstance('Tx_Phpunit_Testable');
 		$testable->setKey($extensionKey);
 		$testable->setTitle($extensionKey);
-		$testable->setCodePath(t3lib_extMgm::extPath($extensionKey));
+		$testable->setCodePath(ExtensionManagementUtility::extPath($extensionKey));
 		$testable->setTestsPath($testsPath);
 		$possibleIconFileNames = array('ext_icon.gif', 'ext_icon.png');
 		foreach ($possibleIconFileNames as $fileNameCandidate) {
-			if (file_exists(t3lib_extMgm::extPath($extensionKey) . $fileNameCandidate)) {
-				$testable->setIconPath(t3lib_extMgm::extRelPath($extensionKey) . $fileNameCandidate);
+			if (file_exists(ExtensionManagementUtility::extPath($extensionKey) . $fileNameCandidate)) {
+				$testable->setIconPath(ExtensionManagementUtility::extRelPath($extensionKey) . $fileNameCandidate);
 				break;
 			}
 		}
@@ -359,7 +272,7 @@ class Tx_Phpunit_Service_TestFinder implements t3lib_Singleton {
 
 		$testsPath = '';
 		try {
-			$extensionPath = t3lib_extMgm::extPath($extensionKey);
+			$extensionPath = ExtensionManagementUtility::extPath($extensionKey);
 
 			foreach (self::$allowedTestDirectoryNames as $testDirectoryName) {
 				if (is_dir($extensionPath . $testDirectoryName)) {

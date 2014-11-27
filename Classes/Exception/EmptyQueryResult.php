@@ -12,6 +12,8 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Exception;
+
 /**
  * This class represents an exception that should be thrown when a database
  * query has an empty result, but should not have.
@@ -23,7 +25,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Exception_EmptyQueryResult extends t3lib_exception {
+class Tx_Phpunit_Exception_EmptyQueryResult extends Exception {
 	/**
 	 * The constructor.
 	 *

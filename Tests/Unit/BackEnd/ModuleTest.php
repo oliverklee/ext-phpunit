@@ -12,9 +12,11 @@
  * The TYPO3 project - inspiring people to share!
  */
 
-if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) < 6000000) {
-	require_once(PATH_typo3 . 'template.php');
-}
+use TYPO3\CMS\Backend\Template\BigDocumentTemplate;
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 $GLOBALS['LANG']->includeLLFile('EXT:phpunit/Resources/Private/Language/locallang_backend.xml');
 
 /**
@@ -47,7 +49,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	protected $userSettingsService = NULL;
 
 	/**
-	 * @var t3lib_beUserAuth
+	 * @var BackendUserAuthentication
 	 */
 	private $backEndUserBackup = NULL;
 
@@ -77,7 +79,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	protected $singletonInstances = array();
 
 	/**
-	 * @var bigDoc|PHPUnit_Framework_MockObject_MockObject
+	 * @var BigDocumentTemplate|PHPUnit_Framework_MockObject_MockObject
 	 */
 	protected $bigDocumentTemplate = NULL;
 
@@ -106,18 +108,12 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->subject->injectTestCaseService($this->testCaseService);
 
 		$this->progressBarViewHelper = $this->getMock('Tx_Phpunit_ViewHelpers_ProgressBarViewHelper');
-		t3lib_div::addInstance('Tx_Phpunit_ViewHelpers_ProgressBarViewHelper', $this->progressBarViewHelper);
+		GeneralUtility::addInstance('Tx_Phpunit_ViewHelpers_ProgressBarViewHelper', $this->progressBarViewHelper);
 
-		$this->bigDocumentTemplate = $this->getMock('bigDoc', array('startPage'));
-		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) < 6000000) {
-			t3lib_div::addInstance('bigDoc', $this->bigDocumentTemplate);
-		} else {
-			t3lib_div::addInstance('TYPO3\\CMS\\Backend\\Template\\BigDocumentTemplate', $this->bigDocumentTemplate);
-		}
+		$this->bigDocumentTemplate = $this->getMock('TYPO3\\CMS\\Backend\\Template\\BigDocumentTemplate', array('startPage'));
+		GeneralUtility::addInstance('TYPO3\\CMS\\Backend\\Template\\BigDocumentTemplate', $this->bigDocumentTemplate);
 
-		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 6000000) {
-			$this->singletonInstances = \TYPO3\CMS\Core\Utility\GeneralUtility::getSingletonInstances();
-		}
+		$this->singletonInstances = GeneralUtility::getSingletonInstances();
 	}
 
 	public function tearDown() {
@@ -131,12 +127,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			$this->bigDocumentTemplate, $this->testCaseService
 		);
 
-		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 6000000) {
-			\TYPO3\CMS\Core\Utility\GeneralUtility::purgeInstances();
-			\TYPO3\CMS\Core\Utility\GeneralUtility::resetSingletonInstances($this->singletonInstances);
-		} else {
-			t3lib_div::purgeInstances();
-		}
+		GeneralUtility::purgeInstances();
+		GeneralUtility::resetSingletonInstances($this->singletonInstances);
 	}
 
 	/*
@@ -594,7 +586,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	public function loadRequiredTestClassesLoadsFileInFirstPath() {
 		$this->subject->loadRequiredTestClasses(
 			array(
-				t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/BackEnd/Fixtures/' => array(
+				ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/BackEnd/Fixtures/' => array(
 					'LoadMe.php',
 				),
 			)
@@ -611,7 +603,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	public function loadRequiredTestClassesLoadsSecondFileInFirstPath() {
 		$this->subject->loadRequiredTestClasses(
 			array(
-				t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/BackEnd/Fixtures/' => array(
+				ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/BackEnd/Fixtures/' => array(
 					'LoadMe.php',
 					'LoadMeToo.php',
 				),
@@ -629,10 +621,10 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	public function loadRequiredTestClassesLoadsFileInSecondPath() {
 		$this->subject->loadRequiredTestClasses(
 			array(
-				t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/BackEnd/Fixtures/' => array(
+				ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/BackEnd/Fixtures/' => array(
 					'LoadMe.php',
 				),
-				t3lib_extMgm::extPath('phpunit') . 'Tests/Unit/Fixtures/' => array(
+				ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Fixtures/' => array(
 					'LoadMe.php',
 				),
 			)
@@ -648,23 +640,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 */
 	public function createIconStyleForLoadedExtensionReturnsExtensionIcon() {
 		$this->assertContains(
-			'url(' . t3lib_extMgm::extRelPath('phpunit') . 'ext_icon.gif)',
+			'url(' . ExtensionManagementUtility::extRelPath('phpunit') . 'ext_icon.gif)',
 			$this->subject->createIconStyle('phpunit')
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function createIconStyleForCoreReturnsTypo3Icon() {
-		$testFinder = new Tx_Phpunit_Service_TestFinder();
-		if (!$testFinder->hasCoreTests()) {
-			$this->markTestSkipped('This test can only be run if the TYPO3 Core unit tests are present.');
-		}
-
-		$this->assertContains(
-			'url(' . t3lib_extMgm::extRelPath('phpunit') . 'Resources/Public/Icons/Typo3.png)',
-			$this->subject->createIconStyle(Tx_Phpunit_Testable::CORE_KEY)
 		);
 	}
 
@@ -747,7 +724,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function createTestCaseSelectorNotCreatesOptionForExistingTestcaseFromNotSelectedExtension() {
-		if (!t3lib_extMgm::isLoaded('oelib')) {
+		if (!ExtensionManagementUtility::isLoaded('oelib')) {
 			$this->markTestSkipped('This tests requires the "oelib" extension to be loaded.');
 		}
 

@@ -12,6 +12,8 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * This class provides helper functions that might be convenient when testing in
  * TYPO3. It extends PHPUnit_Extensions_SeleniumTestCase, so you have access to
@@ -68,7 +70,7 @@ class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_Selenium2TestCase 
 	 */
 	public function __construct($name = NULL, array $data = array(), $dataName = '', Tx_Phpunit_Interface_ExtensionSettingsService $extensionSettingsService = NULL) {
 		if ($extensionSettingsService === NULL) {
-			$extensionSettingsService = t3lib_div::makeInstance('Tx_Phpunit_Service_ExtensionSettingsService');
+			$extensionSettingsService = GeneralUtility::makeInstance('Tx_Phpunit_Service_ExtensionSettingsService');
 		}
 		$this->extensionSettingsService = $extensionSettingsService;
 
@@ -176,6 +178,6 @@ class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_Selenium2TestCase 
 	protected function getSeleniumBrowserUrl() {
 		return $this->extensionSettingsService->hasString('selenium_browserurl')
 			? $this->extensionSettingsService->getAsString('selenium_browserurl')
-			: rtrim(t3lib_div::getIndpEnv('TYPO3_SITE_URL'), self::DEFAULT_SELENIUM_BROWSER_URL);
+			: rtrim(GeneralUtility::getIndpEnv('TYPO3_SITE_URL'), self::DEFAULT_SELENIUM_BROWSER_URL);
 	}
 }

@@ -1,10 +1,12 @@
 <?php
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 if (!defined('TYPO3_MODE')) {
 	die('Access denied.');
 }
 
 $TCA['tx_aaa_test'] = array(
-	'ctrl' => array(
+	'ctrl' => [
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
 		'cruser_id' => 'cruser_id',
@@ -13,6 +15,6 @@ $TCA['tx_aaa_test'] = array(
 			'disabled' => 'hidden',
 		),
 		'hideTable' => TRUE,
-		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'tca.php',
-	),
+		'dynamicConfigFile' => ExtensionManagementUtility::extPath($_EXTKEY) . 'tca.php',
+	],
 );

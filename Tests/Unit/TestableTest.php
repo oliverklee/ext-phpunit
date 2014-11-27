@@ -12,6 +12,8 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 /**
  * Test case.
  *
@@ -102,58 +104,6 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
-	public function getTypeInitiallyReturnsUndefined() {
-		$this->assertSame(
-			Tx_Phpunit_Testable::TYPE_UNDEFINED,
-			$this->subject->getType()
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function setTypeCanSetTypeToExtension() {
-		$this->subject->setType(Tx_Phpunit_Testable::TYPE_EXTENSION);
-
-		$this->assertSame(
-			Tx_Phpunit_Testable::TYPE_EXTENSION,
-			$this->subject->getType()
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function setTypeCanSetTypeToCore() {
-		$this->subject->setType(Tx_Phpunit_Testable::TYPE_CORE);
-
-		$this->assertSame(
-			Tx_Phpunit_Testable::TYPE_CORE,
-			$this->subject->getType()
-		);
-	}
-
-	/**
-	 * @test
-	 *
-	 * @expectedException InvalidArgumentException
-	 */
-	public function setTypeForUndefinedTypeThrowsException() {
-		$this->subject->setType(Tx_Phpunit_Testable::TYPE_UNDEFINED);
-	}
-
-	/**
-	 * @test
-	 *
-	 * @expectedException InvalidArgumentException
-	 */
-	public function setTypeForInvalidTypeThrowsException() {
-		$this->subject->setType(-1);
-	}
-
-	/**
-	 * @test
-	 */
 	public function getCodePathInitiallyReturnsEmptyString() {
 		$this->assertSame(
 			'',
@@ -165,7 +115,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function setCodePathSetsCodePath() {
-		$path = t3lib_extMgm::extPath('phpunit');
+		$path = ExtensionManagementUtility::extPath('phpunit');
 		$this->subject->setCodePath($path);
 
 		$this->assertSame(
@@ -197,7 +147,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function setTestsPathSetsTestsPath() {
-		$path = t3lib_extMgm::extPath('phpunit') . 'Tests/';
+		$path = ExtensionManagementUtility::extPath('phpunit') . 'Tests/';
 		$this->subject->setTestsPath($path);
 
 		$this->assertSame(

@@ -12,6 +12,10 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Reports\Status;
+use TYPO3\CMS\Reports\StatusProviderInterface;
+
 /**
  * This class provides a status report for the "Reports" BE module.
  *
@@ -20,7 +24,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
+class Tx_Phpunit_Reports_Status implements StatusProviderInterface {
 	/**
 	 * @var string
 	 */
@@ -39,7 +43,7 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 	 * The constructor.
 	 */
 	public function __construct() {
-		$this->extensionSettingsService = t3lib_div::makeInstance('Tx_Phpunit_Service_ExtensionSettingsService');
+		$this->extensionSettingsService = GeneralUtility::makeInstance('Tx_Phpunit_Service_ExtensionSettingsService');
 	}
 
 	/**
@@ -52,7 +56,7 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 	/**
 	 * Returns the status of this extension.
 	 *
-	 * @return tx_reports_reports_status_Status[]
+	 * @return Status[]
 	 *         status reports for this extension
 	 */
 	public function getStatus() {
@@ -84,7 +88,7 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 	/**
 	 * Creates a status concerning whether PHP reflection works correctly.
 	 *
-	 * @return tx_reports_reports_status_Status
+	 * @return Status
 	 *         a status indicating whether PHP reflection works correctly
 	 */
 	protected function getReflectionStatus() {
@@ -92,22 +96,22 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 
 		$method = new ReflectionMethod('tx_phpunit_Reports_Status', 'getStatus');
 		if (strlen($method->getDocComment()) > 0) {
-			/** @var $status tx_reports_reports_status_Status */
-			$status = t3lib_div::makeInstance(
-				'tx_reports_reports_status_Status',
+			/** @var $status Status */
+			$status = GeneralUtility::makeInstance(
+				'TYPO3\\CMS\\Reports\\Status',
 				$heading,
 				$this->translate('status_phpComments_present_short'),
 				$this->translate('status_phpComments_present_verbose'),
-				tx_reports_reports_status_Status::OK
+				Status::OK
 			);
 		} else {
-			/** @var $status tx_reports_reports_status_Status */
-			$status = t3lib_div::makeInstance(
-				'tx_reports_reports_status_Status',
+			/** @var $status Status */
+			$status = GeneralUtility::makeInstance(
+				'TYPO3\\CMS\\Reports\\Status',
 				$heading,
 				$this->translate('status_phpComments_stripped_short'),
 				$this->translate('status_phpComments_stripped_verbose'),
-				tx_reports_reports_status_Status::ERROR
+				Status::ERROR
 			);
 		}
 
@@ -117,20 +121,20 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 	/**
 	 * Creates a status concerning eAccelerator not crashing phpunit.
 	 *
-	 * @return tx_reports_reports_status_Status
+	 * @return Status
 	 *         a status concerning eAccelerator not crashing phpunit
 	 */
 	protected function getEacceleratorStatus() {
 		$heading = $this->translate('status_eAccelerator');
 
 		if (!extension_loaded('eaccelerator')) {
-			/** @var $status tx_reports_reports_status_Status */
-			$status = t3lib_div::makeInstance(
-				'tx_reports_reports_status_Status',
+			/** @var $status Status */
+			$status = GeneralUtility::makeInstance(
+				'TYPO3\\CMS\\Reports\\Status',
 				$heading,
 				$this->translate('status_eAccelerator_notInstalled_short'),
 				'',
-				tx_reports_reports_status_Status::OK
+				Status::OK
 			);
 		} else {
 			$version = phpversion('eaccelerator');
@@ -141,13 +145,13 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 					$version
 				);
 
-				/** @var $status tx_reports_reports_status_Status */
-				$status = t3lib_div::makeInstance(
-					'tx_reports_reports_status_Status',
+				/** @var $status Status */
+				$status = GeneralUtility::makeInstance(
+					'TYPO3\\CMS\\Reports\\Status',
 					$heading,
 					$this->translate('status_eAccelerator_installedOld_short'),
 					$verboseMessage,
-					tx_reports_reports_status_Status::ERROR
+					Status::ERROR
 				);
 			} else {
 				$verboseMessage = sprintf(
@@ -155,13 +159,13 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 					$version
 				);
 
-				/** @var $status tx_reports_reports_status_Status */
-				$status = t3lib_div::makeInstance(
-					'tx_reports_reports_status_Status',
+				/** @var $status Status */
+				$status = GeneralUtility::makeInstance(
+					'TYPO3\\CMS\\Reports\\Status',
 					$heading,
 					$this->translate('status_eAccelerator_installedNew_short'),
 					$verboseMessage,
-					tx_reports_reports_status_Status::OK
+					Status::OK
 				);
 			}
 		}
@@ -172,7 +176,7 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 	/**
 	 * Creates a status concerning whether Xdebug is loaded.
 	 *
-	 * @return tx_reports_reports_status_Status
+	 * @return Status
 	 *         a status concerning whether Xdebug is loaded
 	 */
 	protected function getXdebugStatus() {
@@ -182,26 +186,26 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 			$messageKey = 'status_notLoaded';
 		}
 
-		return t3lib_div::makeInstance(
-			'tx_reports_reports_status_Status',
+		return GeneralUtility::makeInstance(
+			'TYPO3\\CMS\\Reports\\Status',
 			$this->translate('status_xdebug'),
 			$this->translate($messageKey),
 			'',
-			tx_reports_reports_status_Status::NOTICE
+			Status::NOTICE
 		);
 	}
 
 	/**
 	 * Creates a status concerning the PHP memory limit.
 	 *
-	 * @return tx_reports_reports_status_Status
+	 * @return Status
 	 *         a status indicating whether the PHP memory limit is high enogh
 	 */
 	protected function getMemoryLimitStatus() {
 		$memoryLimitFromConfiguration = ini_get('memory_limit');
-		$memoryLimitInBytes = t3lib_div::getBytesFromSizeMeasurement($memoryLimitFromConfiguration);
-		$requiredMemoryLimitInBytes = t3lib_div::getBytesFromSizeMeasurement(self::MEMORY_REQUIRED);
-		$recommendedMemoryLimitInBytes = t3lib_div::getBytesFromSizeMeasurement(self::MEMORY_RECOMMENDED);
+		$memoryLimitInBytes = GeneralUtility::getBytesFromSizeMeasurement($memoryLimitFromConfiguration);
+		$requiredMemoryLimitInBytes = GeneralUtility::getBytesFromSizeMeasurement(self::MEMORY_REQUIRED);
+		$recommendedMemoryLimitInBytes = GeneralUtility::getBytesFromSizeMeasurement(self::MEMORY_RECOMMENDED);
 
 		$heading = $this->translate('status_memoryLimit');
 		$message = sprintf(
@@ -210,31 +214,31 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 		);
 
 		if ($memoryLimitInBytes < $requiredMemoryLimitInBytes) {
-			/** @var $status tx_reports_reports_status_Status */
-			$status = t3lib_div::makeInstance(
-				'tx_reports_reports_status_Status',
+			/** @var $status Status */
+			$status = GeneralUtility::makeInstance(
+				'TYPO3\\CMS\\Reports\\Status',
 				$heading,
 				$memoryLimitFromConfiguration,
 				$message,
-				tx_reports_reports_status_Status::ERROR
+				Status::ERROR
 			);
 		} elseif ($memoryLimitInBytes < $recommendedMemoryLimitInBytes) {
-			/** @var $status tx_reports_reports_status_Status */
-			$status = t3lib_div::makeInstance(
-				'tx_reports_reports_status_Status',
+			/** @var $status Status */
+			$status = GeneralUtility::makeInstance(
+				'TYPO3\\CMS\\Reports\\Status',
 				$heading,
 				$memoryLimitFromConfiguration,
 				$message,
-				tx_reports_reports_status_Status::WARNING
+				Status::WARNING
 			);
 		} else {
-			/** @var $status tx_reports_reports_status_Status */
-			$status = t3lib_div::makeInstance(
-				'tx_reports_reports_status_Status',
+			/** @var $status Status */
+			$status = GeneralUtility::makeInstance(
+				'TYPO3\\CMS\\Reports\\Status',
 				$heading,
 				$memoryLimitFromConfiguration,
 				'',
-				tx_reports_reports_status_Status::OK
+				Status::OK
 			);
 		}
 
@@ -244,7 +248,7 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 	/**
 	 * Creates a status about the PHP include path.
 	 *
-	 * @return tx_reports_reports_status_Status
+	 * @return Status
 	 *         a status about the PHP include path
 	 */
 	protected function getIncludePathStatus() {
@@ -255,30 +259,30 @@ class Tx_Phpunit_Reports_Status implements tx_reports_StatusProvider {
 			$escapedPaths[] = htmlspecialchars($path);
 		}
 
-		return t3lib_div::makeInstance(
-			'tx_reports_reports_status_Status',
+		return GeneralUtility::makeInstance(
+			'TYPO3\\CMS\\Reports\\Status',
 			$this->translate('status_includePath'),
 			'',
 			'<code>' . nl2br(htmlspecialchars(implode(LF, $escapedPaths))) . '</code>',
-			tx_reports_reports_status_Status::NOTICE
+			Status::NOTICE
 		);
 	}
 
 	/**
 	 * Creates a status about the extensions that are excluded from unit testing.
 	 *
-	 * @return tx_reports_reports_status_Status
+	 * @return Status
 	 *         a status about the excluded extensions
 	 */
 	protected function getExcludedExtensionsStatus() {
-		$extensionKeys = t3lib_div::trimExplode(',', $this->extensionSettingsService->getAsString('excludeextensions'));
+		$extensionKeys = GeneralUtility::trimExplode(',', $this->extensionSettingsService->getAsString('excludeextensions'));
 
-		return t3lib_div::makeInstance(
-			'tx_reports_reports_status_Status',
+		return GeneralUtility::makeInstance(
+			'TYPO3\\CMS\\Reports\\Status',
 			$this->translate('status_excludedExtensions'),
 			'',
 			nl2br(htmlspecialchars(implode(LF, $extensionKeys))),
-			tx_reports_reports_status_Status::NOTICE
+			Status::NOTICE
 		);
 	}
 }

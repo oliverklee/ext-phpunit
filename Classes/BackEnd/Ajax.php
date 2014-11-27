@@ -12,6 +12,9 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Http\AjaxRequestHandler;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * This class uses the new AJAX broker in TYPO3 4.2.
  *
@@ -55,7 +58,7 @@ class Tx_Phpunit_BackEnd_Ajax {
 	public function __construct($initializeUserSettingsService = TRUE) {
 		if ($initializeUserSettingsService) {
 			/** @var $userSettingsService Tx_Phpunit_Service_UserSettingsService */
-			$userSettingsService = t3lib_div::makeInstance('Tx_Phpunit_Service_UserSettingsService');
+			$userSettingsService = GeneralUtility::makeInstance('Tx_Phpunit_Service_UserSettingsService');
 			$this->injectUserSettingsService($userSettingsService);
 		}
 	}
@@ -83,13 +86,13 @@ class Tx_Phpunit_BackEnd_Ajax {
 	 * Called by typo3/ajax.php
 	 *
 	 * @param array $unused additional parameters (not used)
-	 * @param TYPO3AJAX $ajax the AJAX object for this request
+	 * @param AjaxRequestHandler $ajax the AJAX object for this request
 	 *
 	 * @return void
 	 */
-	public function ajaxBroker(array $unused, TYPO3AJAX $ajax) {
-		$state = (boolean) t3lib_div::_POST('state');
-		$checkbox = t3lib_div::_POST('checkbox');
+	public function ajaxBroker(array $unused, AjaxRequestHandler $ajax) {
+		$state = (boolean) GeneralUtility::_POST('state');
+		$checkbox = GeneralUtility::_POST('checkbox');
 
 		if (in_array($checkbox, $this->validCheckboxKeys, TRUE)) {
 			$ajax->setContentFormat('json');

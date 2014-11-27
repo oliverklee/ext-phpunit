@@ -12,6 +12,8 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\SingletonInterface;
+
 /**
  * This class provides functions for reading the settings of the PHPUnit extension (as set in the extension manager).
  *
@@ -21,7 +23,7 @@
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Phpunit_Service_ExtensionSettingsService extends Tx_Phpunit_AbstractDataContainer
-	implements Tx_Phpunit_Interface_ExtensionSettingsService, t3lib_Singleton
+	implements Tx_Phpunit_Interface_ExtensionSettingsService, SingletonInterface
 {
 	/**
 	 * @var string

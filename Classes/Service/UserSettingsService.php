@@ -12,6 +12,8 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\SingletonInterface;
+
 /**
  * This class provides functions for reading and writing the settings of the back-end user who is currently logged in.
  *
@@ -23,7 +25,7 @@
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Phpunit_Service_UserSettingsService extends Tx_Phpunit_AbstractDataContainer
-	implements Tx_Phpunit_Interface_UserSettingsService, t3lib_Singleton
+	implements Tx_Phpunit_Interface_UserSettingsService, SingletonInterface
 {
 	/**
 	 * @var string

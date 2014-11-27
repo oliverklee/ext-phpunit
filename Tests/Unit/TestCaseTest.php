@@ -11,8 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
-require_once(t3lib_extMgm::extPath('phpunit') .  'Tests/Unit/Fixtures/ProtectedClass.php');
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
  * Test case.
@@ -48,6 +47,8 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	private $staticProperty = '';
 
 	public function setUp() {
+		require_once(ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Fixtures/ProtectedClass.php');
+
 		$this->proctectedClassInstance = new Tx_Phpunit_Tests_Fixtures_ProtectedClass();
 		$this->mock = $this->getMock('Tx_Phpunit_Tests_Fixtures_ProtectedClass', array('dummy'));
 		$this->accessibleMock = $this->getAccessibleMock('Tx_Phpunit_Tests_Fixtures_ProtectedClass', array('dummy'));

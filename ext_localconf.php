@@ -1,15 +1,18 @@
 <?php
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$composerAutoloadFile = t3lib_extMgm::extPath('phpunit') . 'Composer/vendor/autoload.php';
+$composerAutoloadFile = ExtensionManagementUtility::extPath('phpunit') . 'Composer/vendor/autoload.php';
 
 /** @var $extensionSettingsService Tx_Phpunit_Service_ExtensionSettingsService */
-$extensionSettingsService = t3lib_div::makeInstance('Tx_Phpunit_Service_ExtensionSettingsService');
-$composerPhpUnitPath = t3lib_extMgm::extPath('phpunit') . 'Composer/vendor/phpunit/phpunit/';
+$extensionSettingsService = GeneralUtility::makeInstance('Tx_Phpunit_Service_ExtensionSettingsService');
+$composerPhpUnitPath = ExtensionManagementUtility::extPath('phpunit') . 'Composer/vendor/phpunit/phpunit/';
 if ($extensionSettingsService->hasString('composerpath')) {
-	$userComposerPath = rtrim(t3lib_div::fixWindowsFilePath($extensionSettingsService->getAsString('composerpath')), '/');
+	$userComposerPath = rtrim(GeneralUtility::fixWindowsFilePath($extensionSettingsService->getAsString('composerpath')), '/');
 	if (is_dir($userComposerPath . '/vendor/') && is_file($userComposerPath . '/vendor/autoload.php')) {
 		if (set_include_path($userComposerPath . PATH_SEPARATOR . get_include_path()) !== FALSE) {
 			$composerAutoloadFile = $userComposerPath . '/vendor/autoload.php';
@@ -19,7 +22,7 @@ if ($extensionSettingsService->hasString('composerpath')) {
 unset($extensionSettingsService);
 
 require_once($composerAutoloadFile);
-require_once(t3lib_extMgm::extPath('phpunit') . 'Migrations/vfsStream.php');
+require_once(ExtensionManagementUtility::extPath('phpunit') . 'Migrations/vfsStream.php');
 
 $GLOBALS['TYPO3_CONF_VARS']['BE']['AJAX']['Tx_Phpunit_BackEnd_Ajax'] =
 	'typo3conf/ext/phpunit/Classes/BackEnd/Ajax.php:Tx_Phpunit_BackEnd_Ajax->ajaxBroker';

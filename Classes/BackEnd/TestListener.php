@@ -12,6 +12,12 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use SebastianBergmann\Comparator\ComparisonFailure;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Utility\DiffUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * This class renders the output of the single tests in the phpunit BE module.
  *
@@ -279,13 +285,13 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 		if ($e instanceof PHPUnit_Framework_ExpectationFailedException) {
 			/** @var $e PHPUnit_Framework_ExpectationFailedException */
 			$comparisonFailure = $e->getComparisonFailure();
-			if ($comparisonFailure instanceof SebastianBergmann\Comparator\ComparisonFailure) {
+			if ($comparisonFailure instanceof ComparisonFailure) {
 				/** @var $comparisonFailure PHPUnit_Framework_ComparisonFailure */
 				$expected = $comparisonFailure->getExpectedAsString();
 				$actual = $comparisonFailure->getActualAsString();
 
-				/** @var $diff t3lib_diff */
-				$diff = t3lib_div::makeInstance('t3lib_diff');
+				/** @var $diff DiffUtility */
+				$diff = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Utility\\DiffUtility');
 				$this->outputService->output('<code>' . $diff->makeDiffDisplay($actual, $expected) . '</code>');
 			}
 		}
@@ -303,7 +309,7 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 		$testCaseTraceData = array();
 
 		foreach ($traceData as $singleTraceArr) {
-			if (!stristr(t3lib_div::fixWindowsFilePath($singleTraceArr['file']), 'Framework/Assert.php')) {
+			if (!stristr(GeneralUtility::fixWindowsFilePath($singleTraceArr['file']), 'Framework/Assert.php')) {
 				$testCaseTraceData = $singleTraceArr;
 				break;
 			}
@@ -498,7 +504,7 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 		$output = '</div>';
 		if ($this->enableShowMemoryAndTime === TRUE) {
 			$output .= '<span class="memory-leak small-font"><strong>Memory leak:</strong> ' .
-				t3lib_div::formatSize($leakedMemory) . 'B </span>' .
+				GeneralUtility::formatSize($leakedMemory) . 'B </span>' .
 				'<span class="time-usages small-font"><strong>Time:</strong> ' . sprintf('%.4f', $time) .
 				' sec.</span><br />';
 		}
@@ -520,7 +526,7 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 */
 	protected function createReRunLink(PHPUnit_Framework_TestCase $test) {
 		$iconImageTag = '<img class="runner" src="' .
-			t3lib_extMgm::extRelPath('phpunit') . 'Resources/Public/Icons/Runner.gif" alt="" />';
+			ExtensionManagementUtility::extRelPath('phpunit') . 'Resources/Public/Icons/Runner.gif" alt="" />';
 		return '<a href="' . $this->createReRunUrl($test) . '" title="Run this test only">' . $iconImageTag . '</a> ';
 	}
 
@@ -542,16 +548,10 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 				'[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST . ']' => $this->createTestId($test),
 		);
 
-		if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) < 6002000) {
-			return htmlspecialchars('mod.php?M=' . Tx_Phpunit_BackEnd_Module::MODULE_NAME .
-				t3lib_div::implodeArrayForUrl('', $urlParameters, '', TRUE, TRUE)
-			);
-		} else {
-			return htmlspecialchars(\TYPO3\CMS\Backend\Utility\BackendUtility::getModuleUrl(
-				Tx_Phpunit_BackEnd_Module::MODULE_NAME,
-				$urlParameters
-			));
-		}
+		return htmlspecialchars(BackendUtility::getModuleUrl(
+			Tx_Phpunit_BackEnd_Module::MODULE_NAME,
+			$urlParameters
+		));
 	}
 
 	/**

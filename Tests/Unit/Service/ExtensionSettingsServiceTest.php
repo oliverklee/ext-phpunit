@@ -64,7 +64,7 @@ class Tx_Phpunit_Service_ExtensionSettingsServiceTest extends Tx_Phpunit_TestCas
 	 */
 	public function classIsSingleton() {
 		$this->assertInstanceOf(
-			't3lib_Singleton',
+			'TYPO3\\CMS\\Core\\SingletonInterface',
 			$this->subject
 		);
 	}

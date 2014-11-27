@@ -110,6 +110,5 @@ class Tx_Phpunit_BackEnd_TestStatistics {
 		}
 
 		return $this->currentMemory - $this->startMemory;
-
 	}
 }

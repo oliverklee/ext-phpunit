@@ -12,6 +12,9 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * This class provides functions for checking test cases.
  *
@@ -20,7 +23,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Service_TestCaseService implements t3lib_Singleton {
+class Tx_Phpunit_Service_TestCaseService implements SingletonInterface {
 	/**
 	 * @var string
 	 */
@@ -105,7 +108,7 @@ class Tx_Phpunit_Service_TestCaseService implements t3lib_Singleton {
 		$directoryLength = strlen($directory);
 
 		$testFiles = array();
-		$allPhpFiles = t3lib_div::getAllFilesAndFoldersInPath(array(), $directory, 'php');
+		$allPhpFiles = GeneralUtility::getAllFilesAndFoldersInPath(array(), $directory, 'php');
 		foreach ($allPhpFiles as $filePath) {
 			if ($this->isNotFixturesPath($filePath) && $this->isTestCaseFileName($filePath)) {
 				$testFiles[] = substr($filePath, $directoryLength);

@@ -1,5 +1,7 @@
 <?php
-$extensionPath = t3lib_extMgm::extPath('phpunit');
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
+$extensionPath = ExtensionManagementUtility::extPath('phpunit');
 return array(
 	'tx_phpunit_abstractdatacontainer' => $extensionPath . 'Classes/AbstractDataContainer.php',
 	'tx_phpunit_backend_ajax' => $extensionPath . 'Classes/BackEnd/Ajax.php',

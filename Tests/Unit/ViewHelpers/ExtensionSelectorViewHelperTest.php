@@ -12,6 +12,8 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 /**
  * Test case.
  *
@@ -166,7 +168,7 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_
 		$extensionKey = 'phpunit';
 		$testable = new Tx_Phpunit_Testable();
 		$testable->setKey($extensionKey);
-		$testable->setIconPath(t3lib_extMgm::extRelPath($extensionKey) . 'ext_icon.gif');
+		$testable->setIconPath(ExtensionManagementUtility::extRelPath($extensionKey) . 'ext_icon.gif');
 
 		$subject = new Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
 		$subject->injectOutputService($this->outputService);
@@ -193,7 +195,7 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_
 		$extensionKey = 'phpunit';
 		$testable = new Tx_Phpunit_Testable();
 		$testable->setKey($extensionKey);
-		$testable->setIconPath(t3lib_extMgm::extRelPath($extensionKey) . 'ext_icon.gif');
+		$testable->setIconPath(ExtensionManagementUtility::extRelPath($extensionKey) . 'ext_icon.gif');
 
 		$subject = new Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
 		$subject->injectOutputService($this->outputService);
@@ -220,12 +222,12 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_
 		$extensionKey1 = 'phpunit';
 		$testable1 = new Tx_Phpunit_Testable();
 		$testable1->setKey($extensionKey1);
-		$testable1->setIconPath(t3lib_extMgm::extRelPath($extensionKey1) . 'ext_icon.gif');
+		$testable1->setIconPath(ExtensionManagementUtility::extRelPath($extensionKey1) . 'ext_icon.gif');
 
 		$extensionKey2 = 'cms';
 		$testable2 = new Tx_Phpunit_Testable();
 		$testable2->setKey($extensionKey2);
-		$testable1->setIconPath(t3lib_extMgm::extRelPath($extensionKey2) . 'ext_icon.gif');
+		$testable1->setIconPath(ExtensionManagementUtility::extRelPath($extensionKey2) . 'ext_icon.gif');
 
 		$subject = new Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
 		$subject->injectOutputService($this->outputService);
