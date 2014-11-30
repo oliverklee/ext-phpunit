@@ -1,6 +1,4 @@
 <?php
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-
 if (!defined('TYPO3_MODE')) {
 	die('Access denied.');
 }
@@ -15,7 +13,7 @@ $TCA['tx_bbb_test'] = array(
 			'disabled' => 'hidden',
 		),
 		'hideTable' => TRUE,
-		'dynamicConfigFile' => ExtensionManagementUtility::extPath($_EXTKEY) . 'tca.php',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'tca.php',
 	),
 );
 
@@ -27,5 +25,5 @@ $tempColumns = array(
 	),
 );
 
-ExtensionManagementUtility::addTCAcolumns('tx_aaa_test', $tempColumns);
-ExtensionManagementUtility::addToAllTCAtypes('tx_aaa_test', 'tx_bbb_test;;;;1-1-1');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('tx_aaa_test', $tempColumns);
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('tx_aaa_test', 'tx_bbb_test;;;;1-1-1');

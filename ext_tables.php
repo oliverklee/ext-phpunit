@@ -1,6 +1,4 @@
 <?php
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-
 if (!defined('TYPO3_MODE')) {
 	die('Access denied.');
 }
@@ -23,13 +21,13 @@ $TCA['tx_phpunit_test'] = array(
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 		),
-		'dynamicConfigFile' => ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/TCA.php',
-		'iconfile' => ExtensionManagementUtility::extRelPath($_EXTKEY) . 'ext_icon.gif',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/TCA.php',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'ext_icon.gif',
 	)
 );
 
 if (TYPO3_MODE === 'BE') {
-	ExtensionManagementUtility::addModule('tools', 'txphpunitbeM1', '', ExtensionManagementUtility::extPath($_EXTKEY) . 'Classes/BackEnd/');
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule('tools', 'txphpunitbeM1', '', \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Classes/BackEnd/');
 
 	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['reports']['tx_reports']['status']['providers']['PHPUnit'][] = 'Tx_Phpunit_Reports_Status';
 }
