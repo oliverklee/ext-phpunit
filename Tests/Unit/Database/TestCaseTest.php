@@ -42,16 +42,14 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 	 */
 	protected $db = NULL;
 
-	public function setUp() {
+	protected function setUp() {
 		$this->createDatabaseAndCheckResult();
 		$this->db = $this->useTestDatabase();
 	}
 
-	public function tearDown() {
+	protected function tearDown() {
 		$this->dropDatabasedAndCheckResult();
 		$this->switchToTypo3Database();
-
-		unset($this->db);
 	}
 
 	/*

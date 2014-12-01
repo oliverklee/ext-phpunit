@@ -26,14 +26,10 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var Tx_Phpunit_Testable
 	 */
-	private $subject;
+	protected $subject = NULL;
 
-	public function setUp() {
+	protected function setUp() {
 		$this->subject = new Tx_Phpunit_Testable();
-	}
-
-	public function tearDown() {
-		unset($this->subject);
 	}
 
 	/**

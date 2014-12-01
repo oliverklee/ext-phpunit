@@ -48,7 +48,7 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_
 	 */
 	protected $userSettingsService = NULL;
 
-	public function setUp() {
+	protected function setUp() {
 		$this->subject = new Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
 
 		$this->outputService = new Tx_Phpunit_Service_FakeOutputService();
@@ -62,10 +62,6 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_
 
 		$this->userSettingsService = new Tx_Phpunit_TestingDataContainer();
 		$this->subject->injectUserSettingService($this->userSettingsService);
-	}
-
-	public function tearDown() {
-		unset($this->subject, $this->outputService, $this->testFinder, $this->userSettingsService, $this->extensionSettingsService);
 	}
 
 	/**

@@ -25,7 +25,7 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var Tx_Phpunit_BackEnd_Ajax
 	 */
-	private $subject = NULL;
+	protected $subject = NULL;
 
 	/**
 	 * @var Tx_Phpunit_TestingDataContainer
@@ -39,7 +39,7 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 	 */
 	private $postBackup = array();
 
-	public function setUp() {
+	protected function setUp() {
 		$this->postBackup = $GLOBALS['_POST'];
 		$GLOBALS['_POST'] = array();
 
@@ -49,10 +49,8 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 		$this->subject->injectUserSettingsService($this->userSettingsService);
 	}
 
-	public function tearDown() {
+	protected function tearDown() {
 		$GLOBALS['_POST'] = $this->postBackup;
-
-		unset($this->subject, $this->postBackup, $this->userSettingsService);
 	}
 
 	/**

@@ -26,7 +26,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var Tx_Phpunit_Service_TestFinder
 	 */
-	private $subject = NULL;
+	protected $subject = NULL;
 
 	/**
 	 * the absolute path to the fixtures directory for this testcase
@@ -47,7 +47,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 */
 	protected $extensionSettingsService = NULL;
 
-	public function setUp() {
+	protected function setUp() {
 		$this->typo3ConfigurationVariablesBackup = $GLOBALS['TYPO3_CONF_VARS'];
 
 		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'] = '';
@@ -61,13 +61,9 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 		$this->fixturesPath = ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Service/Fixtures/';
 	}
 
-	public function tearDown() {
-		$this->subject->__destruct();
-		unset($this->subject, $this->extensionSettingsService);
-
+	protected function tearDown() {
 		$GLOBALS['TYPO3_CONF_VARS'] = $this->typo3ConfigurationVariablesBackup;
 	}
-
 
 	/*
 	 * Utility functions

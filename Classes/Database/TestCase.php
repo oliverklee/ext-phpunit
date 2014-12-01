@@ -278,7 +278,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	 * Example/intended usage:
 	 *
 	 * <pre>
-	 * public function setUp() {
+	 * protected function setUp() {
 	 *   $this->createDatabase();
 	 *   $db = $this->useTestDatabase();
 	 *   $this->importStdDB();

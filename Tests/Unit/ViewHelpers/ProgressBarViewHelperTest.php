@@ -31,15 +31,11 @@ class Tx_Phpunit_ViewHelpers_ProgressBarViewHelperTest extends Tx_Phpunit_TestCa
 	 */
 	protected $outputService = NULL;
 
-	public function setUp() {
+	protected function setUp() {
 		$this->subject = new Tx_Phpunit_ViewHelpers_ProgressBarViewHelper();
 
 		$this->outputService = new Tx_Phpunit_Service_FakeOutputService();
 		$this->subject->injectOutputService($this->outputService);
-	}
-
-	public function tearDown() {
-		unset($this->subject, $this->outputService);
 	}
 
 	/**

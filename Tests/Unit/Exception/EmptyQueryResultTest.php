@@ -35,7 +35,7 @@ class Tx_Phpunit_Exception_EmptyQueryResultTest extends Tx_Phpunit_TestCase {
 	 */
 	private $savedStoreLastBuildQuery;
 
-	public function setUp() {
+	protected function setUp() {
 		$this->savedDebugOutput = $GLOBALS['TYPO3_DB']->debugOutput;
 		$this->savedStoreLastBuildQuery = $GLOBALS['TYPO3_DB']->store_lastBuiltQuery;
 
@@ -43,7 +43,7 @@ class Tx_Phpunit_Exception_EmptyQueryResultTest extends Tx_Phpunit_TestCase {
 		$GLOBALS['TYPO3_DB']->store_lastBuiltQuery = TRUE;
 	}
 
-	public function tearDown() {
+	protected function tearDown() {
 		$GLOBALS['TYPO3_DB']->debugOutput = $this->savedDebugOutput;
 		$GLOBALS['TYPO3_DB']->store_lastBuiltQuery = $this->savedStoreLastBuildQuery;
 	}

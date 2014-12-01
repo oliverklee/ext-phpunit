@@ -28,14 +28,14 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var Tx_Phpunit_BackEnd_TestListener
 	 */
-	private $subject;
+	protected $subject = NULL;
 
 	/**
 	 * @var Tx_Phpunit_Service_FakeOutputService
 	 */
 	protected $outputService = NULL;
 
-	public function setUp() {
+	protected function setUp() {
 		$namePrettifier = new PHPUnit_Util_TestDox_NamePrettifier();
 		$this->outputService = new Tx_Phpunit_Service_FakeOutputService();
 
@@ -44,13 +44,6 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		$this->subject->injectNamePrettifier($namePrettifier);
 		$this->subject->injectOutputService($this->outputService);
 	}
-
-	public function tearDown() {
-		$this->subject->__destruct();
-
-		unset($this->subject, $this->outputService);
-	}
-
 
 	/*
 	 * Utility functions

@@ -46,7 +46,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 */
 	private $staticProperty = '';
 
-	public function setUp() {
+	protected function setUp() {
 		require_once(ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Fixtures/ProtectedClass.php');
 
 		$this->proctectedClassInstance = new Tx_Phpunit_Tests_Fixtures_ProtectedClass();
@@ -55,9 +55,8 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 		$this->staticProperty = Tx_Phpunit_Tests_Fixtures_ProtectedClass::getStaticProperty();
 	}
 
-	public function tearDown() {
+	protected function tearDown() {
 		Tx_Phpunit_Tests_Fixtures_ProtectedClass::setStaticProperty($this->staticProperty);
-		unset($this->proctectedClassInstance, $this->mock, $this->accessibleMock);
 	}
 
 	/**

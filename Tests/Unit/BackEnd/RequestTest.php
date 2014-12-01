@@ -53,15 +53,11 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 		'testValueFalse' => FALSE,
 	);
 
-	public function setUp() {
+	protected function setUp() {
 		$GLOBALS['_GET'] = array();
 		$GLOBALS['_POST'] = array();
 
 		$this->subject = new Tx_Phpunit_BackEnd_Request();
-	}
-
-	public function tearDown() {
-		unset($this->subject);
 	}
 
 	/**

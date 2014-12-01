@@ -26,12 +26,8 @@ class Tx_Phpunit_Service_OutputServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	protected $subject = NULL;
 
-	public function setUp() {
+	protected function setUp() {
 		$this->subject = new Tx_Phpunit_Service_OutputService();
-	}
-
-	public function tearDown() {
-		unset($this->subject);
 	}
 
 	/**

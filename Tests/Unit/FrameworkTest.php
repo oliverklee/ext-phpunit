@@ -31,7 +31,7 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	/**
 	 * @var Tx_Phpunit_Framework
 	 */
-	private $subject;
+	protected $subject = NULL;
 
 	/**
 	 * absolute path to a "foreign" file which was created for test purposes and
@@ -65,14 +65,14 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	 */
 	private $t3VarBackup = array();
 
-	public function setUp() {
+	protected function setUp() {
 		$this->extConfBackup = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'];
 		$this->t3VarBackup = $GLOBALS['T3_VAR']['getUserObj'];
 
 		$this->subject = new Tx_Phpunit_Framework('tx_phpunit', array('user_phpunittest'));
 	}
 
-	public function tearDown() {
+	protected function tearDown() {
 		$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'] = $this->extConfBackup;
 		$GLOBALS['T3_VAR']['getUserObj'] = $this->t3VarBackup;
 
@@ -81,8 +81,6 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 		$this->subject->cleanUp();
 		$this->deleteForeignFile();
 		$this->deleteForeignFolder();
-
-		unset($this->subject);
 	}
 
 

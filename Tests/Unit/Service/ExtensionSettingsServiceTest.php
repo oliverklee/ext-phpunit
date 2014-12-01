@@ -46,17 +46,15 @@ class Tx_Phpunit_Service_ExtensionSettingsServiceTest extends Tx_Phpunit_TestCas
 		'testValueArray' => array('foo', 'bar'),
 	);
 
-	public function setUp() {
+	protected function setUp() {
 		$this->extensionConfigurationBackup = $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'];
 		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['phpunit'] = serialize($this->testConfiguration);
 
 		$this->subject = new Tx_Phpunit_Service_ExtensionSettingsService();
 	}
 
-	public function tearDown() {
+	protected function tearDown() {
 		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'] = $this->extensionConfigurationBackup;
-
-		unset($this->subject, $this->extensionConfigurationBackup);
 	}
 
 	/**

@@ -26,7 +26,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var Tx_Phpunit_Service_TestCaseService
 	 */
-	private $subject = NULL;
+	protected $subject = NULL;
 
 	/**
 	 * the absolute path to the fixtures directory for this test case
@@ -40,18 +40,13 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	protected $userSettingsService = NULL;
 
-	public function setUp() {
+	protected function setUp() {
 		$this->subject = new Tx_Phpunit_Service_TestCaseService();
 
 		$this->userSettingsService = new Tx_Phpunit_TestingDataContainer();
 		$this->subject->injectUserSettingsService($this->userSettingsService);
 
 		$this->fixturesPath = ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Service/Fixtures/';
-	}
-
-	public function tearDown() {
-		$this->subject->__destruct();
-		unset($this->subject, $this->userSettingsService);
 	}
 
 	/**

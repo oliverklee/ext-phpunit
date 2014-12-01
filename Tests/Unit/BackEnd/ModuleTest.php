@@ -31,7 +31,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var Tx_Phpunit_BackEnd_Module
 	 */
-	private $subject = NULL;
+	protected $subject = NULL;
 
 	/**
 	 * @var Tx_Phpunit_TestingDataContainer
@@ -83,7 +83,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 */
 	protected $documentTemplate = NULL;
 
-	public function setUp() {
+	protected function setUp() {
 		$this->backEndUserBackup = $GLOBALS['BE_USER'];
 
 		$subjectClassName = $this->createAccessibleProxy();
@@ -116,16 +116,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->singletonInstances = GeneralUtility::getSingletonInstances();
 	}
 
-	public function tearDown() {
-		$this->subject->__destruct();
-
+	protected function tearDown() {
 		$GLOBALS['BE_USER'] = $this->backEndUserBackup;
-
-		unset(
-			$this->subject, $this->request, $this->outputService, $this->userSettingsService, $this->backEndUserBackup,
-			$this->testFinder, $this->extensionSettingsService, $this->progressBarViewHelper,
-			$this->documentTemplate, $this->testCaseService
-		);
 
 		GeneralUtility::purgeInstances();
 		GeneralUtility::resetSingletonInstances($this->singletonInstances);

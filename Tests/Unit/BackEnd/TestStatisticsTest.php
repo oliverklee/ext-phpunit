@@ -26,12 +26,8 @@ class Tx_Phpunit_BackEnd_TestStatisticsTest extends Tx_Phpunit_TestCase {
 	 */
 	protected $subject = NULL;
 
-	public function setUp() {
+	protected function setUp() {
 		$this->subject = new Tx_Phpunit_BackEnd_TestStatistics();
-	}
-
-	public function tearDown() {
-		unset($this->subject);
 	}
 
 	/**

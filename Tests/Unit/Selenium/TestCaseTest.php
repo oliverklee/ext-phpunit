@@ -27,7 +27,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var Tx_Phpunit_Selenium_TestCase|PHPUnit_Framework_MockObject_MockObject
 	 */
-	private $subject = NULL;
+	protected $subject = NULL;
 
 	/**
 	 * @var Tx_Phpunit_TestingDataContainer
@@ -48,12 +48,8 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 		$this->subject->expects($this->any())->method('isSeleniumServerRunning')->will($this->returnValue(TRUE));
 	}
 
-	protected function tearDown() {
-		unset($this->subject, $this->extensionSettingsService);
-	}
-
 	/*
-	 * Utitlity functions
+	 * Utility functions
 	 */
 
 	/**

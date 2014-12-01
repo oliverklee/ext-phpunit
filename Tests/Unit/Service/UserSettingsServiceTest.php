@@ -35,17 +35,15 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	private $backEndUserBackup = NULL;
 
-	public function setUp() {
+	protected function setUp() {
 		$this->backEndUserBackup = $GLOBALS['BE_USER'];
 		$GLOBALS['BE_USER'] = $this->getMock('TYPO3\\CMS\\Core\\Authentication\\BackendUserAuthentication');
 
 		$this->subject = new Tx_Phpunit_Service_UserSettingsService();
 	}
 
-	public function tearDown() {
+	protected function tearDown() {
 		$GLOBALS['BE_USER'] = $this->backEndUserBackup;
-
-		unset($this->subject, $this->backEndUserBackup);
 	}
 
 	/**
