@@ -12,6 +12,7 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Exception;
@@ -1416,9 +1417,9 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	 */
 	public function getAutoIncrementReturnsOneForTruncatedTable() {
 		Tx_Phpunit_Service_Database::enableQueryLogging();
-		$dbResult = $GLOBALS['TYPO3_DB']->sql_query(
-			'TRUNCATE TABLE tx_phpunit_test;'
-		);
+		/** @var DatabaseConnection $databaseConnection */
+		$databaseConnection = $GLOBALS['TYPO3_DB'];
+		$dbResult = $databaseConnection->sql_query('TRUNCATE TABLE tx_phpunit_test;');
 		if (!$dbResult) {
 			throw new Tx_Phpunit_Exception_Database(1334438839);
 		}

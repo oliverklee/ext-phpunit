@@ -57,7 +57,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	 * @return void
 	 */
 	protected function switchToTypo3Database() {
-		$this->selectDatabase(TYPO3_db, $GLOBALS['TYPO3_DB']);
+		$this->selectDatabase(TYPO3_db, $this->getDatabaseConnection());
 	}
 
 	/**
@@ -74,7 +74,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 
 		$this->dropDatabase();
 		/** @var $db DatabaseConnection */
-		$db = $GLOBALS['TYPO3_DB'];
+		$db = $this->getDatabaseConnection();
 		$databaseNames = $db->admin_get_dbs();
 		$this->switchToOriginalTypo3Database($db);
 
@@ -94,7 +94,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	 */
 	protected function cleanDatabase() {
 		/** @var $db DatabaseConnection */
-		$db = $GLOBALS['TYPO3_DB'];
+		$db = $this->getDatabaseConnection();
 		$databaseNames = $db->admin_get_dbs();
 		$this->switchToOriginalTypo3Database($db);
 
@@ -118,7 +118,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	 */
 	protected function dropDatabase() {
 		/** @var $db DatabaseConnection */
-		$db = $GLOBALS['TYPO3_DB'];
+		$db = $this->getDatabaseConnection();
 		$databaseNames = $db->admin_get_dbs();
 		$this->switchToOriginalTypo3Database($db);
 
@@ -144,7 +144,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	 */
 	protected function useTestDatabase($databaseName = NULL) {
 		/** @var $db DatabaseConnection */
-		$db = $GLOBALS['TYPO3_DB'];
+		$db = $this->getDatabaseConnection();
 
 		if ($this->selectDatabase($databaseName ? $databaseName : $this->testDatabase, $db) !== TRUE) {
 			$this->markTestSkipped('This test is skipped because the test database is not available.');
@@ -327,7 +327,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 		foreach ($updateTypes as $updateType) {
 			if (array_key_exists($updateType, $updateStatements)) {
 				foreach ((array) $updateStatements[$updateType] as $string) {
-					$GLOBALS['TYPO3_DB']->admin_query($string);
+					$this->getDatabaseConnection()->admin_query($string);
 				}
 			}
 		}
@@ -437,5 +437,14 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 				$foreignKeys[$tableName][$elementId] = $db->sql_insert_id();
 			}
 		}
+	}
+
+	/**
+	 * Returns $GLOBALS['TYPO3_DB'].
+	 *
+	 * @return DatabaseConnection
+	 */
+	static protected function getDatabaseConnection() {
+		return $GLOBALS['TYPO3_DB'];
 	}
 }

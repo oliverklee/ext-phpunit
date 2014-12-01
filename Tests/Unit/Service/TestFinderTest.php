@@ -242,7 +242,6 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getTestablesForEverythingCalledTwoTimesReturnsSameData() {
-		$coreTests = new Tx_Phpunit_Testable();
 		$extensionTests = new Tx_Phpunit_Testable();
 
 		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */

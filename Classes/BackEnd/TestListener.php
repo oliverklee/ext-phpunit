@@ -286,7 +286,7 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 			/** @var $e PHPUnit_Framework_ExpectationFailedException */
 			$comparisonFailure = $e->getComparisonFailure();
 			if ($comparisonFailure instanceof ComparisonFailure) {
-				/** @var $comparisonFailure PHPUnit_Framework_ComparisonFailure */
+				/** @var $comparisonFailure ComparisonFailure */
 				$expected = $comparisonFailure->getExpectedAsString();
 				$actual = $comparisonFailure->getActualAsString();
 

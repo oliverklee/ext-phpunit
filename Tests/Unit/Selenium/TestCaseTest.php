@@ -217,9 +217,9 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 		$this->extensionSettingsService->set('selenium_host', 'http://example.invalid');
 
 		$className = $this->createAccessibleProxyClass();
-		/** @var $subject Tx_Phpunit_BackEnd_Module */
 		$subject = new $className();
 
+		/** @var \Tx_Phpunit_Selenium_TestCase $subject */
 		$this->assertFalse(
 			$subject->isSeleniumServerRunning()
 		);

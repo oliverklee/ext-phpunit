@@ -41,7 +41,7 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper extends Tx_Phpunit_View
 	 */
 	protected function renderForm($formContent) {
 		$formContentWithAdditionalElements = $formContent .
-			$this->renderHiddenFields() . $this->renderSubmitButton($GLOBALS['LANG']->getLL('run_all_tests'));
+			$this->renderHiddenFields() . $this->renderSubmitButton($this->translate('run_all_tests'));
 
 		$formContentWithinParagraph = $this->renderTag('p', array(), $formContentWithAdditionalElements);
 
@@ -109,7 +109,7 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper extends Tx_Phpunit_View
 				$selectedExtensionStyle = $option['style'];
 			}
 			if ($option['value'] === Tx_Phpunit_Testable::ALL_EXTENSIONS) {
-				$optionValue = $GLOBALS['LANG']->getLL('all_extensions');
+				$optionValue = $this->translate('all_extensions');
 			} else {
 				$optionValue = $option['value'];
 			}

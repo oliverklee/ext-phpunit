@@ -12,6 +12,7 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Page\PageRepository;
 
@@ -67,7 +68,7 @@ class Tx_Phpunit_Service_Database {
 	 * @return void
 	 */
 	static public function enableQueryLogging() {
-		$GLOBALS['TYPO3_DB']->store_lastBuiltQuery = TRUE;
+		self::getDatabaseConnection()->store_lastBuiltQuery = TRUE;
 	}
 
 	/**
@@ -186,10 +187,10 @@ class Tx_Phpunit_Service_Database {
 		);
 
 		$subPages = array();
-		while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbResult))) {
+		while (($row = self::getDatabaseConnection()->sql_fetch_assoc($dbResult))) {
 			$subPages[] = $row['uid'];
 		}
-		$GLOBALS['TYPO3_DB']->sql_free_result($dbResult);
+		self::getDatabaseConnection()->sql_free_result($dbResult);
 
 		if (!empty($subPages)) {
 			$result = $startPages . ',' . self::createRecursivePageList(implode(',', $subPages), $recursionDepth - 1);
@@ -224,14 +225,14 @@ class Tx_Phpunit_Service_Database {
 		}
 
 		self::enableQueryLogging();
-		$dbResult = $GLOBALS['TYPO3_DB']->exec_DELETEquery(
+		$dbResult = self::getDatabaseConnection()->exec_DELETEquery(
 			$tableName, $whereClause
 		);
 		if (!$dbResult) {
 			throw new Tx_Phpunit_Exception_Database(1334439746);
 		}
 
-		return $GLOBALS['TYPO3_DB']->sql_affected_rows();
+		return self::getDatabaseConnection()->sql_affected_rows();
 	}
 
 	/**
@@ -255,14 +256,14 @@ class Tx_Phpunit_Service_Database {
 		}
 
 		self::enableQueryLogging();
-		$dbResult = $GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+		$dbResult = self::getDatabaseConnection()->exec_UPDATEquery(
 			$tableName, $whereClause, $fields
 		);
 		if (!$dbResult) {
 			throw new Tx_Phpunit_Exception_Database(1334439755);
 		}
 
-		return $GLOBALS['TYPO3_DB']->sql_affected_rows();
+		return self::getDatabaseConnection()->sql_affected_rows();
 	}
 
 	/**
@@ -289,14 +290,14 @@ class Tx_Phpunit_Service_Database {
 		}
 
 		self::enableQueryLogging();
-		$dbResult = $GLOBALS['TYPO3_DB']->exec_INSERTquery(
+		$dbResult = self::getDatabaseConnection()->exec_INSERTquery(
 			$tableName, $recordData
 		);
 		if (!$dbResult) {
 			throw new Tx_Phpunit_Exception_Database(1334439765);
 		}
 
-		return $GLOBALS['TYPO3_DB']->sql_insert_id();
+		return self::getDatabaseConnection()->sql_insert_id();
 	}
 
 	/**
@@ -331,7 +332,7 @@ class Tx_Phpunit_Service_Database {
 		}
 
 		self::enableQueryLogging();
-		$dbResult = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
+		$dbResult = self::getDatabaseConnection()->exec_SELECTquery(
 			$fields, $tableNames, $whereClause, $groupBy, $orderBy, $limit
 		);
 		if (!$dbResult) {
@@ -408,10 +409,10 @@ class Tx_Phpunit_Service_Database {
 			$fieldNames, $tableNames, $whereClause, $groupBy, $orderBy, $limit
 		);
 
-		while (($recordData = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbResult))) {
+		while (($recordData = self::getDatabaseConnection()->sql_fetch_assoc($dbResult))) {
 			$result[] = $recordData;
 		}
-		$GLOBALS['TYPO3_DB']->sql_free_result($dbResult);
+		self::getDatabaseConnection()->sql_free_result($dbResult);
 
 		return $result;
 	}
@@ -583,7 +584,7 @@ class Tx_Phpunit_Service_Database {
 			return;
 		}
 
-		self::$tableNameCache = $GLOBALS['TYPO3_DB']->admin_get_tables();
+		self::$tableNameCache = self::getDatabaseConnection()->admin_get_tables();
 	}
 
 	/**
@@ -667,7 +668,7 @@ class Tx_Phpunit_Service_Database {
 				throw new BadMethodCallException('The table "' . $tableName . '" does not exist.', 1331315659);
 			}
 
-			self::$tableColumnCache[$tableName] = $GLOBALS['TYPO3_DB']->admin_get_fields($tableName);
+			self::$tableColumnCache[$tableName] = self::getDatabaseConnection()->admin_get_fields($tableName);
 		}
 	}
 
@@ -737,5 +738,14 @@ class Tx_Phpunit_Service_Database {
 		self::$tcaCache[$tableName] = $GLOBALS['TCA'][$tableName];
 
 		return self::$tcaCache[$tableName];
+	}
+
+	/**
+	 * Returns $GLOBALS['TYPO3_DB'].
+	 *
+	 * @return DatabaseConnection
+	 */
+	static protected function getDatabaseConnection() {
+		return $GLOBALS['TYPO3_DB'];
 	}
 }

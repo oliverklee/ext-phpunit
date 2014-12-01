@@ -12,6 +12,7 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\SingletonInterface;
 
 /**
@@ -41,11 +42,11 @@ class Tx_Phpunit_Service_UserSettingsService extends Tx_Phpunit_AbstractDataCont
 	 */
 	protected function get($key) {
 		$this->checkForNonEmptyKey($key);
-		if (!isset($GLOBALS['BE_USER']->uc[self::PHPUNIT_SETTINGS_KEY][$key])) {
+		if (!isset($this->getBackEndUser()->uc[self::PHPUNIT_SETTINGS_KEY][$key])) {
 			return NULL;
 		}
 
-		return $GLOBALS['BE_USER']->uc[self::PHPUNIT_SETTINGS_KEY][$key];
+		return $this->getBackEndUser()->uc[self::PHPUNIT_SETTINGS_KEY][$key];
 	}
 
 	/**
@@ -59,7 +60,16 @@ class Tx_Phpunit_Service_UserSettingsService extends Tx_Phpunit_AbstractDataCont
 	public function set($key, $value) {
 		$this->checkForNonEmptyKey($key);
 
-		$GLOBALS['BE_USER']->uc[self::PHPUNIT_SETTINGS_KEY][$key] = $value;
-		$GLOBALS['BE_USER']->writeUC();
+		$this->getBackEndUser()->uc[self::PHPUNIT_SETTINGS_KEY][$key] = $value;
+		$this->getBackEndUser()->writeUC();
+	}
+
+	/**
+	 * Returns $GLOBALS['BE_USER'].
+	 *
+	 * @return BackendUserAuthentication
+	 */
+	protected function getBackEndUser() {
+		return $GLOBALS['BE_USER'];
 	}
 }

@@ -18,6 +18,7 @@ use TYPO3\CMS\Backend\Utility\IconUtility;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Lang\LanguageService;
 
 /**
  * Back-end module "PHPUnit".
@@ -182,7 +183,16 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 	 * @return string the localized string for the key $key
 	 */
 	protected function translate($key) {
-		return $GLOBALS['LANG']->getLL($key);
+		return $this->getLanguageService()->getLL($key);
+	}
+
+	/**
+	 * Returns $GLOBALS['LANG'].
+	 *
+	 * @return LanguageService
+	 */
+	protected function getLanguageService() {
+		return $GLOBALS['LANG'];
 	}
 
 	/**
@@ -730,8 +740,10 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 					$this->testListener->setTestSuiteName($testSuiteName);
 					$testIdentifier = $testName . '(' . $testSuiteName . ')';
 				} else {
+					/** @var \PHPUnit_Framework_SelfDescribing $test */
 					$testIdentifier = $test->toString();
-					list($testSuiteName, $unused) = explode('::', $testIdentifier);
+					$testIdentifierParts = explode('::', $testIdentifier);
+					$testSuiteName = $testIdentifierParts[0];
 					$this->testListener->setTestSuiteName($testSuiteName);
 				}
 				if ($testIdentifier === $this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST)) {
@@ -770,10 +782,12 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 
 		$suiteNameHasBeenDisplayed = FALSE;
 		$totalNumberOfTestCases = 0;
-		foreach ($testSuiteWithAllTestCases->tests() as $testCases) {
-			foreach ($testCases->tests() as $test) {
+		foreach ($testSuiteWithAllTestCases->tests() as $testSuite) {
+			/** @var \PHPUnit_Framework_TestSuite $testSuite */
+			foreach ($testSuite->tests() as $test) {
 				if ($test instanceof PHPUnit_Framework_TestSuite) {
-					list($testIdentifier, $unused) = explode('::', $test->getName());
+					$testIdentifierParts = explode('::', $test->getName());
+					$testIdentifier = $testIdentifierParts[0];
 				} else {
 					$testIdentifier = get_class($test);
 				}
@@ -789,10 +803,12 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 		$this->testListener->setTotalNumberOfTests($totalNumberOfTestCases);
 		$this->renderProgressbar();
 
-		foreach ($testSuiteWithAllTestCases->tests() as $testCases) {
-			foreach ($testCases->tests() as $test) {
+		foreach ($testSuiteWithAllTestCases->tests() as $testSuite) {
+			/** @var \PHPUnit_Framework_TestSuite $testSuite */
+			foreach ($testSuite->tests() as $test) {
 				if ($test instanceof PHPUnit_Framework_TestSuite) {
-					list($testIdentifier, $unused) = explode('::', $test->getName());
+					$testIdentifierParts = explode('::', $test->getName());
+					$testIdentifier = $testIdentifierParts[0];
 				} else {
 					$testIdentifier = get_class($test);
 				}
@@ -908,7 +924,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 		$this->outputService->output(
 			'<p><a target="_blank" href="../typo3temp/codecoverage/index.html">' .
 				'Click here to access the Code Coverage report</a></p>' .
-				'<p>Memory peak usage: ' . GeneralUtility::formatSize(memory_get_peak_usage()) . 'B<p/>'
+				'<p>Memory peak usage: ' . GeneralUtility::formatSize(memory_get_peak_usage()) . 'B</p>'
 		);
 	}
 
@@ -945,7 +961,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 			",'phpunitbe','width=790,status=0,menubar=1,resizable=1,location=0,scrollbars=1,toolbar=0');phpunitbeWin.focus();return false;";
 		$content = '<a id="opennewwindow" href="" onclick="' . htmlspecialchars($onClick) . '" accesskey="n">
 			<img' . IconUtility::skinImg($GLOBALS['BACK_PATH'], 'gfx/open_in_new_window.gif', 'width="19" height="14"') . ' title="' .
-			$GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.openInNewWindow', 1) . '" class="absmiddle" alt="" />
+			$this->getLanguageService()->sL('LLL:EXT:lang/locallang_core.xml:labels.openInNewWindow', 1) . '" class="absmiddle" alt="" />
 			Ope<span class="access-key">n</span> in separate window.
 			</a>
 			<script type="text/javascript">/*<![CDATA[*/if (window.name === "phpunitbe") { document.getElementById("opennewwindow").style.display = "none"; }/*]]>*/</script>';
@@ -983,9 +999,9 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 	/**
 	 * Includes all PHP files given in $paths.
 	 *
-	 * @param string[] $paths
+	 * @param array[] $paths
 	 *        array keys: absolute path
-	 *        array values: file names in that path
+	 *        array values: array of file names in that path
 	 *
 	 * @return void
 	 */

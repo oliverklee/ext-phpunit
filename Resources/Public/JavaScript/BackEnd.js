@@ -51,7 +51,7 @@ function setProgressBarClass(className) {
 			incrementSecret: function (val) { secret += val },
 			decrementSecret: function (val) { secret -= val }
 		}
-	}
+	};
 
 	var toggle = function (event) {
 		var target = Event.getTarget(event);
@@ -95,7 +95,7 @@ function setProgressBarClass(className) {
 			'ajaxID=Tx_Phpunit_BackEnd_Ajax&state=' + state + '&checkbox=' + checkbox
 		);
 		Dom.setStyle(Dom.getElementsByClassName(className), 'display', display);
-	}
+	};
 
 	var toggleCodeCoverage = function (event) {
 		var target = Event.getTarget(event);
@@ -106,7 +106,7 @@ function setProgressBarClass(className) {
 				},
 				'ajaxID=Tx_Phpunit_BackEnd_Ajax&state=' + state + '&checkbox=codeCoverage'
 			);
-	}
+	};
 
 	/**
 	 * Maps a checkbox ID to a class name for the corresponding test results.
@@ -134,7 +134,7 @@ function setProgressBarClass(className) {
 			className = 'testcaseIncomplete';
 			break;
 		case 'SET_testdox':
-			checkbox = 'testdox';
+			className = 'testdox';
 			break;
 		case 'SET_showMemoryAndTime':
 			className = 'showMemoryAndTime';
@@ -144,10 +144,9 @@ function setProgressBarClass(className) {
 			break;
 		default:
 			className = '';
-			break;
 		}
 		return className;
-	}
+	};
 
 	/**
 	 * Hides/shows the test results depending on states of the test status

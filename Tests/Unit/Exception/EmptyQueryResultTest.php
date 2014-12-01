@@ -12,6 +12,8 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Database\DatabaseConnection;
+
 /**
  * Test case.
  *
@@ -36,16 +38,16 @@ class Tx_Phpunit_Exception_EmptyQueryResultTest extends Tx_Phpunit_TestCase {
 	private $savedStoreLastBuildQuery;
 
 	protected function setUp() {
-		$this->savedDebugOutput = $GLOBALS['TYPO3_DB']->debugOutput;
-		$this->savedStoreLastBuildQuery = $GLOBALS['TYPO3_DB']->store_lastBuiltQuery;
+		$this->savedDebugOutput = $this->getDatabaseConnection()->debugOutput;
+		$this->savedStoreLastBuildQuery = $this->getDatabaseConnection()->store_lastBuiltQuery;
 
-		$GLOBALS['TYPO3_DB']->debugOutput = FALSE;
-		$GLOBALS['TYPO3_DB']->store_lastBuiltQuery = TRUE;
+		$this->getDatabaseConnection()->debugOutput = FALSE;
+		$this->getDatabaseConnection()->store_lastBuiltQuery = TRUE;
 	}
 
 	protected function tearDown() {
-		$GLOBALS['TYPO3_DB']->debugOutput = $this->savedDebugOutput;
-		$GLOBALS['TYPO3_DB']->store_lastBuiltQuery = $this->savedStoreLastBuildQuery;
+		$this->getDatabaseConnection()->debugOutput = $this->savedDebugOutput;
+		$this->getDatabaseConnection()->store_lastBuiltQuery = $this->savedStoreLastBuildQuery;
 	}
 
 	/**
@@ -63,12 +65,21 @@ class Tx_Phpunit_Exception_EmptyQueryResultTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function messageAfterQueryWithLastQueryEnabledContainsLastQuery() {
-		$GLOBALS['TYPO3_DB']->exec_SELECTquery('title', 'tx_phpunit_test', '');
+		$this->getDatabaseConnection()->exec_SELECTquery('title', 'tx_phpunit_test', '');
 		$subject = new Tx_Phpunit_Exception_EmptyQueryResult();
 
 		$this->assertContains(
 			'SELECT',
 			$subject->getMessage()
 		);
+	}
+
+	/**
+	 * Returns $GLOBALS['TYPO3_DB'].
+	 *
+	 * @return DatabaseConnection
+	 */
+	protected function getDatabaseConnection() {
+		return $GLOBALS['TYPO3_DB'];
 	}
 }

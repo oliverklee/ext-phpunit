@@ -13,6 +13,7 @@
  */
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Lang\LanguageService;
 use TYPO3\CMS\Reports\Status;
 use TYPO3\CMS\Reports\StatusProviderInterface;
 
@@ -80,7 +81,7 @@ class Tx_Phpunit_Reports_Status implements StatusProviderInterface {
 	 * @return string the localized string for $subkey, might be empty
 	 */
 	protected function translate($subkey) {
-		return $GLOBALS['LANG']->sL(
+		return $this->getLanguageService()->sL(
 			'LLL:EXT:phpunit/Resources/Private/Language/locallang_report.xml:' . $subkey
 		);
 	}
@@ -284,5 +285,14 @@ class Tx_Phpunit_Reports_Status implements StatusProviderInterface {
 			nl2br(htmlspecialchars(implode(LF, $extensionKeys))),
 			Status::NOTICE
 		);
+	}
+
+	/**
+	 * Returns $GLOBALS['LANG'].
+	 *
+	 * @return LanguageService
+	 */
+	protected function getLanguageService() {
+		return $GLOBALS['LANG'];
 	}
 }

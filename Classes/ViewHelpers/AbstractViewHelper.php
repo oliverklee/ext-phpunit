@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Lang\LanguageService;
 
 /**
  * This class is the base class for all view helpers.
@@ -50,4 +51,24 @@ abstract class Tx_Phpunit_ViewHelpers_AbstractViewHelper {
 	 * @return void
 	 */
 	abstract public function render();
+
+	/**
+	 * Returns the localized string for the key $key.
+	 *
+	 * @param string $key the key of the string to retrieve, must not be empty
+	 *
+	 * @return string the localized string for the key $key
+	 */
+	protected function translate($key) {
+		return $this->getLanguageService()->getLL($key);
+	}
+
+	/**
+	 * Returns $GLOBALS['LANG'].
+	 *
+	 * @return LanguageService
+	 */
+	protected function getLanguageService() {
+		return $GLOBALS['LANG'];
+	}
 }

@@ -3,7 +3,7 @@ if (!defined('TYPO3_MODE')) {
 	die('Access denied.');
 }
 
-$TCA['tx_aaa_test'] = array(
+$GLOBALS['TCA']['tx_aaa_test'] = array(
 	'ctrl' => [
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',

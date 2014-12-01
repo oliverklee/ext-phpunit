@@ -16,8 +16,7 @@ use TYPO3\CMS\Backend\Template\DocumentTemplate;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-
-$GLOBALS['LANG']->includeLLFile('EXT:phpunit/Resources/Private/Language/locallang_backend.xml');
+use TYPO3\CMS\Lang\LanguageService;
 
 /**
  * Test case.
@@ -85,6 +84,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 	protected function setUp() {
 		$this->backEndUserBackup = $GLOBALS['BE_USER'];
+
+		$this->getLanguageService()->includeLLFile('EXT:phpunit/Resources/Private/Language/locallang_backend.xml');
 
 		$subjectClassName = $this->createAccessibleProxy();
 		$this->subject = new $subjectClassName();
@@ -181,6 +182,14 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		);
 	}
 
+	/**
+	 * Returns $GLOBALS['LANG'].
+	 *
+	 * @return LanguageService
+	 */
+	protected function getLanguageService() {
+		return $GLOBALS['LANG'];
+	}
 
 	/*
 	 * Unit tests
@@ -195,7 +204,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->subject->main();
 
 		$this->assertContains(
-			$GLOBALS['LANG']->getLL('admin_rights_needed'),
+			$this->getLanguageService()->getLL('admin_rights_needed'),
 			$this->outputService->getCollectedOutput()
 		);
 	}
@@ -382,7 +391,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$subject->renderRunTestsIntro();
 
 		$this->assertContains(
-			$GLOBALS['LANG']->getLL('could_not_find_exts_with_tests'),
+			$this->getLanguageService()->getLL('could_not_find_exts_with_tests'),
 			$this->outputService->getCollectedOutput()
 		);
 	}

@@ -3,8 +3,8 @@ if (!defined ('TYPO3_MODE')) {
 	die('Access denied.');
 }
 
-$TCA['tx_phpunit_test'] = array(
-	'ctrl' => $TCA['tx_phpunit_test']['ctrl'],
+$GLOBALS['TCA']['tx_phpunit_test'] = array(
+	'ctrl' => $GLOBALS['TCA']['tx_phpunit_test']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'hidden,starttime,endtime,title,related_records',
 	),
@@ -88,4 +88,3 @@ $TCA['tx_phpunit_test'] = array(
 		'1' => array('showitem' => 'starttime, endtime'),
 	),
 );
-?>

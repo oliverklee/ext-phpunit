@@ -3,8 +3,8 @@ if (!defined('TYPO3_MODE')) {
 	die('Access denied.');
 }
 
-$TCA['tx_ccc_test'] = array(
-	'ctrl' => $TCA['tx_ccc_test']['ctrl'],
+$GLOBALS['TCA']['tx_ccc_test'] = array(
+	'ctrl' => $GLOBALS['TCA']['tx_ccc_test']['ctrl'],
 	'columns' => array(
 		'hidden' => array(
 			'config' => array(
@@ -14,8 +14,8 @@ $TCA['tx_ccc_test'] = array(
 	),
 );
 
-$TCA['tx_ccc_data'] = array(
-	'ctrl' => $TCA['tx_ccc_data']['ctrl'],
+$GLOBALS['TCA']['tx_ccc_data'] = array(
+	'ctrl' => $GLOBALS['TCA']['tx_ccc_data']['ctrl'],
 	'columns' => array(
 		'hidden' => array(
 			'config' => array(

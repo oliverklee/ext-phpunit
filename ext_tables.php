@@ -3,7 +3,7 @@ if (!defined('TYPO3_MODE')) {
 	die('Access denied.');
 }
 
-$TCA['tx_phpunit_test'] = array(
+$GLOBALS['TCA']['tx_phpunit_test'] = array(
 	'ctrl' => array(
 		'title' => 'LLL:EXT:phpunit/Resource/Private/Language/locallang_backend.xml:tx_phpunit_test',
 		'readOnly' => 1,

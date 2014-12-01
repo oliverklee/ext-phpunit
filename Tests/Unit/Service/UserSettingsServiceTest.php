@@ -47,6 +47,15 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	}
 
 	/**
+	 * Returns $GLOBALS['BE_USER'].
+	 *
+	 * @return BackendUserAuthentication|PHPUnit_Framework_MockObject_MockObject
+	 */
+	protected function getBackEndUserMock() {
+		return $GLOBALS['BE_USER'];
+	}
+
+	/**
 	 * @test
 	 */
 	public function classIsSingleton() {
@@ -80,7 +89,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getAsBooleanCanReturnFalseFromUserSettings() {
 		$key = 'foo';
-		$GLOBALS['BE_USER']->uc['Tx_Phpunit_BackEndSettings'][$key] = FALSE;
+		$this->getBackEndUserMock()->uc['Tx_Phpunit_BackEndSettings'][$key] = FALSE;
 
 		$this->assertFalse(
 			$this->subject->getAsBoolean($key)
@@ -92,7 +101,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getAsBooleanCanReturnTrueFromUserSettings() {
 		$key = 'foo';
-		$GLOBALS['BE_USER']->uc['Tx_Phpunit_BackEndSettings'][$key] = TRUE;
+		$this->getBackEndUserMock()->uc['Tx_Phpunit_BackEndSettings'][$key] = TRUE;
 
 		$this->assertTrue(
 			$this->subject->getAsBoolean($key)
@@ -104,7 +113,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getAsBooleanCanReturnOneStringFromUserSettingsAsTrue() {
 		$key = 'foo';
-		$GLOBALS['BE_USER']->uc['Tx_Phpunit_BackEndSettings'][$key] = '1';
+		$this->getBackEndUserMock()->uc['Tx_Phpunit_BackEndSettings'][$key] = '1';
 
 		$this->assertTrue(
 			$this->subject->getAsBoolean($key)
@@ -151,7 +160,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	public function getAsIntegerForExistingValueReturnsValueFromUserSettings() {
 		$key = 'foo';
 		$value = 42;
-		$GLOBALS['BE_USER']->uc['Tx_Phpunit_BackEndSettings'][$key] = $value;
+		$this->getBackEndUserMock()->uc['Tx_Phpunit_BackEndSettings'][$key] = $value;
 
 		$this->assertSame(
 			$value,
@@ -165,7 +174,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	public function getAsIntegerForExistingStringValueReturnsIntegerValueFromUserSettings() {
 		$key = 'foo';
 		$value = 42;
-		$GLOBALS['BE_USER']->uc['Tx_Phpunit_BackEndSettings'][$key] = (string) $value;
+		$this->getBackEndUserMock()->uc['Tx_Phpunit_BackEndSettings'][$key] = (string) $value;
 
 		$this->assertSame(
 			$value,
@@ -242,7 +251,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	public function getAsStringForExistingValueReturnsValueFromUserSettings() {
 		$key = 'foo';
 		$value = 'bar';
-		$GLOBALS['BE_USER']->uc['Tx_Phpunit_BackEndSettings'][$key] = $value;
+		$this->getBackEndUserMock()->uc['Tx_Phpunit_BackEndSettings'][$key] = $value;
 
 		$this->assertSame(
 			$value,
@@ -256,7 +265,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	public function getAsStringForExistingIntegerValueReturnsStringValueFromUserSettings() {
 		$key = 'foo';
 		$value = '42';
-		$GLOBALS['BE_USER']->uc['Tx_Phpunit_BackEndSettings'][$key] = intval($value);
+		$this->getBackEndUserMock()->uc['Tx_Phpunit_BackEndSettings'][$key] = intval($value);
 
 		$this->assertSame(
 			$value,
@@ -320,7 +329,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	public function getAsArrayForExistingValueReturnsValueFromUserSettings() {
 		$key = 'foo';
 		$value = array('foo', 'bar');
-		$GLOBALS['BE_USER']->uc['Tx_Phpunit_BackEndSettings'][$key] = $value;
+		$this->getBackEndUserMock()->uc['Tx_Phpunit_BackEndSettings'][$key] = $value;
 
 		$this->assertSame(
 			$value,
@@ -333,7 +342,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getAsArrayForExistingIntegerValueReturnsEmptyArray() {
 		$key = 'foo';
-		$GLOBALS['BE_USER']->uc['Tx_Phpunit_BackEndSettings'][$key] = 42;
+		$this->getBackEndUserMock()->uc['Tx_Phpunit_BackEndSettings'][$key] = 42;
 
 		$this->assertSame(
 			array(),
@@ -359,7 +368,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function setWritesUserSettings() {
-		$GLOBALS['BE_USER']->expects($this->once())->method('writeUC');
+		$this->getBackEndUserMock()->expects($this->once())->method('writeUC');
 
 		$this->subject->set('foo', 'bar');
 	}
