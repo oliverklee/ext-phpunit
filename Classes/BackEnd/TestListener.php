@@ -185,7 +185,7 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 *
 	 * @return void
 	 */
-	public function enableShowMenoryAndTime() {
+	public function enableShowMemoryAndTime() {
 		$this->enableShowMemoryAndTime = TRUE;
 	}
 

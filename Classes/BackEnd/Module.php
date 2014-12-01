@@ -705,7 +705,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 		}
 
 		if ($this->userSettingsService->getAsBoolean('showMemoryAndTime')) {
-			$this->testListener->enableShowMenoryAndTime();
+			$this->testListener->enableShowMemoryAndTime();
 		}
 	}
 
