@@ -147,7 +147,7 @@ class Tx_Phpunit_Framework {
 	/**
 	 * whether a fake front end has been created
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $hasFakeFrontEnd = FALSE;
 
@@ -161,7 +161,7 @@ class Tx_Phpunit_Framework {
 	/**
 	 * whether the hooks in self::hooks have been retrieved
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	static protected $hooksHaveBeenRetrieved = FALSE;
 
@@ -230,7 +230,7 @@ class Tx_Phpunit_Framework {
 	 *        associative array that contains the data to save in the new
 	 *        record, may be empty, but must not contain the key "uid"
 	 *
-	 * @return integer the UID of the new record, will be > 0
+	 * @return int the UID of the new record, will be > 0
 	 *
 	 * @throws \InvalidArgumentException
 	 */
@@ -263,7 +263,7 @@ class Tx_Phpunit_Framework {
 	 *        associative array that contains the data to save in the new
 	 *        record, may be empty, but must not contain the key "uid"
 	 *
-	 * @return integer the UID of the new record, will be > 0
+	 * @return int the UID of the new record, will be > 0
 	 */
 	protected function createRecordWithoutTableNameChecks($tableName, array $recordData) {
 		$dummyColumnName = $this->getDummyColumnName($tableName);
@@ -279,13 +279,13 @@ class Tx_Phpunit_Framework {
 	 * Creates a front-end page on the page with the UID given by the first
 	 * parameter $parentId.
 	 *
-	 * @param integer $parentId
+	 * @param int $parentId
 	 *        UID of the page on which the page should be created
 	 * @param array $recordData
 	 *        associative array that contains the data to save in the new page,
 	 *        may be empty, but must not contain the keys "uid", "pid" or "doktype"
 	 *
-	 * @return integer the UID of the new page, will be > 0
+	 * @return int the UID of the new page, will be > 0
 	 */
 	public function createFrontEndPage($parentId = 0, array $recordData = array()) {
 		return $this->createGeneralPageRecord(1, $parentId, $recordData);
@@ -295,13 +295,13 @@ class Tx_Phpunit_Framework {
 	 * Creates a system folder on the page with the UID given by the first
 	 * parameter $parentId.
 	 *
-	 * @param integer $parentId
+	 * @param int $parentId
 	 *        UID of the page on which the system folder should be created
 	 * @param array $recordData
 	 *        associative array that contains the data to save in the new page,
 	 *        may be empty, but must not contain the keys "uid", "pid" or "doktype"
 	 *
-	 * @return integer the UID of the new system folder, will be > 0
+	 * @return int the UID of the new system folder, will be > 0
 	 */
 	public function createSystemFolder($parentId = 0, array $recordData = array()) {
 		return $this->createGeneralPageRecord(254, $parentId, $recordData);
@@ -314,15 +314,15 @@ class Tx_Phpunit_Framework {
 	 * The record will be created on the page with the UID given by the second
 	 * parameter $parentId.
 	 *
-	 * @param integer $documentType
+	 * @param int $documentType
 	 *        document type of the record to create, must be > 0
-	 * @param integer $parentId
+	 * @param int $parentId
 	 *        UID of the page on which the record should be created
 	 * @param array $recordData
 	 *        associative array that contains the data to save in the record,
 	 *        may be empty, but must not contain the keys "uid", "pid" or "doktype"
 	 *
-	 * @return integer the UID of the new record, will be > 0
+	 * @return int the UID of the new record, will be > 0
 	 *
 	 * @throws \InvalidArgumentException
 	 */
@@ -352,13 +352,13 @@ class Tx_Phpunit_Framework {
 	 * element's type can be overwritten by setting the key 'CType' in the
 	 * parameter $recordData.
 	 *
-	 * @param integer $pageId
+	 * @param int $pageId
 	 *        UID of the page on which the content element should be created
 	 * @param array $recordData
 	 *        associative array that contains the data to save in the content
 	 *        element, may be empty, but must not contain the keys "uid" or "pid"
 	 *
-	 * @return integer the UID of the new content element, will be > 0
+	 * @return int the UID of the new content element, will be > 0
 	 *
 	 * @throws \InvalidArgumentException
 	 */
@@ -383,13 +383,13 @@ class Tx_Phpunit_Framework {
 	 * Creates a template on the page with the UID given by the first parameter
 	 * $pageId.
 	 *
-	 * @param integer $pageId
+	 * @param int $pageId
 	 *        UID of the page on which the template should be created, must be > 0
 	 * @param array $recordData
 	 *        associative array that contains the data to save in the new
 	 *        template, may be empty, but must not contain the keys "uid" or "pid"
 	 *
-	 * @return integer the UID of the new template, will be > 0
+	 * @return int the UID of the new template, will be > 0
 	 *
 	 * @throws \InvalidArgumentException
 	 */
@@ -417,7 +417,7 @@ class Tx_Phpunit_Framework {
 	 *        associative array that contains the data to save in the new user
 	 *        group record, may be empty, but must not contain the key "uid"
 	 *
-	 * @return integer the UID of the new user group, will be > 0
+	 * @return int the UID of the new user group, will be > 0
 	 *
 	 * @throws \InvalidArgumentException
 	 */
@@ -441,7 +441,7 @@ class Tx_Phpunit_Framework {
 	 *        record, may be empty, but must not contain the keys "uid" or
 	 *        "usergroup"
 	 *
-	 * @return integer the UID of the new FE user, will be > 0
+	 * @return int the UID of the new FE user, will be > 0
 	 *
 	 * @throws \InvalidArgumentException
 	 */
@@ -484,7 +484,7 @@ class Tx_Phpunit_Framework {
 	 *        record, may be empty, but must not contain the keys "uid" or
 	 *        "usergroup"
 	 *
-	 * @return integer the UID of the new FE user, will be > 0
+	 * @return int the UID of the new FE user, will be > 0
 	 */
 	public function createAndLoginFrontEndUser($frontEndUserGroups = '', array $recordData = array()) {
 		$frontEndUserUid = $this->createFrontEndUser($frontEndUserGroups, $recordData);
@@ -501,7 +501,7 @@ class Tx_Phpunit_Framework {
 	 *        associative array that contains the data to save in the new user
 	 *        record, may be empty, but must not contain the key "uid"
 	 *
-	 * @return integer the UID of the new BE user, will be > 0
+	 * @return int the UID of the new BE user, will be > 0
 	 *
 	 * @throws \InvalidArgumentException
 	 */
@@ -520,7 +520,7 @@ class Tx_Phpunit_Framework {
 	 *        associative array that contains the data to save in the new user
 	 *        group record, may be empty, but must not contain the key "uid"
 	 *
-	 * @return integer the UID of the new user group, will be > 0
+	 * @return int the UID of the new user group, will be > 0
 	 *
 	 * @throws \InvalidArgumentException
 	 */
@@ -543,7 +543,7 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @param string $tableName
 	 *        the name of the table, must not be empty
-	 * @param integer $uid
+	 * @param int $uid
 	 *        the UID of the record to change, must not be empty
 	 * @param array $recordData
 	 *        associative array containing key => value pairs for those fields
@@ -602,7 +602,7 @@ class Tx_Phpunit_Framework {
 	 * @param string $tableName
 	 *        name of the table from which the record should be deleted, must
 	 *        not be empty
-	 * @param integer $uid
+	 * @param int $uid
 	 *        UID of the record to delete, must be > 0
 	 *
 	 * @return void
@@ -627,11 +627,11 @@ class Tx_Phpunit_Framework {
 	 * @param string $tableName
 	 *        name of the m:n table to which the record should be added, must
 	 *        not be empty
-	 * @param integer $uidLocal
+	 * @param int $uidLocal
 	 *        UID of the local table, must be > 0
-	 * @param integer $uidForeign
+	 * @param int $uidForeign
 	 *        UID of the foreign table, must be > 0
-	 * @param integer $sorting
+	 * @param int $sorting
 	 *        sorting value of the relation, the default value is 0, which
 	 *        enables automatic sorting, a value >= 0 overwrites the automatic
 	 *        sorting
@@ -676,9 +676,9 @@ class Tx_Phpunit_Framework {
 	 * @param string $tableName
 	 *        name of the table from which a relation should be created, must
 	 *        not be empty
-	 * @param integer $uidLocal
+	 * @param int $uidLocal
 	 *        UID of the record in the local table, must be > 0
-	 * @param integer $uidForeign
+	 * @param int $uidForeign
 	 *        UID of the record in the foreign table, must be > 0
 	 * @param string $columnName
 	 *        name of the column in which the relation counter should be
@@ -744,9 +744,9 @@ class Tx_Phpunit_Framework {
 	 * @param string $tableName
 	 *        name of the table from which the record should be deleted, must
 	 *        not be empty
-	 * @param integer $uidLocal
+	 * @param int $uidLocal
 	 *        UID on the local table, must be > 0
-	 * @param integer $uidForeign
+	 * @param int $uidForeign
 	 *        UID on the foreign table, must be > 0
 	 *
 	 * @return void
@@ -776,7 +776,7 @@ class Tx_Phpunit_Framework {
 	 * consider well, whether you want to do this as it's a huge performance
 	 * issue.
 	 *
-	 * @param boolean $performDeepCleanUp
+	 * @param bool $performDeepCleanUp
 	 *        whether a deep clean up should be performed
 	 *
 	 * @return void
@@ -815,10 +815,10 @@ class Tx_Phpunit_Framework {
 	 * consider well, whether you want to do this as it's a huge performance
 	 * issue.
 	 *
-	 * @param boolean $useSystemTables
+	 * @param bool $useSystemTables
 	 *        whether to clean up the system tables (TRUE) or the non-system
 	 *        test tables (FALSE)
-	 * @param boolean $performDeepCleanUp
+	 * @param bool $performDeepCleanUp
 	 *        whether a deep clean up should be performed
 	 *
 	 * @return void
@@ -1198,10 +1198,10 @@ class Tx_Phpunit_Framework {
 	 * Note: This function does not set TYPO3_MODE to "FE" (because the value of
 	 * a constant cannot be changed after it has once been set).
 	 *
-	 * @param integer $pageUid
+	 * @param int $pageUid
 	 *        UID of a page record to use, must be >= 0
 	 *
-	 * @return integer the UID of the used front-end page, will be > 0
+	 * @return int the UID of the used front-end page, will be > 0
 	 *
 	 * @throws \InvalidArgumentException
 	 */
@@ -1286,7 +1286,7 @@ class Tx_Phpunit_Framework {
 	/**
 	 * Returns whether this testing framework instance has a fake front end.
 	 *
-	 * @return boolean
+	 * @return bool
 	 *         TRUE if this instance has a fake front end, FALSE otherwise
 	 */
 	public function hasFakeFrontEnd() {
@@ -1321,7 +1321,7 @@ class Tx_Phpunit_Framework {
 	 * Note: To set the logged-in users group data properly, the front-end user
 	 *       and his groups must actually exist in the database.
 	 *
-	 * @param integer $userId
+	 * @param int $userId
 	 *        UID of the FE user, must not necessarily exist in the database,
 	 *        must be > 0
 	 *
@@ -1381,7 +1381,7 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @throws Exception if no front end has been created
 	 *
-	 * @return boolean TRUE if a FE user is logged in, FALSE otherwise
+	 * @return bool TRUE if a FE user is logged in, FALSE otherwise
 	 */
 	public function isLoggedIn() {
 		if (!$this->hasFakeFrontEnd()) {
@@ -1457,7 +1457,7 @@ class Tx_Phpunit_Framework {
 	 * @param string $tableName
 	 *        the name of the table to check, must not be empty
 	 *
-	 * @return boolean
+	 * @return bool
 	 *         TRUE if the name of the table is in the list of allowed tables,
 	 *         FALSE otherwise
 	 */
@@ -1472,7 +1472,7 @@ class Tx_Phpunit_Framework {
 	 * @param string $tableName
 	 *        the name of the table to check, must not be empty
 	 *
-	 * @return boolean
+	 * @return bool
 	 *         TRUE if the name of the table is in the list of additional
 	 *         allowed tables, FALSE otherwise
 	 */
@@ -1487,7 +1487,7 @@ class Tx_Phpunit_Framework {
 	 * @param string $tableName
 	 *        the name of the table to check, must not be empty
 	 *
-	 * @return boolean
+	 * @return bool
 	 *         TRUE if the name of the table is in the list of allowed system
 	 *         tables, FALSE otherwise
 	 */
@@ -1502,7 +1502,7 @@ class Tx_Phpunit_Framework {
 	 * @param string $tableName
 	 *        the name of the table to check, must not be empty
 	 *
-	 * @return boolean
+	 * @return bool
 	 *         TRUE if the name of the table is in the list of allowed tables or
 	 *         additional allowed tables, FALSE otherwise
 	 */
@@ -1518,7 +1518,7 @@ class Tx_Phpunit_Framework {
 	 * @param string $tableName
 	 *        the name of the table to check, must not be empty
 	 *
-	 * @return boolean
+	 * @return bool
 	 *         TRUE if the name of the table is in the list of allowed tables,
 	 *         additional allowed tables or allowed system tables, FALSE otherwise
 	 */
@@ -1564,7 +1564,7 @@ class Tx_Phpunit_Framework {
 	 *        the WHERE part of the query, may be empty (all records will be
 	 *        counted in that case)
 	 *
-	 * @return integer the number of records that have been found, will be >= 0
+	 * @return int the number of records that have been found, will be >= 0
 	 *
 	 * @throws \InvalidArgumentException
 	 */
@@ -1593,7 +1593,7 @@ class Tx_Phpunit_Framework {
 	 *        the WHERE part of the query, may be empty (all records will be
 	 *        counted in that case)
 	 *
-	 * @return boolean
+	 * @return bool
 	 *         TRUE if there is at least one matching record, FALSE otherwise
 	 */
 	public function existsRecord($tableName, $whereClause = '') {
@@ -1606,10 +1606,10 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @param string $tableName
 	 *        the name of the table to query, must not be empty
-	 * @param integer $uid
+	 * @param int $uid
 	 *        the UID of the record to look up, must be > 0
 	 *
-	 * @return boolean TRUE if there is a matching record, FALSE otherwise
+	 * @return bool TRUE if there is a matching record, FALSE otherwise
 	 *
 	 * @throws \InvalidArgumentException
 	 */
@@ -1631,7 +1631,7 @@ class Tx_Phpunit_Framework {
 	 *        the WHERE part of the query, may be empty (all records will be
 	 *        counted in that case)
 	 *
-	 * @return boolean
+	 * @return bool
 	 *         TRUE if there is exactly one matching record, FALSE otherwise
 	 */
 	public function existsExactlyOneRecord($tableName, $whereClause = '') {
@@ -1724,7 +1724,7 @@ class Tx_Phpunit_Framework {
 	/**
 	 * Sets the threshold for resetAutoIncrementLazily.
 	 *
-	 * @param integer $threshold
+	 * @param int $threshold
 	 *        threshold, must be > 0
 	 *
 	 * @see resetAutoIncrementLazily
@@ -1751,7 +1751,7 @@ class Tx_Phpunit_Framework {
 	 * @param string $tableName
 	 *        the name of an existing table that has the "uid" column
 	 *
-	 * @return integer the highest UID from this table, will be >= 0
+	 * @return int the highest UID from this table, will be >= 0
 	 */
 	protected function getMaximumUidFromTable($tableName) {
 		$row = Tx_Phpunit_Service_Database::selectSingle('MAX(uid) AS uid', $tableName);
@@ -1769,7 +1769,7 @@ class Tx_Phpunit_Framework {
 	 *        the name of the table for which the auto increment value should be
 	 *        retrieved, must not be empty
 	 *
-	 * @return integer
+	 * @return int
 	 *         the current auto_increment value of table $tableName, will be > 0
 	 *
 	 * @throws \InvalidArgumentException
@@ -1889,10 +1889,10 @@ class Tx_Phpunit_Framework {
 	 *
 	 * @param string $tableName
 	 *        the relation table, must not be empty
-	 * @param integer $uidLocal
+	 * @param int $uidLocal
 	 *        UID of the local table, must be > 0
 	 *
-	 * @return integer the next sorting value to use (> 0)
+	 * @return int the next sorting value to use (> 0)
 	 *
 	 * @see https://bugs.oliverklee.com/show_bug.cgi?id=1423
 	 */
@@ -1907,14 +1907,14 @@ class Tx_Phpunit_Framework {
 	}
 
 	/**
-	 * Updates an integer field of a database table by one. This is mainly needed
+	 * Updates an int field of a database table by one. This is mainly needed
 	 * for counting up the relation counter when creating a database relation.
 	 *
-	 * The field to update must be of type integer.
+	 * The field to update must be of type int.
 	 *
 	 * @param string $tableName
 	 *        name of the table, must not be empty
-	 * @param integer $uid
+	 * @param int $uid
 	 *        the UID of the record to modify, must be > 0
 	 * @param string $fieldName
 	 *        the field name of the field to modify, must not be empty

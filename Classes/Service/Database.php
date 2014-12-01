@@ -83,7 +83,7 @@ class Tx_Phpunit_Service_Database {
 	 *
 	 * @param string $tableName
 	 *        table name found in the $TCA array
-	 * @param integer $showHidden
+	 * @param int $showHidden
 	 *        If $showHidden is set (0/1), any hidden-fields in records are
 	 *        ignored. NOTICE: If you call this function, consider what to do
 	 *        with the show_hidden parameter.
@@ -92,7 +92,7 @@ class Tx_Phpunit_Service_Database {
 	 *        "endtime", "fe_group" (keys from "enablefields" in TCA) and if set
 	 *        they will make sure that part of the clause is not added. Thus
 	 *        disables the specific part of the clause. For previewing etc.
-	 * @param boolean $noVersionPreview
+	 * @param bool $noVersionPreview
 	 *        If set, enableFields will be applied regardless of any versioning
 	 *        preview settings which might otherwise disable enableFields.
 	 *
@@ -159,7 +159,7 @@ class Tx_Phpunit_Service_Database {
 	 * @param string $startPages
 	 *        comma-separated list of page UIDs to start from, must only contain
 	 *        numbers and commas, may be empty
-	 * @param integer $recursionDepth
+	 * @param int $recursionDepth
 	 *        maximum depth of recursion, must be >= 0
 	 *
 	 * @return string
@@ -213,7 +213,7 @@ class Tx_Phpunit_Service_Database {
 	 * @param string $whereClause
 	 *        the WHERE clause to select the records, may be empty
 	 *
-	 * @return integer the number of affected rows, might be 0
+	 * @return int the number of affected rows, might be 0
 	 *
 	 * @throws InvalidArgumentException
 	 * @throws Tx_Phpunit_Exception_Database if an error has occurred
@@ -244,7 +244,7 @@ class Tx_Phpunit_Service_Database {
 	 * @param array $fields
 	 *        key/value pairs of the fields to change, may be empty
 	 *
-	 * @return integer the number of affected rows, might be 0
+	 * @return int the number of affected rows, might be 0
 	 *
 	 * @throws InvalidArgumentException
 	 * @throws Tx_Phpunit_Exception_Database if an error has occurred
@@ -274,7 +274,7 @@ class Tx_Phpunit_Service_Database {
 	 * @param array $recordData
 	 *        key/value pairs of the record to insert, must not be empty
 	 *
-	 * @return integer
+	 * @return int
 	 *         the UID of the created record, will be 0 if the table has no UID column
 	 *
 	 * @throws InvalidArgumentException
@@ -357,7 +357,7 @@ class Tx_Phpunit_Service_Database {
 	 *        GROUP BY field(s), may be empty
 	 * @param string $orderBy
 	 *        ORDER BY field(s), may be empty
-	 * @param integer $offset
+	 * @param int $offset
 	 *        the offset to start the result for, must be >= 0
 	 *
 	 * @return array the single result row, will not be empty
@@ -466,7 +466,7 @@ class Tx_Phpunit_Service_Database {
 	 * @param string $whereClause
 	 *        WHERE clause, may be empty
 	 *
-	 * @return integer the number of matching records, will be >= 0
+	 * @return int the number of matching records, will be >= 0
 	 *
 	 * @throws Tx_Phpunit_Exception_Database if an error has occurred
 	 */
@@ -497,7 +497,7 @@ class Tx_Phpunit_Service_Database {
 	 *        the WHERE part of the query, may be empty (all records will be
 	 *        counted in that case)
 	 *
-	 * @return boolean
+	 * @return bool
 	 *         TRUE if there is at least one matching record, FALSE otherwise
 	 */
 	static public function existsRecord($tableName, $whereClause = '') {
@@ -514,7 +514,7 @@ class Tx_Phpunit_Service_Database {
 	 *        the WHERE part of the query, may be empty (all records will be
 	 *        counted in that case)
 	 *
-	 * @return boolean
+	 * @return bool
 	 *         TRUE if there is exactly one matching record, FALSE otherwise
 	 */
 	static public function existsExactlyOneRecord($tableName, $whereClause = '') {
@@ -530,13 +530,13 @@ class Tx_Phpunit_Service_Database {
 	 *
 	 * @param string $tableName
 	 *        the name of the table to query, must not be empty
-	 * @param integer $uid
+	 * @param int $uid
 	 *        the UID of the record to look up, must be > 0
 	 * @param string $additionalWhereClause
 	 *        additional WHERE clause to append, must either start with " AND"
 	 *        or be completely empty
 	 *
-	 * @return boolean TRUE if there is a matching record, FALSE otherwise
+	 * @return bool TRUE if there is a matching record, FALSE otherwise
 	 *
 	 * @throws InvalidArgumentException
 	 */
@@ -592,7 +592,7 @@ class Tx_Phpunit_Service_Database {
 	 * @param string $tableName
 	 *        the name of the table to check for, must not be empty
 	 *
-	 * @return boolean TRUE if the table $tableName exists, FALSE otherwise
+	 * @return bool TRUE if the table $tableName exists, FALSE otherwise
 	 *
 	 * @throws InvalidArgumentException
 	 */
@@ -682,7 +682,7 @@ class Tx_Phpunit_Service_Database {
 	 * @param string $column
 	 *        the column name to check, must not be empty
 	 *
-	 * @return boolean
+	 * @return bool
 	 *         TRUE if the column with the provided name exists, FALSE otherwise
 	 */
 	static public function tableHasColumn($tableName, $column) {
@@ -701,7 +701,7 @@ class Tx_Phpunit_Service_Database {
 	 * @param string $tableName
 	 *        the name of the table to check, must not be empty
 	 *
-	 * @return boolean TRUE if a valid column was found, FALSE otherwise
+	 * @return bool TRUE if a valid column was found, FALSE otherwise
 	 */
 	static public function tableHasColumnUid($tableName) {
 		return self::tableHasColumn($tableName, 'uid');

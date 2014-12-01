@@ -49,7 +49,7 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface {
 	/**
 	 * indicates whether $allTestables already has been filled
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $allTestablesAreCached = FALSE;
 
@@ -83,7 +83,7 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface {
 	 *        the key to check, might be an extension key, the core key or
 	 *        any other string (even an empty string)
 	 *
-	 * @return boolean TRUE if there is testable code with the given key, FALSE otherwise
+	 * @return bool TRUE if there is testable code with the given key, FALSE otherwise
 	 */
 	public function existsTestableForKey($key) {
 		if ($key === '') {
@@ -99,7 +99,7 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface {
 	 * Checks whether there is at least one tests directory in at least one
 	 * extension or in the TYPO3 Core.
 	 *
-	 * @return boolean
+	 * @return bool
 	 *         TRUE if there ist at least one test directory, FALSE otherwise
 	 */
 	public function existsTestableForAnything() {
@@ -186,7 +186,7 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface {
 	 * @param Tx_Phpunit_Testable $testable1 the first item to compare
 	 * @param Tx_Phpunit_Testable $testable2 the second item to compare
 	 *
-	 * @return integer
+	 * @return int
 	 *         1 if both items need to be swapped, 0 if they have the same key,
 	 *         and -1 if the order is okay.
 	 */

@@ -24,14 +24,14 @@ class Tx_Phpunit_Exception_EmptyQueryResultTest extends Tx_Phpunit_TestCase {
 	/**
 	 * the saved content of $GLOBALS['TYPO3_DB']->debugOutput
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	private $savedDebugOutput;
 
 	/**
 	 * the saved content of $GLOBALS['TYPO3_DB']->store_lastBuiltQuery
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	private $savedStoreLastBuildQuery;
 

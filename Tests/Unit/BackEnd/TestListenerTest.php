@@ -100,7 +100,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	 *
 	 * Tests same file to be sure there is not any error message.
 	 *
-	 * @return boolean TRUE if a diff tool was found, FALSE otherwise
+	 * @return bool TRUE if a diff tool was found, FALSE otherwise
 	 */
 	protected function isDiffToolAvailable() {
 		$filePath = ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Backend/Fixtures/LoadMe.php';

@@ -36,7 +36,7 @@ class Tx_Phpunit_Service_ExtensionSettingsService extends Tx_Phpunit_AbstractDat
 	private $cachedSettings = array();
 
 	/**
-	 * @var boolean
+	 * @var bool
 	 */
 	private $settingsHaveBeenRetrieved = FALSE;
 

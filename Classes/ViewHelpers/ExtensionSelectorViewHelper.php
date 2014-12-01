@@ -169,7 +169,7 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper extends Tx_Phpunit_View
 	 *
 	 * @param string $option the option to check, must not be empty
 	 *
-	 * @return boolean whether $option is the selected option
+	 * @return bool whether $option is the selected option
 	 */
 	protected function isOptionSelected($option) {
 		return ($this->userSettingService->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE) === $option);

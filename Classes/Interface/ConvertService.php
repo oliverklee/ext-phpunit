@@ -27,7 +27,7 @@ interface Tx_Phpunit_Interface_ConvertService {
 	 *
 	 * @param string $key the key of the value to retrieve, must not be empty
 	 *
-	 * @return boolean the value for the given key, will be FALSE if there is no value for the given key
+	 * @return bool the value for the given key, will be FALSE if there is no value for the given key
 	 */
 	public function getAsBoolean($key);
 
@@ -36,7 +36,7 @@ interface Tx_Phpunit_Interface_ConvertService {
 	 *
 	 * @param string $key the key of the value to retrieve, must not be empty
 	 *
-	 * @return integer the value for the given key, will be 0 if there is no value for the given key
+	 * @return int the value for the given key, will be 0 if there is no value for the given key
 	 */
 	public function getAsInteger($key);
 
@@ -45,7 +45,7 @@ interface Tx_Phpunit_Interface_ConvertService {
 	 *
 	 * @param string $key the key of the value to check, must not be empty
 	 *
-	 * @return boolean whether there is a non-zero integer for $key
+	 * @return bool whether there is a non-zero integer for $key
 	 */
 	public function hasInteger($key);
 
@@ -63,7 +63,7 @@ interface Tx_Phpunit_Interface_ConvertService {
 	 *
 	 * @param string $key the key of the value to check, must not be empty
 	 *
-	 * @return boolean whether there is a non-empty string for $key
+	 * @return bool whether there is a non-empty string for $key
 	 */
 	public function hasString($key);
 

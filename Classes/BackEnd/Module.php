@@ -1025,7 +1025,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 	/**
 	 * Checks whether code coverage information should be collected.
 	 *
-	 * @return boolean whether code coverage information should be collected
+	 * @return bool whether code coverage information should be collected
 	 */
 	protected function shouldCollectCodeCoverageInformation() {
 		return $this->userSettingsService->getAsBoolean('codeCoverage') && extension_loaded('xdebug');

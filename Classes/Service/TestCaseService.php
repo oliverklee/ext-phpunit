@@ -125,7 +125,7 @@ class Tx_Phpunit_Service_TestCaseService implements SingletonInterface {
 	 *
 	 * @param string $path the absolute path of a file to check, may be empty
 	 *
-	 * @return boolean TRUE if $fileName is a valid test case path, FALSE otherwise
+	 * @return bool TRUE if $fileName is a valid test case path, FALSE otherwise
 	 */
 	protected function isNotFixturesPath($path) {
 		return (stristr($path, '/fixtures/') === FALSE);
@@ -136,7 +136,7 @@ class Tx_Phpunit_Service_TestCaseService implements SingletonInterface {
 	 *
 	 * @param string $path the absolute path of a file to check
 	 *
-	 * @return boolean TRUE if $fileName is names like a proper test case, FALSE otherwise
+	 * @return bool TRUE if $fileName is names like a proper test case, FALSE otherwise
 	 */
 	public function isTestCaseFileName($path) {
 		$fileName = basename($path);
@@ -160,7 +160,7 @@ class Tx_Phpunit_Service_TestCaseService implements SingletonInterface {
 	 *
 	 * @param string $fileName base name of a file to check
 	 *
-	 * @return boolean TRUE if $fileName is a hidden Mac file, FALSE otherwise
+	 * @return bool TRUE if $fileName is a hidden Mac file, FALSE otherwise
 	 */
 	protected function isHiddenMacFile($fileName) {
 		return (substr($fileName, 0, 2) === '._');
@@ -172,7 +172,7 @@ class Tx_Phpunit_Service_TestCaseService implements SingletonInterface {
 	 *
 	 * @param string $className the class name to check, must not be empty
 	 *
-	 * @return boolean whether $className is the name of a valid test case class
+	 * @return bool whether $className is the name of a valid test case class
 	 *
 	 * @throws InvalidArgumentException
 	 */
@@ -194,7 +194,7 @@ class Tx_Phpunit_Service_TestCaseService implements SingletonInterface {
 	 *
 	 * @param string $className the class name to check, must not be empty
 	 *
-	 * @return boolean whether the class name has a suffix that is supported for test cases
+	 * @return bool whether the class name has a suffix that is supported for test cases
 	 */
 	protected function classNameHasTestCaseSuffix($className) {
 		$hasTestCaseSuffix = FALSE;
@@ -216,7 +216,7 @@ class Tx_Phpunit_Service_TestCaseService implements SingletonInterface {
 	 *
 	 * @param string $className the class name to check, must not be empty
 	 *
-	 * @return boolean whether the corresponding class is both non-abstract and a subclass of the test case base class
+	 * @return bool whether the corresponding class is both non-abstract and a subclass of the test case base class
 	 */
 	protected function classNameIsNonAbstractSubclassOfValidBaseTestCase($className) {
 		$classReflection = new ReflectionClass($className);

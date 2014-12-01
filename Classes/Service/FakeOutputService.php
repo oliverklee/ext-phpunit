@@ -27,7 +27,7 @@ class Tx_Phpunit_Service_FakeOutputService extends Tx_Phpunit_Service_OutputServ
 	protected $collectedOutput = '';
 
 	/**
-	 * @var integer
+	 * @var int
 	 */
 	protected $numberOfFlushCalls = 0;
 
@@ -63,7 +63,7 @@ class Tx_Phpunit_Service_FakeOutputService extends Tx_Phpunit_Service_OutputServ
 	/**
 	 * Returns how often flushOutputBuffer already has been called for this instance.
 	 *
-	 * @return integer the number of calls, will be >= 0
+	 * @return int the number of calls, will be >= 0
 	 */
 	public function getNumberOfFlushCalls() {
 		return $this->numberOfFlushCalls;

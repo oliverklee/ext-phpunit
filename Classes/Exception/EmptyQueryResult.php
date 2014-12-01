@@ -29,7 +29,7 @@ class Tx_Phpunit_Exception_EmptyQueryResult extends Exception {
 	/**
 	 * The constructor.
 	 *
-	 * @param integer $code error code, must be >= 0
+	 * @param int $code error code, must be >= 0
 	 */
 	public function __construct($code = 0) {
 		$message = 'The database query returned an empty result, but should have returned a non-empty result.';

@@ -337,7 +337,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 *
 	 * @param string $element element to check, may be empty
 	 *
-	 * @return boolean TRUE if $element is == "foo", FALSE otherwise
+	 * @return bool TRUE if $element is == "foo", FALSE otherwise
 	 */
 	public function keepOnlyFooElements($element) {
 		return ($element === 'foo');

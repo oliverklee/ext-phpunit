@@ -34,7 +34,7 @@ class Tx_Phpunit_Tests_Fixtures_ProtectedClass {
 	/**
 	 * Protected test function which returns TRUE when processed.
 	 *
-	 * @return boolean always TRUE
+	 * @return bool always TRUE
 	 */
 	protected function protectedMethod() {
 		return TRUE;
@@ -52,7 +52,7 @@ class Tx_Phpunit_Tests_Fixtures_ProtectedClass {
 	/**
 	 * Public test function which returns TRUE when processed.
 	 *
-	 * @return boolean always TRUE
+	 * @return bool always TRUE
 	 */
 	public function publicMethod() {
 		return TRUE;

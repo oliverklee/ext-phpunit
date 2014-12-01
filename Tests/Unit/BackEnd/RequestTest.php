@@ -22,7 +22,7 @@
  */
 class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	/**
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $backupGlobals = TRUE;
 

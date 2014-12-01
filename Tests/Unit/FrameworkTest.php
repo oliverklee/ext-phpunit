@@ -95,12 +95,12 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	 * the first parameter $uidLocal and the foreign UID given by the second
 	 * parameter $uidForeign.
 	 *
-	 * @param integer $uidLocal
+	 * @param int $uidLocal
 	 *        the UID of the local record, must be > 0
-	 * @param integer $uidForeign
+	 * @param int $uidForeign
 	 *        the UID of the foreign record, must be > 0
 	 *
-	 * @return integer the sorting value of the relation
+	 * @return int the sorting value of the relation
 	 */
 	private function getSortingOfRelation($uidLocal, $uidForeign) {
 		$row = Tx_Phpunit_Service_Database::selectSingle(

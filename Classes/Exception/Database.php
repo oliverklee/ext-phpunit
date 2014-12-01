@@ -30,7 +30,7 @@ class Tx_Phpunit_Exception_Database extends Exception {
 	/**
 	 * The constructor.
 	 *
-	 * @param integer $code error code, must be >= 0
+	 * @param int $code error code, must be >= 0
 	 */
 	public function __construct($code = 0) {
 		$message = 'There was an error with the database query.' . LF . $GLOBALS['TYPO3_DB']->sql_error();

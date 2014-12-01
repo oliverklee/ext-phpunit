@@ -22,7 +22,7 @@
  */
 class Tx_Phpunit_BackEnd_TestStatistics {
 	/**
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $isRunning = FALSE;
 
@@ -37,12 +37,12 @@ class Tx_Phpunit_BackEnd_TestStatistics {
 	protected $currentTime = 0.0;
 
 	/**
-	 * @var integer
+	 * @var int
 	 */
 	protected $startMemory = 0;
 
 	/**
-	 * @var integer
+	 * @var int
 	 */
 	protected $currentMemory = 0;
 
@@ -102,7 +102,7 @@ class Tx_Phpunit_BackEnd_TestStatistics {
 	/**
 	 * Calculates the memory usage since start has been called.
 	 *
-	 * @return integer the memory used (in Bytes) since start has been called, will be >= 0
+	 * @return int the memory used (in Bytes) since start has been called, will be >= 0
 	 */
 	public function getMemory() {
 		if ($this->isRunning) {

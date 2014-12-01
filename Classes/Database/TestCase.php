@@ -65,7 +65,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	 * available databases. Then this function creates a test database (if none
 	 * has been set up yet).
 	 *
-	 * @return boolean
+	 * @return bool
 	 *         TRUE if the database has been created successfully (or if there
 	 *         already is a test database), FALSE otherwise
 	 */
@@ -113,7 +113,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	/**
 	 * Drops the test database.
 	 *
-	 * @return boolean
+	 * @return bool
 	 *         TRUE if the database has been dropped successfully, FALSE otherwise
 	 */
 	protected function dropDatabase() {
@@ -159,7 +159,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	 * @param string $databaseName the name of the database to select
 	 * @param DatabaseConnection $database database object to process the change
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	protected function selectDatabase($databaseName, DatabaseConnection $database) {
 		$database->setDatabaseName($databaseName);
@@ -184,7 +184,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	 *
 	 * @param array $extensions
 	 *        keys of the extensions to import, may be empty
-	 * @param boolean $importDependencies
+	 * @param bool $importDependencies
 	 *        whether to import dependency extensions on which the given extensions
 	 *        depend as well
 	 * @param array &$skipDependencies

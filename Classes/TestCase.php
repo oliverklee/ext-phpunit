@@ -31,14 +31,14 @@ abstract class Tx_Phpunit_TestCase extends PHPUnit_Framework_TestCase {
 	/**
 	 * whether global variables should be backuped
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $backupGlobals = FALSE;
 
 	/**
 	 * whether static attributes should be backuped
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $backupStaticAttributes = FALSE;
 
@@ -49,9 +49,9 @@ abstract class Tx_Phpunit_TestCase extends PHPUnit_Framework_TestCase {
 	 * @param string[] $methods name of the methods to mock
 	 * @param array $arguments arguments to pass to constructor
 	 * @param string $mockClassName the class name to use for the mock class
-	 * @param boolean $callOriginalConstructor whether to call the constructor
-	 * @param boolean $callOriginalClone whether to call the __clone method
-	 * @param boolean $callAutoload whether to call any autoload function
+	 * @param bool $callOriginalConstructor whether to call the constructor
+	 * @param bool $callOriginalClone whether to call the __clone method
+	 * @param bool $callAutoload whether to call any autoload function
 	 *
 	 * @return PHPUnit_Framework_MockObject_MockObject|Tx_Phpunit_Interface_AccessibleObject
 	 *         a mock of $originalClassName with access methods added

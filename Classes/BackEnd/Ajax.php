@@ -53,7 +53,7 @@ class Tx_Phpunit_BackEnd_Ajax {
 	/**
 	 * The constructor.
 	 *
-	 * @param boolean $initializeUserSettingsService whether to automatically initialize the user settings service
+	 * @param bool $initializeUserSettingsService whether to automatically initialize the user settings service
 	 */
 	public function __construct($initializeUserSettingsService = TRUE) {
 		if ($initializeUserSettingsService) {
@@ -91,7 +91,7 @@ class Tx_Phpunit_BackEnd_Ajax {
 	 * @return void
 	 */
 	public function ajaxBroker(array $unused, AjaxRequestHandler $ajax) {
-		$state = (boolean) GeneralUtility::_POST('state');
+		$state = (bool) GeneralUtility::_POST('state');
 		$checkbox = GeneralUtility::_POST('checkbox');
 
 		if (in_array($checkbox, $this->validCheckboxKeys, TRUE)) {

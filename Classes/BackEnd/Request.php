@@ -32,7 +32,7 @@ class Tx_Phpunit_BackEnd_Request extends Tx_Phpunit_AbstractDataContainer
 	private $cachedRequestData = array();
 
 	/**
-	 * @var boolean
+	 * @var bool
 	 */
 	private $requestDataHasBeenRetrieved = FALSE;
 

@@ -36,7 +36,7 @@ class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_Selenium2TestCase 
 	/**
 	 * the default Selenium server port
 	 *
-	 * @var integer
+	 * @var int
 	 */
 	const DEFAULT_SELENIUM_PORT = 4444;
 
@@ -110,7 +110,7 @@ class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_Selenium2TestCase 
 	/**
 	 * Tests if the Selenium RC server is running.
 	 *
-	 * @return boolean TRUE if the server is reachable by opening a socket, FALSE otherwise
+	 * @return bool TRUE if the server is reachable by opening a socket, FALSE otherwise
 	 */
 	protected function isSeleniumServerRunning() {
 		$seleniumServerIsRunning = FALSE;
@@ -149,7 +149,7 @@ class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_Selenium2TestCase 
 	 * This functions returns 4444 (the standard Selenium RC port) if no port is
 	 * is configured
 	 *
-	 * @return integer the Selenium RC server port, will be > 0
+	 * @return int the Selenium RC server port, will be > 0
 	 */
 	protected function getSeleniumPort() {
 		return $this->extensionSettingsService->hasInteger('selenium_port')

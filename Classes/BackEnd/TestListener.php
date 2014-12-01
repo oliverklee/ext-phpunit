@@ -38,27 +38,27 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	/**
 	 * the total number of tests to run
 	 *
-	 * @var integer
+	 * @var int
 	 */
 	protected $totalNumberOfTests = 0;
 	/**
 	 * the total number of data provider tests detected
 	 *
-	 * @var integer
+	 * @var int
 	 */
 	protected $totalNumberOfDetectedDataProviderTests = 0;
 
 	/**
 	 * the number of the current test (zero-based)
 	 *
-	 * @var integer
+	 * @var int
 	 */
 	protected $currentTestNumber = 0;
 
 	/**
 	 * the number of the current data provider within a test (zero-based)
 	 *
-	 * @var integer
+	 * @var int
 	 */
 	protected $currentDataProviderNumber = 0;
 
@@ -79,14 +79,14 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	/**
 	 * used memory (in bytes) before the first test is run
 	 *
-	 * @var integer
+	 * @var int
 	 */
 	protected $memoryUsageStartOfTest = 0;
 
 	/**
 	 * used memory (in bytes) after the last test has been run
 	 *
-	 * @var integer
+	 * @var int
 	 */
 	protected $memoryUsageEndOfTest = 0;
 
@@ -94,28 +94,28 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 * the number of bytes that have been in use after running the last test
 	 * (relative to the used bytes before starting the first test)
 	 *
-	 * @var integer
+	 * @var int
 	 */
 	public $totalLeakedMemory = 0;
 
 	/**
 	 * the number of executed assertions
 	 *
-	 * @var integer
+	 * @var int
 	 */
 	protected $testAssertions = 0;
 
 	/**
 	 * whether to use the "testdox" format to display test case and test names
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $useHumanReadableTextFormat = FALSE;
 
 	/**
 	 * whether to display the used memory and time of each test
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $enableShowMemoryAndTime = FALSE;
 
@@ -159,7 +159,7 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 * Sets the total number of tests to run (used for displaying the progress
 	 * bar).
 	 *
-	 * @param integer $totalNumberOfTests
+	 * @param int $totalNumberOfTests
 	 *        the total number of tests to run, must be >= 0
 	 *
 	 * @return void
@@ -174,7 +174,7 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 * Note: As these are detected based on similar names, the first test from a data
 	 * provider cannot be detected reliably; the number will always be too low.
 	 *
-	 * @return integer the total number of data-provider related tests detected so far, will be >= 0
+	 * @return int the total number of data-provider related tests detected so far, will be >= 0
 	 */
 	public function getTotalNumberOfDetectedDataProviderTests() {
 		return $this->totalNumberOfDetectedDataProviderTests;
@@ -454,7 +454,7 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	/**
 	 * Sets the PHP execution time limit.
 	 *
-	 * @param integer $limit the PHP execution time limit in seconds, must be >= 0
+	 * @param int $limit the PHP execution time limit in seconds, must be >= 0
 	 *
 	 * @return void
 	 */
@@ -637,7 +637,7 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	/**
 	 * Retrieves the collected amount of processed assertions.
 	 *
-	 * @return integer the number of executed assertions, will be >= 0
+	 * @return int the number of executed assertions, will be >= 0
 	 */
 	public function assertionCount() {
 		return $this->testAssertions;
