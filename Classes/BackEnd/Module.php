@@ -211,13 +211,13 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 			$this->outputService->output(
 				$this->doc->section(
 					'Keyboard shortcuts',
-					'<p>Use "a" for running all tests, use "s" for running a single test and
-					use "r" to re-run the latest tests; to open phpunit in a new window, use "n".</p>
+					'<p>Use &quot;a&quot; for running all tests, use &quot;s&quot; for running a single test and
+					use &quot;r&quot; to re-run the latest tests; to open phpunit in a new window, use &quot;n&quot;.</p>
 					<p>Depending on your browser and system you will need to press some
 					modifier keys:</p>
 					<ul>
-					<li>Safari, IE and Firefox 1.x: Use "Alt" button on Windows, "Ctrl" on Macs.</li>
-					<li>Firefox 2.x and 3.x: Use "Alt-Shift" on Windows, "Ctrl-Shift" on Macs</li>
+					<li>Safari, IE and Firefox 1.x: Use &quot;Alt&quot; button on Windows, &quot;Ctrl&quot; on Macs.</li>
+					<li>Firefox 2.x and 3.x: Use &quot;Alt-Shift&quot; on Windows, &quot;Ctrl-Shift&quot; on Macs</li>
 					</ul>' .
 					$this->doc->section('', $this->createOpenNewWindowLink())
 				)
