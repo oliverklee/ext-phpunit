@@ -12,7 +12,7 @@
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Backend\Template\BigDocumentTemplate;
+use TYPO3\CMS\Backend\Template\DocumentTemplate;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -79,9 +79,9 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	protected $singletonInstances = array();
 
 	/**
-	 * @var BigDocumentTemplate|PHPUnit_Framework_MockObject_MockObject
+	 * @var DocumentTemplate|PHPUnit_Framework_MockObject_MockObject
 	 */
-	protected $bigDocumentTemplate = NULL;
+	protected $documentTemplate = NULL;
 
 	public function setUp() {
 		$this->backEndUserBackup = $GLOBALS['BE_USER'];
@@ -110,8 +110,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->progressBarViewHelper = $this->getMock('Tx_Phpunit_ViewHelpers_ProgressBarViewHelper');
 		GeneralUtility::addInstance('Tx_Phpunit_ViewHelpers_ProgressBarViewHelper', $this->progressBarViewHelper);
 
-		$this->bigDocumentTemplate = $this->getMock('TYPO3\\CMS\\Backend\\Template\\BigDocumentTemplate', array('startPage'));
-		GeneralUtility::addInstance('TYPO3\\CMS\\Backend\\Template\\BigDocumentTemplate', $this->bigDocumentTemplate);
+		$this->documentTemplate = $this->getMock('TYPO3\\CMS\\Backend\\Template\\DocumentTemplate', array('startPage'));
+		GeneralUtility::addInstance('TYPO3\\CMS\\Backend\\Template\\DocumentTemplate', $this->documentTemplate);
 
 		$this->singletonInstances = GeneralUtility::getSingletonInstances();
 	}
@@ -124,7 +124,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		unset(
 			$this->subject, $this->request, $this->outputService, $this->userSettingsService, $this->backEndUserBackup,
 			$this->testFinder, $this->extensionSettingsService, $this->progressBarViewHelper,
-			$this->bigDocumentTemplate, $this->testCaseService
+			$this->documentTemplate, $this->testCaseService
 		);
 
 		GeneralUtility::purgeInstances();

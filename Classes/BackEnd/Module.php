@@ -191,7 +191,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 	 * @return void
 	 */
 	public function main() {
-		$this->doc = GeneralUtility::makeInstance('TYPO3\\CMS\\Backend\\Template\\BigDocumentTemplate');
+		$this->doc = GeneralUtility::makeInstance('TYPO3\\CMS\\Backend\\Template\\DocumentTemplate');
 		$this->doc->backPath = $GLOBALS['BACK_PATH'];
 
 		if ($GLOBALS['BE_USER']->user['admin']) {
