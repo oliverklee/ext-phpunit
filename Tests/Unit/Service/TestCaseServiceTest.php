@@ -194,7 +194,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	public function findTestCaseFilesInDirectoryNotFindsFixtureClassesWithLowercasePath() {
 		if (!ExtensionManagementUtility::isLoaded('aaa')) {
 			$this->markTestSkipped(
-				'This test can only be run if the extension "aaa" from Tests/Unit/Fixtures/Extensions/ is installed.'
+				'This test can only be run if the extension "aaa" from TestExtensions/ is installed.'
 			);
 		}
 

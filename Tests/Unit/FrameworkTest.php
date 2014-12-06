@@ -121,7 +121,7 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 		if (!ExtensionManagementUtility::isLoaded('user_phpunittest')) {
 			$this->markTestSkipped(
 				'The Extension user_phpunittest is not installed, but needs to be installed. ' .
-					'Please install it from EXT:phpunit/Tests/Unit/Fixtures/Extensions/user_phpunittest/.'
+					'Please install it from EXT:phpunit/TestExtensions/user_phpunittest/.'
 			);
 		}
 	}
@@ -136,7 +136,7 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 		if (!ExtensionManagementUtility::isLoaded('user_phpunittest')) {
 			$this->markTestSkipped(
 				'THe extension user_phpunittest2 is not installed, but needs to be installed. ' .
-					'Please install it from EXT:phpunit/Tests/Unit/Fixtures/Extensions/user_phpunittest2/.'
+					'Please install it from EXT:phpunit/TestExtensions/user_phpunittest2/.'
 			);
 		}
 	}

@@ -148,12 +148,12 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 		$this->assertContains(
 			'tx_bbb_test',
 			$tableNames,
-			'Check that extension bbb is installed. The extension can be found in Tests/Unit/Fixtures/Extensions/.'
+			'Check that extension bbb is installed. The extension can be found in TestExtensions/.'
 		);
 		$this->assertContains(
 			'tx_aaa_test',
 			$tableNames,
-			'Check that extension aaa is installed. The extension can be found in Tests/Unit/Fixtures/Extensions/.'
+			'Check that extension aaa is installed. The extension can be found in TestExtensions/.'
 		);
 
 		// extension BBB extends an AAA table
@@ -182,9 +182,9 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 
 		$tableNames = $this->getDatabaseTables();
 
-		$this->assertContains('tx_ccc_test', $tableNames, 'Check that extension ccc is installed. The extension can be found in Tests/Unit/Fixtures/Extensions/.');
-		$this->assertContains('tx_bbb_test', $tableNames, 'Check that extension bbb is installed. The extension can be found in Tests/Unit/Fixtures/Extensions/.');
-		$this->assertContains('tx_aaa_test', $tableNames, 'Check that extension aaa is installed. The extension can be found in Tests/Unit/Fixtures/Extensions/.');
+		$this->assertContains('tx_ccc_test', $tableNames, 'Check that extension ccc is installed. The extension can be found in TestExtensions/.');
+		$this->assertContains('tx_bbb_test', $tableNames, 'Check that extension bbb is installed. The extension can be found in TestExtensions/.');
+		$this->assertContains('tx_aaa_test', $tableNames, 'Check that extension aaa is installed. The extension can be found in TestExtensions/.');
 	}
 
 	/**
@@ -205,8 +205,8 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 
 		$tableNames = $this->getDatabaseTables();
 
-		$this->assertContains('tx_ccc_test', $tableNames, 'Check that extension ccc is installed. The extension can be found in Tests/Unit/Fixtures/Extensions/.');
-		$this->assertContains('tx_ddd_test', $tableNames, 'Check that extension ddd is installed. The extension can be found in Tests/Unit/Fixtures/Extensions/.');
+		$this->assertContains('tx_ccc_test', $tableNames, 'Check that extension ccc is installed. The extension can be found in TestExtensions/.');
+		$this->assertContains('tx_ddd_test', $tableNames, 'Check that extension ddd is installed. The extension can be found in TestExtensions/.');
 		$this->assertNotContains(
 			'tx_bbb_test',
 			$tableNames,

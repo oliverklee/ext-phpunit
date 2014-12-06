@@ -29,13 +29,6 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	protected $subject = NULL;
 
 	/**
-	 * the absolute path to the fixtures directory for this testcase
-	 *
-	 * @var string
-	 */
-	private $fixturesPath = '';
-
-	/**
 	 * backup of $GLOBALS['TYPO3_CONF_VARS']
 	 *
 	 * @var array
@@ -57,8 +50,6 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 		$this->extensionSettingsService = new Tx_Phpunit_TestingDataContainer();
 		$this->subject->injectExtensionSettingsService($this->extensionSettingsService);
-
-		$this->fixturesPath = ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Service/Fixtures/';
 	}
 
 	protected function tearDown() {
@@ -477,7 +468,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	public function findTestsPathForExtensionForExtensionWithoutTestsPathThrowsException() {
 		if (!ExtensionManagementUtility::isLoaded('ccc')) {
 			$this->markTestSkipped(
-				'This test can only be run if the extension "ccc" from Tests/Unit/Fixtures/Extensions/ is installed.'
+				'This test can only be run if the extension "ccc" from TestExtensions/ is installed.'
 			);
 		}
 
@@ -506,7 +497,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	public function findTestsPathForExtensionForExtensionWithLowerCaseTestsDirectoryReturnsThatDirectory() {
 		if (!ExtensionManagementUtility::isLoaded('bbb')) {
 			$this->markTestSkipped(
-				'This test can only be run if the extension "bbb" from Tests/Unit/Fixtures/Extensions/ is installed.'
+				'This test can only be run if the extension "bbb" from TestExtensions/ is installed.'
 			);
 		}
 
@@ -745,7 +736,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 		if (!ExtensionManagementUtility::isLoaded('user_phpunittest')) {
 			$this->markTestSkipped(
 				'The Extension user_phpunittest is not installed, but needs to be installed. ' .
-					'Please install it from EXT:phpunit/Tests/Unit/Fixtures/Extensions/user_phpunittest/.'
+					'Please install it from EXT:phpunit/TestExtensions/user_phpunittest/.'
 			);
 		}
 
