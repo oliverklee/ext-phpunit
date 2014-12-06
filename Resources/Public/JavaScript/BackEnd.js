@@ -1,10 +1,4 @@
-/*
- * First some ugly JavaScript code (polluting the global namespace)
- */
-script_ended = 0;
-function jumpToUrl(URL)	{	//
-	document.location = URL;
-}
+'use strict'
 
 /**
  * @param {string} id
@@ -85,7 +79,6 @@ function setProgressBarClass(className) {
 			checkbox = 'runSeleniumTests';
 			break;
 		default:
-			break;
 		}
 
 		YAHOO.util.Connect.asyncRequest('POST', 'ajax.php',

@@ -121,10 +121,10 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper extends Tx_Phpunit_View
 			array(
 				'name' => Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE .
 					'[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE . ']',
-				'onchange' => 'jumpToUrl(\'' . $this->action . '&' .
+				'onchange' => 'document.location = \'' . $this->action . '&' .
 					Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE .
 					'[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE . ']=' .
-					'\'+this.options[this.selectedIndex].value,this);',
+					'\'+this.options[this.selectedIndex].value;',
 				'style' => $selectedExtensionStyle,
 			),
 			implode(LF, $renderedOptionTags)
