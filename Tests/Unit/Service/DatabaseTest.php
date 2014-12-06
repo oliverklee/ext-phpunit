@@ -47,7 +47,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 *
 	 * @param string $valueList comma-separated list of values, may be empty
 	 *
-	 * @return array the separate values, sorted numerically, may be empty
+	 * @return int[] the separate values, sorted numerically, may be empty
 	 */
 	private function sortExplode($valueList) {
 		if ($valueList == '') {

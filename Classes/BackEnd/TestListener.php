@@ -301,7 +301,7 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener 
 	 * Returns the first trace information which is not caused by the PHPUnit file
 	 * "Framework/Assert.php".
 	 *
-	 * @param array $traceData the trace data
+	 * @param array[] $traceData the trace data
 	 *
 	 * @return array trace information
 	 */

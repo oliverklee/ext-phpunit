@@ -49,7 +49,7 @@ class Tx_Phpunit_Framework {
 	 * prefixes of additional extensions to which this instance of the testing
 	 * framework has access (e.g. "tx_seminars")
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	protected $additionalTablePrefixes = array();
 
@@ -57,7 +57,7 @@ class Tx_Phpunit_Framework {
 	 * all own DB table names to which this instance of the testing framework
 	 * has access
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	protected $ownAllowedTables = array();
 
@@ -65,7 +65,7 @@ class Tx_Phpunit_Framework {
 	 * all additional DB table names to which this instance of the testing
 	 * framework has access
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	protected $additionalAllowedTables = array();
 
@@ -73,7 +73,7 @@ class Tx_Phpunit_Framework {
 	 * all system table names to which this instance of the testing framework
 	 * has access
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	protected $allowedSystemTables = array(
 		'be_users', 'fe_groups', 'fe_users', 'pages', 'sys_template', 'tt_content', 'be_groups', 'sys_file',
@@ -84,7 +84,7 @@ class Tx_Phpunit_Framework {
 	 * all "dirty" non-system tables (i.e. all tables that were used for testing
 	 * and need to be cleaned up)
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	protected $dirtyTables = array();
 
@@ -92,14 +92,14 @@ class Tx_Phpunit_Framework {
 	 * all "dirty" system tables (i.e. all tables that were used for testing and
 	 * need to be cleaned up)
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	protected $dirtySystemTables = array();
 
 	/**
 	 * sorting values of all relation tables
 	 *
-	 * @var array
+	 * @var array[]
 	 */
 	protected $relationSorting = array();
 
@@ -119,15 +119,15 @@ class Tx_Phpunit_Framework {
 	 * the names of the created dummy files relative to the upload folder of the
 	 * extension to test
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	protected $dummyFiles = array();
 
 	/**
-	 * the names of the created dummy folders relative to theupload folder of
+	 * the names of the created dummy folders relative to the upload folder of
 	 * the extension to test
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	protected $dummyFolders = array();
 
@@ -155,7 +155,7 @@ class Tx_Phpunit_Framework {
 	/**
 	 * hook objects for this class
 	 *
-	 * @var array
+	 * @var Tx_Phpunit_Interface_FrameworkCleanupHook[]
 	 */
 	static protected $hooks = array();
 
@@ -182,7 +182,7 @@ class Tx_Phpunit_Framework {
 	 * @param string $tablePrefix
 	 *        the table name prefix of the extension for which this instance of
 	 *        the testing framework should be used
-	 * @param array $additionalTablePrefixes
+	 * @param string[] $additionalTablePrefixes
 	 *        the additional table name prefixes of the extensions for which
 	 *        this instance of the testing framework should be used, may be empty
 	 */
@@ -909,7 +909,7 @@ class Tx_Phpunit_Framework {
 	 * @param string $fileName
 	 *        path of the dummy ZIP archive to create, relative to the calling
 	 *        extension's upload directory, must not be empty
-	 * @param array $filesToAddToArchive
+	 * @param string[] $filesToAddToArchive
 	 *        Absolute paths of the files to add to the ZIP archive. Note that
 	 *        the archives directory structure will be relative to the upload
 	 *        folder path, so only files within this folder or in sub-folders of
@@ -1809,7 +1809,7 @@ class Tx_Phpunit_Framework {
 	/**
 	 * Returns the list of allowed table names.
 	 *
-	 * @return array
+	 * @return string[]
 	 *         all allowed table names for this instance of the testing framework
 	 */
 	public function getListOfOwnAllowedTableNames() {
@@ -1819,7 +1819,7 @@ class Tx_Phpunit_Framework {
 	/**
 	 * Returns the list of additional allowed table names.
 	 *
-	 * @return array
+	 * @return string[]
 	 *         all additional allowed table names for this instance of the
 	 *         testing framework, may be empty
 	 */
@@ -1858,7 +1858,7 @@ class Tx_Phpunit_Framework {
 	 * Returns the list of tables that contain dummy records from testing. These
 	 * tables are called "dirty tables" as they need to be cleaned up.
 	 *
-	 * @return array
+	 * @return string[]
 	 *         associative array containing names of database tables that need
 	 *         to be cleaned up
 	 */
@@ -1871,7 +1871,7 @@ class Tx_Phpunit_Framework {
 	 * testing. These tables are called "dirty tables" as they need to be
 	 * cleaned up.
 	 *
-	 * @return array
+	 * @return string[]
 	 *         associative array containing names of system database tables that
 	 *         need to be cleaned up
 	 */
@@ -1973,7 +1973,7 @@ class Tx_Phpunit_Framework {
 	/**
 	 * Gets all hooks for this class.
 	 *
-	 * @return array the hook objects, will be empty if no hooks have been set
+	 * @return Tx_Phpunit_Interface_FrameworkCleanupHook[] the hook objects, will be empty if no hooks have been set
 	 */
 	protected function getHooks() {
 		if (!self::$hooksHaveBeenRetrieved) {

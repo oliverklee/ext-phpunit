@@ -182,12 +182,12 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	/**
 	 * Imports the ext_tables.sql statements from the given extensions.
 	 *
-	 * @param array $extensions
+	 * @param string[] $extensions
 	 *        keys of the extensions to import, may be empty
 	 * @param bool $importDependencies
 	 *        whether to import dependency extensions on which the given extensions
 	 *        depend as well
-	 * @param array &$skipDependencies
+	 * @param string[] &$skipDependencies
 	 *        keys of the extensions to skip, may be empty, will be modified
 	 *
 	 * @return void

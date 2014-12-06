@@ -38,13 +38,13 @@ class Tx_Phpunit_Tests_BackEnd_Fixtures_DataProviderTest extends Tx_Phpunit_Test
 	 *
 	 * @see dataProviderTest
 	 *
-	 * @return array<array>
+	 * @return array[]
 	 */
 	public function dataProvider() {
 		return array(
 			'some data' => array(),
 			'more data' => array(),
-			'and even more data' => array()
+			'and even more data' => array(),
 		);
 	}
 

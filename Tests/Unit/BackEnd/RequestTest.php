@@ -30,7 +30,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	 * Exclude TYPO3_DB from backup/ restore of $GLOBALS
 	 * because resource types cannot be handled during serializing.
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	protected $backupGlobalsBlacklist = array('TYPO3_DB');
 

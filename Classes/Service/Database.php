@@ -36,12 +36,12 @@ class Tx_Phpunit_Service_Database {
 	/**
 	 * cached results for the enableFields function
 	 *
-	 * @var array
+	 * @var array[]
 	 */
 	static private $enableFieldsCache = array();
 
 	/**
-	 * @var array cache for the results of existsTable with the table names
+	 * @var array[] cache for the results of existsTable with the table names
 	 *            as keys and the table SHOW STATUS information (in an array)
 	 *            as values
 	 */
@@ -51,14 +51,14 @@ class Tx_Phpunit_Service_Database {
 	 * cache for the results of hasTableColumn with the column names as keys and
 	 * the SHOW COLUMNS field information (in an array) as values
 	 *
-	 * @var array
+	 * @var array[]
 	 */
 	static private $tableColumnCache = array();
 
 	/**
 	 * cache for all TCA arrays
 	 *
-	 * @var array
+	 * @var array[]
 	 */
 	static private $tcaCache = array();
 
@@ -361,7 +361,7 @@ class Tx_Phpunit_Service_Database {
 	 * @param int $offset
 	 *        the offset to start the result for, must be >= 0
 	 *
-	 * @return array the single result row, will not be empty
+	 * @return string[] the single result row, will not be empty
 	 *
 	 * @throws Tx_Phpunit_Exception_EmptyQueryResult if there is no matching record
 	 */
@@ -396,7 +396,7 @@ class Tx_Phpunit_Service_Database {
 	 * @param string $limit
 	 *        LIMIT value ([begin,]max), may be empty
 	 *
-	 * @return array
+	 * @return array[]
 	 *         the query result rows, will be empty if there are no matching records
 	 *
 	 * @throws Tx_Phpunit_Exception_Database if an error has occurred
@@ -436,7 +436,7 @@ class Tx_Phpunit_Service_Database {
 	 * @param string $limit
 	 *        LIMIT value ([begin,]max), may be empty
 	 *
-	 * @return array
+	 * @return string[]
 	 *         one column from the the query result rows, will be empty if there
 	 *         are no matching records
 	 *
@@ -562,7 +562,7 @@ class Tx_Phpunit_Service_Database {
 	 * Returns a list of all table names that are available in the current
 	 * database.
 	 *
-	 * @return array list of table names
+	 * @return string[] list of table names
 	 */
 	static public function getAllTableNames() {
 		self::retrieveTableNames();
@@ -719,7 +719,7 @@ class Tx_Phpunit_Service_Database {
 	 * @param string $tableName
 	 *        the table name to look up, must not be empty
 	 *
-	 * @return array associative array with the TCA description for this table
+	 * @return array[] associative array with the TCA description for this table
 	 *
 	 * @throws BadMethodCallException
 	 */

@@ -42,7 +42,7 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface {
 	/**
 	 * the cached result of findTestableForEverything
 	 *
-	 * @var array
+	 * @var Tx_Phpunit_Testable[]
 	 */
 	protected $allTestables = array();
 

@@ -297,7 +297,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	/**
 	 * Data provider for valid test case class names.
 	 *
-	 * @return array<array>
+	 * @return array[]
 	 */
 	public function validTestCaseClassNameDataProvider() {
 		// Note: This currently does not contain any other classes as loading any other valid test case classes would
@@ -325,7 +325,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	/**
 	 * Data provider for invalid test case class names.
 	 *
-	 * @return array<array>
+	 * @return array[]
 	 */
 	public function invalidTestCaseClassNameDataProvider() {
 		$this->createDummyInvalidTestCaseClasses();

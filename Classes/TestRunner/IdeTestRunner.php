@@ -24,7 +24,7 @@ class Tx_Phpunit_TestRunner_IdeTestRunner extends Tx_Phpunit_TestRunner_Abstract
 	/**
 	 * Additional help text for the command line
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	protected $additionalHelp = array(
 		'name' => 'Tx_Phpunit_TestRunner_IdeTestRunner',
