@@ -114,7 +114,7 @@ class Tx_Phpunit_Service_Database {
 		// maps $showHidden (-1..1) to (0..2) which ensures valid array keys
 		$showHiddenKey = $showHidden + 1;
 		$ignoresKey = serialize($ignoreArray);
-		$previewKey = intval($noVersionPreview);
+		$previewKey = (int)$noVersionPreview;
 		if (!isset(self::$enableFieldsCache[$tableName][$showHiddenKey][$ignoresKey][$previewKey])) {
 			self::retrievePageForEnableFields();
 			self::$enableFieldsCache[$tableName][$showHiddenKey][$ignoresKey][$previewKey]
@@ -485,7 +485,7 @@ class Tx_Phpunit_Service_Database {
 			'COUNT(' . $columns . ') AS phpunit_counter', $tableNames, $whereClause
 		);
 
-		return intval($result['phpunit_counter']);
+		return (int)$result['phpunit_counter'];
 	}
 
 	/**

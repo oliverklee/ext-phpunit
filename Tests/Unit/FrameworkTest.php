@@ -108,7 +108,7 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 			'uid_local = ' . $uidLocal . ' AND uid_foreign = ' . $uidForeign
 		);
 
-		return intval($row['sorting']);
+		return (int)$row['sorting'];
 	}
 
 	/**
@@ -875,7 +875,7 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 
 		$this->assertSame(
 			1,
-			intval($row['related_records'])
+			(int)$row['related_records']
 		);
 	}
 
@@ -904,7 +904,7 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 
 		$this->assertSame(
 			2,
-			intval($row['related_records'])
+			(int)$row['related_records']
 		);
 	}
 
@@ -955,7 +955,7 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 
 		$this->assertSame(
 			1,
-			intval($row['bidirectional'])
+			(int)$row['bidirectional']
 		);
 	}
 
@@ -981,7 +981,7 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 
 		$this->assertSame(
 			1,
-			intval($row['related_records'])
+			(int)$row['related_records']
 		);
 	}
 
@@ -2409,7 +2409,7 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 
 		$this->assertSame(
 			1,
-			intval($row['doktype'])
+			(int)$row['doktype']
 		);
 	}
 
@@ -2432,7 +2432,7 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 
 		$this->assertSame(
 			0,
-			intval($row['pid'])
+			(int)$row['pid']
 		);
 	}
 
@@ -2456,7 +2456,7 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 
 		$this->assertSame(
 			$parent,
-			intval($row['pid'])
+			(int)$row['pid']
 		);
 	}
 
@@ -2635,7 +2635,7 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 
 		$this->assertSame(
 			254,
-			intval($row['doktype'])
+			(int)$row['doktype']
 		);
 	}
 
@@ -2658,7 +2658,7 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 
 		$this->assertSame(
 			0,
-			intval($row['pid'])
+			(int)$row['pid']
 		);
 	}
 
@@ -2682,7 +2682,7 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 
 		$this->assertSame(
 			$parent,
-			intval($row['pid'])
+			(int)$row['pid']
 		);
 	}
 
@@ -2861,7 +2861,7 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 
 		$this->assertSame(
 			0,
-			intval($row['pid'])
+			(int)$row['pid']
 		);
 	}
 
@@ -2885,7 +2885,7 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 
 		$this->assertSame(
 			$parent,
-			intval($row['pid'])
+			(int)$row['pid']
 		);
 	}
 
@@ -4716,7 +4716,7 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 
 		$this->assertSame(
 			$frontEndUserGroupUid,
-			intval($dbResultRow['usergroup'])
+			(int)$dbResultRow['usergroup']
 		);
 	}
 
@@ -4777,7 +4777,7 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 
 		$this->assertSame(
 			42,
-			intval($row['related_records'])
+			(int)$row['related_records']
 		);
 	}
 

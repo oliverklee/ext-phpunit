@@ -40,7 +40,7 @@ abstract class Tx_Phpunit_AbstractDataContainer {
 	 * @return int the value for the given key, will be 0 if there is no value for the given key
 	 */
 	public function getAsInteger($key) {
-		return intval($this->get($key));
+		return (int)$this->get($key);
 	}
 
 	/**

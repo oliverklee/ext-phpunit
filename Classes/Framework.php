@@ -647,12 +647,12 @@ class Tx_Phpunit_Framework {
 		}
 
 		// Checks that the two given UIDs are valid.
-		if (intval($uidLocal) <= 0) {
+		if ((int)$uidLocal <= 0) {
 			throw new \InvalidArgumentException(
 				'$uidLocal must be an integer > 0, but actually is "' . $uidLocal . '"', 1334439206
 			);
 		}
-		if (intval($uidForeign) <= 0) {
+		if ((int)$uidForeign <= 0) {
 			throw new \InvalidArgumentException(
 				'$uidForeign must be an integer > 0, but actually is "' . $uidForeign . '"', 1334439213
 			);
@@ -1332,7 +1332,7 @@ class Tx_Phpunit_Framework {
 	 * @throws \InvalidArgumentException
 	 */
 	public function loginFrontEndUser($userId) {
-		if (intval($userId) === 0) {
+		if ((int)$userId === 0) {
 			throw new \InvalidArgumentException('The user ID must be > 0.', 1334439475);
 		}
 		if (!$this->hasFakeFrontEnd()) {
@@ -1803,7 +1803,7 @@ class Tx_Phpunit_Framework {
 			);
 		}
 
-		return intval($autoIncrement);
+		return (int)$autoIncrement;
 	}
 
 	/**

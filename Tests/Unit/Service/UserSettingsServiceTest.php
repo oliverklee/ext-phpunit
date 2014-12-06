@@ -265,7 +265,7 @@ class Tx_Phpunit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase {
 	public function getAsStringForExistingIntegerValueReturnsStringValueFromUserSettings() {
 		$key = 'foo';
 		$value = '42';
-		$this->getBackEndUserMock()->uc['Tx_Phpunit_BackEndSettings'][$key] = intval($value);
+		$this->getBackEndUserMock()->uc['Tx_Phpunit_BackEndSettings'][$key] = (int)$value;
 
 		$this->assertSame(
 			$value,
