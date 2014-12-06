@@ -1,3 +1,21 @@
+cf32dbd [CLEANUP] Drop the legacy manual.sxw file
+c19b9dc [TASK] Update the API documentation
+706ecd1 [TASK] Update to PHPUnit 4.4.0.
+1e15d7f [CLEANUP] Use an (int) cast instead of intval
+dca25b8 [CLEANUP] Use "use strict" for the JavaScript files
+f2cd1d8 [CLEANUP] Drop the compatibility class files "class.*"
+e8ed7f4 [CLEANUP] Drop the Fixtures/ special cases from the TestFinder
+ec16542 [CLEANUP] Use the Foo[] notation for arrays
+3fe07dc [BUGFIX] Fix code inspection warnings
+f75bf8a [CLEANUP] Clean up $subject, setUp and tearDown
+244fddd [BUGFIX] Error 404 for RunnerRunning.gif on hover
+1b37fef [CLEANUP] Use "bool" and "int" instead of "boolean" and "integer"
+9a202c5 [BUGFIX] Use &quot; for quotes to make the HTML valid
+dcf1793 [BUGFIX] Fix typo in method name "enableShowMenoryAndTime"
+e0b2cb7 [BUGFIX] Stop using the BigDocument class.
+5278ed5 [BUGFIX] Followup: Add compat to TYPO3 CMS 7 / Drop t3lib-usage
+08c9219 [TASK] Add compat to TYPO3 CMS 7 / Drop t3lib-usage
+2c6a684 [TASK] Release PHPUnit 4.3.5
 b62b636 [TASK] Update PHPUnit to 4.3.5 and vfsStream to 1.4.0
 9d14852 [TASK] Update maximum PHP version to 5.6
 af66eb3 [BUGFIX] Set a NullCacheBackend in the TestingFramework
