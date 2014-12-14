@@ -34,13 +34,13 @@ tests:
     */
    private $testingFramework;
 
-   public function setUp() {
+   protected function setUp() {
      $this->testingFramework = new Tx_Phpunit_Framework('tx_news2');
 
      $this->fixture = new ...;
    }
 
-   public function tearDown() {
+   protected function tearDown() {
      $this->testingFramework->cleanUp();
 
      unset($this->fixture, $this->testingFramework);
