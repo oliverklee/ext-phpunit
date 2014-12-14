@@ -14,9 +14,7 @@
 
 use TYPO3\CMS\Core\Controller\CommandLineController;
 
-if (!defined('TYPO3_cliMode')) {
-	die('Access denied: CLI only.');
-}
+defined('TYPO3_cliMode') or die('Access denied: CLI only.');
 
 /**
  * Abstract TestRunner class. Can be used to implement other TestRunners which need CLI scope.

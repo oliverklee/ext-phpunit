@@ -1,7 +1,5 @@
 <?php
-if (!defined('TYPO3_MODE')) {
-	die('Access denied.');
-}
+defined('TYPO3_MODE') or die('Access denied.');
 
 $GLOBALS['TCA']['user_phpunittest2_test'] = array(
 	'ctrl' => $GLOBALS['TCA']['user_phpunittest2_test']['ctrl'],

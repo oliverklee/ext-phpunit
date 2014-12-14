@@ -24,9 +24,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 
-if (!defined('TYPO3_MODE')) {
-	die('Access denied.');
-}
+defined('TYPO3_MODE') or die('Access denied.');
 
 /** @var \TYPO3\CMS\Lang\LanguageService $languageService */
 $languageService = $GLOBALS['LANG'];
