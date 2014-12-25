@@ -1417,10 +1417,8 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	 */
 	public function getAutoIncrementReturnsOneForTruncatedTable() {
 		Tx_Phpunit_Service_Database::enableQueryLogging();
-		/** @var DatabaseConnection $databaseConnection */
-		$databaseConnection = $GLOBALS['TYPO3_DB'];
-		$dbResult = $databaseConnection->sql_query('TRUNCATE TABLE tx_phpunit_test;');
-		if (!$dbResult) {
+		$dbResult = Tx_Phpunit_Service_Database::getDatabaseConnection()->sql_query('TRUNCATE TABLE tx_phpunit_test;');
+		if ($dbResult === FALSE) {
 			throw new Tx_Phpunit_Exception_Database(1334438839);
 		}
 

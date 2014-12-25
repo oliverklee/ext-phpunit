@@ -187,10 +187,11 @@ class Tx_Phpunit_Service_Database {
 		);
 
 		$subPages = array();
-		while (($row = self::getDatabaseConnection()->sql_fetch_assoc($dbResult))) {
+		$databaseConnection = self::getDatabaseConnection();
+		while (($row = $databaseConnection->sql_fetch_assoc($dbResult))) {
 			$subPages[] = $row['uid'];
 		}
-		self::getDatabaseConnection()->sql_free_result($dbResult);
+		$databaseConnection->sql_free_result($dbResult);
 
 		if (!empty($subPages)) {
 			$result = $startPages . ',' . self::createRecursivePageList(implode(',', $subPages), $recursionDepth - 1);
@@ -409,10 +410,11 @@ class Tx_Phpunit_Service_Database {
 			$fieldNames, $tableNames, $whereClause, $groupBy, $orderBy, $limit
 		);
 
-		while (($recordData = self::getDatabaseConnection()->sql_fetch_assoc($dbResult))) {
+		$databaseConnection = self::getDatabaseConnection();
+		while (($recordData = $databaseConnection->sql_fetch_assoc($dbResult))) {
 			$result[] = $recordData;
 		}
-		self::getDatabaseConnection()->sql_free_result($dbResult);
+		$databaseConnection->sql_free_result($dbResult);
 
 		return $result;
 	}
@@ -745,7 +747,7 @@ class Tx_Phpunit_Service_Database {
 	 *
 	 * @return DatabaseConnection
 	 */
-	static protected function getDatabaseConnection() {
+	static public function getDatabaseConnection() {
 		return $GLOBALS['TYPO3_DB'];
 	}
 }

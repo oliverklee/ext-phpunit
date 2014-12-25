@@ -1414,4 +1414,14 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 			)
 		);
 	}
+
+	/**
+	 * @test
+	 */
+	public function getDatabaseConnectionReturnsGlobalsDatabaseConnection() {
+		$this->assertSame(
+			$GLOBALS['TYPO3_DB'],
+			Tx_Phpunit_Service_Database::getDatabaseConnection()
+		);
+	}
 }

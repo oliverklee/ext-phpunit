@@ -38,16 +38,18 @@ class Tx_Phpunit_Exception_EmptyQueryResultTest extends Tx_Phpunit_TestCase {
 	private $savedStoreLastBuildQuery;
 
 	protected function setUp() {
-		$this->savedDebugOutput = $this->getDatabaseConnection()->debugOutput;
-		$this->savedStoreLastBuildQuery = $this->getDatabaseConnection()->store_lastBuiltQuery;
+		$databaseConnection = Tx_Phpunit_Service_Database::getDatabaseConnection();
+		$this->savedDebugOutput = $databaseConnection->debugOutput;
+		$this->savedStoreLastBuildQuery = $databaseConnection->store_lastBuiltQuery;
 
-		$this->getDatabaseConnection()->debugOutput = FALSE;
-		$this->getDatabaseConnection()->store_lastBuiltQuery = TRUE;
+		$databaseConnection->debugOutput = FALSE;
+		$databaseConnection->store_lastBuiltQuery = TRUE;
 	}
 
 	protected function tearDown() {
-		$this->getDatabaseConnection()->debugOutput = $this->savedDebugOutput;
-		$this->getDatabaseConnection()->store_lastBuiltQuery = $this->savedStoreLastBuildQuery;
+		$databaseConnection = Tx_Phpunit_Service_Database::getDatabaseConnection();
+		$databaseConnection->debugOutput = $this->savedDebugOutput;
+		$databaseConnection->store_lastBuiltQuery = $this->savedStoreLastBuildQuery;
 	}
 
 	/**
@@ -65,21 +67,12 @@ class Tx_Phpunit_Exception_EmptyQueryResultTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function messageAfterQueryWithLastQueryEnabledContainsLastQuery() {
-		$this->getDatabaseConnection()->exec_SELECTquery('title', 'tx_phpunit_test', '');
+		Tx_Phpunit_Service_Database::getDatabaseConnection()->exec_SELECTquery('title', 'tx_phpunit_test', '');
 		$subject = new Tx_Phpunit_Exception_EmptyQueryResult();
 
 		$this->assertContains(
 			'SELECT',
 			$subject->getMessage()
 		);
-	}
-
-	/**
-	 * Returns $GLOBALS['TYPO3_DB'].
-	 *
-	 * @return DatabaseConnection
-	 */
-	protected function getDatabaseConnection() {
-		return $GLOBALS['TYPO3_DB'];
 	}
 }

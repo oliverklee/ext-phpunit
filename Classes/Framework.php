@@ -13,7 +13,6 @@
  */
 
 use TYPO3\CMS\Core\Cache\CacheManager;
-use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Utility\File\BasicFileUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Exception;
@@ -1675,7 +1674,7 @@ class Tx_Phpunit_Framework {
 		Tx_Phpunit_Service_Database::enableQueryLogging();
 		// Updates the auto increment index for this table. The index will be
 		// set to one UID above the highest existing UID.
-		$dbResult = $this->getDatabaseConnection()->sql_query(
+		$dbResult = Tx_Phpunit_Service_Database::getDatabaseConnection()->sql_query(
 			'ALTER TABLE ' . $tableName . ' AUTO_INCREMENT=' . $newAutoIncrementValue . ';'
 		);
 		if ($dbResult === FALSE) {
@@ -1785,15 +1784,15 @@ class Tx_Phpunit_Framework {
 		}
 
 		Tx_Phpunit_Service_Database::enableQueryLogging();
-		$dbResult = $this->getDatabaseConnection()->sql_query(
+		$dbResult = Tx_Phpunit_Service_Database::getDatabaseConnection()->sql_query(
 			'SHOW TABLE STATUS WHERE Name = \'' . $tableName . '\';'
 		);
 		if (!$dbResult) {
 			throw new Tx_Phpunit_Exception_Database(1334439578);
 		}
 
-		$row = $this->getDatabaseConnection()->sql_fetch_assoc($dbResult);
-		$this->getDatabaseConnection()->sql_free_result($dbResult);
+		$row = Tx_Phpunit_Service_Database::getDatabaseConnection()->sql_fetch_assoc($dbResult);
+		Tx_Phpunit_Service_Database::getDatabaseConnection()->sql_free_result($dbResult);
 
 		$autoIncrement = $row['Auto_increment'];
 		if ($autoIncrement === NULL) {
@@ -1940,14 +1939,14 @@ class Tx_Phpunit_Framework {
 		}
 
 		Tx_Phpunit_Service_Database::enableQueryLogging();
-		$dbResult = $this->getDatabaseConnection()->sql_query(
+		$dbResult = Tx_Phpunit_Service_Database::getDatabaseConnection()->sql_query(
 			'UPDATE ' . $tableName . ' SET ' . $fieldName . '=' . $fieldName . '+1 WHERE uid=' . $uid
 		);
 		if (!$dbResult) {
 			throw new Tx_Phpunit_Exception_Database(1334439623);
 		}
 
-		if ($this->getDatabaseConnection()->sql_affected_rows() === 0) {
+		if (Tx_Phpunit_Service_Database::getDatabaseConnection()->sql_affected_rows() === 0) {
 			throw new Tx_Phpunit_Exception_Database(1334439632);
 		}
 
@@ -2009,14 +2008,5 @@ class Tx_Phpunit_Framework {
 	 */
 	protected function getFrontEnd() {
 		return $GLOBALS['TSFE'];
-	}
-
-	/**
-	 * Returns $GLOBALS['TYPO3_DB'].
-	 *
-	 * @return DatabaseConnection
-	 */
-	protected function getDatabaseConnection() {
-		return $GLOBALS['TYPO3_DB'];
 	}
 }
