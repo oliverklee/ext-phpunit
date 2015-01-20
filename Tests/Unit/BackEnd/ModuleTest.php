@@ -747,7 +747,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->userSettingsService->set('extSel', $selectedExtension);
 
 		$this->assertContains(
-			'background: url(../typo3conf/ext/phpunit/ext_icon.gif)',
+			'background: url(' . ExtensionManagementUtility::extRelPath('phpunit') . 'ext_icon.gif)',
 			$this->subject->createTestCaseSelector($selectedExtension)
 		);
 	}

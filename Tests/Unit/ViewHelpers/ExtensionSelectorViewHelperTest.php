@@ -250,7 +250,7 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_
 		$extensionKey = '"php&unit"';
 		$testable = new Tx_Phpunit_Testable();
 		$testable->setKey($extensionKey);
-		$testable->setIconPath('typo3conf/ext/phpunit/ext_icon.gif');
+		$testable->setIconPath(ExtensionManagementUtility::extPath('phpunit') . 'ext_icon.gif');
 
 		$subject = new Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
 		$subject->injectOutputService($this->outputService);
@@ -277,7 +277,7 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_
 		$extensionKey = 'phpunit';
 		$testable = new Tx_Phpunit_Testable();
 		$testable->setKey($extensionKey);
-		$testable->setIconPath('typo3conf/ext/phpunit/ext_&_icon.gif');
+		$testable->setIconPath(ExtensionManagementUtility::extPath('phpunit') . 'ext_&_icon.gif');
 
 		$subject = new Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
 		$subject->injectOutputService($this->outputService);

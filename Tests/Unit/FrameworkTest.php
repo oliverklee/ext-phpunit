@@ -4450,7 +4450,7 @@ class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
 		$this->assertContains(
 			'<img ',
 			$GLOBALS['TSFE']->cObj->IMAGE(
-				array('file' => 'typo3conf/ext/phpunit/Tests/Unit/Fixtures/test.png')
+				array('file' => ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Fixtures/test.png')
 			)
 		);
 	}

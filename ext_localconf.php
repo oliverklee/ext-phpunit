@@ -20,7 +20,7 @@ require_once($composerAutoloadFile);
 require_once(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('phpunit') . 'Migrations/vfsStream.php');
 
 $GLOBALS['TYPO3_CONF_VARS']['BE']['AJAX']['Tx_Phpunit_BackEnd_Ajax'] =
-	'typo3conf/ext/phpunit/Classes/BackEnd/Ajax.php:Tx_Phpunit_BackEnd_Ajax->ajaxBroker';
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('phpunit') . 'Classes/BackEnd/Ajax.php:Tx_Phpunit_BackEnd_Ajax->ajaxBroker';
 
 if (TYPO3_MODE === 'BE') {
 	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['GLOBAL']['cliKeys']['phpunit'] = array(
