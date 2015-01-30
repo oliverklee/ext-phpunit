@@ -1173,7 +1173,7 @@ class Tx_Phpunit_Framework {
 		}
 
 		if (!self::$fileNameProcessor) {
-			self::$fileNameProcessor = GeneralUtility::makeInstance('\\TYPO3\\CMS\\Core\\Utility\\File\\BasicFileUtility');
+			self::$fileNameProcessor = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Utility\\File\\BasicFileUtility');
 		}
 
 		return self::$fileNameProcessor->getUniqueName(
