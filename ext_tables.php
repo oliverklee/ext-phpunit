@@ -24,7 +24,7 @@ $GLOBALS['TCA']['tx_phpunit_test'] = array(
 	)
 );
 
-t3lib_extMgm::addTCAcolumns(
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns(
 	'fe_users',
 	array(
 		'tx_phpunit_is_dummy_record' => array(),
