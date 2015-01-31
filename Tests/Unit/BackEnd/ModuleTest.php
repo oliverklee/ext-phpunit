@@ -725,16 +725,12 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 */
-	public function createTestCaseSelectorNotCreatesOptionForExistingTestcaseFromNotSelectedExtension() {
-		if (!ExtensionManagementUtility::isLoaded('oelib')) {
-			$this->markTestSkipped('This tests requires the "oelib" extension to be loaded.');
-		}
-
+	public function createTestCaseSelectorNotCreatesOptionForExistingTestcaseFromNotSelectedLoadedExtension() {
 		$selectedExtension = 'phpunit';
 		$this->userSettingsService->set('extSel', $selectedExtension);
 
 		$this->assertNotContains(
-			'value="tx_oelib_DataMapperTest"',
+			'GeneralUtilityTest"',
 			$this->subject->createTestCaseSelector($selectedExtension)
 		);
 	}
