@@ -1059,14 +1059,11 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function getTcaForTableCanLoadFieldsAddedByExtensions() {
-		if (!ExtensionManagementUtility::isLoaded('sr_feuser_register')) {
-			$this->markTestSkipped(
-				'This test is only applicable if sr_feuser_register is loaded.'
-			);
-		}
 		$tca = Tx_Phpunit_Service_Database::getTcaForTable('fe_users');
 
-		$this->assertTrue(isset($tca['columns']['gender']));
+		$this->assertTrue(
+			isset($tca['columns']['tx_phpunit_is_dummy_record'])
+		);
 	}
 
 

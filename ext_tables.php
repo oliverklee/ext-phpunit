@@ -24,6 +24,13 @@ $GLOBALS['TCA']['tx_phpunit_test'] = array(
 	)
 );
 
+t3lib_extMgm::addTCAcolumns(
+	'fe_users',
+	array(
+		'tx_phpunit_is_dummy_record' => array(),
+	)
+);
+
 if (TYPO3_MODE === 'BE') {
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule('tools', 'txphpunitbeM1', '', \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Classes/BackEnd/');
 
