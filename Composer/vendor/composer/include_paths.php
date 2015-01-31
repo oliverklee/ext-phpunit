@@ -10,5 +10,4 @@ return array(
     $vendorDir . '/phpunit/php-file-iterator',
     $vendorDir . '/phpunit/php-timer',
     $vendorDir . '/phpunit/phpunit-selenium',
-    $vendorDir . '/phpunit/php-code-coverage',
 );
