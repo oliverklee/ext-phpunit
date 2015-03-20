@@ -285,8 +285,11 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 	 * @return void
 	 */
 	protected function importStdDb() {
-		/** @var SqlExpectedSchemaService $sqlExpectedSchemaService */
-		$sqlExpectedSchemaService = GeneralUtility::makeInstance('TYPO3\\CMS\\Install\\Service\\SqlExpectedSchemaService');
+		/* @var TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
+		$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+		/** @var TYPO3\CMS\Install\Service\SqlExpectedSchemaService $sqlExpectedSchemaService */
+		$sqlExpectedSchemaService = $objectManager->get('TYPO3\\CMS\\Install\\Service\\SqlExpectedSchemaService');
+
 		$databaseDefinitions = $sqlExpectedSchemaService->getTablesDefinitionString(TRUE);
 
 		$this->importDatabaseDefinitions($databaseDefinitions);
