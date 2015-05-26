@@ -1299,6 +1299,9 @@ class Tx_Phpunit_Framework {
 	 * @return void
 	 */
 	protected function suppressFrontEndCookies() {
+		// avoid cookies from the phpMyAdmin extension
+		$GLOBALS['PHP_UNIT_TEST_RUNNING'] = TRUE;
+
 		$GLOBALS['_POST']['FE_SESSION_KEY'] = '';
 		$GLOBALS['_GET']['FE_SESSION_KEY'] = '';
 		$GLOBALS['TYPO3_CONF_VARS']['FE']['dontSetCookie'] = 1;
