@@ -373,7 +373,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 		$extensionSelectorViewHelper->injectOutputService($this->outputService);
 		$extensionSelectorViewHelper->injectUserSettingService($this->userSettingsService);
 		$extensionSelectorViewHelper->injectTestFinder($this->testFinder);
-		$extensionSelectorViewHelper->setAction($this->MCONF['_']);
+		$extensionSelectorViewHelper->setAction(BackendUtility::getModuleUrl('tools_txphpunitbeM1'));
 
 		$extensionSelectorViewHelper->render();
 	}
@@ -419,7 +419,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 
 		$currentStyle = $this->createIconStyle($extensionKey);
 
-		return '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">' .
+		return '<form action="' . htmlspecialchars(BackendUtility::getModuleUrl('tools_txphpunitbeM1')) . '" method="post">' .
 				'<p>' .
 					'<select style="' . $currentStyle . '" name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
 					Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE . ']">' .
@@ -501,7 +501,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 
 		$currentStyle = $this->createIconStyle($extensionKey);
 
-		return '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">
+		return '<form action="' . htmlspecialchars(BackendUtility::getModuleUrl('tools_txphpunitbeM1')) . '" method="post">
 				<p>
 					<select style="' . $currentStyle . '" name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
 					Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST . ']">
@@ -527,7 +527,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 	 *         HTML code with checkboxes and a surrounding form
 	 */
 	protected function createCheckboxes() {
-		$output = '<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">';
+		$output = '<form action="' . htmlspecialchars(BackendUtility::getModuleUrl('tools_txphpunitbeM1')) . '" method="post">';
 		$output .= '<div class="phpunit-controls">';
 		$failureState = $this->userSettingsService->getAsBoolean('failure') ? 'checked="checked"' : '';
 		$errorState = $this->userSettingsService->getAsBoolean('error') ? 'checked="checked"' : '';
@@ -886,7 +886,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 	 */
 	protected function renderReRunButton() {
 		$this->outputService->output(
-			'<form action="' . htmlspecialchars($this->MCONF['_']) . '" method="post">
+			'<form action="' . htmlspecialchars(BackendUtility::getModuleUrl('tools_txphpunitbeM1')) . '" method="post">
 				<p>
 					<button type="submit" name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . ' [' .
 					Tx_Phpunit_Interface_Request::PARAMETER_KEY_EXECUTE . ']" value="run" accesskey="r">' .
