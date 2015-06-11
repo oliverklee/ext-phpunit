@@ -59,7 +59,7 @@ class Framework_ProxyObjectTest extends PHPUnit_Framework_TestCase
                       ->enableProxyingToOriginalMethods()
                       ->getMock();
 
-        $proxy->expects($this->once())
+        $proxy->expects(self::once())
               ->method('doSomethingElse');
 
         $foo = new Foo;

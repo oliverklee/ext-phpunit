@@ -177,7 +177,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	public function createAccessibleProxyCreatesModuleSubclass() {
 		$className = $this->createAccessibleProxy();
 
-		$this->assertInstanceOf(
+		self::assertInstanceOf(
 			'Tx_Phpunit_BackEnd_Module',
 			new $className()
 		);
@@ -204,7 +204,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		$this->subject->main();
 
-		$this->assertContains(
+		self::assertContains(
 			$this->getLanguageService()->getLL('admin_rights_needed'),
 			$this->outputService->getCollectedOutput()
 		);
@@ -221,7 +221,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$subject->injectRequest($this->request);
 		$subject->injectOutputService($this->outputService);
 		$subject->injectUserSettingsService($this->userSettingsService);
-		$subject->expects($this->once())->method('renderRunTests');
+		$subject->expects(self::once())->method('renderRunTests');
 
 		$subject->main();
 	}
@@ -239,7 +239,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->userSettingsService->set('extSel', 'phpunit');
 		$subject->injectUserSettingsService($this->userSettingsService);
 
-		$subject->expects($this->once())->method('renderRunTestsIntro');
+		$subject->expects(self::once())->method('renderRunTestsIntro');
 
 		$this->request->set('command', '');
 
@@ -259,7 +259,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->userSettingsService->set('extSel', 'phpunit');
 		$subject->injectUserSettingsService($this->userSettingsService);
 
-		$subject->expects($this->never())->method('renderRunningTest');
+		$subject->expects(self::never())->method('renderRunningTest');
 
 		$this->request->set('command', '');
 
@@ -279,7 +279,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->userSettingsService->set('extSel', 'phpunit');
 		$subject->injectUserSettingsService($this->userSettingsService);
 
-		$subject->expects($this->once())->method('renderRunTestsIntro');
+		$subject->expects(self::once())->method('renderRunTestsIntro');
 
 		$this->request->set('command', 'invalid');
 
@@ -299,7 +299,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->userSettingsService->set('extSel', 'phpunit');
 		$subject->injectUserSettingsService($this->userSettingsService);
 
-		$subject->expects($this->never())->method('renderRunningTest');
+		$subject->expects(self::never())->method('renderRunningTest');
 
 		$this->request->set('command', 'invalid');
 
@@ -319,8 +319,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->userSettingsService->set('extSel', 'phpunit');
 		$subject->injectUserSettingsService($this->userSettingsService);
 
-		$subject->expects($this->once())->method('renderRunTestsIntro');
-		$subject->expects($this->once())->method('renderRunningTest');
+		$subject->expects(self::once())->method('renderRunTestsIntro');
+		$subject->expects(self::once())->method('renderRunningTest');
 
 		$this->request->set('command', 'runalltests');
 
@@ -340,8 +340,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->userSettingsService->set('extSel', 'phpunit');
 		$subject->injectUserSettingsService($this->userSettingsService);
 
-		$subject->expects($this->once())->method('renderRunTestsIntro');
-		$subject->expects($this->once())->method('renderRunningTest');
+		$subject->expects(self::once())->method('renderRunTestsIntro');
+		$subject->expects(self::once())->method('renderRunningTest');
 
 		$this->request->set('command', 'runTestCaseFile');
 
@@ -361,8 +361,8 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->userSettingsService->set('extSel', 'phpunit');
 		$subject->injectUserSettingsService($this->userSettingsService);
 
-		$subject->expects($this->once())->method('renderRunTestsIntro');
-		$subject->expects($this->once())->method('renderRunningTest');
+		$subject->expects(self::once())->method('renderRunTestsIntro');
+		$subject->expects(self::once())->method('renderRunningTest');
 
 		$this->request->set('command', 'runsingletest');
 
@@ -383,7 +383,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
 		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder');
-		$testFinder->expects($this->any())->method('existsTestableForAnything')->will($this->returnValue(FALSE));
+		$testFinder->expects(self::any())->method('existsTestableForAnything')->will(self::returnValue(FALSE));
 		$subject->injectTestFinder($testFinder);
 
 		$this->userSettingsService->set('extSel', 'phpunit');
@@ -391,7 +391,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		$subject->renderRunTestsIntro();
 
-		$this->assertContains(
+		self::assertContains(
 			$this->getLanguageService()->getLL('could_not_find_exts_with_tests'),
 			$this->outputService->getCollectedOutput()
 		);
@@ -412,13 +412,13 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
 		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder');
-		$testFinder->expects($this->any())->method('existsTestableForAnything')->will($this->returnValue(FALSE));
+		$testFinder->expects(self::any())->method('existsTestableForAnything')->will(self::returnValue(FALSE));
 		$subject->injectTestFinder($testFinder);
 
 		$this->userSettingsService->set('extSel', 'phpunit');
 		$subject->injectUserSettingsService($this->userSettingsService);
 
-		$subject->expects($this->never())->method('createExtensionSelector');
+		$subject->expects(self::never())->method('createExtensionSelector');
 
 		$subject->renderRunTestsIntro();
 	}
@@ -440,7 +440,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$subject->injectTestFinder($this->testFinder);
 		$subject->injectTestCaseService($this->testCaseService);
 
-		$subject->expects($this->once())->method('createExtensionSelector');
+		$subject->expects(self::once())->method('createExtensionSelector');
 
 		$subject->renderRunTestsIntro();
 	}
@@ -463,12 +463,12 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->userSettingsService->set('extSel', $selectedExtension);
 		$subject->injectUserSettingsService($this->userSettingsService);
 
-		$subject->expects($this->once())->method('createTestCaseSelector')
-			->with($selectedExtension)->will($this->returnValue('test case selector'));
+		$subject->expects(self::once())->method('createTestCaseSelector')
+			->with($selectedExtension)->will(self::returnValue('test case selector'));
 
 		$subject->renderRunTestsIntro();
 
-		$this->assertContains(
+		self::assertContains(
 			'test case selector',
 			$this->outputService->getCollectedOutput()
 		);
@@ -492,12 +492,12 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->userSettingsService->set('extSel', $selectedExtension);
 		$subject->injectUserSettingsService($this->userSettingsService);
 
-		$subject->expects($this->once())->method('createTestSelector')
-			->with($selectedExtension)->will($this->returnValue('test selector'));
+		$subject->expects(self::once())->method('createTestSelector')
+			->with($selectedExtension)->will(self::returnValue('test selector'));
 
 		$subject->renderRunTestsIntro();
 
-		$this->assertContains(
+		self::assertContains(
 			'test selector',
 			$this->outputService->getCollectedOutput()
 		);
@@ -521,12 +521,12 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->userSettingsService->set('extSel', $selectedExtension);
 		$subject->injectUserSettingsService($this->userSettingsService);
 
-		$subject->expects($this->once())->method('createTestSelector')
-			->with($selectedExtension)->will($this->returnValue('test selector'));
+		$subject->expects(self::once())->method('createTestSelector')
+			->with($selectedExtension)->will(self::returnValue('test selector'));
 
 		$subject->renderRunTestsIntro();
 
-		$this->assertContains(
+		self::assertContains(
 			'test selector',
 			$this->outputService->getCollectedOutput()
 		);
@@ -540,7 +540,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		vfsStreamWrapper::setRoot(new vfsStreamDirectory('Foo'));
 		$notExistingDirectory = 'vfs://Foo/bar';
 
-		$this->assertSame(
+		self::assertSame(
 			array(),
 			$this->subject->findTestCasesInDir($notExistingDirectory)
 		);
@@ -556,7 +556,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		/** @var $testCaseService Tx_Phpunit_Service_TestCaseService|PHPUnit_Framework_MockObject_MockObject */
 		$testCaseService = $this->getMock('Tx_Phpunit_Service_TestCaseService', array('findTestCaseFilesInDirectory'));
-		$testCaseService->expects($this->once())->method('findTestCaseFilesInDirectory')->with($directory);
+		$testCaseService->expects(self::once())->method('findTestCaseFilesInDirectory')->with($directory);
 		$this->subject->injectTestCaseService($testCaseService);
 
 		$this->subject->findTestCasesInDir($directory);
@@ -573,10 +573,10 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		/** @var $testCaseService Tx_Phpunit_Service_TestCaseService|PHPUnit_Framework_MockObject_MockObject */
 		$testCaseService = $this->getMock('Tx_Phpunit_Service_TestCaseService', array('findTestCaseFilesInDirectory'));
-		$testCaseService->expects($this->once())->method('findTestCaseFilesInDirectory')->will($this->returnValue($testFiles));
+		$testCaseService->expects(self::once())->method('findTestCaseFilesInDirectory')->will(self::returnValue($testFiles));
 		$this->subject->injectTestCaseService($testCaseService);
 
-		$this->assertSame(
+		self::assertSame(
 			array($directory => $testFiles),
 			$this->subject->findTestCasesInDir($directory)
 		);
@@ -594,7 +594,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			)
 		);
 
-		$this->assertTrue(
+		self::assertTrue(
 			class_exists('Tx_Phpunit_Tests_BackEnd_Fixtures_LoadMe', FALSE)
 		);
 	}
@@ -612,7 +612,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			)
 		);
 
-		$this->assertTrue(
+		self::assertTrue(
 			class_exists('Tx_Phpunit_Tests_BackEnd_Fixtures_LoadMeToo', FALSE)
 		);
 	}
@@ -632,7 +632,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 			)
 		);
 
-		$this->assertTrue(
+		self::assertTrue(
 			class_exists('Tx_Phpunit_Tests_Fixtures_LoadMe', FALSE)
 		);
 	}
@@ -641,7 +641,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function createIconStyleForLoadedExtensionReturnsExtensionIcon() {
-		$this->assertContains(
+		self::assertContains(
 			'url(' . ExtensionManagementUtility::extRelPath('phpunit') . 'ext_icon.gif)',
 			$this->subject->createIconStyle('phpunit')
 		);
@@ -677,7 +677,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$selectedExtension = 'phpunit';
 		$this->userSettingsService->set('extSel', $selectedExtension);
 
-		$this->assertContains(
+		self::assertContains(
 			'<form',
 			$this->subject->createTestCaseSelector( $selectedExtension)
 		);
@@ -690,7 +690,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$selectedExtension = '';
 		$this->userSettingsService->set('extSel', $selectedExtension);
 
-		$this->assertSame(
+		self::assertSame(
 			'',
 			$this->subject->createTestCaseSelector($selectedExtension)
 		);
@@ -703,7 +703,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$selectedExtension = Tx_Phpunit_Testable::ALL_EXTENSIONS;
 		$this->userSettingsService->set('extSel', $selectedExtension);
 
-		$this->assertSame(
+		self::assertSame(
 			'',
 			$this->subject->createTestCaseSelector($selectedExtension)
 		);
@@ -716,7 +716,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$selectedExtension = 'phpunit';
 		$this->userSettingsService->set('extSel', $selectedExtension);
 
-		$this->assertRegExp(
+		self::assertRegExp(
 			'/<option[^>]*value="Tx_Phpunit_BackEnd_ModuleTest"/',
 			$this->subject->createTestCaseSelector($selectedExtension)
 		);
@@ -729,7 +729,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$selectedExtension = 'phpunit';
 		$this->userSettingsService->set('extSel', $selectedExtension);
 
-		$this->assertNotContains(
+		self::assertNotContains(
 			'GeneralUtilityTest"',
 			$this->subject->createTestCaseSelector($selectedExtension)
 		);
@@ -742,7 +742,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$selectedExtension = 'phpunit';
 		$this->userSettingsService->set('extSel', $selectedExtension);
 
-		$this->assertContains(
+		self::assertContains(
 			'background: url(' . ExtensionManagementUtility::extRelPath('phpunit') . 'ext_icon.gif)',
 			$this->subject->createTestCaseSelector($selectedExtension)
 		);
@@ -756,7 +756,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->userSettingsService->set('extSel', $selectedExtension);
 		$this->request->set('testCaseFile', 'Tx_Phpunit_Service_TestFinderTest');
 
-		$this->assertRegExp(
+		self::assertRegExp(
 			'#<option [^>]* selected="selected">Tx_Phpunit_Service_TestFinderTest</option>#',
 			$this->subject->createTestCaseSelector($selectedExtension)
 		);
@@ -770,7 +770,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->userSettingsService->set('extSel', $selectedExtension);
 		$this->request->set('testCaseFile', 'Tx_Phpunit_Service_TestFinderTest');
 
-		$this->assertNotRegExp(
+		self::assertNotRegExp(
 			'#<option [^>]* selected="selected">Tx_Phpunit_BackEnd_ModuleTest</option>#',
 			$this->subject->createTestCaseSelector($selectedExtension)
 		);
@@ -784,7 +784,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->userSettingsService->set('extSel', $selectedExtension);
 		$this->request->set('testCaseFile', '');
 
-		$this->assertNotRegExp(
+		self::assertNotRegExp(
 			'#<option [^>]* selected="selected">Tx_Phpunit_BackEnd_ModuleTest</option>#',
 			$this->subject->createTestCaseSelector($selectedExtension)
 		);

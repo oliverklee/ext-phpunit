@@ -36,7 +36,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getKeyInitiallyReturnsEmptyString() {
-		$this->assertSame(
+		self::assertSame(
 			'',
 			$this->subject->getKey()
 		);
@@ -48,7 +48,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	public function setKeySetsKey() {
 		$this->subject->setKey('foo');
 
-		$this->assertSame(
+		self::assertSame(
 			'foo',
 			$this->subject->getKey()
 		);
@@ -67,7 +67,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getTitleInitiallyReturnsEmptyString() {
-		$this->assertSame(
+		self::assertSame(
 			'',
 			$this->subject->getTitle()
 		);
@@ -79,7 +79,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	public function setTitleSetsTitle() {
 		$this->subject->setTitle('White Russian');
 
-		$this->assertSame(
+		self::assertSame(
 			'White Russian',
 			$this->subject->getTitle()
 		);
@@ -91,7 +91,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	public function setTitleCanSetTitleToEmptyString() {
 		$this->subject->setTitle('');
 
-		$this->assertSame(
+		self::assertSame(
 			'',
 			$this->subject->getTitle()
 		);
@@ -101,7 +101,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getCodePathInitiallyReturnsEmptyString() {
-		$this->assertSame(
+		self::assertSame(
 			'',
 			$this->subject->getCodePath()
 		);
@@ -114,7 +114,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 		$path = ExtensionManagementUtility::extPath('phpunit');
 		$this->subject->setCodePath($path);
 
-		$this->assertSame(
+		self::assertSame(
 			$path,
 			$this->subject->getCodePath()
 		);
@@ -133,7 +133,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getTestsPathInitiallyReturnsEmptyString() {
-		$this->assertSame(
+		self::assertSame(
 			'',
 			$this->subject->getTestsPath()
 		);
@@ -146,7 +146,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 		$path = ExtensionManagementUtility::extPath('phpunit') . 'Tests/';
 		$this->subject->setTestsPath($path);
 
-		$this->assertSame(
+		self::assertSame(
 			$path,
 			$this->subject->getTestsPath()
 		);
@@ -165,7 +165,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getBlacklistInitiallyReturnsEmptyArray() {
-		$this->assertSame(
+		self::assertSame(
 			array(),
 			$this->subject->getBlacklist()
 		);
@@ -178,7 +178,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 		$fileNames = array('one file', 'another file');
 		$this->subject->setBlacklist($fileNames);
 
-		$this->assertSame(
+		self::assertSame(
 			$fileNames,
 			$this->subject->getBlacklist()
 		);
@@ -190,7 +190,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	public function setBlacklistCanSetEmptyBlacklist() {
 		$this->subject->setBlacklist(array());
 
-		$this->assertSame(
+		self::assertSame(
 			array(),
 			$this->subject->getBlacklist()
 		);
@@ -200,7 +200,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getWhitelistInitiallyReturnsEmptyArray() {
-		$this->assertSame(
+		self::assertSame(
 			array(),
 			$this->subject->getWhitelist()
 		);
@@ -213,7 +213,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 		$fileNames = array('one file', 'another file');
 		$this->subject->setWhitelist($fileNames);
 
-		$this->assertSame(
+		self::assertSame(
 			$fileNames,
 			$this->subject->getWhitelist()
 		);
@@ -225,7 +225,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	public function setWhitelistCanSetEmptyWhitelist() {
 		$this->subject->setWhitelist(array());
 
-		$this->assertSame(
+		self::assertSame(
 			array(),
 			$this->subject->getWhitelist()
 		);
@@ -235,7 +235,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getIconPathInitiallyReturnsEmptyString() {
-		$this->assertSame(
+		self::assertSame(
 			'',
 			$this->subject->getIconPath()
 		);
@@ -247,7 +247,7 @@ class Tx_Phpunit_TestableTest extends Tx_Phpunit_TestCase {
 	public function setIconPathSetsIconPath() {
 		$this->subject->setIconPath('someIcon.gif');
 
-		$this->assertSame(
+		self::assertSame(
 			'someIcon.gif',
 			$this->subject->getIconPath()
 		);

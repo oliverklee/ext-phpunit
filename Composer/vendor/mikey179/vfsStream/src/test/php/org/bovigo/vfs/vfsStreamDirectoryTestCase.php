@@ -163,7 +163,7 @@ class vfsStreamDirectoryTestCase extends \PHPUnit_Framework_TestCase
                   ->method('appliesTo')
                   ->with($this->equalTo('bar'))
                   ->will($this->returnValue(true));
-        $mockChild->expects($this->once())
+        $mockChild->expects(self::once())
                   ->method('size')
                   ->will($this->returnValue(5));
         $this->dir->addChild($mockChild);
@@ -193,7 +193,7 @@ class vfsStreamDirectoryTestCase extends \PHPUnit_Framework_TestCase
         $mockChild->expects($this->any())
                   ->method('getName')
                   ->will($this->returnValue('bar'));
-        $mockChild->expects($this->once())
+        $mockChild->expects(self::once())
                   ->method('size')
                   ->will($this->returnValue(5));
         $subdir = new vfsStreamDirectory('subdir');

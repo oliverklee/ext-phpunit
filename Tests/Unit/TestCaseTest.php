@@ -128,7 +128,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function protectedPropertyForFixtureIsNotDirectlyAccessible() {
-		$this->assertFalse(
+		self::assertFalse(
 			in_array('protectedProperty', get_object_vars($this->proctectedClassInstance))
 		);
 	}
@@ -137,7 +137,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function protectedStaticPropertyForFixtureIsNotDirectlyAccessible() {
-		$this->assertFalse(
+		self::assertFalse(
 			array_key_exists('protectedStaticProperty', get_class_vars(get_class($this->proctectedClassInstance)))
 		);
 	}
@@ -146,7 +146,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function publicPropertyForFixtureIsDirectlyAccessible() {
-		$this->assertSame(
+		self::assertSame(
 			'This is a public property.',
 			$this->proctectedClassInstance->publicProperty
 		);
@@ -156,7 +156,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function protectedMethodForFixtureIsNotDirectlyCallable() {
-		$this->assertFalse(
+		self::assertFalse(
 			is_callable(array($this->proctectedClassInstance, 'protectedMethod'))
 		);
 	}
@@ -165,7 +165,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function publicMethodForFixtureIsDirectlyCallable() {
-		$this->assertTrue(
+		self::assertTrue(
 			is_callable(array($this->proctectedClassInstance, 'publicMethod'))
 		);
 	}
@@ -174,7 +174,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function protectedPropertyForMockObjectIsNotDirectlyAccessible() {
-		$this->assertFalse(
+		self::assertFalse(
 			in_array('protectedProperty', get_object_vars($this->mock))
 		);
 	}
@@ -183,7 +183,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function protectedStaticPropertyForMockObjectIsNotDirectlyAccessible() {
-		$this->assertFalse(
+		self::assertFalse(
 			array_key_exists('protectedStaticProperty', get_class_vars(get_class($this->mock)))
 		);
 	}
@@ -192,7 +192,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function publicPropertyForMockObjectIsDirectlyAccessible() {
-		$this->assertSame(
+		self::assertSame(
 			'This is a public property.',
 			$this->mock->publicProperty
 		);
@@ -202,7 +202,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function protectedMethodForMockObjectIsNotDirectlyCallable() {
-		$this->assertFalse(
+		self::assertFalse(
 			is_callable(array($this->mock, 'protectedMethod'))
 		);
 	}
@@ -211,7 +211,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function publicMethodForMockObjectIsDirectlyCallable() {
-		$this->assertTrue(
+		self::assertTrue(
 			is_callable(array($this->mock, 'publicMethod'))
 		);
 	}
@@ -220,7 +220,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function protectedPropertyForAccessibleMockObjectIsDirectlyAccessible() {
-		$this->assertSame(
+		self::assertSame(
 			'This is a protected property.',
 			$this->accessibleMock->_get('protectedProperty')
 		);
@@ -230,7 +230,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function publicPropertyForAccessibleMockObjectIsDirectlyAccessible() {
-		$this->assertSame(
+		self::assertSame(
 			'This is a public property.',
 			$this->accessibleMock->_get('publicProperty')
 		);
@@ -240,7 +240,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function protectedStaticPropertyForAccessibleMockObjectIsDirectlyAccessible() {
-		$this->assertSame(
+		self::assertSame(
 			'This is a protected static property.',
 			$this->accessibleMock->_getStatic('protectedStaticProperty')
 		);
@@ -253,7 +253,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 		$newValue = 'New value ' . microtime();
 		$this->accessibleMock->_setStatic('protectedStaticProperty', $newValue);
 
-		$this->assertSame(
+		self::assertSame(
 			$newValue,
 			$this->accessibleMock->_getStatic('protectedStaticProperty')
 		);
@@ -266,7 +266,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 		$newValue = 'New value ' . microtime();
 		$this->accessibleMock->_setStatic('protectedStaticProperty', $newValue);
 
-		$this->assertSame(
+		self::assertSame(
 			$newValue,
 			Tx_Phpunit_Tests_Fixtures_ProtectedClass::getStaticProperty()
 		);
@@ -276,7 +276,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function protectedMethodForAccessibleMockObjectIsDirectlyCallable() {
-		$this->assertTrue(
+		self::assertTrue(
 			$this->accessibleMock->_callRef('protectedMethod')
 		);
 	}
@@ -285,7 +285,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function publicMethodForAccessibleMockObjectIsDirectlyCallable() {
-		$this->assertTrue(
+		self::assertTrue(
 			$this->accessibleMock->_call('publicMethod')
 		);
 	}
@@ -294,7 +294,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function callCanPassEightParametersToMethod() {
-		$this->assertSame(
+		self::assertSame(
 			'8: 1, 2, 3, 4, 5, 6, 7, 8',
 			$this->accessibleMock->_call('argumentChecker', 1, 2, 3, 4, 5, 6, 7, 8)
 		);
@@ -304,7 +304,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function callCanPassNineParametersToMethod() {
-		$this->assertSame(
+		self::assertSame(
 			'9: 1, 2, 3, 4, 5, 6, 7, 8, 9',
 			$this->accessibleMock->_call('argumentChecker', 1, 2, 3, 4, 5, 6, 7, 8, 9)
 		);
@@ -314,7 +314,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function callCanPassTenParametersToMethod() {
-		$this->assertSame(
+		self::assertSame(
 			'10: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10',
 			$this->accessibleMock->_call('argumentChecker', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 		);
@@ -324,7 +324,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function callRefCanCallMethodWithoutParameter() {
-		$this->assertSame(
+		self::assertSame(
 			'0: ',
 			$this->accessibleMock->_callRef(
 				'argumentChecker'
@@ -337,7 +337,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 */
 	public function callRefCanPassOneParametersToMethod() {
 		$parameter = 1;
-		$this->assertSame(
+		self::assertSame(
 			'1: 1',
 			$this->accessibleMock->_callRef(
 				'argumentChecker',
@@ -351,7 +351,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 */
 	public function callRefCanPassTwoParametersToMethod() {
 		$parameter = 1;
-		$this->assertSame(
+		self::assertSame(
 			'2: 1, 1',
 			$this->accessibleMock->_callRef(
 				'argumentChecker',
@@ -365,7 +365,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 */
 	public function callRefCanPassThreeParametersToMethod() {
 		$parameter = 1;
-		$this->assertSame(
+		self::assertSame(
 			'3: 1, 1, 1',
 			$this->accessibleMock->_callRef(
 				'argumentChecker',
@@ -379,7 +379,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 */
 	public function callRefCanPassFourParametersToMethod() {
 		$parameter = 1;
-		$this->assertSame(
+		self::assertSame(
 			'4: 1, 1, 1, 1',
 			$this->accessibleMock->_callRef(
 				'argumentChecker',
@@ -393,7 +393,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 */
 	public function callRefCanPassFiveParametersToMethod() {
 		$parameter = 1;
-		$this->assertSame(
+		self::assertSame(
 			'5: 1, 1, 1, 1, 1',
 			$this->accessibleMock->_callRef(
 				'argumentChecker',
@@ -407,7 +407,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 */
 	public function callRefCanPassSixParametersToMethod() {
 		$parameter = 1;
-		$this->assertSame(
+		self::assertSame(
 			'6: 1, 1, 1, 1, 1, 1',
 			$this->accessibleMock->_callRef(
 				'argumentChecker',
@@ -421,7 +421,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 */
 	public function callRefCanPassSevenParametersToMethod() {
 		$parameter = 1;
-		$this->assertSame(
+		self::assertSame(
 			'7: 1, 1, 1, 1, 1, 1, 1',
 			$this->accessibleMock->_callRef(
 				'argumentChecker',
@@ -435,7 +435,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 */
 	public function callRefCanPassEightParametersToMethod() {
 		$parameter = 1;
-		$this->assertSame(
+		self::assertSame(
 			'8: 1, 1, 1, 1, 1, 1, 1, 1',
 			$this->accessibleMock->_callRef(
 				'argumentChecker',
@@ -449,7 +449,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	 */
 	public function callRefCanPassNineParametersToMethod() {
 		$parameter = 1;
-		$this->assertSame(
+		self::assertSame(
 			'9: 1, 1, 1, 1, 1, 1, 1, 1, 1',
 			$this->accessibleMock->_callRef(
 				'argumentChecker',

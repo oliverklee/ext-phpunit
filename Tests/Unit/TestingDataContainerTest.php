@@ -34,7 +34,7 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function classIsSingletonUserSettings() {
-		$this->assertInstanceOf(
+		self::assertInstanceOf(
 			'Tx_Phpunit_Interface_UserSettingsService',
 			$this->subject
 		);
@@ -44,7 +44,7 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getAsBooleanForMissingValueReturnsFalse() {
-		$this->assertFalse(
+		self::assertFalse(
 			$this->subject->getAsBoolean('foo')
 		);
 	}
@@ -56,7 +56,7 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 		$key = 'foo';
 		$this->subject->set($key, FALSE);
 
-		$this->assertFalse(
+		self::assertFalse(
 			$this->subject->getAsBoolean($key)
 		);
 	}
@@ -68,7 +68,7 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 		$key = 'foo';
 		$this->subject->set($key, TRUE);
 
-		$this->assertTrue(
+		self::assertTrue(
 			$this->subject->getAsBoolean($key)
 		);
 	}
@@ -80,7 +80,7 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 		$key = 'foo';
 		$this->subject->set($key, '1');
 
-		$this->assertTrue(
+		self::assertTrue(
 			$this->subject->getAsBoolean($key)
 		);
 	}
@@ -89,7 +89,7 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getAsIntegerForMissingValueReturnsZero() {
-		$this->assertSame(
+		self::assertSame(
 			0,
 			$this->subject->getAsInteger('foo')
 		);
@@ -103,7 +103,7 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 		$value = 42;
 		$this->subject->set($key, $value);
 
-		$this->assertSame(
+		self::assertSame(
 			$value,
 			$this->subject->getAsInteger($key)
 		);
@@ -117,7 +117,7 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 		$value = 0;
 		$this->subject->set($key, $value);
 
-		$this->assertFalse(
+		self::assertFalse(
 			$this->subject->hasInteger($key)
 		);
 	}
@@ -130,7 +130,7 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 		$value = 2;
 		$this->subject->set($key, $value);
 
-		$this->assertTrue(
+		self::assertTrue(
 			$this->subject->hasInteger($key)
 		);
 	}
@@ -143,7 +143,7 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 		$value = -1;
 		$this->subject->set($key, $value);
 
-		$this->assertTrue(
+		self::assertTrue(
 			$this->subject->hasInteger($key)
 		);
 	}
@@ -152,7 +152,7 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getAsStringForMissingValueReturnsEmptyString() {
-		$this->assertSame(
+		self::assertSame(
 			'',
 			$this->subject->getAsString('foo')
 		);
@@ -166,7 +166,7 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 		$value = 'Hello world!';
 		$this->subject->set($key, $value);
 
-		$this->assertSame(
+		self::assertSame(
 			$value,
 			$this->subject->getAsString($key)
 		);
@@ -180,7 +180,7 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 		$value = '';
 		$this->subject->set($key, $value);
 
-		$this->assertFalse(
+		self::assertFalse(
 			$this->subject->hasString($key)
 		);
 	}
@@ -193,7 +193,7 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 		$value = 'bar';
 		$this->subject->set($key, $value);
 
-		$this->assertTrue(
+		self::assertTrue(
 			$this->subject->hasString($key)
 		);
 	}
@@ -202,7 +202,7 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getAsArrayForMissingValueReturnsEmptyArray() {
-		$this->assertSame(
+		self::assertSame(
 			array(),
 			$this->subject->getAsArray('foo')
 		);
@@ -216,7 +216,7 @@ class Tx_Phpunit_TestingDataContainerTest extends Tx_Phpunit_TestCase {
 		$value = array('foo', 'foobar');
 		$this->subject->set($key, $value);
 
-		$this->assertSame(
+		self::assertSame(
 			$value,
 			$this->subject->getAsArray($key)
 		);

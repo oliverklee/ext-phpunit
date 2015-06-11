@@ -64,7 +64,7 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 		$ajax = $this->getMock('TYPO3\\CMS\\Core\\Http\\AjaxRequestHandler', array(), array(''));
 		$this->subject->ajaxBroker(array(), $ajax);
 
-		$this->assertTrue(
+		self::assertTrue(
 			$this->userSettingsService->getAsBoolean('failure')
 		);
 	}
@@ -79,7 +79,7 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 		$ajax = $this->getMock('TYPO3\\CMS\\Core\\Http\\AjaxRequestHandler', array(), array(''));
 		$this->subject->ajaxBroker(array(), $ajax);
 
-		$this->assertFalse(
+		self::assertFalse(
 			$this->userSettingsService->getAsBoolean('failure')
 		);
 	}
@@ -92,8 +92,8 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 
 		/** @var $ajax AjaxRequestHandler|PHPUnit_Framework_MockObject_MockObject */
 		$ajax = $this->getMock('TYPO3\\CMS\\Core\\Http\\AjaxRequestHandler', array(), array(''));
-		$ajax->expects($this->once())->method('addContent')->with('success', TRUE);
-		$ajax->expects($this->never())->method('setError');
+		$ajax->expects(self::once())->method('addContent')->with('success', TRUE);
+		$ajax->expects(self::never())->method('setError');
 
 		$this->subject->ajaxBroker(array(), $ajax);
 	}
@@ -106,8 +106,8 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 
 		/** @var $ajax AjaxRequestHandler|PHPUnit_Framework_MockObject_MockObject */
 		$ajax = $this->getMock('TYPO3\\CMS\\Core\\Http\\AjaxRequestHandler', array(), array(''));
-		$ajax->expects($this->once())->method('addContent')->with('success', TRUE);
-		$ajax->expects($this->never())->method('setError');
+		$ajax->expects(self::once())->method('addContent')->with('success', TRUE);
+		$ajax->expects(self::never())->method('setError');
 
 		$this->subject->ajaxBroker(array(), $ajax);
 	}
@@ -120,8 +120,8 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 
 		/** @var $ajax AjaxRequestHandler|PHPUnit_Framework_MockObject_MockObject */
 		$ajax = $this->getMock('TYPO3\\CMS\\Core\\Http\\AjaxRequestHandler', array(), array(''));
-		$ajax->expects($this->once())->method('addContent')->with('success', TRUE);
-		$ajax->expects($this->never())->method('setError');
+		$ajax->expects(self::once())->method('addContent')->with('success', TRUE);
+		$ajax->expects(self::never())->method('setError');
 
 		$this->subject->ajaxBroker(array(), $ajax);
 	}
@@ -134,8 +134,8 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 
 		/** @var $ajax AjaxRequestHandler|PHPUnit_Framework_MockObject_MockObject */
 		$ajax = $this->getMock('TYPO3\\CMS\\Core\\Http\\AjaxRequestHandler', array(), array(''));
-		$ajax->expects($this->once())->method('addContent')->with('success', TRUE);
-		$ajax->expects($this->never())->method('setError');
+		$ajax->expects(self::once())->method('addContent')->with('success', TRUE);
+		$ajax->expects(self::never())->method('setError');
 
 		$this->subject->ajaxBroker(array(), $ajax);
 	}
@@ -148,8 +148,8 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 
 		/** @var $ajax AjaxRequestHandler|PHPUnit_Framework_MockObject_MockObject */
 		$ajax = $this->getMock('TYPO3\\CMS\\Core\\Http\\AjaxRequestHandler', array(), array(''));
-		$ajax->expects($this->once())->method('addContent')->with('success', TRUE);
-		$ajax->expects($this->never())->method('setError');
+		$ajax->expects(self::once())->method('addContent')->with('success', TRUE);
+		$ajax->expects(self::never())->method('setError');
 
 		$this->subject->ajaxBroker(array(), $ajax);
 	}
@@ -162,8 +162,8 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 
 		/** @var $ajax AjaxRequestHandler|PHPUnit_Framework_MockObject_MockObject */
 		$ajax = $this->getMock('TYPO3\\CMS\\Core\\Http\\AjaxRequestHandler', array(), array(''));
-		$ajax->expects($this->once())->method('addContent')->with('success', TRUE);
-		$ajax->expects($this->never())->method('setError');
+		$ajax->expects(self::once())->method('addContent')->with('success', TRUE);
+		$ajax->expects(self::never())->method('setError');
 
 		$this->subject->ajaxBroker(array(), $ajax);
 	}
@@ -176,8 +176,8 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 
 		/** @var $ajax AjaxRequestHandler|PHPUnit_Framework_MockObject_MockObject */
 		$ajax = $this->getMock('TYPO3\\CMS\\Core\\Http\\AjaxRequestHandler', array(), array(''));
-		$ajax->expects($this->once())->method('addContent')->with('success', TRUE);
-		$ajax->expects($this->never())->method('setError');
+		$ajax->expects(self::once())->method('addContent')->with('success', TRUE);
+		$ajax->expects(self::never())->method('setError');
 
 		$this->subject->ajaxBroker(array(), $ajax);
 	}
@@ -190,8 +190,8 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 
 		/** @var $ajax AjaxRequestHandler|PHPUnit_Framework_MockObject_MockObject */
 		$ajax = $this->getMock('TYPO3\\CMS\\Core\\Http\\AjaxRequestHandler', array(), array(''));
-		$ajax->expects($this->once())->method('addContent')->with('success', TRUE);
-		$ajax->expects($this->never())->method('setError');
+		$ajax->expects(self::once())->method('addContent')->with('success', TRUE);
+		$ajax->expects(self::never())->method('setError');
 
 		$this->subject->ajaxBroker(array(), $ajax);
 	}
@@ -204,8 +204,8 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 
 		/** @var $ajax AjaxRequestHandler|PHPUnit_Framework_MockObject_MockObject */
 		$ajax = $this->getMock('TYPO3\\CMS\\Core\\Http\\AjaxRequestHandler', array(), array(''));
-		$ajax->expects($this->once())->method('addContent')->with('success', TRUE);
-		$ajax->expects($this->never())->method('setError');
+		$ajax->expects(self::once())->method('addContent')->with('success', TRUE);
+		$ajax->expects(self::never())->method('setError');
 
 		$this->subject->ajaxBroker(array(), $ajax);
 	}
@@ -216,7 +216,7 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 	public function ajaxBrokerForMissingCheckboxParameterSetsError() {
 		/** @var $ajax AjaxRequestHandler|PHPUnit_Framework_MockObject_MockObject */
 		$ajax = $this->getMock('TYPO3\\CMS\\Core\\Http\\AjaxRequestHandler', array(), array(''));
-		$ajax->expects($this->once())->method('setError');
+		$ajax->expects(self::once())->method('setError');
 
 		$this->subject->ajaxBroker(array(), $ajax);
 	}
@@ -229,7 +229,7 @@ class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 
 		/** @var $ajax AjaxRequestHandler|PHPUnit_Framework_MockObject_MockObject */
 		$ajax = $this->getMock('TYPO3\\CMS\\Core\\Http\\AjaxRequestHandler', array(), array(''));
-		$ajax->expects($this->once())->method('setError');
+		$ajax->expects(self::once())->method('setError');
 
 		$this->subject->ajaxBroker(array(), $ajax);
 	}

@@ -69,7 +69,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function sortExplodeWithEmptyStringReturnsEmptyArray() {
-		$this->assertSame(
+		self::assertSame(
 			array(),
 			$this->sortExplode('')
 		);
@@ -79,7 +79,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function sortExplodeWithOneNumberReturnsArrayWithNumber() {
-		$this->assertSame(
+		self::assertSame(
 			array(42),
 			$this->sortExplode('42')
 		);
@@ -89,7 +89,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function sortExplodeWithTwoAscendingNumbersReturnsArrayWithBothNumbers() {
-		$this->assertSame(
+		self::assertSame(
 			array(1, 2),
 			$this->sortExplode('1,2')
 		);
@@ -99,7 +99,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function sortExplodeWithTwoDescendingNumbersReturnsSortedArrayWithBothNumbers() {
-		$this->assertSame(
+		self::assertSame(
 			array(1, 2),
 			$this->sortExplode('2,1')
 		);
@@ -132,7 +132,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function enableFieldsIsDifferentForDifferentTables() {
-		$this->assertNotEquals(
+		self::assertNotEquals(
 			Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test'),
 			Tx_Phpunit_Service_Database::enableFields('pages')
 		);
@@ -142,7 +142,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function enableFieldsCanBeDifferentForShowHiddenZeroAndOne() {
-		$this->assertNotEquals(
+		self::assertNotEquals(
 			Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', 0),
 			Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', 1)
 		);
@@ -152,7 +152,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function enableFieldsAreTheSameForShowHiddenZeroAndMinusOne() {
-		$this->assertSame(
+		self::assertSame(
 			Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', 0),
 			Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', -1)
 		);
@@ -162,7 +162,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function enableFieldsCanBeDifferentForShowHiddenOneAndMinusOne() {
-		$this->assertNotEquals(
+		self::assertNotEquals(
 			Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', 1),
 			Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', -1)
 		);
@@ -172,7 +172,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function enableFieldsCanBeDifferentForDifferentIgnores() {
-		$this->assertNotEquals(
+		self::assertNotEquals(
 			Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', 0, array()),
 			Tx_Phpunit_Service_Database::enableFields(
 				'tx_phpunit_test', 0, array('endtime' => TRUE)
@@ -188,7 +188,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function createRecursivePageListReturnsAnEmptyStringForNoPagesWithDefaultRecursion() {
-		$this->assertSame(
+		self::assertSame(
 			'',
 			Tx_Phpunit_Service_Database::createRecursivePageList('')
 		);
@@ -198,7 +198,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function createRecursivePageListReturnsAnEmptyStringForNoPagesWithZeroRecursion() {
-		$this->assertSame(
+		self::assertSame(
 			'',
 			Tx_Phpunit_Service_Database::createRecursivePageList('', 0)
 		);
@@ -208,7 +208,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function createRecursivePageListReturnsAnEmptyStringForNoPagesWithNonZeroRecursion() {
-		$this->assertSame(
+		self::assertSame(
 			'',
 			Tx_Phpunit_Service_Database::createRecursivePageList('', 1)
 		);
@@ -230,7 +230,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 		$uid = $this->testingFramework->createSystemFolder();
 		$this->testingFramework->createSystemFolder($uid);
 
-		$this->assertSame(
+		self::assertSame(
 			(string) $uid,
 			Tx_Phpunit_Service_Database::createRecursivePageList((string) $uid, 0)
 		);
@@ -244,7 +244,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 		$this->testingFramework->createSystemFolder($uid1);
 		$uid2 = $this->testingFramework->createSystemFolder();
 
-		$this->assertSame(
+		self::assertSame(
 			$this->sortExplode($uid1 . ',' . $uid2),
 			$this->sortExplode(
 				Tx_Phpunit_Service_Database::createRecursivePageList($uid1 . ',' . $uid2, 0)
@@ -260,7 +260,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 		$subFolderUid = $this->testingFramework->createSystemFolder($uid);
 		$this->testingFramework->createSystemFolder($subFolderUid);
 
-		$this->assertSame(
+		self::assertSame(
 			$this->sortExplode($uid . ',' . $subFolderUid),
 			$this->sortExplode(Tx_Phpunit_Service_Database::createRecursivePageList($uid, 1))
 		);
@@ -273,7 +273,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 		$uid = $this->testingFramework->createSystemFolder();
 		$this->testingFramework->createSystemFolder();
 
-		$this->assertSame(
+		self::assertSame(
 			(string) $uid,
 			Tx_Phpunit_Service_Database::createRecursivePageList($uid, 0)
 		);
@@ -287,7 +287,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 		$subFolderUid1 = $this->testingFramework->createSystemFolder($uid);
 		$subFolderUid2 = $this->testingFramework->createSystemFolder($uid);
 
-		$this->assertSame(
+		self::assertSame(
 			$this->sortExplode($uid . ',' . $subFolderUid1 . ',' . $subFolderUid2),
 			$this->sortExplode(Tx_Phpunit_Service_Database::createRecursivePageList($uid, 1))
 		);
@@ -302,7 +302,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 		$subFolderUid1 = $this->testingFramework->createSystemFolder($uid1);
 		$subFolderUid2 = $this->testingFramework->createSystemFolder($uid2);
 
-		$this->assertSame(
+		self::assertSame(
 			$this->sortExplode(
 				$uid1 . ',' . $uid2 . ',' . $subFolderUid1 . ',' . $subFolderUid2
 			),
@@ -319,11 +319,11 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 		$uid = $this->testingFramework->createSystemFolder();
 		$subFolderUid = $this->testingFramework->createSystemFolder($uid);
 
-		$this->assertSame(
+		self::assertSame(
 			(string) $uid,
 			Tx_Phpunit_Service_Database::createRecursivePageList($uid, 0)
 		);
-		$this->assertSame(
+		self::assertSame(
 			$this->sortExplode($uid . ',' . $subFolderUid),
 			$this->sortExplode(Tx_Phpunit_Service_Database::createRecursivePageList($uid, 1))
 		);
@@ -336,11 +336,11 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 		$uid = $this->testingFramework->createSystemFolder();
 		$subFolderUid = $this->testingFramework->createSystemFolder($uid);
 
-		$this->assertSame(
+		self::assertSame(
 			$this->sortExplode($uid . ',' . $subFolderUid),
 			$this->sortExplode(Tx_Phpunit_Service_Database::createRecursivePageList($uid, 1))
 		);
-		$this->assertSame(
+		self::assertSame(
 			(string) $uid,
 			Tx_Phpunit_Service_Database::createRecursivePageList($uid, 0)
 		);
@@ -375,7 +375,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	public function getColumnsInTableReturnsArrayThatContainsExistingColumn() {
 		$columns = Tx_Phpunit_Service_Database::getColumnsInTable('tx_phpunit_test');
 
-		$this->assertTrue(
+		self::assertTrue(
 			isset($columns['title'])
 		);
 	}
@@ -386,7 +386,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	public function getColumnsInTableReturnsArrayThatNotContainsInexistentColumn() {
 		$columns = Tx_Phpunit_Service_Database::getColumnsInTable('tx_phpunit_test');
 
-		$this->assertFalse(
+		self::assertFalse(
 			isset($columns['does_not_exist'])
 		);
 	}
@@ -411,7 +411,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	public function getColumnDefinitionReturnsArrayThatContainsFieldName() {
 		$definition = Tx_Phpunit_Service_Database::getColumnDefinition('tx_phpunit_test', 'title');
 
-		$this->assertTrue(
+		self::assertTrue(
 			$definition['Field'] == 'title'
 		);
 	}
@@ -434,7 +434,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function tableHasColumnUidIsTrueOnTableWithColumnUid() {
-		$this->assertTrue(
+		self::assertTrue(
 			Tx_Phpunit_Service_Database::tableHasColumnUid('tx_phpunit_test')
 		);
 	}
@@ -443,7 +443,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function tableHasColumnUidIsFalseOnTableWithoutColumnUid() {
-		$this->assertFalse(
+		self::assertFalse(
 			Tx_Phpunit_Service_Database::tableHasColumnUid('tx_phpunit_test_article_mm')
 		);
 	}
@@ -452,7 +452,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function tableHasColumnUidCanReturnDifferentResultsForDifferentTables() {
-		$this->assertNotEquals(
+		self::assertNotEquals(
 			Tx_Phpunit_Service_Database::tableHasColumnUid('tx_phpunit_test'),
 			Tx_Phpunit_Service_Database::tableHasColumnUid('tx_phpunit_test_article_mm')
 		);
@@ -467,7 +467,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function tableHasColumnReturnsTrueOnTableWithColumn() {
-		$this->assertTrue(
+		self::assertTrue(
 			Tx_Phpunit_Service_Database::tableHasColumn(
 				'tx_phpunit_test', 'title'
 			)
@@ -478,7 +478,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function tableHasColumnReturnsFalseOnTableWithoutColumn() {
-		$this->assertFalse(
+		self::assertFalse(
 			Tx_Phpunit_Service_Database::tableHasColumn(
 				'tx_phpunit_test', 'inexistent_column'
 			)
@@ -500,7 +500,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function tableHasColumnReturnsFalseOnEmptyColumnName() {
-		$this->assertFalse(
+		self::assertFalse(
 			Tx_Phpunit_Service_Database::tableHasColumn(
 				'tx_phpunit_test', ''
 			)
@@ -533,7 +533,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 			'tx_phpunit_test', 'uid = ' . $uid
 		);
 
-		$this->assertFalse(
+		self::assertFalse(
 			$this->testingFramework->existsRecordWithUid(
 				'tx_phpunit_test', $uid
 			)
@@ -544,7 +544,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function deleteForNoDeletedRecordReturnsZero() {
-		$this->assertSame(
+		self::assertSame(
 			0,
 			Tx_Phpunit_Service_Database::delete(
 				'tx_phpunit_test', 'uid = 0'
@@ -558,7 +558,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	public function deleteForOneDeletedRecordReturnsOne() {
 		$uid = $this->testingFramework->createRecord('tx_phpunit_test');
 
-		$this->assertSame(
+		self::assertSame(
 			1,
 			Tx_Phpunit_Service_Database::delete(
 				'tx_phpunit_test', 'uid = ' . $uid
@@ -573,7 +573,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 		$uid1 = $this->testingFramework->createRecord('tx_phpunit_test');
 		$uid2 = $this->testingFramework->createRecord('tx_phpunit_test');
 
-		$this->assertSame(
+		self::assertSame(
 			2,
 			Tx_Phpunit_Service_Database::delete(
 				'tx_phpunit_test',
@@ -608,7 +608,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 			'tx_phpunit_test', 'uid = ' . $uid, array('title' => 'foo')
 		);
 
-		$this->assertTrue(
+		self::assertTrue(
 			$this->testingFramework->existsRecord(
 				'tx_phpunit_test', 'title = "foo"'
 			)
@@ -619,7 +619,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function updateForNoChangedRecordReturnsZero() {
-		$this->assertSame(
+		self::assertSame(
 			0,
 			Tx_Phpunit_Service_Database::update(
 				'tx_phpunit_test', 'uid = 0', array('title' => 'foo')
@@ -633,7 +633,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	public function updateForOneChangedRecordReturnsOne() {
 		$uid = $this->testingFramework->createRecord('tx_phpunit_test');
 
-		$this->assertSame(
+		self::assertSame(
 			1,
 			Tx_Phpunit_Service_Database::update(
 				'tx_phpunit_test', 'uid = ' . $uid, array('title' => 'foo')
@@ -648,7 +648,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 		$uid1 = $this->testingFramework->createRecord('tx_phpunit_test');
 		$uid2 = $this->testingFramework->createRecord('tx_phpunit_test');
 
-		$this->assertSame(
+		self::assertSame(
 			2,
 			Tx_Phpunit_Service_Database::update(
 				'tx_phpunit_test',
@@ -694,7 +694,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 		);
 		$this->testingFramework->markTableAsDirty('tx_phpunit_test');
 
-		$this->assertTrue(
+		self::assertTrue(
 			$this->testingFramework->existsRecord(
 				'tx_phpunit_test', 'title = "foo"'
 			)
@@ -710,7 +710,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 		);
 		$this->testingFramework->markTableAsDirty('tx_phpunit_test');
 
-		$this->assertTrue(
+		self::assertTrue(
 			$this->testingFramework->existsRecordWithUid(
 				'tx_phpunit_test', $uid
 			)
@@ -723,7 +723,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	public function insertForTableWithoutUidReturnsZero() {
 		$this->testingFramework->markTableAsDirty('tx_phpunit_test_article_mm');
 
-		$this->assertSame(
+		self::assertSame(
 			0,
 			Tx_Phpunit_Service_Database::insert(
 				'tx_phpunit_test_article_mm', array('is_dummy_record' => 1)
@@ -758,7 +758,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function selectReturnsMySqliResult() {
-		$this->assertInstanceOf(
+		self::assertInstanceOf(
 			'mysqli_result',
 			Tx_Phpunit_Service_Database::select('title', 'tx_phpunit_test')
 		);
@@ -790,7 +790,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 			'tx_phpunit_test'
 		);
 
-		$this->assertSame(
+		self::assertSame(
 			array('uid' => (string) $uid),
 			Tx_Phpunit_Service_Database::selectSingle('uid', 'tx_phpunit_test', 'uid = ' . $uid)
 		);
@@ -816,7 +816,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 			'tx_phpunit_test', array('title' => 'Title B')
 		);
 
-		$this->assertSame(
+		self::assertSame(
 			array('uid' => (string) $uid),
 			Tx_Phpunit_Service_Database::selectSingle('uid', 'tx_phpunit_test', '', '', 'title DESC')
 		);
@@ -833,7 +833,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 			'tx_phpunit_test', array('title' => 'Title B')
 		);
 
-		$this->assertSame(
+		self::assertSame(
 			array('uid' => (string) $uid),
 			Tx_Phpunit_Service_Database::selectSingle('uid', 'tx_phpunit_test', '', '', 'title', 1)
 		);
@@ -862,7 +862,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function selectMultipleForNoResultsReturnsEmptyArray() {
-		$this->assertSame(
+		self::assertSame(
 			array(),
 			Tx_Phpunit_Service_Database::selectMultiple(
 				'uid', 'tx_phpunit_test', 'title = "nothing"'
@@ -878,7 +878,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 			'tx_phpunit_test'
 		);
 
-		$this->assertSame(
+		self::assertSame(
 			array(array('uid' => (string) $uid)),
 			Tx_Phpunit_Service_Database::selectMultiple('uid', 'tx_phpunit_test', 'uid = ' . $uid)
 		);
@@ -895,7 +895,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 			'tx_phpunit_test', array('title' => 'foo')
 		);
 
-		$this->assertSame(
+		self::assertSame(
 			array(
 				array('title' => 'foo'),
 				array('title' => 'foo'),
@@ -910,7 +910,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function selectColumnForMultipleForNoMatchesReturnsEmptyArray() {
-		$this->assertSame(
+		self::assertSame(
 			array(),
 			Tx_Phpunit_Service_Database::selectColumnForMultiple(
 				'title', 'tx_phpunit_test', 'title = "nothing"'
@@ -926,7 +926,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 			'tx_phpunit_test', array('title' => 'foo')
 		);
 
-		$this->assertSame(
+		self::assertSame(
 			array('foo'),
 			Tx_Phpunit_Service_Database::selectColumnForMultiple(
 				'title', 'tx_phpunit_test', 'uid = ' . $uid
@@ -949,7 +949,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 			'title', 'tx_phpunit_test', 'uid = ' . $uid1 . ' OR uid = ' . $uid2
 		);
 		sort($result);
-		$this->assertSame(
+		self::assertSame(
 			array('bar', 'foo'),
 			$result
 		);
@@ -964,7 +964,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function getAllTableNamesContainsExistingTable() {
-		$this->assertTrue(
+		self::assertTrue(
 			in_array('tx_phpunit_test', Tx_Phpunit_Service_Database::getAllTableNames())
 		);
 	}
@@ -973,7 +973,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function getAllTableNamesNotContainsInexistentTable() {
-		$this->assertFalse(
+		self::assertFalse(
 			in_array('tx_phpunit_doesnotexist', Tx_Phpunit_Service_Database::getAllTableNames())
 		);
 	}
@@ -996,7 +996,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function existsTableForExistingTableReturnsTrue() {
-		$this->assertTrue(
+		self::assertTrue(
 			Tx_Phpunit_Service_Database::existsTable('tx_phpunit_test')
 		);
 	}
@@ -1005,7 +1005,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function existsTableForInexistentTableReturnsFalse() {
-		$this->assertFalse(
+		self::assertFalse(
 			Tx_Phpunit_Service_Database::existsTable('tx_phpunit_doesnotexist')
 		);
 	}
@@ -1021,11 +1021,11 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	public function getTcaForTableReturnsValidTcaArray() {
 		$tca = Tx_Phpunit_Service_Database::getTcaForTable('tx_phpunit_test');
 
-		$this->assertTrue(is_array($tca['ctrl']));
-		$this->assertTrue(is_array($tca['interface']));
-		$this->assertTrue(is_array($tca['columns']));
-		$this->assertTrue(is_array($tca['types']));
-		$this->assertTrue(is_array($tca['palettes']));
+		self::assertTrue(is_array($tca['ctrl']));
+		self::assertTrue(is_array($tca['interface']));
+		self::assertTrue(is_array($tca['columns']));
+		self::assertTrue(is_array($tca['types']));
+		self::assertTrue(is_array($tca['palettes']));
 	}
 
 	/**
@@ -1061,7 +1061,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	public function getTcaForTableCanLoadFieldsAddedByExtensions() {
 		$tca = Tx_Phpunit_Service_Database::getTcaForTable('fe_users');
 
-		$this->assertTrue(
+		self::assertTrue(
 			isset($tca['columns']['tx_phpunit_is_dummy_record'])
 		);
 	}
@@ -1089,7 +1089,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function countForNoMatchesReturnsZero() {
-		$this->assertSame(
+		self::assertSame(
 			0,
 			Tx_Phpunit_Service_Database::count(
 				'tx_phpunit_test',
@@ -1102,7 +1102,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function countForOneMatchReturnsOne() {
-		$this->assertSame(
+		self::assertSame(
 			1,
 			Tx_Phpunit_Service_Database::count(
 				'tx_phpunit_test',
@@ -1118,7 +1118,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 		$uid1 = $this->testingFramework->createRecord('tx_phpunit_test');
 		$uid2 = $this->testingFramework->createRecord('tx_phpunit_test');
 
-		$this->assertSame(
+		self::assertSame(
 			2,
 			Tx_Phpunit_Service_Database::count(
 				'tx_phpunit_test',
@@ -1225,7 +1225,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function existsRecordForNoMatchesReturnsFalse() {
-		$this->assertFalse(
+		self::assertFalse(
 			Tx_Phpunit_Service_Database::existsRecord('tx_phpunit_test', 'uid = 42')
 		);
 	}
@@ -1238,7 +1238,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 			'tx_phpunit_test'
 		);
 
-		$this->assertTrue(
+		self::assertTrue(
 			Tx_Phpunit_Service_Database::existsRecord('tx_phpunit_test', 'uid = ' . $uid)
 		);
 	}
@@ -1254,7 +1254,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 			'tx_phpunit_test', array('title' => 'foo')
 		);
 
-		$this->assertTrue(
+		self::assertTrue(
 			Tx_Phpunit_Service_Database::existsRecord('tx_phpunit_test', 'title = "foo"')
 		);
 	}
@@ -1300,7 +1300,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function existsExactlyOneRecordForNoMatchesReturnsFalse() {
-		$this->assertFalse(
+		self::assertFalse(
 			Tx_Phpunit_Service_Database::existsExactlyOneRecord('tx_phpunit_test', 'uid = 42')
 		);
 	}
@@ -1313,7 +1313,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 			'tx_phpunit_test'
 		);
 
-		$this->assertTrue(
+		self::assertTrue(
 			Tx_Phpunit_Service_Database::existsExactlyOneRecord('tx_phpunit_test', 'uid = ' . $uid)
 		);
 	}
@@ -1329,7 +1329,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 			'tx_phpunit_test', array('title' => 'foo')
 		);
 
-		$this->assertFalse(
+		self::assertFalse(
 			Tx_Phpunit_Service_Database::existsExactlyOneRecord('tx_phpunit_test', 'title = "foo"')
 		);
 	}
@@ -1379,7 +1379,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function existsRecordWithUidForNoMatchReturnsFalse() {
-		$this->assertFalse(
+		self::assertFalse(
 			Tx_Phpunit_Service_Database::existsRecordWithUid('tx_phpunit_test', 42)
 		);
 	}
@@ -1392,7 +1392,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 			'tx_phpunit_test'
 		);
 
-		$this->assertTrue(
+		self::assertTrue(
 			Tx_Phpunit_Service_Database::existsRecordWithUid('tx_phpunit_test', $uid)
 		);
 	}
@@ -1405,7 +1405,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 			'tx_phpunit_test', array('deleted' => 1)
 		);
 
-		$this->assertFalse(
+		self::assertFalse(
 			Tx_Phpunit_Service_Database::existsRecordWithUid(
 				'tx_phpunit_test', $uid, ' AND deleted = 0'
 			)
@@ -1416,7 +1416,7 @@ class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	 * @test
 	 */
 	public function getDatabaseConnectionReturnsGlobalsDatabaseConnection() {
-		$this->assertSame(
+		self::assertSame(
 			$GLOBALS['TYPO3_DB'],
 			Tx_Phpunit_Service_Database::getDatabaseConnection()
 		);

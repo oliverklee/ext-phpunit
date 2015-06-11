@@ -34,7 +34,7 @@ class Tx_Phpunit_Service_OutputServiceTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function classIsSingleton() {
-		$this->assertInstanceOf(
+		self::assertInstanceOf(
 			'TYPO3\\CMS\\Core\\SingletonInterface',
 			$this->subject
 		);
@@ -49,7 +49,7 @@ class Tx_Phpunit_Service_OutputServiceTest extends Tx_Phpunit_TestCase {
 		ob_start();
 		$this->subject->output($output);
 
-		$this->assertSame(
+		self::assertSame(
 			$output,
 			ob_get_contents()
 		);

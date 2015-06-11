@@ -70,7 +70,7 @@ class Tx_Phpunit_Exception_EmptyQueryResultTest extends Tx_Phpunit_TestCase {
 		Tx_Phpunit_Service_Database::getDatabaseConnection()->exec_SELECTquery('title', 'tx_phpunit_test', '');
 		$subject = new Tx_Phpunit_Exception_EmptyQueryResult();
 
-		$this->assertContains(
+		self::assertContains(
 			'SELECT',
 			$subject->getMessage()
 		);

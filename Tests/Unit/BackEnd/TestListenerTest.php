@@ -111,7 +111,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	public function createAccessibleProxyCreatesTestListenerSubclass() {
 		$className = $this->createAccessibleProxy();
 
-		$this->assertInstanceOf(
+		self::assertInstanceOf(
 			'Tx_Phpunit_BackEnd_TestListener',
 			new $className()
 		);
@@ -134,7 +134,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		$this->subject->addFailure($testCase, $error, $time);
 
-		$this->assertContains(
+		self::assertContains(
 			'aTestName',
 			$this->outputService->getCollectedOutput()
 		);
@@ -152,11 +152,11 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		$this->subject->addError($testCase, new Exception(), $time);
 
-		$this->assertContains(
+		self::assertContains(
 			htmlspecialchars($testName),
 			$this->outputService->getCollectedOutput()
 		);
-		$this->assertNotContains(
+		self::assertNotContains(
 			$testName,
 			$this->outputService->getCollectedOutput()
 		);
@@ -176,11 +176,11 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		$this->subject->addFailure($testCase, $error, $time);
 
-		$this->assertContains(
+		self::assertContains(
 			htmlspecialchars($testName),
 			$this->outputService->getCollectedOutput()
 		);
-		$this->assertNotContains(
+		self::assertNotContains(
 			$testName,
 			$this->outputService->getCollectedOutput()
 		);
@@ -191,7 +191,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	 */
 	public function addFailureWithComparisonFailureOutputsHtmlSpecialcharedExpectedString() {
 		if (!$this->isDiffToolAvailable()) {
-			$this->markTestSkipped('This test needs a working diff tool. Please see [BE][diff_path] in the install tool.');
+			self::markTestSkipped('This test needs a working diff tool. Please see [BE][diff_path] in the install tool.');
 		}
 
 		/** @var $testCase PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject */
@@ -206,7 +206,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		$this->subject->addFailure($testCase, $error, $time);
 
-		$this->assertContains(
+		self::assertContains(
 			'expected&amp;correct',
 			strip_tags($this->outputService->getCollectedOutput())
 		);
@@ -228,7 +228,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		$this->subject->addFailure($testCase, $error, $time);
 
-		$this->assertContains(
+		self::assertContains(
 			'actual&amp;incorrect',
 			strip_tags($this->outputService->getCollectedOutput())
 		);
@@ -276,11 +276,11 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		$this->subject->addIncompleteTest($testCase, $exception, $time);
 
-		$this->assertContains(
+		self::assertContains(
 			htmlspecialchars($testName),
 			$this->outputService->getCollectedOutput()
 		);
-		$this->assertNotContains(
+		self::assertNotContains(
 			$testName,
 			$this->outputService->getCollectedOutput()
 		);
@@ -299,11 +299,11 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		$this->subject->addIncompleteTest($testCase, $exception, $time);
 
-		$this->assertContains(
+		self::assertContains(
 			htmlspecialchars($message),
 			$this->outputService->getCollectedOutput()
 		);
-		$this->assertNotContains(
+		self::assertNotContains(
 			$message,
 			$this->outputService->getCollectedOutput()
 		);
@@ -322,11 +322,11 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		$this->subject->addSkippedTest($testCase, $exception, $time);
 
-		$this->assertContains(
+		self::assertContains(
 			htmlspecialchars($testName),
 			$this->outputService->getCollectedOutput()
 		);
-		$this->assertNotContains(
+		self::assertNotContains(
 			$testName,
 			$this->outputService->getCollectedOutput()
 		);
@@ -345,11 +345,11 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		$this->subject->addSkippedTest($testCase, $exception, $time);
 
-		$this->assertContains(
+		self::assertContains(
 			htmlspecialchars($message),
 			$this->outputService->getCollectedOutput()
 		);
-		$this->assertNotContains(
+		self::assertNotContains(
 			$message,
 			$this->outputService->getCollectedOutput()
 		);
@@ -365,12 +365,12 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		/** @var $testSuite PHPUnit_Framework_TestSuite|PHPUnit_Framework_MockObject_MockObject */
 		$testSuite = $this->getMock('PHPUnit_Framework_TestSuite', array('run'), array('aTestSuiteName'));
-		$subject->expects($this->once())->method('prettifyTestClass')
-			->with('aTestSuiteName')->will($this->returnValue('a test suite name'));
+		$subject->expects(self::once())->method('prettifyTestClass')
+			->with('aTestSuiteName')->will(self::returnValue('a test suite name'));
 
 		$subject->startTestSuite($testSuite);
 
-		$this->assertContains(
+		self::assertContains(
 			'a test suite name',
 			$this->outputService->getCollectedOutput()
 		);
@@ -394,7 +394,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		$subject = $this->getMock('Tx_Phpunit_BackEnd_TestListener', array('setTimeLimit'));
 		$subject->injectOutputService($this->outputService);
 
-		$subject->expects($this->once())->method('setTimeLimit')->with(240);
+		$subject->expects(self::once())->method('setTimeLimit')->with(240);
 
 		/** @var $testCase PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject */
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase');
@@ -416,7 +416,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase');
 		$subject->startTest($testCase);
 
-		$this->assertContains(
+		self::assertContains(
 			'id="testcaseNum-42_91"',
 			$this->outputService->getCollectedOutput()
 		);
@@ -432,12 +432,12 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		/** @var $testCase PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject */
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase');
-		$subject->expects($this->once())->method('createReRunLink')
-			->with($testCase)->will($this->returnValue('the re-run URL'));
+		$subject->expects(self::once())->method('createReRunLink')
+			->with($testCase)->will(self::returnValue('the re-run URL'));
 
 		$subject->startTest($testCase);
 
-		$this->assertContains(
+		self::assertContains(
 			'the re-run URL',
 			$this->outputService->getCollectedOutput()
 		);
@@ -453,12 +453,12 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		/** @var $testCase PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject */
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array('aTestName'));
-		$subject->expects($this->once())->method('prettifyTestMethod')
-			->with('aTestName')->will($this->returnValue('a test name'));
+		$subject->expects(self::once())->method('prettifyTestMethod')
+			->with('aTestName')->will(self::returnValue('a test name'));
 
 		$subject->startTest($testCase);
 
-		$this->assertContains(
+		self::assertContains(
 			'a test name',
 			$this->outputService->getCollectedOutput()
 		);
@@ -476,15 +476,15 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		/** @var $testCase PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject */
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array('run'), array($testName));
-		$subject->expects($this->once())->method('prettifyTestMethod')->with($testName)->will($this->returnValue($testName));
+		$subject->expects(self::once())->method('prettifyTestMethod')->with($testName)->will(self::returnValue($testName));
 
 		$subject->startTest($testCase);
 
-		$this->assertContains(
+		self::assertContains(
 			htmlspecialchars($testName),
 			$this->outputService->getCollectedOutput()
 		);
-		$this->assertNotContains(
+		self::assertNotContains(
 			$testName,
 			$this->outputService->getCollectedOutput()
 		);
@@ -502,16 +502,16 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		/** @var $testSuite PHPUnit_Framework_TestSuite|PHPUnit_Framework_MockObject_MockObject */
 		$testSuite = $this->getMock('PHPUnit_Framework_TestSuite', array('run'), array($testSuiteName));
-		$subject->expects($this->once())->method('prettifyTestClass')
-			->with($testSuiteName)->will($this->returnValue($testSuiteName));
+		$subject->expects(self::once())->method('prettifyTestClass')
+			->with($testSuiteName)->will(self::returnValue($testSuiteName));
 
 		$subject->startTestSuite($testSuite);
 
-		$this->assertContains(
+		self::assertContains(
 			htmlspecialchars($testSuiteName),
 			$this->outputService->getCollectedOutput()
 		);
-		$this->assertNotContains(
+		self::assertNotContains(
 			$testSuiteName,
 			$this->outputService->getCollectedOutput()
 		);
@@ -523,10 +523,10 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	public function endTestAddsTestAssertionsToTotalAssertionCount() {
 		/** @var $testCase1 PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject */
 		$testCase1 = $this->getMock('PHPUnit_Framework_TestCase', array('getNumAssertions'));
-		$testCase1->expects($this->once())->method('getNumAssertions')->will($this->returnValue(1));
+		$testCase1->expects(self::once())->method('getNumAssertions')->will(self::returnValue(1));
 
 		$this->subject->endTest($testCase1, 0.0);
-		$this->assertSame(
+		self::assertSame(
 			1,
 			$this->subject->assertionCount(),
 			'The assertions of the first test case have not been counted.'
@@ -534,10 +534,10 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		/** @var $testCase2 PHPUnit_Framework_TestCase|PHPUnit_Framework_MockObject_MockObject */
 		$testCase2 = $this->getMock('PHPUnit_Framework_TestCase', array('getNumAssertions'));
-		$testCase2->expects($this->once())->method('getNumAssertions')->will($this->returnValue(4));
+		$testCase2->expects(self::once())->method('getNumAssertions')->will(self::returnValue(4));
 
 		$this->subject->endTest($testCase2, 0.0);
-		$this->assertSame(
+		self::assertSame(
 			5,
 			$this->subject->assertionCount(),
 			'The assertions of the second test case have not been counted.'
@@ -552,7 +552,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase');
 
 		$this->subject->endTest($testCase, 0.0);
-		$this->assertSame(
+		self::assertSame(
 			0,
 			$this->subject->assertionCount()
 		);
@@ -566,7 +566,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		$test = $this->getMock('PHPUnit_Framework_Test');
 
 		$this->subject->endTest($test, 0.0);
-		$this->assertSame(
+		self::assertSame(
 			0,
 			$this->subject->assertionCount()
 		);
@@ -584,7 +584,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		$this->subject->endTest($test, 0.0);
 		$this->subject->endTest($test2, 0.0);
 
-		$this->assertSame(
+		self::assertSame(
 			1,
 			$this->subject->getTotalNumberOfDetectedDataProviderTests()
 		);
@@ -602,7 +602,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		$this->subject->endTest($testCase, 0.0);
 		$this->subject->endTest($testCase2, 0.0);
 
-		$this->assertSame(
+		self::assertSame(
 			0,
 			$this->subject->getTotalNumberOfDetectedDataProviderTests()
 		);
@@ -619,10 +619,10 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		/** @var $subject Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject */
 		$subject = $this->getMock($this->createAccessibleProxy(), array('createReRunUrl'));
-		$subject->expects($this->once())->method('createReRunUrl')
-			->will($this->returnValue($reRunUrl));
+		$subject->expects(self::once())->method('createReRunUrl')
+			->will(self::returnValue($reRunUrl));
 
-		$this->assertContains(
+		self::assertContains(
 			'<a href="' . $reRunUrl . '"',
 			$subject->createReRunLink($testCase)
 		);
@@ -639,10 +639,10 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		/** @var $subject Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject */
 		$subject = $this->getMock($this->createAccessibleProxy(), array('createReRunUrl'));
-		$subject->expects($this->once())->method('createReRunUrl')
-			->will($this->returnValue($reRunUrl));
+		$subject->expects(self::once())->method('createReRunUrl')
+			->will(self::returnValue($reRunUrl));
 
-		$this->assertContains(
+		self::assertContains(
 			'</a> ',
 			$subject->createReRunLink($testCase)
 		);
@@ -659,10 +659,10 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		/** @var $subject Tx_Phpunit_BackEnd_TestListener|PHPUnit_Framework_MockObject_MockObject */
 		$subject = $this->getMock($this->createAccessibleProxy(), array('createReRunUrl'));
-		$subject->expects($this->once())->method('createReRunUrl')
-			->will($this->returnValue($reRunUrl));
+		$subject->expects(self::once())->method('createReRunUrl')
+			->will(self::returnValue($reRunUrl));
 
-		$this->assertContains(
+		self::assertContains(
 			'alt=""',
 			$subject->createReRunLink($testCase)
 		);
@@ -675,7 +675,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		/** @var $testCase PHPUnit_Framework_TestCase|PHPUnit_Framework_TestSuite */
 		$testCase = $this->getMock('PHPUnit_Framework_TestCase', array(), array('myTest'));
 
-		$this->assertContains(
+		self::assertContains(
 			'mod.php?M=' . Tx_Phpunit_BackEnd_Module::MODULE_NAME,
 			$this->subject->createReRunUrl($testCase)
 		);
@@ -688,7 +688,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 		/** @var $test PHPUnit_Framework_TestCase|PHPUnit_Framework_TestSuite */
 		$test = $this->getMock('PHPUnit_Framework_TestCase', array(), array('myTest'));
 
-		$this->assertContains(
+		self::assertContains(
 			'tx_phpunit%5Bcommand%5D=runsingletest',
 			$this->subject->createReRunUrl($test)
 		);
@@ -703,7 +703,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		$this->subject->setTestSuiteName('myTestCase');
 
-		$this->assertContains(
+		self::assertContains(
 			'tx_phpunit%5BtestCaseFile%5D=myTestCase',
 			$this->subject->createReRunUrl($test)
 		);
@@ -718,7 +718,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		$this->subject->setTestSuiteName('myTestCase');
 
-		$this->assertContains(
+		self::assertContains(
 			'tx_phpunit%5Btestname%5D=myTest',
 			$this->subject->createReRunUrl($test)
 		);
@@ -733,7 +733,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 
 		$this->subject->setTestSuiteName('myTestCase');
 
-		$this->assertContains(
+		self::assertContains(
 			'&amp;',
 			$this->subject->createReRunUrl($test)
 		);
@@ -745,7 +745,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	public function prettifyTestMethodForTestPrefixByDefaultReturnsNameUnchanged() {
 		$camelCaseName = 'testFreshEspressoTastesNice';
 
-		$this->assertSame(
+		self::assertSame(
 			$camelCaseName,
 			$this->subject->prettifyTestMethod($camelCaseName)
 		);
@@ -757,7 +757,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	public function prettifyTestMethodForTestPrefixAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTestPrefix() {
 		$this->subject->useHumanReadableTextFormat();
 
-		$this->assertSame(
+		self::assertSame(
 			'Fresh espresso tastes nice',
 			$this->subject->prettifyTestMethod('testFreshEspressoTastesNice')
 		);
@@ -769,7 +769,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	public function prettifyTestMethodForTestPrefixWithUnderscoreByDefaultReturnsNameUnchanged() {
 		$camelCaseName = 'test_freshEspressoTastesNice';
 
-		$this->assertSame(
+		self::assertSame(
 			$camelCaseName,
 			$this->subject->prettifyTestMethod($camelCaseName)
 		);
@@ -781,7 +781,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	public function prettifyTestMethodForTestPrefixWithUnderscoreAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTestPrefix() {
 		$this->subject->useHumanReadableTextFormat();
 
-		$this->assertSame(
+		self::assertSame(
 			'Fresh espresso tastes nice',
 			$this->subject->prettifyTestMethod('test_freshEspressoTastesNice')
 		);
@@ -793,7 +793,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	public function prettifyTestMethodByDefaultReturnsNameUnchanged() {
 		$camelCaseName = 'freshEspressoTastesNice';
 
-		$this->assertSame(
+		self::assertSame(
 			$camelCaseName,
 			$this->subject->prettifyTestMethod($camelCaseName)
 		);
@@ -805,7 +805,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	public function prettifyTestMethodAfterUseHumanReadableTextFormatConvertCamelCaseToWords() {
 		$this->subject->useHumanReadableTextFormat();
 
-		$this->assertSame(
+		self::assertSame(
 			'Fresh espresso tastes nice',
 			$this->subject->prettifyTestMethod('freshEspressoTastesNice')
 		);
@@ -817,7 +817,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	public function prettifyTestClassByDefaultReturnsNameUnchanged() {
 		$camelCaseName = 'tx_phpunit_BackEnd_TestListenerTest';
 
-		$this->assertSame(
+		self::assertSame(
 			$camelCaseName,
 			$this->subject->prettifyTestClass($camelCaseName)
 		);
@@ -829,7 +829,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	public function prettifyTestClassForTestSuffixAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTxPrefix() {
 		$this->subject->useHumanReadableTextFormat();
 
-		$this->assertSame(
+		self::assertSame(
 			'phpunit BackEnd TestListener',
 			$this->subject->prettifyTestClass('tx_phpunit_BackEnd_TestListenerTest')
 		);
@@ -841,7 +841,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	public function prettifyTestClassForTestcaseSuffixAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTxPrefix() {
 		$this->subject->useHumanReadableTextFormat();
 
-		$this->assertSame(
+		self::assertSame(
 			'phpunit BackEnd TestListener',
 			$this->subject->prettifyTestClass('tx_phpunit_BackEnd_TestListener_testcase')
 		);
@@ -853,7 +853,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	public function prettifyTestClassForExtbaseClassNameByDefaultReturnsNameUnchanged() {
 		$camelCaseName = 'Tx_Phpunit_BackEnd_TestListenerTest';
 
-		$this->assertSame(
+		self::assertSame(
 			$camelCaseName,
 			$this->subject->prettifyTestClass($camelCaseName)
 		);
@@ -865,7 +865,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	public function prettifyTestClassForExtbaseClassNameAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTestSuffix() {
 		$this->subject->useHumanReadableTextFormat();
 
-		$this->assertSame(
+		self::assertSame(
 			'Phpunit BackEnd TestListener',
 			$this->subject->prettifyTestClass('Tx_Phpunit_BackEnd_TestListenerTest')
 		);
@@ -875,7 +875,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function assertionCountInitiallyReturnsZero() {
-		$this->assertSame(
+		self::assertSame(
 			0,
 			$this->subject->assertionCount()
 		);
@@ -887,7 +887,7 @@ class Tx_Phpunit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase {
 	public function assertionCountReturnsNumberOfAssertions() {
 		$this->subject->setNumberOfAssertions(42);
 
-		$this->assertSame(
+		self::assertSame(
 			42,
 			$this->subject->assertionCount()
 		);

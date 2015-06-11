@@ -42,7 +42,7 @@ class Tx_Phpunit_ViewHelpers_ProgressBarViewHelperTest extends Tx_Phpunit_TestCa
 	 * @test
 	 */
 	public function classIsSubclassAbstractViewHelper() {
-		$this->assertInstanceOf(
+		self::assertInstanceOf(
 			'Tx_Phpunit_ViewHelpers_AbstractViewHelper',
 			$this->subject
 		);
@@ -54,7 +54,7 @@ class Tx_Phpunit_ViewHelpers_ProgressBarViewHelperTest extends Tx_Phpunit_TestCa
 	public function renderCreatesProgressBarHtmlId() {
 		$this->subject->render();
 
-		$this->assertContains(
+		self::assertContains(
 			'id="progress-bar"',
 			$this->outputService->getCollectedOutput()
 		);

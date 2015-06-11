@@ -64,7 +64,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function classIsRequest() {
-		$this->assertInstanceOf(
+		self::assertInstanceOf(
 			'Tx_Phpunit_Interface_Request',
 			$this->subject
 		);
@@ -74,7 +74,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getAsBooleanForMissingValueReturnsFalse() {
-		$this->assertFalse(
+		self::assertFalse(
 			$this->subject->getAsBoolean('foo')
 		);
 	}
@@ -85,7 +85,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	public function getAsBooleanCanReturnFalseFromGet() {
 		$GLOBALS['_GET']['tx_phpunit'] = $this->testData;
 
-		$this->assertFalse(
+		self::assertFalse(
 			$this->subject->getAsBoolean('testValueFalse')
 		);
 	}
@@ -96,7 +96,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	public function getAsBooleanCanReturnTrueFromGet() {
 		$GLOBALS['_GET']['tx_phpunit'] = $this->testData;
 
-		$this->assertTrue(
+		self::assertTrue(
 			$this->subject->getAsBoolean('testValueTrue')
 		);
 	}
@@ -107,7 +107,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	public function getAsBooleanCanReturnOneStringFromGetAsTrue() {
 		$GLOBALS['_GET']['tx_phpunit'] = $this->testData;
 
-		$this->assertTrue(
+		self::assertTrue(
 			$this->subject->getAsBoolean('testValueOneInteger')
 		);
 	}
@@ -116,7 +116,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getAsIntegerForMissingValueReturnsZero() {
-		$this->assertSame(
+		self::assertSame(
 			0,
 			$this->subject->getAsInteger('foo')
 		);
@@ -128,7 +128,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	public function getAsIntegerForExistingValueFromGetReturnsValue() {
 		$GLOBALS['_GET']['tx_phpunit'] = $this->testData;
 
-		$this->assertSame(
+		self::assertSame(
 			42,
 			$this->subject->getAsInteger('testValuePositiveInteger')
 		);
@@ -140,7 +140,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	public function hasIntegerForZeroFromGetReturnsFalse() {
 		$GLOBALS['_GET']['tx_phpunit'] = $this->testData;
 
-		$this->assertFalse(
+		self::assertFalse(
 			$this->subject->hasInteger('testValueZeroInteger')
 		);
 	}
@@ -151,7 +151,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	public function hasIntegerForPositiveIntegerFromGetReturnsTrue() {
 		$GLOBALS['_GET']['tx_phpunit'] = $this->testData;
 
-		$this->assertTrue(
+		self::assertTrue(
 			$this->subject->hasInteger('testValuePositiveInteger')
 		);
 	}
@@ -162,7 +162,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	public function hasIntegerForNegativeIntegerFromGetReturnsTrue() {
 		$GLOBALS['_GET']['tx_phpunit'] = $this->testData;
 
-		$this->assertTrue(
+		self::assertTrue(
 			$this->subject->hasInteger('testValueNegativeInteger')
 		);
 	}
@@ -171,7 +171,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getAsStringForMissingValueReturnsEmptyString() {
-		$this->assertSame(
+		self::assertSame(
 			'',
 			$this->subject->getAsString('foo')
 		);
@@ -183,7 +183,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	public function getAsStringForExistingValueFromGetReturnsValue() {
 		$GLOBALS['_GET']['tx_phpunit'] = $this->testData;
 
-		$this->assertSame(
+		self::assertSame(
 			'Hello world!',
 			$this->subject->getAsString('testValueString')
 		);
@@ -195,7 +195,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	public function getAsStringForExistingIntegerValueFromGetReturnsStringValue() {
 		$GLOBALS['_GET']['tx_phpunit'] = $this->testData;
 
-		$this->assertSame(
+		self::assertSame(
 			'42',
 			$this->subject->getAsString('testValuePositiveInteger')
 		);
@@ -207,7 +207,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	public function hasStringForEmptyStringFromGetReturnsFalse() {
 		$GLOBALS['_GET']['tx_phpunit'] = $this->testData;
 
-		$this->assertFalse(
+		self::assertFalse(
 			$this->subject->hasString('testValueEmptyString')
 		);
 	}
@@ -218,7 +218,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	public function hasStringForNonEmptyStringFromGetReturnsTrue() {
 		$GLOBALS['_GET']['tx_phpunit'] = $this->testData;
 
-		$this->assertTrue(
+		self::assertTrue(
 			$this->subject->hasString('testValueString')
 		);
 	}
@@ -229,7 +229,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	public function getAsBooleanCanReturnFalseFromPost() {
 		$GLOBALS['_POST']['tx_phpunit'] = $this->testData;
 
-		$this->assertFalse(
+		self::assertFalse(
 			$this->subject->getAsBoolean('testValueFalse')
 		);
 	}
@@ -240,7 +240,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	public function getAsBooleanCanReturnTrueFromPost() {
 		$GLOBALS['_POST']['tx_phpunit'] = $this->testData;
 
-		$this->assertTrue(
+		self::assertTrue(
 			$this->subject->getAsBoolean('testValueTrue')
 		);
 	}
@@ -251,7 +251,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	public function getAsBooleanCanReturnOneStringFromPostAsTrue() {
 		$GLOBALS['_POST']['tx_phpunit'] = $this->testData;
 
-		$this->assertTrue(
+		self::assertTrue(
 			$this->subject->getAsBoolean('testValueOneInteger')
 		);
 	}
@@ -262,7 +262,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	public function getAsIntegerForExistingValueFromPostReturnsValue() {
 		$GLOBALS['_POST']['tx_phpunit'] = $this->testData;
 
-		$this->assertSame(
+		self::assertSame(
 			42,
 			$this->subject->getAsInteger('testValuePositiveInteger')
 		);
@@ -274,7 +274,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	public function hasIntegerForZeroFromPostReturnsFalse() {
 		$GLOBALS['_POST']['tx_phpunit'] = $this->testData;
 
-		$this->assertFalse(
+		self::assertFalse(
 			$this->subject->hasInteger('testValueZeroInteger')
 		);
 	}
@@ -285,7 +285,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	public function hasIntegerForPositiveIntegerFromPostReturnsTrue() {
 		$GLOBALS['_POST']['tx_phpunit'] = $this->testData;
 
-		$this->assertTrue(
+		self::assertTrue(
 			$this->subject->hasInteger('testValuePositiveInteger')
 		);
 	}
@@ -296,7 +296,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	public function hasIntegerForNegativeIntegerFromPostReturnsTrue() {
 		$GLOBALS['_POST']['tx_phpunit'] = $this->testData;
 
-		$this->assertTrue(
+		self::assertTrue(
 			$this->subject->hasInteger('testValueNegativeInteger')
 		);
 	}
@@ -307,7 +307,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	public function getAsStringForExistingValueFromPostReturnsValue() {
 		$GLOBALS['_POST']['tx_phpunit'] = $this->testData;
 
-		$this->assertSame(
+		self::assertSame(
 			'Hello world!',
 			$this->subject->getAsString('testValueString')
 		);
@@ -319,7 +319,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	public function getAsStringForExistingIntegerValueFromPostReturnsStringValue() {
 		$GLOBALS['_POST']['tx_phpunit'] = $this->testData;
 
-		$this->assertSame(
+		self::assertSame(
 			'42',
 			$this->subject->getAsString('testValuePositiveInteger')
 		);
@@ -331,7 +331,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	public function hasStringForEmptyStringFromPostReturnsFalse() {
 		$GLOBALS['_POST']['tx_phpunit'] = $this->testData;
 
-		$this->assertFalse(
+		self::assertFalse(
 			$this->subject->hasString('testValueEmptyString')
 		);
 	}
@@ -342,7 +342,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	public function hasStringForNonEmptyStringFromPostReturnsTrue() {
 		$GLOBALS['_POST']['tx_phpunit'] = $this->testData;
 
-		$this->assertTrue(
+		self::assertTrue(
 			$this->subject->hasString('testValueString')
 		);
 	}
@@ -354,7 +354,7 @@ class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 		$GLOBALS['_GET']['tx_phpunit'] = array('foo' => 'getValue');
 		$GLOBALS['_POST']['tx_phpunit'] = array('foo' => 'postValue');
 
-		$this->assertSame(
+		self::assertSame(
 			'postValue',
 			$this->subject->getAsString('foo')
 		);

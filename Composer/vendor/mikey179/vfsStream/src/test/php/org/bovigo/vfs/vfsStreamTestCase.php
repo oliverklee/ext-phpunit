@@ -537,7 +537,7 @@ class vfsStreamTestCase extends \PHPUnit_Framework_TestCase
     {
         $mockContent = $this->getMock('org\\bovigo\\vfs\\vfsStreamContent');
         $mockVisitor = $this->getMock('org\\bovigo\\vfs\\visitor\\vfsStreamVisitor');
-        $mockVisitor->expects($this->once())
+        $mockVisitor->expects(self::once())
                     ->method('visit')
                     ->with($this->equalTo($mockContent))
                     ->will($this->returnValue($mockVisitor));
@@ -553,7 +553,7 @@ class vfsStreamTestCase extends \PHPUnit_Framework_TestCase
     {
         $root = vfsStream::setup();
         $mockVisitor = $this->getMock('org\\bovigo\\vfs\\visitor\\vfsStreamVisitor');
-        $mockVisitor->expects($this->once())
+        $mockVisitor->expects(self::once())
                     ->method('visitDirectory')
                     ->with($this->equalTo($root))
                     ->will($this->returnValue($mockVisitor));

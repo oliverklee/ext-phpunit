@@ -61,7 +61,7 @@ class Tx_Phpunit_BackEnd_TestStatisticsTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getTimeInitiallyReturnsZero() {
-		$this->assertSame(
+		self::assertSame(
 			0.0,
 			$this->subject->getTime()
 		);
@@ -73,7 +73,7 @@ class Tx_Phpunit_BackEnd_TestStatisticsTest extends Tx_Phpunit_TestCase {
 	public function getTimeWithoutStartAfterPauseReturnsZero() {
 		usleep(100000);
 
-		$this->assertSame(
+		self::assertSame(
 			0.0,
 			$this->subject->getTime()
 		);
@@ -86,7 +86,7 @@ class Tx_Phpunit_BackEnd_TestStatisticsTest extends Tx_Phpunit_TestCase {
 		$this->subject->start();
 		usleep(100000);
 
-		$this->assertEquals(
+		self::assertEquals(
 			0.1,
 			$this->subject->getTime(),
 			'', 0.02
@@ -101,7 +101,7 @@ class Tx_Phpunit_BackEnd_TestStatisticsTest extends Tx_Phpunit_TestCase {
 		usleep(100000);
 		$this->subject->stop();
 
-		$this->assertEquals(
+		self::assertEquals(
 			0.1,
 			$this->subject->getTime(),
 			'', 0.02
@@ -112,7 +112,7 @@ class Tx_Phpunit_BackEnd_TestStatisticsTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getMemoryInitiallyReturnsZero() {
-		$this->assertSame(
+		self::assertSame(
 			0,
 			$this->subject->getMemory()
 		);
@@ -124,7 +124,7 @@ class Tx_Phpunit_BackEnd_TestStatisticsTest extends Tx_Phpunit_TestCase {
 	public function getMemoryWithoutStartAfterMemoryUsageReturnsZero() {
 		array();
 
-		$this->assertSame(
+		self::assertSame(
 			0,
 			$this->subject->getMemory()
 		);
@@ -137,7 +137,7 @@ class Tx_Phpunit_BackEnd_TestStatisticsTest extends Tx_Phpunit_TestCase {
 		$this->subject->start();
 		array();
 
-		$this->assertGreaterThan(
+		self::assertGreaterThan(
 			0,
 			$this->subject->getMemory()
 		);

@@ -94,7 +94,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function createAccessibleProxyCreatesTestFinderSubclass() {
-		$this->assertInstanceOf('Tx_Phpunit_Service_TestFinder', $this->createAccessibleProxy());
+		self::assertInstanceOf('Tx_Phpunit_Service_TestFinder', $this->createAccessibleProxy());
 	}
 
 
@@ -106,7 +106,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function classIsSingleton() {
-		$this->assertInstanceOf('TYPO3\\CMS\\Core\\SingletonInterface', $this->subject);
+		self::assertInstanceOf('TYPO3\\CMS\\Core\\SingletonInterface', $this->subject);
 	}
 
 	/**
@@ -116,8 +116,8 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	public function getTestableForKeyForEmptyKeyThrowsException() {
 		/** @var $subject Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
 		$subject = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$subject->expects($this->any())->method('getTestablesForEverything')
-			->will($this->returnValue(array('foo' => new Tx_Phpunit_Testable())));
+		$subject->expects(self::any())->method('getTestablesForEverything')
+			->will(self::returnValue(array('foo' => new Tx_Phpunit_Testable())));
 
 		$subject->getTestableForKey('');
 	}
@@ -130,9 +130,9 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 		/** @var $subject Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
 		$subject = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$subject->expects($this->any())->method('getTestablesForEverything')->will($this->returnValue(array('foo' => $testable)));
+		$subject->expects(self::any())->method('getTestablesForEverything')->will(self::returnValue(array('foo' => $testable)));
 
-		$this->assertSame(
+		self::assertSame(
 			$testable,
 			$subject->getTestableForKey('foo')
 		);
@@ -145,8 +145,8 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	public function getTestableForKeyForInexistentKeyThrowsException() {
 		/** @var $subject Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
 		$subject = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$subject->expects($this->any())->method('getTestablesForEverything')
-			->will($this->returnValue(array('foo' => new Tx_Phpunit_Testable())));
+		$subject->expects(self::any())->method('getTestablesForEverything')
+			->will(self::returnValue(array('foo' => new Tx_Phpunit_Testable())));
 
 		$subject->getTestableForKey('bar');
 	}
@@ -157,10 +157,10 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	public function existsTestableForKeyForEmptyKeyReturnsFalse() {
 		/** @var $subject Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
 		$subject = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$subject->expects($this->any())->method('getTestablesForEverything')
-			->will($this->returnValue(array('foo' => new Tx_Phpunit_Testable())));
+		$subject->expects(self::any())->method('getTestablesForEverything')
+			->will(self::returnValue(array('foo' => new Tx_Phpunit_Testable())));
 
-		$this->assertFalse(
+		self::assertFalse(
 			$subject->existsTestableForKey('')
 		);
 	}
@@ -171,10 +171,10 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	public function existsTestableForKeyForExistingKeyReturnsTrue() {
 		/** @var $subject Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
 		$subject = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$subject->expects($this->any())->method('getTestablesForEverything')
-			->will($this->returnValue(array('foo' => new Tx_Phpunit_Testable())));
+		$subject->expects(self::any())->method('getTestablesForEverything')
+			->will(self::returnValue(array('foo' => new Tx_Phpunit_Testable())));
 
-		$this->assertTrue(
+		self::assertTrue(
 			$subject->existsTestableForKey('foo')
 		);
 	}
@@ -185,10 +185,10 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	public function existsTestableForKeyForInexistentKeyReturnsFalse() {
 		/** @var $subject Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
 		$subject = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$subject->expects($this->any())->method('getTestablesForEverything')
-			->will($this->returnValue(array('foo' => new Tx_Phpunit_Testable())));
+		$subject->expects(self::any())->method('getTestablesForEverything')
+			->will(self::returnValue(array('foo' => new Tx_Phpunit_Testable())));
 
-		$this->assertFalse(
+		self::assertFalse(
 			$subject->existsTestableForKey('bar')
 		);
 	}
@@ -204,9 +204,9 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	public function getTestablesForEverythingNoExtensionTestsReturnsEmptyArray() {
 		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject  */
 		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestableForCore', 'getTestablesForExtensions'));
-		$testFinder->expects($this->once())->method('getTestablesForExtensions')->will($this->returnValue(array()));
+		$testFinder->expects(self::once())->method('getTestablesForExtensions')->will(self::returnValue(array()));
 
-		$this->assertSame(
+		self::assertSame(
 			array(),
 			$testFinder->getTestablesForEverything()
 		);
@@ -220,10 +220,10 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
 		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestableForCore', 'getTestablesForExtensions'));
-		$testFinder->expects($this->once())->method('getTestablesForExtensions')
-			->will($this->returnValue(array('foo' => $extensionTests)));
+		$testFinder->expects(self::once())->method('getTestablesForExtensions')
+			->will(self::returnValue(array('foo' => $extensionTests)));
 
-		$this->assertSame(
+		self::assertSame(
 			array('foo' => $extensionTests),
 			$testFinder->getTestablesForEverything()
 		);
@@ -237,10 +237,10 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 
 		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
 		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestableForCore', 'getTestablesForExtensions'));
-		$testFinder->expects($this->any())->method('getTestablesForExtensions')
-			->will($this->returnValue(array('foo' => $extensionTests)));
+		$testFinder->expects(self::any())->method('getTestablesForExtensions')
+			->will(self::returnValue(array('foo' => $extensionTests)));
 
-		$this->assertSame(
+		self::assertSame(
 			$testFinder->getTestablesForEverything(),
 			$testFinder->getTestablesForEverything()
 		);
@@ -256,10 +256,10 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	public function existsTestableForAnythingForNoTestablesReturnsFalse() {
 		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
 		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$testFinder->expects($this->any())->method('getTestablesForEverything')
-			->will($this->returnValue(array()));
+		$testFinder->expects(self::any())->method('getTestablesForEverything')
+			->will(self::returnValue(array()));
 
-		$this->assertFalse(
+		self::assertFalse(
 			$testFinder->existsTestableForAnything()
 		);
 	}
@@ -270,10 +270,10 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	public function existsTestableForAnythingForOneTestableReturnsTrue() {
 		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
 		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$testFinder->expects($this->any())->method('getTestablesForEverything')
-			->will($this->returnValue(array('foo' => new Tx_Phpunit_Testable())));
+		$testFinder->expects(self::any())->method('getTestablesForEverything')
+			->will(self::returnValue(array('foo' => new Tx_Phpunit_Testable())));
 
-		$this->assertTrue(
+		self::assertTrue(
 			$testFinder->existsTestableForAnything()
 		);
 	}
@@ -284,10 +284,10 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	public function existsTestableForAnythingForTwoTestablessReturnsTrue() {
 		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
 		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$testFinder->expects($this->any())->method('getTestablesForEverything')
-			->will($this->returnValue(array('foo' => new Tx_Phpunit_Testable(), 'bar' => new Tx_Phpunit_Testable())));
+		$testFinder->expects(self::any())->method('getTestablesForEverything')
+			->will(self::returnValue(array('foo' => new Tx_Phpunit_Testable(), 'bar' => new Tx_Phpunit_Testable())));
 
-		$this->assertTrue(
+		self::assertTrue(
 			$testFinder->existsTestableForAnything()
 		);
 	}
@@ -300,7 +300,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'] = '';
 		$GLOBALS['TYPO3_CONF_VARS']['EXT']['requiredExt'] = '';
 
-		$this->assertContains(
+		self::assertContains(
 			'cms',
 			$this->subject->getLoadedExtensionKeys()
 		);
@@ -312,7 +312,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	public function getLoadedExtensionKeysReturnsPhpUnitKey() {
 		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extList'] = 'phpunit';
 
-		$this->assertArrayHasKey(
+		self::assertArrayHasKey(
 			'phpunit',
 			array_flip($this->subject->getLoadedExtensionKeys())
 		);
@@ -335,7 +335,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	public function getExcludedExtensionKeysReturnsKeysOfExcludedExtensions() {
 		$this->extensionSettingsService->set('excludeextensions', 'foo,bar');
 
-		$this->assertSame(
+		self::assertSame(
 			array('foo', 'bar'),
 			$this->subject->getExcludedExtensionKeys()
 		);
@@ -347,7 +347,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	public function getExcludedExtensionKeysForNoExcludedExtensionsReturnsEmptyArray() {
 		$this->extensionSettingsService->set('excludeextensions', '');
 
-		$this->assertSame(
+		self::assertSame(
 			array(),
 			$this->subject->getExcludedExtensionKeys()
 		);
@@ -357,7 +357,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getExcludedExtensionKeysForNoPhpUnitConfigurationReturnsEmptyArray() {
-		$this->assertSame(
+		self::assertSame(
 			array(),
 			$this->subject->getExcludedExtensionKeys()
 		);
@@ -367,7 +367,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getDummyExtensionKeysReturnsKeysOfPhpUnitDummyExtensions() {
-		$this->assertSame(
+		self::assertSame(
 			array('aaa', 'bbb', 'ccc', 'ddd'),
 			$this->subject->getDummyExtensionKeys()
 		);
@@ -385,13 +385,13 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 				'createTestableForSingleExtension'
 			)
 		);
-		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('foo', 'bar', 'foobar')));
-		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array('foo', 'baz')));
+		$testFinder->expects(self::once())->method('getLoadedExtensionKeys')->will(self::returnValue(array('foo', 'bar', 'foobar')));
+		$testFinder->expects(self::once())->method('getExcludedExtensionKeys')->will(self::returnValue(array('foo', 'baz')));
 
-		$testFinder->expects($this->at(2))->method('createTestableForSingleExtension')
-			->with('bar')->will($this->returnValue(new Tx_Phpunit_Testable()));
-		$testFinder->expects($this->at(3))->method('createTestableForSingleExtension')
-			->with('foobar')->will($this->returnValue(new Tx_Phpunit_Testable()));
+		$testFinder->expects(self::at(2))->method('createTestableForSingleExtension')
+			->with('bar')->will(self::returnValue(new Tx_Phpunit_Testable()));
+		$testFinder->expects(self::at(3))->method('createTestableForSingleExtension')
+			->with('foobar')->will(self::returnValue(new Tx_Phpunit_Testable()));
 
 		$testFinder->getTestablesForExtensions();
 	}
@@ -408,14 +408,14 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 				'findTestsPathForExtension', 'createTestableForSingleExtension',
 			)
 		);
-		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('foo', 'bar', 'foobar')));
-		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
-		$testFinder->expects($this->once())->method('getDummyExtensionKeys')->will($this->returnValue(array('foo', 'baz')));
+		$testFinder->expects(self::once())->method('getLoadedExtensionKeys')->will(self::returnValue(array('foo', 'bar', 'foobar')));
+		$testFinder->expects(self::once())->method('getExcludedExtensionKeys')->will(self::returnValue(array()));
+		$testFinder->expects(self::once())->method('getDummyExtensionKeys')->will(self::returnValue(array('foo', 'baz')));
 
-		$testFinder->expects($this->at(3))->method('createTestableForSingleExtension')
-			->with('bar')->will($this->returnValue(new Tx_Phpunit_Testable()));
-		$testFinder->expects($this->at(4))->method('createTestableForSingleExtension')
-			->with('foobar')->will($this->returnValue(new Tx_Phpunit_Testable()));
+		$testFinder->expects(self::at(3))->method('createTestableForSingleExtension')
+			->with('bar')->will(self::returnValue(new Tx_Phpunit_Testable()));
+		$testFinder->expects(self::at(4))->method('createTestableForSingleExtension')
+			->with('foobar')->will(self::returnValue(new Tx_Phpunit_Testable()));
 
 		$testFinder->getTestablesForExtensions();
 	}
@@ -437,15 +437,15 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 				'createTestableForSingleExtension'
 			)
 		);
-		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('foo', 'bar')));
-		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
+		$testFinder->expects(self::once())->method('getLoadedExtensionKeys')->will(self::returnValue(array('foo', 'bar')));
+		$testFinder->expects(self::once())->method('getExcludedExtensionKeys')->will(self::returnValue(array()));
 
-		$testFinder->expects($this->at(2))->method('createTestableForSingleExtension')
-			->with('foo')->will($this->returnValue($testableForFoo));
-		$testFinder->expects($this->at(3))->method('createTestableForSingleExtension')
-			->with('bar')->will($this->returnValue($testableForBar));
+		$testFinder->expects(self::at(2))->method('createTestableForSingleExtension')
+			->with('foo')->will(self::returnValue($testableForFoo));
+		$testFinder->expects(self::at(3))->method('createTestableForSingleExtension')
+			->with('bar')->will(self::returnValue($testableForBar));
 
-		$this->assertSame(
+		self::assertSame(
 			array('bar' => $testableForBar, 'foo' => $testableForFoo),
 			$testFinder->getTestablesForExtensions()
 		);
@@ -467,7 +467,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 */
 	public function findTestsPathForExtensionForExtensionWithoutTestsPathThrowsException() {
 		if (!ExtensionManagementUtility::isLoaded('ccc')) {
-			$this->markTestSkipped(
+			self::markTestSkipped(
 				'This test can only be run if the extension "ccc" from TestExtensions/ is installed.'
 			);
 		}
@@ -482,7 +482,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 * case-insensitive file system.
 	 */
 	public function findTestsPathForExtensionForExtensionWithUpperFirstTestsDirectoryReturnsThatDirectory() {
-		$this->assertSame(
+		self::assertSame(
 			strtolower(ExtensionManagementUtility::extPath('phpunit') . 'Tests/'),
 			strtolower($this->subject->findTestsPathForExtension('phpunit'))
 		);
@@ -496,12 +496,12 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 */
 	public function findTestsPathForExtensionForExtensionWithLowerCaseTestsDirectoryReturnsThatDirectory() {
 		if (!ExtensionManagementUtility::isLoaded('bbb')) {
-			$this->markTestSkipped(
+			self::markTestSkipped(
 				'This test can only be run if the extension "bbb" from TestExtensions/ is installed.'
 			);
 		}
 
-		$this->assertSame(
+		self::assertSame(
 			strtolower(ExtensionManagementUtility::extPath('bbb') . 'tests/'),
 			strtolower($this->subject->findTestsPathForExtension('bbb'))
 		);
@@ -514,9 +514,9 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
 		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getLoadedExtensionKeys'));
 		$testFinder->injectExtensionSettingsService($this->extensionSettingsService);
-		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array()));
+		$testFinder->expects(self::once())->method('getLoadedExtensionKeys')->will(self::returnValue(array()));
 
-		$this->assertSame(
+		self::assertSame(
 			array(),
 			$testFinder->getTestablesForExtensions()
 		);
@@ -536,12 +536,12 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 				'createTestableForSingleExtension'
 			)
 		);
-		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('foo')));
-		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
-		$testFinder->expects($this->once())->method('createTestableForSingleExtension')
-			->with('foo')->will($this->returnValue($testableInstance));
+		$testFinder->expects(self::once())->method('getLoadedExtensionKeys')->will(self::returnValue(array('foo')));
+		$testFinder->expects(self::once())->method('getExcludedExtensionKeys')->will(self::returnValue(array()));
+		$testFinder->expects(self::once())->method('createTestableForSingleExtension')
+			->with('foo')->will(self::returnValue($testableInstance));
 
-		$this->assertSame(
+		self::assertSame(
 			array('foo' => $testableInstance),
 			$testFinder->getTestablesForExtensions()
 		);
@@ -559,14 +559,14 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 				'createTestableForSingleExtension'
 			)
 		);
-		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('foo', 'bar')));
-		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
-		$testFinder->expects($this->at(2))->method('createTestableForSingleExtension')
-			->with('foo')->will($this->returnValue(new Tx_Phpunit_Testable()));
-		$testFinder->expects($this->at(3))->method('createTestableForSingleExtension')
-			->with('bar')->will($this->returnValue(new Tx_Phpunit_Testable()));
+		$testFinder->expects(self::once())->method('getLoadedExtensionKeys')->will(self::returnValue(array('foo', 'bar')));
+		$testFinder->expects(self::once())->method('getExcludedExtensionKeys')->will(self::returnValue(array()));
+		$testFinder->expects(self::at(2))->method('createTestableForSingleExtension')
+			->with('foo')->will(self::returnValue(new Tx_Phpunit_Testable()));
+		$testFinder->expects(self::at(3))->method('createTestableForSingleExtension')
+			->with('bar')->will(self::returnValue(new Tx_Phpunit_Testable()));
 
-		$this->assertSame(
+		self::assertSame(
 			2,
 			count($testFinder->getTestablesForExtensions())
 		);
@@ -581,12 +581,12 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 			'Tx_Phpunit_Service_TestFinder',
 			array('getLoadedExtensionKeys', 'getExcludedExtensionKeys', 'findTestsPathForExtension')
 		);
-		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('foo')));
-		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
-		$testFinder->expects($this->once())->method('findTestsPathForExtension')
-			->with('foo')->will($this->throwException(new Tx_Phpunit_Exception_NoTestsDirectory()));
+		$testFinder->expects(self::once())->method('getLoadedExtensionKeys')->will(self::returnValue(array('foo')));
+		$testFinder->expects(self::once())->method('getExcludedExtensionKeys')->will(self::returnValue(array()));
+		$testFinder->expects(self::once())->method('findTestsPathForExtension')
+			->with('foo')->will(self::throwException(new Tx_Phpunit_Exception_NoTestsDirectory()));
 
-		$this->assertSame(
+		self::assertSame(
 			array(),
 			$testFinder->getTestablesForExtensions()
 		);
@@ -606,14 +606,14 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 				'createTestableForSingleExtension'
 			)
 		);
-		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('foo', 'bar')));
-		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
-		$testFinder->expects($this->at(2))->method('createTestableForSingleExtension')
-			->with('foo')->will($this->throwException(new Tx_Phpunit_Exception_NoTestsDirectory()));
-		$testFinder->expects($this->at(3))->method('createTestableForSingleExtension')
-			->with('bar')->will($this->returnValue($testableInstance));
+		$testFinder->expects(self::once())->method('getLoadedExtensionKeys')->will(self::returnValue(array('foo', 'bar')));
+		$testFinder->expects(self::once())->method('getExcludedExtensionKeys')->will(self::returnValue(array()));
+		$testFinder->expects(self::at(2))->method('createTestableForSingleExtension')
+			->with('foo')->will(self::throwException(new Tx_Phpunit_Exception_NoTestsDirectory()));
+		$testFinder->expects(self::at(3))->method('createTestableForSingleExtension')
+			->with('bar')->will(self::returnValue($testableInstance));
 
-		$this->assertSame(
+		self::assertSame(
 			array('bar' => $testableInstance),
 			$testFinder->getTestablesForExtensions()
 		);
@@ -628,14 +628,14 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 			'Tx_Phpunit_Service_TestFinder',
 			array('getLoadedExtensionKeys', 'getExcludedExtensionKeys', 'findTestsPathForExtension')
 		);
-		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('phpunit')));
-		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
-		$testFinder->expects($this->once())->method('findTestsPathForExtension')
-			->with('phpunit')->will($this->returnValue(ExtensionManagementUtility::extPath('phpunit') . 'Tests/'));
+		$testFinder->expects(self::once())->method('getLoadedExtensionKeys')->will(self::returnValue(array('phpunit')));
+		$testFinder->expects(self::once())->method('getExcludedExtensionKeys')->will(self::returnValue(array()));
+		$testFinder->expects(self::once())->method('findTestsPathForExtension')
+			->with('phpunit')->will(self::returnValue(ExtensionManagementUtility::extPath('phpunit') . 'Tests/'));
 
 		/** @var $testable Tx_Phpunit_Testable */
 		$testable = array_pop($testFinder->getTestablesForExtensions());
-		$this->assertSame(
+		self::assertSame(
 			'phpunit',
 			$testable->getKey()
 		);
@@ -650,14 +650,14 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 			'Tx_Phpunit_Service_TestFinder',
 			array('getLoadedExtensionKeys', 'getExcludedExtensionKeys', 'findTestsPathForExtension')
 		);
-		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('phpunit')));
-		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
-		$testFinder->expects($this->once())->method('findTestsPathForExtension')
-			->with('phpunit')->will($this->returnValue(ExtensionManagementUtility::extPath('phpunit') . 'Tests/'));
+		$testFinder->expects(self::once())->method('getLoadedExtensionKeys')->will(self::returnValue(array('phpunit')));
+		$testFinder->expects(self::once())->method('getExcludedExtensionKeys')->will(self::returnValue(array()));
+		$testFinder->expects(self::once())->method('findTestsPathForExtension')
+			->with('phpunit')->will(self::returnValue(ExtensionManagementUtility::extPath('phpunit') . 'Tests/'));
 
 		/** @var $testable Tx_Phpunit_Testable */
 		$testable = array_pop($testFinder->getTestablesForExtensions());
-		$this->assertSame(
+		self::assertSame(
 			'phpunit',
 			$testable->getTitle()
 		);
@@ -672,14 +672,14 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 			'Tx_Phpunit_Service_TestFinder',
 			array('getLoadedExtensionKeys', 'getExcludedExtensionKeys', 'findTestsPathForExtension')
 		);
-		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('phpunit')));
-		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
-		$testFinder->expects($this->once())->method('findTestsPathForExtension')
-			->with('phpunit')->will($this->returnValue(ExtensionManagementUtility::extPath('phpunit') . 'Tests/'));
+		$testFinder->expects(self::once())->method('getLoadedExtensionKeys')->will(self::returnValue(array('phpunit')));
+		$testFinder->expects(self::once())->method('getExcludedExtensionKeys')->will(self::returnValue(array()));
+		$testFinder->expects(self::once())->method('findTestsPathForExtension')
+			->with('phpunit')->will(self::returnValue(ExtensionManagementUtility::extPath('phpunit') . 'Tests/'));
 
 		/** @var $testable Tx_Phpunit_Testable */
 		$testable = array_pop($testFinder->getTestablesForExtensions());
-		$this->assertSame(
+		self::assertSame(
 			ExtensionManagementUtility::extPath('phpunit'),
 			$testable->getCodePath()
 		);
@@ -694,14 +694,14 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 			'Tx_Phpunit_Service_TestFinder',
 			array('getLoadedExtensionKeys', 'getExcludedExtensionKeys', 'findTestsPathForExtension')
 		);
-		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('phpunit')));
-		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
-		$testFinder->expects($this->once())->method('findTestsPathForExtension')
-			->with('phpunit')->will($this->returnValue(ExtensionManagementUtility::extPath('phpunit') . 'Tests/'));
+		$testFinder->expects(self::once())->method('getLoadedExtensionKeys')->will(self::returnValue(array('phpunit')));
+		$testFinder->expects(self::once())->method('getExcludedExtensionKeys')->will(self::returnValue(array()));
+		$testFinder->expects(self::once())->method('findTestsPathForExtension')
+			->with('phpunit')->will(self::returnValue(ExtensionManagementUtility::extPath('phpunit') . 'Tests/'));
 
 		/** @var $testable Tx_Phpunit_Testable */
 		$testable = array_pop($testFinder->getTestablesForExtensions());
-		$this->assertSame(
+		self::assertSame(
 			ExtensionManagementUtility::extPath('phpunit') . 'Tests/',
 			$testable->getTestsPath()
 		);
@@ -716,14 +716,14 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 			'Tx_Phpunit_Service_TestFinder',
 			array('getLoadedExtensionKeys', 'getExcludedExtensionKeys', 'findTestsPathForExtension')
 		);
-		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('phpunit')));
-		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
-		$testFinder->expects($this->once())->method('findTestsPathForExtension')
-			->with('phpunit')->will($this->returnValue(ExtensionManagementUtility::extPath('phpunit') . 'Tests/'));
+		$testFinder->expects(self::once())->method('getLoadedExtensionKeys')->will(self::returnValue(array('phpunit')));
+		$testFinder->expects(self::once())->method('getExcludedExtensionKeys')->will(self::returnValue(array()));
+		$testFinder->expects(self::once())->method('findTestsPathForExtension')
+			->with('phpunit')->will(self::returnValue(ExtensionManagementUtility::extPath('phpunit') . 'Tests/'));
 
 		/** @var $testable Tx_Phpunit_Testable */
 		$testable = array_pop($testFinder->getTestablesForExtensions());
-		$this->assertSame(
+		self::assertSame(
 			ExtensionManagementUtility::extRelPath('phpunit') . 'ext_icon.gif',
 			$testable->getIconPath()
 		);
@@ -734,7 +734,7 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 */
 	public function getTestablesForExtensionsWithPngIconProvidesTestableInstanceWithIconPath() {
 		if (!ExtensionManagementUtility::isLoaded('user_phpunittest')) {
-			$this->markTestSkipped(
+			self::markTestSkipped(
 				'The Extension user_phpunittest is not installed, but needs to be installed. ' .
 					'Please install it from EXT:phpunit/TestExtensions/user_phpunittest/.'
 			);
@@ -745,14 +745,14 @@ class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 			'Tx_Phpunit_Service_TestFinder',
 			array('getLoadedExtensionKeys', 'getExcludedExtensionKeys', 'findTestsPathForExtension')
 		);
-		$testFinder->expects($this->once())->method('getLoadedExtensionKeys')->will($this->returnValue(array('user_phpunittest')));
-		$testFinder->expects($this->once())->method('getExcludedExtensionKeys')->will($this->returnValue(array()));
-		$testFinder->expects($this->once())->method('findTestsPathForExtension')
-			->with('user_phpunittest')->will($this->returnValue(ExtensionManagementUtility::extPath('user_phpunittest') . 'Tests/'));
+		$testFinder->expects(self::once())->method('getLoadedExtensionKeys')->will(self::returnValue(array('user_phpunittest')));
+		$testFinder->expects(self::once())->method('getExcludedExtensionKeys')->will(self::returnValue(array()));
+		$testFinder->expects(self::once())->method('findTestsPathForExtension')
+			->with('user_phpunittest')->will(self::returnValue(ExtensionManagementUtility::extPath('user_phpunittest') . 'Tests/'));
 
 		/** @var $testable Tx_Phpunit_Testable */
 		$testable = array_pop($testFinder->getTestablesForExtensions());
-		$this->assertSame(
+		self::assertSame(
 			ExtensionManagementUtility::extRelPath('user_phpunittest') . 'ext_icon.png',
 			$testable->getIconPath()
 		);

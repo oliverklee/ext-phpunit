@@ -36,7 +36,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 
 	protected function setUp() {
 		if (!class_exists('PHPUnit_Extensions_Selenium2TestCase', TRUE)) {
-			$this->markTestSkipped('PHPUnit Selenium is not installed.');
+			self::markTestSkipped('PHPUnit Selenium is not installed.');
 		}
 
 		$this->extensionSettingsService = new Tx_Phpunit_TestingDataContainer();
@@ -45,7 +45,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 			array('isSeleniumServerRunning'),
 			array(NULL, array(), '', $this->extensionSettingsService)
 		);
-		$this->subject->expects($this->any())->method('isSeleniumServerRunning')->will($this->returnValue(TRUE));
+		$this->subject->expects(self::any())->method('isSeleniumServerRunning')->will(self::returnValue(TRUE));
 	}
 
 	/*
@@ -101,7 +101,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 	public function createAccessibleProxyClassReturnsFixtureSubclassName() {
 		$className = $this->createAccessibleProxyClass();
 
-		$this->assertInstanceOf(
+		self::assertInstanceOf(
 			'Tx_Phpunit_Selenium_TestCase',
 			new $className(NULL, array(), '', $this->extensionSettingsService)
 		);
@@ -118,7 +118,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 		$url = 'http://example.com/';
 		$this->extensionSettingsService->set('selenium_browserurl', $url);
 
-		$this->assertSame(
+		self::assertSame(
 			$url,
 			$this->subject->getSeleniumBrowserUrl()
 		);
@@ -133,7 +133,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 			Tx_Phpunit_Selenium_TestCase::DEFAULT_SELENIUM_BROWSER_URL
 		);
 
-		$this->assertSame(
+		self::assertSame(
 			$expected,
 			$this->subject->getSeleniumBrowserUrl()
 		);
@@ -146,7 +146,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 		$browser = '*firefox';
 		$this->extensionSettingsService->set('selenium_browser', $browser);
 
-		$this->assertSame(
+		self::assertSame(
 			$browser,
 			$this->subject->getSeleniumBrowser()
 		);
@@ -156,7 +156,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getSeleniumBrowserForNoConfiguredBrowserReturnsDefaultBrowser() {
-		$this->assertSame(
+		self::assertSame(
 			Tx_Phpunit_Selenium_TestCase::DEFAULT_SELENIUM_BROWSER,
 			$this->subject->getSeleniumBrowser()
 		);
@@ -169,7 +169,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 		$port = 1234;
 		$this->extensionSettingsService->set('selenium_port', $port);
 
-		$this->assertSame(
+		self::assertSame(
 			$port,
 			$this->subject->getSeleniumPort()
 		);
@@ -179,7 +179,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getSeleniumPortForNoConfiguredPortReturnsDefaultPort() {
-		$this->assertSame(
+		self::assertSame(
 			Tx_Phpunit_Selenium_TestCase::DEFAULT_SELENIUM_PORT,
 			$this->subject->getSeleniumPort()
 		);
@@ -192,7 +192,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 		$host = 'http://example.com/';
 		$this->extensionSettingsService->set('selenium_host', $host);
 
-		$this->assertSame(
+		self::assertSame(
 			$host,
 			$this->subject->getSeleniumHost()
 		);
@@ -202,7 +202,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getSeleniumHostForNotConfiguredHostReturnsTheDefaultHost() {
-		$this->assertSame(
+		self::assertSame(
 			Tx_Phpunit_Selenium_TestCase::DEFAULT_SELENIUM_HOST,
 			$this->subject->getSeleniumHost()
 		);
@@ -220,7 +220,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 		$subject = new $className();
 
 		/** @var \Tx_Phpunit_Selenium_TestCase $subject */
-		$this->assertFalse(
+		self::assertFalse(
 			$subject->isSeleniumServerRunning()
 		);
 	}
@@ -236,7 +236,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 		try {
 			$subject->runTest();
 		} catch (PHPUnit_Framework_SkippedTestError $e) {
-			$this->assertTrue(TRUE);
+			self::assertTrue(TRUE);
 		}
 	}
 }

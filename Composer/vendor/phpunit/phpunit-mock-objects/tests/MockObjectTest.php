@@ -149,7 +149,7 @@ class Framework_MockObjectTest extends PHPUnit_Framework_TestCase
     public function testMockedMethodIsCalledOnce()
     {
         $mock = $this->getMock('AnInterface');
-        $mock->expects($this->once())
+        $mock->expects(self::once())
              ->method('doSomething');
 
         $mock->doSomething();
@@ -158,7 +158,7 @@ class Framework_MockObjectTest extends PHPUnit_Framework_TestCase
     public function testMockedMethodIsCalledOnceWithParameter()
     {
         $mock = $this->getMock('SomeClass');
-        $mock->expects($this->once())
+        $mock->expects(self::once())
              ->method('doSomethingElse')
              ->with($this->equalTo('something'));
 
@@ -270,14 +270,14 @@ class Framework_MockObjectTest extends PHPUnit_Framework_TestCase
     public function testFunctionCallback()
     {
         $mock = $this->getMock('SomeClass', array('doSomething'), array(), '', FALSE);
-        $mock->expects($this->once())
+        $mock->expects(self::once())
              ->method('doSomething')
              ->will($this->returnCallback('functionCallback'));
 
         $this->assertEquals('pass', $mock->doSomething('foo', 'bar'));
 
         $mock = $this->getMock('SomeClass', array('doSomething'), array(), '', FALSE);
-        $mock->expects($this->once())
+        $mock->expects(self::once())
              ->method('doSomething')
              ->willReturnCallback('functionCallback');
 
@@ -325,7 +325,7 @@ class Framework_MockObjectTest extends PHPUnit_Framework_TestCase
     public function testStaticMethodCallback()
     {
         $mock = $this->getMock('SomeClass', array('doSomething'), array(), '', FALSE);
-        $mock->expects($this->once())
+        $mock->expects(self::once())
              ->method('doSomething')
              ->will($this->returnCallback(array('MethodCallback', 'staticCallback')));
 
@@ -335,7 +335,7 @@ class Framework_MockObjectTest extends PHPUnit_Framework_TestCase
     public function testPublicMethodCallback()
     {
         $mock = $this->getMock('SomeClass', array('doSomething'), array(), '', FALSE);
-        $mock->expects($this->once())
+        $mock->expects(self::once())
              ->method('doSomething')
              ->will($this->returnCallback(array(new MethodCallback, 'nonStaticCallback')));
 
@@ -490,7 +490,7 @@ class Framework_MockObjectTest extends PHPUnit_Framework_TestCase
         $y = clone $x;
 
         $mock = $this->getMock('stdClass', array('foo'));
-        $mock->expects($this->once())->method('foo')->with($this->equalTo($x));
+        $mock->expects(self::once())->method('foo')->with($this->equalTo($x));
         $mock->foo($y);
     }
 
@@ -500,7 +500,7 @@ class Framework_MockObjectTest extends PHPUnit_Framework_TestCase
         $y = clone $x;
 
         $mock = $this->getMock('stdClass', array('foo'));
-        $mock->expects($this->once())->method('foo')->with($this->logicalNot($this->identicalTo($x)));
+        $mock->expects(self::once())->method('foo')->with($this->logicalNot($this->identicalTo($x)));
         $mock->foo($y);
     }
 
@@ -569,7 +569,7 @@ class Framework_MockObjectTest extends PHPUnit_Framework_TestCase
     public function testVerificationOfMethodNameFailsWithoutParameters()
     {
         $mock = $this->getMock('SomeClass', array('right', 'wrong'), array(), '', TRUE, TRUE, TRUE);
-        $mock->expects($this->once())
+        $mock->expects(self::once())
              ->method('right');
 
         $mock->wrong();
@@ -590,7 +590,7 @@ class Framework_MockObjectTest extends PHPUnit_Framework_TestCase
     public function testVerificationOfMethodNameFailsWithParameters()
     {
         $mock = $this->getMock('SomeClass', array('right', 'wrong'), array(), '', TRUE, TRUE, TRUE);
-        $mock->expects($this->once())
+        $mock->expects(self::once())
              ->method('right');
 
         $mock->wrong();
@@ -611,7 +611,7 @@ class Framework_MockObjectTest extends PHPUnit_Framework_TestCase
     public function testVerificationOfMethodNameFailsWithWrongParameters()
     {
         $mock = $this->getMock('SomeClass', array('right', 'wrong'), array(), '', TRUE, TRUE, TRUE);
-        $mock->expects($this->once())
+        $mock->expects(self::once())
              ->method('right')
              ->with(array('first', 'second'));
 
@@ -695,7 +695,7 @@ class Framework_MockObjectTest extends PHPUnit_Framework_TestCase
     public function testWithAnythingInsteadOfWithAnyParameters()
     {
         $mock = $this->getMock('SomeClass', array('right'), array(), '', TRUE, TRUE, TRUE);
-        $mock->expects($this->once())
+        $mock->expects(self::once())
              ->method('right')
              ->with($this->anything());
 

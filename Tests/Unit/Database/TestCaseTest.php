@@ -62,7 +62,7 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 	 * @return void
 	 */
 	protected function markTestAsSkipped() {
-		$this->markTestSkipped(self::DB_PERMISSIONS_MESSAGE);
+		self::markTestSkipped(self::DB_PERMISSIONS_MESSAGE);
 	}
 
 	/**
@@ -74,7 +74,7 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 	 */
 	protected function createDatabaseAndCheckResult() {
 		if (!$this->createDatabase()) {
-			$this->markTestAsSkipped();
+			self::markTestAsSkipped();
 		}
 	}
 
@@ -87,7 +87,7 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 	 */
 	protected function dropDatabasedAndCheckResult() {
 		if (!$this->dropDatabase()) {
-			$this->markTestAsSkipped();
+			self::markTestAsSkipped();
 		}
 	}
 
@@ -100,7 +100,7 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 		/** @var $res mysqli_result|resource */
 		$res = $this->db->sql_query('show tables');
 		$rows = $this->db->sql_num_rows($res);
-		$this->assertNotEquals(0, $rows);
+		self::assertNotEquals(0, $rows);
 
 			// Check DROP privilege as it is needed for clean up
 		$this->dropDatabasedAndCheckResult();
@@ -109,7 +109,7 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 		/** @var $res mysqli_result|resource */
 		$res = $this->db->sql_query('show tables');
 
-		$this->assertSame(
+		self::assertSame(
 			0,
 			$this->db->sql_num_rows($res)
 		);
@@ -125,7 +125,7 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 		$res = $this->db->sql_query('show tables');
 		$rows = $this->db->sql_num_rows($res);
 
-		$this->assertNotSame(
+		self::assertNotSame(
 			0,
 			$rows
 		);
@@ -136,7 +136,7 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 	 */
 	public function extensionAlteringTable() {
 		if (!ExtensionManagementUtility::isLoaded('aaa') || !ExtensionManagementUtility::isLoaded('bbb')) {
-			$this->markTestSkipped(
+			self::markTestSkipped(
 				'This test can only be run if the extensions aaa and bbb ' .
 					'from tests/res are installed.'
 			);
@@ -145,12 +145,12 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 		$this->importExtensions(array('bbb'), TRUE);
 
 		$tableNames = $this->getDatabaseTables();
-		$this->assertContains(
+		self::assertContains(
 			'tx_bbb_test',
 			$tableNames,
 			'Check that extension bbb is installed. The extension can be found in TestExtensions/.'
 		);
-		$this->assertContains(
+		self::assertContains(
 			'tx_aaa_test',
 			$tableNames,
 			'Check that extension aaa is installed. The extension can be found in TestExtensions/.'
@@ -158,7 +158,7 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 
 		// extension BBB extends an AAA table
 		$columns = $this->db->admin_get_fields('tx_aaa_test');
-		$this->assertContains(
+		self::assertContains(
 			'tx_bbb_test',
 			array_keys($columns),
 			self::DB_PERMISSIONS_MESSAGE
@@ -172,7 +172,7 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 		if (!ExtensionManagementUtility::isLoaded('aaa') || !ExtensionManagementUtility::isLoaded('bbb')
 			|| !ExtensionManagementUtility::isLoaded('ccc')
 		) {
-			$this->markTestSkipped(
+			self::markTestSkipped(
 				'This test can only be run if the extensions aaa, bbb and ccc ' .
 					'from tests/res are installed.'
 			);
@@ -182,9 +182,9 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 
 		$tableNames = $this->getDatabaseTables();
 
-		$this->assertContains('tx_ccc_test', $tableNames, 'Check that extension ccc is installed. The extension can be found in TestExtensions/.');
-		$this->assertContains('tx_bbb_test', $tableNames, 'Check that extension bbb is installed. The extension can be found in TestExtensions/.');
-		$this->assertContains('tx_aaa_test', $tableNames, 'Check that extension aaa is installed. The extension can be found in TestExtensions/.');
+		self::assertContains('tx_ccc_test', $tableNames, 'Check that extension ccc is installed. The extension can be found in TestExtensions/.');
+		self::assertContains('tx_bbb_test', $tableNames, 'Check that extension bbb is installed. The extension can be found in TestExtensions/.');
+		self::assertContains('tx_aaa_test', $tableNames, 'Check that extension aaa is installed. The extension can be found in TestExtensions/.');
 	}
 
 	/**
@@ -194,7 +194,7 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 		if (!ExtensionManagementUtility::isLoaded('aaa') || !ExtensionManagementUtility::isLoaded('bbb')
 			|| !ExtensionManagementUtility::isLoaded('ccc') || !ExtensionManagementUtility::isLoaded('ddd')
 		) {
-			$this->markTestSkipped(
+			self::markTestSkipped(
 				'This test can only be run if the extensions aaa, bbb, ccc ' .
 					'and ddd from tests/res are installed.'
 			);
@@ -205,14 +205,14 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 
 		$tableNames = $this->getDatabaseTables();
 
-		$this->assertContains('tx_ccc_test', $tableNames, 'Check that extension ccc is installed. The extension can be found in TestExtensions/.');
-		$this->assertContains('tx_ddd_test', $tableNames, 'Check that extension ddd is installed. The extension can be found in TestExtensions/.');
-		$this->assertNotContains(
+		self::assertContains('tx_ccc_test', $tableNames, 'Check that extension ccc is installed. The extension can be found in TestExtensions/.');
+		self::assertContains('tx_ddd_test', $tableNames, 'Check that extension ddd is installed. The extension can be found in TestExtensions/.');
+		self::assertNotContains(
 			'tx_bbb_test',
 			$tableNames,
 			self::DB_PERMISSIONS_MESSAGE
 		);
-		$this->assertNotContains('tx_aaa_test', $tableNames);
+		self::assertNotContains('tx_aaa_test', $tableNames);
 	}
 
 	/**
@@ -220,7 +220,7 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 	 */
 	public function importingDataSet() {
 		if (!ExtensionManagementUtility::isLoaded('ccc')) {
-			$this->markTestSkipped(
+			self::markTestSkipped(
 				'This test can only be run if the extension ccc from ' .
 					'tests/res is installed.'
 			);
@@ -230,48 +230,48 @@ class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 		$this->importDataSet(ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Database/Fixtures/DataSet.xml');
 
 		$result = $this->db->exec_SELECTgetRows('*', 'tx_ccc_test', NULL);
-		$this->assertSame(
+		self::assertSame(
 			2,
 			count($result),
 			self::DB_PERMISSIONS_MESSAGE
 		);
-		$this->assertSame(
+		self::assertSame(
 			'1',
 			$result[0]['uid']
 		);
-		$this->assertSame(
+		self::assertSame(
 			'2',
 			$result[1]['uid']
 		);
 
 		$result = $this->db->exec_SELECTgetRows('*', 'tx_ccc_data', NULL);
-		$this->assertSame(
+		self::assertSame(
 			1,
 			count($result)
 		);
-		$this->assertSame(
+		self::assertSame(
 			'1',
 			$result[0]['uid']
 		);
 
 		$result = $this->db->exec_SELECTgetRows('*', 'tx_ccc_data_test_mm', NULL);
-		$this->assertSame(
+		self::assertSame(
 			2,
 			count($result)
 		);
-		$this->assertSame(
+		self::assertSame(
 			'1',
 			$result[0]['uid_local']
 		);
-		$this->assertSame(
+		self::assertSame(
 			'1',
 			$result[0]['uid_foreign']
 		);
-		$this->assertSame(
+		self::assertSame(
 			'1',
 			$result[1]['uid_local']
 		);
-		$this->assertSame(
+		self::assertSame(
 			'2',
 			$result[1]['uid_foreign']
 		);

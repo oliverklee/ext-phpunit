@@ -68,7 +68,7 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_
 	 * @test
 	 */
 	public function classIsSubclassOfAbstractSelectorViewHelper() {
-		$this->assertInstanceOf(
+		self::assertInstanceOf(
 			'Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper',
 			$this->subject
 		);
@@ -80,7 +80,7 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_
 	public function renderCreatesFormTag() {
 		$this->subject->render();
 
-		$this->assertRegExp(
+		self::assertRegExp(
 			'/<form[^>]*>/',
 			$this->outputService->getCollectedOutput()
 		);
@@ -92,7 +92,7 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_
 	public function renderCreatesSelectTag() {
 		$this->subject->render();
 
-		$this->assertRegExp(
+		self::assertRegExp(
 			'/<select[^>]*>/',
 			$this->outputService->getCollectedOutput()
 		);
@@ -104,7 +104,7 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_
 	public function renderCreatesButtonTag() {
 		$this->subject->render();
 
-		$this->assertRegExp(
+		self::assertRegExp(
 			'/<button[^>]*>/',
 			$this->outputService->getCollectedOutput()
 		);
@@ -116,7 +116,7 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_
 	public function renderCreatesOptionTagForAllExtensions() {
 		$this->subject->render();
 
-		$this->assertRegExp(
+		self::assertRegExp(
 			'/<option class="alltests" value="uuall"[^>]*>/',
 			$this->outputService->getCollectedOutput()
 		);
@@ -130,7 +130,7 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_
 		$this->subject->injectUserSettingService($this->userSettingsService);
 		$this->subject->render();
 
-		$this->assertRegExp(
+		self::assertRegExp(
 			'/<option class="alltests" value="uuall"[^>]* selected="selected">/',
 			$this->outputService->getCollectedOutput()
 		);
@@ -146,12 +146,12 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_
 
 		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
 		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$testFinder->expects($this->any())->method('getTestablesForEverything')->will($this->returnValue(array()));
+		$testFinder->expects(self::any())->method('getTestablesForEverything')->will(self::returnValue(array()));
 		$subject->injectTestFinder($testFinder);
 
 		$subject->render();
 
-		$this->assertSame(
+		self::assertSame(
 			1,
 			substr_count($this->outputService->getCollectedOutput(), '<option')
 		);
@@ -172,13 +172,13 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_
 
 		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
 		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$testFinder->expects($this->any())->method('getTestablesForEverything')
-			->will($this->returnValue(array($extensionKey => $testable)));
+		$testFinder->expects(self::any())->method('getTestablesForEverything')
+			->will(self::returnValue(array($extensionKey => $testable)));
 		$subject->injectTestFinder($testFinder);
 
 		$subject->render();
 
-		$this->assertSame(
+		self::assertSame(
 			2,
 			substr_count($this->outputService->getCollectedOutput(), '<option')
 		);
@@ -199,13 +199,13 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_
 
 		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
 		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$testFinder->expects($this->any())->method('getTestablesForEverything')
-			->will($this->returnValue(array($extensionKey => $testable)));
+		$testFinder->expects(self::any())->method('getTestablesForEverything')
+			->will(self::returnValue(array($extensionKey => $testable)));
 		$subject->injectTestFinder($testFinder);
 
 		$subject->render();
 
-		$this->assertRegExp(
+		self::assertRegExp(
 			'#<option[^>]*value="phpunit"[^>]*>phpunit</option>#',
 			$this->outputService->getCollectedOutput()
 		);
@@ -231,13 +231,13 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_
 
 		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
 		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$testFinder->expects($this->any())->method('getTestablesForEverything')
-			->will($this->returnValue(array($extensionKey1 => $testable1, $extensionKey2 => $testable2)));
+		$testFinder->expects(self::any())->method('getTestablesForEverything')
+			->will(self::returnValue(array($extensionKey1 => $testable1, $extensionKey2 => $testable2)));
 		$subject->injectTestFinder($testFinder);
 
 		$subject->render();
 
-		$this->assertSame(
+		self::assertSame(
 			3,
 			substr_count($this->outputService->getCollectedOutput(), '<option')
 		);
@@ -258,13 +258,13 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_
 
 		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
 		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$testFinder->expects($this->any())->method('getTestablesForEverything')
-			->will($this->returnValue(array($extensionKey => $testable)));
+		$testFinder->expects(self::any())->method('getTestablesForEverything')
+			->will(self::returnValue(array($extensionKey => $testable)));
 		$subject->injectTestFinder($testFinder);
 
 		$subject->render();
 
-		$this->assertContains(
+		self::assertContains(
 			htmlspecialchars($extensionKey),
 			$this->outputService->getCollectedOutput()
 		);
@@ -285,13 +285,13 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_
 
 		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
 		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$testFinder->expects($this->any())->method('getTestablesForEverything')
-			->will($this->returnValue(array($extensionKey => $testable)));
+		$testFinder->expects(self::any())->method('getTestablesForEverything')
+			->will(self::returnValue(array($extensionKey => $testable)));
 		$subject->injectTestFinder($testFinder);
 
 		$subject->render();
 
-		$this->assertContains(
+		self::assertContains(
 			htmlspecialchars($testable->getIconPath()),
 			$this->outputService->getCollectedOutput()
 		);
@@ -305,7 +305,7 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_
 		$this->subject->injectUserSettingService($this->userSettingsService);
 		$this->subject->render();
 
-		$this->assertNotContains(
+		self::assertNotContains(
 			' selected="selected"',
 			$this->outputService->getCollectedOutput()
 		);
@@ -319,7 +319,7 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_
 		$this->subject->injectUserSettingService($this->userSettingsService);
 		$this->subject->render();
 
-		$this->assertRegExp(
+		self::assertRegExp(
 			'#<option[^>]* selected="selected">phpunit</option>#',
 			$this->outputService->getCollectedOutput()
 		);
@@ -334,7 +334,7 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_
 
 		$this->subject->render();
 
-		$this->assertNotContains(
+		self::assertNotContains(
 			' selected="selected"',
 			$this->outputService->getCollectedOutput()
 		);

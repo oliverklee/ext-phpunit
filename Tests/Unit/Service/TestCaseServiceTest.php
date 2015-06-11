@@ -53,7 +53,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function classIsSingleton() {
-		$this->assertInstanceOf(
+		self::assertInstanceOf(
 			'TYPO3\\CMS\\Core\\SingletonInterface',
 			$this->subject
 		);
@@ -84,7 +84,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function findTestCaseFilesInDirectoryForEmptyDirectoryReturnsEmptyArray() {
-		$this->assertSame(
+		self::assertSame(
 			array(),
 			$this->subject->findTestCaseFilesInDirectory($this->fixturesPath . 'Empty/')
 		);
@@ -98,11 +98,11 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 
 		/** @var $subject Tx_Phpunit_Service_TestCaseService|PHPUnit_Framework_MockObject_MockObject */
 		$subject = $this->getMock('Tx_Phpunit_Service_TestCaseService', array('isNotFixturesPath', 'isTestCaseFileName'));
-		$subject->expects($this->any())->method('isNotFixturesPath')->will(($this->returnValue(TRUE)));
-		$subject->expects($this->at(1))->method('isTestCaseFileName')
-			->with($this->fixturesPath . $path)->will($this->returnValue(TRUE));
+		$subject->expects(self::any())->method('isNotFixturesPath')->will((self::returnValue(TRUE)));
+		$subject->expects(self::at(1))->method('isTestCaseFileName')
+			->with($this->fixturesPath . $path)->will(self::returnValue(TRUE));
 
-		$this->assertContains(
+		self::assertContains(
 			$path,
 			$subject->findTestCaseFilesInDirectory($this->fixturesPath)
 		);
@@ -116,11 +116,11 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 
 		/** @var $subject Tx_Phpunit_Service_TestCaseService|PHPUnit_Framework_MockObject_MockObject */
 		$subject = $this->getMock('Tx_Phpunit_Service_TestCaseService', array('isNotFixturesPath','isTestCaseFileName'));
-		$subject->expects($this->any())->method('isNotFixturesPath')->will(($this->returnValue(TRUE)));
-		$subject->expects($this->at(1))->method('isTestCaseFileName')
-			->with($this->fixturesPath . $path)->will($this->returnValue(FALSE));
+		$subject->expects(self::any())->method('isNotFixturesPath')->will((self::returnValue(TRUE)));
+		$subject->expects(self::at(1))->method('isTestCaseFileName')
+			->with($this->fixturesPath . $path)->will(self::returnValue(FALSE));
 
-		$this->assertNotContains(
+		self::assertNotContains(
 			$path,
 			$subject->findTestCaseFilesInDirectory($this->fixturesPath)
 		);
@@ -132,7 +132,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	public function findTestCaseFilesInDirectoryFindsTestcaseInSubfolder() {
 		$path = 'Service/TestFinderTest.php';
 
-		$this->assertContains(
+		self::assertContains(
 			$path,
 			$this->subject->findTestCaseFilesInDirectory(ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/')
 		);
@@ -144,7 +144,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	public function findTestCaseFilesInDirectoryAcceptsPathWithTrailingSlash() {
 		$result = $this->subject->findTestCaseFilesInDirectory(ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Service');
 
-		$this->assertFalse(
+		self::assertFalse(
 			empty($result)
 		);
 	}
@@ -157,7 +157,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 			ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Service'
 		);
 
-		$this->assertFalse(
+		self::assertFalse(
 			empty($result)
 		);
 	}
@@ -171,7 +171,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 		$fileName1 = 'DatabaseTest.php';
 		$fileName2 = 'TestFinderTest.php';
 
-		$this->assertTrue(
+		self::assertTrue(
 			array_search($fileName1, $result) < array_search($fileName2, $result)
 		);
 	}
@@ -182,7 +182,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	public function findTestCaseFilesInDirectoryNotFindsFixtureClassesWithUppercasePath() {
 		$path = 'OneTest.php';
 
-		$this->assertNotContains(
+		self::assertNotContains(
 			$path,
 			$this->subject->findTestCaseFilesInDirectory($this->fixturesPath)
 		);
@@ -193,7 +193,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 */
 	public function findTestCaseFilesInDirectoryNotFindsFixtureClassesWithLowercasePath() {
 		if (!ExtensionManagementUtility::isLoaded('aaa')) {
-			$this->markTestSkipped(
+			self::markTestSkipped(
 				'This test can only be run if the extension "aaa" from TestExtensions/ is installed.'
 			);
 		}
@@ -201,7 +201,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 		$path = ExtensionManagementUtility::extPath('aaa') . 'Tests/Unit/';
 		$fileName = 'AnotherTest.php';
 
-		$this->assertNotContains(
+		self::assertNotContains(
 			$fileName,
 			$this->subject->findTestCaseFilesInDirectory($path)
 		);
@@ -216,7 +216,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function isTestCaseFileNameForTestSuffixReturnsTrue() {
-		$this->assertTrue(
+		self::assertTrue(
 			$this->subject->isTestCaseFileName(
 				$this->fixturesPath . 'OneTest.php'
 			)
@@ -227,7 +227,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function isTestCaseFileNameForLowercaseTestSuffixReturnsTrue() {
-		$this->assertTrue(
+		self::assertTrue(
 			$this->subject->isTestCaseFileName(
 				$this->fixturesPath . 'onetest.php'
 			)
@@ -238,7 +238,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function isTestCaseFileNameForLowercaseTestcaseSuffixReturnsTrue() {
-		$this->assertTrue(
+		self::assertTrue(
 			$this->subject->isTestCaseFileName(
 				$this->fixturesPath . 'Another_testcase.php'
 			)
@@ -249,7 +249,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function isTestCaseFileNameForLowercaseNoUnderscoreTestcaseSuffixReturnsTrue() {
-		$this->assertTrue(
+		self::assertTrue(
 			$this->subject->isTestCaseFileName(
 				$this->fixturesPath . 'anothertestcase.php'
 			)
@@ -260,7 +260,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function isTestCaseFileNameForOtherPhpFileReturnsFalse() {
-		$this->assertFalse(
+		self::assertFalse(
 			$this->subject->isTestCaseFileName(
 				$this->fixturesPath . 'SomethingDifferent.php'
 			)
@@ -273,7 +273,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 * @see http://forge.typo3.org/issues/9094
 	 */
 	public function isTestCaseFileNameForHiddenMacFileReturnsFalse() {
-		$this->assertFalse(
+		self::assertFalse(
 			$this->subject->isTestCaseFileName(
 				$this->fixturesPath . '._tx_tendbook_testTest.php'
 			)
@@ -317,7 +317,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 * @param string $className
 	 */
 	public function isValidTestCaseClassNameForValidClassNamesReturnsTrue($className) {
-		$this->assertTrue(
+		self::assertTrue(
 			$this->subject->isValidTestCaseClassName($className)
 		);
 	}
@@ -392,7 +392,7 @@ class Tx_Phpunit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase {
 	 * @param string $className
 	 */
 	public function isValidTestCaseClassNameForInvalidClassNamesReturnsFalse($className) {
-		$this->assertFalse(
+		self::assertFalse(
 			$this->subject->isValidTestCaseClassName($className)
 		);
 	}

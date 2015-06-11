@@ -34,7 +34,7 @@ class Tx_Phpunit_Service_FakeOutputServiceTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function classIsSubclassOfRealOutputService() {
-		$this->assertInstanceOf(
+		self::assertInstanceOf(
 			'Tx_Phpunit_Service_OutputService',
 			$this->subject
 		);
@@ -47,7 +47,7 @@ class Tx_Phpunit_Service_FakeOutputServiceTest extends Tx_Phpunit_TestCase {
 		ob_start();
 		$this->subject->output('Hello world!');
 
-		$this->assertSame(
+		self::assertSame(
 			'',
 			ob_get_contents()
 		);
@@ -62,7 +62,7 @@ class Tx_Phpunit_Service_FakeOutputServiceTest extends Tx_Phpunit_TestCase {
 		$output = 'Hello world!';
 		$this->subject->output($output);
 
-		$this->assertSame(
+		self::assertSame(
 			$output,
 			$this->subject->getCollectedOutput()
 		);
@@ -77,7 +77,7 @@ class Tx_Phpunit_Service_FakeOutputServiceTest extends Tx_Phpunit_TestCase {
 		$output2 = ' and hello again.';
 		$this->subject->output($output2);
 
-		$this->assertSame(
+		self::assertSame(
 			$output1 . $output2,
 			$this->subject->getCollectedOutput()
 		);
@@ -87,7 +87,7 @@ class Tx_Phpunit_Service_FakeOutputServiceTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getNumberOfFlushCallsInitiallyReturnsZero() {
-		$this->assertSame(
+		self::assertSame(
 			0,
 			$this->subject->getNumberOfFlushCalls()
 		);
@@ -99,7 +99,7 @@ class Tx_Phpunit_Service_FakeOutputServiceTest extends Tx_Phpunit_TestCase {
 	public function getNumberOfFlushCallsAfterOneCallToFlushOutputBufferReturnsOne() {
 		$this->subject->flushOutputBuffer();
 
-		$this->assertSame(
+		self::assertSame(
 			1,
 			$this->subject->getNumberOfFlushCalls()
 		);
@@ -112,7 +112,7 @@ class Tx_Phpunit_Service_FakeOutputServiceTest extends Tx_Phpunit_TestCase {
 		$this->subject->flushOutputBuffer();
 		$this->subject->flushOutputBuffer();
 
-		$this->assertSame(
+		self::assertSame(
 			2,
 			$this->subject->getNumberOfFlushCalls()
 		);
