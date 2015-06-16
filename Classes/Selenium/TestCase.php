@@ -79,9 +79,9 @@ class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_Selenium2TestCase 
 			$this->extensionSettingsService = GeneralUtility::makeInstance('Tx_Phpunit_Service_ExtensionSettingsService');
 		}
 
-		$this->setBrowser($this->getSeleniumBrowser());
 		$this->setBrowserUrl($this->getSeleniumBrowserUrl());
 		$this->setPort($this->getSeleniumPort());
+		$this->setBrowser($this->getSeleniumBrowser());
 	}
 
 	/**
