@@ -30,7 +30,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  * @author Kasper Ligaard <kasperligaard@gmail.com>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
+class Tx_Phpunit_Tests_Unit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
 	/**
 	 * @var string
 	 */

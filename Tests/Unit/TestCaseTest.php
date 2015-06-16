@@ -23,14 +23,14 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  * @author Nicole Cordes <nicole.cordes@googlemail.com>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
+class Tx_Phpunit_Tests_Unit_TestCaseTest extends Tx_Phpunit_TestCase {
 	/**
-	 * @var Tx_Phpunit_Tests_Fixtures_ProtectedClass
+	 * @var Tx_Phpunit_Tests_Unit_Fixtures_ProtectedClass
 	 */
 	private $proctectedClassInstance = NULL;
 
 	/**
-	 * @var Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject|Tx_Phpunit_Tests_Fixtures_ProtectedClass
+	 * @var Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject|Tx_Phpunit_Tests_Unit_Fixtures_ProtectedClass
 	 */
 	private $mock = NULL;
 
@@ -49,14 +49,14 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 	protected function setUp() {
 		require_once(ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Fixtures/ProtectedClass.php');
 
-		$this->proctectedClassInstance = new Tx_Phpunit_Tests_Fixtures_ProtectedClass();
-		$this->mock = $this->getMock('Tx_Phpunit_Tests_Fixtures_ProtectedClass', array('dummy'));
-		$this->accessibleMock = $this->getAccessibleMock('Tx_Phpunit_Tests_Fixtures_ProtectedClass', array('dummy'));
-		$this->staticProperty = Tx_Phpunit_Tests_Fixtures_ProtectedClass::getStaticProperty();
+		$this->proctectedClassInstance = new Tx_Phpunit_Tests_Unit_Fixtures_ProtectedClass();
+		$this->mock = $this->getMock('Tx_Phpunit_Tests_Unit_Fixtures_ProtectedClass', array('dummy'));
+		$this->accessibleMock = $this->getAccessibleMock('Tx_Phpunit_Tests_Unit_Fixtures_ProtectedClass', array('dummy'));
+		$this->staticProperty = Tx_Phpunit_Tests_Unit_Fixtures_ProtectedClass::getStaticProperty();
 	}
 
 	protected function tearDown() {
-		Tx_Phpunit_Tests_Fixtures_ProtectedClass::setStaticProperty($this->staticProperty);
+		Tx_Phpunit_Tests_Unit_Fixtures_ProtectedClass::setStaticProperty($this->staticProperty);
 	}
 
 	/**
@@ -268,7 +268,7 @@ class Tx_Phpunit_TestCaseTest extends Tx_Phpunit_TestCase {
 
 		self::assertSame(
 			$newValue,
-			Tx_Phpunit_Tests_Fixtures_ProtectedClass::getStaticProperty()
+			Tx_Phpunit_Tests_Unit_Fixtures_ProtectedClass::getStaticProperty()
 		);
 	}
 

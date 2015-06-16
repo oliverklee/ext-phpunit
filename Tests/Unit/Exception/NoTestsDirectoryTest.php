@@ -20,7 +20,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Exception_NoTestsDirectoryTest extends Tx_Phpunit_TestCase {
+class Tx_Phpunit_Tests_Unit_Exception_NoTestsDirectoryTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @test
 	 *

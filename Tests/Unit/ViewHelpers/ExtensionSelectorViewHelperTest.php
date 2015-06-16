@@ -22,7 +22,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  *
  * @author Nicole Cordes <nicole.cordes@googlemail.com>
  */
-class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_TestCase {
+class Tx_Phpunit_Tests_Unit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper
 	 */

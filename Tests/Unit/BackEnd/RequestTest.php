@@ -20,7 +20,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
+class Tx_Phpunit_Tests_Unit_BackEnd_RequestTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var bool
 	 */

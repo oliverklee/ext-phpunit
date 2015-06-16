@@ -15,5 +15,5 @@
 /**
  * Test class.
  */
-class Tx_Phpunit_Tests_Fixtures_LoadMe {
+class Tx_Phpunit_Tests_Unit_Fixtures_LoadMe {
 }

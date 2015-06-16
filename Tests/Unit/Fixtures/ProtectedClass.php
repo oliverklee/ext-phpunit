@@ -15,7 +15,7 @@
 /**
  * Test class.
  */
-class Tx_Phpunit_Tests_Fixtures_ProtectedClass {
+class Tx_Phpunit_Tests_Unit_Fixtures_ProtectedClass {
 	/**
 	 * @var string
 	 */

@@ -23,7 +23,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
+class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase {
 	/**
 	 * @var Tx_Phpunit_Framework
 	 */

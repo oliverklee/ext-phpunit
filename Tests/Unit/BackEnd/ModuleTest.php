@@ -27,7 +27,7 @@ use TYPO3\CMS\Lang\LanguageService;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
+class Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var Tx_Phpunit_BackEnd_Module
 	 */
@@ -595,7 +595,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		);
 
 		self::assertTrue(
-			class_exists('Tx_Phpunit_Tests_BackEnd_Fixtures_LoadMe', FALSE)
+			class_exists('Tx_Phpunit_Tests_Unit_BackEnd_Fixtures_LoadMe', FALSE)
 		);
 	}
 
@@ -613,7 +613,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		);
 
 		self::assertTrue(
-			class_exists('Tx_Phpunit_Tests_BackEnd_Fixtures_LoadMeToo', FALSE)
+			class_exists('Tx_Phpunit_Tests_Unit_BackEnd_Fixtures_LoadMeToo', FALSE)
 		);
 	}
 
@@ -633,7 +633,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		);
 
 		self::assertTrue(
-			class_exists('Tx_Phpunit_Tests_Fixtures_LoadMe', FALSE)
+			class_exists('Tx_Phpunit_Tests_Unit_Fixtures_LoadMe', FALSE)
 		);
 	}
 
@@ -717,7 +717,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->userSettingsService->set('extSel', $selectedExtension);
 
 		self::assertRegExp(
-			'/<option[^>]*value="Tx_Phpunit_BackEnd_ModuleTest"/',
+			'/<option[^>]*value="Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest"/',
 			$this->subject->createTestCaseSelector($selectedExtension)
 		);
 	}
@@ -754,10 +754,10 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	public function createTestCaseSelectorMarksSelectedTestCaseAsSelected() {
 		$selectedExtension = 'phpunit';
 		$this->userSettingsService->set('extSel', $selectedExtension);
-		$this->request->set('testCaseFile', 'Tx_Phpunit_Service_TestFinderTest');
+		$this->request->set('testCaseFile', 'Tx_Phpunit_Tests_Unit_Service_TestFinderTest');
 
 		self::assertRegExp(
-			'#<option [^>]* selected="selected">Tx_Phpunit_Service_TestFinderTest</option>#',
+			'#<option [^>]* selected="selected">Tx_Phpunit_Tests_Unit_Service_TestFinderTest</option>#',
 			$this->subject->createTestCaseSelector($selectedExtension)
 		);
 	}
@@ -768,10 +768,10 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	public function createTestCaseSelectorMarksForOtherTestCaseSelectedTestCaseAsNotSelected() {
 		$selectedExtension = 'phpunit';
 		$this->userSettingsService->set('extSel', $selectedExtension);
-		$this->request->set('testCaseFile', 'Tx_Phpunit_Service_TestFinderTest');
+		$this->request->set('testCaseFile', 'Tx_Phpunit_Tests_Unit_Service_TestFinderTest');
 
 		self::assertNotRegExp(
-			'#<option [^>]* selected="selected">Tx_Phpunit_BackEnd_ModuleTest</option>#',
+			'#<option [^>]* selected="selected">Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest</option>#',
 			$this->subject->createTestCaseSelector($selectedExtension)
 		);
 	}
@@ -785,7 +785,7 @@ class Tx_Phpunit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->request->set('testCaseFile', '');
 
 		self::assertNotRegExp(
-			'#<option [^>]* selected="selected">Tx_Phpunit_BackEnd_ModuleTest</option>#',
+			'#<option [^>]* selected="selected">Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest</option>#',
 			$this->subject->createTestCaseSelector($selectedExtension)
 		);
 	}

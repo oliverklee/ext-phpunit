@@ -21,7 +21,7 @@ use TYPO3\CMS\Core\Http\AjaxRequestHandler;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
+class Tx_Phpunit_Tests_Unit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var Tx_Phpunit_BackEnd_Ajax
 	 */

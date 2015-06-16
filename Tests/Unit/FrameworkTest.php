@@ -28,7 +28,7 @@ use TYPO3\CMS\Core\Exception;
  * @author Saskia Metzler <saskia@merlin.owl.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Phpunit_FrameworkTest extends Tx_PhpUnit_TestCase {
+class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_PhpUnit_TestCase {
 	/**
 	 * @var Tx_Phpunit_Framework
 	 */

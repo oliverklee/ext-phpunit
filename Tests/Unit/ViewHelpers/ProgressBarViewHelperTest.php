@@ -20,7 +20,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_ViewHelpers_ProgressBarViewHelperTest extends Tx_Phpunit_TestCase {
+class Tx_Phpunit_Tests_Unit_ViewHelpers_ProgressBarViewHelperTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var Tx_Phpunit_ViewHelpers_ProgressBarViewHelper
 	 */

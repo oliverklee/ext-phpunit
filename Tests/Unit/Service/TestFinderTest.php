@@ -22,7 +22,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
+class Tx_Phpunit_Tests_Unit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	/**
 	 * @var Tx_Phpunit_Service_TestFinder
 	 */
