@@ -217,7 +217,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 		$this->extensionSettingsService->set('selenium_host', 'http://example.invalid');
 
 		$className = $this->createAccessibleProxyClass();
-		$subject = new $className();
+		$subject = new $className(NULL, array(), '', $this->extensionSettingsService);
 
 		/** @var \Tx_Phpunit_Selenium_TestCase $subject */
 		self::assertFalse(
@@ -231,7 +231,7 @@ class Tx_Phpunit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase {
 	public function runTestWhenServerIsNotRunningMarksTestAsSkipped() {
 		$this->extensionSettingsService->set('selenium_host', 'http://example.invalid');
 
-		$subject = new Tx_Phpunit_Selenium_TestCase();
+		$subject = new Tx_Phpunit_Selenium_TestCase(NULL, array(), '', $this->extensionSettingsService);
 
 		try {
 			$subject->runTest();
