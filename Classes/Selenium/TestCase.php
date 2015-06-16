@@ -66,22 +66,22 @@ class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_Selenium2TestCase 
 	 * @param array  $data
 	 * @param string $dataName
 	 * @param Tx_Phpunit_Interface_ExtensionSettingsService $extensionSettingsService
-	 *        the extension settings service to use
 	 */
-	public function __construct($name = NULL, array $data = array(), $dataName = '', Tx_Phpunit_Interface_ExtensionSettingsService $extensionSettingsService = NULL) {
-		if ($extensionSettingsService === NULL) {
-			$extensionSettingsService = GeneralUtility::makeInstance('Tx_Phpunit_Service_ExtensionSettingsService');
+	public function __construct(
+		$name = NULL, array $data = array(), $dataName = '',
+		Tx_Phpunit_Interface_ExtensionSettingsService $extensionSettingsService = NULL
+	) {
+		parent::__construct($name, $data, $dataName);
+
+		if ($extensionSettingsService !== NULL) {
+			$this->extensionSettingsService = $extensionSettingsService;
+		} else {
+			$this->extensionSettingsService = GeneralUtility::makeInstance('Tx_Phpunit_Service_ExtensionSettingsService');
 		}
-		$this->extensionSettingsService = $extensionSettingsService;
 
-		$browser = array(
-			'browser' => $this->getSeleniumBrowser(),
-			'host' => $this->getSeleniumHost(),
-			'port' => $this->getSeleniumPort(),
-		);
-		parent::__construct($name, $data, $dataName, $browser);
-
+		$this->setBrowser($this->getSeleniumBrowser());
 		$this->setBrowserUrl($this->getSeleniumBrowserUrl());
+		$this->setPort($this->getSeleniumPort());
 	}
 
 	/**
