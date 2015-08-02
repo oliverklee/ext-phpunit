@@ -86,7 +86,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	protected function setUp() {
 		$this->backEndUserBackup = $GLOBALS['BE_USER'];
 
-		$this->getLanguageService()->includeLLFile('EXT:phpunit/Resources/Private/Language/locallang_backend.xml');
+		$this->getLanguageService()->includeLLFile('EXT:phpunit/Resources/Private/Language/locallang_backend.xlf');
 
 		$subjectClassName = $this->createAccessibleProxy();
 		$this->subject = new $subjectClassName();

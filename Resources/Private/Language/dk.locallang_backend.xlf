@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="dk" datatype="plaintext" original="messages" date="2015-08-02T20:00:57Z" product-name="phpunit">
+		<header/>
+		<body>
+			<trans-unit id="mlang_tabs_tab">
+				<source>PHPUnit</source>
+			</trans-unit>
+			<trans-unit id="mlang_labels_tabdescr">
+				<source>TYPO3 unit tests, baseret på PHPUnit af Sebastian Bergmann</source>
+			</trans-unit>
+			<trans-unit id="mlang_labels_tablabel">
+				<source>PHPUnit</source>
+			</trans-unit>
+			<trans-unit id="admin_rights_needed">
+				<source>Der kræves administrator-rettigheder, for at må bruge PHPUnit back-end modulet.</source>
+			</trans-unit>
+			<trans-unit id="all_extensions">
+				<source>Alle extensions</source>
+			</trans-unit>
+			<trans-unit id="could_not_find_exts_with_tests">
+				<source>Der blev ikke fundet extensions med unit tests.</source>
+			</trans-unit>
+			<trans-unit id="run_again">
+				<source>Kø&lt;span class=&quot;access-key&quot;&gt;r&lt;/span&gt; igen</source>
+			</trans-unit>
+			<trans-unit id="run_all_tests">
+				<source>Kør &lt;span class=&quot;access-key&quot;&gt;a&lt;/span&gt;lle tests</source>
+			</trans-unit>
+			<trans-unit id="run_single_test">
+				<source>Kør enkelt te&lt;span class=&quot;access-key&quot;&gt;s&lt;/span&gt;t</source>
+			</trans-unit>
+			<trans-unit id="select_extension">
+				<source>Vælg extension</source>
+			</trans-unit>
+			<trans-unit id="select_tests">
+				<source>Vælg test</source>
+			</trans-unit>
+			<trans-unit id="testing_all_extensions">
+				<source>Tester alle extensions</source>
+			</trans-unit>
+			<trans-unit id="testing_extension">
+				<source>Tester extension</source>
+			</trans-unit>
+			<trans-unit id="tests_errors">
+				<source>fejl</source>
+			</trans-unit>
+			<trans-unit id="tests_failures">
+				<source>mislykkedes</source>
+			</trans-unit>
+			<trans-unit id="tests_total">
+				<source>tests</source>
+			</trans-unit>
+			<trans-unit id="title">
+				<source>PHPUnit BE</source>
+			</trans-unit>
+			<trans-unit id="testing_success">
+				<source>Success!</source>
+			</trans-unit>
+			<trans-unit id="testing_failure">
+				<source>Mislykkedes!</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

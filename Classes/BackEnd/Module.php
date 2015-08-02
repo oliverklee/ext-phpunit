@@ -961,7 +961,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 			",'phpunitbe','width=790,status=0,menubar=1,resizable=1,location=0,scrollbars=1,toolbar=0');phpunitbeWin.focus();return false;";
 		$content = '<a id="opennewwindow" href="" onclick="' . htmlspecialchars($onClick) . '" accesskey="n">
 			<img' . IconUtility::skinImg($GLOBALS['BACK_PATH'], 'gfx/open_in_new_window.gif', 'width="19" height="14"') . ' title="' .
-			$this->getLanguageService()->sL('LLL:EXT:lang/locallang_core.xml:labels.openInNewWindow', 1) . '" class="absmiddle" alt="" />
+			$this->getLanguageService()->sL('LLL:EXT:lang/locallang_core.xlf:labels.openInNewWindow', 1) . '" class="absmiddle" alt="" />
 			Ope<span class="access-key">n</span> in separate window.
 			</a>
 			<script type="text/javascript">/*<![CDATA[*/if (window.name === "phpunitbe") { document.getElementById("opennewwindow").style.display = "none"; }/*]]>*/</script>';

@@ -28,7 +28,7 @@ defined('TYPO3_MODE') or die('Access denied.');
 
 /** @var \TYPO3\CMS\Lang\LanguageService $languageService */
 $languageService = $GLOBALS['LANG'];
-$languageService->includeLLFile('EXT:phpunit/Resources/Private/Language/locallang_backend.xml');
+$languageService->includeLLFile('EXT:phpunit/Resources/Private/Language/locallang_backend.xlf');
 
 $namePrettifier = new PHPUnit_Util_TestDox_NamePrettifier();
 

@@ -9,7 +9,7 @@ $GLOBALS['TCA']['tx_phpunit_test'] = array(
 	'columns' => array(
 		'hidden' => array(
 			'exclude' => 1,
-			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
+			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
 			'config' => array(
 				'type' => 'check',
 				'default' => '0',
@@ -17,7 +17,7 @@ $GLOBALS['TCA']['tx_phpunit_test'] = array(
 		),
 		'starttime' => array(
 			'exclude' => 1,
-			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.starttime',
+			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.starttime',
 			'config' => array(
 				'type' => 'none',
 				'size' => '8',
@@ -29,7 +29,7 @@ $GLOBALS['TCA']['tx_phpunit_test'] = array(
 		),
 		'endtime' => array(
 			'exclude' => 1,
-			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.endtime',
+			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.endtime',
 			'config' => array(
 				'type' => 'none',
 				'size' => '8',
@@ -45,7 +45,7 @@ $GLOBALS['TCA']['tx_phpunit_test'] = array(
 		),
 		'title' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:phpunit/Resource/Private/Language/locallang_backend.xml:tx_phpunit_test.title',
+			'label' => 'LLL:EXT:phpunit/Resource/Private/Language/locallang_backend.xlf:tx_phpunit_test.title',
 			'config' => array(
 				'type' => 'none',
 				'size' => '30',
