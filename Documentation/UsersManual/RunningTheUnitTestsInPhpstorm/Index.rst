@@ -36,5 +36,5 @@ Running the unit tests in PhpStorm
 
 For more details and some screenshots you can read this blog post:
 
-http://www.bitmotion.de/de/agentur/blogs/bitmotion/typo3-unit-test-phpstorm/
+http://insight.helhum.io/post/63972451370/executing-typo3-cms-unit-test-tests-in-phpstorm
 

@@ -28,3 +28,6 @@ Acceptance testing using PHPUnit and Selenium
    ExecutingSeleniumTests/Index
    SeleniumServerConnectionSettings/Index
 
+There also is
+`demonstration project using difference kinds of Selenium tests with PHPUnit
+<https://github.com/oliverklee/selenium-demo>`_.
