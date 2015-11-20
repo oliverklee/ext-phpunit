@@ -130,8 +130,8 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_ExtensionSelectorViewHelperTest extends 
 		$this->subject->injectUserSettingService($this->userSettingsService);
 		$this->subject->render();
 
-		self::assertRegExp(
-			'/<option class="alltests" value="uuall"[^>]* selected="selected">/',
+		self::assertContains(
+			'<option class="alltests" value="uuall" selected="selected">',
 			$this->outputService->getCollectedOutput()
 		);
 	}
