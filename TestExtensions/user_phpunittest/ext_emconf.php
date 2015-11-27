@@ -40,7 +40,7 @@ $EM_CONF[$_EXTKEY] = array(
 		'suggests' => array(
 		),
 	),
-	'_md5_values_when_last_written' => 'a:4:{s:12:"ext_icon.png";s:4:"ae9d";s:14:"ext_tables.php";s:4:"fb77";s:14:"ext_tables.sql";s:4:"fec7";s:7:"tca.php";s:4:"b19d";}',
+	'_md5_values_when_last_written' => 'a:4:{s:12:"ext_icon.gif";s:4:"2a3d";s:14:"ext_tables.php";s:4:"fb77";s:14:"ext_tables.sql";s:4:"fec7";s:7:"tca.php";s:4:"b19d";}',
 	'suggests' => array(
 	),
 );

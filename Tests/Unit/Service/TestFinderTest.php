@@ -711,28 +711,6 @@ class Tx_Phpunit_Tests_Unit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function getTestablesForExtensionsWithGifIconProvidesTestableInstanceWithIconPath() {
-		/** @var Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject $testFinder */
-		$testFinder = $this->getMock(
-			'Tx_Phpunit_Service_TestFinder',
-			array('getLoadedExtensionKeys', 'getExcludedExtensionKeys', 'findTestsPathForExtension')
-		);
-		$testFinder->expects(self::once())->method('getLoadedExtensionKeys')->will(self::returnValue(array('phpunit')));
-		$testFinder->expects(self::once())->method('getExcludedExtensionKeys')->will(self::returnValue(array()));
-		$testFinder->expects(self::once())->method('findTestsPathForExtension')
-			->with('phpunit')->will(self::returnValue(ExtensionManagementUtility::extPath('phpunit') . 'Tests/'));
-
-		/** @var Tx_Phpunit_Testable $testable */
-		$testable = array_pop($testFinder->getTestablesForExtensions());
-		self::assertSame(
-			ExtensionManagementUtility::extRelPath('phpunit') . 'ext_icon.gif',
-			$testable->getIconPath()
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function getTestablesForExtensionsWithPngIconProvidesTestableInstanceWithIconPath() {
 		if (!ExtensionManagementUtility::isLoaded('user_phpunittest')) {
 			self::markTestSkipped(
 				'The Extension user_phpunittest is not installed, but needs to be installed. ' .
@@ -753,7 +731,29 @@ class Tx_Phpunit_Tests_Unit_Service_TestFinderTest extends Tx_Phpunit_TestCase {
 		/** @var Tx_Phpunit_Testable $testable */
 		$testable = array_pop($testFinder->getTestablesForExtensions());
 		self::assertSame(
-			ExtensionManagementUtility::extRelPath('user_phpunittest') . 'ext_icon.png',
+			ExtensionManagementUtility::extRelPath('user_phpunittest') . 'ext_icon.gif',
+			$testable->getIconPath()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTestablesForExtensionsWithPngIconProvidesTestableInstanceWithIconPath() {
+		/** @var Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject $testFinder */
+		$testFinder = $this->getMock(
+			'Tx_Phpunit_Service_TestFinder',
+			array('getLoadedExtensionKeys', 'getExcludedExtensionKeys', 'findTestsPathForExtension')
+		);
+		$testFinder->expects(self::once())->method('getLoadedExtensionKeys')->will(self::returnValue(array('phpunit')));
+		$testFinder->expects(self::once())->method('getExcludedExtensionKeys')->will(self::returnValue(array()));
+		$testFinder->expects(self::once())->method('findTestsPathForExtension')
+			->with('phpunit')->will(self::returnValue(ExtensionManagementUtility::extPath('phpunit') . 'Tests/'));
+
+		/** @var Tx_Phpunit_Testable $testable */
+		$testable = array_pop($testFinder->getTestablesForExtensions());
+		self::assertSame(
+			ExtensionManagementUtility::extRelPath('phpunit') . 'ext_icon.png',
 			$testable->getIconPath()
 		);
 	}

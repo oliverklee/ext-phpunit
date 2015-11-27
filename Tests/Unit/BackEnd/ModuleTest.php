@@ -642,7 +642,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 */
 	public function createIconStyleForLoadedExtensionReturnsExtensionIcon() {
 		self::assertContains(
-			'url(' . ExtensionManagementUtility::extRelPath('phpunit') . 'ext_icon.gif)',
+			'url(' . ExtensionManagementUtility::extRelPath('phpunit') . 'ext_icon.png)',
 			$this->subject->createIconStyle('phpunit')
 		);
 	}
@@ -743,7 +743,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$this->userSettingsService->set('extSel', $selectedExtension);
 
 		self::assertContains(
-			'background: url(' . ExtensionManagementUtility::extRelPath('phpunit') . 'ext_icon.gif)',
+			'background: url(' . ExtensionManagementUtility::extRelPath('phpunit') . 'ext_icon.png)',
 			$this->subject->createTestCaseSelector($selectedExtension)
 		);
 	}
