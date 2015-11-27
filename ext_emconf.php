@@ -45,5 +45,10 @@ $EM_CONF[$_EXTKEY] = array(
 	),
 	'suggests' => array(
 	),
+	'autoload' => array(
+		'classmap' => array(
+			'Classes',
+		),
+	),
 	'_md5_values_when_last_written' => '',
 );
