@@ -20,7 +20,7 @@
  *
  * @author Nicole Cordes <nicole.cordes@googlemail.com>
  */
-abstract class Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper extends Tx_Phpunit_ViewHelpers_AbstractViewHelper
+abstract class Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper extends Tx_Phpunit_ViewHelpers_AbstractTagViewHelper
 {
     /**
      * @var Tx_Phpunit_Interface_UserSettingsService
@@ -123,40 +123,4 @@ abstract class Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper extends Tx_Phpu
      * @return string
      */
     abstract protected function renderSelect();
-
-    /**
-     * Renders any HTML tag with its own parameter either around some content.
-     *
-     * If the content is empty, the tag gets rendered as a self-closing tag.
-     *
-     * @param string $tagName
-     * @param string[] $attributes
-     *        use HTML attribute as key, might not be empty
-     *        use attribute value as array value, might be empty
-     * @param string $content
-     *
-     * @return string the rendered HTML tag
-     *
-     * @throws InvalidArgumentException if the given tagName is empty
-     */
-    protected function renderTag($tagName, $attributes = array(), $content = '')
-    {
-        if ($tagName === '') {
-            throw new InvalidArgumentException('$tagName must not be empty.', 1343763729);
-        }
-
-        $output = '<' . htmlspecialchars($tagName);
-
-        foreach ($attributes as $key => $value) {
-            $output .= ' ' . htmlspecialchars($key) . '="' . htmlspecialchars($value) . '"';
-        }
-
-        if ($content !== '') {
-            $output .= '>' . $content . '</' . htmlspecialchars($tagName) . '>';
-        } else {
-            $output .= ' />';
-        }
-
-        return $output;
-    }
 }
