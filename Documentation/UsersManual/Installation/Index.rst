@@ -61,9 +61,5 @@ MySQL user with the following global permissions:
 
 - ALTER
 
-If you would like to use a local PHPUnit package installed via Composer,
-please make sure you have installed all necessary packages. Please add
-at least "phpunit/phpunit", "phpunit/phpunit-selenium" and
-"mikey179/vfsStream".
-This is necessary to avoid problems with the PHPUnit and Composer
-autoloader.
+If you would like to use a different PHPUnit version, make sure you install TYPO3 and the phpunit extension
+via composer and specify the desired PHPUnit version in your root composer.json file.

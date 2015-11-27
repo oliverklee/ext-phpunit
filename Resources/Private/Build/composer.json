@@ -1,0 +1,15 @@
+{
+    "name": "helhum/phpunit-library",
+    "description": "PHPUnit as library in PHAR file",
+    "require": {
+        "phpunit/phpunit": "^4.8",
+        "phpunit/phpunit-selenium": "^1",
+        "mikey179/vfsStream": "^1"
+    },
+    "bin": ["bootstrap.php"],
+    "extra": {
+        "phar": {
+            "library": true
+        }
+    }
+}

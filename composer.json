@@ -1,0 +1,32 @@
+{
+    "name": "oliverklee/phpunit",
+    "type": "typo3-cms-extension",
+    "description": "Unit testing for TYPO3. Includes PHPUnit 4.8, Selenium, a BE test runner module, a CLI test runner, PhpStorm integration and a testing framework.",
+    "keywords": [
+        "TYPO3",
+        "TDD",
+        "PHPUnit"
+    ],
+    "homepage": "https://forge.typo3.org/projects/extension-phpunit",
+    "authors": [
+        {
+            "name": "Oliver Klee",
+            "email": "typo3-coding@oliverklee.de",
+            "role": "Developer",
+            "homepage": "http://www.oliverklee.de"
+        }
+    ],
+    "license": "GPL-2.0+",
+    "require-dev": {
+        "phpunit/phpunit": "^4.6",
+        "phpunit/phpunit-selenium": "<2.0",
+        "mikey179/vfsStream": "<2.0"
+    },
+    "autoload": {
+        "classmap": ["Classes"]
+    },
+    "replace": {
+        "phpunit": "self.version",
+        "typo3-ter/phpunit": "self.version"
+    }
+}
