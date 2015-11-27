@@ -6,5 +6,6 @@ var searchData=
   ['deletedummyfolder',['deleteDummyFolder',['../classTx__Phpunit__Framework.html#a834a35a9c31c1facb33bb99abd27d2d6',1,'Tx_Phpunit_Framework']]],
   ['deleterecord',['deleteRecord',['../classTx__Phpunit__Framework.html#a2090a7bed3d5ab52873b793952e4d673',1,'Tx_Phpunit_Framework']]],
   ['determineandsetautoincrementthreshold',['determineAndSetAutoIncrementThreshold',['../classTx__Phpunit__Framework.html#ab21c3ce55ce58852e4ddd9d2d9c10f61',1,'Tx_Phpunit_Framework']]],
-  ['discardfakefrontend',['discardFakeFrontEnd',['../classTx__Phpunit__Framework.html#a440b6d75d76d4afb1624b711fbe07cbb',1,'Tx_Phpunit_Framework']]]
+  ['discardfakefrontend',['discardFakeFrontEnd',['../classTx__Phpunit__Framework.html#a440b6d75d76d4afb1624b711fbe07cbb',1,'Tx_Phpunit_Framework']]],
+  ['dropdatabase',['dropDatabase',['../classTx__Phpunit__Database__TestCase.html#a9bc20c4a5c479903b383d20e56a0a048',1,'Tx_Phpunit_Database_TestCase']]]
 ];

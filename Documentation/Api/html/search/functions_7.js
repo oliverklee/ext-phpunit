@@ -16,7 +16,7 @@ var searchData=
   ['getcollectedoutput',['getCollectedOutput',['../classTx__Phpunit__Service__FakeOutputService.html#a91f120d4dc06ec040fd7c6a9ceba1c8b',1,'Tx_Phpunit_Service_FakeOutputService']]],
   ['getcolumndefinition',['getColumnDefinition',['../classTx__Phpunit__Service__Database.html#a569a2fd76f4a3826ac1f4eeceac3913f',1,'Tx_Phpunit_Service_Database']]],
   ['getcolumnsintable',['getColumnsInTable',['../classTx__Phpunit__Service__Database.html#ac8ef62f4c198354698f7a5ddac992f60',1,'Tx_Phpunit_Service_Database']]],
-  ['getdatabaseconnection',['getDatabaseConnection',['../classTx__Phpunit__Database__TestCase.html#aed91f2479a7e05d2eafbafbc1fcfa6b9',1,'Tx_Phpunit_Database_TestCase\getDatabaseConnection()'],['../classTx__Phpunit__Framework.html#a8a4eb5d757c713e54119e65d0f8cdb04',1,'Tx_Phpunit_Framework\getDatabaseConnection()'],['../classTx__Phpunit__Service__Database.html#aebb30c25f5444fd953a3eebd482c9b70',1,'Tx_Phpunit_Service_Database\getDatabaseConnection()']]],
+  ['getdatabaseconnection',['getDatabaseConnection',['../classTx__Phpunit__Service__Database.html#aebb30c25f5444fd953a3eebd482c9b70',1,'Tx_Phpunit_Service_Database']]],
   ['getdatabasetables',['getDatabaseTables',['../classTx__Phpunit__Database__TestCase.html#a27ebb80444d59cec6b91f10fe91f0648',1,'Tx_Phpunit_Database_TestCase']]],
   ['getdummycolumnname',['getDummyColumnName',['../classTx__Phpunit__Framework.html#a5ab2ee5a922d2fc5a33e21e2b7906115',1,'Tx_Phpunit_Framework']]],
   ['getdummyextensionkeys',['getDummyExtensionKeys',['../classTx__Phpunit__Service__TestFinder.html#ad931514b204fb2d52b2bb64b25499718',1,'Tx_Phpunit_Service_TestFinder']]],

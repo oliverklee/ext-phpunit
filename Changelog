@@ -1,3 +1,41 @@
+9f2519e [TASK] Added a warning message to the BE module
+a7422eb [FEATURE] Use human readable names as option labels
+95d4b27 [TASK] Set required phpunit version to 4.7
+00acbcf [BUGFIX] Set global module configuration
+ab1e5a3 [BUGFIX] Adapt tests to the new PNG icons
+28015fd [TASK] Fix Tests/Unit/ViewHelpers/
+02a1ee6 [TASK] Add autoload section to ext_emconf
+9ce0567 [CLEANUP] Make sure that methods return only one type
+662633e [TASK] Update the icon for the BE module
+5e0f2c2 [CLEANUP] Unify the @var local variable PHPDoc
+e10d344 [FEATURE] Add links to more documentation and examples
+b95d8bd [BUGFIX] Update .htaccess to be Apache 2.4 compatible
+8c39ed5 [BUG] Fix Tests/Unit/Service Tests
+53f9d4e [TASK] Convert the language files to XLF
+d867c7c [TASK] Set compatibility version to 7.4
+3247956 [CLEANUP] Use Unit/Functional test name prefixes
+17b104e [FEATURE] Add a functional Selenium test
+d3db63a [BUGFIX] Selenium connection data is not used
+6849648 [BUGFIX] Test failures if a Selenium Server is available
+d964752 [CLEANUP] Make the calls to static PHPUnit methods static
+4fa48f6 [BUGFIX] Unable to select Extension/Testcase/Test in Backend Module
+35b3ac0 [BUGFIX] Keep phpMyAdmin from sending login cookies
+8a1b11f [BUGFIX] Use ObjectManager in TestCase::importStdDb
+2b37027 [TASK] Update PHPUnit and vfsStream
+6877a6d [FOLLOWUP] Do not rely on sr_feuser_register for tests
+86e29e9 [TASK] Do not rely on sr_feuser_register for tests
+fcca7fa [TASK] Do not depend on oelib extension in tests
+2870993 [BUGFIX] Drop nonsensical test for creating images
+8f69d93 [BUGFIX] Always call makeInstance without leading backslash
+5651297 [TASK] Update TYPO3 and PHP requirements
+ed8f710 [BUGFIX] Detect installation path instead of hardcoding paths.
+74bc4cb [CLEANUP] Make Service_Db::getDatabaseConnection public and use it
+2ce0a25 [CLEANUP] Make setUp/tearDown protected in the documentation
+3885748 [BUGFIX] Framework::getDatabaseConnection must not be protected
+97fc8c3 [CLEANUP] Followup: Shorten the die() line
+181253d [CLEANUP] Shorten the die() line
+3c02f2e [CLEANUP] Use comments instead of PHPDoc style comments in copyright block
+dc5e1de [TASK] Release PHPUnit 4.4.0.
 cf32dbd [CLEANUP] Drop the legacy manual.sxw file
 c19b9dc [TASK] Update the API documentation
 706ecd1 [TASK] Update to PHPUnit 4.4.0.

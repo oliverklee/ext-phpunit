@@ -33,7 +33,6 @@ var searchData=
   ['tx_5fphpunit_5ftestable',['Tx_Phpunit_Testable',['../classTx__Phpunit__Testable.html',1,'']]],
   ['tx_5fphpunit_5ftestcase',['Tx_Phpunit_TestCase',['../classTx__Phpunit__TestCase.html',1,'']]],
   ['tx_5fphpunit_5ftestingdatacontainer',['Tx_Phpunit_TestingDataContainer',['../classTx__Phpunit__TestingDataContainer.html',1,'']]],
-  ['tx_5fphpunit_5ftestrunner_5fabstractclitestrunner',['Tx_Phpunit_TestRunner_AbstractCliTestRunner',['../classTx__Phpunit__TestRunner__AbstractCliTestRunner.html',1,'']]],
   ['tx_5fphpunit_5ftestrunner_5fclitestrunner',['Tx_Phpunit_TestRunner_CliTestRunner',['../classTx__Phpunit__TestRunner__CliTestRunner.html',1,'']]],
   ['tx_5fphpunit_5ftestrunner_5fidetestrunner',['Tx_Phpunit_TestRunner_IdeTestRunner',['../classTx__Phpunit__TestRunner__IdeTestRunner.html',1,'']]],
   ['tx_5fphpunit_5fviewhelpers_5fabstractselectorviewhelper',['Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper',['../classTx__Phpunit__ViewHelpers__AbstractSelectorViewHelper.html',1,'']]],

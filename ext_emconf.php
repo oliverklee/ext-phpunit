@@ -12,10 +12,10 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'PHPUnit',
-	'description' => 'Unit testing for TYPO3. Includes PHPUnit 4.4, Selenium, a BE test runner module, a CLI test runner, PhpStorm integration and a testing framework.',
+	'description' => 'Unit testing for TYPO3. Includes PHPUnit 4.7, Selenium, a BE test runner module, a CLI test runner, PhpStorm integration and a testing framework.',
 	'category' => 'module',
 	'shy' => 0,
-	'version' => '4.4.0',
+	'version' => '4.7.7',
 	'dependencies' => '',
 	'conflicts' => '',
 	'priority' => '',
