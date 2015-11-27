@@ -28,7 +28,7 @@ use TYPO3\CMS\Core\Exception;
  * @author Saskia Metzler <saskia@merlin.owl.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_PhpUnit_TestCase
+class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
 {
     /**
      * @var Tx_Phpunit_Framework
@@ -210,7 +210,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_PhpUnit_TestCase
         $this->subject->createRecord('tx_phpunit_test', array());
         self::assertSame(
             array(
-                'tx_phpunit_test' => 'tx_phpunit_test'
+                'tx_phpunit_test' => 'tx_phpunit_test',
             ),
             $this->subject->getListOfDirtyTables()
         );
@@ -318,7 +318,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_PhpUnit_TestCase
         self::assertSame(
             array(
                 'tx_phpunit_test' => 'tx_phpunit_test',
-                'tx_phpunit_test_article_mm' => 'tx_phpunit_test_article_mm'
+                'tx_phpunit_test_article_mm' => 'tx_phpunit_test_article_mm',
             ),
             $this->subject->getListOfDirtyTables()
         );
@@ -349,7 +349,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_PhpUnit_TestCase
         $uid = $this->subject->createRecord(
             'tx_phpunit_test',
             array(
-                'title' => $title
+                'title' => $title,
             )
         );
         self::assertNotEquals(
@@ -412,7 +412,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_PhpUnit_TestCase
         $this->subject->createRecord(
             'user_phpunittest_test',
             array(
-                'title' => $title
+                'title' => $title,
             )
         );
     }
@@ -720,7 +720,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_PhpUnit_TestCase
             'tx_phpunit_test',
             array(
                 'title' => 'TEST',
-                'is_dummy_record' => 0
+                'is_dummy_record' => 0,
             )
         );
 
@@ -854,7 +854,6 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_PhpUnit_TestCase
         $this->subject->createRelation('tx_phpunit_test_article_mm', $uid, -1);
     }
 
-
     /**
      * @test
      */
@@ -987,7 +986,6 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_PhpUnit_TestCase
             $count
         );
     }
-
 
     /**
      * @test
@@ -1200,7 +1198,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_PhpUnit_TestCase
             array(
                 'uid_local' => $uidLocal,
                 'uid_foreign' => $uidForeign,
-                'is_dummy_record' => 0
+                'is_dummy_record' => 0,
             )
         );
 

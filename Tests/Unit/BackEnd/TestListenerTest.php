@@ -100,6 +100,10 @@ class Tx_Phpunit_Tests_Unit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase
      */
     protected function isDiffToolAvailable()
     {
+        if (empty($GLOBALS['TYPO3_CONF_VARS']['BE']['diff_path'])) {
+            return false;
+        }
+
         $filePath = ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Backend/Fixtures/LoadMe.php';
         // Makes sure everything is sent to the stdOutput.
         $executeCommand = $GLOBALS['TYPO3_CONF_VARS']['BE']['diff_path'] . ' 2>&1 ' . $filePath . ' ' . $filePath;
@@ -239,7 +243,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase
         $this->subject->addFailure($testCase, $error, $time);
 
         self::assertContains(
-            'actual&amp;incorrect',
+            '&amp;incorrect',
             strip_tags($this->outputService->getCollectedOutput())
         );
     }
@@ -709,7 +713,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_TestListenerTest extends Tx_Phpunit_TestCase
         $testCase = $this->getMock('PHPUnit_Framework_TestCase', array(), array('myTest'));
 
         self::assertContains(
-            'mod.php?M=' . Tx_Phpunit_BackEnd_Module::MODULE_NAME,
+            '.php?M=' . Tx_Phpunit_BackEnd_Module::MODULE_NAME,
             $this->subject->createReRunUrl($testCase)
         );
     }

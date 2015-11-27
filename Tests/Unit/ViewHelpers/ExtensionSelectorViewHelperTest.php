@@ -13,6 +13,7 @@
  */
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Lang\LanguageService;
 
 /**
  * Test case.
@@ -51,6 +52,8 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_ExtensionSelectorViewHelperTest extends 
 
     protected function setUp()
     {
+        $this->getLanguageService()->includeLLFile('EXT:phpunit/Resources/Private/Language/locallang_backend.xlf');
+
         $this->subject = new Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
 
         $this->outputService = new Tx_Phpunit_Service_FakeOutputService();
@@ -233,7 +236,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_ExtensionSelectorViewHelperTest extends 
         $testable1->setKey($extensionKey1);
         $testable1->setIconPath(ExtensionManagementUtility::extRelPath($extensionKey1) . 'ext_icon.gif');
 
-        $extensionKey2 = 'cms';
+        $extensionKey2 = 'core';
         $testable2 = new Tx_Phpunit_Testable();
         $testable2->setKey($extensionKey2);
         $testable1->setIconPath(ExtensionManagementUtility::extRelPath($extensionKey2) . 'ext_icon.gif');
@@ -356,5 +359,13 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_ExtensionSelectorViewHelperTest extends 
             ' selected="selected"',
             $this->outputService->getCollectedOutput()
         );
+    }
+
+    /**
+     * @return LanguageService
+     */
+    protected function getLanguageService()
+    {
+        return $GLOBALS['LANG'];
     }
 }
