@@ -1,6 +1,12 @@
 'use strict'
 
 /**
+ * Caches the already went-through progress bar states to reduce DOM operations.
+ * @type {Array}
+ */
+var stateCache = [];
+
+/**
  * @param {string} id
  * @param {string} className
  */
@@ -16,7 +22,10 @@ function setClass(id, className) {
  * @return void
  */
 function setProgressBarClass(className) {
-	setClass("progress-bar", className);
+	if (stateCache.indexOf(className) === -1) {
+		setClass("progress-bar", className);
+		stateCache.push(className);
+	}
 }
 
 /*
