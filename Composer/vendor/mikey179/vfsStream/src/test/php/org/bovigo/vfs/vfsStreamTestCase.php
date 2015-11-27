@@ -537,7 +537,7 @@ class vfsStreamTestCase extends \PHPUnit_Framework_TestCase
     {
         $mockContent = $this->getMock('org\\bovigo\\vfs\\vfsStreamContent');
         $mockVisitor = $this->getMock('org\\bovigo\\vfs\\visitor\\vfsStreamVisitor');
-        $mockVisitor->expects(self::once())
+        $mockVisitor->expects($this->once())
                     ->method('visit')
                     ->with($this->equalTo($mockContent))
                     ->will($this->returnValue($mockVisitor));
@@ -553,7 +553,7 @@ class vfsStreamTestCase extends \PHPUnit_Framework_TestCase
     {
         $root = vfsStream::setup();
         $mockVisitor = $this->getMock('org\\bovigo\\vfs\\visitor\\vfsStreamVisitor');
-        $mockVisitor->expects(self::once())
+        $mockVisitor->expects($this->once())
                     ->method('visitDirectory')
                     ->with($this->equalTo($root))
                     ->will($this->returnValue($mockVisitor));
@@ -643,7 +643,7 @@ class vfsStreamTestCase extends \PHPUnit_Framework_TestCase
         $subfolderDir = $baseDir->getChild('withSubfolders');
         $this->assertTrue($subfolderDir->hasChild('subfolder1'));
         $this->assertTrue($subfolderDir->getChild('subfolder1')->hasChild('file1.txt'));
-        $this->assertVfsFile($subfolderDir->getChild('subfolder1/file1.txt'), '');
+        $this->assertVfsFile($subfolderDir->getChild('subfolder1/file1.txt'), '      ');
         $this->assertTrue($subfolderDir->hasChild('subfolder2'));
         $this->assertTrue($subfolderDir->hasChild('aFile.txt'));
         $this->assertVfsFile($subfolderDir->getChild('aFile.txt'), 'foo');
@@ -669,7 +669,7 @@ class vfsStreamTestCase extends \PHPUnit_Framework_TestCase
         $subfolderDir = $root->getChild('withSubfolders');
         $this->assertTrue($subfolderDir->hasChild('subfolder1'));
         $this->assertTrue($subfolderDir->getChild('subfolder1')->hasChild('file1.txt'));
-        $this->assertVfsFile($subfolderDir->getChild('subfolder1/file1.txt'), '');
+        $this->assertVfsFile($subfolderDir->getChild('subfolder1/file1.txt'), '      ');
         $this->assertTrue($subfolderDir->hasChild('subfolder2'));
         $this->assertTrue($subfolderDir->hasChild('aFile.txt'));
         $this->assertVfsFile($subfolderDir->getChild('aFile.txt'), 'foo');
@@ -703,5 +703,26 @@ class vfsStreamTestCase extends \PHPUnit_Framework_TestCase
                                  ->getPermissions()
         );
     }
+
+    /**
+     * To test this the max file size is reduced to something reproduceable.
+     *
+     * @test
+     * @group  issue_91
+     * @since  1.5.0
+     */
+    public function copyFromFileSystemMocksLargeFiles()
+    {
+        if (DIRECTORY_SEPARATOR !== '/') {
+            $this->markTestSkipped('Only applicable on Linux style systems.');
+        }
+
+        $copyDir = $this->getFileSystemCopyDir();
+        $root    = vfsStream::setup();
+        vfsStream::copyFromFileSystem($copyDir, $root, 3);
+        $this->assertEquals(
+                '      ',
+                $root->getChild('withSubfolders/subfolder1/file1.txt')->getContent()
+        );
+    }
 }
-?>

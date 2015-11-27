@@ -58,7 +58,7 @@ class vfsStreamAbstractVisitorTestCase extends \PHPUnit_Framework_TestCase
     public function visitWithFileCallsVisitFile()
     {
         $file = new vfsStreamFile('foo.txt');
-        $this->abstractVisitor->expects(self::once())
+        $this->abstractVisitor->expects($this->once())
                               ->method('visitFile')
                               ->with($this->equalTo($file));
         $this->assertSame($this->abstractVisitor,
@@ -74,7 +74,7 @@ class vfsStreamAbstractVisitorTestCase extends \PHPUnit_Framework_TestCase
     public function visitWithBlockCallsVisitFile()
     {
         $block = new vfsStreamBlock('foo');
-        $this->abstractVisitor->expects(self::once())
+        $this->abstractVisitor->expects($this->once())
                               ->method('visitFile')
                               ->with($this->equalTo($block));
         $this->assertSame($this->abstractVisitor,
@@ -88,7 +88,7 @@ class vfsStreamAbstractVisitorTestCase extends \PHPUnit_Framework_TestCase
     public function visitWithDirectoryCallsVisitDirectory()
     {
         $dir = new vfsStreamDirectory('bar');
-        $this->abstractVisitor->expects(self::once())
+        $this->abstractVisitor->expects($this->once())
                               ->method('visitDirectory')
                               ->with($this->equalTo($dir));
         $this->assertSame($this->abstractVisitor,

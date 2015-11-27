@@ -17,15 +17,7 @@
  *
  * The expected value is passed in the constructor.
  *
- * @package    PHPUnit
- * @subpackage Framework_Constraint
- * @author     Kore Nordmann <kn@ez.no>
- * @author     Sebastian Bergmann <sebastian@phpunit.de>
- * @author     Bernhard Schussek <bschussek@2bepublished.at>
- * @copyright  Sebastian Bergmann <sebastian@phpunit.de>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://www.phpunit.de/
- * @since      Class available since Release 3.0.0
+ * @since Class available since Release 3.0.0
  */
 class PHPUnit_Framework_Constraint_IsEqual extends PHPUnit_Framework_Constraint
 {
@@ -40,17 +32,17 @@ class PHPUnit_Framework_Constraint_IsEqual extends PHPUnit_Framework_Constraint
     protected $delta = 0.0;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $maxDepth = 10;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $canonicalize = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $ignoreCase = false;
 
@@ -62,9 +54,9 @@ class PHPUnit_Framework_Constraint_IsEqual extends PHPUnit_Framework_Constraint
     /**
      * @param  mixed                       $value
      * @param  float                       $delta
-     * @param  integer                     $maxDepth
-     * @param  boolean                     $canonicalize
-     * @param  boolean                     $ignoreCase
+     * @param  int                         $maxDepth
+     * @param  bool                        $canonicalize
+     * @param  bool                        $ignoreCase
      * @throws PHPUnit_Framework_Exception
      */
     public function __construct($value, $delta = 0.0, $maxDepth = 10, $canonicalize = false, $ignoreCase = false)
@@ -112,7 +104,14 @@ class PHPUnit_Framework_Constraint_IsEqual extends PHPUnit_Framework_Constraint
      */
     public function evaluate($other, $description = '', $returnResult = false)
     {
-        $comparatorFactory = new SebastianBergmann\Comparator\Factory;
+        // If $this->value and $other are identical, they are also equal.
+        // This is the most common path and will allow us to skip
+        // initialization of all the comparators.
+        if ($this->value === $other) {
+            return true;
+        }
+
+        $comparatorFactory = SebastianBergmann\Comparator\Factory::getInstance();
 
         try {
             $comparator = $comparatorFactory->getComparatorFor(
