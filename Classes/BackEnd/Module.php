@@ -540,6 +540,10 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
             }
         }
 
+        if (count($testsOptionsArr) === 0) {
+            return '';
+        }
+
         // builds options for select (including option groups for test suites)
         $testOptionsHtml = '';
         foreach ($testsOptionsArr as $suiteName => $testArr) {
