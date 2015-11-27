@@ -366,6 +366,17 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 			return;
 		}
 
+		/** @var FlashMessage $message */
+		$message = GeneralUtility::makeInstance(
+				'TYPO3\\CMS\\Core\\Messaging\\FlashMessage',
+				$this->translate('test_are_run_in_current_backend_context'),
+				'',
+				FlashMessage::WARNING
+		);
+		$this->outputService->output($message->render());
+
+		$this->outputService->output('<p><br /></p>');
+
 		$this->createExtensionSelector();
 		$selectedExtensionKey = $this->getAndSaveSelectedTestableKey();
 

@@ -87,6 +87,9 @@
 			<trans-unit id="tx_phpunit_test.title">
 				<source>Title</source>
 			</trans-unit>
+			<trans-unit id="test_are_run_in_current_backend_context">
+				<source>&lt;p&gt;&lt;strong&gt;Tests are run in the current back-end context&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;The unit tests currently are run in the context of the current back-end session. This will produce different results than running the tests from the command line using the Core unit tests or functional tests configuration. Particularly, this will cause strange failures in the TYPO3 CMS Core tests.&lt;/p&gt;&lt;p&gt;If you need to run the tests in a clean context, please use the approach described in the wiki at &lt;a href="http://wiki.typo3.org/Unit_Testing_TYPO3" target="_blank"&gt;http://wiki.typo3.org/Unit_Testing_TYPO3&lt;/a&gt; and &lt;a href="http://wiki.typo3.org/Functional_testing" target="_blank"&gt;http://wiki.typo3.org/Functional_testing&lt;/a&gt;&lt;/p&gt;</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
