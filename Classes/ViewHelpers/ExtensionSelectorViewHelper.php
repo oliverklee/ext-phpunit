@@ -141,7 +141,7 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper extends Tx_Phpunit_View
 
 		$allExtensionOption = array(
 			'class' => 'alltests',
-			'value' => 'uuall',
+			'value' => Tx_Phpunit_Testable::ALL_EXTENSIONS,
 		);
 		if ($this->isOptionSelected(Tx_Phpunit_Testable::ALL_EXTENSIONS)) {
 			$allExtensionOption['selected'] = 'selected';

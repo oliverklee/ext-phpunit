@@ -117,7 +117,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_ExtensionSelectorViewHelperTest extends 
 		$this->subject->render();
 
 		self::assertRegExp(
-			'/<option class="alltests" value="uuall"[^>]*>/',
+			'/<option class="alltests" value="' . Tx_Phpunit_Testable::ALL_EXTENSIONS . '"[^>]*>/',
 			$this->outputService->getCollectedOutput()
 		);
 	}
@@ -131,7 +131,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_ExtensionSelectorViewHelperTest extends 
 		$this->subject->render();
 
 		self::assertContains(
-			'<option class="alltests" value="uuall" selected="selected">',
+			'<option class="alltests" value="' . Tx_Phpunit_Testable::ALL_EXTENSIONS . '" selected="selected">',
 			$this->outputService->getCollectedOutput()
 		);
 	}

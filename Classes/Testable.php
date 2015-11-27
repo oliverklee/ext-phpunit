@@ -24,7 +24,7 @@ class Tx_Phpunit_Testable {
 	/**
 	 * @var string
 	 */
-	const ALL_EXTENSIONS = 'uuall';
+	const ALL_EXTENSIONS = 'allExtensions';
 
 	/**
 	 * @var string
