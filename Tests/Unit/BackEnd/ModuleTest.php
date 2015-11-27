@@ -88,6 +88,11 @@ class Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 
 		$this->getLanguageService()->includeLLFile('EXT:phpunit/Resources/Private/Language/locallang_backend.xlf');
 
+		if (!isset($GLOBALS['MCONF'])) {
+			$GLOBALS['MCONF'] = array(
+				'name' => $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['GLOBAL']['cliKeys']['phpunit'][1],
+			);
+		}
 		$subjectClassName = $this->createAccessibleProxy();
 		$this->subject = new $subjectClassName();
 
