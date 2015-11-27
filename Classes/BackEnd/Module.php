@@ -51,6 +51,13 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 	protected $extensionPath = '';
 
 	/**
+	 * a name prettifier for creating readable test and test case names
+	 *
+	 * @var PHPUnit_Util_TestDox_NamePrettifier
+	 */
+	protected $namePrettifier = NULL;
+
+	/**
 	 * @var Tx_Phpunit_Interface_Request
 	 */
 	protected $request = NULL;
@@ -129,6 +136,17 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 	 */
 	public function injectTestListener(Tx_Phpunit_BackEnd_TestListener $testListener) {
 		$this->testListener = $testListener;
+	}
+
+	/**
+	 * Injects the name prettifier.
+	 *
+	 * @param PHPUnit_Util_TestDox_NamePrettifier $namePrettifier the name prettifier to inject
+	 *
+	 * @return void
+	 */
+	public function injectNamePrettifier(PHPUnit_Util_TestDox_NamePrettifier $namePrettifier) {
+		$this->namePrettifier = $namePrettifier;
 	}
 
 	/**
@@ -466,6 +484,8 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 		// single test case
 		$testsOptionsArr = array();
 		$testCaseFile = $this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE);
+		$useHumanReadableOptionLabels = $this->userSettingsService->getAsBoolean('testdox');
+
 		/** @var PHPUnit_Framework_TestSuite $testCase */
 		foreach ($testSuite->tests() as $testCase) {
 			if (($testCaseFile !== NULL) && ($testCase->getName() !== $testCaseFile)) {
@@ -484,8 +504,9 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 				}
 				$selected = ($testIdentifier === $this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST))
 					? ' selected="selected"' : '';
+				$testCaption = $useHumanReadableOptionLabels ? $this->namePrettifier->prettifyTestMethod($testName) : $testName;
 				$testsOptionsArr[$testSuiteName][] .= '<option value="' . $testIdentifier . '"' . $selected . '>' .
-					htmlspecialchars($testName) . '</option>';
+					htmlspecialchars($testCaption) . '</option>';
 			}
 		}
 

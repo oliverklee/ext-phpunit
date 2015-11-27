@@ -60,9 +60,13 @@ $testFinder->injectExtensionSettingsService($extensionSettingsService);
 /** @var Tx_Phpunit_BackEnd_Request $request */
 $request = GeneralUtility::makeInstance('Tx_Phpunit_BackEnd_Request');
 
+/** @var PHPUnit_Util_TestDox_NamePrettifier */
+$namePrettifier = GeneralUtility::makeInstance('PHPUnit_Util_TestDox_NamePrettifier');
+
 /** @var Tx_Phpunit_BackEnd_Module $module */
 $module = GeneralUtility::makeInstance('Tx_Phpunit_BackEnd_Module');
 $module->injectRequest($request);
+$module->injectNamePrettifier($namePrettifier);
 $module->injectOutputService($outputService);
 $module->injectUserSettingsService($userSettingsService);
 $module->injectTestListener($testListener);
