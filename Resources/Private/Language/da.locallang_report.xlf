@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="dk" datatype="plaintext" original="messages" date="2015-08-02T20:00:57Z" product-name="phpunit">
+		<header/>
+		<body>
+			<trans-unit id="status_phpComments">
+				<target>PHP-Kommentare</target>
+			</trans-unit>
+			<trans-unit id="status_phpComments_stripped_short">
+				<target>forkortet</target>
+			</trans-unit>
+			<trans-unit id="status_phpComments_stripped_verbose">
+				<target>PHP-Kommentare er ved installationen blivet fjernet, du vil derfor ikke finde PHPUnit Tests med @test-Annotationen. Slå venligst PHP indstillingen fra eller konfigurere PHP således PHP-Kommentare ikke vil blive fjernet.</target>
+			</trans-unit>
+			<trans-unit id="status_phpComments_present_short">
+				<target>OK</target>
+			</trans-unit>
+			<trans-unit id="status_phpComments_present_verbose">
+				<target>PHP-Kommentare beholdes efter installation</target>
+			</trans-unit>
+			<trans-unit id="status_eAccelerator">
+				<target>eAccelerator</target>
+			</trans-unit>
+			<trans-unit id="status_eAccelerator_notInstalled_short">
+				<target>ikke installeret</target>
+			</trans-unit>
+			<trans-unit id="status_eAccelerator_installedNew_short">
+				<target>aktuelle version</target>
+			</trans-unit>
+			<trans-unit id="status_eAccelerator_installedNew_verbose">
+				<target>eAccelerator version %s er indlæst. Denne version kompatible med PHPUnit</target>
+			</trans-unit>
+			<trans-unit id="status_eAccelerator_installedOld_short">
+				<target>forældet version</target>
+			</trans-unit>
+			<trans-unit id="status_eAccelerator_installedOld_verbose">
+				<target>eAccelerator version %s er indlæst. Denne version bringer, &lt;a href=&quot;http://eaccelerator.net/ticket/242&quot;&gt;phpunit i en ustabil tilstand&lt;/a&gt;. Opdatere venligst eAccelerator til version 0.9.5.2 (eller nyere) eller slå eAccelerator-Optimering fra (dette gøres i php.ini: &lt;code&gt;eaccelerator.optimizer = &amp;quot;0&amp;quot;&lt;/code&gt;)</target>
+			</trans-unit>
+			<trans-unit id="status_xdebug">
+				<target>Xdebug</target>
+			</trans-unit>
+			<trans-unit id="status_loaded">
+				<target>indlæst</target>
+			</trans-unit>
+			<trans-unit id="status_notLoaded">
+				<target>ikke indlæst</target>
+			</trans-unit>
+			<trans-unit id="status_memoryLimit">
+				<target>PHP-Memory Limit</target>
+			</trans-unit>
+			<trans-unit id="status_memoryLimit_tooLittle">
+				<target>PHP-Memory Limit på %1s for udførelsen af PHPUnit-Tests kræves, %2s (eller mere) er anbefalet. I sær Code Coverage kræver meget memory.</target>
+			</trans-unit>
+			<trans-unit id="status_includePath">
+				<target>PHP-Include-Path</target>
+			</trans-unit>
+			<trans-unit id="status_excludedExtensions">
+				<target>Extensions Excluderet fra Test</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

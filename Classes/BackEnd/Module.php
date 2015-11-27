@@ -238,14 +238,12 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 
 			$this->outputService->output(
 				$this->doc->section(
-					'Keyboard shortcuts',
-					'<p>Use &quot;a&quot; for running all tests, use &quot;s&quot; for running a single test and
-					use &quot;r&quot; to re-run the latest tests; to open phpunit in a new window, use &quot;n&quot;.</p>
-					<p>Depending on your browser and system you will need to press some
-					modifier keys:</p>
+					$this->translate('shortcuts.title'),
+					'<p>' . $this->translate('shortcuts.text') . '</p>
+					<p>' . $this->translate('shortcuts.browser_dependency') . '</p>
 					<ul>
-					<li>Safari, IE and Firefox 1.x: Use &quot;Alt&quot; button on Windows, &quot;Ctrl&quot; on Macs.</li>
-					<li>Firefox 2.x and 3.x: Use &quot;Alt-Shift&quot; on Windows, &quot;Ctrl-Shift&quot; on Macs</li>
+					<li>' . $this->translate('shortcuts.browser_safari_ie_firefox1') . '</li>
+					<li>' . $this->translate('shortcuts.browser_safari_ie_firefox2_firefox3') . '</li>
 					</ul>' .
 					$this->doc->section('', $this->createOpenNewWindowLink())
 				)
@@ -568,27 +566,27 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 		$incompleteState = $this->userSettingsService->getAsBoolean('incomplete') ? 'checked="checked"' : '';
 		$showMemoryAndTime = $this->userSettingsService->getAsBoolean('showMemoryAndTime') ? 'checked="checked"' : '';
 		$testdoxState = $this->userSettingsService->getAsBoolean('testdox') ? 'checked="checked"' : '';
-		$output .= '<input type="checkbox" id="SET_success" ' . $successState . ' /><label for="SET_success">Success</label>';
-		$output .= ' <input type="checkbox" id="SET_failure" ' . $failureState . ' /><label for="SET_failure">Failure</label>';
-		$output .= ' <input type="checkbox" id="SET_skipped" ' . $skippedState . ' /><label for="SET_skipped">Skipped</label>';
-		$output .= ' <input type="checkbox" id="SET_error" ' . $errorState . ' /><label for="SET_error">Error</label>';
+		$output .= '<input type="checkbox" id="SET_success" ' . $successState . ' /><label for="SET_success">' . $this->translate('success') . '</label>';
+		$output .= ' <input type="checkbox" id="SET_failure" ' . $failureState . ' /><label for="SET_failure">' . $this->translate('failure') . '</label>';
+		$output .= ' <input type="checkbox" id="SET_skipped" ' . $skippedState . ' /><label for="SET_skipped">' . $this->translate('skipped') . '</label>';
+		$output .= ' <input type="checkbox" id="SET_error" ' . $errorState . ' /><label for="SET_error">' . $this->translate('error') . '</label>';
 		$output .= ' <input type="checkbox" id="SET_testdox" ' . $testdoxState .
-			' /><label for="SET_testdox">Show as human readable</label>';
+			' /><label for="SET_testdox">' . $this->translate('show_as_human_readable') . '</label>';
 		$output .= ' <input type="checkbox" id="SET_incomplete" ' . $incompleteState .
-			' /><label for="SET_incomplete">Incomplete</label>';
+			' /><label for="SET_incomplete">' . $this->translate('incomplete') . '</label>';
 		$output .= ' <input type="checkbox" id="SET_showMemoryAndTime" ' . $showMemoryAndTime .
-			'/><label for="SET_showMemoryAndTime">Show memory &amp; time</label>';
+			'/><label for="SET_showMemoryAndTime">' . htmlspecialchars($this->translate('show_memory_and_time')) . '</label>';
 
 		$codecoverageDisable = '';
 		$codecoverageForLabelWhenDisabled = '';
 		if (!extension_loaded('xdebug')) {
 			$codecoverageDisable = ' disabled="disabled"';
-			$codecoverageForLabelWhenDisabled = ' title="Code coverage requires XDebug to be installed."';
+			$codecoverageForLabelWhenDisabled = ' title="' . $this->translate('code_coverage_requires_xdebug') . '"';
 		}
 		$codeCoverageState = $this->userSettingsService->getAsBoolean('codeCoverage') ? 'checked="checked"' : '';
 		$output .= ' <input type="checkbox" id="SET_codeCoverage" ' . $codecoverageDisable . ' ' . $codeCoverageState .
 			' /><label for="SET_codeCoverage"' . $codecoverageForLabelWhenDisabled .
-			'>Collect code-coverage data</label>';
+			'>' . $this->translate('collect_code_coverage_data') . '</label>';
 		$runSeleniumTests = $this->userSettingsService->getAsBoolean('runSeleniumTests') ? 'checked="checked"' : '';
 		$output .= ' <input type="checkbox" id="SET_runSeleniumTests" ' . $runSeleniumTests . '/><label for="SET_runSeleniumTests">' . $this->translate('run_selenium_tests') . '</label>';
 		$output .= '</div>';
@@ -994,7 +992,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 		$content = '<a id="opennewwindow" href="" onclick="' . htmlspecialchars($onClick) . '" accesskey="n">
 			<img' . IconUtility::skinImg($GLOBALS['BACK_PATH'], 'gfx/open_in_new_window.gif', 'width="19" height="14"') . ' title="' .
 			$this->getLanguageService()->sL('LLL:EXT:lang/locallang_core.xlf:labels.openInNewWindow', 1) . '" class="absmiddle" alt="" />
-			Ope<span class="access-key">n</span> in separate window.
+			' . $this->translate('open_in_seperate_window') . '
 			</a>
 			<script type="text/javascript">/*<![CDATA[*/if (window.name === "phpunitbe") { document.getElementById("opennewwindow").style.display = "none"; }/*]]>*/</script>';
 

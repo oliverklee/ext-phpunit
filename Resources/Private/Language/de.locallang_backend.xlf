@@ -4,67 +4,67 @@
 		<header/>
 		<body>
 			<trans-unit id="mlang_tabs_tab">
-				<source>PHPUnit</source>
+				<target>PHPUnit</target>
 			</trans-unit>
 			<trans-unit id="mlang_labels_tabdescr">
-				<source>TYPO3 unit tests, basierend auf PHPUnit von Sebastian Bergmann</source>
+				<target>TYPO3 unit tests, basierend auf PHPUnit von Sebastian Bergmann</target>
 			</trans-unit>
 			<trans-unit id="mlang_labels_tablabel">
-				<source>PHPUnit</source>
+				<target>PHPUnit</target>
 			</trans-unit>
 			<trans-unit id="admin_rights_needed">
-				<source>Du brauchst Admin-Rechte um das PHPUnit Back-End Modul zu benutzen.</source>
+				<target>Du brauchst Admin-Rechte, um das PHPUnit Back-End-Modul zu benutzen.</target>
 			</trans-unit>
 			<trans-unit id="all_extensions">
-				<source>Alle Extensions</source>
+				<target>Alle Extensions</target>
 			</trans-unit>
 			<trans-unit id="could_not_find_exts_with_tests">
-				<source>Es konnte keine Extension mit Unit-Tests gefunden werden</source>
+				<target>Es konnte keine Extension mit Unit-Tests gefunden werden</target>
 			</trans-unit>
 			<trans-unit id="run_again">
-				<source>Test e&lt;span class=&quot;access-key&quot;&gt;r&lt;/span&gt;neut ausführen</source>
+				<target>Test e&lt;span class=&quot;access-key&quot;&gt;r&lt;/span&gt;neut ausführen</target>
 			</trans-unit>
 			<trans-unit id="run_all_tests">
-				<source>&lt;span class=&quot;access-key&quot;&gt;A&lt;/span&gt;lle Tests ausführen</source>
+				<target>&lt;span class=&quot;access-key&quot;&gt;A&lt;/span&gt;lle Tests ausführen</target>
 			</trans-unit>
 			<trans-unit id="run_single_test">
-				<source>Einzelnen Te&lt;span class=&quot;access-key&quot;&gt;s&lt;/span&gt;t ausführen</source>
+				<target>Einzelnen Te&lt;span class=&quot;access-key&quot;&gt;s&lt;/span&gt;t ausführen</target>
 			</trans-unit>
 			<trans-unit id="select_extension">
-				<source>Extension auswählen</source>
+				<target>Extension auswählen</target>
 			</trans-unit>
 			<trans-unit id="select_tests">
-				<source>Test auswählen</source>
+				<target>Test auswählen</target>
 			</trans-unit>
 			<trans-unit id="testing_all_extensions">
-				<source>Teste Extensions</source>
+				<target>Teste Extensions</target>
 			</trans-unit>
 			<trans-unit id="testing_extension">
-				<source>Teste Extension</source>
+				<target>Teste Extension</target>
 			</trans-unit>
 			<trans-unit id="tests_errors">
-				<source>Fehler</source>
+				<target>Fehler</target>
 			</trans-unit>
 			<trans-unit id="tests_failures">
-				<source>Probleme</source>
+				<target>Probleme</target>
 			</trans-unit>
 			<trans-unit id="tests_total">
-				<source>Tests</source>
+				<target>Tests</target>
 			</trans-unit>
 			<trans-unit id="tests_seconds">
-				<source>Sekunden</source>
+				<target>Sekunden</target>
 			</trans-unit>
 			<trans-unit id="tests_leaks">
-				<source>Speicherlecks</source>
+				<target>Speicherlecks</target>
 			</trans-unit>
 			<trans-unit id="title">
-				<source>PHPUnit BE</source>
+				<target>PHPUnit BE</target>
 			</trans-unit>
 			<trans-unit id="tx_phpunit_test">
-				<source>PHPUnit-Testdatensätze</source>
+				<target>PHPUnit-Testdatensätze</target>
 			</trans-unit>
 			<trans-unit id="tx_phpunit_test.title">
-				<source>Titel</source>
+				<target>Titel</target>
 			</trans-unit>
 			<trans-unit id="test_are_run_in_current_backend_context">
 				<target>&lt;p&gt;&lt;strong&gt;Tests werden im aktuellen Backend-Kontext ausgeführt&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;Die Unit-Tests werden im Kontext der aktuellen Backend-Session ausgeführt. Das Ergebnis wird dadurch wahrscheinlich anders sein als über die Kommandozeile mit der Testkonfiguration der Core-Unit-Tests oder der Core-Functional-Tests. Insbesondere wird dies seltsame Fehler mit den Core-Tests erzeugen.&lt;/p&gt;&lt;p&gt;Wenn Sie die Tests in einem sauberen Kontext ausführen müssen, benutzen Sie bitte den Ansatz, der Wiki unter &lt;a href="http://wiki.typo3.org/Unit_Testing_TYPO3" target="_blank"&gt;http://wiki.typo3.org/Unit_Testing_TYPO3&lt;/a&gt; und &lt;a href="http://wiki.typo3.org/Functional_testing" target="_blank"&gt;http://wiki.typo3.org/Functional_testing&lt;/a&gt; beschrieben wird&lt;/p&gt;</target>
