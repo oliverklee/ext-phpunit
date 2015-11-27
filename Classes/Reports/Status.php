@@ -97,7 +97,7 @@ class Tx_Phpunit_Reports_Status implements StatusProviderInterface {
 
 		$method = new ReflectionMethod('tx_phpunit_Reports_Status', 'getStatus');
 		if (strlen($method->getDocComment()) > 0) {
-			/** @var $status Status */
+			/** @var Status $status */
 			$status = GeneralUtility::makeInstance(
 				'TYPO3\\CMS\\Reports\\Status',
 				$heading,
@@ -106,7 +106,7 @@ class Tx_Phpunit_Reports_Status implements StatusProviderInterface {
 				Status::OK
 			);
 		} else {
-			/** @var $status Status */
+			/** @var Status $status */
 			$status = GeneralUtility::makeInstance(
 				'TYPO3\\CMS\\Reports\\Status',
 				$heading,
@@ -129,7 +129,7 @@ class Tx_Phpunit_Reports_Status implements StatusProviderInterface {
 		$heading = $this->translate('status_eAccelerator');
 
 		if (!extension_loaded('eaccelerator')) {
-			/** @var $status Status */
+			/** @var Status $status */
 			$status = GeneralUtility::makeInstance(
 				'TYPO3\\CMS\\Reports\\Status',
 				$heading,
@@ -146,7 +146,7 @@ class Tx_Phpunit_Reports_Status implements StatusProviderInterface {
 					$version
 				);
 
-				/** @var $status Status */
+				/** @var Status $status */
 				$status = GeneralUtility::makeInstance(
 					'TYPO3\\CMS\\Reports\\Status',
 					$heading,
@@ -160,7 +160,7 @@ class Tx_Phpunit_Reports_Status implements StatusProviderInterface {
 					$version
 				);
 
-				/** @var $status Status */
+				/** @var Status $status */
 				$status = GeneralUtility::makeInstance(
 					'TYPO3\\CMS\\Reports\\Status',
 					$heading,
@@ -215,7 +215,7 @@ class Tx_Phpunit_Reports_Status implements StatusProviderInterface {
 		);
 
 		if ($memoryLimitInBytes < $requiredMemoryLimitInBytes) {
-			/** @var $status Status */
+			/** @var Status $status */
 			$status = GeneralUtility::makeInstance(
 				'TYPO3\\CMS\\Reports\\Status',
 				$heading,
@@ -224,7 +224,7 @@ class Tx_Phpunit_Reports_Status implements StatusProviderInterface {
 				Status::ERROR
 			);
 		} elseif ($memoryLimitInBytes < $recommendedMemoryLimitInBytes) {
-			/** @var $status Status */
+			/** @var Status $status */
 			$status = GeneralUtility::makeInstance(
 				'TYPO3\\CMS\\Reports\\Status',
 				$heading,
@@ -233,7 +233,7 @@ class Tx_Phpunit_Reports_Status implements StatusProviderInterface {
 				Status::WARNING
 			);
 		} else {
-			/** @var $status Status */
+			/** @var Status $status */
 			$status = GeneralUtility::makeInstance(
 				'TYPO3\\CMS\\Reports\\Status',
 				$heading,

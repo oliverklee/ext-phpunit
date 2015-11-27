@@ -32,35 +32,35 @@ $languageService->includeLLFile('EXT:phpunit/Resources/Private/Language/locallan
 
 $namePrettifier = new PHPUnit_Util_TestDox_NamePrettifier();
 
-/** @var $outputService Tx_Phpunit_Service_OutputService */
+/** @var Tx_Phpunit_Service_OutputService $outputService */
 $outputService = GeneralUtility::makeInstance('Tx_Phpunit_Service_OutputService');
 
-/** @var $userSettingsService Tx_Phpunit_Service_UserSettingsService */
+/** @var Tx_Phpunit_Service_UserSettingsService $userSettingsService */
 $userSettingsService = GeneralUtility::makeInstance('Tx_Phpunit_Service_UserSettingsService');
 
-/** @var $testListener Tx_Phpunit_BackEnd_TestListener */
+/** @var Tx_Phpunit_BackEnd_TestListener $testListener */
 $testListener = GeneralUtility::makeInstance('Tx_Phpunit_BackEnd_TestListener');
 $testListener->injectNamePrettifier($namePrettifier);
 $testListener->injectOutputService($outputService);
 
-/** @var $extensionSettingsService Tx_Phpunit_Service_ExtensionSettingsService */
+/** @var Tx_Phpunit_Service_ExtensionSettingsService $extensionSettingsService */
 $extensionSettingsService = GeneralUtility::makeInstance('Tx_Phpunit_Service_ExtensionSettingsService');
 
-/** @var $userSettingsService Tx_Phpunit_Service_UserSettingsService */
+/** @var Tx_Phpunit_Service_UserSettingsService $userSettingsService */
 $userSettingsService = GeneralUtility::makeInstance('Tx_Phpunit_Service_UserSettingsService');
 
-/** @var $testCaseService Tx_Phpunit_Service_TestCaseService */
+/** @var Tx_Phpunit_Service_TestCaseService $testCaseService */
 $testCaseService = GeneralUtility::makeInstance('Tx_Phpunit_Service_TestCaseService');
 $testCaseService->injectUserSettingsService($userSettingsService);
 
-/** @var $testFinder Tx_Phpunit_Service_TestFinder */
+/** @var Tx_Phpunit_Service_TestFinder $testFinder */
 $testFinder = GeneralUtility::makeInstance('Tx_Phpunit_Service_TestFinder');
 $testFinder->injectExtensionSettingsService($extensionSettingsService);
 
-/** @var $request Tx_Phpunit_BackEnd_Request */
+/** @var Tx_Phpunit_BackEnd_Request $request */
 $request = GeneralUtility::makeInstance('Tx_Phpunit_BackEnd_Request');
 
-/** @var $module Tx_Phpunit_BackEnd_Module */
+/** @var Tx_Phpunit_BackEnd_Module $module */
 $module = GeneralUtility::makeInstance('Tx_Phpunit_BackEnd_Module');
 $module->injectRequest($request);
 $module->injectOutputService($outputService);

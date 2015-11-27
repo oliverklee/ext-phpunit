@@ -408,11 +408,11 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase {
 		$db = $this->useTestDatabase();
 		$foreignKeys = array();
 
-		/** @var $table SimpleXMLElement */
+		/** @var SimpleXMLElement $table */
 		foreach ($xml->children() as $table) {
 			$insertArray = array();
 
-			/** @var $column SimpleXMLElement */
+			/** @var SimpleXMLElement $column */
 			foreach ($table->children() as $column) {
 				$columnName = $column->getName();
 				$columnValue = NULL;

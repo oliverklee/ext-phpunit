@@ -96,7 +96,7 @@ class Tx_Phpunit_Tests_Unit_Service_TestCaseServiceTest extends Tx_Phpunit_TestC
 	public function findTestCaseFilesInDirectoryFindsFileWithProperTestcaseFileName() {
 		$path = 'OneTest.php';
 
-		/** @var $subject Tx_Phpunit_Service_TestCaseService|PHPUnit_Framework_MockObject_MockObject */
+		/** @var Tx_Phpunit_Service_TestCaseService|PHPUnit_Framework_MockObject_MockObject $subject */
 		$subject = $this->getMock('Tx_Phpunit_Service_TestCaseService', array('isNotFixturesPath', 'isTestCaseFileName'));
 		$subject->expects(self::any())->method('isNotFixturesPath')->will((self::returnValue(TRUE)));
 		$subject->expects(self::at(1))->method('isTestCaseFileName')
@@ -114,7 +114,7 @@ class Tx_Phpunit_Tests_Unit_Service_TestCaseServiceTest extends Tx_Phpunit_TestC
 	public function findTestCaseFilesInDirectoryNotFindsFileWithNonProperTestcaseFileName() {
 		$path = 'OneTest.php';
 
-		/** @var $subject Tx_Phpunit_Service_TestCaseService|PHPUnit_Framework_MockObject_MockObject */
+		/** @var Tx_Phpunit_Service_TestCaseService|PHPUnit_Framework_MockObject_MockObject $subject */
 		$subject = $this->getMock('Tx_Phpunit_Service_TestCaseService', array('isNotFixturesPath','isTestCaseFileName'));
 		$subject->expects(self::any())->method('isNotFixturesPath')->will((self::returnValue(TRUE)));
 		$subject->expects(self::at(1))->method('isTestCaseFileName')

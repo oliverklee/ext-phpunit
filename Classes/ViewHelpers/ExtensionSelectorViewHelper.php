@@ -148,7 +148,7 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper extends Tx_Phpunit_View
 		}
 		$options[] = $allExtensionOption;
 
-		/** @var $testable Tx_Phpunit_Testable */
+		/** @var Tx_Phpunit_Testable $testable */
 		foreach ($this->testFinder->getTestablesForEverything() as $testable) {
 			$extensionOption = array(
 				'style' => $this->createIconStyle($testable->getKey()),

@@ -3,7 +3,7 @@ defined('TYPO3_MODE') or die('Access denied.');
 
 $composerAutoloadFile = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('phpunit') . 'Composer/vendor/autoload.php';
 
-/** @var $extensionSettingsService Tx_Phpunit_Service_ExtensionSettingsService */
+/** @var Tx_Phpunit_Service_ExtensionSettingsService $extensionSettingsService */
 $extensionSettingsService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Phpunit_Service_ExtensionSettingsService');
 $composerPhpUnitPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('phpunit') . 'Composer/vendor/phpunit/phpunit/';
 if ($extensionSettingsService->hasString('composerpath')) {

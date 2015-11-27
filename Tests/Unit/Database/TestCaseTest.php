@@ -97,7 +97,7 @@ class Tx_Phpunit_Tests_Unit_Database_TestCaseTest extends Tx_Phpunit_Database_Te
 	public function cleaningDatabase() {
 		$this->importExtensions(array('extbase'));
 
-		/** @var $res mysqli_result|resource */
+		/** @var mysqli_result|resource $res */
 		$res = $this->db->sql_query('show tables');
 		$rows = $this->db->sql_num_rows($res);
 		self::assertNotEquals(0, $rows);
@@ -106,7 +106,7 @@ class Tx_Phpunit_Tests_Unit_Database_TestCaseTest extends Tx_Phpunit_Database_Te
 		$this->dropDatabasedAndCheckResult();
 		$this->createDatabase();
 		$this->cleanDatabase();
-		/** @var $res mysqli_result|resource */
+		/** @var mysqli_result|resource $res */
 		$res = $this->db->sql_query('show tables');
 
 		self::assertSame(
@@ -121,7 +121,7 @@ class Tx_Phpunit_Tests_Unit_Database_TestCaseTest extends Tx_Phpunit_Database_Te
 	public function importingExtension() {
 		$this->importExtensions(array('extbase'));
 
-		/** @var $res mysqli_result|resource */
+		/** @var mysqli_result|resource $res */
 		$res = $this->db->sql_query('show tables');
 		$rows = $this->db->sql_num_rows($res);
 

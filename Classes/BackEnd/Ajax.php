@@ -57,7 +57,7 @@ class Tx_Phpunit_BackEnd_Ajax {
 	 */
 	public function __construct($initializeUserSettingsService = TRUE) {
 		if ($initializeUserSettingsService) {
-			/** @var $userSettingsService Tx_Phpunit_Service_UserSettingsService */
+			/** @var Tx_Phpunit_Service_UserSettingsService $userSettingsService */
 			$userSettingsService = GeneralUtility::makeInstance('Tx_Phpunit_Service_UserSettingsService');
 			$this->injectUserSettingsService($userSettingsService);
 		}

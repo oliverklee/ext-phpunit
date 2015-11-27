@@ -796,7 +796,7 @@ class Tx_Phpunit_Framework {
 					1299257923
 				);
 			}
-			/** @var $hook Tx_Phpunit_Interface_FrameworkCleanupHook */
+			/** @var Tx_Phpunit_Interface_FrameworkCleanupHook $hook */
 			$hook->cleanUp();
 		}
 
@@ -1215,7 +1215,7 @@ class Tx_Phpunit_Framework {
 
 		$GLOBALS['TT'] = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\TimeTracker\\NullTimeTracker');
 
-		/** @var $frontEnd TypoScriptFrontendController */
+		/** @var TypoScriptFrontendController $frontEnd */
 		$frontEnd = GeneralUtility::makeInstance(
 			'TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController', $GLOBALS['TYPO3_CONF_VARS'], $pageUid, 0
 		);

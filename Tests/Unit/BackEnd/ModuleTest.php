@@ -216,7 +216,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	public function mainForAdminBackEndUserRunsTests() {
 		$GLOBALS['BE_USER']->user['admin'] = TRUE;
 
-		/** @var $subject Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
+		/** @var Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject $subject */
 		$subject = $this->getMock($this->createAccessibleProxy(), array('renderRunTests'));
 		$subject->injectRequest($this->request);
 		$subject->injectOutputService($this->outputService);
@@ -230,7 +230,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function renderRunTestsForEmptyCommandRendersIntro() {
-		/** @var $subject Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
+		/** @var Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject $subject */
 		$subject = $this->getMock($this->createAccessibleProxy(), array('renderRunTestsIntro', 'renderRunningTest'));
 		$subject->injectRequest($this->request);
 		$subject->injectOutputService($this->outputService);
@@ -250,7 +250,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function renderRunTestsForEmptyCommandNotRunsTests() {
-		/** @var $subject Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
+		/** @var Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject $subject */
 		$subject = $this->getMock($this->createAccessibleProxy(), array('renderRunTestsIntro', 'renderRunningTest'));
 		$subject->injectRequest($this->request);
 		$subject->injectOutputService($this->outputService);
@@ -270,7 +270,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function renderRunTestsForInvalidCommandRendersIntro() {
-		/** @var $subject Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
+		/** @var Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject $subject */
 		$subject = $this->getMock($this->createAccessibleProxy(), array('renderRunTestsIntro', 'renderRunningTest'));
 		$subject->injectRequest($this->request);
 		$subject->injectOutputService($this->outputService);
@@ -290,7 +290,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function renderRunTestsForInvalidCommandNotRunsTests() {
-		/** @var $subject Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
+		/** @var Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject $subject */
 		$subject = $this->getMock($this->createAccessibleProxy(), array('renderRunTestsIntro', 'renderRunningTest'));
 		$subject->injectRequest($this->request);
 		$subject->injectOutputService($this->outputService);
@@ -310,7 +310,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function renderRunTestsForRunAllTestsCommandRendersIntroAndTests() {
-		/** @var $subject Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
+		/** @var Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject $subject */
 		$subject = $this->getMock($this->createAccessibleProxy(), array('renderRunTestsIntro', 'renderRunningTest'));
 		$subject->injectRequest($this->request);
 		$subject->injectOutputService($this->outputService);
@@ -331,7 +331,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function renderRunTestsForRunTestCaseFileCommandRendersIntroAndTests() {
-		/** @var $subject Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
+		/** @var Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject $subject */
 		$subject = $this->getMock($this->createAccessibleProxy(), array('renderRunTestsIntro', 'renderRunningTest'));
 		$subject->injectRequest($this->request);
 		$subject->injectOutputService($this->outputService);
@@ -352,7 +352,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function renderRunTestsForRunSingleTestCommandRendersIntroAndTests() {
-		/** @var $subject Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
+		/** @var Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject $subject */
 		$subject = $this->getMock($this->createAccessibleProxy(), array('renderRunTestsIntro', 'renderRunningTest'));
 		$subject->injectRequest($this->request);
 		$subject->injectOutputService($this->outputService);
@@ -373,7 +373,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function renderRunTestsIntroForNoExtensionsWithTestSuitesShowsErrorMessage() {
-		/** @var $subject Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
+		/** @var Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject $subject */
 		$subject = $this->getMock(
 			$this->createAccessibleProxy(),
 			array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector')
@@ -381,7 +381,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$subject->injectRequest($this->request);
 		$subject->injectOutputService($this->outputService);
 
-		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
+		/** @var Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject $testFinder */
 		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder');
 		$testFinder->expects(self::any())->method('existsTestableForAnything')->will(self::returnValue(FALSE));
 		$subject->injectTestFinder($testFinder);
@@ -401,7 +401,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function renderRunTestsIntroForNoExtensionsWithTestSuitesNotRendersExtensionSelector() {
-		/** @var $subject Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
+		/** @var Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject $subject */
 		$subject = $this->getMock(
 			$this->createAccessibleProxy(),
 			array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector')
@@ -410,7 +410,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$subject->injectOutputService($this->outputService);
 		$subject->injectTestFinder($this->testFinder);
 
-		/** @var $testFinder Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject */
+		/** @var Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject $testFinder */
 		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder');
 		$testFinder->expects(self::any())->method('existsTestableForAnything')->will(self::returnValue(FALSE));
 		$subject->injectTestFinder($testFinder);
@@ -427,7 +427,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	 * @test
 	 */
 	public function renderRunTestsIntroForExistingExtensionsWithTestSuitesRendersExtensionSelector() {
-		/** @var $subject Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
+		/** @var Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject $subject */
 		$subject = $this->getMock(
 			$this->createAccessibleProxy(),
 			array('createExtensionSelector')
@@ -451,7 +451,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	public function renderRunTestsIntroForSelectedExtensionRendersTestCaseSelector() {
 		$selectedExtension = 'phpunit';
 
-		/** @var $subject Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
+		/** @var Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject $subject */
 		$subject = $this->getMock(
 			$this->createAccessibleProxy(),
 			array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector')
@@ -480,7 +480,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	public function renderRunTestsIntroForSelectedExtensionRendersTestSelector() {
 		$selectedExtension = 'phpunit';
 
-		/** @var $subject Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
+		/** @var Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject $subject */
 		$subject = $this->getMock(
 			$this->createAccessibleProxy(),
 			array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector')
@@ -509,7 +509,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 	public function renderRunTestsIntroForSelectedExtensionRendersCheckboxes() {
 		$selectedExtension = 'phpunit';
 
-		/** @var $subject Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject */
+		/** @var Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject $subject */
 		$subject = $this->getMock(
 			$this->createAccessibleProxy(),
 			array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector')
@@ -554,7 +554,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		vfsStreamWrapper::setRoot(new vfsStreamDirectory('Foo'));
 		$directory = 'vfs://Foo/';
 
-		/** @var $testCaseService Tx_Phpunit_Service_TestCaseService|PHPUnit_Framework_MockObject_MockObject */
+		/** @var Tx_Phpunit_Service_TestCaseService|PHPUnit_Framework_MockObject_MockObject $testCaseService */
 		$testCaseService = $this->getMock('Tx_Phpunit_Service_TestCaseService', array('findTestCaseFilesInDirectory'));
 		$testCaseService->expects(self::once())->method('findTestCaseFilesInDirectory')->with($directory);
 		$this->subject->injectTestCaseService($testCaseService);
@@ -571,7 +571,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase {
 		$directory = 'vfs://Foo/';
 		$testFiles = array('class.testOneTest.php', 'class.testTwoTest.php');
 
-		/** @var $testCaseService Tx_Phpunit_Service_TestCaseService|PHPUnit_Framework_MockObject_MockObject */
+		/** @var Tx_Phpunit_Service_TestCaseService|PHPUnit_Framework_MockObject_MockObject $testCaseService */
 		$testCaseService = $this->getMock('Tx_Phpunit_Service_TestCaseService', array('findTestCaseFilesInDirectory'));
 		$testCaseService->expects(self::once())->method('findTestCaseFilesInDirectory')->will(self::returnValue($testFiles));
 		$this->subject->injectTestCaseService($testCaseService);

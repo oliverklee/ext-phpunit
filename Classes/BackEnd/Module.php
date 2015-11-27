@@ -337,7 +337,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 	 */
 	protected function renderRunTestsIntro() {
 		if (!$this->testFinder->existsTestableForAnything()) {
-			/** @var $message FlashMessage */
+			/** @var FlashMessage $message */
 			$message = GeneralUtility::makeInstance(
 				'TYPO3\\CMS\\Core\\Messaging\\FlashMessage',
 				$this->translate('could_not_find_exts_with_tests'),
@@ -368,7 +368,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 	protected function createExtensionSelector() {
 		$this->getAndSaveSelectedTestableKey();
 
-		/** @var $extensionSelectorViewHelper Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper */
+		/** @var Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper $extensionSelectorViewHelper */
 		$extensionSelectorViewHelper = GeneralUtility::makeInstance('Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper');
 		$extensionSelectorViewHelper->injectOutputService($this->outputService);
 		$extensionSelectorViewHelper->injectUserSettingService($this->userSettingsService);
@@ -409,7 +409,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 
 		// testCaseFile
 		$testCaseFileOptionsArray = array();
-		/** @var $testCase PHPUnit_Framework_TestCase */
+		/** @var PHPUnit_Framework_TestCase $testCase */
 		foreach ($testSuite->tests() as $testCase) {
 			$selected = ($testCase->toString() === $this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE))
 				? ' selected="selected"' : '';
@@ -466,12 +466,12 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 		// single test case
 		$testsOptionsArr = array();
 		$testCaseFile = $this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE);
-		/** @var $testCase PHPUnit_Framework_TestSuite */
+		/** @var PHPUnit_Framework_TestSuite $testCase */
 		foreach ($testSuite->tests() as $testCase) {
 			if (($testCaseFile !== NULL) && ($testCase->getName() !== $testCaseFile)) {
 				continue;
 			}
-			/** @var $test PHPUnit_Framework_TestCase */
+			/** @var PHPUnit_Framework_TestCase $test */
 			foreach ($testCase->tests() as $test) {
 				if ($test instanceof PHPUnit_Framework_TestSuite) {
 					list($testSuiteName, $testName) = explode('::', $test->getName());
@@ -666,7 +666,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 	 * @return void
 	 */
 	protected function loadAllFilesContainingTestCasesForTestables(array $testables) {
-		/** @var $testable Tx_Phpunit_Testable */
+		/** @var Tx_Phpunit_Testable $testable */
 		foreach ($testables as $testable) {
 			$this->loadAllFilesContainingTestCasesForSingleTestable($testable);
 		}
@@ -731,11 +731,11 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 		PHPUnit_Framework_TestSuite $testSuiteWithAllTestCases, PHPUnit_Framework_TestResult $testResult
 	) {
 		$this->renderProgressbar();
-		/** @var $testCases PHPUnit_Framework_TestSuite */
+		/** @var PHPUnit_Framework_TestSuite $testCases */
 		foreach ($testSuiteWithAllTestCases->tests() as $testCases) {
 			foreach ($testCases->tests() as $test) {
 				if ($test instanceof PHPUnit_Framework_TestSuite) {
-					/** @var $test PHPUnit_Framework_TestSuite */
+					/** @var PHPUnit_Framework_TestSuite $test */
 					list($testSuiteName, $testName) = explode('::', $test->getName());
 					$this->testListener->setTestSuiteName($testSuiteName);
 					$testIdentifier = $testName . '(' . $testSuiteName . ')';
@@ -938,7 +938,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass {
 	 * @return void
 	 */
 	protected function renderProgressbar() {
-		/** @var $progressBarViewHelper Tx_Phpunit_ViewHelpers_ProgressBarViewHelper */
+		/** @var Tx_Phpunit_ViewHelpers_ProgressBarViewHelper $progressBarViewHelper */
 		$progressBarViewHelper = GeneralUtility::makeInstance('Tx_Phpunit_ViewHelpers_ProgressBarViewHelper');
 		$progressBarViewHelper->injectOutputService($this->outputService);
 		$progressBarViewHelper->render();
