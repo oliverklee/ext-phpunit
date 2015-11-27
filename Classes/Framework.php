@@ -1759,7 +1759,7 @@ class Tx_Phpunit_Framework {
 	protected function getMaximumUidFromTable($tableName) {
 		$row = Tx_Phpunit_Service_Database::selectSingle('MAX(uid) AS uid', $tableName);
 
-		return $row['uid'];
+		return (int)$row['uid'];
 	}
 
 	/**
