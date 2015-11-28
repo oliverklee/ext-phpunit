@@ -1,4 +1,6 @@
 <?php
+namespace OliverKlee\Phpunit\Tests\Unit\BackEnd;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -20,21 +22,21 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Tests_Unit_BackEnd_TestStatisticsTest extends Tx_Phpunit_TestCase
+class TestStatisticsTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Phpunit_BackEnd_TestStatistics
+     * @var \Tx_Phpunit_BackEnd_TestStatistics
      */
     protected $subject = null;
 
     protected function setUp()
     {
-        $this->subject = new Tx_Phpunit_BackEnd_TestStatistics();
+        $this->subject = new \Tx_Phpunit_BackEnd_TestStatistics();
     }
 
     /**
      * @test
-     * @expectedException BadMethodCallException
+     * @expectedException \BadMethodCallException
      */
     public function startCalledTwoTimesThrowsException()
     {
@@ -44,7 +46,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_TestStatisticsTest extends Tx_Phpunit_TestCa
 
     /**
      * @test
-     * @expectedException BadMethodCallException
+     * @expectedException \BadMethodCallException
      */
     public function stopWithoutStartThrowsException()
     {
@@ -53,7 +55,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_TestStatisticsTest extends Tx_Phpunit_TestCa
 
     /**
      * @test
-     * @expectedException BadMethodCallException
+     * @expectedException \BadMethodCallException
      */
     public function stopCalledTwoTimesAfterStartThrowsException()
     {

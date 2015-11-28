@@ -1,4 +1,6 @@
 <?php
+namespace OliverKlee\Phpunit\Tests\Unit\BackEnd;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -20,7 +22,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Tests_Unit_BackEnd_RequestTest extends Tx_Phpunit_TestCase
+class RequestTest extends \Tx_Phpunit_TestCase
 {
     /**
      * @var bool
@@ -59,7 +61,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_RequestTest extends Tx_Phpunit_TestCase
         $GLOBALS['_GET'] = array();
         $GLOBALS['_POST'] = array();
 
-        $this->subject = new Tx_Phpunit_BackEnd_Request();
+        $this->subject = new \Tx_Phpunit_BackEnd_Request();
     }
 
     /**
