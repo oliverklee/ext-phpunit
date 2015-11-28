@@ -157,7 +157,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_CheckboxViewHelperTest extends Tx_Phpuni
         // Only one match should be found
         self::assertSame(
             1,
-            preg_match_all('/value="test"|value="another"/', $subject->render())
+            preg_match_all('/(value="test"|value="another")/', $subject->render(), $matches)
         );
     }
 
