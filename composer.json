@@ -23,7 +23,7 @@
         "mikey179/vfsStream": "<2.0"
     },
     "autoload": {
-        "classmap": ["Classes"]
+        "classmap": ["Classes", "Tests"]
     },
     "replace": {
         "phpunit": "self.version",
