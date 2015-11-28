@@ -96,7 +96,7 @@ function setProgressBarClass(className) {
 			},
 			'ajaxID=Tx_Phpunit_BackEnd_Ajax&state=' + state + '&checkbox=' + checkbox
 		);
-		Dom.setStyle(Dom.getElementsByClassName(className), 'display', display);
+		toggleStyleNodeForMassHidingOfElements(className, display);
 	};
 
 	var toggleCodeCoverage = function (event) {
@@ -108,6 +108,33 @@ function setProgressBarClass(className) {
 				},
 				'ajaxID=Tx_Phpunit_BackEnd_Ajax&state=' + state + '&checkbox=codeCoverage'
 			);
+	};
+
+	/**
+	 * Sets class to container which indicates testcases to be hidden/shown
+	 * (performance boost compared to iterative adding of inline styles)
+	 *
+	 * @param {String} className
+	 * @param {String} showState
+	 */
+	var toggleStyleNodeForMassHidingOfElements = function(className, showState) {
+		// white-listing of relevant class names
+		if (['testcaseSuccess', 'testcaseSkipped', 'testcaseError', 'testcaseFailure'].indexOf(className) === -1) {
+			return;
+		}
+		var containerNode = document.getElementsByTagName('body')[0];
+		var containerNodeClassName = ' hide-' + className + ' ';
+		// hasClass
+		var classNameAlreadySet = (containerNode.className).indexOf(containerNodeClassName) > -1;
+
+		if (showState === 'none' && !classNameAlreadySet) {
+			// addClass
+			containerNode.className = containerNode.className + containerNodeClassName;
+		}
+		if (showState !== 'none' && classNameAlreadySet) {
+			// removeClass
+			containerNode.className = containerNode.className.replace(containerNodeClassName, '');
+		}
 	};
 
 	/**
@@ -164,9 +191,7 @@ function setProgressBarClass(className) {
 			var checkbox = checkboxes[i];
 			var display = checkbox.checked ? 'block' : 'none';
 			var className = mapClasses(checkbox.id);
-			Dom.setStyle(
-				Dom.getElementsByClassName(className), 'display', display
-			);
+			toggleStyleNodeForMassHidingOfElements(className, display);
 		}
 		Event.addListener(checkboxes, 'click', toggle, this, true);
 		Event.addListener('SET_codeCoverage', 'click', toggleCodeCoverage, this, true);

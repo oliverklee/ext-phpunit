@@ -174,3 +174,10 @@ h2.wasSuccessful, h2.hadFailure, h2.hadError {
 	border: 1px solid #000;
 	width: 790px;
 }
+
+.hide-testcaseSuccess > .testcaseSuccess,
+.hide-testcaseSkipped > .testcaseSkipped,
+.hide-testcaseError > .testcaseError,
+.hide-testcaseFailure > .testcaseFailure{
+	display: none;
+}
