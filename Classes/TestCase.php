@@ -97,7 +97,7 @@ abstract class Tx_Phpunit_TestCase extends PHPUnit_Framework_TestCase
      */
     protected function buildAccessibleProxy($className)
     {
-        $accessibleClassName = uniqid('Tx_Phpunit_AccessibleProxy');
+        $accessibleClassName = str_replace('.', '', uniqid('Tx_Phpunit_AccessibleProxy', true));
         $class = new ReflectionClass($className);
         $abstractModifier = $class->isAbstract() ? 'abstract ' : '';
 

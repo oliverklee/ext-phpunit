@@ -1,0 +1,27 @@
+{
+    "name": "oliverklee/phpunit-distribution",
+    "description": "Installs TYPO3 and phpunit extension for travis integration.",
+    "homepage": "https://forge.typo3.org/projects/extension-phpunit",
+    "authors": [
+        {
+            "name": "Oliver Klee",
+            "email": "typo3-coding@oliverklee.de",
+            "role": "Developer",
+            "homepage": "http://www.oliverklee.de"
+        }
+    ],
+    "license": "GPL-2.0+",
+    "require": {
+        "helhum/typo3-console": "*"
+    },
+    "extra": {
+        "typo3/cms": {
+            "composer-mode": false
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "Helhum\\Typo3Console\\Composer\\InstallerScripts::postUpdateAndInstall"
+        ]
+    }
+}
