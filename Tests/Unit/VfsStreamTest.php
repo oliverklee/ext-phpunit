@@ -20,49 +20,56 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Tests_Unit_VfsStreamTest extends Tx_Phpunit_TestCase {
-	/**
-	 * @test
-	 */
-	public function vfsStreamCanBeInstantiated() {
-		new vfsStream();
-	}
+class Tx_Phpunit_Tests_Unit_VfsStreamTest extends Tx_Phpunit_TestCase
+{
+    /**
+     * @test
+     */
+    public function vfsStreamCanBeInstantiated()
+    {
+        new vfsStream();
+    }
 
-	/**
-	 * @test
-	 */
-	public function vfsStreamContainerIteratorCanBeInstantiated() {
-		new vfsStreamContainerIterator(array());
-	}
+    /**
+     * @test
+     */
+    public function vfsStreamContainerIteratorCanBeInstantiated()
+    {
+        new vfsStreamContainerIterator(array());
+    }
 
-	/**
-	 * @test
-	 */
-	public function vfsStreamDirectoryCanBeInstantiated() {
-		new vfsStreamDirectory('');
-	}
+    /**
+     * @test
+     */
+    public function vfsStreamDirectoryCanBeInstantiated()
+    {
+        new vfsStreamDirectory('');
+    }
 
-	/**
-	 * @test
-	 *
-	 * @expectedException vfsStreamException
-	 * @throws vfsStreamException
-	 */
-	public function vfsStreamExceptionCanBeThrown() {
-		throw new vfsStreamException('some message', 1234);
-	}
+    /**
+     * @test
+     *
+     * @expectedException vfsStreamException
+     * @throws vfsStreamException
+     */
+    public function vfsStreamExceptionCanBeThrown()
+    {
+        throw new vfsStreamException('some message', 1234);
+    }
 
-	/**
-	 * @test
-	 */
-	public function vfsStreamFileCanBeInstantiated() {
-		new vfsStreamFile('');
-	}
+    /**
+     * @test
+     */
+    public function vfsStreamFileCanBeInstantiated()
+    {
+        new vfsStreamFile('');
+    }
 
-	/**
-	 * @test
-	 */
-	public function vfsStreamWrapperCanBeInstantiated() {
-		new vfsStreamWrapper();
-	}
+    /**
+     * @test
+     */
+    public function vfsStreamWrapperCanBeInstantiated()
+    {
+        new vfsStreamWrapper();
+    }
 }

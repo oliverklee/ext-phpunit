@@ -27,22 +27,24 @@ use TYPO3\CMS\Core\Exception;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Exception_Database extends Exception {
-	/**
-	 * The constructor.
-	 *
-	 * @param int $code error code, must be >= 0
-	 */
-	public function __construct($code = 0) {
-		/** @var DatabaseConnection $databaseConnection */
-		$databaseConnection = $GLOBALS['TYPO3_DB'];
+class Tx_Phpunit_Exception_Database extends Exception
+{
+    /**
+     * The constructor.
+     *
+     * @param int $code error code, must be >= 0
+     */
+    public function __construct($code = 0)
+    {
+        /** @var DatabaseConnection $databaseConnection */
+        $databaseConnection = $GLOBALS['TYPO3_DB'];
 
-		$message = 'There was an error with the database query.' . LF . $databaseConnection->sql_error();
+        $message = 'There was an error with the database query.' . LF . $databaseConnection->sql_error();
 
-		if ($databaseConnection->store_lastBuiltQuery || $databaseConnection->debugOutput) {
-			$message .= LF . 'The last built query:' . LF . $databaseConnection->debug_lastBuiltQuery;
-		}
+        if ($databaseConnection->store_lastBuiltQuery || $databaseConnection->debugOutput) {
+            $message .= LF . 'The last built query:' . LF . $databaseConnection->debug_lastBuiltQuery;
+        }
 
-		parent::__construct($message, $code);
-	}
+        parent::__construct($message, $code);
+    }
 }

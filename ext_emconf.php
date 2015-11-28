@@ -11,44 +11,41 @@
  ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = array(
-	'title' => 'PHPUnit',
-	'description' => 'Unit testing for TYPO3. Includes PHPUnit 4.8, Selenium, a BE test runner module, a CLI test runner, PhpStorm integration and a testing framework.',
-	'category' => 'module',
-	'shy' => 0,
-	'version' => '4.7.7',
-	'dependencies' => '',
-	'conflicts' => '',
-	'priority' => '',
-	'loadOrder' => '',
-	'module' => 'Classes/BackEnd',
-	'state' => 'stable',
-	'uploadfolder' => 1,
-	'createDirs' => '',
-	'modify_tables' => '',
-	'clearcacheonload' => 0,
-	'lockType' => '',
-	'author' => 'Oliver Klee',
-	'author_email' => 'typo3-coding@oliverklee.de',
-	'author_company' => '',
-	'doNotLoadInFE' => 1,
-	'CGLcompliance' => '',
-	'CGLcompliance_note' => '',
-	'constraints' => array(
-		'depends' => array(
-			'php' => '5.4.0-5.6.99',
-			'typo3' => '6.2.4-7.4.99',
-		),
-		'conflicts' => array(
-		),
-		'suggests' => array(
-		),
-	),
-	'suggests' => array(
-	),
-	'autoload' => array(
-		'classmap' => array(
-			'Classes',
-		),
-	),
-	'_md5_values_when_last_written' => '',
+    'title' => 'PHPUnit',
+    'description' => 'Unit testing for TYPO3. Includes PHPUnit 4.8, Selenium, a BE test runner module, a CLI test runner, PhpStorm integration and a testing framework.',
+    'category' => 'module',
+    'shy' => 0,
+    'version' => '4.7.7',
+    'dependencies' => '',
+    'conflicts' => '',
+    'priority' => '',
+    'loadOrder' => '',
+    'module' => 'Classes/BackEnd',
+    'state' => 'stable',
+    'uploadfolder' => 1,
+    'createDirs' => '',
+    'modify_tables' => '',
+    'clearcacheonload' => 0,
+    'lockType' => '',
+    'author' => 'Oliver Klee',
+    'author_email' => 'typo3-coding@oliverklee.de',
+    'author_company' => '',
+    'doNotLoadInFE' => 1,
+    'CGLcompliance' => '',
+    'CGLcompliance_note' => '',
+    'constraints' => array(
+        'depends' => array(
+            'php' => '5.4.0-5.6.99',
+            'typo3' => '6.2.4-7.4.99',
+        ),
+        'conflicts' => array(),
+        'suggests' => array(),
+    ),
+    'suggests' => array(),
+    'autoload' => array(
+        'classmap' => array(
+            'Classes',
+        ),
+    ),
+    '_md5_values_when_last_written' => '',
 );

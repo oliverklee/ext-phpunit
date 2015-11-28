@@ -20,126 +20,138 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Tests_Unit_BackEnd_TestStatisticsTest extends Tx_Phpunit_TestCase {
-	/**
-	 * @var Tx_Phpunit_BackEnd_TestStatistics
-	 */
-	protected $subject = NULL;
+class Tx_Phpunit_Tests_Unit_BackEnd_TestStatisticsTest extends Tx_Phpunit_TestCase
+{
+    /**
+     * @var Tx_Phpunit_BackEnd_TestStatistics
+     */
+    protected $subject = null;
 
-	protected function setUp() {
-		$this->subject = new Tx_Phpunit_BackEnd_TestStatistics();
-	}
+    protected function setUp()
+    {
+        $this->subject = new Tx_Phpunit_BackEnd_TestStatistics();
+    }
 
-	/**
-	 * @test
-	 * @expectedException BadMethodCallException
-	 */
-	public function startCalledTwoTimesThrowsException() {
-		$this->subject->start();
-		$this->subject->start();
-	}
+    /**
+     * @test
+     * @expectedException BadMethodCallException
+     */
+    public function startCalledTwoTimesThrowsException()
+    {
+        $this->subject->start();
+        $this->subject->start();
+    }
 
-	/**
-	 * @test
-	 * @expectedException BadMethodCallException
-	 */
-	public function stopWithoutStartThrowsException() {
-		$this->subject->stop();
-	}
+    /**
+     * @test
+     * @expectedException BadMethodCallException
+     */
+    public function stopWithoutStartThrowsException()
+    {
+        $this->subject->stop();
+    }
 
-	/**
-	 * @test
-	 * @expectedException BadMethodCallException
-	 */
-	public function stopCalledTwoTimesAfterStartThrowsException() {
-		$this->subject->start();
-		$this->subject->stop();
-		$this->subject->stop();
-	}
+    /**
+     * @test
+     * @expectedException BadMethodCallException
+     */
+    public function stopCalledTwoTimesAfterStartThrowsException()
+    {
+        $this->subject->start();
+        $this->subject->stop();
+        $this->subject->stop();
+    }
 
-	/**
-	 * @test
-	 */
-	public function getTimeInitiallyReturnsZero() {
-		self::assertSame(
-			0.0,
-			$this->subject->getTime()
-		);
-	}
+    /**
+     * @test
+     */
+    public function getTimeInitiallyReturnsZero()
+    {
+        self::assertSame(
+            0.0,
+            $this->subject->getTime()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getTimeWithoutStartAfterPauseReturnsZero() {
-		usleep(100000);
+    /**
+     * @test
+     */
+    public function getTimeWithoutStartAfterPauseReturnsZero()
+    {
+        usleep(100000);
 
-		self::assertSame(
-			0.0,
-			$this->subject->getTime()
-		);
-	}
+        self::assertSame(
+            0.0,
+            $this->subject->getTime()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getTimeAfterStartAfterPauseReturnsPassedTime() {
-		$this->subject->start();
-		usleep(100000);
+    /**
+     * @test
+     */
+    public function getTimeAfterStartAfterPauseReturnsPassedTime()
+    {
+        $this->subject->start();
+        usleep(100000);
 
-		self::assertEquals(
-			0.1,
-			$this->subject->getTime(),
-			'', 0.02
-		);
-	}
+        self::assertEquals(
+            0.1,
+            $this->subject->getTime(),
+            '', 0.02
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getTimeAfterStartAndStopReturnsPauseBeforeStop() {
-		$this->subject->start();
-		usleep(100000);
-		$this->subject->stop();
+    /**
+     * @test
+     */
+    public function getTimeAfterStartAndStopReturnsPauseBeforeStop()
+    {
+        $this->subject->start();
+        usleep(100000);
+        $this->subject->stop();
 
-		self::assertEquals(
-			0.1,
-			$this->subject->getTime(),
-			'', 0.02
-		);
-	}
+        self::assertEquals(
+            0.1,
+            $this->subject->getTime(),
+            '', 0.02
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getMemoryInitiallyReturnsZero() {
-		self::assertSame(
-			0,
-			$this->subject->getMemory()
-		);
-	}
+    /**
+     * @test
+     */
+    public function getMemoryInitiallyReturnsZero()
+    {
+        self::assertSame(
+            0,
+            $this->subject->getMemory()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getMemoryWithoutStartAfterMemoryUsageReturnsZero() {
-		array();
+    /**
+     * @test
+     */
+    public function getMemoryWithoutStartAfterMemoryUsageReturnsZero()
+    {
+        array();
 
-		self::assertSame(
-			0,
-			$this->subject->getMemory()
-		);
-	}
+        self::assertSame(
+            0,
+            $this->subject->getMemory()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getMemoryAfterStartAfterMemoryUsageReturnsGreaterThanZero() {
-		$this->subject->start();
-		array();
+    /**
+     * @test
+     */
+    public function getMemoryAfterStartAfterMemoryUsageReturnsGreaterThanZero()
+    {
+        $this->subject->start();
+        array();
 
-		self::assertGreaterThan(
-			0,
-			$this->subject->getMemory()
-		);
-	}
+        self::assertGreaterThan(
+            0,
+            $this->subject->getMemory()
+        );
+    }
 }

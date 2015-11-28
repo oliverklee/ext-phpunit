@@ -15,5 +15,6 @@
 /**
  * Test class.
  */
-class Tx_Phpunit_Tests_Unit_BackEnd_Fixtures_LoadMeToo {
+class Tx_Phpunit_Tests_Unit_BackEnd_Fixtures_LoadMeToo
+{
 }

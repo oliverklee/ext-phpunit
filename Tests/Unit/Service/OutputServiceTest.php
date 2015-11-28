@@ -20,40 +20,44 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Tests_Unit_Service_OutputServiceTest extends Tx_Phpunit_TestCase {
-	/**
-	 * @var Tx_Phpunit_Service_OutputService
-	 */
-	protected $subject = NULL;
+class Tx_Phpunit_Tests_Unit_Service_OutputServiceTest extends Tx_Phpunit_TestCase
+{
+    /**
+     * @var Tx_Phpunit_Service_OutputService
+     */
+    protected $subject = null;
 
-	protected function setUp() {
-		$this->subject = new Tx_Phpunit_Service_OutputService();
-	}
+    protected function setUp()
+    {
+        $this->subject = new Tx_Phpunit_Service_OutputService();
+    }
 
-	/**
-	 * @test
-	 */
-	public function classIsSingleton() {
-		self::assertInstanceOf(
-			'TYPO3\\CMS\\Core\\SingletonInterface',
-			$this->subject
-		);
-	}
+    /**
+     * @test
+     */
+    public function classIsSingleton()
+    {
+        self::assertInstanceOf(
+            'TYPO3\\CMS\\Core\\SingletonInterface',
+            $this->subject
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function outputOutputsOutput() {
-		$output = 'Hello world!';
+    /**
+     * @test
+     */
+    public function outputOutputsOutput()
+    {
+        $output = 'Hello world!';
 
-		ob_start();
-		$this->subject->output($output);
+        ob_start();
+        $this->subject->output($output);
 
-		self::assertSame(
-			$output,
-			ob_get_contents()
-		);
+        self::assertSame(
+            $output,
+            ob_get_contents()
+        );
 
-		ob_end_clean();
-	}
+        ob_end_clean();
+    }
 }

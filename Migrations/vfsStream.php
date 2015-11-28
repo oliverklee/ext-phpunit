@@ -1,18 +1,37 @@
 <?php
-interface vfsStreamContainer extends \org\bovigo\vfs\vfsStreamContainer {}
 
-interface vfsStreamContent extends \org\bovigo\vfs\vfsStreamContent {}
+interface vfsStreamContainer extends \org\bovigo\vfs\vfsStreamContainer
+{
+}
 
-abstract class vfsStreamAbstractContent extends \org\bovigo\vfs\vfsStreamAbstractContent {}
+interface vfsStreamContent extends \org\bovigo\vfs\vfsStreamContent
+{
+}
 
-class vfsStream extends \org\bovigo\vfs\vfsStream {}
+abstract class vfsStreamAbstractContent extends \org\bovigo\vfs\vfsStreamAbstractContent
+{
+}
 
-class vfsStreamContainerIterator extends \org\bovigo\vfs\vfsStreamContainerIterator {}
+class vfsStream extends \org\bovigo\vfs\vfsStream
+{
+}
 
-class vfsStreamDirectory extends \org\bovigo\vfs\vfsStreamDirectory {}
+class vfsStreamContainerIterator extends \org\bovigo\vfs\vfsStreamContainerIterator
+{
+}
 
-class vfsStreamException extends \org\bovigo\vfs\vfsStreamException {}
+class vfsStreamDirectory extends \org\bovigo\vfs\vfsStreamDirectory
+{
+}
 
-class vfsStreamFile extends \org\bovigo\vfs\vfsStreamFile {}
+class vfsStreamException extends \org\bovigo\vfs\vfsStreamException
+{
+}
 
-class vfsStreamWrapper extends \org\bovigo\vfs\vfsStreamWrapper {}
+class vfsStreamFile extends \org\bovigo\vfs\vfsStreamFile
+{
+}
+
+class vfsStreamWrapper extends \org\bovigo\vfs\vfsStreamWrapper
+{
+}

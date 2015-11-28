@@ -20,5 +20,6 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-interface Tx_Phpunit_Interface_ExtensionSettingsService extends Tx_Phpunit_Interface_ConvertService {
+interface Tx_Phpunit_Interface_ExtensionSettingsService extends Tx_Phpunit_Interface_ConvertService
+{
 }

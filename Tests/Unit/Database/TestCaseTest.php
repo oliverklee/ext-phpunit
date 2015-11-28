@@ -30,250 +30,267 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  * @author Kasper Ligaard <kasperligaard@gmail.com>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Tests_Unit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase {
-	/**
-	 * @var string
-	 */
-	const DB_PERMISSIONS_MESSAGE
-		= 'Please make sure that the current DB user has global SELECT, INSERT, CREATE, ALTER and DROP permissions.';
+class Tx_Phpunit_Tests_Unit_Database_TestCaseTest extends Tx_Phpunit_Database_TestCase
+{
+    /**
+     * @var string
+     */
+    const DB_PERMISSIONS_MESSAGE
+        = 'Please make sure that the current DB user has global SELECT, INSERT, CREATE, ALTER and DROP permissions.';
 
-	/**
-	 * @var DatabaseConnection
-	 */
-	protected $db = NULL;
+    /**
+     * @var DatabaseConnection
+     */
+    protected $db = null;
 
-	protected function setUp() {
-		$this->createDatabaseAndCheckResult();
-		$this->db = $this->useTestDatabase();
-	}
+    protected function setUp()
+    {
+        $this->createDatabaseAndCheckResult();
+        $this->db = $this->useTestDatabase();
+    }
 
-	protected function tearDown() {
-		$this->dropDatabasedAndCheckResult();
-		$this->switchToTypo3Database();
-	}
+    protected function tearDown()
+    {
+        $this->dropDatabasedAndCheckResult();
+        $this->switchToTypo3Database();
+    }
 
-	/*
-	 * Utility functions
-	 */
+    /*
+     * Utility functions
+     */
 
-	/**
-	 * Marks the current test as skipped, mentioning the necessary DB privileges.
-	 *
-	 * @return void
-	 */
-	protected function markTestAsSkipped() {
-		self::markTestSkipped(self::DB_PERMISSIONS_MESSAGE);
-	}
+    /**
+     * Marks the current test as skipped, mentioning the necessary DB privileges.
+     *
+     * @return void
+     */
+    protected function markTestAsSkipped()
+    {
+        self::markTestSkipped(self::DB_PERMISSIONS_MESSAGE);
+    }
 
-	/**
-	 * Creates the test database and checks the result.
-	 *
-	 * If the test database cannot be created, the current test will be marked as skipped.
-	 *
-	 * @return void
-	 */
-	protected function createDatabaseAndCheckResult() {
-		if (!$this->createDatabase()) {
-			self::markTestAsSkipped();
-		}
-	}
+    /**
+     * Creates the test database and checks the result.
+     *
+     * If the test database cannot be created, the current test will be marked as skipped.
+     *
+     * @return void
+     */
+    protected function createDatabaseAndCheckResult()
+    {
+        if (!$this->createDatabase()) {
+            self::markTestAsSkipped();
+        }
+    }
 
-	/**
-	 * Drops the test database and checks the result.
-	 *
-	 * If the test database cannot be dropped, the current test will be marked as skipped.
-	 *
-	 * @return void
-	 */
-	protected function dropDatabasedAndCheckResult() {
-		if (!$this->dropDatabase()) {
-			self::markTestAsSkipped();
-		}
-	}
+    /**
+     * Drops the test database and checks the result.
+     *
+     * If the test database cannot be dropped, the current test will be marked as skipped.
+     *
+     * @return void
+     */
+    protected function dropDatabasedAndCheckResult()
+    {
+        if (!$this->dropDatabase()) {
+            self::markTestAsSkipped();
+        }
+    }
 
-	/**
-	 * @test
-	 */
-	public function cleaningDatabase() {
-		$this->importExtensions(array('extbase'));
+    /**
+     * @test
+     */
+    public function cleaningDatabase()
+    {
+        $this->importExtensions(array('extbase'));
 
-		/** @var mysqli_result|resource $res */
-		$res = $this->db->sql_query('show tables');
-		$rows = $this->db->sql_num_rows($res);
-		self::assertNotEquals(0, $rows);
+        /** @var mysqli_result|resource $res */
+        $res = $this->db->sql_query('show tables');
+        $rows = $this->db->sql_num_rows($res);
+        self::assertNotEquals(0, $rows);
 
-			// Check DROP privilege as it is needed for clean up
-		$this->dropDatabasedAndCheckResult();
-		$this->createDatabase();
-		$this->cleanDatabase();
-		/** @var mysqli_result|resource $res */
-		$res = $this->db->sql_query('show tables');
+        // Check DROP privilege as it is needed for clean up
+        $this->dropDatabasedAndCheckResult();
+        $this->createDatabase();
+        $this->cleanDatabase();
+        /** @var mysqli_result|resource $res */
+        $res = $this->db->sql_query('show tables');
 
-		self::assertSame(
-			0,
-			$this->db->sql_num_rows($res)
-		);
-	}
+        self::assertSame(
+            0,
+            $this->db->sql_num_rows($res)
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function importingExtension() {
-		$this->importExtensions(array('extbase'));
+    /**
+     * @test
+     */
+    public function importingExtension()
+    {
+        $this->importExtensions(array('extbase'));
 
-		/** @var mysqli_result|resource $res */
-		$res = $this->db->sql_query('show tables');
-		$rows = $this->db->sql_num_rows($res);
+        /** @var mysqli_result|resource $res */
+        $res = $this->db->sql_query('show tables');
+        $rows = $this->db->sql_num_rows($res);
 
-		self::assertNotSame(
-			0,
-			$rows
-		);
-	}
+        self::assertNotSame(
+            0,
+            $rows
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function extensionAlteringTable() {
-		if (!ExtensionManagementUtility::isLoaded('aaa') || !ExtensionManagementUtility::isLoaded('bbb')) {
-			self::markTestSkipped(
-				'This test can only be run if the extensions aaa and bbb ' .
-					'from tests/res are installed.'
-			);
-		}
+    /**
+     * @test
+     */
+    public function extensionAlteringTable()
+    {
+        if (!ExtensionManagementUtility::isLoaded('aaa') || !ExtensionManagementUtility::isLoaded('bbb')) {
+            self::markTestSkipped(
+                'This test can only be run if the extensions aaa and bbb ' .
+                'from tests/res are installed.'
+            );
+        }
 
-		$this->importExtensions(array('bbb'), TRUE);
+        $this->importExtensions(array('bbb'), true);
 
-		$tableNames = $this->getDatabaseTables();
-		self::assertContains(
-			'tx_bbb_test',
-			$tableNames,
-			'Check that extension bbb is installed. The extension can be found in TestExtensions/.'
-		);
-		self::assertContains(
-			'tx_aaa_test',
-			$tableNames,
-			'Check that extension aaa is installed. The extension can be found in TestExtensions/.'
-		);
+        $tableNames = $this->getDatabaseTables();
+        self::assertContains(
+            'tx_bbb_test',
+            $tableNames,
+            'Check that extension bbb is installed. The extension can be found in TestExtensions/.'
+        );
+        self::assertContains(
+            'tx_aaa_test',
+            $tableNames,
+            'Check that extension aaa is installed. The extension can be found in TestExtensions/.'
+        );
 
-		// extension BBB extends an AAA table
-		$columns = $this->db->admin_get_fields('tx_aaa_test');
-		self::assertContains(
-			'tx_bbb_test',
-			array_keys($columns),
-			self::DB_PERMISSIONS_MESSAGE
-		);
-	}
+        // extension BBB extends an AAA table
+        $columns = $this->db->admin_get_fields('tx_aaa_test');
+        self::assertContains(
+            'tx_bbb_test',
+            array_keys($columns),
+            self::DB_PERMISSIONS_MESSAGE
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function recursiveImportingExtensions() {
-		if (!ExtensionManagementUtility::isLoaded('aaa') || !ExtensionManagementUtility::isLoaded('bbb')
-			|| !ExtensionManagementUtility::isLoaded('ccc')
-		) {
-			self::markTestSkipped(
-				'This test can only be run if the extensions aaa, bbb and ccc ' .
-					'from tests/res are installed.'
-			);
-		}
+    /**
+     * @test
+     */
+    public function recursiveImportingExtensions()
+    {
+        if (!ExtensionManagementUtility::isLoaded('aaa') || !ExtensionManagementUtility::isLoaded('bbb')
+            || !ExtensionManagementUtility::isLoaded('ccc')
+        ) {
+            self::markTestSkipped(
+                'This test can only be run if the extensions aaa, bbb and ccc ' .
+                'from tests/res are installed.'
+            );
+        }
 
-		$this->importExtensions(array('ccc', 'aaa'), TRUE);
+        $this->importExtensions(array('ccc', 'aaa'), true);
 
-		$tableNames = $this->getDatabaseTables();
+        $tableNames = $this->getDatabaseTables();
 
-		self::assertContains('tx_ccc_test', $tableNames, 'Check that extension ccc is installed. The extension can be found in TestExtensions/.');
-		self::assertContains('tx_bbb_test', $tableNames, 'Check that extension bbb is installed. The extension can be found in TestExtensions/.');
-		self::assertContains('tx_aaa_test', $tableNames, 'Check that extension aaa is installed. The extension can be found in TestExtensions/.');
-	}
+        self::assertContains('tx_ccc_test', $tableNames,
+            'Check that extension ccc is installed. The extension can be found in TestExtensions/.');
+        self::assertContains('tx_bbb_test', $tableNames,
+            'Check that extension bbb is installed. The extension can be found in TestExtensions/.');
+        self::assertContains('tx_aaa_test', $tableNames,
+            'Check that extension aaa is installed. The extension can be found in TestExtensions/.');
+    }
 
-	/**
-	 * @test
-	 */
-	public function skippingDependencyExtensions() {
-		if (!ExtensionManagementUtility::isLoaded('aaa') || !ExtensionManagementUtility::isLoaded('bbb')
-			|| !ExtensionManagementUtility::isLoaded('ccc') || !ExtensionManagementUtility::isLoaded('ddd')
-		) {
-			self::markTestSkipped(
-				'This test can only be run if the extensions aaa, bbb, ccc ' .
-					'and ddd from tests/res are installed.'
-			);
-		}
+    /**
+     * @test
+     */
+    public function skippingDependencyExtensions()
+    {
+        if (!ExtensionManagementUtility::isLoaded('aaa') || !ExtensionManagementUtility::isLoaded('bbb')
+            || !ExtensionManagementUtility::isLoaded('ccc') || !ExtensionManagementUtility::isLoaded('ddd')
+        ) {
+            self::markTestSkipped(
+                'This test can only be run if the extensions aaa, bbb, ccc ' .
+                'and ddd from tests/res are installed.'
+            );
+        }
 
-		$toSkip = array('bbb');
-		$this->importExtensions(array('ccc', 'ddd'), TRUE, $toSkip);
+        $toSkip = array('bbb');
+        $this->importExtensions(array('ccc', 'ddd'), true, $toSkip);
 
-		$tableNames = $this->getDatabaseTables();
+        $tableNames = $this->getDatabaseTables();
 
-		self::assertContains('tx_ccc_test', $tableNames, 'Check that extension ccc is installed. The extension can be found in TestExtensions/.');
-		self::assertContains('tx_ddd_test', $tableNames, 'Check that extension ddd is installed. The extension can be found in TestExtensions/.');
-		self::assertNotContains(
-			'tx_bbb_test',
-			$tableNames,
-			self::DB_PERMISSIONS_MESSAGE
-		);
-		self::assertNotContains('tx_aaa_test', $tableNames);
-	}
+        self::assertContains('tx_ccc_test', $tableNames,
+            'Check that extension ccc is installed. The extension can be found in TestExtensions/.');
+        self::assertContains('tx_ddd_test', $tableNames,
+            'Check that extension ddd is installed. The extension can be found in TestExtensions/.');
+        self::assertNotContains(
+            'tx_bbb_test',
+            $tableNames,
+            self::DB_PERMISSIONS_MESSAGE
+        );
+        self::assertNotContains('tx_aaa_test', $tableNames);
+    }
 
-	/**
-	 * @test
-	 */
-	public function importingDataSet() {
-		if (!ExtensionManagementUtility::isLoaded('ccc')) {
-			self::markTestSkipped(
-				'This test can only be run if the extension ccc from ' .
-					'tests/res is installed.'
-			);
-		}
+    /**
+     * @test
+     */
+    public function importingDataSet()
+    {
+        if (!ExtensionManagementUtility::isLoaded('ccc')) {
+            self::markTestSkipped(
+                'This test can only be run if the extension ccc from ' .
+                'tests/res is installed.'
+            );
+        }
 
-		$this->importExtensions(array('ccc'));
-		$this->importDataSet(ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Database/Fixtures/DataSet.xml');
+        $this->importExtensions(array('ccc'));
+        $this->importDataSet(ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Database/Fixtures/DataSet.xml');
 
-		$result = $this->db->exec_SELECTgetRows('*', 'tx_ccc_test', NULL);
-		self::assertSame(
-			2,
-			count($result),
-			self::DB_PERMISSIONS_MESSAGE
-		);
-		self::assertSame(
-			'1',
-			$result[0]['uid']
-		);
-		self::assertSame(
-			'2',
-			$result[1]['uid']
-		);
+        $result = $this->db->exec_SELECTgetRows('*', 'tx_ccc_test', null);
+        self::assertSame(
+            2,
+            count($result),
+            self::DB_PERMISSIONS_MESSAGE
+        );
+        self::assertSame(
+            '1',
+            $result[0]['uid']
+        );
+        self::assertSame(
+            '2',
+            $result[1]['uid']
+        );
 
-		$result = $this->db->exec_SELECTgetRows('*', 'tx_ccc_data', NULL);
-		self::assertSame(
-			1,
-			count($result)
-		);
-		self::assertSame(
-			'1',
-			$result[0]['uid']
-		);
+        $result = $this->db->exec_SELECTgetRows('*', 'tx_ccc_data', null);
+        self::assertSame(
+            1,
+            count($result)
+        );
+        self::assertSame(
+            '1',
+            $result[0]['uid']
+        );
 
-		$result = $this->db->exec_SELECTgetRows('*', 'tx_ccc_data_test_mm', NULL);
-		self::assertSame(
-			2,
-			count($result)
-		);
-		self::assertSame(
-			'1',
-			$result[0]['uid_local']
-		);
-		self::assertSame(
-			'1',
-			$result[0]['uid_foreign']
-		);
-		self::assertSame(
-			'1',
-			$result[1]['uid_local']
-		);
-		self::assertSame(
-			'2',
-			$result[1]['uid_foreign']
-		);
-	}
+        $result = $this->db->exec_SELECTgetRows('*', 'tx_ccc_data_test_mm', null);
+        self::assertSame(
+            2,
+            count($result)
+        );
+        self::assertSame(
+            '1',
+            $result[0]['uid_local']
+        );
+        self::assertSame(
+            '1',
+            $result[0]['uid_foreign']
+        );
+        self::assertSame(
+            '1',
+            $result[1]['uid_local']
+        );
+        self::assertSame(
+            '2',
+            $result[1]['uid_foreign']
+        );
+    }
 }

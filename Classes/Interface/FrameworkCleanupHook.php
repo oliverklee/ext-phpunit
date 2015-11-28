@@ -21,11 +21,12 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-interface Tx_Phpunit_Interface_FrameworkCleanupHook {
-	/**
-	 * Cleans up phpunit after running a test.
-	 *
-	 * @return void
-	 */
-	public function cleanUp();
+interface Tx_Phpunit_Interface_FrameworkCleanupHook
+{
+    /**
+     * Cleans up phpunit after running a test.
+     *
+     * @return void
+     */
+    public function cleanUp();
 }

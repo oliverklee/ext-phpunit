@@ -20,51 +20,58 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Tests_Unit_BackEnd_Fixtures_AnotherDataProviderTest extends Tx_Phpunit_TestCase {
-	/**
-	 * @test
-	 */
-	public function testOne() {
-	}
+class Tx_Phpunit_Tests_Unit_BackEnd_Fixtures_AnotherDataProviderTest extends Tx_Phpunit_TestCase
+{
+    /**
+     * @test
+     */
+    public function testOne()
+    {
+    }
 
-	/**
-	 * @test
-	 */
-	public function testTwo() {
-	}
+    /**
+     * @test
+     */
+    public function testTwo()
+    {
+    }
 
-	/**
-	 * Data provider that just returns three empty arrays.
-	 *
-	 * @see dataProviderTest
-	 *
-	 * @return array[]
-	 */
-	public function dataProvider() {
-		return array(
-			'some data' => array(),
-			'more data' => array(),
-			'and even more data' => array(),
-		);
-	}
+    /**
+     * Data provider that just returns three empty arrays.
+     *
+     * @see dataProviderTest
+     *
+     * @return array[]
+     */
+    public function dataProvider()
+    {
+        return array(
+            'some data' => array(),
+            'more data' => array(),
+            'and even more data' => array(),
+        );
+    }
 
-	/**
-	 * @test
-	 *
-	 * @dataProvider dataProvider
-	 */
-	public function dataProviderTest() {
-	}
+    /**
+     * @test
+     *
+     * @dataProvider dataProvider
+     */
+    public function dataProviderTest()
+    {
+    }
 
-	/**
-	 * @test
-	 */
-	public function testThree() {
-	}
+    /**
+     * @test
+     */
+    public function testThree()
+    {
+    }
 
-	/**
-	 * @test
-	 */
-	public function testFour() {
-	}
+    /**
+     * @test
+     */
+    public function testFour()
+    {
+    }
 }

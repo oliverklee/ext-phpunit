@@ -26,50 +26,53 @@ use TYPO3\CMS\Core\SingletonInterface;
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Phpunit_Service_UserSettingsService extends Tx_Phpunit_AbstractDataContainer
-	implements Tx_Phpunit_Interface_UserSettingsService, SingletonInterface
+    implements Tx_Phpunit_Interface_UserSettingsService, SingletonInterface
 {
-	/**
-	 * @var string
-	 */
-	const PHPUNIT_SETTINGS_KEY = 'Tx_Phpunit_BackEndSettings';
+    /**
+     * @var string
+     */
+    const PHPUNIT_SETTINGS_KEY = 'Tx_Phpunit_BackEndSettings';
 
-	/**
-	 * Returns the value stored for the key $key.
-	 *
-	 * @param string $key the key of the value to retrieve, must not be empty
-	 *
-	 * @return mixed the value for the given key, will be NULL if there is no value for the given key
-	 */
-	protected function get($key) {
-		$this->checkForNonEmptyKey($key);
-		if (!isset($this->getBackEndUser()->uc[self::PHPUNIT_SETTINGS_KEY][$key])) {
-			return NULL;
-		}
+    /**
+     * Returns the value stored for the key $key.
+     *
+     * @param string $key the key of the value to retrieve, must not be empty
+     *
+     * @return mixed the value for the given key, will be NULL if there is no value for the given key
+     */
+    protected function get($key)
+    {
+        $this->checkForNonEmptyKey($key);
+        if (!isset($this->getBackEndUser()->uc[self::PHPUNIT_SETTINGS_KEY][$key])) {
+            return null;
+        }
 
-		return $this->getBackEndUser()->uc[self::PHPUNIT_SETTINGS_KEY][$key];
-	}
+        return $this->getBackEndUser()->uc[self::PHPUNIT_SETTINGS_KEY][$key];
+    }
 
-	/**
-	 * Sets the value for the key $key.
-	 *
-	 * @param string $key the key of the value to set, must not be empty
-	 * @param mixed $value the value to set
-	 *
-	 * @return void
-	 */
-	public function set($key, $value) {
-		$this->checkForNonEmptyKey($key);
+    /**
+     * Sets the value for the key $key.
+     *
+     * @param string $key the key of the value to set, must not be empty
+     * @param mixed $value the value to set
+     *
+     * @return void
+     */
+    public function set($key, $value)
+    {
+        $this->checkForNonEmptyKey($key);
 
-		$this->getBackEndUser()->uc[self::PHPUNIT_SETTINGS_KEY][$key] = $value;
-		$this->getBackEndUser()->writeUC();
-	}
+        $this->getBackEndUser()->uc[self::PHPUNIT_SETTINGS_KEY][$key] = $value;
+        $this->getBackEndUser()->writeUC();
+    }
 
-	/**
-	 * Returns $GLOBALS['BE_USER'].
-	 *
-	 * @return BackendUserAuthentication
-	 */
-	protected function getBackEndUser() {
-		return $GLOBALS['BE_USER'];
-	}
+    /**
+     * Returns $GLOBALS['BE_USER'].
+     *
+     * @return BackendUserAuthentication
+     */
+    protected function getBackEndUser()
+    {
+        return $GLOBALS['BE_USER'];
+    }
 }

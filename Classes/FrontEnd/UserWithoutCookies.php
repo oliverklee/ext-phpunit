@@ -17,13 +17,15 @@ use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 /**
  * Class Tx_Phpunit_FrontEnd_UserWithoutCookies
  */
-class Tx_Phpunit_FrontEnd_UserWithoutCookies extends FrontendUserAuthentication {
+class Tx_Phpunit_FrontEnd_UserWithoutCookies extends FrontendUserAuthentication
+{
 
-	/**
-	 * Sets no session cookie at all.
-	 *
-	 * @return void
-	 */
-	protected function setSessionCookie() {
-	}
+    /**
+     * Sets no session cookie at all.
+     *
+     * @return void
+     */
+    protected function setSessionCookie()
+    {
+    }
 }

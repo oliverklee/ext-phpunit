@@ -26,31 +26,33 @@ defined('TYPO3_cliMode') or die('Access denied: CLI only.');
  *
  * @author Michael Klapper <michael.klapper@aoemedia.de>
  */
-abstract class Tx_Phpunit_TestRunner_AbstractCliTestRunner extends CommandLineController {
-	/**
-	 * Additional help text for the command line
-	 *
-	 * @var string[]
-	 */
-	protected $additionalHelp = array();
+abstract class Tx_Phpunit_TestRunner_AbstractCliTestRunner extends CommandLineController
+{
+    /**
+     * Additional help text for the command line
+     *
+     * @var string[]
+     */
+    protected $additionalHelp = array();
 
-	/**
-	 * definition of the extension name
-	 *
-	 * @var string
-	 */
-	protected $extKey = 'phpunit_cli';
+    /**
+     * definition of the extension name
+     *
+     * @var string
+     */
+    protected $extKey = 'phpunit_cli';
 
-	/**
-	 * The constructor.
-	 */
-	public function __construct() {
-		setlocale(LC_NUMERIC, 'C');
-		parent::__construct();
+    /**
+     * The constructor.
+     */
+    public function __construct()
+    {
+        setlocale(LC_NUMERIC, 'C');
+        parent::__construct();
 
-		$this->cli_help = array_merge(
-			$this->cli_help,
-			$this->additionalHelp
-		);
-	}
+        $this->cli_help = array_merge(
+            $this->cli_help,
+            $this->additionalHelp
+        );
+    }
 }

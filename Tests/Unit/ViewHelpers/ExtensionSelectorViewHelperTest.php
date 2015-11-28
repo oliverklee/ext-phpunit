@@ -22,321 +22,339 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  *
  * @author Nicole Cordes <nicole.cordes@googlemail.com>
  */
-class Tx_Phpunit_Tests_Unit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_TestCase {
-	/**
-	 * @var Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper
-	 */
-	protected $subject = NULL;
+class Tx_Phpunit_Tests_Unit_ViewHelpers_ExtensionSelectorViewHelperTest extends Tx_Phpunit_TestCase
+{
+    /**
+     * @var Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper
+     */
+    protected $subject = null;
 
-	/**
-	 * @var Tx_Phpunit_Service_ExtensionSettingsService
-	 */
-	protected $extensionSettingsService = NULL;
+    /**
+     * @var Tx_Phpunit_Service_ExtensionSettingsService
+     */
+    protected $extensionSettingsService = null;
 
-	/**
-	 * @var Tx_Phpunit_Service_FakeOutputService
-	 */
-	protected $outputService = NULL;
+    /**
+     * @var Tx_Phpunit_Service_FakeOutputService
+     */
+    protected $outputService = null;
 
-	/**
-	 * @var Tx_Phpunit_Service_TestFinder
-	 */
-	protected $testFinder = NULL;
+    /**
+     * @var Tx_Phpunit_Service_TestFinder
+     */
+    protected $testFinder = null;
 
-	/**
-	 * @var Tx_Phpunit_Service_UserSettingsService
-	 */
-	protected $userSettingsService = NULL;
+    /**
+     * @var Tx_Phpunit_Service_UserSettingsService
+     */
+    protected $userSettingsService = null;
 
-	protected function setUp() {
-		$this->subject = new Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
+    protected function setUp()
+    {
+        $this->subject = new Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
 
-		$this->outputService = new Tx_Phpunit_Service_FakeOutputService();
-		$this->subject->injectOutputService($this->outputService);
+        $this->outputService = new Tx_Phpunit_Service_FakeOutputService();
+        $this->subject->injectOutputService($this->outputService);
 
-		$this->extensionSettingsService = new Tx_Phpunit_TestingDataContainer();
+        $this->extensionSettingsService = new Tx_Phpunit_TestingDataContainer();
 
-		$this->testFinder = new Tx_Phpunit_Service_TestFinder();
-		$this->testFinder->injectExtensionSettingsService($this->extensionSettingsService);
-		$this->subject->injectTestFinder($this->testFinder);
+        $this->testFinder = new Tx_Phpunit_Service_TestFinder();
+        $this->testFinder->injectExtensionSettingsService($this->extensionSettingsService);
+        $this->subject->injectTestFinder($this->testFinder);
 
-		$this->userSettingsService = new Tx_Phpunit_TestingDataContainer();
-		$this->subject->injectUserSettingService($this->userSettingsService);
-	}
+        $this->userSettingsService = new Tx_Phpunit_TestingDataContainer();
+        $this->subject->injectUserSettingService($this->userSettingsService);
+    }
 
-	/**
-	 * @test
-	 */
-	public function classIsSubclassOfAbstractSelectorViewHelper() {
-		self::assertInstanceOf(
-			'Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper',
-			$this->subject
-		);
-	}
+    /**
+     * @test
+     */
+    public function classIsSubclassOfAbstractSelectorViewHelper()
+    {
+        self::assertInstanceOf(
+            'Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper',
+            $this->subject
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function renderCreatesFormTag() {
-		$this->subject->render();
+    /**
+     * @test
+     */
+    public function renderCreatesFormTag()
+    {
+        $this->subject->render();
 
-		self::assertRegExp(
-			'/<form[^>]*>/',
-			$this->outputService->getCollectedOutput()
-		);
-	}
+        self::assertRegExp(
+            '/<form[^>]*>/',
+            $this->outputService->getCollectedOutput()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function renderCreatesSelectTag() {
-		$this->subject->render();
+    /**
+     * @test
+     */
+    public function renderCreatesSelectTag()
+    {
+        $this->subject->render();
 
-		self::assertRegExp(
-			'/<select[^>]*>/',
-			$this->outputService->getCollectedOutput()
-		);
-	}
+        self::assertRegExp(
+            '/<select[^>]*>/',
+            $this->outputService->getCollectedOutput()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function renderCreatesButtonTag() {
-		$this->subject->render();
+    /**
+     * @test
+     */
+    public function renderCreatesButtonTag()
+    {
+        $this->subject->render();
 
-		self::assertRegExp(
-			'/<button[^>]*>/',
-			$this->outputService->getCollectedOutput()
-		);
-	}
+        self::assertRegExp(
+            '/<button[^>]*>/',
+            $this->outputService->getCollectedOutput()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function renderCreatesOptionTagForAllExtensions() {
-		$this->subject->render();
+    /**
+     * @test
+     */
+    public function renderCreatesOptionTagForAllExtensions()
+    {
+        $this->subject->render();
 
-		self::assertRegExp(
-			'/<option class="alltests" value="' . Tx_Phpunit_Testable::ALL_EXTENSIONS . '"[^>]*>/',
-			$this->outputService->getCollectedOutput()
-		);
-	}
+        self::assertRegExp(
+            '/<option class="alltests" value="' . Tx_Phpunit_Testable::ALL_EXTENSIONS . '"[^>]*>/',
+            $this->outputService->getCollectedOutput()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function renderSelectsOptionTagForAllExtensions() {
-		$this->userSettingsService->set(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE, Tx_Phpunit_Testable::ALL_EXTENSIONS);
-		$this->subject->injectUserSettingService($this->userSettingsService);
-		$this->subject->render();
+    /**
+     * @test
+     */
+    public function renderSelectsOptionTagForAllExtensions()
+    {
+        $this->userSettingsService->set(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE,
+            Tx_Phpunit_Testable::ALL_EXTENSIONS);
+        $this->subject->injectUserSettingService($this->userSettingsService);
+        $this->subject->render();
 
-		self::assertContains(
-			'<option class="alltests" value="' . Tx_Phpunit_Testable::ALL_EXTENSIONS . '" selected="selected">',
-			$this->outputService->getCollectedOutput()
-		);
-	}
+        self::assertContains(
+            '<option class="alltests" value="' . Tx_Phpunit_Testable::ALL_EXTENSIONS . '" selected="selected">',
+            $this->outputService->getCollectedOutput()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function renderCreatesOneOptionTagWithoutExtensions() {
-		$subject = new Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
-		$subject->injectOutputService($this->outputService);
-		$subject->injectUserSettingService($this->userSettingsService);
+    /**
+     * @test
+     */
+    public function renderCreatesOneOptionTagWithoutExtensions()
+    {
+        $subject = new Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
+        $subject->injectOutputService($this->outputService);
+        $subject->injectUserSettingService($this->userSettingsService);
 
-		/** @var Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject $testFinder */
-		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$testFinder->expects(self::any())->method('getTestablesForEverything')->will(self::returnValue(array()));
-		$subject->injectTestFinder($testFinder);
+        /** @var Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject $testFinder */
+        $testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
+        $testFinder->expects(self::any())->method('getTestablesForEverything')->will(self::returnValue(array()));
+        $subject->injectTestFinder($testFinder);
 
-		$subject->render();
+        $subject->render();
 
-		self::assertSame(
-			1,
-			substr_count($this->outputService->getCollectedOutput(), '<option')
-		);
-	}
+        self::assertSame(
+            1,
+            substr_count($this->outputService->getCollectedOutput(), '<option')
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function renderCreatesTwoOptionTagsWithOneExtension() {
-		$extensionKey = 'phpunit';
-		$testable = new Tx_Phpunit_Testable();
-		$testable->setKey($extensionKey);
-		$testable->setIconPath(ExtensionManagementUtility::extRelPath($extensionKey) . 'ext_icon.gif');
+    /**
+     * @test
+     */
+    public function renderCreatesTwoOptionTagsWithOneExtension()
+    {
+        $extensionKey = 'phpunit';
+        $testable = new Tx_Phpunit_Testable();
+        $testable->setKey($extensionKey);
+        $testable->setIconPath(ExtensionManagementUtility::extRelPath($extensionKey) . 'ext_icon.gif');
 
-		$subject = new Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
-		$subject->injectOutputService($this->outputService);
-		$subject->injectUserSettingService($this->userSettingsService);
+        $subject = new Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
+        $subject->injectOutputService($this->outputService);
+        $subject->injectUserSettingService($this->userSettingsService);
 
-		/** @var Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject $testFinder */
-		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$testFinder->expects(self::any())->method('getTestablesForEverything')
-			->will(self::returnValue(array($extensionKey => $testable)));
-		$subject->injectTestFinder($testFinder);
+        /** @var Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject $testFinder */
+        $testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
+        $testFinder->expects(self::any())->method('getTestablesForEverything')
+            ->will(self::returnValue(array($extensionKey => $testable)));
+        $subject->injectTestFinder($testFinder);
 
-		$subject->render();
+        $subject->render();
 
-		self::assertSame(
-			2,
-			substr_count($this->outputService->getCollectedOutput(), '<option')
-		);
-	}
+        self::assertSame(
+            2,
+            substr_count($this->outputService->getCollectedOutput(), '<option')
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function renderCreatesOptionTagsForExtension() {
-		$extensionKey = 'phpunit';
-		$testable = new Tx_Phpunit_Testable();
-		$testable->setKey($extensionKey);
-		$testable->setIconPath(ExtensionManagementUtility::extRelPath($extensionKey) . 'ext_icon.gif');
+    /**
+     * @test
+     */
+    public function renderCreatesOptionTagsForExtension()
+    {
+        $extensionKey = 'phpunit';
+        $testable = new Tx_Phpunit_Testable();
+        $testable->setKey($extensionKey);
+        $testable->setIconPath(ExtensionManagementUtility::extRelPath($extensionKey) . 'ext_icon.gif');
 
-		$subject = new Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
-		$subject->injectOutputService($this->outputService);
-		$subject->injectUserSettingService($this->userSettingsService);
+        $subject = new Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
+        $subject->injectOutputService($this->outputService);
+        $subject->injectUserSettingService($this->userSettingsService);
 
-		/** @var Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject $testFinder */
-		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$testFinder->expects(self::any())->method('getTestablesForEverything')
-			->will(self::returnValue(array($extensionKey => $testable)));
-		$subject->injectTestFinder($testFinder);
+        /** @var Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject $testFinder */
+        $testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
+        $testFinder->expects(self::any())->method('getTestablesForEverything')
+            ->will(self::returnValue(array($extensionKey => $testable)));
+        $subject->injectTestFinder($testFinder);
 
-		$subject->render();
+        $subject->render();
 
-		self::assertRegExp(
-			'#<option[^>]*value="phpunit"[^>]*>phpunit</option>#',
-			$this->outputService->getCollectedOutput()
-		);
-	}
+        self::assertRegExp(
+            '#<option[^>]*value="phpunit"[^>]*>phpunit</option>#',
+            $this->outputService->getCollectedOutput()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function renderCreatesThreeOptionTagsWithTwoExtensions() {
-		$extensionKey1 = 'phpunit';
-		$testable1 = new Tx_Phpunit_Testable();
-		$testable1->setKey($extensionKey1);
-		$testable1->setIconPath(ExtensionManagementUtility::extRelPath($extensionKey1) . 'ext_icon.gif');
+    /**
+     * @test
+     */
+    public function renderCreatesThreeOptionTagsWithTwoExtensions()
+    {
+        $extensionKey1 = 'phpunit';
+        $testable1 = new Tx_Phpunit_Testable();
+        $testable1->setKey($extensionKey1);
+        $testable1->setIconPath(ExtensionManagementUtility::extRelPath($extensionKey1) . 'ext_icon.gif');
 
-		$extensionKey2 = 'cms';
-		$testable2 = new Tx_Phpunit_Testable();
-		$testable2->setKey($extensionKey2);
-		$testable1->setIconPath(ExtensionManagementUtility::extRelPath($extensionKey2) . 'ext_icon.gif');
+        $extensionKey2 = 'cms';
+        $testable2 = new Tx_Phpunit_Testable();
+        $testable2->setKey($extensionKey2);
+        $testable1->setIconPath(ExtensionManagementUtility::extRelPath($extensionKey2) . 'ext_icon.gif');
 
-		$subject = new Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
-		$subject->injectOutputService($this->outputService);
-		$subject->injectUserSettingService($this->userSettingsService);
+        $subject = new Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
+        $subject->injectOutputService($this->outputService);
+        $subject->injectUserSettingService($this->userSettingsService);
 
-		/** @var Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject $testFinder */
-		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$testFinder->expects(self::any())->method('getTestablesForEverything')
-			->will(self::returnValue(array($extensionKey1 => $testable1, $extensionKey2 => $testable2)));
-		$subject->injectTestFinder($testFinder);
+        /** @var Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject $testFinder */
+        $testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
+        $testFinder->expects(self::any())->method('getTestablesForEverything')
+            ->will(self::returnValue(array($extensionKey1 => $testable1, $extensionKey2 => $testable2)));
+        $subject->injectTestFinder($testFinder);
 
-		$subject->render();
+        $subject->render();
 
-		self::assertSame(
-			3,
-			substr_count($this->outputService->getCollectedOutput(), '<option')
-		);
-	}
+        self::assertSame(
+            3,
+            substr_count($this->outputService->getCollectedOutput(), '<option')
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function renderCreatesExtensionKeyWithHtmlSpecialChars() {
-		$extensionKey = '"php&unit"';
-		$testable = new Tx_Phpunit_Testable();
-		$testable->setKey($extensionKey);
-		$testable->setIconPath(ExtensionManagementUtility::extPath('phpunit') . 'ext_icon.gif');
+    /**
+     * @test
+     */
+    public function renderCreatesExtensionKeyWithHtmlSpecialChars()
+    {
+        $extensionKey = '"php&unit"';
+        $testable = new Tx_Phpunit_Testable();
+        $testable->setKey($extensionKey);
+        $testable->setIconPath(ExtensionManagementUtility::extPath('phpunit') . 'ext_icon.gif');
 
-		$subject = new Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
-		$subject->injectOutputService($this->outputService);
-		$subject->injectUserSettingService($this->userSettingsService);
+        $subject = new Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
+        $subject->injectOutputService($this->outputService);
+        $subject->injectUserSettingService($this->userSettingsService);
 
-		/** @var Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject $testFinder */
-		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$testFinder->expects(self::any())->method('getTestablesForEverything')
-			->will(self::returnValue(array($extensionKey => $testable)));
-		$subject->injectTestFinder($testFinder);
+        /** @var Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject $testFinder */
+        $testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
+        $testFinder->expects(self::any())->method('getTestablesForEverything')
+            ->will(self::returnValue(array($extensionKey => $testable)));
+        $subject->injectTestFinder($testFinder);
 
-		$subject->render();
+        $subject->render();
 
-		self::assertContains(
-			htmlspecialchars($extensionKey),
-			$this->outputService->getCollectedOutput()
-		);
-	}
+        self::assertContains(
+            htmlspecialchars($extensionKey),
+            $this->outputService->getCollectedOutput()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function renderCreatesIconPathWithHtmlSpecialChars() {
-		$extensionKey = 'phpunit';
-		$testable = new Tx_Phpunit_Testable();
-		$testable->setKey($extensionKey);
-		$testable->setIconPath(ExtensionManagementUtility::extPath('phpunit') . 'ext_&_icon.gif');
+    /**
+     * @test
+     */
+    public function renderCreatesIconPathWithHtmlSpecialChars()
+    {
+        $extensionKey = 'phpunit';
+        $testable = new Tx_Phpunit_Testable();
+        $testable->setKey($extensionKey);
+        $testable->setIconPath(ExtensionManagementUtility::extPath('phpunit') . 'ext_&_icon.gif');
 
-		$subject = new Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
-		$subject->injectOutputService($this->outputService);
-		$subject->injectUserSettingService($this->userSettingsService);
+        $subject = new Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
+        $subject->injectOutputService($this->outputService);
+        $subject->injectUserSettingService($this->userSettingsService);
 
-		/** @var Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject $testFinder */
-		$testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
-		$testFinder->expects(self::any())->method('getTestablesForEverything')
-			->will(self::returnValue(array($extensionKey => $testable)));
-		$subject->injectTestFinder($testFinder);
+        /** @var Tx_Phpunit_Service_TestFinder|PHPUnit_Framework_MockObject_MockObject $testFinder */
+        $testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder', array('getTestablesForEverything'));
+        $testFinder->expects(self::any())->method('getTestablesForEverything')
+            ->will(self::returnValue(array($extensionKey => $testable)));
+        $subject->injectTestFinder($testFinder);
 
-		$subject->render();
+        $subject->render();
 
-		self::assertContains(
-			htmlspecialchars($testable->getIconPath()),
-			$this->outputService->getCollectedOutput()
-		);
-	}
+        self::assertContains(
+            htmlspecialchars($testable->getIconPath()),
+            $this->outputService->getCollectedOutput()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function renderNotSelectsAnyOptionWithoutSelectedExtension() {
-		$this->userSettingsService->set(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE, '');
-		$this->subject->injectUserSettingService($this->userSettingsService);
-		$this->subject->render();
+    /**
+     * @test
+     */
+    public function renderNotSelectsAnyOptionWithoutSelectedExtension()
+    {
+        $this->userSettingsService->set(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE, '');
+        $this->subject->injectUserSettingService($this->userSettingsService);
+        $this->subject->render();
 
-		self::assertNotContains(
-			' selected="selected"',
-			$this->outputService->getCollectedOutput()
-		);
-	}
+        self::assertNotContains(
+            ' selected="selected"',
+            $this->outputService->getCollectedOutput()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function renderSelectsOptionForSelectedExtension() {
-		$this->userSettingsService->set(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE, 'phpunit');
-		$this->subject->injectUserSettingService($this->userSettingsService);
-		$this->subject->render();
+    /**
+     * @test
+     */
+    public function renderSelectsOptionForSelectedExtension()
+    {
+        $this->userSettingsService->set(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE, 'phpunit');
+        $this->subject->injectUserSettingService($this->userSettingsService);
+        $this->subject->render();
 
-		self::assertRegExp(
-			'#<option[^>]* selected="selected">phpunit</option>#',
-			$this->outputService->getCollectedOutput()
-		);
-	}
+        self::assertRegExp(
+            '#<option[^>]* selected="selected">phpunit</option>#',
+            $this->outputService->getCollectedOutput()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function renderNotSelectsAnyOptionWithInvalidSelectedExtension() {
-		$this->userSettingsService->set(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE, 'foo');
-		$this->subject->injectUserSettingService($this->userSettingsService);
+    /**
+     * @test
+     */
+    public function renderNotSelectsAnyOptionWithInvalidSelectedExtension()
+    {
+        $this->userSettingsService->set(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE, 'foo');
+        $this->subject->injectUserSettingService($this->userSettingsService);
 
-		$this->subject->render();
+        $this->subject->render();
 
-		self::assertNotContains(
-			' selected="selected"',
-			$this->outputService->getCollectedOutput()
-		);
-	}
+        self::assertNotContains(
+            ' selected="selected"',
+            $this->outputService->getCollectedOutput()
+        );
+    }
 }

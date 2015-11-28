@@ -20,95 +20,100 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_BackEnd_TestStatistics {
-	/**
-	 * @var bool
-	 */
-	protected $isRunning = FALSE;
+class Tx_Phpunit_BackEnd_TestStatistics
+{
+    /**
+     * @var bool
+     */
+    protected $isRunning = false;
 
-	/**
-	 * @var float
-	 */
-	protected $startTime = 0.0;
+    /**
+     * @var float
+     */
+    protected $startTime = 0.0;
 
-	/**
-	 * @var float
-	 */
-	protected $currentTime = 0.0;
+    /**
+     * @var float
+     */
+    protected $currentTime = 0.0;
 
-	/**
-	 * @var int
-	 */
-	protected $startMemory = 0;
+    /**
+     * @var int
+     */
+    protected $startMemory = 0;
 
-	/**
-	 * @var int
-	 */
-	protected $currentMemory = 0;
+    /**
+     * @var int
+     */
+    protected $currentMemory = 0;
 
-	/**
-	 * Starts the recording of the tests statistics.
-	 *
-	 * Note: This function may only be called once.
-	 *
-	 * @return void
-	 *
-	 * @throws BadMethodCallException
-	 */
-	public function start() {
-		if ($this->isRunning) {
-			throw new BadMethodCallException('start may only be called once.', 1335895180);
-		}
+    /**
+     * Starts the recording of the tests statistics.
+     *
+     * Note: This function may only be called once.
+     *
+     * @return void
+     *
+     * @throws BadMethodCallException
+     */
+    public function start()
+    {
+        if ($this->isRunning) {
+            throw new BadMethodCallException('start may only be called once.', 1335895180);
+        }
 
-		$this->startTime = microtime(TRUE);
-		$this->startMemory = memory_get_usage();
+        $this->startTime = microtime(true);
+        $this->startMemory = memory_get_usage();
 
-		$this->isRunning = TRUE;
-	}
+        $this->isRunning = true;
+    }
 
-	/**
-	 * Stops the recording of the tests statistics.
-	 *
-	 * Note: This function may only be called once.
-	 *
-	 * @return void
-	 *
-	 * @throws BadMethodCallException
-	 */
-	public function stop() {
-		if (!$this->isRunning) {
-			throw new BadMethodCallException('stop may only be called once after start has been called.', 1335895297);
-		}
+    /**
+     * Stops the recording of the tests statistics.
+     *
+     * Note: This function may only be called once.
+     *
+     * @return void
+     *
+     * @throws BadMethodCallException
+     */
+    public function stop()
+    {
+        if (!$this->isRunning) {
+            throw new BadMethodCallException('stop may only be called once after start has been called.', 1335895297);
+        }
 
-		$this->currentTime = microtime(TRUE);
-		$this->currentMemory = memory_get_usage();
+        $this->currentTime = microtime(true);
+        $this->currentMemory = memory_get_usage();
 
-		$this->isRunning = FALSE;
-	}
+        $this->isRunning = false;
+    }
 
-	/**
-	 * Calculates the time since start has been called.
-	 *
-	 * @return float the time in seconds passed since start has been called, will be >= 0.0
-	 */
-	public function getTime() {
-		if ($this->isRunning) {
-			$this->currentTime = microtime(TRUE);
-		}
+    /**
+     * Calculates the time since start has been called.
+     *
+     * @return float the time in seconds passed since start has been called, will be >= 0.0
+     */
+    public function getTime()
+    {
+        if ($this->isRunning) {
+            $this->currentTime = microtime(true);
+        }
 
-		return $this->currentTime - $this->startTime;
-	}
+        return $this->currentTime - $this->startTime;
+    }
 
-	/**
-	 * Calculates the memory usage since start has been called.
-	 *
-	 * @return int the memory used (in Bytes) since start has been called, will be >= 0
-	 */
-	public function getMemory() {
-		if ($this->isRunning) {
-			$this->currentMemory = memory_get_usage();
-		}
+    /**
+     * Calculates the memory usage since start has been called.
+     *
+     * @return int the memory used (in Bytes) since start has been called, will be >= 0
+     */
+    public function getMemory()
+    {
+        if ($this->isRunning) {
+            $this->currentMemory = memory_get_usage();
+        }
 
-		return $this->currentMemory - $this->startMemory;
-	}
+        return $this->currentMemory - $this->startMemory;
+    }
 }

@@ -20,43 +20,47 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Tests_Unit_ViewHelpers_ProgressBarViewHelperTest extends Tx_Phpunit_TestCase {
-	/**
-	 * @var Tx_Phpunit_ViewHelpers_ProgressBarViewHelper
-	 */
-	protected $subject = NULL;
+class Tx_Phpunit_Tests_Unit_ViewHelpers_ProgressBarViewHelperTest extends Tx_Phpunit_TestCase
+{
+    /**
+     * @var Tx_Phpunit_ViewHelpers_ProgressBarViewHelper
+     */
+    protected $subject = null;
 
-	/**
-	 * @var Tx_Phpunit_Service_FakeOutputService
-	 */
-	protected $outputService = NULL;
+    /**
+     * @var Tx_Phpunit_Service_FakeOutputService
+     */
+    protected $outputService = null;
 
-	protected function setUp() {
-		$this->subject = new Tx_Phpunit_ViewHelpers_ProgressBarViewHelper();
+    protected function setUp()
+    {
+        $this->subject = new Tx_Phpunit_ViewHelpers_ProgressBarViewHelper();
 
-		$this->outputService = new Tx_Phpunit_Service_FakeOutputService();
-		$this->subject->injectOutputService($this->outputService);
-	}
+        $this->outputService = new Tx_Phpunit_Service_FakeOutputService();
+        $this->subject->injectOutputService($this->outputService);
+    }
 
-	/**
-	 * @test
-	 */
-	public function classIsSubclassAbstractViewHelper() {
-		self::assertInstanceOf(
-			'Tx_Phpunit_ViewHelpers_AbstractViewHelper',
-			$this->subject
-		);
-	}
+    /**
+     * @test
+     */
+    public function classIsSubclassAbstractViewHelper()
+    {
+        self::assertInstanceOf(
+            'Tx_Phpunit_ViewHelpers_AbstractViewHelper',
+            $this->subject
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function renderCreatesProgressBarHtmlId() {
-		$this->subject->render();
+    /**
+     * @test
+     */
+    public function renderCreatesProgressBarHtmlId()
+    {
+        $this->subject->render();
 
-		self::assertContains(
-			'id="progress-bar"',
-			$this->outputService->getCollectedOutput()
-		);
-	}
+        self::assertContains(
+            'id="progress-bar"',
+            $this->outputService->getCollectedOutput()
+        );
+    }
 }

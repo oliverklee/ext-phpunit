@@ -20,16 +20,18 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Tests_Functional_Selenium_TestCaseTest extends Tx_Phpunit_Selenium_TestCase {
-	/**
-	 * @test
-	 */
-	public function typo3SiteHasTypo3Title() {
-		$this->url('http://typo3.org/');
+class Tx_Phpunit_Tests_Functional_Selenium_TestCaseTest extends Tx_Phpunit_Selenium_TestCase
+{
+    /**
+     * @test
+     */
+    public function typo3SiteHasTypo3Title()
+    {
+        $this->url('http://typo3.org/');
 
-		self::assertContains(
-			'TYPO3',
-			$this->title()
-		);
-	}
+        self::assertContains(
+            'TYPO3',
+            $this->title()
+        );
+    }
 }

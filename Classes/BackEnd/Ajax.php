@@ -29,78 +29,83 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @author Bastian Waidelich <bastian@typo3.org>
  * @author Carsten Koenig <ck@carsten-koenig.de>
  */
-class Tx_Phpunit_BackEnd_Ajax {
-	/**
-	 * @var Tx_Phpunit_Interface_UserSettingsService
-	 */
-	protected $userSettingsService = NULL;
+class Tx_Phpunit_BackEnd_Ajax
+{
+    /**
+     * @var Tx_Phpunit_Interface_UserSettingsService
+     */
+    protected $userSettingsService = null;
 
-	/**
-	 * @var string[]
-	 */
-	protected $validCheckboxKeys = array(
-		'failure',
-		'success',
-		'error',
-		'skipped',
-		'incomplete',
-		'testdox',
-		'codeCoverage',
-		'showMemoryAndTime',
-		'runSeleniumTests',
-	);
+    /**
+     * @var string[]
+     */
+    protected $validCheckboxKeys = array(
+        'failure',
+        'success',
+        'error',
+        'skipped',
+        'incomplete',
+        'testdox',
+        'codeCoverage',
+        'showMemoryAndTime',
+        'runSeleniumTests',
+    );
 
-	/**
-	 * The constructor.
-	 *
-	 * @param bool $initializeUserSettingsService whether to automatically initialize the user settings service
-	 */
-	public function __construct($initializeUserSettingsService = TRUE) {
-		if ($initializeUserSettingsService) {
-			/** @var Tx_Phpunit_Service_UserSettingsService $userSettingsService */
-			$userSettingsService = GeneralUtility::makeInstance('Tx_Phpunit_Service_UserSettingsService');
-			$this->injectUserSettingsService($userSettingsService);
-		}
-	}
+    /**
+     * The constructor.
+     *
+     * @param bool $initializeUserSettingsService whether to automatically initialize the user settings service
+     */
+    public function __construct($initializeUserSettingsService = true)
+    {
+        if ($initializeUserSettingsService) {
+            /** @var Tx_Phpunit_Service_UserSettingsService $userSettingsService */
+            $userSettingsService = GeneralUtility::makeInstance('Tx_Phpunit_Service_UserSettingsService');
+            $this->injectUserSettingsService($userSettingsService);
+        }
+    }
 
-	/**
-	 * The destructor.
-	 */
-	public function __destruct() {
-		unset($this->userSettingsService);
-	}
+    /**
+     * The destructor.
+     */
+    public function __destruct()
+    {
+        unset($this->userSettingsService);
+    }
 
-	/**
-	 * Injects the user settings service.
-	 *
-	 * @param Tx_Phpunit_Interface_UserSettingsService $service the service to inject
-	 *
-	 * @return void
-	 */
-	public function injectUserSettingsService(Tx_Phpunit_Interface_UserSettingsService $service) {
-		$this->userSettingsService = $service;
-	}
+    /**
+     * Injects the user settings service.
+     *
+     * @param Tx_Phpunit_Interface_UserSettingsService $service the service to inject
+     *
+     * @return void
+     */
+    public function injectUserSettingsService(Tx_Phpunit_Interface_UserSettingsService $service)
+    {
+        $this->userSettingsService = $service;
+    }
 
-	/**
-	 * Used to broker incoming requests to other calls.
-	 * Called by typo3/ajax.php
-	 *
-	 * @param array $unused additional parameters (not used)
-	 * @param AjaxRequestHandler $ajax the AJAX object for this request
-	 *
-	 * @return void
-	 */
-	public function ajaxBroker(array $unused, AjaxRequestHandler $ajax) {
-		$state = (bool) GeneralUtility::_POST('state');
-		$checkbox = GeneralUtility::_POST('checkbox');
+    /**
+     * Used to broker incoming requests to other calls.
+     * Called by typo3/ajax.php
+     *
+     * @param array $unused additional parameters (not used)
+     * @param AjaxRequestHandler $ajax the AJAX object for this request
+     *
+     * @return void
+     */
+    public function ajaxBroker(array $unused, AjaxRequestHandler $ajax)
+    {
+        $state = (bool)GeneralUtility::_POST('state');
+        $checkbox = GeneralUtility::_POST('checkbox');
 
-		if (in_array($checkbox, $this->validCheckboxKeys, TRUE)) {
-			$ajax->setContentFormat('json');
-			$this->userSettingsService->set($checkbox, $state);
-			$ajax->addContent('success', TRUE);
-		} else {
-			$ajax->setContentFormat('plain');
-			$ajax->setError('Illegal input parameters.');
-		}
-	}
+        if (in_array($checkbox, $this->validCheckboxKeys, true)) {
+            $ajax->setContentFormat('json');
+            $this->userSettingsService->set($checkbox, $state);
+            $ajax->addContent('success', true);
+        } else {
+            $ajax->setContentFormat('plain');
+            $ajax->setError('Illegal input parameters.');
+        }
+    }
 }
