@@ -625,7 +625,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase
         );
 
         self::assertTrue(
-            class_exists('Tx_Phpunit_Tests_Unit_BackEnd_Fixtures_LoadMe', false)
+            class_exists('OliverKlee\\Phpunit\\Tests\\Unit\\BackEnd\\Fixtures\\LoadMe', false)
         );
     }
 
@@ -644,7 +644,7 @@ class Tx_Phpunit_Tests_Unit_BackEnd_ModuleTest extends Tx_Phpunit_TestCase
         );
 
         self::assertTrue(
-            class_exists('Tx_Phpunit_Tests_Unit_BackEnd_Fixtures_LoadMeToo', false)
+            class_exists('OliverKlee\\Phpunit\\Tests\\Unit\\BackEnd\\Fixtures\\LoadMeToo', false)
         );
     }
 

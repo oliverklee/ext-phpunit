@@ -1,4 +1,6 @@
 <?php
+namespace OliverKlee\Phpunit\Tests\Unit\BackEnd\Fixtures;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -20,7 +22,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Tests_Unit_BackEnd_Fixtures_AnotherDataProviderTest extends Tx_Phpunit_TestCase
+class AnotherDataProviderTest extends \Tx_Phpunit_TestCase
 {
     /**
      * @test
