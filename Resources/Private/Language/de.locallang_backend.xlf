@@ -76,7 +76,7 @@
 				<target>Probleme!</target>
 			</trans-unit>
 			<trans-unit id="run_selenium_tests">
-				<target>Selenium Tests ausführen</target>
+				<target>Selenium-Tests ausführen</target>
 			</trans-unit>
 			<trans-unit id="tx_phpunit_test">
 				<target>PHPUnit-Testdatensätze</target>
@@ -85,7 +85,7 @@
 				<target>Titel</target>
 			</trans-unit>
 			<trans-unit id="test_are_run_in_current_backend_context">
-				<target>&lt;p&gt;&lt;strong&gt;Tests werden im aktuellen Backend-Kontext ausgeführt&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;Die Unit-Tests werden im Kontext der aktuellen Backend-Session ausgeführt. Das Ergebnis wird dadurch wahrscheinlich anders sein als über die Kommandozeile mit der Testkonfiguration der Core-Unit-Tests oder der Core-Functional-Tests. Insbesondere wird dies seltsame Fehler mit den Core-Tests erzeugen.&lt;/p&gt;&lt;p&gt;Wenn Sie die Tests in einem sauberen Kontext ausführen müssen, benutzen Sie bitte den Ansatz, der Wiki unter &lt;a href="http://wiki.typo3.org/Unit_Testing_TYPO3" target="_blank"&gt;http://wiki.typo3.org/Unit_Testing_TYPO3&lt;/a&gt; und &lt;a href="http://wiki.typo3.org/Functional_testing" target="_blank"&gt;http://wiki.typo3.org/Functional_testing&lt;/a&gt; beschrieben wird&lt;/p&gt;</target>
+				<target>&lt;p&gt;&lt;strong&gt;Tests werden im aktuellen Backend-Kontext ausgeführt&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;Die Unit-Tests werden im Kontext der aktuellen Backend-Session ausgeführt. Das Ergebnis wird dadurch wahrscheinlich anders sein als über die Kommandozeile mit der Testkonfiguration der Core-Unit-Tests oder der Core-Functional-Tests. Insbesondere wird dies seltsame Fehler mit den Core-Tests erzeugen.&lt;/p&gt;&lt;p&gt;Wenn Sie die Tests in einem sauberen Kontext ausführen müssen, benutzen Sie bitte den Ansatz, der im Wiki unter &lt;a href="http://wiki.typo3.org/Unit_Testing_TYPO3" target="_blank"&gt;http://wiki.typo3.org/Unit_Testing_TYPO3&lt;/a&gt; und &lt;a href="http://wiki.typo3.org/Functional_testing" target="_blank"&gt;http://wiki.typo3.org/Functional_testing&lt;/a&gt; beschrieben wird.&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="shortcuts">
 				<target>Tastaturkürzel</target>
@@ -94,16 +94,16 @@
 				<target>Tastaturkürzel</target>
 			</trans-unit>
 			<trans-unit id="shortcuts.text">
-				<target>Benutze &quot;a&quot; um alle Tests zu starten, benutze &quot;s&quot; um einen Einzeltest zu starten and benutze &quot;r&quot; um den letzten Test neu zu starten; um phpunit in einem neuen Fenster zu starten, benutze &quot;n&quot;.</target>
+				<target>Benutze &quot;a&quot;, um alle Tests zu starten. Benutze &quot;s&quot;, um einen Einzeltest zu starten, und benutze &quot;r&quot;, um den letzten Test neu zu starten. Um PHPUnit in einem neuen Fenster zu starten, benutze &quot;n&quot;.</target>
 			</trans-unit>
 			<trans-unit id="shortcuts.browser_dependency">
 				<target>Abhängig von Browser und Betriebssystem müssen Tastenkombination genutzt werden:</target>
 			</trans-unit>
 			<trans-unit id="shortcuts.browser_safari_ie">
-				<target>Safari und IE: Verwende die &quot;Alt&quot; Taste auf Windows, &quot;Ctrl&quot; auf Macs.</target>
+				<target>Safari und IE: Verwende die &quot;Alt&quot;-Taste auf Windows, &quot;Ctrl&quot; auf Macs.</target>
 			</trans-unit>
 			<trans-unit id="shortcuts.browser_firefox">
-				<target>Firefox: Verwende &quot;Alt-Shift&quot; auf Windows, &quot;Ctrl-Shift&quot; auf Macs</target>
+				<target>Firefox: Verwende &quot;Alt-Shift&quot; auf Windows, &quot;Ctrl-Shift&quot; auf Macs.</target>
 			</trans-unit>
 			<trans-unit id="open_in_seperate_window">
 				<target>Ein eigenständiges Fe&lt;span class="access-key"&gt;n&lt;/span&gt;ster öffnen</target>
@@ -126,14 +126,14 @@
 			<trans-unit id="incomplete">
 				<target>Unvollständig</target>
 			</trans-unit>
-			<trans-unit id="show_memory_and_time">
-				<target>Zeige Speicher &amp; Zeit</target>
+			<trans-unit id="show_time">
+				<target>Zeige Zeit</target>
 			</trans-unit>
 			<trans-unit id="collect_code_coverage_data">
-				<target>Sammle Codeberichte</target>
+				<target>Sammle Code-Coverage-Daten</target>
 			</trans-unit>
 			<trans-unit id="code_coverage_requires_xdebug">
-				<target>Für die Codeberichte muss XDebug installiert sein</target>
+				<target>Für die Code-Coverage-Daten muss XDebug installiert sein</target>
 			</trans-unit>
 		</body>
 	</file>
