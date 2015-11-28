@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 /**
  * Caches the already went-through progress bar states to reduce DOM operations.
@@ -11,7 +11,7 @@ var stateCache = [];
  * @param {string} className
  */
 function setClass(id, className) {
-	YAHOO.util.Dom.replaceClass(id, 'testcaseSuccess', className);
+	TYPO3.jQuery('#' + id).addClass(className).removeClass('testcaseSuccess');
 }
 
 /**
@@ -29,17 +29,13 @@ function setProgressBarClass(className) {
 }
 
 /*
- * This is using YUI! 2.6.0, cf. http://developer.yahoo.com/yui/
- * We can safely use YUI! since PHPUnit includes yahoo-dom-event.js
+ * This is using jQuery.
+ *
+ * We can safely use jQuery since TYPO3 core includes it.
  */
-(function () {
-	YAHOO.namespace('phpunit');
-
+(function (jQuery) {
 	// Convenience shortcuts
-	var Dom = YAHOO.util.Dom,
-		Event = YAHOO.util.Event,
-		Connect = YAHOO.util.Connection,
-		phpunit = YAHOO.phpunit;
+	var phpunit = {};
 
 	/*
 	 * Constructor function for TestRunner instances
@@ -57,57 +53,49 @@ function setProgressBarClass(className) {
 	};
 
 	var toggle = function (event) {
-		var target = Event.getTarget(event);
+		var target = event.target;
 		var display = target.checked ? 'block' : 'none';
 		var className = mapClasses(target.id);
 		var state = target.checked ? "1" : "0";
 		var checkbox;
 		switch (target.id) {
-		case 'SET_failure':
-			checkbox = 'failure';
-			break;
-		case 'SET_error':
-			checkbox = 'error';
-			break;
-		case 'SET_success':
-			checkbox = 'success';
-			break;
-		case 'SET_skipped':
-			checkbox = 'skipped';
-			break;
-		case 'SET_incomplete':
-			checkbox = 'incomplete';
-			break;
-		case 'SET_testdox':
-			checkbox = 'testdox';
-			break;
-		case 'SET_showTime':
-			checkbox = 'showTime';
-			break;
-		case 'SET_runSeleniumTests':
-			checkbox = 'runSeleniumTests';
-			break;
-		default:
+			case 'SET_failure':
+				checkbox = 'failure';
+				break;
+			case 'SET_error':
+				checkbox = 'error';
+				break;
+			case 'SET_success':
+				checkbox = 'success';
+				break;
+			case 'SET_skipped':
+				checkbox = 'skipped';
+				break;
+			case 'SET_incomplete':
+				checkbox = 'incomplete';
+				break;
+			case 'SET_testdox':
+				checkbox = 'testdox';
+				break;
+			case 'SET_showTime':
+				checkbox = 'showTime';
+				break;
+			case 'SET_runSeleniumTests':
+				checkbox = 'runSeleniumTests';
+				break;
+			default:
 		}
 
-		YAHOO.util.Connect.asyncRequest('POST', 'ajax.php',
-			{	success: function (responseObj) {},
-				failure: function (responseObj) {}
-			},
-			'ajaxID=Tx_Phpunit_BackEnd_Ajax&state=' + state + '&checkbox=' + checkbox
-		);
+		jQuery.post('ajax.php', 'ajaxID=Tx_Phpunit_BackEnd_Ajax&state=' + state + '&checkbox=' + checkbox);
+
 		toggleStyleNodeForMassHidingOfElements(className, display);
 	};
 
-	var toggleCodeCoverage = function (event) {
-		var target = Event.getTarget(event);
+	var toggleCodeCoverage = function(event) {
+		var target = event.target;
 		var state = target.checked ? "1" : "0";
-		YAHOO.util.Connect.asyncRequest('POST', 'ajax.php',
-				{	success: function (responseObj) {},
-					failure: function (responseObj) {}
-				},
-				'ajaxID=Tx_Phpunit_BackEnd_Ajax&state=' + state + '&checkbox=codeCoverage'
-			);
+
+		jQuery.post('ajax.php', 'ajaxID=Tx_Phpunit_BackEnd_Ajax&state=' + state + '&checkbox=codeCoverage');
 	};
 
 	/**
@@ -181,11 +169,11 @@ function setProgressBarClass(className) {
 	 * Hides/shows the test results depending on states of the test status
 	 * checkboxes. Also adds the JavaScript event handlers to the checkboxes.
 	 */
-	Event.onDOMReady(function () {
-		var checkboxes = Dom.get([
-			'SET_failure', 'SET_success', 'SET_error', 'SET_skipped', 'SET_incomplete',
-			'SET_testdox', 'SET_showTime', 'SET_runSeleniumTests'
-		]);
+	jQuery(function () {
+		var checkboxes = jQuery([
+			'#SET_failure', '#SET_success', '#SET_error', '#SET_skipped', '#SET_incomplete',
+			'#SET_testdox', '#SET_showTime', '#SET_runSeleniumTests'
+		].join(','));
 		var numberOfCheckboxes = checkboxes.length;
 		for (var i = 0; i < numberOfCheckboxes; i++) {
 			var checkbox = checkboxes[i];
@@ -193,11 +181,12 @@ function setProgressBarClass(className) {
 			var className = mapClasses(checkbox.id);
 			toggleStyleNodeForMassHidingOfElements(className, display);
 		}
-		Event.addListener(checkboxes, 'click', toggle, this, true);
-		Event.addListener('SET_codeCoverage', 'click', toggleCodeCoverage, this, true);
+
+		jQuery(checkboxes).click(toggle);
+		jQuery('#SET_codeCoverage').click(toggleCodeCoverage);
 
 		checkForCrashedTest();
-	}, this, true);
+	});
 
 	/**
 	 * Checks whether the last displayed test has crashed. In that case, un-hides it.
@@ -205,31 +194,32 @@ function setProgressBarClass(className) {
 	 * @return {void}
 	 */
 	var checkForCrashedTest = function() {
-		if ($('testsHaveFinished')) {
+		if (jQuery('#testsHaveFinished').length > 0) {
 			return;
 		}
 
 		setProgressBarClass("hadError");
 
-		var testContainers = Dom.getElementsByClassName('testcaseOutput');
-		var lastTestContainer = testContainers[testContainers.length - 1];
+		var lastTestContainer = jQuery('.testcaseOutput').get(-1);
 
-		var testChildren = Dom.getChildren(lastTestContainer);
+		if (lastTestContainer) {
+			var testChildren = lastTestContainer.children;
 
-		var pre = document.createElement('pre');
-		pre.className = 'message';
+			var pre = document.createElement('pre');
+			pre.className = 'message';
 
-		var numberOfChildren = testChildren.length;
-		for (var i = 0; i < numberOfChildren; i++) {
-			var node = testChildren[i];
-			if (node.tagName !== 'H3') {
-				lastTestContainer.removeChild(node);
-				pre.appendChild(node);
+			var numberOfChildren = testChildren.length;
+			for (var i = 0; i < numberOfChildren; i++) {
+				var node = testChildren[i];
+				if (node.tagName !== 'H3') {
+					lastTestContainer.removeChild(node);
+					pre.appendChild(node);
+				}
 			}
-		}
-		lastTestContainer.appendChild(pre);
+			lastTestContainer.appendChild(pre);
 
-		lastTestContainer.className = 'testcaseOutput testcaseError';
-		lastTestContainer.style.display = 'block';
+			lastTestContainer.className = 'testcaseOutput testcaseError';
+			lastTestContainer.style.display = 'block';
+		}
 	}
-})();
+})(TYPO3.jQuery);

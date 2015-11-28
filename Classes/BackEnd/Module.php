@@ -279,18 +279,12 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
      */
     protected function addAdditionalHeaderData()
     {
-        $this->doc->loadJavascriptLib('contrib/prototype/prototype.js');
-        $this->doc->loadJavascriptLib($this->extensionPath . 'Resources/Public/YUI/yahoo-dom-event.js');
-        $this->doc->loadJavascriptLib($this->extensionPath . 'Resources/Public/YUI/connection-min.js');
-        $this->doc->loadJavascriptLib($this->extensionPath . 'Resources/Public/YUI/json-min.js');
-        $this->doc->loadJavascriptLib($this->extensionPath . 'Resources/Public/JavaScript/BackEnd.js');
-
-        $this->doc->JScode = '<link rel="stylesheet" type="text/css" href="' . $this->extensionPath .
-            'Resources/Public/YUI/reset-fonts-grids.css" />';
-        $this->doc->JScode .= '<link rel="stylesheet" type="text/css" href="' . $this->extensionPath .
-            'Resources/Public/YUI/base-min.css" />';
-        $this->doc->JScode .= '<link rel="stylesheet" type="text/css" href="' . $this->extensionPath .
-            'Resources/Public/CSS/BackEnd.css" />';
+        /** @var TYPO3\CMS\Core\Page\PageRenderer $pageRenderer */
+        $pageRenderer = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Page\\PageRenderer');
+        $pageRenderer->loadJquery();
+        $publicResourcesPath = $this->extensionPath . 'Resources/Public/';
+        $pageRenderer->addJsFile($publicResourcesPath . 'JavaScript/BackEnd.js', 'text/javascript', false);
+        $pageRenderer->addCssFile($publicResourcesPath . 'CSS/BackEnd.css', 'stylesheet', 'all', '', false);
     }
 
     /**
