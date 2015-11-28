@@ -1401,10 +1401,11 @@ class Tx_Phpunit_Framework
 
         $this->suppressFrontEndCookies();
 
-        // Instead of passing the actual user data to createUserSession, we
-        // pass an empty array to improve performance (e.g. no session record
-        // will be written to the database).
-        $GLOBALS['TSFE']->fe_user->createUserSession(array());
+        // With current TYPO3 versions we have to ensure an user id
+        $tempUser = array(
+            $GLOBALS['TSFE']->fe_user->userid_column => $userId,
+        );
+        $GLOBALS['TSFE']->fe_user->createUserSession($tempUser);
         $GLOBALS['TSFE']->fe_user->user = $GLOBALS['TSFE']->fe_user->getRawUserByUid($userId);
         $GLOBALS['TSFE']->fe_user->fetchGroupData();
         $GLOBALS['TSFE']->loginUser = 1;

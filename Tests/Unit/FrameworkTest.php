@@ -505,18 +505,18 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
         $pid = $this->subject->createFrontEndPage(0, array('title' => 'foo'));
         $uid = $this->subject->createContentElement(
             $pid,
-            array('titleText' => 'foo')
+            array('header' => 'foo')
         );
 
         $this->subject->changeRecord(
             'tt_content',
             $uid,
-            array('titleText' => 'bar')
+            array('header' => 'bar')
         );
 
         self::assertSame(
             1,
-            $this->subject->countRecords('tt_content', 'uid=' . $uid . ' AND titleText="bar"')
+            $this->subject->countRecords('tt_content', 'uid=' . $uid . ' AND header=\'bar\'')
         );
     }
 
