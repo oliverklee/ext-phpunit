@@ -99,11 +99,11 @@
 			<trans-unit id="shortcuts.browser_dependency">
 				<source>Depending on your browser and system you will need to press some modifier keys:</source>
 			</trans-unit>
-			<trans-unit id="shortcuts.browser_safari_ie_firefox1">
-				<source>Safari, IE and Firefox 1.x: Use &quot;Alt&quot; button on Windows, &quot;Ctrl&quot; on Macs.</source>
+			<trans-unit id="shortcuts.browser_safari_ie">
+				<source>Safari and IE: Use &quot;Alt&quot; button on Windows, &quot;Ctrl&quot; on Macs.</source>
 			</trans-unit>
-			<trans-unit id="shortcuts.browser_safari_ie_firefox2_firefox3">
-				<source>Firefox 2.x and 3.x: Use &quot;Alt-Shift&quot; on Windows, &quot;Ctrl-Shift&quot; on Macs</source>
+			<trans-unit id="shortcuts.browser_firefox">
+				<source>Firefox: Use &quot;Alt-Shift&quot; on Windows, &quot;Ctrl-Shift&quot; on Macs</source>
 			</trans-unit>
 			<trans-unit id="open_in_seperate_window">
 				<source>Ope&lt;span class="access-key"&gt;n&lt;/span&gt; in separate window.</source>

@@ -99,11 +99,11 @@
 			<trans-unit id="shortcuts.browser_dependency">
 				<target>Abhängig von Browser und Betriebssystem müssen Tastenkombination genutzt werden:</target>
 			</trans-unit>
-			<trans-unit id="shortcuts.browser_safari_ie_firefox1">
-				<target>Safari, IE und Firefox 1.x: Verwende die &quot;Alt&quot; Taste auf Windows, &quot;Ctrl&quot; auf Macs.</target>
+			<trans-unit id="shortcuts.browser_safari_ie">
+				<target>Safari und IE: Verwende die &quot;Alt&quot; Taste auf Windows, &quot;Ctrl&quot; auf Macs.</target>
 			</trans-unit>
-			<trans-unit id="shortcuts.browser_safari_ie_firefox2_firefox3">
-				<target>Firefox 2.x und 3.x: Verwende &quot;Alt-Shift&quot; auf Windows, &quot;Ctrl-Shift&quot; auf Macs</target>
+			<trans-unit id="shortcuts.browser_firefox">
+				<target>Firefox: Verwende &quot;Alt-Shift&quot; auf Windows, &quot;Ctrl-Shift&quot; auf Macs</target>
 			</trans-unit>
 			<trans-unit id="open_in_seperate_window">
 				<target>Ein eigenständiges Fe&lt;span class="access-key"&gt;n&lt;/span&gt;ster öffnen</target>

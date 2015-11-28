@@ -84,11 +84,11 @@
 			<trans-unit id="shortcuts.browser_dependency">
 				<target>Afhængig af dine browser og OS skal du bruge en kontrol taste samtidigt:</target>
 			</trans-unit>
-			<trans-unit id="shortcuts.browser_safari_ie_firefox1">
-				<target>Safari, IE og Firefox 1.x: tast &quot;Alt&quot; tasten på Windows, &quot;Ctrl&quot; på Macs.</target>
+			<trans-unit id="shortcuts.browser_safari_ie">
+				<target>Safari og IE: tast &quot;Alt&quot; tasten på Windows, &quot;Ctrl&quot; på Macs.</target>
 			</trans-unit>
-			<trans-unit id="shortcuts.browser_safari_ie_firefox2_firefox3">
-				<target>Firefox 2.x og 3.x: tast &quot;Alt-Shift&quot; på Windows, &quot;Ctrl-Shift&quot; på Macs</target>
+			<trans-unit id="shortcuts.browser_firefox">
+				<target>Firefox: tast &quot;Alt-Shift&quot; på Windows, &quot;Ctrl-Shift&quot; på Macs</target>
 			</trans-unit>
 			<trans-unit id="open_in_seperate_window">
 				<target>Åbe&lt;span class="access-key"&gt;n&lt;/span&gt; i seperat vindue.</target>

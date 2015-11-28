@@ -255,8 +255,8 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
                     '<p>' . $this->translate('shortcuts.text') . '</p>
 					<p>' . $this->translate('shortcuts.browser_dependency') . '</p>
 					<ul>
-					<li>' . $this->translate('shortcuts.browser_safari_ie_firefox1') . '</li>
-					<li>' . $this->translate('shortcuts.browser_safari_ie_firefox2_firefox3') . '</li>
+					<li>' . $this->translate('shortcuts.browser_safari_ie') . '</li>
+					<li>' . $this->translate('shortcuts.browser_firefox') . '</li>
 					</ul>' .
                     $this->doc->section('', $this->createOpenNewWindowLink())
                 )
