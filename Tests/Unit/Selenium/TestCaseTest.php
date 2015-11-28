@@ -35,6 +35,11 @@ class Tx_Phpunit_Tests_Unit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase
      */
     protected $extensionSettingsService = null;
 
+    /**
+     * @var Tx_Phpunit_Service_SeleniumService|PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $seleniumService = null;
+
     protected function setUp()
     {
         if (!class_exists('PHPUnit_Extensions_Selenium2TestCase', true)) {
@@ -42,10 +47,15 @@ class Tx_Phpunit_Tests_Unit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase
         }
 
         $this->extensionSettingsService = new Tx_Phpunit_TestingDataContainer();
+        $this->seleniumService = $this->getMock(
+            'Tx_Phpunit_Service_SeleniumService',
+            null,
+            array($this->extensionSettingsService)
+        );
         $this->subject = $this->getMock(
             $this->createAccessibleProxyClass(),
             array('isSeleniumServerRunning'),
-            array(null, array(), '', $this->extensionSettingsService)
+            array(null, array(), '', $this->extensionSettingsService, $this->seleniumService)
         );
         $this->subject->expects(self::any())->method('isSeleniumServerRunning')->will(self::returnValue(true));
     }
@@ -132,40 +142,13 @@ class Tx_Phpunit_Tests_Unit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function getSeleniumBrowserUrlForNoConfiguredBrowserUrlReturnsDefaultUrl()
-    {
-        $expected = rtrim(
-            GeneralUtility::getIndpEnv('TYPO3_SITE_URL'),
-            Tx_Phpunit_Selenium_TestCase::DEFAULT_SELENIUM_BROWSER_URL
-        );
-
-        self::assertSame(
-            $expected,
-            $this->subject->getSeleniumBrowserUrl()
-        );
-    }
-
-    /**
-     * @test
-     */
     public function getSeleniumBrowserForConfiguredBrowserReturnsConfiguredBrowser()
     {
-        $browser = '*firefox';
+        $browser = '*mock';
         $this->extensionSettingsService->set('selenium_browser', $browser);
 
         self::assertSame(
             $browser,
-            $this->subject->getSeleniumBrowser()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getSeleniumBrowserForNoConfiguredBrowserReturnsDefaultBrowser()
-    {
-        self::assertSame(
-            Tx_Phpunit_Selenium_TestCase::DEFAULT_SELENIUM_BROWSER,
             $this->subject->getSeleniumBrowser()
         );
     }
@@ -187,17 +170,6 @@ class Tx_Phpunit_Tests_Unit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function getSeleniumPortForNoConfiguredPortReturnsDefaultPort()
-    {
-        self::assertSame(
-            Tx_Phpunit_Selenium_TestCase::DEFAULT_SELENIUM_PORT,
-            $this->subject->getSeleniumPort()
-        );
-    }
-
-    /**
-     * @test
-     */
     public function getSeleniumHostForConfiguredHostReturnsConfiguredHost()
     {
         $host = 'http://example.com/';
@@ -205,17 +177,6 @@ class Tx_Phpunit_Tests_Unit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase
 
         self::assertSame(
             $host,
-            $this->subject->getSeleniumHost()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getSeleniumHostForNotConfiguredHostReturnsTheDefaultHost()
-    {
-        self::assertSame(
-            Tx_Phpunit_Selenium_TestCase::DEFAULT_SELENIUM_HOST,
             $this->subject->getSeleniumHost()
         );
     }

@@ -27,33 +27,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_Selenium2TestCase
 {
-    /**
-     * the default Selenium server host address
-     *
-     * @var string
-     */
-    const DEFAULT_SELENIUM_HOST = 'localhost';
-
-    /**
-     * the default Selenium server port
-     *
-     * @var int
-     */
-    const DEFAULT_SELENIUM_PORT = 4444;
-
-    /**
-     * the default Selenium browser
-     *
-     * @var string
-     */
-    const DEFAULT_SELENIUM_BROWSER = '*chrome';
-
-    /**
-     * the default Selenium browser URL
-     *
-     * @var string
-     */
-    const DEFAULT_SELENIUM_BROWSER_URL = '/';
 
     /**
      * @var Tx_Phpunit_Interface_ExtensionSettingsService
@@ -61,18 +34,25 @@ class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_Selenium2TestCase
     protected $extensionSettingsService = null;
 
     /**
+     * @var Tx_Phpunit_Interface_SeleniumService
+     */
+    protected $seleniumService = null;
+
+    /**
      * The constructor.
      *
      * @param string $name
      * @param array $data
      * @param string $dataName
-     * @param Tx_Phpunit_Interface_ExtensionSettingsService $extensionSettingsService
+     * @param Tx_Phpunit_Interface_ExtensionSettingsService|null $extensionSettingsService
+     * @param Tx_Phpunit_Interface_SeleniumService|null $seleniumService
      */
     public function __construct(
         $name = null,
         array $data = array(),
         $dataName = '',
-        Tx_Phpunit_Interface_ExtensionSettingsService $extensionSettingsService = null
+        Tx_Phpunit_Interface_ExtensionSettingsService $extensionSettingsService = null,
+        Tx_Phpunit_Interface_SeleniumService $seleniumService = null
     ) {
         parent::__construct($name, $data, $dataName);
 
@@ -80,6 +60,15 @@ class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_Selenium2TestCase
             $this->extensionSettingsService = $extensionSettingsService;
         } else {
             $this->extensionSettingsService = GeneralUtility::makeInstance('Tx_Phpunit_Service_ExtensionSettingsService');
+        }
+
+        if ($seleniumService !== null) {
+            $this->seleniumService = $seleniumService;
+        } else {
+            $this->seleniumService = GeneralUtility::makeInstance(
+                'Tx_Phpunit_Service_SeleniumService',
+                $this->extensionSettingsService
+            );
         }
 
         $this->setBrowserUrl($this->getSeleniumBrowserUrl());
@@ -118,22 +107,7 @@ class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_Selenium2TestCase
      */
     protected function isSeleniumServerRunning()
     {
-        $seleniumServerIsRunning = false;
-
-        $errorLevel = 0;
-        $errorMessage = '';
-        $timeout = 1;
-        $socket = @fsockopen(
-            $this->getSeleniumHost(), $this->getSeleniumPort(),
-            $errorLevel, $errorMessage, $timeout
-        );
-
-        if ($socket !== false) {
-            $seleniumServerIsRunning = true;
-            fclose($socket);
-        }
-
-        return $seleniumServerIsRunning;
+        return $this->seleniumService->isSeleniumServerRunning();
     }
 
     /**
@@ -145,8 +119,7 @@ class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_Selenium2TestCase
      */
     protected function getSeleniumHost()
     {
-        return $this->extensionSettingsService->hasString('selenium_host')
-            ? $this->extensionSettingsService->getAsString('selenium_host') : self::DEFAULT_SELENIUM_HOST;
+        return $this->seleniumService->getSeleniumHost();
     }
 
     /**
@@ -159,8 +132,7 @@ class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_Selenium2TestCase
      */
     protected function getSeleniumPort()
     {
-        return $this->extensionSettingsService->hasInteger('selenium_port')
-            ? $this->extensionSettingsService->getAsInteger('selenium_port') : self::DEFAULT_SELENIUM_PORT;
+        return $this->seleniumService->getSeleniumPort();
     }
 
     /**
@@ -172,8 +144,7 @@ class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_Selenium2TestCase
      */
     protected function getSeleniumBrowser()
     {
-        return $this->extensionSettingsService->hasString('selenium_browser')
-            ? $this->extensionSettingsService->getAsString('selenium_browser') : self::DEFAULT_SELENIUM_BROWSER;
+        return $this->seleniumService->getSeleniumBrowser();
     }
 
     /**
@@ -185,8 +156,6 @@ class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_Selenium2TestCase
      */
     protected function getSeleniumBrowserUrl()
     {
-        return $this->extensionSettingsService->hasString('selenium_browserurl')
-            ? $this->extensionSettingsService->getAsString('selenium_browserurl')
-            : rtrim(GeneralUtility::getIndpEnv('TYPO3_SITE_URL'), self::DEFAULT_SELENIUM_BROWSER_URL);
+        return $this->seleniumService->getSeleniumBrowserUrl();
     }
 }
