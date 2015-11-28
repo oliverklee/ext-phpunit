@@ -473,7 +473,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         '<option value="">' . htmlspecialchars($this->translate('select_tests')) . '</option>' .
         implode(LF, $testCaseFileOptionsArray) . '</select>' .
         '<button type="submit" name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
-        Tx_Phpunit_Interface_Request::PARAMETER_KEY_EXECUTE . ']" value="run" accesskey="f">' .
+        Tx_Phpunit_Interface_Request::PARAMETER_KEY_EXECUTE . ']" value="run" accesskey="c">' .
         $this->translate('runTestCaseFile') . '</button>' .
         '<input type="hidden" name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
         Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND . ']" value="runTestCaseFile" />' .
@@ -628,6 +628,8 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
 
         $selectedTestableKey = $this->getAndSaveSelectedTestableKey();
         $this->renderTestingHeader($selectedTestableKey);
+
+        $this->renderReRunButton();
 
         $testablesToProcess = $this->collectTestablesToProcess($selectedTestableKey);
 

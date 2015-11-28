@@ -31,7 +31,7 @@
 				<target>Kør enkelt te&lt;span class=&quot;access-key&quot;&gt;s&lt;/span&gt;t</target>
 			</trans-unit>
 			<trans-unit id="runTestCaseFile">
-				<target>Udfør test case &lt;span class=&quot;access-key&quot;&gt;f&lt;/span&gt;il</target>
+				<target>Udfør test &lt;span class=&quot;access-key&quot;&gt;c&lt;/span&gt;ase fil</target>
 			</trans-unit>
 			<trans-unit id="select_extension">
 				<target>Vælg extension</target>

@@ -31,7 +31,7 @@
 				<source>Run &lt;span class=&quot;access-key&quot;&gt;s&lt;/span&gt;ingle test</source>
 			</trans-unit>
 			<trans-unit id="runTestCaseFile">
-				<source>Run test case &lt;span class=&quot;access-key&quot;&gt;f&lt;/span&gt;ile</source>
+				<source>Run test &lt;span class=&quot;access-key&quot;&gt;c&lt;/span&gt;ase file</source>
 			</trans-unit>
 			<trans-unit id="select_extension">
 				<source>Select extension</source>
