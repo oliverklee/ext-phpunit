@@ -30,6 +30,9 @@
 			<trans-unit id="run_single_test">
 				<target>Einzelnen Te&lt;span class=&quot;access-key&quot;&gt;s&lt;/span&gt;t ausführen</target>
 			</trans-unit>
+			<trans-unit id="runTestCaseFile">
+			    <target>Alle Tests dieser Datei ausführen (&lt;span class=&quot;access-key&quot;&gt;c&lt;/span&gt;)</target>
+			</trans-unit>
 			<trans-unit id="select_extension">
 				<target>Extension auswählen</target>
 			</trans-unit>
@@ -45,17 +48,35 @@
 			<trans-unit id="tests_errors">
 				<target>Fehler</target>
 			</trans-unit>
+			<trans-unit id="tests_skipped">
+			    <target>Übersprungen</target>
+			</trans-unit>
+            <trans-unit id="tests_incomplete">
+                <target>Unvollständig</target>
+            </trans-unit>
 			<trans-unit id="tests_failures">
 				<target>Probleme</target>
 			</trans-unit>
 			<trans-unit id="tests_total">
 				<target>Tests</target>
 			</trans-unit>
+			<trans-unit id="assertions_total">
+				<target>Zusicherungen</target>
+			</trans-unit>
 			<trans-unit id="tests_seconds">
 				<target>Sekunden</target>
 			</trans-unit>
 			<trans-unit id="title">
 				<target>PHPUnit BE</target>
+			</trans-unit>
+            <trans-unit id="testing_success">
+                <target>Erfolgreich!</target>
+            </trans-unit>
+			<trans-unit id="testing_failure">
+				<target>Probleme!</target>
+			</trans-unit>
+			<trans-unit id="run_selenium_tests">
+				<target>Selenium Tests ausführen</target>
 			</trans-unit>
 			<trans-unit id="tx_phpunit_test">
 				<target>PHPUnit-Testdatensätze</target>
@@ -65,6 +86,54 @@
 			</trans-unit>
 			<trans-unit id="test_are_run_in_current_backend_context">
 				<target>&lt;p&gt;&lt;strong&gt;Tests werden im aktuellen Backend-Kontext ausgeführt&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;Die Unit-Tests werden im Kontext der aktuellen Backend-Session ausgeführt. Das Ergebnis wird dadurch wahrscheinlich anders sein als über die Kommandozeile mit der Testkonfiguration der Core-Unit-Tests oder der Core-Functional-Tests. Insbesondere wird dies seltsame Fehler mit den Core-Tests erzeugen.&lt;/p&gt;&lt;p&gt;Wenn Sie die Tests in einem sauberen Kontext ausführen müssen, benutzen Sie bitte den Ansatz, der Wiki unter &lt;a href="http://wiki.typo3.org/Unit_Testing_TYPO3" target="_blank"&gt;http://wiki.typo3.org/Unit_Testing_TYPO3&lt;/a&gt; und &lt;a href="http://wiki.typo3.org/Functional_testing" target="_blank"&gt;http://wiki.typo3.org/Functional_testing&lt;/a&gt; beschrieben wird&lt;/p&gt;</target>
+			</trans-unit>
+			<trans-unit id="shortcuts">
+				<target>Tastaturkürzel</target>
+			</trans-unit>
+			<trans-unit id="shortcuts.title">
+				<target>Tastaturkürzel</target>
+			</trans-unit>
+			<trans-unit id="shortcuts.text">
+				<target>Benutze &quot;a&quot; um alle Tests zu starten, benutze &quot;s&quot; um einen Einzeltest zu starten and benutze &quot;r&quot; um den letzten Test neu zu starten; um phpunit in einem neuen Fenster zu starten, benutze &quot;n&quot;.</target>
+			</trans-unit>
+			<trans-unit id="shortcuts.browser_dependency">
+				<target>Abhängig von Browser und Betriebssystem müssen Tastenkombination genutzt werden:</target>
+			</trans-unit>
+			<trans-unit id="shortcuts.browser_safari_ie_firefox1">
+				<target>Safari, IE und Firefox 1.x: Verwende die &quot;Alt&quot; Taste auf Windows, &quot;Ctrl&quot; auf Macs.</target>
+			</trans-unit>
+			<trans-unit id="shortcuts.browser_safari_ie_firefox2_firefox3">
+				<target>Firefox 2.x und 3.x: Verwende &quot;Alt-Shift&quot; auf Windows, &quot;Ctrl-Shift&quot; auf Macs</target>
+			</trans-unit>
+			<trans-unit id="open_in_seperate_window">
+				<target>Ein eigenständiges Fe&lt;span class="access-key"&gt;n&lt;/span&gt;ster öffnen</target>
+			</trans-unit>
+			<trans-unit id="success">
+				<target>Erfolgreich</target>
+			</trans-unit>
+            <trans-unit id="failure">
+                <target>Probleme</target>
+            </trans-unit>
+			<trans-unit id="skipped">
+			    <target>Übersprungen</target>
+			</trans-unit>
+			<trans-unit id="error">
+				<target>Fehler</target>
+			</trans-unit>
+			<trans-unit id="show_as_human_readable">
+				<target>Lesbare Namen verwenden</target>
+			</trans-unit>
+			<trans-unit id="incomplete">
+				<target>Unvollständig</target>
+			</trans-unit>
+			<trans-unit id="show_memory_and_time">
+				<target>Zeige Speicher &amp; Zeit</target>
+			</trans-unit>
+			<trans-unit id="collect_code_coverage_data">
+				<target>Sammle Codeberichte</target>
+			</trans-unit>
+			<trans-unit id="code_coverage_requires_xdebug">
+				<target>Für die Codeberichte muss XDebug installiert sein</target>
 			</trans-unit>
 		</body>
 	</file>
