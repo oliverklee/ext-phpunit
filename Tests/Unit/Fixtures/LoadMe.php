@@ -1,4 +1,6 @@
 <?php
+namespace OliverKlee\Phpunit\Tests\Unit\Fixtures;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -15,6 +17,6 @@
 /**
  * Test class.
  */
-class Tx_Phpunit_Tests_Unit_Fixtures_LoadMe
+class LoadMe
 {
 }

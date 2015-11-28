@@ -11,6 +11,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+use OliverKlee\Phpunit\Tests\Unit\Fixtures\ProtectedClass;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
@@ -31,7 +32,7 @@ class Tx_Phpunit_Tests_Unit_TestCaseTest extends Tx_Phpunit_TestCase
     private $proctectedClassInstance = null;
 
     /**
-     * @var Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject|Tx_Phpunit_Tests_Unit_Fixtures_ProtectedClass
+     * @var Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject|ProtectedClass
      */
     private $mock = null;
 
@@ -51,16 +52,16 @@ class Tx_Phpunit_Tests_Unit_TestCaseTest extends Tx_Phpunit_TestCase
     {
         require_once(ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Fixtures/ProtectedClass.php');
 
-        $this->proctectedClassInstance = new Tx_Phpunit_Tests_Unit_Fixtures_ProtectedClass();
-        $this->mock = $this->getMock('Tx_Phpunit_Tests_Unit_Fixtures_ProtectedClass', array('dummy'));
-        $this->accessibleMock = $this->getAccessibleMock('Tx_Phpunit_Tests_Unit_Fixtures_ProtectedClass',
+        $this->proctectedClassInstance = new ProtectedClass();
+        $this->mock = $this->getMock('OliverKlee\\Phpunit\\Tests\\Unit\\Fixtures\\ProtectedClass', array('dummy'));
+        $this->accessibleMock = $this->getAccessibleMock('OliverKlee\\Phpunit\\Tests\\Unit\\Fixtures\\ProtectedClass',
             array('dummy'));
-        $this->staticProperty = Tx_Phpunit_Tests_Unit_Fixtures_ProtectedClass::getStaticProperty();
+        $this->staticProperty = ProtectedClass::getStaticProperty();
     }
 
     protected function tearDown()
     {
-        Tx_Phpunit_Tests_Unit_Fixtures_ProtectedClass::setStaticProperty($this->staticProperty);
+        ProtectedClass::setStaticProperty($this->staticProperty);
     }
 
     /**
@@ -295,7 +296,7 @@ class Tx_Phpunit_Tests_Unit_TestCaseTest extends Tx_Phpunit_TestCase
 
         self::assertSame(
             $newValue,
-            Tx_Phpunit_Tests_Unit_Fixtures_ProtectedClass::getStaticProperty()
+            ProtectedClass::getStaticProperty()
         );
     }
 
