@@ -81,8 +81,8 @@ function setProgressBarClass(className) {
 		case 'SET_testdox':
 			checkbox = 'testdox';
 			break;
-		case 'SET_showMemoryAndTime':
-			checkbox = 'showMemoryAndTime';
+		case 'SET_showTime':
+			checkbox = 'showTime';
 			break;
 		case 'SET_runSeleniumTests':
 			checkbox = 'runSeleniumTests';
@@ -165,8 +165,8 @@ function setProgressBarClass(className) {
 		case 'SET_testdox':
 			className = 'testdox';
 			break;
-		case 'SET_showMemoryAndTime':
-			className = 'showMemoryAndTime';
+		case 'SET_showTime':
+			className = 'showTime';
 			break;
 		case 'SET_runSeleniumTests':
 			className = 'runSeleniumTests';
@@ -184,7 +184,7 @@ function setProgressBarClass(className) {
 	Event.onDOMReady(function () {
 		var checkboxes = Dom.get([
 			'SET_failure', 'SET_success', 'SET_error', 'SET_skipped', 'SET_incomplete',
-			'SET_testdox', 'SET_showMemoryAndTime', 'SET_runSeleniumTests'
+			'SET_testdox', 'SET_showTime', 'SET_runSeleniumTests'
 		]);
 		var numberOfCheckboxes = checkboxes.length;
 		for (var i = 0; i < numberOfCheckboxes; i++) {

@@ -54,9 +54,6 @@
 			<trans-unit id="tests_seconds">
 				<target>Sekunden</target>
 			</trans-unit>
-			<trans-unit id="tests_leaks">
-				<target>Speicherlecks</target>
-			</trans-unit>
 			<trans-unit id="title">
 				<target>PHPUnit BE</target>
 			</trans-unit>

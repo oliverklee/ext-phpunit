@@ -47,7 +47,7 @@ class Tx_Phpunit_BackEnd_Ajax
         'incomplete',
         'testdox',
         'codeCoverage',
-        'showMemoryAndTime',
+        'showTime',
         'runSeleniumTests',
     );
 

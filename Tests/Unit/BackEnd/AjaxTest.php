@@ -197,9 +197,9 @@ class Tx_Phpunit_Tests_Unit_BackEnd_AjaxTest extends Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function ajaxBrokerForShowMemoryAndTimeCheckboxParameterAddsSuccessContent()
+    public function ajaxBrokerForShowTimeCheckboxParameterAddsSuccessContent()
     {
-        $GLOBALS['_POST']['checkbox'] = 'showMemoryAndTime';
+        $GLOBALS['_POST']['checkbox'] = 'showTime';
 
         /** @var AjaxRequestHandler|PHPUnit_Framework_MockObject_MockObject $ajax */
         $ajax = $this->getMock('TYPO3\\CMS\\Core\\Http\\AjaxRequestHandler', array(), array(''));

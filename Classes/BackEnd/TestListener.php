@@ -92,14 +92,6 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
     protected $memoryUsageEndOfTest = 0;
 
     /**
-     * the number of bytes that have been in use after running the last test
-     * (relative to the used bytes before starting the first test)
-     *
-     * @var int
-     */
-    public $totalLeakedMemory = 0;
-
-    /**
      * the number of executed assertions
      *
      * @var int
@@ -114,11 +106,11 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
     protected $useHumanReadableTextFormat = false;
 
     /**
-     * whether to display the used memory and time of each test
+     * whether to display the used time of each test
      *
      * @var bool
      */
-    protected $enableShowMemoryAndTime = false;
+    protected $showTime = false;
 
     /**
      * a name prettifier for creating readable test and test case names
@@ -187,13 +179,13 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
     }
 
     /**
-     * Enables the option to show the memory leaks and time usage of the single tests.
+     * Enables the option to show the time usage of the single tests.
      *
      * @return void
      */
-    public function enableShowMemoryAndTime()
+    public function enableShowTime()
     {
-        $this->enableShowMemoryAndTime = true;
+        $this->showTime = true;
     }
 
     /**
@@ -515,18 +507,14 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
         } else {
             $percentDone = 0.0;
         }
-        $leakedMemory = ($this->memoryUsageEndOfTest - $this->memoryUsageStartOfTest);
-        $this->totalLeakedMemory += $leakedMemory;
 
         if ($test instanceof PHPUnit_Framework_TestCase) {
             $this->testAssertions += $test->getNumAssertions();
         }
 
         $output = '</div>';
-        if ($this->enableShowMemoryAndTime === true) {
-            $output .= '<span class="memory-leak small-font"><strong>Memory leak:</strong> ' .
-                GeneralUtility::formatSize($leakedMemory) . 'B </span>' .
-                '<span class="time-usages small-font"><strong>Time:</strong> ' . sprintf('%.4f', $time) .
+        if ($this->showTime) {
+            $output .= '<span class="time-usages small-font"><strong>Time:</strong> ' . sprintf('%.4f', $time) .
                 ' sec.</span><br />';
         }
         $output .= '</div>' .

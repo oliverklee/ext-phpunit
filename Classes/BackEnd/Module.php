@@ -590,7 +590,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         $skippedState = $this->userSettingsService->getAsBoolean('skipped') ? 'checked="checked"' : '';
         $successState = $this->userSettingsService->getAsBoolean('success') ? 'checked="checked"' : '';
         $incompleteState = $this->userSettingsService->getAsBoolean('incomplete') ? 'checked="checked"' : '';
-        $showMemoryAndTime = $this->userSettingsService->getAsBoolean('showMemoryAndTime') ? 'checked="checked"' : '';
+        $showTime = $this->userSettingsService->getAsBoolean('showTime') ? 'checked="checked"' : '';
         $testdoxState = $this->userSettingsService->getAsBoolean('testdox') ? 'checked="checked"' : '';
         $output .= '<input type="checkbox" id="SET_success" ' . $successState . ' /><label for="SET_success">' . $this->translate('success') . '</label>';
         $output .= ' <input type="checkbox" id="SET_failure" ' . $failureState . ' /><label for="SET_failure">' . $this->translate('failure') . '</label>';
@@ -600,8 +600,8 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
             ' /><label for="SET_testdox">' . $this->translate('show_as_human_readable') . '</label>';
         $output .= ' <input type="checkbox" id="SET_incomplete" ' . $incompleteState .
             ' /><label for="SET_incomplete">' . $this->translate('incomplete') . '</label>';
-        $output .= ' <input type="checkbox" id="SET_showMemoryAndTime" ' . $showMemoryAndTime .
-            '/><label for="SET_showMemoryAndTime">' . htmlspecialchars($this->translate('show_memory_and_time')) . '</label>';
+        $output .= ' <input type="checkbox" id="SET_showTime" ' . $showTime .
+            '/><label for="SET_showTime">' . $this->translate('show_time') . '</label>';
 
         $codecoverageDisable = '';
         $codecoverageForLabelWhenDisabled = '';
@@ -780,8 +780,8 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
             $this->testListener->useHumanReadableTextFormat();
         }
 
-        if ($this->userSettingsService->getAsBoolean('showMemoryAndTime')) {
-            $this->testListener->enableShowMemoryAndTime();
+        if ($this->userSettingsService->getAsBoolean('showTime')) {
+            $this->testListener->enableShowTime();
         }
     }
 
@@ -942,9 +942,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
             $testResult->notImplementedCount() . ' ' . $this->translate('tests_incomplete') . ', ' . $testResult->errorCount() .
             ' ' . $this->translate('tests_errors') . ', <span title="' . $this->testStatistics->getTime() . '&nbsp;' .
             $this->translate('tests_seconds') . '">' . round($this->testStatistics->getTime(), 3) . '&nbsp;' .
-            $this->translate('tests_seconds') . ', </span>' .
-            GeneralUtility::formatSize($this->testStatistics->getMemory()) . 'B (' . $this->testStatistics->getMemory() . ' B) ' .
-            $this->translate('tests_leaks') . '</p>';
+            $this->translate('tests_seconds') . '</span></p>';
         $this->outputService->output($testStatistics);
 
     }

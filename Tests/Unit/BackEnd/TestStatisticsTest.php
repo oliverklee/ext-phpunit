@@ -116,42 +116,4 @@ class Tx_Phpunit_Tests_Unit_BackEnd_TestStatisticsTest extends Tx_Phpunit_TestCa
             '', 0.02
         );
     }
-
-    /**
-     * @test
-     */
-    public function getMemoryInitiallyReturnsZero()
-    {
-        self::assertSame(
-            0,
-            $this->subject->getMemory()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getMemoryWithoutStartAfterMemoryUsageReturnsZero()
-    {
-        array();
-
-        self::assertSame(
-            0,
-            $this->subject->getMemory()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getMemoryAfterStartAfterMemoryUsageReturnsGreaterThanZero()
-    {
-        $this->subject->start();
-        array();
-
-        self::assertGreaterThan(
-            0,
-            $this->subject->getMemory()
-        );
-    }
 }
