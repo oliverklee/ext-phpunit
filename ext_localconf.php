@@ -7,8 +7,6 @@ if (!class_exists('PHPUnit_Framework_TestCase')) {
     require_once($extPath . 'Resources/Private/Libraries/phpunit-library.phar');
 }
 
-require_once($extPath . 'Migrations/vfsStream.php');
-
 $GLOBALS['TYPO3_CONF_VARS']['BE']['AJAX']['Tx_Phpunit_BackEnd_Ajax'] =
     $extPath . 'Classes/BackEnd/Ajax.php:Tx_Phpunit_BackEnd_Ajax->ajaxBroker';
 

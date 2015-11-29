@@ -14,6 +14,8 @@ namespace OliverKlee\Phpunit\Tests\Unit\BackEnd;
  * The TYPO3 project - inspiring people to share!
  */
 
+use org\bovigo\vfs\vfsStreamDirectory;
+use org\bovigo\vfs\vfsStreamWrapper;
 use TYPO3\CMS\Backend\Template\DocumentTemplate;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\SingletonInterface;
@@ -565,8 +567,8 @@ class ModuleTest extends \Tx_Phpunit_TestCase
      */
     public function findTestCasesInDirReturnsEmptyArrayIfDirectoryDoesNotExist()
     {
-        \vfsStreamWrapper::register();
-        \vfsStreamWrapper::setRoot(new \vfsStreamDirectory('Foo'));
+        vfsStreamWrapper::register();
+        vfsStreamWrapper::setRoot(new vfsStreamDirectory('Foo'));
         $notExistingDirectory = 'vfs://Foo/bar';
 
         self::assertSame(
@@ -580,8 +582,8 @@ class ModuleTest extends \Tx_Phpunit_TestCase
      */
     public function findTestCasesInDirCallsFindTestCasesInDirectoryOfTestCaseService()
     {
-        \vfsStreamWrapper::register();
-        \vfsStreamWrapper::setRoot(new \vfsStreamDirectory('Foo'));
+        vfsStreamWrapper::register();
+        vfsStreamWrapper::setRoot(new vfsStreamDirectory('Foo'));
         $directory = 'vfs://Foo/';
 
         /** @var \Tx_Phpunit_Service_TestCaseService|\PHPUnit_Framework_MockObject_MockObject $testCaseService */
@@ -597,8 +599,8 @@ class ModuleTest extends \Tx_Phpunit_TestCase
      */
     public function findTestCasesInDirReturnsArrayWithFoundTestCaseFiles()
     {
-        \vfsStreamWrapper::register();
-        \vfsStreamWrapper::setRoot(new \vfsStreamDirectory('Foo'));
+        vfsStreamWrapper::register();
+        vfsStreamWrapper::setRoot(new vfsStreamDirectory('Foo'));
         $directory = 'vfs://Foo/';
         $testFiles = array('class.testOneTest.php', 'class.testTwoTest.php');
 
