@@ -118,7 +118,7 @@
 				<target>Indsammel code-coverage data</target>
 			</trans-unit>
 			<trans-unit id="code_coverage_requires_xdebug">
-				<target>Code coverage kræver XDebug er installeret</target>
+				<target>Code coverage kræver Xdebug er installeret</target>
 			</trans-unit>
 		</body>
 	</file>

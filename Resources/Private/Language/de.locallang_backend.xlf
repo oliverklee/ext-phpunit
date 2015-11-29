@@ -61,7 +61,7 @@
 				<target>Tests</target>
 			</trans-unit>
 			<trans-unit id="assertions_total">
-				<target>Zusicherungen</target>
+				<target>Assertions</target>
 			</trans-unit>
 			<trans-unit id="tests_seconds">
 				<target>Sekunden</target>
@@ -133,7 +133,7 @@
 				<target>Sammle Code-Coverage-Daten</target>
 			</trans-unit>
 			<trans-unit id="code_coverage_requires_xdebug">
-				<target>Für die Code-Coverage-Daten muss XDebug installiert sein</target>
+				<target>Für die Code-Coverage-Daten muss Xdebug installiert sein</target>
 			</trans-unit>
 		</body>
 	</file>
