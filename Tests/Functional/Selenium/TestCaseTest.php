@@ -1,4 +1,6 @@
 <?php
+namespace OliverKlee\Phpunit\Tests\Functional\Selenium;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -15,12 +17,9 @@
 /**
  * Test case.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Tests_Functional_Selenium_TestCaseTest extends Tx_Phpunit_Selenium_TestCase
+class TestCaseTest extends \Tx_Phpunit_Selenium_TestCase
 {
     /**
      * @test

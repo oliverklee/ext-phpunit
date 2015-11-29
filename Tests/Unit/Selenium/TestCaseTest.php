@@ -1,4 +1,6 @@
 <?php
+namespace OliverKlee\Phpunit\Tests\Unit\Selenium;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -12,31 +14,26 @@
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-
 /**
  * Test case.
- *
- * @package TYPO3
- * @subpackage tx_phpunit
  *
  * @author Carsten Koenig <ck@carsten-koenig.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Tests_Unit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase
+class TestCaseTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Phpunit_Selenium_TestCase|PHPUnit_Framework_MockObject_MockObject
+     * @var \Tx_Phpunit_Selenium_TestCase|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $subject = null;
 
     /**
-     * @var Tx_Phpunit_TestingDataContainer
+     * @var \Tx_Phpunit_TestingDataContainer
      */
     protected $extensionSettingsService = null;
 
     /**
-     * @var Tx_Phpunit_Service_SeleniumService|PHPUnit_Framework_MockObject_MockObject
+     * @var \Tx_Phpunit_Service_SeleniumService|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $seleniumService = null;
 
@@ -46,7 +43,7 @@ class Tx_Phpunit_Tests_Unit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase
             self::markTestSkipped('PHPUnit Selenium is not installed.');
         }
 
-        $this->extensionSettingsService = new Tx_Phpunit_TestingDataContainer();
+        $this->extensionSettingsService = new \Tx_Phpunit_TestingDataContainer();
         $this->seleniumService = $this->getMock(
             'Tx_Phpunit_Service_SeleniumService',
             null,
@@ -206,7 +203,7 @@ class Tx_Phpunit_Tests_Unit_Selenium_TestCaseTest extends Tx_Phpunit_TestCase
     {
         $this->extensionSettingsService->set('selenium_host', 'http://example.invalid');
 
-        $subject = new Tx_Phpunit_Selenium_TestCase(null, array(), '', $this->extensionSettingsService);
+        $subject = new \Tx_Phpunit_Selenium_TestCase(null, array(), '', $this->extensionSettingsService);
 
         try {
             $subject->runTest();
