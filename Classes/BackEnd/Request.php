@@ -23,8 +23,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_BackEnd_Request extends Tx_Phpunit_AbstractDataContainer
-    implements Tx_Phpunit_Interface_Request, SingletonInterface
+class Tx_Phpunit_BackEnd_Request extends Tx_Phpunit_AbstractDataContainer implements Tx_Phpunit_Interface_Request, SingletonInterface
 {
     /**
      * @var array

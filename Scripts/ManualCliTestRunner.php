@@ -14,6 +14,6 @@
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/* @var $phpUnit Tx_Phpunit_TestRunner_CliTestRunner */
+/* @var Tx_Phpunit_TestRunner_CliTestRunner $phpUnit */
 $phpUnit = GeneralUtility::makeInstance('Tx_Phpunit_TestRunner_CliTestRunner');
 $phpUnit->run();

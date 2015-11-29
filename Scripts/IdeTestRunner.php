@@ -26,7 +26,7 @@ if (empty($ideBootScript) || !is_file($ideBootScript)) {
     throw new UnexpectedValueException('IDE Boot Script not found!', 1343498915);
 }
 
-/* @var $phpUnit Tx_Phpunit_TestRunner_IdeTestRunner */
+/* @var Tx_Phpunit_TestRunner_IdeTestRunner $phpUnit */
 $phpUnit = GeneralUtility::makeInstance('Tx_Phpunit_TestRunner_IdeTestRunner');
 
 require_once($ideBootScript);

@@ -194,12 +194,21 @@ class TestCaseTest extends \Tx_Phpunit_Database_TestCase
 
         $tableNames = $this->getDatabaseTables();
 
-        self::assertContains('tx_ccc_test', $tableNames,
-            'Check that extension ccc is installed. The extension can be found in TestExtensions/.');
-        self::assertContains('tx_bbb_test', $tableNames,
-            'Check that extension bbb is installed. The extension can be found in TestExtensions/.');
-        self::assertContains('tx_aaa_test', $tableNames,
-            'Check that extension aaa is installed. The extension can be found in TestExtensions/.');
+        self::assertContains(
+            'tx_ccc_test',
+            $tableNames,
+            'Check that extension ccc is installed. The extension can be found in TestExtensions/.'
+        );
+        self::assertContains(
+            'tx_bbb_test',
+            $tableNames,
+            'Check that extension bbb is installed. The extension can be found in TestExtensions/.'
+        );
+        self::assertContains(
+            'tx_aaa_test',
+            $tableNames,
+            'Check that extension aaa is installed. The extension can be found in TestExtensions/.'
+        );
     }
 
     /**
@@ -221,10 +230,16 @@ class TestCaseTest extends \Tx_Phpunit_Database_TestCase
 
         $tableNames = $this->getDatabaseTables();
 
-        self::assertContains('tx_ccc_test', $tableNames,
-            'Check that extension ccc is installed. The extension can be found in TestExtensions/.');
-        self::assertContains('tx_ddd_test', $tableNames,
-            'Check that extension ddd is installed. The extension can be found in TestExtensions/.');
+        self::assertContains(
+            'tx_ccc_test',
+            $tableNames,
+            'Check that extension ccc is installed. The extension can be found in TestExtensions/.'
+        );
+        self::assertContains(
+            'tx_ddd_test',
+            $tableNames,
+            'Check that extension ddd is installed. The extension can be found in TestExtensions/.'
+        );
         self::assertNotContains(
             'tx_bbb_test',
             $tableNames,

@@ -213,7 +213,8 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
     {
         if (!$test instanceof PHPUnit_Framework_TestCase) {
             throw new InvalidArgumentException(
-                'addError needs $test to be a PHPUnit_Framework_TestCase.', 1334308922
+                'addError needs $test to be a PHPUnit_Framework_TestCase.',
+                1334308922
             );
         }
         /** @var PHPUnit_Framework_TestCase $test */
@@ -261,7 +262,8 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
     {
         if (!$test instanceof PHPUnit_Framework_TestCase) {
             throw new InvalidArgumentException(
-                'addFailure needs $test to be a PHPUnit_Framework_TestCase.', 1334308954
+                'addFailure needs $test to be a PHPUnit_Framework_TestCase.',
+                1334308954
             );
         }
         /** @var PHPUnit_Framework_TestCase $test */
@@ -337,7 +339,8 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
     {
         if (!$test instanceof PHPUnit_Framework_TestCase) {
             throw new InvalidArgumentException(
-                'addIncompleteTest needs $test to be a PHPUnit_Framework_TestCase.', 1334308983
+                'addIncompleteTest needs $test to be a PHPUnit_Framework_TestCase.',
+                1334308983
             );
         }
         /** @var PHPUnit_Framework_TestCase $test */
@@ -367,7 +370,8 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
     {
         if (!$test instanceof PHPUnit_Framework_TestCase) {
             throw new InvalidArgumentException(
-                'addSkippedTest needs $test to be a PHPUnit_Framework_TestCase.', 1334309006
+                'addSkippedTest needs $test to be a PHPUnit_Framework_TestCase.',
+                1334309006
             );
         }
         /** @var PHPUnit_Framework_TestCase $test */
@@ -446,8 +450,10 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
     public function startTest(PHPUnit_Framework_Test $test)
     {
         if (!$test instanceof PHPUnit_Framework_TestCase) {
-            throw new InvalidArgumentException('For startTest, $test needs to be a PHPUnit_Framework_TestCase.',
-                1334305913);
+            throw new InvalidArgumentException(
+                'For startTest, $test needs to be a PHPUnit_Framework_TestCase.',
+                1334305913
+            );
         }
         /** @var PHPUnit_Framework_TestCase $test */
 

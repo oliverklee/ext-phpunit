@@ -215,9 +215,11 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
      */
     public function getTestablesForEverythingNoExtensionTestsReturnsEmptyArray()
     {
-        /** @var $testFinder \Tx_Phpunit_Service_TestFinder|\PHPUnit_Framework_MockObject_MockObject */
-        $testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder',
-            array('getTestableForCore', 'getTestablesForExtensions'));
+        /** @var \Tx_Phpunit_Service_TestFinder|\PHPUnit_Framework_MockObject_MockObject $testFinder */
+        $testFinder = $this->getMock(
+            'Tx_Phpunit_Service_TestFinder',
+            array('getTestableForCore', 'getTestablesForExtensions')
+        );
         $testFinder->expects(self::once())->method('getTestablesForExtensions')->will(self::returnValue(array()));
 
         self::assertSame(
@@ -234,8 +236,10 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
         $extensionTests = new \Tx_Phpunit_Testable();
 
         /** @var \Tx_Phpunit_Service_TestFinder|\PHPUnit_Framework_MockObject_MockObject $testFinder */
-        $testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder',
-            array('getTestableForCore', 'getTestablesForExtensions'));
+        $testFinder = $this->getMock(
+            'Tx_Phpunit_Service_TestFinder',
+            array('getTestableForCore', 'getTestablesForExtensions')
+        );
         $testFinder->expects(self::once())->method('getTestablesForExtensions')
             ->will(self::returnValue(array('foo' => $extensionTests)));
 
@@ -253,8 +257,10 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
         $extensionTests = new \Tx_Phpunit_Testable();
 
         /** @var \Tx_Phpunit_Service_TestFinder|\PHPUnit_Framework_MockObject_MockObject $testFinder */
-        $testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder',
-            array('getTestableForCore', 'getTestablesForExtensions'));
+        $testFinder = $this->getMock(
+            'Tx_Phpunit_Service_TestFinder',
+            array('getTestableForCore', 'getTestablesForExtensions')
+        );
         $testFinder->expects(self::any())->method('getTestablesForExtensions')
             ->will(self::returnValue(array('foo' => $extensionTests)));
 
@@ -404,8 +410,7 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function getTestablesForExtensionsCreatesTestableForSingleExtensionForInstalledExtensionsWithoutExcludedExtensions(
-    )
+    public function getTestablesForExtensionsCreatesTestableForSingleExtensionForInstalledExtensionsWithoutExcludedExtensions()
     {
         /** @var \Tx_Phpunit_Service_TestFinder|\PHPUnit_Framework_MockObject_MockObject $testFinder */
         $testFinder = $this->getMock(
@@ -438,8 +443,7 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function getTestablesForExtensionsCreatesTestableForSingleExtensionForInstalledExtensionsWithoutDummyExtensions(
-    )
+    public function getTestablesForExtensionsCreatesTestableForSingleExtensionForInstalledExtensionsWithoutDummyExtensions()
     {
         /** @var \Tx_Phpunit_Service_TestFinder|\PHPUnit_Framework_MockObject_MockObject $testFinder */
         $testFinder = $this->getMock(

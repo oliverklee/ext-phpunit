@@ -20,8 +20,9 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_TestingDataContainer extends Tx_Phpunit_AbstractDataContainer
-    implements Tx_Phpunit_Interface_UserSettingsService, Tx_Phpunit_Interface_ExtensionSettingsService,
+class Tx_Phpunit_TestingDataContainer extends Tx_Phpunit_AbstractDataContainer implements
+    Tx_Phpunit_Interface_UserSettingsService,
+    Tx_Phpunit_Interface_ExtensionSettingsService,
     Tx_Phpunit_Interface_Request
 {
     /**

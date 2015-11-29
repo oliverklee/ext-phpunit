@@ -155,8 +155,10 @@ class ExtensionSelectorViewHelperTest extends \Tx_Phpunit_TestCase
      */
     public function renderSelectsOptionTagForAllExtensions()
     {
-        $this->userSettingsService->set(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE,
-            \Tx_Phpunit_Testable::ALL_EXTENSIONS);
+        $this->userSettingsService->set(
+            \Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE,
+            \Tx_Phpunit_Testable::ALL_EXTENSIONS
+        );
         $this->subject->injectUserSettingService($this->userSettingsService);
         $this->subject->render();
 
@@ -378,5 +380,4 @@ class ExtensionSelectorViewHelperTest extends \Tx_Phpunit_TestCase
             $this->outputService->getCollectedOutput()
         );
     }
-
 }

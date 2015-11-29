@@ -25,8 +25,7 @@ use TYPO3\CMS\Core\SingletonInterface;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Service_UserSettingsService extends Tx_Phpunit_AbstractDataContainer
-    implements Tx_Phpunit_Interface_UserSettingsService, SingletonInterface
+class Tx_Phpunit_Service_UserSettingsService extends Tx_Phpunit_AbstractDataContainer implements Tx_Phpunit_Interface_UserSettingsService, SingletonInterface
 {
     /**
      * @var string

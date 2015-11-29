@@ -478,7 +478,8 @@ class Tx_Phpunit_Framework
         if (!preg_match('/^(?:[1-9]+[0-9]*,?)+$/', $frontEndUserGroupsWithoutSpaces)
         ) {
             throw new \InvalidArgumentException(
-                '$frontEndUserGroups must contain a comma-separated list of UIDs. Each UID must be > 0.', 1334439059
+                '$frontEndUserGroups must contain a comma-separated list of UIDs. Each UID must be > 0.',
+                1334439059
             );
         }
         if (isset($recordData['uid'])) {
@@ -585,7 +586,8 @@ class Tx_Phpunit_Framework
 
         if (!$this->isTableNameAllowed($tableName)) {
             throw new \InvalidArgumentException(
-                'The table "' . $tableName . '" is not on the lists with allowed tables.', 1334439098
+                'The table "' . $tableName . '" is not on the lists with allowed tables.',
+                1334439098
             );
         }
         if ($uid === 0) {
@@ -596,7 +598,8 @@ class Tx_Phpunit_Framework
         }
         if (isset($recordData['uid'])) {
             throw new \InvalidArgumentException(
-                'The parameter $recordData must not contain changes to the UID of a record.', 1334439119
+                'The parameter $recordData must not contain changes to the UID of a record.',
+                1334439119
             );
         }
         if (isset($recordData[$dummyColumnName])) {
@@ -676,12 +679,14 @@ class Tx_Phpunit_Framework
         // Checks that the two given UIDs are valid.
         if ((int)$uidLocal <= 0) {
             throw new \InvalidArgumentException(
-                '$uidLocal must be an integer > 0, but actually is "' . $uidLocal . '"', 1334439206
+                '$uidLocal must be an integer > 0, but actually is "' . $uidLocal . '"',
+                1334439206
             );
         }
         if ((int)$uidForeign <= 0) {
             throw new \InvalidArgumentException(
-                '$uidForeign must be an integer > 0, but actually is "' . $uidForeign . '"', 1334439213
+                '$uidForeign must be an integer > 0, but actually is "' . $uidForeign . '"',
+                1334439213
             );
         }
 
@@ -728,12 +733,16 @@ class Tx_Phpunit_Framework
         }
 
         if ($uidLocal <= 0) {
-            throw new \InvalidArgumentException('$uidLocal must be > 0, but actually is "' . $uidLocal . '"',
-                1334439220);
+            throw new \InvalidArgumentException(
+                '$uidLocal must be > 0, but actually is "' . $uidLocal . '"',
+                1334439220
+            );
         }
         if ($uidForeign <= 0) {
-            throw new \InvalidArgumentException('$uidForeign must be  > 0, but actually is "' . $uidForeign . '"',
-                1334439233);
+            throw new \InvalidArgumentException(
+                '$uidForeign must be  > 0, but actually is "' . $uidForeign . '"',
+                1334439233
+            );
         }
 
         $tca = Tx_Phpunit_Service_Database::getTcaForTable($tableName);
@@ -977,7 +986,8 @@ class Tx_Phpunit_Framework
         foreach ($contents as $pathToFile) {
             if (!file_exists($pathToFile)) {
                 throw new Exception(
-                    'The provided path "' . $pathToFile . '" does not point to an existing file.', 1334439306
+                    'The provided path "' . $pathToFile . '" does not point to an existing file.',
+                    1334439306
                 );
             }
             $zip->addFile($pathToFile, $this->getPathRelativeToUploadDirectory($pathToFile));
@@ -1089,7 +1099,8 @@ class Tx_Phpunit_Framework
 
         if (!is_dir($absolutePathToFolder)) {
             throw new \InvalidArgumentException(
-                'The folder "' . $absolutePathToFolder . '" which you are trying to delete does not exist.', 1334439343
+                'The folder "' . $absolutePathToFolder . '" which you are trying to delete does not exist.',
+                1334439343
             );
         }
 
@@ -1125,7 +1136,8 @@ class Tx_Phpunit_Framework
         $creationSuccessful = GeneralUtility::mkdir($uploadFolderPath);
         if (!$creationSuccessful) {
             throw new \RuntimeException(
-                'The upload folder ' . $uploadFolderPath . ' could not be created.', 1334439408
+                'The upload folder ' . $uploadFolderPath . ' could not be created.',
+                1334439408
             );
         }
 
@@ -1152,7 +1164,8 @@ class Tx_Phpunit_Framework
     {
         if (!empty($this->dummyFiles) || !empty($this->dummyFolders)) {
             throw new Exception(
-                'The upload folder path must not be changed if there are already dummy files or folders.', 1334439424
+                'The upload folder path must not be changed if there are already dummy files or folders.',
+                1334439424
             );
         }
 
@@ -1193,7 +1206,8 @@ class Tx_Phpunit_Framework
         )
         ) {
             throw new \InvalidArgumentException(
-                'The first parameter $absolutePath is not within the calling extension\'s upload directory.', 1334439445
+                'The first parameter $absolutePath is not within the calling extension\'s upload directory.',
+                1334439445
             );
         }
 
@@ -1267,7 +1281,10 @@ class Tx_Phpunit_Framework
 
         /** @var TypoScriptFrontendController $frontEnd */
         $frontEnd = GeneralUtility::makeInstance(
-            'TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController', $GLOBALS['TYPO3_CONF_VARS'], $pageUid, 0
+            'TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController',
+            $GLOBALS['TYPO3_CONF_VARS'],
+            $pageUid,
+            0
         );
         $GLOBALS['TSFE'] = $frontEnd;
 
@@ -1321,11 +1338,16 @@ class Tx_Phpunit_Framework
         $this->logoutFrontEndUser();
 
         unset(
-            $GLOBALS['TSFE']->tmpl, $GLOBALS['TSFE']->sys_page,
-            $GLOBALS['TSFE']->fe_user, $GLOBALS['TSFE']->TYPO3_CONF_VARS,
-            $GLOBALS['TSFE']->config, $GLOBALS['TSFE']->TCAcachedExtras,
-            $GLOBALS['TSFE']->imagesOnPage, $GLOBALS['TSFE']->cObj,
-            $GLOBALS['TSFE']->csConvObj, $GLOBALS['TSFE']->pagesection_lockObj,
+            $GLOBALS['TSFE']->tmpl,
+            $GLOBALS['TSFE']->sys_page,
+            $GLOBALS['TSFE']->fe_user,
+            $GLOBALS['TSFE']->TYPO3_CONF_VARS,
+            $GLOBALS['TSFE']->config,
+            $GLOBALS['TSFE']->TCAcachedExtras,
+            $GLOBALS['TSFE']->imagesOnPage,
+            $GLOBALS['TSFE']->cObj,
+            $GLOBALS['TSFE']->csConvObj,
+            $GLOBALS['TSFE']->pagesection_lockObj,
             $GLOBALS['TSFE']->pages_lockObj
         );
         $GLOBALS['TSFE'] = null;
@@ -1504,7 +1526,9 @@ class Tx_Phpunit_Framework
         $matches = array();
 
         preg_match_all(
-            '/((' . $additionalTablePrefixes . ')_[a-z0-9]+[a-z0-9_]*)(,|$)/', $allTables, $matches
+            '/((' . $additionalTablePrefixes . ')_[a-z0-9]+[a-z0-9_]*)(,|$)/',
+            $allTables,
+            $matches
         );
 
         if (isset($matches[1])) {
@@ -1927,7 +1951,8 @@ class Tx_Phpunit_Framework
                 $this->dirtySystemTables[$currentTable] = $currentTable;
             } else {
                 throw new \InvalidArgumentException(
-                    'The table name "' . $currentTable . '" is not allowed for markTableAsDirty.', 1334439595
+                    'The table name "' . $currentTable . '" is not allowed for markTableAsDirty.',
+                    1334439595
                 );
             }
         }
@@ -2018,7 +2043,8 @@ class Tx_Phpunit_Framework
         }
         if (!Tx_Phpunit_Service_Database::tableHasColumn($tableName, $fieldName)) {
             throw new \InvalidArgumentException(
-                'The table ' . $tableName . ' has no column ' . $fieldName . '.', 1334439616
+                'The table ' . $tableName . ' has no column ' . $fieldName . '.',
+                1334439616
             );
         }
 

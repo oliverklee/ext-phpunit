@@ -99,7 +99,8 @@ class TestStatisticsTest extends \Tx_Phpunit_TestCase
         self::assertEquals(
             0.1,
             $this->subject->getTime(),
-            '', 0.02
+            '',
+            0.02
         );
     }
 
@@ -115,7 +116,8 @@ class TestStatisticsTest extends \Tx_Phpunit_TestCase
         self::assertEquals(
             0.1,
             $this->subject->getTime(),
-            '', 0.02
+            '',
+            0.02
         );
     }
 }

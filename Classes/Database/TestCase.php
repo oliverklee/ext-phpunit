@@ -323,7 +323,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
      */
     private function importDatabaseDefinitions($definitionContent)
     {
-        /* @var $install \TYPO3\CMS\Install\Service\SqlSchemaMigrationService */
+        /* @var \TYPO3\CMS\Install\Service\SqlSchemaMigrationService $install */
         $install = GeneralUtility::makeInstance('TYPO3\\CMS\\Install\\Service\\SqlSchemaMigrationService');
 
         $fieldDefinitionsFile = $install->getFieldDefinitions_fileContent($definitionContent);
@@ -370,7 +370,9 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
             // modifies statement to be accepted by TYPO3
             $createStatement = preg_replace('/ENGINE.*$/', '', $row[1]);
             $createStatement = preg_replace(
-                '/(CREATE TABLE.*\()/', $linefeed . '\\1' . $linefeed, $createStatement
+                '/(CREATE TABLE.*\()/',
+                $linefeed . '\\1' . $linefeed,
+                $createStatement
             );
             $createStatement = preg_replace('/\) $/', $linefeed . ')', $createStatement);
 

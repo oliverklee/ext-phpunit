@@ -214,7 +214,10 @@ class TestListenerTest extends \Tx_Phpunit_TestCase
         $error = new \PHPUnit_Framework_ExpectationFailedException(
             '',
             new ComparisonFailure(
-                'expected&correct', 'actual&incorrect', 'expected&correct', 'actual&incorrect'
+                'expected&correct',
+                'actual&incorrect',
+                'expected&correct',
+                'actual&incorrect'
             )
         );
         $time = 0.0;
@@ -237,7 +240,10 @@ class TestListenerTest extends \Tx_Phpunit_TestCase
         $error = new \PHPUnit_Framework_ExpectationFailedException(
             '',
             new ComparisonFailure(
-                'expected&correct', 'actual&incorrect', 'expected&correct', 'actual&incorrect'
+                'expected&correct',
+                'actual&incorrect',
+                'expected&correct',
+                'actual&incorrect'
             )
         );
         $time = 0.0;
@@ -260,7 +266,10 @@ class TestListenerTest extends \Tx_Phpunit_TestCase
         $error = new \PHPUnit_Framework_ExpectationFailedException(
             '',
             new ComparisonFailure(
-                'expected&correct', 'actual&incorrect', 'expected&correct', 'actual&incorrect'
+                'expected&correct',
+                'actual&incorrect',
+                'expected&correct',
+                'actual&incorrect'
             )
         );
         $time = 0.0;
@@ -798,9 +807,9 @@ class TestListenerTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function prettifyTestMethodForTestPrefixAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTestPrefix(
-    )
+    public function prettifyTestMethodForTestPrefixAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTestPrefix()
     {
+
         $this->subject->useHumanReadableTextFormat();
 
         self::assertSame(
@@ -825,9 +834,9 @@ class TestListenerTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function prettifyTestMethodForTestPrefixWithUnderscoreAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTestPrefix(
-    )
+    public function prettifyTestMethodForTestPrefixWithUnderscoreAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTestPrefix()
     {
+
         $this->subject->useHumanReadableTextFormat();
 
         self::assertSame(
@@ -878,9 +887,9 @@ class TestListenerTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function prettifyTestClassForTestSuffixAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTxPrefix(
-    )
+    public function prettifyTestClassForTestSuffixAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTxPrefix()
     {
+
         $this->subject->useHumanReadableTextFormat();
 
         self::assertSame(
@@ -892,9 +901,9 @@ class TestListenerTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function prettifyTestClassForTestcaseSuffixAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTxPrefix(
-    )
+    public function prettifyTestClassForTestcaseSuffixAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTxPrefix()
     {
+
         $this->subject->useHumanReadableTextFormat();
 
         self::assertSame(
@@ -919,9 +928,9 @@ class TestListenerTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function prettifyTestClassForExtbaseClassNameAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTestSuffix(
-    )
+    public function prettifyTestClassForExtbaseClassNameAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTestSuffix()
     {
+
         $this->subject->useHumanReadableTextFormat();
 
         self::assertSame(

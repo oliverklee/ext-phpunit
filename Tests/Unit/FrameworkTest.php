@@ -220,7 +220,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     public function markTableAsDirtyWillCleanUpNonSystemTable()
     {
         $uid = \Tx_Phpunit_Service_Database::insert(
-            'tx_phpunit_test', array('is_dummy_record' => 1)
+            'tx_phpunit_test',
+            array('is_dummy_record' => 1)
         );
 
         $this->subject->markTableAsDirty('tx_phpunit_test');
@@ -237,7 +238,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     public function markTableAsDirtyWillCleanUpSystemTable()
     {
         $uid = \Tx_Phpunit_Service_Database::insert(
-            'pages', array('tx_phpunit_is_dummy_record' => 1)
+            'pages',
+            array('tx_phpunit_is_dummy_record' => 1)
         );
 
         $this->subject->markTableAsDirty('pages');
@@ -256,7 +258,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->checkIfExtensionUserPhpUnittestIsLoaded();
 
         $uid = \Tx_Phpunit_Service_Database::insert(
-            'user_phpunittest_test', array('tx_phpunit_is_dummy_record' => 1)
+            'user_phpunittest_test',
+            array('tx_phpunit_is_dummy_record' => 1)
         );
 
         $this->subject->markTableAsDirty('user_phpunittest_test');
@@ -395,7 +398,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     public function createRecordWithUidFails()
     {
         $this->subject->createRecord(
-            'tx_phpunit_test', array('uid' => 99999)
+            'tx_phpunit_test',
+            array('uid' => 99999)
         );
     }
 
@@ -571,7 +575,9 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $uid = $this->subject->createRecord('tx_phpunit_test', array());
 
         $this->subject->changeRecord(
-            'tx_phpunit_test', $uid, array()
+            'tx_phpunit_test',
+            $uid,
+            array()
         );
     }
 
@@ -585,7 +591,9 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $uid = $this->subject->createRecord('tx_phpunit_test', array());
 
         $this->subject->changeRecord(
-            'tx_phpunit_test', $uid, array('uid' => '55742')
+            'tx_phpunit_test',
+            $uid,
+            array('uid' => '55742')
         );
     }
 
@@ -599,7 +607,9 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $uid = $this->subject->createRecord('tx_phpunit_test', array());
 
         $this->subject->changeRecord(
-            'tx_phpunit_test', $uid, array('is_dummy_record' => 0)
+            'tx_phpunit_test',
+            $uid,
+            array('is_dummy_record' => 0)
         );
     }
 
@@ -613,7 +623,9 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $uid = $this->subject->createRecord('tx_phpunit_test', array());
 
         $this->subject->changeRecord(
-            'tx_phpunit_test', $uid + 1, array('title' => 'foo')
+            'tx_phpunit_test',
+            $uid + 1,
+            array('title' => 'foo')
         );
     }
 
@@ -756,7 +768,9 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $uidForeign = $this->subject->createRecord('tx_phpunit_test');
 
         $this->subject->createRelation(
-            'tx_phpunit_test_article_mm', $uidLocal, $uidForeign
+            'tx_phpunit_test_article_mm',
+            $uidLocal,
+            $uidForeign
         );
 
         // Checks whether the record really exists.
@@ -780,7 +794,9 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $uidForeign = $this->subject->createRecord('user_phpunittest_test');
 
         $this->subject->createRelation(
-            'user_phpunittest_test_article_mm', $uidLocal, $uidForeign
+            'user_phpunittest_test_article_mm',
+            $uidLocal,
+            $uidForeign
         );
     }
 
@@ -860,7 +876,9 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $uidLocal = $this->subject->createRecord('tx_phpunit_test');
         $uidForeign = $this->subject->createRecord('tx_phpunit_test');
         $this->subject->createRelation(
-            'tx_phpunit_test_article_mm', $uidLocal, $uidForeign
+            'tx_phpunit_test_article_mm',
+            $uidLocal,
+            $uidForeign
         );
         $previousSorting = $this->getSortingOfRelation($uidLocal, $uidForeign);
         self::assertGreaterThan(
@@ -870,7 +888,9 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
         $uidForeign = $this->subject->createRecord('tx_phpunit_test');
         $this->subject->createRelation(
-            'tx_phpunit_test_article_mm', $uidLocal, $uidForeign
+            'tx_phpunit_test_article_mm',
+            $uidLocal,
+            $uidForeign
         );
         $nextSorting = $this->getSortingOfRelation($uidLocal, $uidForeign);
         self::assertSame(
@@ -889,7 +909,10 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $sorting = 99999;
 
         $this->subject->createRelation(
-            'tx_phpunit_test_article_mm', $uidLocal, $uidForeign, $sorting
+            'tx_phpunit_test_article_mm',
+            $uidLocal,
+            $uidForeign,
+            $sorting
         );
 
         self::assertSame(
@@ -1079,10 +1102,14 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
         // Creates and directly destroys a dummy record.
         $this->subject->createRelation(
-            'tx_phpunit_test_article_mm', $uidLocal, $uidForeign
+            'tx_phpunit_test_article_mm',
+            $uidLocal,
+            $uidForeign
         );
         $this->subject->removeRelation(
-            'tx_phpunit_test_article_mm', $uidLocal, $uidForeign
+            'tx_phpunit_test_article_mm',
+            $uidLocal,
+            $uidForeign
         );
 
         // Checks whether the record really was removed from the database.
@@ -1107,10 +1134,14 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
         // Creates and directly destroys a dummy record.
         $this->subject->createRelation(
-            'user_phpunittest_test_article_mm', $uidLocal, $uidForeign
+            'user_phpunittest_test_article_mm',
+            $uidLocal,
+            $uidForeign
         );
         $this->subject->removeRelation(
-            'user_phpunittest_test_article_mm', $uidLocal, $uidForeign
+            'user_phpunittest_test_article_mm',
+            $uidLocal,
+            $uidForeign
         );
     }
 
@@ -1135,7 +1166,9 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         // Runs our delete function - it should run through even when it cannot
         // delete a record.
         $this->subject->removeRelation(
-            'tx_phpunit_test_article_mm', $uidLocal, $uidForeign
+            'tx_phpunit_test_article_mm',
+            $uidLocal,
+            $uidForeign
         );
     }
 
@@ -1203,7 +1236,9 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         // Runs our delete method which should NOT affect the record created
         // above.
         $this->subject->removeRelation(
-            'tx_phpunit_test_article_mm', $uidLocal, $uidForeign
+            'tx_phpunit_test_article_mm',
+            $uidLocal,
+            $uidForeign
         );
 
         // Caches the value that will be tested for later. We need to use the
@@ -1246,7 +1281,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         // Creates a dummy record directly in the database, without putting this
         // table name to the list of dirty tables.
         \Tx_Phpunit_Service_Database::insert(
-            'tx_phpunit_test_article_mm', array('is_dummy_record' => 1)
+            'tx_phpunit_test_article_mm',
+            array('is_dummy_record' => 1)
         );
 
         // Runs a regular clean up. This should now delete only the first record
@@ -1284,7 +1320,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         // Creates a dummy record directly in the database without putting this
         // table name to the list of dirty tables.
         \Tx_Phpunit_Service_Database::insert(
-            'tx_phpunit_test_article_mm', array('is_dummy_record' => 1)
+            'tx_phpunit_test_article_mm',
+            array('is_dummy_record' => 1)
         );
 
         // Deletes all dummy records.
@@ -1466,7 +1503,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->checkIfExtensionUserPhpUnittest2IsLoaded();
 
         $subject = new \Tx_Phpunit_Framework(
-            'tx_phpunit', array('user_phpunittest', 'user_phpunittest2')
+            'tx_phpunit',
+            array('user_phpunittest', 'user_phpunittest2')
         );
 
         $allowedTables = $subject->getListOfAdditionalAllowedTableNames();
@@ -1482,8 +1520,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
 
     /*
-	 * Tests regarding getAutoIncrement()
-	 */
+     * Tests regarding getAutoIncrement()
+     */
 
     /**
      * @test
@@ -1779,7 +1817,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     public function countRecordsReturnsOneForOneDummyRecordMatch()
     {
         $this->subject->createRecord(
-            'tx_phpunit_test', array('title' => 'foo')
+            'tx_phpunit_test',
+            array('title' => 'foo')
         );
 
         self::assertSame(
@@ -1794,7 +1833,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     public function countRecordsWithMissingWhereClauseReturnsOneForOneDummyRecordMatch()
     {
         $this->subject->createRecord(
-            'tx_phpunit_test', array('title' => 'foo')
+            'tx_phpunit_test',
+            array('title' => 'foo')
         );
 
         self::assertSame(
@@ -1809,10 +1849,12 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     public function countRecordsReturnsTwoForTwoMatches()
     {
         $this->subject->createRecord(
-            'tx_phpunit_test', array('title' => 'foo')
+            'tx_phpunit_test',
+            array('title' => 'foo')
         );
         $this->subject->createRecord(
-            'tx_phpunit_test', array('title' => 'foo')
+            'tx_phpunit_test',
+            array('title' => 'foo')
         );
 
         self::assertSame(
@@ -1835,11 +1877,13 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     public function countRecordsIgnoresNonDummyRecords()
     {
         \Tx_Phpunit_Service_Database::insert(
-            'tx_phpunit_test', array('title' => 'foo')
+            'tx_phpunit_test',
+            array('title' => 'foo')
         );
 
         $testResult = $this->subject->countRecords(
-            'tx_phpunit_test', 'title = "foo"'
+            'tx_phpunit_test',
+            'title = "foo"'
         );
 
         \Tx_Phpunit_Service_Database::delete(
@@ -1914,7 +1958,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     public function existsRecordForOneMatchReturnsTrue()
     {
         $this->subject->createRecord(
-            'tx_phpunit_test', array('title' => 'foo')
+            'tx_phpunit_test',
+            array('title' => 'foo')
         );
 
         self::assertTrue(
@@ -1928,10 +1973,12 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     public function existsRecordForTwoMatchesReturnsTrue()
     {
         $this->subject->createRecord(
-            'tx_phpunit_test', array('title' => 'foo')
+            'tx_phpunit_test',
+            array('title' => 'foo')
         );
         $this->subject->createRecord(
-            'tx_phpunit_test', array('title' => 'foo')
+            'tx_phpunit_test',
+            array('title' => 'foo')
         );
 
         self::assertTrue(
@@ -1945,11 +1992,13 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     public function existsRecordIgnoresNonDummyRecords()
     {
         \Tx_Phpunit_Service_Database::insert(
-            'tx_phpunit_test', array('title' => 'foo')
+            'tx_phpunit_test',
+            array('title' => 'foo')
         );
 
         $testResult = $this->subject->existsRecord(
-            'tx_phpunit_test', 'title = "foo"'
+            'tx_phpunit_test',
+            'title = "foo"'
         );
 
         \Tx_Phpunit_Service_Database::delete(
@@ -2021,7 +2070,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
         self::assertFalse(
             $this->subject->existsRecordWithUid(
-                'tx_phpunit_test', $uid
+                'tx_phpunit_test',
+                $uid
             )
         );
     }
@@ -2044,15 +2094,18 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     public function existsRecordWithUidIgnoresNonDummyRecords()
     {
         $uid = \Tx_Phpunit_Service_Database::insert(
-            'tx_phpunit_test', array('title' => 'foo')
+            'tx_phpunit_test',
+            array('title' => 'foo')
         );
 
         $testResult = $this->subject->existsRecordWithUid(
-            'tx_phpunit_test', $uid
+            'tx_phpunit_test',
+            $uid
         );
 
         \Tx_Phpunit_Service_Database::delete(
-            'tx_phpunit_test', 'uid = ' . $uid
+            'tx_phpunit_test',
+            'uid = ' . $uid
         );
         // We need to do this manually to not confuse the auto_increment counter
         // of the testing framework.
@@ -2112,7 +2165,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         self::assertFalse(
             $this->subject->existsExactlyOneRecord(
-                'tx_phpunit_test', 'title = "foo"'
+                'tx_phpunit_test',
+                'title = "foo"'
             )
         );
     }
@@ -2123,12 +2177,14 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     public function existsExactlyOneRecordForOneMatchReturnsTrue()
     {
         $this->subject->createRecord(
-            'tx_phpunit_test', array('title' => 'foo')
+            'tx_phpunit_test',
+            array('title' => 'foo')
         );
 
         self::assertTrue(
             $this->subject->existsExactlyOneRecord(
-                'tx_phpunit_test', 'title = "foo"'
+                'tx_phpunit_test',
+                'title = "foo"'
             )
         );
     }
@@ -2139,10 +2195,12 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     public function existsExactlyOneRecordForTwoMatchesReturnsFalse()
     {
         $this->subject->createRecord(
-            'tx_phpunit_test', array('title' => 'foo')
+            'tx_phpunit_test',
+            array('title' => 'foo')
         );
         $this->subject->createRecord(
-            'tx_phpunit_test', array('title' => 'foo')
+            'tx_phpunit_test',
+            array('title' => 'foo')
         );
 
         self::assertFalse(
@@ -2156,11 +2214,13 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     public function existsExactlyOneRecordIgnoresNonDummyRecords()
     {
         \Tx_Phpunit_Service_Database::insert(
-            'tx_phpunit_test', array('title' => 'foo')
+            'tx_phpunit_test',
+            array('title' => 'foo')
         );
 
         $testResult = $this->subject->existsExactlyOneRecord(
-            'tx_phpunit_test', 'title = "foo"'
+            'tx_phpunit_test',
+            'title = "foo"'
         );
 
         \Tx_Phpunit_Service_Database::delete(
@@ -2553,7 +2613,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         self::assertSame(
             1,
             $this->subject->countRecords(
-                'pages', 'uid=' . $uid
+                'pages',
+                'uid=' . $uid
             )
         );
     }
@@ -2667,7 +2728,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         self::assertSame(
             0,
             $this->subject->countRecords(
-                'pages', 'uid=' . $uid
+                'pages',
+                'uid=' . $uid
             )
         );
     }
@@ -2793,7 +2855,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         self::assertSame(
             1,
             $this->subject->countRecords(
-                'pages', 'uid=' . $uid
+                'pages',
+                'uid=' . $uid
             )
         );
     }
@@ -2907,7 +2970,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         self::assertSame(
             0,
             $this->subject->countRecords(
-                'pages', 'uid=' . $uid
+                'pages',
+                'uid=' . $uid
             )
         );
     }
@@ -3033,7 +3097,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         self::assertSame(
             1,
             $this->subject->countRecords(
-                'tt_content', 'uid=' . $uid
+                'tt_content',
+                'uid=' . $uid
             )
         );
     }
@@ -3123,7 +3188,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         self::assertSame(
             0,
             $this->subject->countRecords(
-                'tt_content', 'uid=' . $uid
+                'tt_content',
+                'uid=' . $uid
             )
         );
     }
@@ -3271,7 +3337,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         self::assertSame(
             1,
             $this->subject->countRecords(
-                'sys_template', 'uid=' . $uid
+                'sys_template',
+                'uid=' . $uid
             )
         );
     }
@@ -3335,7 +3402,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         self::assertSame(
             0,
             $this->subject->countRecords(
-                'sys_template', 'uid=' . $uid
+                'sys_template',
+                'uid=' . $uid
             )
         );
     }
@@ -3587,7 +3655,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
         $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
         $dummyFile = $this->subject->createDummyZipArchive(
-            'foo.zip', array($this->subject->createDummyFile('bar.txt'))
+            'foo.zip',
+            array($this->subject->createDummyFile('bar.txt'))
         );
         $zip = new \ZipArchive();
         $zip->open($dummyFile);
@@ -3608,7 +3677,11 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
         $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
         $dummyFile = $this->subject->createDummyZipArchive(
-            'foo.zip', array($this->subject->createDummyFile('bar.txt', 'foo bar'))
+            'foo.zip',
+            array($this->subject->createDummyFile(
+                'bar.txt',
+                'foo bar'
+            ))
         );
         $zip = new \ZipArchive();
         $zip->open($dummyFile);
@@ -3630,9 +3703,10 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
         $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
         $dummyFile = $this->subject->createDummyZipArchive(
-            'foo.zip', array(
-                $this->subject->createDummyFile('foo.txt'),
-                $this->subject->createDummyFile('bar.txt'),
+            'foo.zip',
+            array(
+            $this->subject->createDummyFile('foo.txt'),
+            $this->subject->createDummyFile('bar.txt'),
             )
         );
         $zip = new \ZipArchive();
@@ -3658,7 +3732,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
         $this->subject->createDummyFolder('sub-folder');
         $dummyFile = $this->subject->createDummyZipArchive(
-            'foo.zip', array($this->subject->createDummyFile('sub-folder/foo.txt'))
+            'foo.zip',
+            array($this->subject->createDummyFile('sub-folder/foo.txt'))
         );
         $zip = new \ZipArchive();
         $zip->open($dummyFile);
@@ -3985,7 +4060,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         self::assertSame(
             1,
             $this->subject->countRecords(
-                'fe_groups', 'uid=' . $uid
+                'fe_groups',
+                'uid=' . $uid
             )
         );
     }
@@ -4026,7 +4102,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         self::assertSame(
             0,
             $this->subject->countRecords(
-                'fe_groups', 'uid=' . $uid
+                'fe_groups',
+                'uid=' . $uid
             )
         );
     }
@@ -4111,7 +4188,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         self::assertSame(
             1,
             $this->subject->countRecords(
-                'fe_users', 'uid=' . $uid
+                'fe_users',
+                'uid=' . $uid
             )
         );
     }
@@ -4152,7 +4230,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         self::assertSame(
             0,
             $this->subject->countRecords(
-                'fe_users', 'uid=' . $uid
+                'fe_users',
+                'uid=' . $uid
             )
         );
     }
@@ -4218,7 +4297,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         self::assertSame(
             1,
             $this->subject->countRecords(
-                'fe_users', 'uid=' . $uid
+                'fe_users',
+                'uid=' . $uid
             )
         );
     }
@@ -4271,7 +4351,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     public function frontEndUserMustHaveNoUserGroupListInTheDataArray()
     {
         $this->subject->createFrontEndUser(
-            '', array('usergroup' => '1,2,4,5')
+            '',
+            array('usergroup' => '1,2,4,5')
         );
     }
 
@@ -4341,7 +4422,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         self::assertSame(
             1,
             $this->subject->countRecords(
-                'be_users', 'uid=' . $this->subject->createBackEndUser()
+                'be_users',
+                'uid=' . $this->subject->createBackEndUser()
             )
         );
     }
@@ -4840,7 +4922,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->createFakeFrontEnd();
 
         $feUserId = $this->subject->createFrontEndUser(
-            '', array('name' => 'John Doe')
+            '',
+            array('name' => 'John Doe')
         );
         $this->subject->loginFrontEndUser($feUserId);
 
@@ -4989,7 +5072,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
         $this->subject->createAndLogInFrontEndUser(
-            '', array('name' => 'John Doe')
+            '',
+            array('name' => 'John Doe')
         );
 
         self::assertSame(
@@ -5196,7 +5280,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->checkIfExtensionUserPhpUnittestIsLoaded();
 
         $testingFramework = new \Tx_Phpunit_Framework(
-            'user_phpunittest', array('user_phpunittest2')
+            'user_phpunittest',
+            array('user_phpunittest2')
         );
         self::assertSame(
             'user_phpunittest_is_dummy_record',
@@ -5206,8 +5291,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
 
     /*
-	 * Tests concerning createBackEndUserGroup
-	 */
+     * Tests concerning createBackEndUserGroup
+     */
 
     /**
      * @test
@@ -5230,7 +5315,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
         self::assertTrue(
             $this->subject->existsRecord(
-                'be_groups', 'uid = ' . $backendGroupUid
+                'be_groups',
+                'uid = ' . $backendGroupUid
             )
         );
     }
@@ -5246,7 +5332,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
         self::assertTrue(
             $this->subject->existsRecord(
-                'be_groups', 'title = "foo group"'
+                'be_groups',
+                'title = "foo group"'
             )
         );
     }

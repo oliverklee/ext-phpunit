@@ -64,5 +64,4 @@ class TestingTagViewHelper extends \Tx_Phpunit_ViewHelpers_AbstractTagViewHelper
     {
         return $this->renderTag($this->tagName, $this->attributes, $this->content);
     }
-
 }

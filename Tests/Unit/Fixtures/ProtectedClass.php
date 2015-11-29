@@ -69,7 +69,7 @@ class ProtectedClass
      *
      * @return string
      */
-    static public function getStaticProperty()
+    public static function getStaticProperty()
     {
         return self::$protectedStaticProperty;
     }
@@ -81,7 +81,7 @@ class ProtectedClass
      *
      * @return void
      */
-    static public function setStaticProperty($value)
+    public static function setStaticProperty($value)
     {
         self::$protectedStaticProperty = $value;
     }

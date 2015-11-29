@@ -220,7 +220,8 @@ class Tx_Phpunit_Reports_Status implements StatusProviderInterface
         $heading = $this->translate('status_memoryLimit');
         $message = sprintf(
             $this->translate('status_memoryLimit_tooLittle'),
-            self::MEMORY_REQUIRED, self::MEMORY_RECOMMENDED
+            self::MEMORY_REQUIRED,
+            self::MEMORY_RECOMMENDED
         );
 
         if ($memoryLimitInBytes < $requiredMemoryLimitInBytes) {
@@ -287,8 +288,10 @@ class Tx_Phpunit_Reports_Status implements StatusProviderInterface
      */
     protected function getExcludedExtensionsStatus()
     {
-        $extensionKeys = GeneralUtility::trimExplode(',',
-            $this->extensionSettingsService->getAsString('excludeextensions'));
+        $extensionKeys = GeneralUtility::trimExplode(
+            ',',
+            $this->extensionSettingsService->getAsString('excludeextensions')
+        );
 
         return GeneralUtility::makeInstance(
             'TYPO3\\CMS\\Reports\\Status',

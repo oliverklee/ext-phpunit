@@ -172,7 +172,8 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface
 
         $extensionKeysToExamine = array_diff(
             $this->getLoadedExtensionKeys(),
-            $this->getExcludedExtensionKeys(), $this->getDummyExtensionKeys()
+            $this->getExcludedExtensionKeys(),
+            $this->getDummyExtensionKeys()
         );
 
         foreach ($extensionKeysToExamine as $extensionKey) {
@@ -221,8 +222,11 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface
      */
     protected function getExcludedExtensionKeys()
     {
-        return GeneralUtility::trimExplode(',', $this->extensionSettingsService->getAsString('excludeextensions'),
-            true);
+        return GeneralUtility::trimExplode(
+            ',',
+            $this->extensionSettingsService->getAsString('excludeextensions'),
+            true
+        );
     }
 
     /**
@@ -301,7 +305,8 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface
 
         if ($testsPath === '') {
             throw new Tx_Phpunit_Exception_NoTestsDirectory(
-                'The extension "' . $extensionKey . '" does not have a tests directory.', 1334439826
+                'The extension "' . $extensionKey . '" does not have a tests directory.',
+                1334439826
             );
         }
 

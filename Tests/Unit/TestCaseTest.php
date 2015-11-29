@@ -54,9 +54,11 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
 
         $this->protectedClassInstance = new ProtectedClass();
         $this->mock = $this->getMock('OliverKlee\\Phpunit\\Tests\\Unit\\Fixtures\\ProtectedClass', array('dummy'));
-        $this->accessibleMock = $this->getAccessibleMock('OliverKlee\\Phpunit\\Tests\\Unit\\Fixtures\\ProtectedClass',
-            array('dummy'));
-        $this->staticProperty = ProtectedClass::getStaticProperty();
+        $this->accessibleMock = $this->getAccessibleMock(
+            'OliverKlee\\Phpunit\\Tests\\Unit\\Fixtures\\ProtectedClass',
+            array('dummy')
+        );
+            $this->staticProperty = ProtectedClass::getStaticProperty();
     }
 
     protected function tearDown()
@@ -391,7 +393,8 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
             '2: 1, 1',
             $this->accessibleMock->_callRef(
                 'argumentChecker',
-                $parameter, $parameter
+                $parameter,
+                $parameter
             )
         );
     }
@@ -406,7 +409,9 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
             '3: 1, 1, 1',
             $this->accessibleMock->_callRef(
                 'argumentChecker',
-                $parameter, $parameter, $parameter
+                $parameter,
+                $parameter,
+                $parameter
             )
         );
     }
@@ -421,7 +426,10 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
             '4: 1, 1, 1, 1',
             $this->accessibleMock->_callRef(
                 'argumentChecker',
-                $parameter, $parameter, $parameter, $parameter
+                $parameter,
+                $parameter,
+                $parameter,
+                $parameter
             )
         );
     }
@@ -436,7 +444,11 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
             '5: 1, 1, 1, 1, 1',
             $this->accessibleMock->_callRef(
                 'argumentChecker',
-                $parameter, $parameter, $parameter, $parameter, $parameter
+                $parameter,
+                $parameter,
+                $parameter,
+                $parameter,
+                $parameter
             )
         );
     }
@@ -451,7 +463,12 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
             '6: 1, 1, 1, 1, 1, 1',
             $this->accessibleMock->_callRef(
                 'argumentChecker',
-                $parameter, $parameter, $parameter, $parameter, $parameter, $parameter
+                $parameter,
+                $parameter,
+                $parameter,
+                $parameter,
+                $parameter,
+                $parameter
             )
         );
     }
@@ -466,7 +483,13 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
             '7: 1, 1, 1, 1, 1, 1, 1',
             $this->accessibleMock->_callRef(
                 'argumentChecker',
-                $parameter, $parameter, $parameter, $parameter, $parameter, $parameter, $parameter
+                $parameter,
+                $parameter,
+                $parameter,
+                $parameter,
+                $parameter,
+                $parameter,
+                $parameter
             )
         );
     }
@@ -481,7 +504,14 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
             '8: 1, 1, 1, 1, 1, 1, 1, 1',
             $this->accessibleMock->_callRef(
                 'argumentChecker',
-                $parameter, $parameter, $parameter, $parameter, $parameter, $parameter, $parameter, $parameter
+                $parameter,
+                $parameter,
+                $parameter,
+                $parameter,
+                $parameter,
+                $parameter,
+                $parameter,
+                $parameter
             )
         );
     }
@@ -496,7 +526,14 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
             '9: 1, 1, 1, 1, 1, 1, 1, 1, 1',
             $this->accessibleMock->_callRef(
                 'argumentChecker',
-                $parameter, $parameter, $parameter, $parameter, $parameter, $parameter, $parameter, $parameter,
+                $parameter,
+                $parameter,
+                $parameter,
+                $parameter,
+                $parameter,
+                $parameter,
+                $parameter,
+                $parameter,
                 $parameter
             )
         );
@@ -510,7 +547,15 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
     {
         $this->accessibleMock->_callRef(
             'argumentChecker',
-            $parameter, $parameter, $parameter, $parameter, $parameter, $parameter, $parameter, $parameter, $parameter,
+            $parameter,
+            $parameter,
+            $parameter,
+            $parameter,
+            $parameter,
+            $parameter,
+            $parameter,
+            $parameter,
+            $parameter,
             $parameter
         );
     }

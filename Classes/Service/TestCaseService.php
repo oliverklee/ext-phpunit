@@ -105,7 +105,8 @@ class Tx_Phpunit_Service_TestCaseService implements SingletonInterface
         }
         if (!is_readable($directory)) {
             throw new InvalidArgumentException(
-                'The directory ' . $directory . ' exists, but is not readable.', 1334439813
+                'The directory ' . $directory . ' exists, but is not readable.',
+                1334439813
             );
         }
 
