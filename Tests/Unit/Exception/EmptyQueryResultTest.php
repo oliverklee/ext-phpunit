@@ -1,4 +1,6 @@
 <?php
+namespace OliverKlee\Phpunit\Tests\Unit\Exception;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -22,7 +24,7 @@ use TYPO3\CMS\Core\Database\DatabaseConnection;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Tests_Unit_Exception_EmptyQueryResultTest extends Tx_Phpunit_TestCase
+class EmptyQueryResultTest extends \Tx_Phpunit_TestCase
 {
     /**
      * the saved content of $GLOBALS['TYPO3_DB']->debugOutput
@@ -40,7 +42,7 @@ class Tx_Phpunit_Tests_Unit_Exception_EmptyQueryResultTest extends Tx_Phpunit_Te
 
     protected function setUp()
     {
-        $databaseConnection = Tx_Phpunit_Service_Database::getDatabaseConnection();
+        $databaseConnection = \Tx_Phpunit_Service_Database::getDatabaseConnection();
         $this->savedDebugOutput = $databaseConnection->debugOutput;
         $this->savedStoreLastBuildQuery = $databaseConnection->store_lastBuiltQuery;
 
@@ -50,7 +52,7 @@ class Tx_Phpunit_Tests_Unit_Exception_EmptyQueryResultTest extends Tx_Phpunit_Te
 
     protected function tearDown()
     {
-        $databaseConnection = Tx_Phpunit_Service_Database::getDatabaseConnection();
+        $databaseConnection = \Tx_Phpunit_Service_Database::getDatabaseConnection();
         $databaseConnection->debugOutput = $this->savedDebugOutput;
         $databaseConnection->store_lastBuiltQuery = $this->savedStoreLastBuildQuery;
     }
@@ -58,13 +60,13 @@ class Tx_Phpunit_Tests_Unit_Exception_EmptyQueryResultTest extends Tx_Phpunit_Te
     /**
      * @test
      *
-     * @expectedException Tx_Phpunit_Exception_EmptyQueryResult
+     * @expectedException \Tx_Phpunit_Exception_EmptyQueryResult
      *
-     * @throws Tx_Phpunit_Exception_EmptyQueryResult
+     * @throws \Tx_Phpunit_Exception_EmptyQueryResult
      */
     public function exceptionCanBeThrown()
     {
-        throw new Tx_Phpunit_Exception_EmptyQueryResult(1334438911);
+        throw new \Tx_Phpunit_Exception_EmptyQueryResult(1334438911);
     }
 
     /**
@@ -72,8 +74,8 @@ class Tx_Phpunit_Tests_Unit_Exception_EmptyQueryResultTest extends Tx_Phpunit_Te
      */
     public function messageAfterQueryWithLastQueryEnabledContainsLastQuery()
     {
-        Tx_Phpunit_Service_Database::getDatabaseConnection()->exec_SELECTquery('title', 'tx_phpunit_test', '');
-        $subject = new Tx_Phpunit_Exception_EmptyQueryResult();
+        \Tx_Phpunit_Service_Database::getDatabaseConnection()->exec_SELECTquery('title', 'tx_phpunit_test', '');
+        $subject = new \Tx_Phpunit_Exception_EmptyQueryResult();
 
         self::assertContains(
             'SELECT',

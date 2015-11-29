@@ -1,4 +1,6 @@
 <?php
+namespace OliverKlee\Phpunit\Tests\Unit\Exception;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -20,17 +22,17 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Tests_Unit_Exception_NoTestsDirectoryTest extends Tx_Phpunit_TestCase
+class NoTestsDirectoryTest extends \Tx_Phpunit_TestCase
 {
     /**
      * @test
      *
-     * @expectedException Tx_Phpunit_Exception_NoTestsDirectory
+     * @expectedException \Tx_Phpunit_Exception_NoTestsDirectory
      *
-     * @throws Tx_Phpunit_Exception_NoTestsDirectory
+     * @throws \Tx_Phpunit_Exception_NoTestsDirectory
      */
     public function exceptionCanBeThrown()
     {
-        throw new Tx_Phpunit_Exception_NoTestsDirectory('some message', 12345);
+        throw new \Tx_Phpunit_Exception_NoTestsDirectory('some message', 12345);
     }
 }
