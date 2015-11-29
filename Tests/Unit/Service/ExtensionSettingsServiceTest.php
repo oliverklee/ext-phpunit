@@ -1,4 +1,6 @@
 <?php
+namespace OliverKlee\Phpunit\Tests\Unit\Service;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -15,15 +17,13 @@
 /**
  * Test case.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Tests_Unit_Service_ExtensionSettingsServiceTest extends Tx_Phpunit_TestCase
+class ExtensionSettingsServiceTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Phpunit_Service_ExtensionSettingsService
+     * @var \Tx_Phpunit_Service_ExtensionSettingsService
      */
     protected $subject = null;
 
@@ -52,7 +52,7 @@ class Tx_Phpunit_Tests_Unit_Service_ExtensionSettingsServiceTest extends Tx_Phpu
         $this->extensionConfigurationBackup = $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['phpunit'] = serialize($this->testConfiguration);
 
-        $this->subject = new Tx_Phpunit_Service_ExtensionSettingsService();
+        $this->subject = new \Tx_Phpunit_Service_ExtensionSettingsService();
     }
 
     protected function tearDown()

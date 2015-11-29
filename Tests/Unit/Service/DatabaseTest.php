@@ -1,4 +1,6 @@
 <?php
+namespace OliverKlee\Phpunit\Tests\Unit\Service;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -12,27 +14,24 @@
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Test case.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
+class DatabaseTest extends \Tx_PhpUnit_TestCase
 {
     /**
-     * @var Tx_Phpunit_Framework
+     * @var \Tx_Phpunit_Framework
      */
     private $testingFramework;
 
     protected function setUp()
     {
-        $this->testingFramework = new Tx_Phpunit_Framework('tx_phpunit');
+        $this->testingFramework = new \Tx_Phpunit_Framework('tx_phpunit');
     }
 
     protected function tearDown()
@@ -121,21 +120,21 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function enableFieldsThrowsExceptionForTooSmallShowHidden()
     {
-        Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', -2);
+        \Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', -2);
     }
 
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function enableFieldsThrowsExceptionForTooBigShowHidden()
     {
-        Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', 2);
+        \Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', 2);
     }
 
     /**
@@ -144,8 +143,8 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     public function enableFieldsIsDifferentForDifferentTables()
     {
         self::assertNotEquals(
-            Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test'),
-            Tx_Phpunit_Service_Database::enableFields('pages')
+            \Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test'),
+            \Tx_Phpunit_Service_Database::enableFields('pages')
         );
     }
 
@@ -155,8 +154,8 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     public function enableFieldsCanBeDifferentForShowHiddenZeroAndOne()
     {
         self::assertNotEquals(
-            Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', 0),
-            Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', 1)
+            \Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', 0),
+            \Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', 1)
         );
     }
 
@@ -166,8 +165,8 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     public function enableFieldsAreTheSameForShowHiddenZeroAndMinusOne()
     {
         self::assertSame(
-            Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', 0),
-            Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', -1)
+            \Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', 0),
+            \Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', -1)
         );
     }
 
@@ -177,8 +176,8 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     public function enableFieldsCanBeDifferentForShowHiddenOneAndMinusOne()
     {
         self::assertNotEquals(
-            Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', 1),
-            Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', -1)
+            \Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', 1),
+            \Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', -1)
         );
     }
 
@@ -188,8 +187,8 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     public function enableFieldsCanBeDifferentForDifferentIgnores()
     {
         self::assertNotEquals(
-            Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', 0, array()),
-            Tx_Phpunit_Service_Database::enableFields(
+            \Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', 0, array()),
+            \Tx_Phpunit_Service_Database::enableFields(
                 'tx_phpunit_test', 0, array('endtime' => true)
             )
         );
@@ -206,7 +205,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     {
         self::assertSame(
             '',
-            Tx_Phpunit_Service_Database::createRecursivePageList('')
+            \Tx_Phpunit_Service_Database::createRecursivePageList('')
         );
     }
 
@@ -217,7 +216,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     {
         self::assertSame(
             '',
-            Tx_Phpunit_Service_Database::createRecursivePageList('', 0)
+            \Tx_Phpunit_Service_Database::createRecursivePageList('', 0)
         );
     }
 
@@ -228,18 +227,18 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     {
         self::assertSame(
             '',
-            Tx_Phpunit_Service_Database::createRecursivePageList('', 1)
+            \Tx_Phpunit_Service_Database::createRecursivePageList('', 1)
         );
     }
 
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function createRecursivePageListThrowsWithNegativeRecursion()
     {
-        Tx_Phpunit_Service_Database::createRecursivePageList('', -1);
+        \Tx_Phpunit_Service_Database::createRecursivePageList('', -1);
     }
 
     /**
@@ -252,7 +251,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
 
         self::assertSame(
             (string)$uid,
-            Tx_Phpunit_Service_Database::createRecursivePageList((string)$uid, 0)
+            \Tx_Phpunit_Service_Database::createRecursivePageList((string)$uid, 0)
         );
     }
 
@@ -268,7 +267,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
         self::assertSame(
             $this->sortExplode($uid1 . ',' . $uid2),
             $this->sortExplode(
-                Tx_Phpunit_Service_Database::createRecursivePageList($uid1 . ',' . $uid2, 0)
+                \Tx_Phpunit_Service_Database::createRecursivePageList($uid1 . ',' . $uid2, 0)
             )
         );
     }
@@ -284,7 +283,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
 
         self::assertSame(
             $this->sortExplode($uid . ',' . $subFolderUid),
-            $this->sortExplode(Tx_Phpunit_Service_Database::createRecursivePageList($uid, 1))
+            $this->sortExplode(\Tx_Phpunit_Service_Database::createRecursivePageList($uid, 1))
         );
     }
 
@@ -298,7 +297,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
 
         self::assertSame(
             (string)$uid,
-            Tx_Phpunit_Service_Database::createRecursivePageList($uid, 0)
+            \Tx_Phpunit_Service_Database::createRecursivePageList($uid, 0)
         );
     }
 
@@ -313,7 +312,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
 
         self::assertSame(
             $this->sortExplode($uid . ',' . $subFolderUid1 . ',' . $subFolderUid2),
-            $this->sortExplode(Tx_Phpunit_Service_Database::createRecursivePageList($uid, 1))
+            $this->sortExplode(\Tx_Phpunit_Service_Database::createRecursivePageList($uid, 1))
         );
     }
 
@@ -332,7 +331,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
                 $uid1 . ',' . $uid2 . ',' . $subFolderUid1 . ',' . $subFolderUid2
             ),
             $this->sortExplode(
-                Tx_Phpunit_Service_Database::createRecursivePageList($uid1 . ',' . $uid2, 1)
+                \Tx_Phpunit_Service_Database::createRecursivePageList($uid1 . ',' . $uid2, 1)
             )
         );
     }
@@ -347,11 +346,11 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
 
         self::assertSame(
             (string)$uid,
-            Tx_Phpunit_Service_Database::createRecursivePageList($uid, 0)
+            \Tx_Phpunit_Service_Database::createRecursivePageList($uid, 0)
         );
         self::assertSame(
             $this->sortExplode($uid . ',' . $subFolderUid),
-            $this->sortExplode(Tx_Phpunit_Service_Database::createRecursivePageList($uid, 1))
+            $this->sortExplode(\Tx_Phpunit_Service_Database::createRecursivePageList($uid, 1))
         );
     }
 
@@ -365,11 +364,11 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
 
         self::assertSame(
             $this->sortExplode($uid . ',' . $subFolderUid),
-            $this->sortExplode(Tx_Phpunit_Service_Database::createRecursivePageList($uid, 1))
+            $this->sortExplode(\Tx_Phpunit_Service_Database::createRecursivePageList($uid, 1))
         );
         self::assertSame(
             (string)$uid,
-            Tx_Phpunit_Service_Database::createRecursivePageList($uid, 0)
+            \Tx_Phpunit_Service_Database::createRecursivePageList($uid, 0)
         );
     }
 
@@ -381,21 +380,21 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function getColumnsInTableForEmptyTableNameThrowsException()
     {
-        Tx_Phpunit_Service_Database::getColumnsInTable('');
+        \Tx_Phpunit_Service_Database::getColumnsInTable('');
     }
 
     /**
      * @test
      *
-     * @expectedException BadMethodCallException
+     * @expectedException \BadMethodCallException
      */
     public function getColumnsInTableForInexistentTableNameThrowsException()
     {
-        Tx_Phpunit_Service_Database::getColumnsInTable('tx_phpunit_doesnotexist');
+        \Tx_Phpunit_Service_Database::getColumnsInTable('tx_phpunit_doesnotexist');
     }
 
     /**
@@ -403,7 +402,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
      */
     public function getColumnsInTableReturnsArrayThatContainsExistingColumn()
     {
-        $columns = Tx_Phpunit_Service_Database::getColumnsInTable('tx_phpunit_test');
+        $columns = \Tx_Phpunit_Service_Database::getColumnsInTable('tx_phpunit_test');
 
         self::assertTrue(
             isset($columns['title'])
@@ -415,7 +414,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
      */
     public function getColumnsInTableReturnsArrayThatNotContainsInexistentColumn()
     {
-        $columns = Tx_Phpunit_Service_Database::getColumnsInTable('tx_phpunit_test');
+        $columns = \Tx_Phpunit_Service_Database::getColumnsInTable('tx_phpunit_test');
 
         self::assertFalse(
             isset($columns['does_not_exist'])
@@ -430,11 +429,11 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function getColumnDefinitionForEmptyTableNameThrowsException()
     {
-        Tx_Phpunit_Service_Database::getColumnDefinition('', 'uid');
+        \Tx_Phpunit_Service_Database::getColumnDefinition('', 'uid');
     }
 
     /**
@@ -442,7 +441,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
      */
     public function getColumnDefinitionReturnsArrayThatContainsFieldName()
     {
-        $definition = Tx_Phpunit_Service_Database::getColumnDefinition('tx_phpunit_test', 'title');
+        $definition = \Tx_Phpunit_Service_Database::getColumnDefinition('tx_phpunit_test', 'title');
 
         self::assertTrue(
             $definition['Field'] == 'title'
@@ -457,11 +456,11 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function tableHasColumnUidForEmptyTableNameThrowsException()
     {
-        Tx_Phpunit_Service_Database::tableHasColumnUid('');
+        \Tx_Phpunit_Service_Database::tableHasColumnUid('');
     }
 
     /**
@@ -470,7 +469,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     public function tableHasColumnUidIsTrueOnTableWithColumnUid()
     {
         self::assertTrue(
-            Tx_Phpunit_Service_Database::tableHasColumnUid('tx_phpunit_test')
+            \Tx_Phpunit_Service_Database::tableHasColumnUid('tx_phpunit_test')
         );
     }
 
@@ -480,7 +479,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     public function tableHasColumnUidIsFalseOnTableWithoutColumnUid()
     {
         self::assertFalse(
-            Tx_Phpunit_Service_Database::tableHasColumnUid('tx_phpunit_test_article_mm')
+            \Tx_Phpunit_Service_Database::tableHasColumnUid('tx_phpunit_test_article_mm')
         );
     }
 
@@ -490,8 +489,8 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     public function tableHasColumnUidCanReturnDifferentResultsForDifferentTables()
     {
         self::assertNotEquals(
-            Tx_Phpunit_Service_Database::tableHasColumnUid('tx_phpunit_test'),
-            Tx_Phpunit_Service_Database::tableHasColumnUid('tx_phpunit_test_article_mm')
+            \Tx_Phpunit_Service_Database::tableHasColumnUid('tx_phpunit_test'),
+            \Tx_Phpunit_Service_Database::tableHasColumnUid('tx_phpunit_test_article_mm')
         );
     }
 
@@ -506,7 +505,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     public function tableHasColumnReturnsTrueOnTableWithColumn()
     {
         self::assertTrue(
-            Tx_Phpunit_Service_Database::tableHasColumn(
+            \Tx_Phpunit_Service_Database::tableHasColumn(
                 'tx_phpunit_test', 'title'
             )
         );
@@ -518,7 +517,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     public function tableHasColumnReturnsFalseOnTableWithoutColumn()
     {
         self::assertFalse(
-            Tx_Phpunit_Service_Database::tableHasColumn(
+            \Tx_Phpunit_Service_Database::tableHasColumn(
                 'tx_phpunit_test', 'inexistent_column'
             )
         );
@@ -527,11 +526,11 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function tableHasColumnThrowsExceptionOnEmptyTableName()
     {
-        Tx_Phpunit_Service_Database::tableHasColumn(
+        \Tx_Phpunit_Service_Database::tableHasColumn(
             '', 'title'
         );
     }
@@ -542,7 +541,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     public function tableHasColumnReturnsFalseOnEmptyColumnName()
     {
         self::assertFalse(
-            Tx_Phpunit_Service_Database::tableHasColumn(
+            \Tx_Phpunit_Service_Database::tableHasColumn(
                 'tx_phpunit_test', ''
             )
         );
@@ -556,11 +555,11 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function deleteForEmptyTableNameThrowsException()
     {
-        Tx_Phpunit_Service_Database::delete(
+        \Tx_Phpunit_Service_Database::delete(
             '', 'uid = 0'
         );
     }
@@ -572,7 +571,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     {
         $uid = $this->testingFramework->createRecord('tx_phpunit_test');
 
-        Tx_Phpunit_Service_Database::delete(
+        \Tx_Phpunit_Service_Database::delete(
             'tx_phpunit_test', 'uid = ' . $uid
         );
 
@@ -590,7 +589,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     {
         self::assertSame(
             0,
-            Tx_Phpunit_Service_Database::delete(
+            \Tx_Phpunit_Service_Database::delete(
                 'tx_phpunit_test', 'uid = 0'
             )
         );
@@ -605,7 +604,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
 
         self::assertSame(
             1,
-            Tx_Phpunit_Service_Database::delete(
+            \Tx_Phpunit_Service_Database::delete(
                 'tx_phpunit_test', 'uid = ' . $uid
             )
         );
@@ -621,7 +620,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
 
         self::assertSame(
             2,
-            Tx_Phpunit_Service_Database::delete(
+            \Tx_Phpunit_Service_Database::delete(
                 'tx_phpunit_test',
                 'uid IN(' . $uid1 . ',' . $uid2 . ')'
             )
@@ -636,11 +635,11 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function updateForEmptyTableNameThrowsException()
     {
-        Tx_Phpunit_Service_Database::update(
+        \Tx_Phpunit_Service_Database::update(
             '', 'uid = 0', array()
         );
     }
@@ -652,7 +651,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     {
         $uid = $this->testingFramework->createRecord('tx_phpunit_test');
 
-        Tx_Phpunit_Service_Database::update(
+        \Tx_Phpunit_Service_Database::update(
             'tx_phpunit_test', 'uid = ' . $uid, array('title' => 'foo')
         );
 
@@ -670,7 +669,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     {
         self::assertSame(
             0,
-            Tx_Phpunit_Service_Database::update(
+            \Tx_Phpunit_Service_Database::update(
                 'tx_phpunit_test', 'uid = 0', array('title' => 'foo')
             )
         );
@@ -685,7 +684,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
 
         self::assertSame(
             1,
-            Tx_Phpunit_Service_Database::update(
+            \Tx_Phpunit_Service_Database::update(
                 'tx_phpunit_test', 'uid = ' . $uid, array('title' => 'foo')
             )
         );
@@ -701,7 +700,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
 
         self::assertSame(
             2,
-            Tx_Phpunit_Service_Database::update(
+            \Tx_Phpunit_Service_Database::update(
                 'tx_phpunit_test',
                 'uid IN(' . $uid1 . ',' . $uid2 . ')',
                 array('title' => 'foo')
@@ -717,11 +716,11 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function insertForEmptyTableNameThrowsException()
     {
-        Tx_Phpunit_Service_Database::insert(
+        \Tx_Phpunit_Service_Database::insert(
             '', array('is_dummy_record' => 1)
         );
     }
@@ -729,11 +728,11 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function insertForEmptyRecordDataThrowsException()
     {
-        Tx_Phpunit_Service_Database::insert(
+        \Tx_Phpunit_Service_Database::insert(
             'tx_phpunit_test', array()
         );
     }
@@ -743,7 +742,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
      */
     public function insertInsertsRecord()
     {
-        Tx_Phpunit_Service_Database::insert(
+        \Tx_Phpunit_Service_Database::insert(
             'tx_phpunit_test', array('title' => 'foo', 'is_dummy_record' => 1)
         );
         $this->testingFramework->markTableAsDirty('tx_phpunit_test');
@@ -760,7 +759,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
      */
     public function insertForTableWithUidReturnsUidOfCreatedRecord()
     {
-        $uid = Tx_Phpunit_Service_Database::insert(
+        $uid = \Tx_Phpunit_Service_Database::insert(
             'tx_phpunit_test', array('is_dummy_record' => 1)
         );
         $this->testingFramework->markTableAsDirty('tx_phpunit_test');
@@ -781,7 +780,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
 
         self::assertSame(
             0,
-            Tx_Phpunit_Service_Database::insert(
+            \Tx_Phpunit_Service_Database::insert(
                 'tx_phpunit_test_article_mm', array('is_dummy_record' => 1)
             )
         );
@@ -795,21 +794,21 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function selectForEmptyTableNameThrowsException()
     {
-        Tx_Phpunit_Service_Database::select('*', '');
+        \Tx_Phpunit_Service_Database::select('*', '');
     }
 
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function selectForEmptyFieldListThrowsException()
     {
-        Tx_Phpunit_Service_Database::select('', 'tx_phpunit_test');
+        \Tx_Phpunit_Service_Database::select('', 'tx_phpunit_test');
     }
 
     /**
@@ -819,28 +818,28 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     {
         self::assertInstanceOf(
             'mysqli_result',
-            Tx_Phpunit_Service_Database::select('title', 'tx_phpunit_test')
+            \Tx_Phpunit_Service_Database::select('title', 'tx_phpunit_test')
         );
     }
 
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function selectSingleForEmptyTableNameThrowsException()
     {
-        Tx_Phpunit_Service_Database::selectSingle('*', '');
+        \Tx_Phpunit_Service_Database::selectSingle('*', '');
     }
 
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function selectSingleForEmptyFieldListThrowsException()
     {
-        Tx_Phpunit_Service_Database::selectSingle('', 'tx_phpunit_test');
+        \Tx_Phpunit_Service_Database::selectSingle('', 'tx_phpunit_test');
     }
 
     /**
@@ -854,18 +853,18 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
 
         self::assertSame(
             array('uid' => (string)$uid),
-            Tx_Phpunit_Service_Database::selectSingle('uid', 'tx_phpunit_test', 'uid = ' . $uid)
+            \Tx_Phpunit_Service_Database::selectSingle('uid', 'tx_phpunit_test', 'uid = ' . $uid)
         );
     }
 
     /**
      * @test
      *
-     * @expectedException Tx_Phpunit_Exception_EmptyQueryResult
+     * @expectedException \Tx_Phpunit_Exception_EmptyQueryResult
      */
     public function selectSingleForNoResultsThrowsEmptyQueryResultException()
     {
-        Tx_Phpunit_Service_Database::selectSingle('uid', 'tx_phpunit_test', 'title = "nothing"');
+        \Tx_Phpunit_Service_Database::selectSingle('uid', 'tx_phpunit_test', 'title = "nothing"');
     }
 
     /**
@@ -882,7 +881,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
 
         self::assertSame(
             array('uid' => (string)$uid),
-            Tx_Phpunit_Service_Database::selectSingle('uid', 'tx_phpunit_test', '', '', 'title DESC')
+            \Tx_Phpunit_Service_Database::selectSingle('uid', 'tx_phpunit_test', '', '', 'title DESC')
         );
     }
 
@@ -900,7 +899,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
 
         self::assertSame(
             array('uid' => (string)$uid),
-            Tx_Phpunit_Service_Database::selectSingle('uid', 'tx_phpunit_test', '', '', 'title', 1)
+            \Tx_Phpunit_Service_Database::selectSingle('uid', 'tx_phpunit_test', '', '', 'title', 1)
         );
     }
 
@@ -908,21 +907,21 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function selectMultipleForEmptyTableNameThrowsException()
     {
-        Tx_Phpunit_Service_Database::selectMultiple('*', '');
+        \Tx_Phpunit_Service_Database::selectMultiple('*', '');
     }
 
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function selectMultipleForEmptyFieldListThrowsException()
     {
-        Tx_Phpunit_Service_Database::selectMultiple('', 'tx_phpunit_test');
+        \Tx_Phpunit_Service_Database::selectMultiple('', 'tx_phpunit_test');
     }
 
     /**
@@ -932,7 +931,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     {
         self::assertSame(
             array(),
-            Tx_Phpunit_Service_Database::selectMultiple(
+            \Tx_Phpunit_Service_Database::selectMultiple(
                 'uid', 'tx_phpunit_test', 'title = "nothing"'
             )
         );
@@ -949,7 +948,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
 
         self::assertSame(
             array(array('uid' => (string)$uid)),
-            Tx_Phpunit_Service_Database::selectMultiple('uid', 'tx_phpunit_test', 'uid = ' . $uid)
+            \Tx_Phpunit_Service_Database::selectMultiple('uid', 'tx_phpunit_test', 'uid = ' . $uid)
         );
     }
 
@@ -970,7 +969,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
                 array('title' => 'foo'),
                 array('title' => 'foo'),
             ),
-            Tx_Phpunit_Service_Database::selectMultiple(
+            \Tx_Phpunit_Service_Database::selectMultiple(
                 'title', 'tx_phpunit_test', 'title = "foo"'
             )
         );
@@ -983,7 +982,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     {
         self::assertSame(
             array(),
-            Tx_Phpunit_Service_Database::selectColumnForMultiple(
+            \Tx_Phpunit_Service_Database::selectColumnForMultiple(
                 'title', 'tx_phpunit_test', 'title = "nothing"'
             )
         );
@@ -1000,7 +999,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
 
         self::assertSame(
             array('foo'),
-            Tx_Phpunit_Service_Database::selectColumnForMultiple(
+            \Tx_Phpunit_Service_Database::selectColumnForMultiple(
                 'title', 'tx_phpunit_test', 'uid = ' . $uid
             )
         );
@@ -1018,7 +1017,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
             'tx_phpunit_test', array('title' => 'bar')
         );
 
-        $result = Tx_Phpunit_Service_Database::selectColumnForMultiple(
+        $result = \Tx_Phpunit_Service_Database::selectColumnForMultiple(
             'title', 'tx_phpunit_test', 'uid = ' . $uid1 . ' OR uid = ' . $uid2
         );
         sort($result);
@@ -1039,7 +1038,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     public function getAllTableNamesContainsExistingTable()
     {
         self::assertTrue(
-            in_array('tx_phpunit_test', Tx_Phpunit_Service_Database::getAllTableNames())
+            in_array('tx_phpunit_test', \Tx_Phpunit_Service_Database::getAllTableNames())
         );
     }
 
@@ -1049,7 +1048,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     public function getAllTableNamesNotContainsInexistentTable()
     {
         self::assertFalse(
-            in_array('tx_phpunit_doesnotexist', Tx_Phpunit_Service_Database::getAllTableNames())
+            in_array('tx_phpunit_doesnotexist', \Tx_Phpunit_Service_Database::getAllTableNames())
         );
     }
 
@@ -1061,11 +1060,11 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function existsTableWithEmptyTableNameThrowsException()
     {
-        Tx_Phpunit_Service_Database::existsTable('');
+        \Tx_Phpunit_Service_Database::existsTable('');
     }
 
     /**
@@ -1074,7 +1073,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     public function existsTableForExistingTableReturnsTrue()
     {
         self::assertTrue(
-            Tx_Phpunit_Service_Database::existsTable('tx_phpunit_test')
+            \Tx_Phpunit_Service_Database::existsTable('tx_phpunit_test')
         );
     }
 
@@ -1084,7 +1083,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     public function existsTableForInexistentTableReturnsFalse()
     {
         self::assertFalse(
-            Tx_Phpunit_Service_Database::existsTable('tx_phpunit_doesnotexist')
+            \Tx_Phpunit_Service_Database::existsTable('tx_phpunit_doesnotexist')
         );
     }
 
@@ -1098,7 +1097,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
      */
     public function getTcaForTableReturnsValidTcaArray()
     {
-        $tca = Tx_Phpunit_Service_Database::getTcaForTable('tx_phpunit_test');
+        $tca = \Tx_Phpunit_Service_Database::getTcaForTable('tx_phpunit_test');
 
         self::assertTrue(is_array($tca['ctrl']));
         self::assertTrue(is_array($tca['interface']));
@@ -1110,31 +1109,31 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function getTcaForTableWithEmptyTableNameThrowsExceptionTca()
     {
-        Tx_Phpunit_Service_Database::getTcaForTable('');
+        \Tx_Phpunit_Service_Database::getTcaForTable('');
     }
 
     /**
      * @test
      *
-     * @expectedException BadMethodCallException
+     * @expectedException \BadMethodCallException
      */
     public function getTcaForTableWithInexistentTableNameThrowsExceptionTca()
     {
-        Tx_Phpunit_Service_Database::getTcaForTable('tx_phpunit_doesnotexist');
+        \Tx_Phpunit_Service_Database::getTcaForTable('tx_phpunit_doesnotexist');
     }
 
     /**
      * @test
      *
-     * @expectedException BadMethodCallException
+     * @expectedException \BadMethodCallException
      */
     public function getTcaForTableThrowsExceptionOnTableWithoutTca()
     {
-        Tx_Phpunit_Service_Database::getTcaForTable('tx_phpunit_test_article_mm');
+        \Tx_Phpunit_Service_Database::getTcaForTable('tx_phpunit_test_article_mm');
     }
 
     /**
@@ -1142,7 +1141,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
      */
     public function getTcaForTableCanLoadFieldsAddedByExtensions()
     {
-        $tca = Tx_Phpunit_Service_Database::getTcaForTable('fe_users');
+        $tca = \Tx_Phpunit_Service_Database::getTcaForTable('fe_users');
 
         self::assertTrue(
             isset($tca['columns']['tx_phpunit_is_dummy_record'])
@@ -1159,7 +1158,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
      */
     public function countCanBeCalledWithEmptyWhereClause()
     {
-        Tx_Phpunit_Service_Database::count('tx_phpunit_test', '');
+        \Tx_Phpunit_Service_Database::count('tx_phpunit_test', '');
     }
 
     /**
@@ -1167,7 +1166,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
      */
     public function countCanBeCalledWithMissingWhereClause()
     {
-        Tx_Phpunit_Service_Database::count('tx_phpunit_test');
+        \Tx_Phpunit_Service_Database::count('tx_phpunit_test');
     }
 
     /**
@@ -1177,7 +1176,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     {
         self::assertSame(
             0,
-            Tx_Phpunit_Service_Database::count(
+            \Tx_Phpunit_Service_Database::count(
                 'tx_phpunit_test',
                 'uid = 42'
             )
@@ -1191,7 +1190,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     {
         self::assertSame(
             1,
-            Tx_Phpunit_Service_Database::count(
+            \Tx_Phpunit_Service_Database::count(
                 'tx_phpunit_test',
                 'uid = ' . $this->testingFramework->createRecord('tx_phpunit_test')
             )
@@ -1208,7 +1207,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
 
         self::assertSame(
             2,
-            Tx_Phpunit_Service_Database::count(
+            \Tx_Phpunit_Service_Database::count(
                 'tx_phpunit_test',
                 'uid IN(' . $uid1 . ',' . $uid2 . ')'
             )
@@ -1220,7 +1219,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
      */
     public function countCanBeCalledForTableWithoutUid()
     {
-        Tx_Phpunit_Service_Database::count('tx_phpunit_test_article_mm');
+        \Tx_Phpunit_Service_Database::count('tx_phpunit_test_article_mm');
     }
 
     /**
@@ -1228,17 +1227,17 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
      */
     public function countCanBeCalledWithMultipleTables()
     {
-        Tx_Phpunit_Service_Database::count('tx_phpunit_test, tx_phpunit_testchild');
+        \Tx_Phpunit_Service_Database::count('tx_phpunit_test, tx_phpunit_testchild');
     }
 
     /**
      * @test
      *
-     * @expectedException BadMethodCallException
+     * @expectedException \BadMethodCallException
      */
     public function countWithInvalidTableNameThrowsException()
     {
-        Tx_Phpunit_Service_Database::count('tx_phpunit_doesnotexist', 'uid = 42');
+        \Tx_Phpunit_Service_Database::count('tx_phpunit_doesnotexist', 'uid = 42');
     }
 
     /**
@@ -1246,37 +1245,37 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
      */
     public function countCanBeCalledWithJoinedTables()
     {
-        Tx_Phpunit_Service_Database::count('tx_phpunit_test JOIN tx_phpunit_testchild');
+        \Tx_Phpunit_Service_Database::count('tx_phpunit_test JOIN tx_phpunit_testchild');
     }
 
     /**
      * @test
      *
-     * @expectedException BadMethodCallException
+     * @expectedException \BadMethodCallException
      */
     public function countDoesNotAllowJoinWithoutTables()
     {
-        Tx_Phpunit_Service_Database::count('JOIN');
+        \Tx_Phpunit_Service_Database::count('JOIN');
     }
 
     /**
      * @test
      *
-     * @expectedException BadMethodCallException
+     * @expectedException \BadMethodCallException
      */
     public function countDoesNotAllowJoinWithOnlyOneTableOnTheLeft()
     {
-        Tx_Phpunit_Service_Database::count('tx_phpunit_test JOIN ');
+        \Tx_Phpunit_Service_Database::count('tx_phpunit_test JOIN ');
     }
 
     /**
      * @test
      *
-     * @expectedException BadMethodCallException
+     * @expectedException \BadMethodCallException
      */
     public function countDoesNotAllowJoinWithOnlyOneTableOnTheRight()
     {
-        Tx_Phpunit_Service_Database::count('JOIN tx_phpunit_test');
+        \Tx_Phpunit_Service_Database::count('JOIN tx_phpunit_test');
     }
 
 
@@ -1289,7 +1288,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
      */
     public function existsRecordWithEmptyWhereClauseIsAllowed()
     {
-        Tx_Phpunit_Service_Database::existsRecord('tx_phpunit_test', '');
+        \Tx_Phpunit_Service_Database::existsRecord('tx_phpunit_test', '');
     }
 
     /**
@@ -1297,27 +1296,27 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
      */
     public function existsRecordWithMissingWhereClauseIsAllowed()
     {
-        Tx_Phpunit_Service_Database::existsRecord('tx_phpunit_test');
+        \Tx_Phpunit_Service_Database::existsRecord('tx_phpunit_test');
     }
 
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function existsRecordWithEmptyTableNameThrowsException()
     {
-        Tx_Phpunit_Service_Database::existsRecord('');
+        \Tx_Phpunit_Service_Database::existsRecord('');
     }
 
     /**
      * @test
      *
-     * @expectedException BadMethodCallException
+     * @expectedException \BadMethodCallException
      */
     public function existsRecordWithInvalidTableNameThrowsException()
     {
-        Tx_Phpunit_Service_Database::existsRecord('tx_phpunit_doesnotexist');
+        \Tx_Phpunit_Service_Database::existsRecord('tx_phpunit_doesnotexist');
     }
 
     /**
@@ -1326,7 +1325,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     public function existsRecordForNoMatchesReturnsFalse()
     {
         self::assertFalse(
-            Tx_Phpunit_Service_Database::existsRecord('tx_phpunit_test', 'uid = 42')
+            \Tx_Phpunit_Service_Database::existsRecord('tx_phpunit_test', 'uid = 42')
         );
     }
 
@@ -1340,7 +1339,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
         );
 
         self::assertTrue(
-            Tx_Phpunit_Service_Database::existsRecord('tx_phpunit_test', 'uid = ' . $uid)
+            \Tx_Phpunit_Service_Database::existsRecord('tx_phpunit_test', 'uid = ' . $uid)
         );
     }
 
@@ -1357,7 +1356,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
         );
 
         self::assertTrue(
-            Tx_Phpunit_Service_Database::existsRecord('tx_phpunit_test', 'title = "foo"')
+            \Tx_Phpunit_Service_Database::existsRecord('tx_phpunit_test', 'title = "foo"')
         );
     }
 
@@ -1371,7 +1370,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
      */
     public function existsExactlyOneRecordWithEmptyWhereClauseIsAllowed()
     {
-        Tx_Phpunit_Service_Database::existsExactlyOneRecord('tx_phpunit_test', '');
+        \Tx_Phpunit_Service_Database::existsExactlyOneRecord('tx_phpunit_test', '');
     }
 
     /**
@@ -1379,27 +1378,27 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
      */
     public function existsExactlyOneRecordWithMissingWhereClauseIsAllowed()
     {
-        Tx_Phpunit_Service_Database::existsExactlyOneRecord('tx_phpunit_test');
+        \Tx_Phpunit_Service_Database::existsExactlyOneRecord('tx_phpunit_test');
     }
 
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function existsExactlyOneRecordWithEmptyTableNameThrowsException()
     {
-        Tx_Phpunit_Service_Database::existsExactlyOneRecord('');
+        \Tx_Phpunit_Service_Database::existsExactlyOneRecord('');
     }
 
     /**
      * @test
      *
-     * @expectedException BadMethodCallException
+     * @expectedException \BadMethodCallException
      */
     public function existsExactlyOneRecordWithInvalidTableNameThrowsException()
     {
-        Tx_Phpunit_Service_Database::existsExactlyOneRecord('tx_phpunit_doesnotexist');
+        \Tx_Phpunit_Service_Database::existsExactlyOneRecord('tx_phpunit_doesnotexist');
     }
 
     /**
@@ -1408,7 +1407,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     public function existsExactlyOneRecordForNoMatchesReturnsFalse()
     {
         self::assertFalse(
-            Tx_Phpunit_Service_Database::existsExactlyOneRecord('tx_phpunit_test', 'uid = 42')
+            \Tx_Phpunit_Service_Database::existsExactlyOneRecord('tx_phpunit_test', 'uid = 42')
         );
     }
 
@@ -1422,7 +1421,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
         );
 
         self::assertTrue(
-            Tx_Phpunit_Service_Database::existsExactlyOneRecord('tx_phpunit_test', 'uid = ' . $uid)
+            \Tx_Phpunit_Service_Database::existsExactlyOneRecord('tx_phpunit_test', 'uid = ' . $uid)
         );
     }
 
@@ -1439,7 +1438,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
         );
 
         self::assertFalse(
-            Tx_Phpunit_Service_Database::existsExactlyOneRecord('tx_phpunit_test', 'title = "foo"')
+            \Tx_Phpunit_Service_Database::existsExactlyOneRecord('tx_phpunit_test', 'title = "foo"')
         );
     }
 
@@ -1451,41 +1450,41 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function existsRecordWithUidWithZeroUidThrowsException()
     {
-        Tx_Phpunit_Service_Database::existsRecordWithUid('tx_phpunit_test', 0);
+        \Tx_Phpunit_Service_Database::existsRecordWithUid('tx_phpunit_test', 0);
     }
 
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function existsRecordWithUidWithNegativeUidThrowsException()
     {
-        Tx_Phpunit_Service_Database::existsRecordWithUid('tx_phpunit_test', -1);
+        \Tx_Phpunit_Service_Database::existsRecordWithUid('tx_phpunit_test', -1);
     }
 
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function existsRecordWithUidWithEmptyTableNameThrowsException()
     {
-        Tx_Phpunit_Service_Database::existsRecordWithUid('', 42);
+        \Tx_Phpunit_Service_Database::existsRecordWithUid('', 42);
     }
 
     /**
      * @test
      *
-     * @expectedException BadMethodCallException
+     * @expectedException \BadMethodCallException
      */
     public function existsRecordWithUidWithInvalidTableNameThrowsException()
     {
-        Tx_Phpunit_Service_Database::existsRecordWithUid('tx_phpunit_doesnotexist', 42);
+        \Tx_Phpunit_Service_Database::existsRecordWithUid('tx_phpunit_doesnotexist', 42);
     }
 
     /**
@@ -1494,7 +1493,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     public function existsRecordWithUidForNoMatchReturnsFalse()
     {
         self::assertFalse(
-            Tx_Phpunit_Service_Database::existsRecordWithUid('tx_phpunit_test', 42)
+            \Tx_Phpunit_Service_Database::existsRecordWithUid('tx_phpunit_test', 42)
         );
     }
 
@@ -1508,7 +1507,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
         );
 
         self::assertTrue(
-            Tx_Phpunit_Service_Database::existsRecordWithUid('tx_phpunit_test', $uid)
+            \Tx_Phpunit_Service_Database::existsRecordWithUid('tx_phpunit_test', $uid)
         );
     }
 
@@ -1522,7 +1521,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
         );
 
         self::assertFalse(
-            Tx_Phpunit_Service_Database::existsRecordWithUid(
+            \Tx_Phpunit_Service_Database::existsRecordWithUid(
                 'tx_phpunit_test', $uid, ' AND deleted = 0'
             )
         );
@@ -1535,7 +1534,7 @@ class Tx_Phpunit_Tests_Unit_Service_DatabaseTest extends Tx_PhpUnit_TestCase
     {
         self::assertSame(
             $GLOBALS['TYPO3_DB'],
-            Tx_Phpunit_Service_Database::getDatabaseConnection()
+            \Tx_Phpunit_Service_Database::getDatabaseConnection()
         );
     }
 }

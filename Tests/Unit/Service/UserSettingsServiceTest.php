@@ -1,4 +1,6 @@
 <?php
+namespace OliverKlee\Phpunit\Tests\Unit\Service;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,15 +19,13 @@ use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 /**
  * Test case.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Tests_Unit_Service_UserSettingsServiceTest extends Tx_Phpunit_TestCase
+class UserSettingsServiceTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Phpunit_Service_UserSettingsService
+     * @var \Tx_Phpunit_Service_UserSettingsService
      */
     protected $subject = null;
 
@@ -41,7 +41,7 @@ class Tx_Phpunit_Tests_Unit_Service_UserSettingsServiceTest extends Tx_Phpunit_T
         $this->backEndUserBackup = $GLOBALS['BE_USER'];
         $GLOBALS['BE_USER'] = $this->getMock('TYPO3\\CMS\\Core\\Authentication\\BackendUserAuthentication');
 
-        $this->subject = new Tx_Phpunit_Service_UserSettingsService();
+        $this->subject = new \Tx_Phpunit_Service_UserSettingsService();
     }
 
     protected function tearDown()
@@ -52,7 +52,7 @@ class Tx_Phpunit_Tests_Unit_Service_UserSettingsServiceTest extends Tx_Phpunit_T
     /**
      * Returns $GLOBALS['BE_USER'].
      *
-     * @return BackendUserAuthentication|PHPUnit_Framework_MockObject_MockObject
+     * @return BackendUserAuthentication|\PHPUnit_Framework_MockObject_MockObject
      */
     protected function getBackEndUserMock()
     {

@@ -1,4 +1,6 @@
 <?php
+namespace OliverKlee\Phpunit\Tests\Unit\Service;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -15,21 +17,19 @@
 /**
  * Test case.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Tests_Unit_Service_FakeOutputServiceTest extends Tx_Phpunit_TestCase
+class FakeOutputServiceTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Phpunit_Service_FakeOutputService
+     * @var \Tx_Phpunit_Service_FakeOutputService
      */
     protected $subject = null;
 
     protected function setUp()
     {
-        $this->subject = new Tx_Phpunit_Service_FakeOutputService();
+        $this->subject = new \Tx_Phpunit_Service_FakeOutputService();
     }
 
     /**

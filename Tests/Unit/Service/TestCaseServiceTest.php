@@ -1,4 +1,6 @@
 <?php
+namespace OliverKlee\Phpunit\Tests\Unit\Service;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,15 +19,13 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 /**
  * Test case.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Tests_Unit_Service_TestCaseServiceTest extends Tx_Phpunit_TestCase
+class TestCaseServiceTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Phpunit_Service_TestCaseService
+     * @var \Tx_Phpunit_Service_TestCaseService
      */
     protected $subject = null;
 
@@ -37,15 +37,15 @@ class Tx_Phpunit_Tests_Unit_Service_TestCaseServiceTest extends Tx_Phpunit_TestC
     private $fixturesPath = '';
 
     /**
-     * @var Tx_Phpunit_TestingDataContainer
+     * @var \Tx_Phpunit_TestingDataContainer
      */
     protected $userSettingsService = null;
 
     protected function setUp()
     {
-        $this->subject = new Tx_Phpunit_Service_TestCaseService();
+        $this->subject = new \Tx_Phpunit_Service_TestCaseService();
 
-        $this->userSettingsService = new Tx_Phpunit_TestingDataContainer();
+        $this->userSettingsService = new \Tx_Phpunit_TestingDataContainer();
         $this->subject->injectUserSettingsService($this->userSettingsService);
 
         $this->fixturesPath = ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Service/Fixtures/';
@@ -66,7 +66,7 @@ class Tx_Phpunit_Tests_Unit_Service_TestCaseServiceTest extends Tx_Phpunit_TestC
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function findTestCaseFilesInDirectoryForEmptyPathThrowsException()
     {
@@ -76,7 +76,7 @@ class Tx_Phpunit_Tests_Unit_Service_TestCaseServiceTest extends Tx_Phpunit_TestC
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function findTestCaseFilesInDirectoryForInexistentPathThrowsException()
     {
@@ -103,7 +103,7 @@ class Tx_Phpunit_Tests_Unit_Service_TestCaseServiceTest extends Tx_Phpunit_TestC
     {
         $path = 'OneTest.php';
 
-        /** @var Tx_Phpunit_Service_TestCaseService|PHPUnit_Framework_MockObject_MockObject $subject */
+        /** @var \Tx_Phpunit_Service_TestCaseService|\PHPUnit_Framework_MockObject_MockObject $subject */
         $subject = $this->getMock('Tx_Phpunit_Service_TestCaseService',
             array('isNotFixturesPath', 'isTestCaseFileName'));
         $subject->expects(self::any())->method('isNotFixturesPath')->will((self::returnValue(true)));
@@ -123,7 +123,7 @@ class Tx_Phpunit_Tests_Unit_Service_TestCaseServiceTest extends Tx_Phpunit_TestC
     {
         $path = 'OneTest.php';
 
-        /** @var Tx_Phpunit_Service_TestCaseService|PHPUnit_Framework_MockObject_MockObject $subject */
+        /** @var \Tx_Phpunit_Service_TestCaseService|\PHPUnit_Framework_MockObject_MockObject $subject */
         $subject = $this->getMock('Tx_Phpunit_Service_TestCaseService',
             array('isNotFixturesPath', 'isTestCaseFileName'));
         $subject->expects(self::any())->method('isNotFixturesPath')->will((self::returnValue(true)));
@@ -310,7 +310,7 @@ class Tx_Phpunit_Tests_Unit_Service_TestCaseServiceTest extends Tx_Phpunit_TestC
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function isValidTestCaseClassNameForEmptyStringThrowsException()
     {

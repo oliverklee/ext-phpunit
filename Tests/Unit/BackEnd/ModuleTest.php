@@ -815,10 +815,10 @@ class ModuleTest extends \Tx_Phpunit_TestCase
     {
         $selectedExtension = 'phpunit';
         $this->userSettingsService->set('extSel', $selectedExtension);
-        $this->request->set('testCaseFile', 'Tx_Phpunit_Tests_Unit_Service_TestFinderTest');
+        $this->request->set('testCaseFile', 'OliverKlee\\Phpunit\\Tests\\Unit\\Service\\TestFinderTest');
 
         self::assertRegExp(
-            '#<option [^>]* selected="selected">Tx_Phpunit_Tests_Unit_Service_TestFinderTest</option>#',
+            '#<option [^>]* selected="selected">OliverKlee\\\\Phpunit\\\Tests\\\Unit\\\Service\\\TestFinderTest</option>#',
             $this->subject->createTestCaseSelector($selectedExtension)
         );
     }
