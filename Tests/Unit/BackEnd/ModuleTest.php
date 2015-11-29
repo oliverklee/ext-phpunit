@@ -229,6 +229,21 @@ class ModuleTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
+    public function mainForNoAdminBackEndUserDoesNotRunTests()
+    {
+        $GLOBALS['BE_USER']->user['admin'] = false;
+
+        $subject = $this->getMock($this->createAccessibleProxy(), array('renderRunTests'));
+        $subject->injectOutputService($this->outputService);
+
+        $subject->expects(self::never())->method('renderRunTests');
+
+        $subject->main();
+    }
+
+    /**
+     * @test
+     */
     public function mainForAdminBackEndUserRunsTests()
     {
         $GLOBALS['BE_USER']->user['admin'] = true;
