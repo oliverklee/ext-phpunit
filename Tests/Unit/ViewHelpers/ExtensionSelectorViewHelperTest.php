@@ -50,9 +50,20 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_ExtensionSelectorViewHelperTest extends 
      */
     protected $userSettingsService = null;
 
+    /**
+     * @var LanguageService
+     */
+    protected $languageServiceBackup = null;
+
     protected function setUp()
     {
-        $this->getLanguageService()->includeLLFile('EXT:phpunit/Resources/Private/Language/locallang_backend.xlf');
+        if (!empty($GLOBALS['LANG'])) {
+            $this->languageServiceBackup = $GLOBALS['LANG'];
+        }
+        /** @var LanguageService|\PHPUnit_Framework_MockObject_MockObject $languageServiceMock */
+        $languageServiceMock = $this->getMock('TYPO3\\CMS\\Lang\\LanguageService');
+        $languageServiceMock->expects($this->any())->method('getLL')->willReturn('translatedLabel');
+        $GLOBALS['LANG'] = $languageServiceMock;
 
         $this->subject = new Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
 
@@ -68,6 +79,14 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_ExtensionSelectorViewHelperTest extends 
         $this->userSettingsService = new Tx_Phpunit_TestingDataContainer();
         $this->subject->injectUserSettingService($this->userSettingsService);
     }
+
+    protected function tearDown()
+    {
+        if (!empty($this->languageServiceBackup)) {
+            $GLOBALS['LANG'] = $this->languageServiceBackup;
+        }
+    }
+
 
     /**
      * @test
@@ -361,11 +380,4 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_ExtensionSelectorViewHelperTest extends 
         );
     }
 
-    /**
-     * @return LanguageService
-     */
-    protected function getLanguageService()
-    {
-        return $GLOBALS['LANG'];
-    }
 }
