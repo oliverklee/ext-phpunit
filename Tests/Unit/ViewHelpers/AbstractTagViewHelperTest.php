@@ -12,8 +12,10 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use OliverKlee\Phpunit\Tests\Unit\ViewHelpers\Fixtures\TestingTagViewHelper;
+
 /**
- * Test case for Tx_Phpunit_ViewHelpers_AbstractTagViewHelper.
+ * Testcase.
  *
  * @package TYPO3
  * @subpackage tx_phpunit
@@ -28,7 +30,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_AbstractTagViewHelperTest extends Tx_Php
      */
     public function classIsSubclassOfAbstractViewHelper()
     {
-        $subject = new Tx_Phpunit_Tests_Unit_ViewHelpers_Fixtures_TestingTagViewHelper(
+        $subject = new TestingTagViewHelper(
             'tag',
             array(),
             ''
@@ -45,7 +47,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_AbstractTagViewHelperTest extends Tx_Php
      */
     public function fixtureClassUsedForTestingIsASubclassOfAbstractTagViewHelper()
     {
-        $subject = new Tx_Phpunit_Tests_Unit_ViewHelpers_Fixtures_TestingTagViewHelper(
+        $subject = new TestingTagViewHelper(
             'tag',
             array(),
             ''
@@ -62,7 +64,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_AbstractTagViewHelperTest extends Tx_Php
      */
     public function renderingTagWithoutContentCreatesSelfClosingTag()
     {
-        $subject = new Tx_Phpunit_Tests_Unit_ViewHelpers_Fixtures_TestingTagViewHelper(
+        $subject = new TestingTagViewHelper(
             'tag',
             array(),
             ''
@@ -79,7 +81,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_AbstractTagViewHelperTest extends Tx_Php
      */
     public function renderingTagWithContentCreatesTagWithContent()
     {
-        $subject = new Tx_Phpunit_Tests_Unit_ViewHelpers_Fixtures_TestingTagViewHelper(
+        $subject = new TestingTagViewHelper(
             'tag',
             array(),
             'Test'
@@ -96,7 +98,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_AbstractTagViewHelperTest extends Tx_Php
      */
     public function renderingTagWithAttributesCreatesTagWithAttributes()
     {
-        $subject = new Tx_Phpunit_Tests_Unit_ViewHelpers_Fixtures_TestingTagViewHelper(
+        $subject = new TestingTagViewHelper(
             'tag',
             array(
                 'value' => 'test',
@@ -116,7 +118,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_AbstractTagViewHelperTest extends Tx_Php
      */
     public function renderingTagWithAttributesAndContentCreatesTagWithAttributesAndContent()
     {
-        $subject = new Tx_Phpunit_Tests_Unit_ViewHelpers_Fixtures_TestingTagViewHelper(
+        $subject = new TestingTagViewHelper(
             'tag',
             array(
                 'value' => 'test',
@@ -137,7 +139,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_AbstractTagViewHelperTest extends Tx_Php
      */
     public function renderingTagWithAnEmptyTagNameCausesAnInvalidArgumentException()
     {
-        $subject = new Tx_Phpunit_Tests_Unit_ViewHelpers_Fixtures_TestingTagViewHelper(
+        $subject = new TestingTagViewHelper(
             '',
             array(),
             ''
@@ -152,7 +154,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_AbstractTagViewHelperTest extends Tx_Php
      */
     public function renderingTagWithAnAttributeWithANonStringKeyCausesAnInvalidArgumentException()
     {
-        $subject = new Tx_Phpunit_Tests_Unit_ViewHelpers_Fixtures_TestingTagViewHelper(
+        $subject = new TestingTagViewHelper(
             'tag',
             array(
                 // This is a valid key
@@ -172,7 +174,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_AbstractTagViewHelperTest extends Tx_Php
      */
     public function renderingTagWithAnAttributeWithAnEmptyStringAsKeyCausesAnInvalidArgumentException()
     {
-        $subject = new Tx_Phpunit_Tests_Unit_ViewHelpers_Fixtures_TestingTagViewHelper(
+        $subject = new TestingTagViewHelper(
             'tag',
             array(
                 // This is a valid key

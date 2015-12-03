@@ -1,4 +1,6 @@
 <?php
+namespace OliverKlee\Phpunit\Tests\Unit\ViewHelpers\Fixtures;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,12 +19,10 @@
  *
  * This testing view helper renders a tag with the given arguments (see the parent class)
  *
- * @package TYPO3
- * @subpackage tx_phpunit
  *
  * @author Felix Rauch <rauch@skaiamail.de>
  */
-class Tx_Phpunit_Tests_Unit_ViewHelpers_Fixtures_TestingTagViewHelper extends Tx_Phpunit_ViewHelpers_AbstractTagViewHelper
+class TestingTagViewHelper extends \Tx_Phpunit_ViewHelpers_AbstractTagViewHelper
 {
     /**
      * @var string
@@ -40,7 +40,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_Fixtures_TestingTagViewHelper extends Tx
     protected $content = '';
 
     /**
-     * Tx_Phpunit_Tests_Unit_ViewHelpers_Fixtures_TestingTagViewHelper constructor.
+     * Constructor.
      *
      * This class must be given all required information when instantiating.
      *
