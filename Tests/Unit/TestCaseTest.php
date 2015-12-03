@@ -1,4 +1,6 @@
 <?php
+namespace OliverKlee\Phpunit\Tests\Unit;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -11,33 +13,31 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+
 use OliverKlee\Phpunit\Tests\Unit\Fixtures\ProtectedClass;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
  * Test case.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Kasper Ligaard <kasperligaard@gmail.com>
  * @author Nicole Cordes <nicole.cordes@googlemail.com>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Tests_Unit_TestCaseTest extends Tx_Phpunit_TestCase
+class TestCaseTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Phpunit_Tests_Unit_Fixtures_ProtectedClass
+     * @var ProtectedClass
      */
-    private $proctectedClassInstance = null;
+    private $protectedClassInstance = null;
 
     /**
-     * @var Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject|ProtectedClass
+     * @var \Tx_Phpunit_BackEnd_Module|\PHPUnit_Framework_MockObject_MockObject|ProtectedClass
      */
     private $mock = null;
 
     /**
-     * @var Tx_Phpunit_BackEnd_Module|PHPUnit_Framework_MockObject_MockObject|Tx_Phpunit_Interface_AccessibleObject
+     * @var \Tx_Phpunit_BackEnd_Module|\PHPUnit_Framework_MockObject_MockObject|\Tx_Phpunit_Interface_AccessibleObject
      */
     private $accessibleMock = null;
 
@@ -52,7 +52,7 @@ class Tx_Phpunit_Tests_Unit_TestCaseTest extends Tx_Phpunit_TestCase
     {
         require_once(ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Fixtures/ProtectedClass.php');
 
-        $this->proctectedClassInstance = new ProtectedClass();
+        $this->protectedClassInstance = new ProtectedClass();
         $this->mock = $this->getMock('OliverKlee\\Phpunit\\Tests\\Unit\\Fixtures\\ProtectedClass', array('dummy'));
         $this->accessibleMock = $this->getAccessibleMock('OliverKlee\\Phpunit\\Tests\\Unit\\Fixtures\\ProtectedClass',
             array('dummy'));
@@ -66,7 +66,7 @@ class Tx_Phpunit_Tests_Unit_TestCaseTest extends Tx_Phpunit_TestCase
 
     /**
      * @test
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function getAccessibleMockWithEmptyClassNameThrowsException()
     {
@@ -75,7 +75,7 @@ class Tx_Phpunit_Tests_Unit_TestCaseTest extends Tx_Phpunit_TestCase
 
     /**
      * @test
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function callForEmptyMethodNameInAccessibleMockObjectThrowsException()
     {
@@ -84,7 +84,7 @@ class Tx_Phpunit_Tests_Unit_TestCaseTest extends Tx_Phpunit_TestCase
 
     /**
      * @test
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function callRefForEmptyMethodNameInAccessibleMockObjectThrowsException()
     {
@@ -93,7 +93,7 @@ class Tx_Phpunit_Tests_Unit_TestCaseTest extends Tx_Phpunit_TestCase
 
     /**
      * @test
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function setForEmptyPropertyNameInAccessibleMockObjectThrowsException()
     {
@@ -102,7 +102,7 @@ class Tx_Phpunit_Tests_Unit_TestCaseTest extends Tx_Phpunit_TestCase
 
     /**
      * @test
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function setRefForEmptyPropertyNameInAccessibleMockObjectThrowsException()
     {
@@ -112,7 +112,7 @@ class Tx_Phpunit_Tests_Unit_TestCaseTest extends Tx_Phpunit_TestCase
 
     /**
      * @test
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function setStaticForEmptyPropertyNameInAccessibleMockObjectThrowsException()
     {
@@ -121,7 +121,7 @@ class Tx_Phpunit_Tests_Unit_TestCaseTest extends Tx_Phpunit_TestCase
 
     /**
      * @test
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function getForEmptyPropertyNameInAccessibleMockObjectThrowsException()
     {
@@ -130,7 +130,7 @@ class Tx_Phpunit_Tests_Unit_TestCaseTest extends Tx_Phpunit_TestCase
 
     /**
      * @test
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function getStaticForEmptyPropertyNameInAccessibleMockObjectThrowsException()
     {
@@ -143,7 +143,7 @@ class Tx_Phpunit_Tests_Unit_TestCaseTest extends Tx_Phpunit_TestCase
     public function protectedPropertyForFixtureIsNotDirectlyAccessible()
     {
         self::assertFalse(
-            in_array('protectedProperty', get_object_vars($this->proctectedClassInstance))
+            in_array('protectedProperty', get_object_vars($this->protectedClassInstance))
         );
     }
 
@@ -153,7 +153,7 @@ class Tx_Phpunit_Tests_Unit_TestCaseTest extends Tx_Phpunit_TestCase
     public function protectedStaticPropertyForFixtureIsNotDirectlyAccessible()
     {
         self::assertFalse(
-            array_key_exists('protectedStaticProperty', get_class_vars(get_class($this->proctectedClassInstance)))
+            array_key_exists('protectedStaticProperty', get_class_vars(get_class($this->protectedClassInstance)))
         );
     }
 
@@ -164,7 +164,7 @@ class Tx_Phpunit_Tests_Unit_TestCaseTest extends Tx_Phpunit_TestCase
     {
         self::assertSame(
             'This is a public property.',
-            $this->proctectedClassInstance->publicProperty
+            $this->protectedClassInstance->publicProperty
         );
     }
 
@@ -174,7 +174,7 @@ class Tx_Phpunit_Tests_Unit_TestCaseTest extends Tx_Phpunit_TestCase
     public function protectedMethodForFixtureIsNotDirectlyCallable()
     {
         self::assertFalse(
-            is_callable(array($this->proctectedClassInstance, 'protectedMethod'))
+            is_callable(array($this->protectedClassInstance, 'protectedMethod'))
         );
     }
 
@@ -184,7 +184,7 @@ class Tx_Phpunit_Tests_Unit_TestCaseTest extends Tx_Phpunit_TestCase
     public function publicMethodForFixtureIsDirectlyCallable()
     {
         self::assertTrue(
-            is_callable(array($this->proctectedClassInstance, 'publicMethod'))
+            is_callable(array($this->protectedClassInstance, 'publicMethod'))
         );
     }
 
@@ -504,7 +504,7 @@ class Tx_Phpunit_Tests_Unit_TestCaseTest extends Tx_Phpunit_TestCase
 
     /**
      * @test
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function callRefForTenParametersThrowsException()
     {

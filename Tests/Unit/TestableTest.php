@@ -1,4 +1,6 @@
 <?php
+namespace OliverKlee\Phpunit\Tests\Unit;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,21 +19,18 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 /**
  * Test case.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Tests_Unit_TestableTest extends Tx_Phpunit_TestCase
+class TestableTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Phpunit_Testable
+     * @var \Tx_Phpunit_Testable
      */
     protected $subject = null;
 
     protected function setUp()
     {
-        $this->subject = new Tx_Phpunit_Testable();
+        $this->subject = new \Tx_Phpunit_Testable();
     }
 
     /**
@@ -61,7 +60,7 @@ class Tx_Phpunit_Tests_Unit_TestableTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function setKeyWithEmptyStringThrowsException()
     {
@@ -133,7 +132,7 @@ class Tx_Phpunit_Tests_Unit_TestableTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function setCodePathWithEmptyStringThrowsException()
     {
@@ -168,7 +167,7 @@ class Tx_Phpunit_Tests_Unit_TestableTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function setTestsPathWithEmptyStringThrowsException()
     {
@@ -278,7 +277,7 @@ class Tx_Phpunit_Tests_Unit_TestableTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function setIconPathWithEmptyStringThrowsException()
     {

@@ -1,4 +1,6 @@
 <?php
+namespace OliverKlee\Phpunit\Tests\Unit;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -12,26 +14,22 @@
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Core\Database\DatabaseConnection;
+use TYPO3\CMS\Core\Exception;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Exception;
 
 /**
  * Test case.
- *
- * @package TYPO3
- * @subpackage tx_phpunit
  *
  * @author Mario Rimann <typo3-coding@rimann.org>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  * @author Saskia Metzler <saskia@merlin.owl.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
+class FrameworkTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Phpunit_Framework
+     * @var \Tx_Phpunit_Framework
      */
     protected $subject = null;
 
@@ -72,7 +70,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
         $this->extConfBackup = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'];
         $this->t3VarBackup = $GLOBALS['T3_VAR']['getUserObj'];
 
-        $this->subject = new Tx_Phpunit_Framework('tx_phpunit', array('user_phpunittest'));
+        $this->subject = new \Tx_Phpunit_Framework('tx_phpunit', array('user_phpunittest'));
     }
 
     protected function tearDown()
@@ -106,7 +104,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
      */
     private function getSortingOfRelation($uidLocal, $uidForeign)
     {
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'sorting',
             'tx_phpunit_test_article_mm',
             'uid_local = ' . $uidLocal . ' AND uid_foreign = ' . $uidForeign
@@ -221,7 +219,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
      */
     public function markTableAsDirtyWillCleanUpNonSystemTable()
     {
-        $uid = Tx_Phpunit_Service_Database::insert(
+        $uid = \Tx_Phpunit_Service_Database::insert(
             'tx_phpunit_test', array('is_dummy_record' => 1)
         );
 
@@ -238,7 +236,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
      */
     public function markTableAsDirtyWillCleanUpSystemTable()
     {
-        $uid = Tx_Phpunit_Service_Database::insert(
+        $uid = \Tx_Phpunit_Service_Database::insert(
             'pages', array('tx_phpunit_is_dummy_record' => 1)
         );
 
@@ -257,7 +255,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
     {
         $this->checkIfExtensionUserPhpUnittestIsLoaded();
 
-        $uid = Tx_Phpunit_Service_Database::insert(
+        $uid = \Tx_Phpunit_Service_Database::insert(
             'user_phpunittest_test', array('tx_phpunit_is_dummy_record' => 1)
         );
 
@@ -357,7 +355,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             $uid
         );
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'title',
             'tx_phpunit_test',
             'uid = ' . $uid
@@ -438,7 +436,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             array('title' => 'bar')
         );
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'title',
             'tx_phpunit_test',
             'uid = ' . $uid
@@ -608,7 +606,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException Tx_Phpunit_Exception_Database
+     * @expectedException \Tx_Phpunit_Exception_Database
      */
     public function changeRecordFailsOnInexistentRecord()
     {
@@ -716,7 +714,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
     {
         // Create a new record that looks like a real record, i.e. the
         // is_dummy_record flag is set to 0.
-        $uid = Tx_Phpunit_Service_Database::insert(
+        $uid = \Tx_Phpunit_Service_Database::insert(
             'tx_phpunit_test',
             array(
                 'title' => 'TEST',
@@ -729,10 +727,10 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
         $this->subject->deleteRecord('tx_phpunit_test', $uid);
 
         // Remembers whether the record still exists.
-        $counter = Tx_Phpunit_Service_Database::count('tx_phpunit_test', 'uid = ' . $uid);
+        $counter = \Tx_Phpunit_Service_Database::count('tx_phpunit_test', 'uid = ' . $uid);
 
         // Deletes the record as it will not be caught by the clean up function.
-        Tx_Phpunit_Service_Database::delete(
+        \Tx_Phpunit_Service_Database::delete(
             'tx_phpunit_test',
             'uid = ' . $uid . ' AND is_dummy_record = 0'
         );
@@ -920,7 +918,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             'related_records'
         );
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'related_records',
             'tx_phpunit_test',
             'uid = ' . $firstRecordUid
@@ -950,7 +948,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             'related_records'
         );
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'related_records',
             'tx_phpunit_test',
             'uid = ' . $firstRecordUid
@@ -1002,7 +1000,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             'bidirectional'
         );
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'bidirectional',
             'tx_phpunit_test',
             'uid = ' . $firstRecordUid
@@ -1029,7 +1027,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             'bidirectional'
         );
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'related_records',
             'tx_phpunit_test',
             'uid = ' . $secondRecordUid
@@ -1193,7 +1191,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
 
         // Create a new record that looks like a real record, i.e. the
         // is_dummy_record flag is set to 0.
-        Tx_Phpunit_Service_Database::insert(
+        \Tx_Phpunit_Service_Database::insert(
             'tx_phpunit_test_article_mm',
             array(
                 'uid_local' => $uidLocal,
@@ -1214,13 +1212,13 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
         // 1. reads the value to test
         // 2. deletes the test record
         // 3. tests the previously read value (and possibly fails)
-        $numberOfCreatedRelations = Tx_Phpunit_Service_Database::count(
+        $numberOfCreatedRelations = \Tx_Phpunit_Service_Database::count(
             'tx_phpunit_test_article_mm',
             'uid_local = ' . $uidLocal . ' AND uid_foreign = ' . $uidForeign
         );
 
         // Deletes the record as it will not be caught by the clean up function.
-        Tx_Phpunit_Service_Database::delete(
+        \Tx_Phpunit_Service_Database::delete(
             'tx_phpunit_test_article_mm',
             'uid_local = ' . $uidLocal . ' AND uid_foreign = ' . $uidForeign . ' AND is_dummy_record = 0'
         );
@@ -1247,7 +1245,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
 
         // Creates a dummy record directly in the database, without putting this
         // table name to the list of dirty tables.
-        Tx_Phpunit_Service_Database::insert(
+        \Tx_Phpunit_Service_Database::insert(
             'tx_phpunit_test_article_mm', array('is_dummy_record' => 1)
         );
 
@@ -1285,7 +1283,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
 
         // Creates a dummy record directly in the database without putting this
         // table name to the list of dirty tables.
-        Tx_Phpunit_Service_Database::insert(
+        \Tx_Phpunit_Service_Database::insert(
             'tx_phpunit_test_article_mm', array('is_dummy_record' => 1)
         );
 
@@ -1467,7 +1465,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
         $this->checkIfExtensionUserPhpUnittestIsLoaded();
         $this->checkIfExtensionUserPhpUnittest2IsLoaded();
 
-        $subject = new Tx_Phpunit_Framework(
+        $subject = new \Tx_Phpunit_Framework(
             'tx_phpunit', array('user_phpunittest', 'user_phpunittest2')
         );
 
@@ -1490,14 +1488,14 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @throws Tx_Phpunit_Exception_Database
+     * @throws \Tx_Phpunit_Exception_Database
      */
     public function getAutoIncrementReturnsOneForTruncatedTable()
     {
-        Tx_Phpunit_Service_Database::enableQueryLogging();
-        $dbResult = Tx_Phpunit_Service_Database::getDatabaseConnection()->sql_query('TRUNCATE TABLE tx_phpunit_test;');
+        \Tx_Phpunit_Service_Database::enableQueryLogging();
+        $dbResult = \Tx_Phpunit_Service_Database::getDatabaseConnection()->sql_query('TRUNCATE TABLE tx_phpunit_test;');
         if ($dbResult === false) {
-            throw new Tx_Phpunit_Exception_Database(1334438839);
+            throw new \Tx_Phpunit_Exception_Database(1334438839);
         }
 
         self::assertSame(
@@ -1836,7 +1834,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
      */
     public function countRecordsIgnoresNonDummyRecords()
     {
-        Tx_Phpunit_Service_Database::insert(
+        \Tx_Phpunit_Service_Database::insert(
             'tx_phpunit_test', array('title' => 'foo')
         );
 
@@ -1844,7 +1842,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             'tx_phpunit_test', 'title = "foo"'
         );
 
-        Tx_Phpunit_Service_Database::delete(
+        \Tx_Phpunit_Service_Database::delete(
             'tx_phpunit_test',
             'title = "foo"'
         );
@@ -1946,7 +1944,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
      */
     public function existsRecordIgnoresNonDummyRecords()
     {
-        Tx_Phpunit_Service_Database::insert(
+        \Tx_Phpunit_Service_Database::insert(
             'tx_phpunit_test', array('title' => 'foo')
         );
 
@@ -1954,7 +1952,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             'tx_phpunit_test', 'title = "foo"'
         );
 
-        Tx_Phpunit_Service_Database::delete(
+        \Tx_Phpunit_Service_Database::delete(
             'tx_phpunit_test',
             'title = "foo"'
         );
@@ -2045,7 +2043,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
      */
     public function existsRecordWithUidIgnoresNonDummyRecords()
     {
-        $uid = Tx_Phpunit_Service_Database::insert(
+        $uid = \Tx_Phpunit_Service_Database::insert(
             'tx_phpunit_test', array('title' => 'foo')
         );
 
@@ -2053,7 +2051,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             'tx_phpunit_test', $uid
         );
 
-        Tx_Phpunit_Service_Database::delete(
+        \Tx_Phpunit_Service_Database::delete(
             'tx_phpunit_test', 'uid = ' . $uid
         );
         // We need to do this manually to not confuse the auto_increment counter
@@ -2157,7 +2155,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
      */
     public function existsExactlyOneRecordIgnoresNonDummyRecords()
     {
-        Tx_Phpunit_Service_Database::insert(
+        \Tx_Phpunit_Service_Database::insert(
             'tx_phpunit_test', array('title' => 'foo')
         );
 
@@ -2165,7 +2163,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             'tx_phpunit_test', 'title = "foo"'
         );
 
-        Tx_Phpunit_Service_Database::delete(
+        \Tx_Phpunit_Service_Database::delete(
             'tx_phpunit_test',
             'title = "foo"'
         );
@@ -2572,7 +2570,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             $uid
         );
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'doktype',
             'pages',
             'uid = ' . $uid
@@ -2596,7 +2594,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             $uid
         );
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'pid',
             'pages',
             'uid = ' . $uid
@@ -2621,7 +2619,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             $uid
         );
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'pid',
             'pages',
             'uid = ' . $uid
@@ -2681,7 +2679,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->subject->createFrontEndPage();
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'title',
             'pages',
             'uid = ' . $uid
@@ -2703,7 +2701,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             array('title' => 'Test title')
         );
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'title',
             'pages',
             'uid = ' . $uid
@@ -2812,7 +2810,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             $uid
         );
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'doktype',
             'pages',
             'uid = ' . $uid
@@ -2836,7 +2834,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             $uid
         );
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'pid',
             'pages',
             'uid = ' . $uid
@@ -2861,7 +2859,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             $uid
         );
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'pid',
             'pages',
             'uid = ' . $uid
@@ -2921,7 +2919,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->subject->createSystemFolder();
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'title',
             'pages',
             'uid = ' . $uid
@@ -2943,7 +2941,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             array('title' => 'Test title')
         );
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'title',
             'pages',
             'uid = ' . $uid
@@ -3052,7 +3050,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             $uid
         );
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'pid',
             'tt_content',
             'uid = ' . $uid
@@ -3077,7 +3075,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             $uid
         );
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'pid',
             'tt_content',
             'uid = ' . $uid
@@ -3137,7 +3135,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->subject->createContentElement();
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'header',
             'tt_content',
             'uid = ' . $uid
@@ -3159,7 +3157,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             array('header' => 'Test header')
         );
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'header',
             'tt_content',
             'uid = ' . $uid
@@ -3178,7 +3176,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->subject->createContentElement();
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'CType',
             'tt_content',
             'uid = ' . $uid
@@ -3200,7 +3198,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             array('CType' => 'list')
         );
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'CType',
             'tt_content',
             'uid = ' . $uid
@@ -3349,7 +3347,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
     {
         $pageId = $this->subject->createFrontEndPage();
         $uid = $this->subject->createTemplate($pageId);
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'config',
             'sys_template',
             'uid = ' . $uid
@@ -3370,7 +3368,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             $pageId,
             array('config' => 'plugin.tx_phpunit.test = 1')
         );
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'config',
             'sys_template',
             'uid = ' . $uid
@@ -3389,7 +3387,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
     {
         $pageId = $this->subject->createFrontEndPage();
         $uid = $this->subject->createTemplate($pageId);
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'constants',
             'sys_template',
             'uid = ' . $uid
@@ -3410,7 +3408,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             $pageId,
             array('constants' => 'plugin.tx_phpunit.test = 1')
         );
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'constants',
             'sys_template',
             'uid = ' . $uid
@@ -3570,7 +3568,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
 
         $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
         $dummyFile = $this->subject->createDummyZipArchive();
-        $zip = new ZipArchive();
+        $zip = new \ZipArchive();
         $zip->open($dummyFile);
         $zip->extractTo($this->subject->getUploadFolderPath());
         $zip->close();
@@ -3591,7 +3589,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
         $dummyFile = $this->subject->createDummyZipArchive(
             'foo.zip', array($this->subject->createDummyFile('bar.txt'))
         );
-        $zip = new ZipArchive();
+        $zip = new \ZipArchive();
         $zip->open($dummyFile);
         $zip->extractTo($this->subject->getUploadFolderPath());
         $zip->close();
@@ -3612,7 +3610,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
         $dummyFile = $this->subject->createDummyZipArchive(
             'foo.zip', array($this->subject->createDummyFile('bar.txt', 'foo bar'))
         );
-        $zip = new ZipArchive();
+        $zip = new \ZipArchive();
         $zip->open($dummyFile);
         $zip->extractTo($this->subject->getUploadFolderPath());
         $zip->close();
@@ -3637,7 +3635,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
                 $this->subject->createDummyFile('bar.txt'),
             )
         );
-        $zip = new ZipArchive();
+        $zip = new \ZipArchive();
         $zip->open($dummyFile);
         $zip->extractTo($this->subject->getUploadFolderPath());
         $zip->close();
@@ -3662,7 +3660,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
         $dummyFile = $this->subject->createDummyZipArchive(
             'foo.zip', array($this->subject->createDummyFile('sub-folder/foo.txt'))
         );
-        $zip = new ZipArchive();
+        $zip = new \ZipArchive();
         $zip->open($dummyFile);
         $zip->extractTo($this->subject->getUploadFolderPath());
         $zip->close();
@@ -4040,7 +4038,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->subject->createFrontEndUserGroup();
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'title',
             'fe_groups',
             'uid = ' . $uid
@@ -4061,7 +4059,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             array('title' => 'Test title')
         );
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'title',
             'fe_groups',
             'uid = ' . $uid
@@ -4166,7 +4164,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->subject->createFrontEndUser();
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'username',
             'fe_users',
             'uid = ' . $uid
@@ -4188,7 +4186,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             array('username' => 'Test name')
         );
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'username',
             'fe_users',
             'uid = ' . $uid
@@ -4386,7 +4384,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->subject->createBackEndUser();
 
-        $row = Tx_Phpunit_Service_Database::selectSingle('username', 'be_users', 'uid = ' . $uid);
+        $row = \Tx_Phpunit_Service_Database::selectSingle('username', 'be_users', 'uid = ' . $uid);
 
         self::assertSame(
             '',
@@ -4401,7 +4399,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
     {
         $uid = $this->subject->createBackEndUser(array('username' => 'Test name'));
 
-        $row = Tx_Phpunit_Service_Database::selectSingle('username', 'be_users', 'uid = ' . $uid);
+        $row = \Tx_Phpunit_Service_Database::selectSingle('username', 'be_users', 'uid = ' . $uid);
 
         self::assertSame(
             'Test name',
@@ -5042,7 +5040,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             $frontEndUserGroupUid
         );
 
-        $dbResultRow = Tx_Phpunit_Service_Database::selectSingle(
+        $dbResultRow = \Tx_Phpunit_Service_Database::selectSingle(
             'usergroup',
             'fe_users',
             'uid = ' . $frontEndUserUid
@@ -5108,7 +5106,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
             'related_records'
         );
 
-        $row = Tx_Phpunit_Service_Database::selectSingle(
+        $row = \Tx_Phpunit_Service_Database::selectSingle(
             'related_records',
             'tx_phpunit_test',
             'uid = ' . $uid
@@ -5123,7 +5121,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException Tx_Phpunit_Exception_Database
+     * @expectedException \Tx_Phpunit_Exception_Database
      */
     public function increaseRelationCounterThrowsExceptionOnInvalidUid()
     {
@@ -5197,7 +5195,7 @@ class Tx_Phpunit_Tests_Unit_FrameworkTest extends Tx_Phpunit_TestCase
     {
         $this->checkIfExtensionUserPhpUnittestIsLoaded();
 
-        $testingFramework = new Tx_Phpunit_Framework(
+        $testingFramework = new \Tx_Phpunit_Framework(
             'user_phpunittest', array('user_phpunittest2')
         );
         self::assertSame(

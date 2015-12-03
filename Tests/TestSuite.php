@@ -1,4 +1,6 @@
 <?php
+namespace OliverKlee\Phpunit\Tests;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -19,7 +21,7 @@
  *
  * @author Kasper Ligaard <kasperligaard@gmail.com>
  */
-class Tx_Phpunit_Test_TestSuite extends PHPUnit_Framework_TestSuite {
+class TestSuite extends \PHPUnit_Framework_TestSuite {
 	/**
 	 * The constructor.
 	 */

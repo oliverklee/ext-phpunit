@@ -1,4 +1,6 @@
 <?php
+namespace OliverKlee\Phpunit\Tests\Unit\ViewHelpers;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,12 +19,9 @@ use OliverKlee\Phpunit\Tests\Unit\ViewHelpers\Fixtures\TestingTagViewHelper;
 /**
  * Testcase.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Felix Rauch <rauch@skaiamail.de>
  */
-class Tx_Phpunit_Tests_Unit_ViewHelpers_AbstractTagViewHelperTest extends Tx_Phpunit_TestCase
+class AbstractTagViewHelperTest extends \Tx_Phpunit_TestCase
 {
 
     /**
@@ -135,7 +134,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_AbstractTagViewHelperTest extends Tx_Php
 
     /**
      * @test
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function renderingTagWithAnEmptyTagNameCausesAnInvalidArgumentException()
     {
@@ -150,7 +149,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_AbstractTagViewHelperTest extends Tx_Php
 
     /**
      * @test
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function renderingTagWithAnAttributeWithANonStringKeyCausesAnInvalidArgumentException()
     {
@@ -170,7 +169,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_AbstractTagViewHelperTest extends Tx_Php
 
     /**
      * @test
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function renderingTagWithAnAttributeWithAnEmptyStringAsKeyCausesAnInvalidArgumentException()
     {

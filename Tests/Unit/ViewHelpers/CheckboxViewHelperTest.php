@@ -1,4 +1,6 @@
 <?php
+namespace OliverKlee\Phpunit\Tests\Unit\ViewHelpers;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -15,12 +17,9 @@
 /**
  * Test case for Tx_Phpunit_ViewHelpers_CheckboxViewHelper.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Felix Rauch <rauch@skaiamail.de>
  */
-class Tx_Phpunit_Tests_Unit_ViewHelpers_CheckboxViewHelperTest extends Tx_Phpunit_TestCase
+class CheckboxViewHelperTest extends \Tx_Phpunit_TestCase
 {
     /**
      * @test
@@ -29,7 +28,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_CheckboxViewHelperTest extends Tx_Phpuni
     {
         self::assertInstanceOf(
             'Tx_Phpunit_ViewHelpers_AbstractTagViewHelper',
-            new Tx_Phpunit_ViewHelpers_CheckboxViewHelper()
+            new \Tx_Phpunit_ViewHelpers_CheckboxViewHelper()
         );
     }
 
@@ -38,7 +37,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_CheckboxViewHelperTest extends Tx_Phpuni
      */
     public function viewHelperRendersAnInputTagOfTypeCheckbox()
     {
-        $subject = new Tx_Phpunit_ViewHelpers_CheckboxViewHelper();
+        $subject = new \Tx_Phpunit_ViewHelpers_CheckboxViewHelper();
 
         self::assertRegExp(
             '/^<input[^$]+type="checkbox"[^$]*\/>$/',
@@ -51,7 +50,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_CheckboxViewHelperTest extends Tx_Phpuni
      */
     public function viewHelperRendersAnInputTagWithValueGivenInConstructor()
     {
-        $subject = new Tx_Phpunit_ViewHelpers_CheckboxViewHelper('test');
+        $subject = new \Tx_Phpunit_ViewHelpers_CheckboxViewHelper('test');
 
         self::assertRegExp(
             '/^<input[^$]+value="test"[^$]*\/>$/',
@@ -64,7 +63,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_CheckboxViewHelperTest extends Tx_Phpuni
      */
     public function viewHelperRendersAnInputTagWithAdditionalAttributesGivenInConstructor()
     {
-        $subject = new Tx_Phpunit_ViewHelpers_CheckboxViewHelper(
+        $subject = new \Tx_Phpunit_ViewHelpers_CheckboxViewHelper(
             '',
             array(
                 'foo' => 'bar'
@@ -82,7 +81,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_CheckboxViewHelperTest extends Tx_Phpuni
      */
     public function viewHelperRendersAnInputTagWithAdditionalAttributesAddedAfterInstantiation()
     {
-        $subject = new Tx_Phpunit_ViewHelpers_CheckboxViewHelper(
+        $subject = new \Tx_Phpunit_ViewHelpers_CheckboxViewHelper(
             '',
             array(
                 'some' => 'attribute'
@@ -106,7 +105,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_CheckboxViewHelperTest extends Tx_Phpuni
      */
     public function reservedAttributeTypeIsPreserved()
     {
-        $subject = new Tx_Phpunit_ViewHelpers_CheckboxViewHelper();
+        $subject = new \Tx_Phpunit_ViewHelpers_CheckboxViewHelper();
 
         // This should have no effect on the rendered tag:
         $subject->setAdditionalAttributes(
@@ -126,7 +125,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_CheckboxViewHelperTest extends Tx_Phpuni
      */
     public function reservedAttributeValueIsPreserved()
     {
-        $subject = new Tx_Phpunit_ViewHelpers_CheckboxViewHelper('test');
+        $subject = new \Tx_Phpunit_ViewHelpers_CheckboxViewHelper('test');
 
         // This should have no effect on the rendered tag:
         $subject->setAdditionalAttributes(
@@ -146,7 +145,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_CheckboxViewHelperTest extends Tx_Phpuni
      */
     public function addingReservedAttributeToAdditionalAttributesDoesNotGenerateDuplicateAttributes()
     {
-        $subject = new Tx_Phpunit_ViewHelpers_CheckboxViewHelper('test');
+        $subject = new \Tx_Phpunit_ViewHelpers_CheckboxViewHelper('test');
 
         $subject->setAdditionalAttributes(
             array(
@@ -166,7 +165,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_CheckboxViewHelperTest extends Tx_Phpuni
      */
     public function addingAdditionalAttributesWillPreserveExistingAdditionalAttributesWithDifferentKeys()
     {
-        $subject = new Tx_Phpunit_ViewHelpers_CheckboxViewHelper(
+        $subject = new \Tx_Phpunit_ViewHelpers_CheckboxViewHelper(
             '',
             array(
                 'mustBe' => 'preserved'
@@ -190,7 +189,7 @@ class Tx_Phpunit_Tests_Unit_ViewHelpers_CheckboxViewHelperTest extends Tx_Phpuni
      */
     public function changingTheValueAfterInstantiationIsPossible()
     {
-        $subject = new Tx_Phpunit_ViewHelpers_CheckboxViewHelper('oldValue');
+        $subject = new \Tx_Phpunit_ViewHelpers_CheckboxViewHelper('oldValue');
 
         $subject->setValue('newValue');
 

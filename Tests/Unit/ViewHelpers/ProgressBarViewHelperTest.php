@@ -1,4 +1,6 @@
 <?php
+namespace OliverKlee\Phpunit\Tests\Unit\ViewHelpers;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -15,28 +17,25 @@
 /**
  * Test case.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Tests_Unit_ViewHelpers_ProgressBarViewHelperTest extends Tx_Phpunit_TestCase
+class ProgressBarViewHelperTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Phpunit_ViewHelpers_ProgressBarViewHelper
+     * @var \Tx_Phpunit_ViewHelpers_ProgressBarViewHelper
      */
     protected $subject = null;
 
     /**
-     * @var Tx_Phpunit_Service_FakeOutputService
+     * @var \Tx_Phpunit_Service_FakeOutputService
      */
     protected $outputService = null;
 
     protected function setUp()
     {
-        $this->subject = new Tx_Phpunit_ViewHelpers_ProgressBarViewHelper();
+        $this->subject = new \Tx_Phpunit_ViewHelpers_ProgressBarViewHelper();
 
-        $this->outputService = new Tx_Phpunit_Service_FakeOutputService();
+        $this->outputService = new \Tx_Phpunit_Service_FakeOutputService();
         $this->subject->injectOutputService($this->outputService);
     }
 

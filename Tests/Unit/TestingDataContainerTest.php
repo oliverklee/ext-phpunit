@@ -1,4 +1,6 @@
 <?php
+namespace OliverKlee\Phpunit\Tests\Unit;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -15,21 +17,18 @@
 /**
  * Test case.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Tests_Unit_TestingDataContainerTest extends Tx_Phpunit_TestCase
+class TestingDataContainerTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Phpunit_TestingDataContainer
+     * @var \Tx_Phpunit_TestingDataContainer
      */
     protected $subject = null;
 
     protected function setUp()
     {
-        $this->subject = new Tx_Phpunit_TestingDataContainer();
+        $this->subject = new \Tx_Phpunit_TestingDataContainer();
     }
 
     /**
