@@ -15,9 +15,6 @@
 /**
  * This class provides functions for reading and writing testing data, e.g., fake settings or a fake request.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Phpunit_TestingDataContainer extends Tx_Phpunit_AbstractDataContainer implements

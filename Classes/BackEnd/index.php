@@ -17,9 +17,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * Module "PHPUnit".
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Kasper Ligaard <kasperligaard@gmail.com>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */

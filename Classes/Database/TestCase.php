@@ -21,9 +21,6 @@ use TYPO3\CMS\Install\Service\SqlExpectedSchemaService;
 /**
  * Database testcase base class.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Michael Klapper <michael.klapper@aoemedia.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */

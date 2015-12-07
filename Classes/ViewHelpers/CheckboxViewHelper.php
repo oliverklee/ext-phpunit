@@ -15,9 +15,6 @@
 /**
  * This view helper renders an input field of type checkbox.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Felix Rauch <rauch@skaiamail.de>
  */
 class Tx_Phpunit_ViewHelpers_CheckboxViewHelper extends Tx_Phpunit_ViewHelpers_AbstractTagViewHelper

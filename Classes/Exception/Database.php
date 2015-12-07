@@ -22,9 +22,6 @@ use TYPO3\CMS\Core\Exception;
  * The exception automatically will use an error message, the error message
  * from the DB and the last query.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Phpunit_Exception_Database extends Exception

@@ -15,9 +15,6 @@
 /**
  * This interface provides functions for reading data from a POST/GET request.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 interface Tx_Phpunit_Interface_Request extends Tx_Phpunit_Interface_ConvertService

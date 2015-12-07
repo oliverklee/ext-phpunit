@@ -20,9 +20,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @see http://bugs.typo3.org/view.php?id=7096
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Kasper Ligaard <kasperligaard@gmail.com>
  * @author Michael Klapper <michael.klapper@aoemedia.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>

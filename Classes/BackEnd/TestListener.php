@@ -21,9 +21,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * This class renders the output of the single tests in the phpunit BE module.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Robert Lemke <robert@typo3.org>
  * @author Kasper Ligaard <kasperligaard@gmail.com>
  * @author Michael Klapper <michael.klapper@aoemedia.de>

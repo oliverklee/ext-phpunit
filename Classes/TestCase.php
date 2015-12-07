@@ -17,9 +17,6 @@
  * TYPO3. It extends PHPUnit_Framework_TestCase, so you have access to all of
  * that class as well.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Robert Lemke <robert@typo3.org>
  * @author Kasper Ligaard <kasperligaard@gmail.com>
  * @author Soren Soltveit <sso@systime.dk>

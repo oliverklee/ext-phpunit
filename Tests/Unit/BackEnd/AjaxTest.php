@@ -18,9 +18,6 @@ use TYPO3\CMS\Core\Http\AjaxRequestHandler;
 /**
  * Test case.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class AjaxTest extends \Tx_Phpunit_TestCase

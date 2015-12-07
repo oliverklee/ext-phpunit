@@ -15,9 +15,6 @@
 /**
  * Test case.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Felix Rauch <rauch@skaiamail.de>
  */
 class Tx_Phpunit_Tests_Unit_Service_SeleniumServiceTest extends Tx_Phpunit_TestCase

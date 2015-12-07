@@ -15,9 +15,6 @@
 /**
  * This class is the base class for all view helpers which render some select boxes.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Nicole Cordes <nicole.cordes@googlemail.com>
  */
 abstract class Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper extends Tx_Phpunit_ViewHelpers_AbstractTagViewHelper

@@ -15,9 +15,6 @@
 /**
  * This interface provides functions for reading and writing the settings of the back-end user who is currently logged in.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 interface Tx_Phpunit_Interface_UserSettingsService extends Tx_Phpunit_Interface_ConvertService

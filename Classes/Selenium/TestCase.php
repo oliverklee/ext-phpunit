@@ -19,9 +19,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * TYPO3. It extends PHPUnit_Extensions_SeleniumTestCase, so you have access to
  * all of that class too.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Bastian Waidelich <bastian@typo3.org>
  * @author Carsten Koenig <ck@carsten-koenig.de>
  */

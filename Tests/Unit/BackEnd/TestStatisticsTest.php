@@ -17,9 +17,6 @@ namespace OliverKlee\Phpunit\Tests\Unit\BackEnd;
 /**
  * Test case.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class TestStatisticsTest extends \Tx_Phpunit_TestCase

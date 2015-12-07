@@ -20,9 +20,6 @@ use TYPO3\CMS\Reports\StatusProviderInterface;
 /**
  * This class provides a status report for the "Reports" BE module.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Phpunit_Reports_Status implements StatusProviderInterface

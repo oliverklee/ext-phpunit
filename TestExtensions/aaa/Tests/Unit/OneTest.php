@@ -27,9 +27,6 @@
  *
  * It should be found by Testfinder::findTestCaseFilesInDirectory function.
  *
- * @package TYPO3
- * @subpackage tx_aaa
- *
  * @author Nicole Cordes <nicole.cordes@googlemail.com>
  */
 class Tx_Aaa_Tests_OneTest extends Tx_Phpunit_TestCase

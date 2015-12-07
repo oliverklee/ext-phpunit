@@ -18,9 +18,6 @@
  * Should be used as the base class for all view helpers which output simple tags, as it provides some useful
  * convenience methods.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Felix Rauch <rauch@skaiamail.de>
  */
 abstract class Tx_Phpunit_ViewHelpers_AbstractTagViewHelper extends Tx_Phpunit_ViewHelpers_AbstractViewHelper

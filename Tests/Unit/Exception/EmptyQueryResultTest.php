@@ -19,9 +19,6 @@ use TYPO3\CMS\Core\Database\DatabaseConnection;
 /**
  * Test case.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class EmptyQueryResultTest extends \Tx_Phpunit_TestCase

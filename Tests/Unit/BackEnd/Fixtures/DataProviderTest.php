@@ -17,9 +17,6 @@ namespace OliverKlee\Phpunit\Tests\Unit\BackEnd\Fixtures;
 /**
  * This is a fixture testcase used for testing data providers.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class DataProviderTest extends \Tx_Phpunit_TestCase

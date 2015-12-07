@@ -15,9 +15,6 @@
 /**
  * This class represents some code that can be tested.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Phpunit_Testable

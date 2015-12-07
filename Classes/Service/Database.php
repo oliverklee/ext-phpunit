@@ -20,9 +20,6 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
  * This class provides some static database-related functions (mostly convenience
  * wrappers).
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Phpunit_Service_Database

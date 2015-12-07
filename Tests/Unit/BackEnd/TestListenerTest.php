@@ -21,9 +21,6 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 /**
  * Test case.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class TestListenerTest extends \Tx_Phpunit_TestCase

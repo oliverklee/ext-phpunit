@@ -15,9 +15,6 @@
 /**
  * This interface provides functions for converting values into different types.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Nicole Cordes <nicole.cordes@googlemail.com>
  * @author Oliver Klee <typo3-coding@oliverklee,de>
  */

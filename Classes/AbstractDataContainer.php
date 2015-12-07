@@ -15,9 +15,6 @@
 /**
  * This class provides functions for reading and writing data, e.g., from settings or from a request.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 abstract class Tx_Phpunit_AbstractDataContainer

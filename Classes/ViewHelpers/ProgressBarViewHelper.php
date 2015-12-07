@@ -15,9 +15,6 @@
 /**
  * This view helper renders the progress bar.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Phpunit_ViewHelpers_ProgressBarViewHelper extends Tx_Phpunit_ViewHelpers_AbstractViewHelper

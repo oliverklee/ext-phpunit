@@ -17,9 +17,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * This class provides functions for using Selenium RC.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Felix Rauch <rauch@skaiamail.de>
  */
 class Tx_Phpunit_Service_SeleniumService implements Tx_Phpunit_Interface_SeleniumService, \TYPO3\CMS\Core\SingletonInterface

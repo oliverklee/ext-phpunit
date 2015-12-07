@@ -15,9 +15,6 @@
 /**
  * This interface provides functions for using Selenium RC.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Felix Rauch <rauch@skaiamail.de>
  */
 interface Tx_Phpunit_Interface_SeleniumService

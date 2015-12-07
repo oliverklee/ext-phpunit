@@ -15,9 +15,6 @@
 /**
  * This view helper renders the extension selector box.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Nicole Cordes <nicole.cordes@googlemail.com>
  */
 class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper extends Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper

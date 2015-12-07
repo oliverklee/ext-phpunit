@@ -26,9 +26,6 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  *  3. ccc (depends on bbb)
  *  4. ddd (depends on bbb)
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Kasper Ligaard <kasperligaard@gmail.com>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */

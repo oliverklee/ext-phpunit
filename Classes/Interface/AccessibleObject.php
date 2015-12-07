@@ -15,9 +15,6 @@
 /**
  * This interface defines the methods provided by Tx_Phpunit_TestCase::getAccessibleMock.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Nicole Cordes <nicole.cordes@googlemail.com>
  */
 interface Tx_Phpunit_Interface_AccessibleObject

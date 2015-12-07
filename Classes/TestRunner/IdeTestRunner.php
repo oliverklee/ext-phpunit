@@ -15,9 +15,6 @@
 /**
  * This class runs PHPUnit in CLI mode and includes the PHP boot script of an IDE.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Helmut Hummel <helmut.hummel@typo3.org>
  */
 class Tx_Phpunit_TestRunner_IdeTestRunner extends Tx_Phpunit_TestRunner_AbstractCliTestRunner

@@ -15,9 +15,6 @@
 /**
  * With this TestRunner, you can run PHPUnit manually from the command line.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Helmut Hummel <helmut.hummel@typo3.org>
  */
 class Tx_Phpunit_TestRunner_CliTestRunner extends Tx_Phpunit_TestRunner_AbstractCliTestRunner

@@ -16,9 +16,6 @@ use TYPO3\CMS\Lang\LanguageService;
 /**
  * This class is the base class for all view helpers.
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 abstract class Tx_Phpunit_ViewHelpers_AbstractViewHelper

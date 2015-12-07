@@ -23,9 +23,6 @@ use TYPO3\CMS\Lang\LanguageService;
 /**
  * Back-end module "PHPUnit".
  *
- * @package TYPO3
- * @subpackage tx_phpunit
- *
  * @author Kasper Ligaard <kasperligaard@gmail.com>
  * @author Michael Klapper <michael.klapper@aoemedia.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
