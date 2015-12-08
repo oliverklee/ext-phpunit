@@ -1,4 +1,6 @@
 <?php
+namespace OliverKlee\Phpunit\Tests\Unit\Service;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,21 +19,21 @@
  *
  * @author Felix Rauch <rauch@skaiamail.de>
  */
-class Tx_Phpunit_Tests_Unit_Service_SeleniumServiceTest extends Tx_Phpunit_TestCase
+class SeleniumServiceTest extends \Tx_Phpunit_TestCase
 {
     /**
-     * @var Tx_Phpunit_Service_SeleniumService|PHPUnit_Framework_MockObject_MockObject
+     * @var \Tx_Phpunit_Service_SeleniumService|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $subject = null;
 
     /**
-     * @var Tx_Phpunit_TestingDataContainer
+     * @var \Tx_Phpunit_TestingDataContainer
      */
     protected $extensionSettingsService = null;
 
     protected function setUp()
     {
-        $this->extensionSettingsService = new Tx_Phpunit_TestingDataContainer();
+        $this->extensionSettingsService = new \Tx_Phpunit_TestingDataContainer();
         $this->subject = $this->getMock(
             'Tx_Phpunit_Service_SeleniumService',
             null,
