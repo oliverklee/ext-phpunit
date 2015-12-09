@@ -19,7 +19,6 @@ use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 /**
  * Test case.
  *
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class UserSettingsServiceTest extends \Tx_Phpunit_TestCase
@@ -401,5 +400,29 @@ class UserSettingsServiceTest extends \Tx_Phpunit_TestCase
         $this->getBackEndUserMock()->expects(self::once())->method('writeUC');
 
         $this->subject->set('foo', 'bar');
+    }
+
+    /**
+     * @test
+     */
+    public function isActiveForAnUnknownSettingReturnsTrue()
+    {
+        $key = 'thisSettingIsNotDependentOnAnything';
+
+        self::assertTrue(
+            $this->subject->isActive($key)
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function isActiveForSanityCheckReturnsFalse()
+    {
+        $key = 'thisSettingIsAlwaysInactive';
+
+        self::assertFalse(
+            $this->subject->isActive($key)
+        );
     }
 }

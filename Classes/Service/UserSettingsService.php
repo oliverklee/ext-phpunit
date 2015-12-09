@@ -14,6 +14,7 @@
 
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This class provides functions for reading and writing the settings of the back-end user who is currently logged in.
@@ -22,12 +23,32 @@ use TYPO3\CMS\Core\SingletonInterface;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Service_UserSettingsService extends Tx_Phpunit_AbstractDataContainer implements Tx_Phpunit_Interface_UserSettingsService, SingletonInterface
+class Tx_Phpunit_Service_UserSettingsService extends Tx_Phpunit_AbstractDataContainer
+    implements Tx_Phpunit_Interface_UserSettingsService, SingletonInterface
 {
     /**
      * @var string
      */
     const PHPUNIT_SETTINGS_KEY = 'Tx_Phpunit_BackEndSettings';
+
+    /**
+     * @var Tx_Phpunit_Interface_SeleniumService
+     */
+    protected $seleniumService = null;
+
+    /**
+     * Constructor.
+     *
+     * @param Tx_Phpunit_Interface_SeleniumService|null $seleniumService
+     */
+    public function __construct(Tx_Phpunit_Interface_SeleniumService $seleniumService = null)
+    {
+        if ($seleniumService !== null) {
+            $this->seleniumService = $seleniumService;
+        } else {
+            $this->seleniumService = GeneralUtility::makeInstance('Tx_Phpunit_Service_SeleniumService');
+        }
+    }
 
     /**
      * Returns the value stored for the key $key.
@@ -49,8 +70,8 @@ class Tx_Phpunit_Service_UserSettingsService extends Tx_Phpunit_AbstractDataCont
     /**
      * Sets the value for the key $key.
      *
-     * @param string $key the key of the value to set, must not be empty
-     * @param mixed $value the value to set
+     * @param string $key   the key of the value to set, must not be empty
+     * @param mixed  $value the value to set
      *
      * @return void
      */
@@ -60,6 +81,33 @@ class Tx_Phpunit_Service_UserSettingsService extends Tx_Phpunit_AbstractDataCont
 
         $this->getBackEndUser()->uc[self::PHPUNIT_SETTINGS_KEY][$key] = $value;
         $this->getBackEndUser()->writeUC();
+    }
+
+    /**
+     * Returns whether the given setting is active/allowed.
+     *
+     * @param string $key
+     *
+     * @return bool
+     */
+    public function isActive($key)
+    {
+        switch ($key) {
+            case 'codeCoverage':
+                $isActive = extension_loaded('xdebug');
+                break;
+            case 'runSeleniumTests':
+                $isActive = $this->seleniumService->isSeleniumServerRunning();
+                break;
+            case 'thisSettingIsAlwaysInactive':
+                $isActive = false;
+                break;
+            default:
+                // If the given setting is not covered by any of the cases, it should be considered active.
+                $isActive = true;
+        }
+
+        return $isActive;
     }
 
     /**
