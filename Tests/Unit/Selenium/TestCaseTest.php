@@ -207,7 +207,7 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
 
         try {
             $subject->runTest();
-        } catch (PHPUnit_Framework_SkippedTestError $e) {
+        } catch (\PHPUnit_Framework_SkippedTestError $e) {
             self::assertTrue(true);
         }
     }
