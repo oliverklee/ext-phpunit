@@ -21,7 +21,7 @@ namespace OliverKlee\Phpunit\Tests;
  *
  * @author Kasper Ligaard <kasperligaard@gmail.com>
  */
-class TestSuite extends \PHPUnit_Framework_TestSuite {
+class TestSuite extends \PHPUnit_Framework_TestSuite
 {
     /**
      * The constructor.
