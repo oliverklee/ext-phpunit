@@ -4883,22 +4883,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function loginFrontEndUserSwitchesLoginManagerToLoggedIn()
-    {
-        $this->subject->createFrontEndPage();
-        $this->subject->createFakeFrontEnd();
-
-        $feUserId = $this->subject->createFrontEndUser();
-        $this->subject->loginFrontEndUser($feUserId);
-
-        self::assertTrue(
-            $this->subject->isLoggedIn()
-        );
-    }
-
-    /**
-     * @test
-     */
     public function loginFrontEndUserSetsLoginUserToOne()
     {
         $this->subject->createFrontEndPage();
@@ -4997,23 +4981,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function logoutFrontEndUserAfterLoginSwitchesLoginManagerToNotLoggedIn()
-    {
-        $this->subject->createFrontEndPage();
-        $this->subject->createFakeFrontEnd();
-
-        $feUserId = $this->subject->createFrontEndUser();
-        $this->subject->loginFrontEndUser($feUserId);
-        $this->subject->logoutFrontEndUser();
-
-        self::assertFalse(
-            $this->subject->isLoggedIn()
-        );
-    }
-
-    /**
-     * @test
-     */
     public function logoutFrontEndUserSetsLoginUserToFalse()
     {
         $this->subject->createFrontEndPage();
@@ -5052,11 +5019,11 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function createAndLogInFrontEndUserCreatesFrontEndUser()
+    public function createAndLoginFrontEndUserCreatesFrontEndUser()
     {
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
-        $this->subject->createAndLogInFrontEndUser();
+        $this->subject->createAndLoginFrontEndUser();
 
         self::assertSame(
             1,
@@ -5067,11 +5034,11 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function createAndLogInFrontEndUserWithRecordDataCreatesFrontEndUserWithThatData()
+    public function createAndLoginFrontEndUserWithRecordDataCreatesFrontEndUserWithThatData()
     {
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
-        $this->subject->createAndLogInFrontEndUser(
+        $this->subject->createAndLoginFrontEndUser(
             '',
             array('name' => 'John Doe')
         );
@@ -5085,11 +5052,11 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function createAndLogInFrontEndUserLogsInFrontEndUser()
+    public function createAndLoginFrontEndUserLogsInFrontEndUser()
     {
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
-        $this->subject->createAndLogInFrontEndUser();
+        $this->subject->createAndLoginFrontEndUser();
 
         self::assertTrue(
             $this->subject->isLoggedIn()
@@ -5099,12 +5066,12 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function createAndLogInFrontEndUserWithFrontEndUserGroupCreatesFrontEndUser()
+    public function createAndLoginFrontEndUserWithFrontEndUserGroupCreatesFrontEndUser()
     {
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
         $frontEndUserGroupUid = $this->subject->createFrontEndUserGroup();
-        $this->subject->createAndLogInFrontEndUser($frontEndUserGroupUid);
+        $this->subject->createAndLoginFrontEndUser($frontEndUserGroupUid);
 
         self::assertSame(
             1,
@@ -5115,12 +5082,12 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function createAndLogInFrontEndUserWithFrontEndUserGroupCreatesFrontEndUserWithGivenGroup()
+    public function createAndLoginFrontEndUserWithFrontEndUserGroupCreatesFrontEndUserWithGivenGroup()
     {
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
         $frontEndUserGroupUid = $this->subject->createFrontEndUserGroup();
-        $frontEndUserUid = $this->subject->createAndLogInFrontEndUser(
+        $frontEndUserUid = $this->subject->createAndLoginFrontEndUser(
             $frontEndUserGroupUid
         );
 
@@ -5139,12 +5106,12 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function createAndLogInFrontEndUserWithFrontEndUserGroupDoesNotCreateFrontEndUserGroup()
+    public function createAndLoginFrontEndUserWithFrontEndUserGroupDoesNotCreateFrontEndUserGroup()
     {
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
         $frontEndUserGroupUid = $this->subject->createFrontEndUserGroup();
-        $this->subject->createAndLogInFrontEndUser(
+        $this->subject->createAndLoginFrontEndUser(
             $frontEndUserGroupUid
         );
 
@@ -5157,12 +5124,12 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function createAndLogInFrontEndUserWithFrontEndUserGroupLogsInFrontEndUser()
+    public function createAndLoginFrontEndUserWithFrontEndUserGroupLogsInFrontEndUser()
     {
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
         $frontEndUserGroupUid = $this->subject->createFrontEndUserGroup();
-        $this->subject->createAndLogInFrontEndUser($frontEndUserGroupUid);
+        $this->subject->createAndLoginFrontEndUser($frontEndUserGroupUid);
 
         self::assertTrue(
             $this->subject->isLoggedIn()
