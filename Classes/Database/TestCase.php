@@ -12,7 +12,6 @@
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Core\Cache\Cache;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -296,6 +295,14 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
      */
     protected function importStdDb()
     {
+        // make sure missing caching framework tables do not get into the way
+        if (TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 7006000) {
+            $cacheTables = \TYPO3\CMS\Core\Cache\Cache::getDatabaseTableDefinitions();
+        } else {
+       	    $cacheTables = \TYPO3\CMS\Core\Cache\DatabaseSchemaService::getCachingFrameworkRequiredDatabaseSchema();
+        }
+        $this->importDatabaseDefinitions($cacheTables);
+
         /* @var TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
         $objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
         /** @var TYPO3\CMS\Install\Service\SqlExpectedSchemaService $sqlExpectedSchemaService */
@@ -304,10 +311,6 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
         $databaseDefinitions = $sqlExpectedSchemaService->getTablesDefinitionString(true);
 
         $this->importDatabaseDefinitions($databaseDefinitions);
-
-        // make sure missing caching framework tables do not get into the way
-        $cacheTables = Cache::getDatabaseTableDefinitions();
-        $this->importDatabaseDefinitions($cacheTables);
     }
 
     /**
