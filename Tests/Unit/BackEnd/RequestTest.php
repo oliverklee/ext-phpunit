@@ -35,7 +35,7 @@ class RequestTest extends \Tx_Phpunit_TestCase
     protected $backupGlobalsBlacklist = array('TYPO3_DB');
 
     /**
-     * @var Tx_Phpunit_BackEnd_Request
+     * @var \Tx_Phpunit_BackEnd_Request
      */
     protected $subject = null;
 
