@@ -19,6 +19,7 @@ use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Lang\LanguageService;
+use TYPO3\CMS\Core\Messaging\FlashMessageService;;
 
 /**
  * Back-end module "PHPUnit".
@@ -367,26 +368,31 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
      */
     protected function renderRunTestsIntro()
     {
+        /** @var FlashMessageService $flashMessageService */
+        $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
+        $defaultFlashMessageQueue = $flashMessageService->getMessageQueueByIdentifier();
         if (!$this->testFinder->existsTestableForAnything()) {
             /** @var FlashMessage $message */
             $message = GeneralUtility::makeInstance(
-                'TYPO3\\CMS\\Core\\Messaging\\FlashMessage',
+                FlashMessage::class,
                 $this->translate('could_not_find_exts_with_tests'),
                 '',
                 FlashMessage::WARNING
             );
-            $this->outputService->output($message->render());
+            $defaultFlashMessageQueue->enqueue($message);
+            $this->outputService->output($defaultFlashMessageQueue->renderFlashMessages());
             return;
         }
 
         /** @var FlashMessage $message */
         $message = GeneralUtility::makeInstance(
-            'TYPO3\\CMS\\Core\\Messaging\\FlashMessage',
+            FlashMessage::class,
             $this->translate('test_are_run_in_current_backend_context'),
             '',
             FlashMessage::WARNING
         );
-        $this->outputService->output($message->render());
+        $defaultFlashMessageQueue->enqueue($message);
+        $this->outputService->output($defaultFlashMessageQueue->renderFlashMessages());
 
         $this->outputService->output('<p><br /></p>');
 
