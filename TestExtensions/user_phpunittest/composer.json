@@ -1,0 +1,10 @@
+{
+    "name": "oliverklee/user-phpunittest",
+    "type": "typo3-cms-extension",
+    "version": "0.0.0",
+    "license": "GPL-2.0+",
+    "replace": {
+        "user-phpunittest": "self.version",
+        "typo3-ter/user-phpunittest": "self.version"
+    }
+}
