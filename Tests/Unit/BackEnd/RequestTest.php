@@ -27,12 +27,15 @@ class RequestTest extends \Tx_Phpunit_TestCase
     protected $backupGlobals = true;
 
     /**
-     * Exclude TYPO3_DB from backup/ restore of $GLOBALS
+     * Exclude TYPO3_DB from backup/restore of $GLOBALS
      * because resource types cannot be handled during serializing.
+     *
+     * TYPO3_CONF_VARS is also excluded because it contains a Closure
+     * (which cannot be serialized).
      *
      * @var string[]
      */
-    protected $backupGlobalsBlacklist = array('TYPO3_DB');
+    protected $backupGlobalsBlacklist = array('TYPO3_DB', 'TYPO3_CONF_VARS');
 
     /**
      * @var \Tx_Phpunit_BackEnd_Request
