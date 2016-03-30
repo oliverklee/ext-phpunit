@@ -84,8 +84,11 @@
 			<trans-unit id="tx_phpunit_test.title">
 				<target>Titel</target>
 			</trans-unit>
-			<trans-unit id="test_are_run_in_current_backend_context">
-				<target>&lt;p&gt;&lt;strong&gt;Tests werden im aktuellen Backend-Kontext ausgeführt&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;Die Unit-Tests werden im Kontext der aktuellen Backend-Session ausgeführt. Das Ergebnis wird dadurch wahrscheinlich anders sein als über die Kommandozeile mit der Testkonfiguration der Core-Unit-Tests oder der Core-Functional-Tests. Insbesondere wird dies seltsame Fehler mit den Core-Tests erzeugen.&lt;/p&gt;&lt;p&gt;Wenn Sie die Tests in einem sauberen Kontext ausführen müssen, benutzen Sie bitte den Ansatz, der im Wiki unter &lt;a href="http://wiki.typo3.org/Unit_Testing_TYPO3" target="_blank"&gt;http://wiki.typo3.org/Unit_Testing_TYPO3&lt;/a&gt; und &lt;a href="http://wiki.typo3.org/Functional_testing" target="_blank"&gt;http://wiki.typo3.org/Functional_testing&lt;/a&gt; beschrieben wird.&lt;/p&gt;</target>
+			<trans-unit id="test_are_run_in_current_backend_context.title">
+				<target>Tests werden im aktuellen Backend-Kontext ausgeführt</target>
+			</trans-unit>
+			<trans-unit id="test_are_run_in_current_backend_context.message">
+				<target>Die Unit-Tests werden im Kontext der aktuellen Backend-Session ausgeführt. Das Ergebnis wird dadurch wahrscheinlich anders sein als über die Kommandozeile mit der Testkonfiguration der Core-Unit-Tests oder der Core-Functional-Tests. Insbesondere wird dies seltsame Fehler mit den Core-Tests erzeugen.</target>
 			</trans-unit>
 			<trans-unit id="shortcuts">
 				<target>Tastaturkürzel</target>

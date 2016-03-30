@@ -69,8 +69,11 @@
 			<trans-unit id="tx_phpunit_test.title">
 				<target>Titel</target>
 			</trans-unit>
-			<trans-unit id="test_are_run_in_current_backend_context">
-				<target>&lt;p&gt;&lt;strong&gt;Tests bliver udført i kontekst af Backend&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;Unit tests, bliver udført i kontekst af den aktuelle backend session. Resultated bliver derfor muligvis anderledes end hvis udført fra Commandline med test konfigurationen fra Core-Unit-Tests eller der Core-Functional-Tests. Især vil det producere mærkelige fejl med Core tests. &lt;/p&gt;&lt;p&gt;Når du vil udfører disse tests i et sterilt miljø, følg venligst informationen der er beskrevet i wiki'en. &lt;a href="http://wiki.typo3.org/Unit_Testing_TYPO3" target="_blank"&gt;http://wiki.typo3.org/Unit_Testing_TYPO3&lt;/a&gt; og &lt;a href="http://wiki.typo3.org/Functional_testing" target="_blank"&gt;http://wiki.typo3.org/Functional_testing&lt;/a&gt; se wiki&lt;/p&gt;</target>
+			<trans-unit id="test_are_run_in_current_backend_context.title">
+				<target>Tests bliver udført i kontekst af Backend</target>
+			</trans-unit>
+			<trans-unit id="test_are_run_in_current_backend_context.message">
+				<target>Unit tests, bliver udført i kontekst af den aktuelle backend session. Resultated bliver derfor muligvis anderledes end hvis udført fra Commandline med test konfigurationen fra Core-Unit-Tests eller der Core-Functional-Tests. Især vil det producere mærkelige fejl med Core tests.</target>
 			</trans-unit>
 			<trans-unit id="shortcuts">
 				<target>Tastatur genveje</target>

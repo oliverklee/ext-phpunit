@@ -387,8 +387,8 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         /** @var FlashMessage $message */
         $message = GeneralUtility::makeInstance(
             FlashMessage::class,
-            $this->translate('test_are_run_in_current_backend_context'),
-            '',
+            $this->translate('test_are_run_in_current_backend_context.message'),
+            $this->translate('test_are_run_in_current_backend_context.title'),
             FlashMessage::WARNING
         );
         $defaultFlashMessageQueue->enqueue($message);
