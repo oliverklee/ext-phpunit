@@ -7,10 +7,11 @@ if (!class_exists('PHPUnit_Framework_TestCase') || !class_exists('PHPUnit_Extens
     require_once($extPath . 'Resources/Private/Libraries/phpunit-library.phar');
 }
 
-$GLOBALS['TYPO3_CONF_VARS']['BE']['AJAX']['Tx_Phpunit_BackEnd_Ajax'] =
-    $extPath . 'Classes/BackEnd/Ajax.php:Tx_Phpunit_BackEnd_Ajax->ajaxBroker';
-
 if (TYPO3_MODE === 'BE') {
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::registerAjaxHandler(
+        'PHPUnitAJAX::saveCheckbox',
+        'Tx_Phpunit_BackEnd_Ajax->ajaxBroker'
+    );
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['GLOBAL']['cliKeys']['phpunit'] = array(
         'EXT:' . $_EXTKEY . '/Scripts/ManualCliTestRunner.php',
         '_CLI_phpunit',

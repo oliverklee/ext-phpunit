@@ -86,16 +86,16 @@ function setProgressBarClass(className) {
 			default:
 		}
 
-		jQuery.post('ajax.php', 'ajaxID=Tx_Phpunit_BackEnd_Ajax&state=' + state + '&checkbox=' + checkbox);
+		jQuery.post(TYPO3.settings.ajaxUrls['PHPUnitAJAX::saveCheckbox'], { state: state, checkbox: checkbox });
 
 		toggleStyleNodeForMassHidingOfElements(className, display);
 	};
 
 	var toggleCodeCoverage = function(event) {
 		var target = event.target;
-		var state = target.checked ? "1" : "0";
+		var state = target.checked ? '1' : '0';
 
-		jQuery.post('ajax.php', 'ajaxID=Tx_Phpunit_BackEnd_Ajax&state=' + state + '&checkbox=codeCoverage');
+		jQuery.post(TYPO3.settings.ajaxUrls['PHPUnitAJAX::saveCheckbox'], { state: state, checkbox: 'codeCoverage' });
 	};
 
 	/**
