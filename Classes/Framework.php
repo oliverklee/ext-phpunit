@@ -17,6 +17,7 @@ use TYPO3\CMS\Core\Utility\File\BasicFileUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Exception;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
+use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -1306,7 +1307,6 @@ class Tx_Phpunit_Framework
 
         $frontEnd->newCObj();
 
-
         $this->hasFakeFrontEnd = true;
         $this->logoutFrontEndUser();
 
@@ -1349,6 +1349,10 @@ class Tx_Phpunit_Framework
         );
         $GLOBALS['TSFE'] = null;
         $GLOBALS['TT'] = null;
+        unset(
+            $GLOBALS['TYPO3_CONF_VARS']['FE']['dontSetCookie'],
+            $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][FrontendUserAuthentication::class]
+        );
 
         $this->hasFakeFrontEnd = false;
     }
@@ -1376,10 +1380,9 @@ class Tx_Phpunit_Framework
 
         $GLOBALS['_POST']['FE_SESSION_KEY'] = '';
         $GLOBALS['_GET']['FE_SESSION_KEY'] = '';
-        $GLOBALS['TYPO3_CONF_VARS']['FE']['dontSetCookie'] = 1;
 
-        $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['TYPO3\\CMS\\Frontend\\Authentication\\FrontendUserAuthentication']
-            = array('className' => 'Tx_Phpunit_FrontEnd_UserWithoutCookies');
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][FrontendUserAuthentication::class]
+            = ['className' => \Tx_Phpunit_FrontEnd_UserWithoutCookies::class];
     }
 
 
@@ -1468,7 +1471,7 @@ class Tx_Phpunit_Framework
         }
 
         return isset($GLOBALS['TSFE']) && is_object($GLOBALS['TSFE'])
-        && is_array($GLOBALS['TSFE']->fe_user->user);
+            && is_array($GLOBALS['TSFE']->fe_user->user);
     }
 
 
