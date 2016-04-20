@@ -28,14 +28,6 @@ p, div, body, input, select, textarea, .defstyle {
 	}
 }
 
-#opennewwindow {
-	text-decoration: none;
-}
-
-#opennewwindow:hover {
-	background-color: white;
-}
-
 h1, h2, h3, h4 {
 	background-color: transparent;
 	color: black;

@@ -261,8 +261,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
                     <ul>
                     <li>' . $this->translate('shortcuts.browser_safari_ie') . '</li>
                     <li>' . $this->translate('shortcuts.browser_firefox') . '</li>
-                    </ul>' .
-                    $this->doc->section('', $this->createOpenNewWindowLink())
+                    </ul>'
                 )
             );
         } else {
@@ -1021,30 +1020,6 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
      * Helper functions
      *
      *********************************************************/
-
-    /**
-     * Renders a link which opens the current screen in a new window,
-     *
-     * @return string
-     */
-    protected function createOpenNewWindowLink()
-    {
-        $url = BackendUtility::getModuleUrl(Tx_Phpunit_BackEnd_Module::MODULE_NAME, array(), false, true);
-        $onClick = "phpunitbeWin=window.open(" . GeneralUtility::quoteJSvalue($url) .
-            ",'phpunitbe','width=790,status=0,menubar=1,resizable=1,location=0,scrollbars=1,toolbar=0');phpunitbeWin.focus();return false;";
-        $content = '<a id="opennewwindow" href="" onclick="' . htmlspecialchars($onClick) . '" accesskey="n">
-            <img' . IconUtility::skinImg(
-                $GLOBALS['BACK_PATH'],
-                'gfx/open_in_new_window.gif',
-                'width="19" height="14"'
-            ) . ' title="' .
-            $this->getLanguageService()->sL('LLL:EXT:lang/locallang_core.xlf:labels.openInNewWindow', 1) . '" class="absmiddle" alt="" />
-            ' . $this->translate('open_in_seperate_window') . '
-            </a>
-            <script type="text/javascript">/*<![CDATA[*/if (window.name === "phpunitbe") { document.getElementById("opennewwindow").style.display = "none"; }/*]]>*/</script>';
-
-        return $content;
-    }
 
     /**
      * Recursively finds all test case files in the directory $directory.

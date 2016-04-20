@@ -97,7 +97,7 @@
 				<target>Tastaturkürzel</target>
 			</trans-unit>
 			<trans-unit id="shortcuts.text">
-				<target>Benutze &quot;a&quot;, um alle Tests zu starten. Benutze &quot;s&quot;, um einen Einzeltest zu starten, und benutze &quot;r&quot;, um den letzten Test neu zu starten. Um PHPUnit in einem neuen Fenster zu starten, benutze &quot;n&quot;.</target>
+				<target>Benutze &quot;a&quot;, um alle Tests zu starten. Benutze &quot;s&quot;, um einen Einzeltest zu starten, und benutze &quot;r&quot;, um den letzten Test neu zu starten.</target>
 			</trans-unit>
 			<trans-unit id="shortcuts.browser_dependency">
 				<target>Abhängig von Browser und Betriebssystem müssen Tastenkombination genutzt werden:</target>
@@ -107,9 +107,6 @@
 			</trans-unit>
 			<trans-unit id="shortcuts.browser_firefox">
 				<target>Firefox: Verwende &quot;Alt-Shift&quot; auf Windows, &quot;Ctrl-Shift&quot; auf Macs.</target>
-			</trans-unit>
-			<trans-unit id="open_in_seperate_window">
-				<target>Ein eigenständiges Fe&lt;span class="access-key"&gt;n&lt;/span&gt;ster öffnen</target>
 			</trans-unit>
 			<trans-unit id="success">
 				<target>Erfolgreich</target>

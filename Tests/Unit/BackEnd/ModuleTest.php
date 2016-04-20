@@ -246,7 +246,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
         $GLOBALS['BE_USER']->user['admin'] = true;
 
         /** @var \Tx_Phpunit_BackEnd_Module|\PHPUnit_Framework_MockObject_MockObject $subject */
-        $subject = $this->getMock($this->createAccessibleProxy(), array('createOpenNewWindowLink', 'renderRunTests'));
+        $subject = $this->getMock($this->createAccessibleProxy(), array('renderRunTests'));
         $subject->injectRequest($this->request);
         $subject->injectOutputService($this->outputService);
         $subject->injectUserSettingsService($this->userSettingsService);

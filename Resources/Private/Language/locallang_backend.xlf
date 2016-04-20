@@ -97,7 +97,7 @@
 				<source>Keyboard shortcuts</source>
 			</trans-unit>
 			<trans-unit id="shortcuts.text">
-				<source>Use &quot;a&quot; for running all tests, use &quot;s&quot; for running a single test and use &quot;r&quot; to re-run the latest tests. To open PHPUnit in a new window, use &quot;n&quot;.</source>
+				<source>Use &quot;a&quot; for running all tests, use &quot;s&quot; for running a single test and use &quot;r&quot; to re-run the latest tests.</source>
 			</trans-unit>
 			<trans-unit id="shortcuts.browser_dependency">
 				<source>Depending on your browser and system, you will need to press some modifier keys:</source>
@@ -107,9 +107,6 @@
 			</trans-unit>
 			<trans-unit id="shortcuts.browser_firefox">
 				<source>Firefox: Use &quot;Alt-Shift&quot; on Windows, &quot;Ctrl-Shift&quot; on Macs.</source>
-			</trans-unit>
-			<trans-unit id="open_in_seperate_window">
-				<source>Ope&lt;span class="access-key"&gt;n&lt;/span&gt; in separate window</source>
 			</trans-unit>
 			<trans-unit id="success">
 				<source>Success</source>

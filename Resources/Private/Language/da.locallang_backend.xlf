@@ -82,7 +82,7 @@
 				<target>Tastatur genveje</target>
 			</trans-unit>
 			<trans-unit id="shortcuts.text">
-				<target>Tast &quot;a&quot; for at udføre alle tests, tast &quot;s&quot; for at udføre en enkelt test og tast &quot;r&quot; for at gen-udfører den sidste test; for at åbne phpunit i et nyt vindue tast  &quot;n&quot;.</target>
+				<target>Tast &quot;a&quot; for at udføre alle tests, tast &quot;s&quot; for at udføre en enkelt test og tast &quot;r&quot; for at gen-udfører den sidste test.</target>
 			</trans-unit>
 			<trans-unit id="shortcuts.browser_dependency">
 				<target>Afhængig af dine browser og OS skal du bruge en kontrol taste samtidigt:</target>
@@ -92,9 +92,6 @@
 			</trans-unit>
 			<trans-unit id="shortcuts.browser_firefox">
 				<target>Firefox: tast &quot;Alt-Shift&quot; på Windows, &quot;Ctrl-Shift&quot; på Macs</target>
-			</trans-unit>
-			<trans-unit id="open_in_seperate_window">
-				<target>Åbe&lt;span class="access-key"&gt;n&lt;/span&gt; i seperat vindue.</target>
 			</trans-unit>
 			<trans-unit id="success">
 				<target>Success</target>
