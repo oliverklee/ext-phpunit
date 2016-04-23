@@ -1,4 +1,5 @@
-5bf32aa [TASK] Update the API documentation
+195fb85 [TASK] Release version 4.8.24
+29787db [TASK] Update the API documentation and Changelog
 b968f24 [TASK] Update the composer packages
 6e1bbb3 [BUGFIX] Fix CSS in TYPO3 CMS 7LTS
 4dad707 [BUGFIX] Warning about headers already sent in the unit tests
