@@ -84,7 +84,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classTx__Phpunit__Selenium__TestCase-members.html">List of all members</a>  </div>
@@ -103,23 +102,8 @@ Inheritance diagram for Tx_Phpunit_Selenium_TestCase:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7967a9ce8e525163acfea317e88aa5eb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTx__Phpunit__Selenium__TestCase.html#a7967a9ce8e525163acfea317e88aa5eb">__construct</a> ($name=NULL, array $data=array(), $dataName= '', <a class="el" href="interfaceTx__Phpunit__Interface__ExtensionSettingsService.html">Tx_Phpunit_Interface_ExtensionSettingsService</a> $extensionSettingsService=NULL)</td></tr>
-<tr class="separator:a7967a9ce8e525163acfea317e88aa5eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:ab6b73fcc6755a3f9a4985eb23601acb2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab6b73fcc6755a3f9a4985eb23601acb2"></a>
-const&#160;</td><td class="memItemRight" valign="bottom"><b>DEFAULT_SELENIUM_HOST</b> = 'localhost'</td></tr>
-<tr class="separator:ab6b73fcc6755a3f9a4985eb23601acb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64c34a808a63401594aac46396170f45"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a64c34a808a63401594aac46396170f45"></a>
-const&#160;</td><td class="memItemRight" valign="bottom"><b>DEFAULT_SELENIUM_PORT</b> = 4444</td></tr>
-<tr class="separator:a64c34a808a63401594aac46396170f45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9091ea77c50bdbbba783658de533e16"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae9091ea77c50bdbbba783658de533e16"></a>
-const&#160;</td><td class="memItemRight" valign="bottom"><b>DEFAULT_SELENIUM_BROWSER</b> = '*chrome'</td></tr>
-<tr class="separator:ae9091ea77c50bdbbba783658de533e16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16585b354f801c25281980ef0db327d4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a16585b354f801c25281980ef0db327d4"></a>
-const&#160;</td><td class="memItemRight" valign="bottom"><b>DEFAULT_SELENIUM_BROWSER_URL</b> = '/'</td></tr>
-<tr class="separator:a16585b354f801c25281980ef0db327d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd85344a0299654542b224738a3957c6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTx__Phpunit__Selenium__TestCase.html#acd85344a0299654542b224738a3957c6">__construct</a> ($name=null, array $data=array(), $dataName= '', <a class="el" href="interfaceTx__Phpunit__Interface__ExtensionSettingsService.html">Tx_Phpunit_Interface_ExtensionSettingsService</a> $extensionSettingsService=null, <a class="el" href="interfaceTx__Phpunit__Interface__SeleniumService.html">Tx_Phpunit_Interface_SeleniumService</a> $seleniumService=null)</td></tr>
+<tr class="separator:acd85344a0299654542b224738a3957c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -139,11 +123,19 @@ Protected Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:af128f39e365762758da6e6a4e5485b02"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af128f39e365762758da6e6a4e5485b02"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>$extensionSettingsService</b> = NULL</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>$extensionSettingsService</b> = null</td></tr>
 <tr class="separator:af128f39e365762758da6e6a4e5485b02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbe80ebc02a659edf87b6755e2927092"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abbe80ebc02a659edf87b6755e2927092"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>$seleniumService</b> = null</td></tr>
+<tr class="separator:abbe80ebc02a659edf87b6755e2927092"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a7967a9ce8e525163acfea317e88aa5eb"></a>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This class provides helper functions that might be convenient when testing in TYPO3. It extends PHPUnit_Extensions_SeleniumTestCase, so you have access to all of that class too.</p>
+<dl class="section author"><dt>Author</dt><dd>Bastian Waidelich <a href="#" onclick="location.href='mai'+'lto:'+'bas'+'ti'+'an@'+'ty'+'po3'+'.o'+'rg'; return false;">basti<span style="display: none;">.nosp@m.</span>an@t<span style="display: none;">.nosp@m.</span>ypo3.<span style="display: none;">.nosp@m.</span>org</a> </dd>
+<dd>
+Carsten Koenig <a href="#" onclick="location.href='mai'+'lto:'+'ck@'+'ca'+'rst'+'en'+'-ko'+'en'+'ig.'+'de'; return false;">ck@ca<span style="display: none;">.nosp@m.</span>rste<span style="display: none;">.nosp@m.</span>n-koe<span style="display: none;">.nosp@m.</span>nig.<span style="display: none;">.nosp@m.</span>de</a> </dd></dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="acd85344a0299654542b224738a3957c6"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -151,7 +143,7 @@ Protected Attributes</h2></td></tr>
           <td class="memname">Tx_Phpunit_Selenium_TestCase::__construct </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$name</em> = <code>NULL</code>, </td>
+          <td class="paramname"><em>$name</em> = <code>null</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -169,7 +161,13 @@ Protected Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="interfaceTx__Phpunit__Interface__ExtensionSettingsService.html">Tx_Phpunit_Interface_ExtensionSettingsService</a>&#160;</td>
-          <td class="paramname"><em>$extensionSettingsService</em> = <code>NULL</code>&#160;</td>
+          <td class="paramname"><em>$extensionSettingsService</em> = <code>null</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="interfaceTx__Phpunit__Interface__SeleniumService.html">Tx_Phpunit_Interface_SeleniumService</a>&#160;</td>
+          <td class="paramname"><em>$seleniumService</em> = <code>null</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -184,7 +182,8 @@ Protected Attributes</h2></td></tr>
     <tr><td class="paramtype">string</td><td class="paramname">$name</td><td></td></tr>
     <tr><td class="paramtype">array</td><td class="paramname">$data</td><td></td></tr>
     <tr><td class="paramtype">string</td><td class="paramname">$dataName</td><td></td></tr>
-    <tr><td class="paramtype"><a class="el" href="interfaceTx__Phpunit__Interface__ExtensionSettingsService.html">Tx_Phpunit_Interface_ExtensionSettingsService</a></td><td class="paramname">$extensionSettingsService</td><td></td></tr>
+    <tr><td class="paramtype"><a class="el" href="interfaceTx__Phpunit__Interface__ExtensionSettingsService.html">Tx_Phpunit_Interface_ExtensionSettingsService</a>&#160;|&#160;null</td><td class="paramname">$extensionSettingsService</td><td></td></tr>
+    <tr><td class="paramtype"><a class="el" href="interfaceTx__Phpunit__Interface__SeleniumService.html">Tx_Phpunit_Interface_SeleniumService</a>&#160;|&#160;null</td><td class="paramname">$seleniumService</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -354,7 +353,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Nov 27 2015 21:18:51 for PHPUnit by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Apr 23 2016 20:14:52 for PHPUnit by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

@@ -274,22 +274,31 @@ Protected Attributes</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>$uploadFolderPath</b> = ''</td></tr>
 <tr class="separator:af450526b943240cdd9978c9938af2152"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a5c855a5c71ae0ac5ec96d46a540bba"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8a5c855a5c71ae0ac5ec96d46a540bba"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>$hasFakeFrontEnd</b> = FALSE</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>$hasFakeFrontEnd</b> = false</td></tr>
 <tr class="separator:a8a5c855a5c71ae0ac5ec96d46a540bba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-attribs"></a>
 Static Protected Attributes</h2></td></tr>
 <tr class="memitem:a69c6d8686ea0aba444dedb33d91d6e41"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a69c6d8686ea0aba444dedb33d91d6e41"></a>
-static&#160;</td><td class="memItemRight" valign="bottom"><b>$fileNameProcessor</b> = NULL</td></tr>
+static&#160;</td><td class="memItemRight" valign="bottom"><b>$fileNameProcessor</b> = null</td></tr>
 <tr class="separator:a69c6d8686ea0aba444dedb33d91d6e41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24713008985e963c7d3719eb6028b786"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a24713008985e963c7d3719eb6028b786"></a>
 static&#160;</td><td class="memItemRight" valign="bottom"><b>$hooks</b> = array()</td></tr>
 <tr class="separator:a24713008985e963c7d3719eb6028b786"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5c07d807714b95f49c78fd87f4fef65"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa5c07d807714b95f49c78fd87f4fef65"></a>
-static&#160;</td><td class="memItemRight" valign="bottom"><b>$hooksHaveBeenRetrieved</b> = FALSE</td></tr>
+static&#160;</td><td class="memItemRight" valign="bottom"><b>$hooksHaveBeenRetrieved</b> = false</td></tr>
 <tr class="separator:aa5c07d807714b95f49c78fd87f4fef65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This class provides various functions to handle dummy records in unit tests.</p>
+<dl class="section author"><dt>Author</dt><dd>Mario Rimann <a href="#" onclick="location.href='mai'+'lto:'+'typ'+'o3'+'-co'+'di'+'ng@'+'ri'+'man'+'n.'+'org'; return false;">typo3<span style="display: none;">.nosp@m.</span>-cod<span style="display: none;">.nosp@m.</span>ing@r<span style="display: none;">.nosp@m.</span>iman<span style="display: none;">.nosp@m.</span>n.org</a> </dd>
+<dd>
+Oliver Klee <a href="#" onclick="location.href='mai'+'lto:'+'typ'+'o3'+'-co'+'di'+'ng@'+'ol'+'ive'+'rk'+'lee'+'.d'+'e'; return false;">typo3<span style="display: none;">.nosp@m.</span>-cod<span style="display: none;">.nosp@m.</span>ing@o<span style="display: none;">.nosp@m.</span>live<span style="display: none;">.nosp@m.</span>rklee<span style="display: none;">.nosp@m.</span>.de</a> </dd>
+<dd>
+Saskia Metzler <a href="#" onclick="location.href='mai'+'lto:'+'sas'+'ki'+'a@m'+'er'+'lin'+'.o'+'wl.'+'de'; return false;">saski<span style="display: none;">.nosp@m.</span>a@me<span style="display: none;">.nosp@m.</span>rlin.<span style="display: none;">.nosp@m.</span>owl.<span style="display: none;">.nosp@m.</span>de</a> </dd>
+<dd>
+Niels Pardon <a href="#" onclick="location.href='mai'+'lto:'+'mai'+'l@'+'nie'+'ls'+'-pa'+'rd'+'on.'+'de'; return false;">mail@<span style="display: none;">.nosp@m.</span>niel<span style="display: none;">.nosp@m.</span>s-par<span style="display: none;">.nosp@m.</span>don.<span style="display: none;">.nosp@m.</span>de</a> </dd></dl>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a0c731de916ac52c0a80fe9c70386a92d"></a>
 <div class="memitem">
 <div class="memproto">
@@ -944,7 +953,7 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$hooksHaveBeenRetri
 </table>
 </div><div class="memdoc">
 <p>Generates a list of additional allowed tables to which this instance of the testing framework has access to create/remove test records.</p>
-<p>The generated list is based on the list of all tables that <a class="el" href="namespaceTYPO3.html">TYPO3</a> can access (which will be all tables in this database), filtered by the prefixes of additional extensions.</p>
+<p>The generated list is based on the list of all tables that TYPO3 can access (which will be all tables in this database), filtered by the prefixes of additional extensions.</p>
 <p>The array with the allowed table names is written directly to $this-&gt;additionalAllowedTables.</p>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
@@ -971,7 +980,7 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$hooksHaveBeenRetri
 </table>
 </div><div class="memdoc">
 <p>Generates a list of allowed tables to which this instance of the testing framework has access to create/remove test records.</p>
-<p>The generated list is based on the list of all tables that <a class="el" href="namespaceTYPO3.html">TYPO3</a> can access (which will be all tables in this database), filtered by prefix of the extension to test.</p>
+<p>The generated list is based on the list of all tables that TYPO3 can access (which will be all tables in this database), filtered by prefix of the extension to test.</p>
 <p>The array with the allowed table names is written directly to $this-&gt;ownAllowedTables.</p>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
@@ -2428,8 +2437,18 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$hooksHaveBeenRetri
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= array(</div>
-<div class="line">        <span class="stringliteral">&#39;be_users&#39;</span>, <span class="stringliteral">&#39;fe_groups&#39;</span>, <span class="stringliteral">&#39;fe_users&#39;</span>, <span class="stringliteral">&#39;pages&#39;</span>, <span class="stringliteral">&#39;sys_template&#39;</span>, <span class="stringliteral">&#39;tt_content&#39;</span>, <span class="stringliteral">&#39;be_groups&#39;</span>, <span class="stringliteral">&#39;sys_file&#39;</span>,</div>
-<div class="line">        <span class="stringliteral">&#39;sys_file_collection&#39;</span>, <span class="stringliteral">&#39;sys_file_reference&#39;</span>, <span class="stringliteral">&#39;sys_category&#39;</span>, <span class="stringliteral">&#39;sys_category_record_mm&#39;</span></div>
+<div class="line">        <span class="stringliteral">&#39;be_users&#39;</span>,</div>
+<div class="line">        <span class="stringliteral">&#39;fe_groups&#39;</span>,</div>
+<div class="line">        <span class="stringliteral">&#39;fe_users&#39;</span>,</div>
+<div class="line">        <span class="stringliteral">&#39;pages&#39;</span>,</div>
+<div class="line">        <span class="stringliteral">&#39;sys_template&#39;</span>,</div>
+<div class="line">        <span class="stringliteral">&#39;tt_content&#39;</span>,</div>
+<div class="line">        <span class="stringliteral">&#39;be_groups&#39;</span>,</div>
+<div class="line">        <span class="stringliteral">&#39;sys_file&#39;</span>,</div>
+<div class="line">        <span class="stringliteral">&#39;sys_file_collection&#39;</span>,</div>
+<div class="line">        <span class="stringliteral">&#39;sys_file_reference&#39;</span>,</div>
+<div class="line">        <span class="stringliteral">&#39;sys_category&#39;</span>,</div>
+<div class="line">        <span class="stringliteral">&#39;sys_category_record_mm&#39;</span></div>
 <div class="line">    )</div>
 </div><!-- fragment -->
 </div>
@@ -2440,7 +2459,7 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$hooksHaveBeenRetri
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Nov 27 2015 21:18:51 for PHPUnit by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Apr 23 2016 20:14:51 for PHPUnit by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

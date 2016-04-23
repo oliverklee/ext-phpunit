@@ -1,3 +1,65 @@
+5bf32aa [TASK] Update the API documentation
+b968f24 [TASK] Update the composer packages
+6e1bbb3 [BUGFIX] Fix CSS in TYPO3 CMS 7LTS
+4dad707 [BUGFIX] Warning about headers already sent in the unit tests
+29c48ca [BUGFIX] Fix checkbox state saving via AJAX in 7.6
+8e539ab [TASK] Remove the "open in new window" link
+591133e [BUGFIX] Drop escaped HTML entities from the flash message
+42d452d [BUGFIX] Serialization of 'Closure' is not allowed in RequestTest
+055ea27 [BUGFIX] Allow passing null for $methods in getAccessibleMock
+c2532b1 [CLEANUP] Remove the byte order mark from the ReST files
+f30a5d9 [BUGFIX] Stop using the deprecated method FlashMessage->render()
+9a43208 [BUGFIX] Add missing leading backslashes for class names in the PHPDOc
+22af76a [TASK] Polish the composer.json and add it for the test extensions
+800f678 [FEATURE] Add a configuration for PDF rendering of the manual
+b4f2a82 [BUGFIX] import of cache database tables optimized
+b421f46 [CLEANUP] Drop tests that were oelib-specific
+8e2d62f [BUGFIX] fix namespace for PHPUnit_Framework_SkippedTestError exception
+e71f78e [BUGFIX] double braces in Tests/TestSuite.php
+ccd061a [FEATURE] Allow user settings to be active or inactive
+681b486 [TASK] Increase maximum allowed TYPO3 and PHP versions
+1e297ae [TASK] Convert Service tests to namespaces
+99e71f7 [CLEANUP] Drop the @package and @subpackage annotations
+8e96ad7 [TASK] Fix PSR-2 codestyle as much as possible
+44b2899 [TASK] Convert Selenium tests to namespaces
+2ff4930 [TASK] Convert ViewHelpers tests to namespaces
+a57272e [TASK] Convert ViewHelpers Fixtures to namespaces
+96a3c03 [TASK] Convert Service tests to namespaces
+2d1518d [TASK] Switch to jQuery
+8d55493 [TASK] Test that non-admin users cannot run tests
+bb0e1d6 [TASK] Convert BackEnd tests to namespaces
+8d0ba8f [TASK] Properly mock language object in view helper test
+d8d3561 [BUGFIX] Include phar if any library class is missing
+97d1e15 [FEATURE] Introduce interface and implementation SeleniumService
+d49dffc [FOLLOWUP] Fix more small errors in the localized texts
+e929b2e [!!!][TASK] Remove vfsStream backwards compatibility
+80e4d85 [BUGFIX] Fixed path to fixture within isDiffToolAvailable helper function
+f42d7e5 [TASK] Convert Exception tests to namespaces
+3e2218b [BUGFIX] Fix small errors in the localized labels
+8c233f9 [FEATURE] Introduce working .travis.yml
+cafef3e [TASK] Convert Database tests to namespaces
+2174d9e [TASK] Convert BackEnd Fixtures to namespaces
+95ed112 [BUGFIX] Prevent error with PHP 5.3
+9d11869 [BUGFIX] Ensure Tests classes are available
+372ee0e [TASK] Convert Fixtures to namespaces
+53b761c [TASK] Put together Firefox shortcuts
+99431a7 [TASK] Add missing German translations
+855ff23 [FEATURE] Add a CheckboxViewHelper
+d5b5e86 [TASK] Remove the bogus "memory leaks" display
+1425738 [TASK] Speedup hiding/showing of test result items
+3d3a188 [BUGFIX] Add condition for showing single-test selectbox
+b84e1da [FEATURE] Add AbstractTagViewHelper
+afee965 [BUGFIX] Resolves database problems
+395a1f8 [TASK] Add rerun button also on top
+497f8bb [BUGFIX] Make some Tests work in typo3 7.6 again
+5203444 [CLEANUP] Reformat code to PSR-2
+de695f0 [BUGFIX] Added more language labels
+250fe2d [BUGFIX] Remove Closures from TYPO3_CONF_VARS
+a27dc2d [BUGFIX] FrameworkTest fail without frontend page
+70aa681 [TASK] Rename value of constant
+ac65139 [FEATURE] Include phpunit dependency a phar file
+c3d4598 [TASK] Introduce overall test state cache
+2fdd00c [TASK] Release version 4.7.7
 9f2519e [TASK] Added a warning message to the BE module
 a7422eb [FEATURE] Use human readable names as option labels
 95d4b27 [TASK] Set required phpunit version to 4.7

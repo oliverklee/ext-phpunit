@@ -84,7 +84,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classTx__Phpunit__BackEnd__TestListener-members.html">List of all members</a>  </div>
@@ -113,8 +112,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a35ec05a1e92a44ec3f90f1d7bd48b41d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4085c4ad9a5636edf73a440c5f90f7c0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTx__Phpunit__BackEnd__TestListener.html#a4085c4ad9a5636edf73a440c5f90f7c0">getTotalNumberOfDetectedDataProviderTests</a> ()</td></tr>
 <tr class="separator:a4085c4ad9a5636edf73a440c5f90f7c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f43ad90b795cdcbd31625aa32da7a1b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTx__Phpunit__BackEnd__TestListener.html#a3f43ad90b795cdcbd31625aa32da7a1b">enableShowMemoryAndTime</a> ()</td></tr>
-<tr class="separator:a3f43ad90b795cdcbd31625aa32da7a1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75ed517494650054a9a39292c4bd1377"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTx__Phpunit__BackEnd__TestListener.html#a75ed517494650054a9a39292c4bd1377">enableShowTime</a> ()</td></tr>
+<tr class="separator:a75ed517494650054a9a39292c4bd1377"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad8da6d54c821f6e90cbb5a2e8fb874f4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTx__Phpunit__BackEnd__TestListener.html#ad8da6d54c821f6e90cbb5a2e8fb874f4">useHumanReadableTextFormat</a> ()</td></tr>
 <tr class="separator:ad8da6d54c821f6e90cbb5a2e8fb874f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5141e27357dcfe0cd8b049c91143ed39"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTx__Phpunit__BackEnd__TestListener.html#a5141e27357dcfe0cd8b049c91143ed39">addRiskyTest</a> (PHPUnit_Framework_Test $test, Exception $e, $time)</td></tr>
@@ -127,12 +126,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aed37e717cde5356f75d6b6fa9737f8f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acfb448fc603321cba5cfe5fa40aefc58"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTx__Phpunit__BackEnd__TestListener.html#acfb448fc603321cba5cfe5fa40aefc58">assertionCount</a> ()</td></tr>
 <tr class="separator:acfb448fc603321cba5cfe5fa40aefc58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:ab4dd037525fcef9bda4cbeade9bb2fc7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab4dd037525fcef9bda4cbeade9bb2fc7"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>$totalLeakedMemory</b> = 0</td></tr>
-<tr class="separator:ab4dd037525fcef9bda4cbeade9bb2fc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -156,7 +149,7 @@ Protected Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:aef1d8d1ed53d6d88553b2a6d1852c0a1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aef1d8d1ed53d6d88553b2a6d1852c0a1"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>$outputService</b> = NULL</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>$outputService</b> = null</td></tr>
 <tr class="separator:aef1d8d1ed53d6d88553b2a6d1852c0a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32fe68792cb83eba2f19524b9eca4df4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a32fe68792cb83eba2f19524b9eca4df4"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>$totalNumberOfTests</b> = 0</td></tr>
@@ -186,16 +179,25 @@ Protected Attributes</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>$testAssertions</b> = 0</td></tr>
 <tr class="separator:aaebc63f8d599286263dadcacc290b7f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66cfb1632dbb92ca67c2151030b4ddda"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a66cfb1632dbb92ca67c2151030b4ddda"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>$useHumanReadableTextFormat</b> = FALSE</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>$useHumanReadableTextFormat</b> = false</td></tr>
 <tr class="separator:a66cfb1632dbb92ca67c2151030b4ddda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b3be0301a86ee14a156856f888d3a55"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5b3be0301a86ee14a156856f888d3a55"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>$enableShowMemoryAndTime</b> = FALSE</td></tr>
-<tr class="separator:a5b3be0301a86ee14a156856f888d3a55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6beece9b364e0ce06da2d6ed5ed199e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae6beece9b364e0ce06da2d6ed5ed199e"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>$showTime</b> = false</td></tr>
+<tr class="separator:ae6beece9b364e0ce06da2d6ed5ed199e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d95b5b68ccf1fcdb1846fd947b49e72"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0d95b5b68ccf1fcdb1846fd947b49e72"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>$namePrettifier</b> = NULL</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>$namePrettifier</b> = null</td></tr>
 <tr class="separator:a0d95b5b68ccf1fcdb1846fd947b49e72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This class renders the output of the single tests in the phpunit BE module.</p>
+<dl class="section author"><dt>Author</dt><dd>Robert Lemke <a href="#" onclick="location.href='mai'+'lto:'+'rob'+'er'+'t@t'+'yp'+'o3.'+'or'+'g'; return false;">rober<span style="display: none;">.nosp@m.</span>t@ty<span style="display: none;">.nosp@m.</span>po3.o<span style="display: none;">.nosp@m.</span>rg</a> </dd>
+<dd>
+Kasper Ligaard <a href="#" onclick="location.href='mai'+'lto:'+'kas'+'pe'+'rli'+'ga'+'ard'+'@g'+'mai'+'l.'+'com'; return false;">kaspe<span style="display: none;">.nosp@m.</span>rlig<span style="display: none;">.nosp@m.</span>aard@<span style="display: none;">.nosp@m.</span>gmai<span style="display: none;">.nosp@m.</span>l.com</a> </dd>
+<dd>
+Michael Klapper <a href="#" onclick="location.href='mai'+'lto:'+'mic'+'ha'+'el.'+'kl'+'app'+'er'+'@ao'+'em'+'edi'+'a.'+'de'; return false;">micha<span style="display: none;">.nosp@m.</span>el.k<span style="display: none;">.nosp@m.</span>lappe<span style="display: none;">.nosp@m.</span>r@ao<span style="display: none;">.nosp@m.</span>emedi<span style="display: none;">.nosp@m.</span>a.de</a> </dd>
+<dd>
+Oliver Klee <a href="#" onclick="location.href='mai'+'lto:'+'typ'+'o3'+'-co'+'di'+'ng@'+'ol'+'ive'+'rk'+'lee'+'.d'+'e'; return false;">typo3<span style="display: none;">.nosp@m.</span>-cod<span style="display: none;">.nosp@m.</span>ing@o<span style="display: none;">.nosp@m.</span>live<span style="display: none;">.nosp@m.</span>rklee<span style="display: none;">.nosp@m.</span>.de</a> </dd></dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ae0f27652bce60299d6c8e80e85c2e5e2"></a>
 <div class="memitem">
 <div class="memproto">
@@ -368,19 +370,19 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a3f43ad90b795cdcbd31625aa32da7a1b"></a>
+<a class="anchor" id="a75ed517494650054a9a39292c4bd1377"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Tx_Phpunit_BackEnd_TestListener::enableShowMemoryAndTime </td>
+          <td class="memname">Tx_Phpunit_BackEnd_TestListener::enableShowTime </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Enables the option to show the memory leaks and time usage of the single tests.</p>
+<p>Enables the option to show the time usage of the single tests.</p>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 </div>
@@ -727,7 +729,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Nov 27 2015 21:18:50 for PHPUnit by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Apr 23 2016 20:14:51 for PHPUnit by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

@@ -30,7 +30,6 @@ var searchData=
   ['createiconstyle',['createIconStyle',['../classTx__Phpunit__BackEnd__Module.html#ad5a95bca9dcb8b813ba8b5701d9fdc0e',1,'Tx_Phpunit_BackEnd_Module\createIconStyle()'],['../classTx__Phpunit__ViewHelpers__AbstractSelectorViewHelper.html#ad0d9d4ecb2366767899ca11767a6a2da',1,'Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper\createIconStyle()']]],
   ['createlistofadditionalallowedtables',['createListOfAdditionalAllowedTables',['../classTx__Phpunit__Framework.html#a4ed83eb7fecca28a21e799249c256ff8',1,'Tx_Phpunit_Framework']]],
   ['createlistofownallowedtables',['createListOfOwnAllowedTables',['../classTx__Phpunit__Framework.html#a3a3db8bf1d6b20caae67d2abf4ae2e58',1,'Tx_Phpunit_Framework']]],
-  ['createopennewwindowlink',['createOpenNewWindowLink',['../classTx__Phpunit__BackEnd__Module.html#aa686d00d14ba3ab924db10be95005cde',1,'Tx_Phpunit_BackEnd_Module']]],
   ['createrecord',['createRecord',['../classTx__Phpunit__Framework.html#a79c4e40704181e1f95846af2a0e8bb81',1,'Tx_Phpunit_Framework']]],
   ['createrecordwithouttablenamechecks',['createRecordWithoutTableNameChecks',['../classTx__Phpunit__Framework.html#a435514ad454e856f3e0646561e5fc8bd',1,'Tx_Phpunit_Framework']]],
   ['createrecursivepagelist',['createRecursivePageList',['../classTx__Phpunit__Service__Database.html#a3c3572b09813bae7365c2fd2da734350',1,'Tx_Phpunit_Service_Database']]],

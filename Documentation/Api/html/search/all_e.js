@@ -1,7 +1,9 @@
 var searchData=
 [
+  ['removeclosures',['removeClosures',['../classTx__Phpunit__TestRunner__CliTestRunner.html#ab84374900042c82c9068bcdca940ac48',1,'Tx_Phpunit_TestRunner_CliTestRunner']]],
+  ['removecookie',['removeCookie',['../classTx__Phpunit__FrontEnd__UserWithoutCookies.html#abe8ea2b37e3bf80d93b4eb2ed3c19b6d',1,'Tx_Phpunit_FrontEnd_UserWithoutCookies']]],
   ['removerelation',['removeRelation',['../classTx__Phpunit__Framework.html#aa1df71873d6b042e84678f2a7b7a1283',1,'Tx_Phpunit_Framework']]],
-  ['render',['render',['../classTx__Phpunit__ViewHelpers__AbstractViewHelper.html#aea1caac895bfa68ea109fb482b33e49e',1,'Tx_Phpunit_ViewHelpers_AbstractViewHelper\render()'],['../classTx__Phpunit__ViewHelpers__ExtensionSelectorViewHelper.html#a69644e1eec283efd055f186accba0e24',1,'Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper\render()'],['../classTx__Phpunit__ViewHelpers__ProgressBarViewHelper.html#af010a4319ebdfcdebb5f15846c94f85c',1,'Tx_Phpunit_ViewHelpers_ProgressBarViewHelper\render()']]],
+  ['render',['render',['../classTx__Phpunit__ViewHelpers__AbstractViewHelper.html#aea1caac895bfa68ea109fb482b33e49e',1,'Tx_Phpunit_ViewHelpers_AbstractViewHelper\render()'],['../classTx__Phpunit__ViewHelpers__CheckboxViewHelper.html#af9201af88b8e2928e65c45eedac1754c',1,'Tx_Phpunit_ViewHelpers_CheckboxViewHelper\render()'],['../classTx__Phpunit__ViewHelpers__ExtensionSelectorViewHelper.html#a69644e1eec283efd055f186accba0e24',1,'Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper\render()'],['../classTx__Phpunit__ViewHelpers__ProgressBarViewHelper.html#af010a4319ebdfcdebb5f15846c94f85c',1,'Tx_Phpunit_ViewHelpers_ProgressBarViewHelper\render()']]],
   ['rendercodecoverage',['renderCodeCoverage',['../classTx__Phpunit__BackEnd__Module.html#a9288d2d4d65082906d6dd6c7cf443853',1,'Tx_Phpunit_BackEnd_Module']]],
   ['renderform',['renderForm',['../classTx__Phpunit__ViewHelpers__ExtensionSelectorViewHelper.html#a81be878162bb11a7af37e2fda045abce',1,'Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper']]],
   ['renderhiddenfields',['renderHiddenFields',['../classTx__Phpunit__ViewHelpers__ExtensionSelectorViewHelper.html#ac46edc8f039bed7fd8d8c51cf387867c',1,'Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper']]],
@@ -10,7 +12,7 @@ var searchData=
   ['renderruntests',['renderRunTests',['../classTx__Phpunit__BackEnd__Module.html#af5850d088d9edf5237cc11268c6347bb',1,'Tx_Phpunit_BackEnd_Module']]],
   ['renderselect',['renderSelect',['../classTx__Phpunit__ViewHelpers__AbstractSelectorViewHelper.html#a76c348fb129a8234e68beda37dc18dcb',1,'Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper\renderSelect()'],['../classTx__Phpunit__ViewHelpers__ExtensionSelectorViewHelper.html#a4c4e7c1acc56c87a93572169a2c4be48',1,'Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper\renderSelect()']]],
   ['rendersubmitbutton',['renderSubmitButton',['../classTx__Phpunit__ViewHelpers__ExtensionSelectorViewHelper.html#a17721b6c22ce11043a37bd19bda97d26',1,'Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper']]],
-  ['rendertag',['renderTag',['../classTx__Phpunit__ViewHelpers__AbstractSelectorViewHelper.html#ac6f8a3a61de8f1503a83cd17e095a30c',1,'Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper']]],
+  ['rendertag',['renderTag',['../classTx__Phpunit__ViewHelpers__AbstractTagViewHelper.html#ac69bc16932f0c5fb1a2bb06bceb57cbe',1,'Tx_Phpunit_ViewHelpers_AbstractTagViewHelper']]],
   ['rendertestingheader',['renderTestingHeader',['../classTx__Phpunit__BackEnd__Module.html#a7a624bad93ac04dda2734a8b01272d5e',1,'Tx_Phpunit_BackEnd_Module']]],
   ['renderteststatistics',['renderTestStatistics',['../classTx__Phpunit__BackEnd__Module.html#aa6b173e95f52c73c85ab940b1ff82784',1,'Tx_Phpunit_BackEnd_Module']]],
   ['resetautoincrement',['resetAutoIncrement',['../classTx__Phpunit__Framework.html#ad44c2e2dbd4ee1ca14ceb36844cb1b66',1,'Tx_Phpunit_Framework']]],

@@ -83,6 +83,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="classTx__Phpunit__FrontEnd__UserWithoutCookies-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -98,14 +100,52 @@ Inheritance diagram for Tx_Phpunit_FrontEnd_UserWithoutCookies:</div>
 </map>
  </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:abe8ea2b37e3bf80d93b4eb2ed3c19b6d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTx__Phpunit__FrontEnd__UserWithoutCookies.html#abe8ea2b37e3bf80d93b4eb2ed3c19b6d">removeCookie</a> ($cookieName)</td></tr>
+<tr class="separator:abe8ea2b37e3bf80d93b4eb2ed3c19b6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a34899be4b98bc40f2a40bb1b8e10fd41"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a34899be4b98bc40f2a40bb1b8e10fd41"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>$forceSetCookie</b> = false</td></tr>
+<tr class="separator:a34899be4b98bc40f2a40bb1b8e10fd41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e4cbbdf69ae89194cf49c3e033968a6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8e4cbbdf69ae89194cf49c3e033968a6"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>$dontSetCookie</b> = true</td></tr>
+<tr class="separator:a8e4cbbdf69ae89194cf49c3e033968a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:afb209f0d9bfdb4a7451f995aa0db882b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTx__Phpunit__FrontEnd__UserWithoutCookies.html#afb209f0d9bfdb4a7451f995aa0db882b">setSessionCookie</a> ()</td></tr>
 <tr class="separator:afb209f0d9bfdb4a7451f995aa0db882b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Class <a class="el" href="classTx__Phpunit__FrontEnd__UserWithoutCookies.html">Tx_Phpunit_FrontEnd_UserWithoutCookies</a> </p>
+<div class="textblock"><p>This XCLASS makes sure no FE login cookies are sent during the unit tests. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="abe8ea2b37e3bf80d93b4eb2ed3c19b6d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Tx_Phpunit_FrontEnd_UserWithoutCookies::removeCookie </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$cookieName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Unsets no cookie at all.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$cookieName</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="afb209f0d9bfdb4a7451f995aa0db882b"></a>
 <div class="memitem">
 <div class="memproto">
@@ -137,7 +177,7 @@ Protected Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Nov 27 2015 21:18:51 for PHPUnit by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Apr 23 2016 20:14:51 for PHPUnit by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

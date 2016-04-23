@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['importextensions',['importExtensions',['../classTx__Phpunit__Database__TestCase.html#a7a182838c15d126bde783ab575484944',1,'Tx_Phpunit_Database_TestCase']]],
+  ['importextensions',['importExtensions',['../classTx__Phpunit__Database__TestCase.html#a4ebd627110ae109ff305a739229b23bf',1,'Tx_Phpunit_Database_TestCase']]],
   ['increaserelationcounter',['increaseRelationCounter',['../classTx__Phpunit__Framework.html#aad7baf61409c58de485b487c92ed8fdd',1,'Tx_Phpunit_Framework']]],
   ['injectextensionsettingsservice',['injectExtensionSettingsService',['../classTx__Phpunit__Service__TestFinder.html#a8fd3690f89c66bd5b54e2b632eb41147',1,'Tx_Phpunit_Service_TestFinder']]],
   ['injectnameprettifier',['injectNamePrettifier',['../classTx__Phpunit__BackEnd__Module.html#abf56d530c50889ae630c5b6e49b21c8e',1,'Tx_Phpunit_BackEnd_Module\injectNamePrettifier()'],['../classTx__Phpunit__BackEnd__TestListener.html#a7e69bf820bb9701c7492263b481f67e8',1,'Tx_Phpunit_BackEnd_TestListener\injectNamePrettifier()']]],
@@ -12,6 +12,7 @@ var searchData=
   ['injectusersettingservice',['injectUserSettingService',['../classTx__Phpunit__ViewHelpers__AbstractSelectorViewHelper.html#af37a44107b967f27d4c0a5e996ba566b',1,'Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper']]],
   ['injectusersettingsservice',['injectUserSettingsService',['../classTx__Phpunit__BackEnd__Ajax.html#a8190e7e38aacaa8142c71001909144ff',1,'Tx_Phpunit_BackEnd_Ajax\injectUserSettingsService()'],['../classTx__Phpunit__BackEnd__Module.html#a0cfba0b6cbf0285c1e4ee5ae8472a209',1,'Tx_Phpunit_BackEnd_Module\injectUserSettingsService()'],['../classTx__Phpunit__Service__TestCaseService.html#a5a41e48a7990e203d740ce63c28cfa50',1,'Tx_Phpunit_Service_TestCaseService\injectUserSettingsService()']]],
   ['insert',['insert',['../classTx__Phpunit__Service__Database.html#ab642407dadad10d26edc35d310986745',1,'Tx_Phpunit_Service_Database']]],
+  ['isactive',['isActive',['../classTx__Phpunit__Service__UserSettingsService.html#a2cd7e0e15ce275c62b06ab75421c6ff1',1,'Tx_Phpunit_Service_UserSettingsService']]],
   ['isadditionaltablenameallowed',['isAdditionalTableNameAllowed',['../classTx__Phpunit__Framework.html#aca825bcf5f1698d9f483b080bf9fc668',1,'Tx_Phpunit_Framework']]],
   ['ishiddenmacfile',['isHiddenMacFile',['../classTx__Phpunit__Service__TestCaseService.html#a0bdcd9f8b870656449e608df42ef92a2',1,'Tx_Phpunit_Service_TestCaseService']]],
   ['isloggedin',['isLoggedIn',['../classTx__Phpunit__Framework.html#a61f3aa74fbcbdd25dc9b618d57bd419d',1,'Tx_Phpunit_Framework']]],
@@ -19,7 +20,7 @@ var searchData=
   ['isnotfixturespath',['isNotFixturesPath',['../classTx__Phpunit__Service__TestCaseService.html#a71809467658c408bf2ab85339fd2785d',1,'Tx_Phpunit_Service_TestCaseService']]],
   ['isoptionselected',['isOptionSelected',['../classTx__Phpunit__ViewHelpers__ExtensionSelectorViewHelper.html#ad1a17082c48da32d3c89ac47fee6739a',1,'Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper']]],
   ['isowntablenameallowed',['isOwnTableNameAllowed',['../classTx__Phpunit__Framework.html#ae47ea1743e050fd8e555e7a83e2a48f1',1,'Tx_Phpunit_Framework']]],
-  ['isseleniumserverrunning',['isSeleniumServerRunning',['../classTx__Phpunit__Selenium__TestCase.html#a5060376d98605dd7b2a7f090fa46d8cb',1,'Tx_Phpunit_Selenium_TestCase']]],
+  ['isseleniumserverrunning',['isSeleniumServerRunning',['../interfaceTx__Phpunit__Interface__SeleniumService.html#aaae56fedbd70b9b9b0b8055a2aeac263',1,'Tx_Phpunit_Interface_SeleniumService\isSeleniumServerRunning()'],['../classTx__Phpunit__Selenium__TestCase.html#a5060376d98605dd7b2a7f090fa46d8cb',1,'Tx_Phpunit_Selenium_TestCase\isSeleniumServerRunning()'],['../classTx__Phpunit__Service__SeleniumService.html#a420a63aac2dae7333b4d8e55524a5249',1,'Tx_Phpunit_Service_SeleniumService\isSeleniumServerRunning()']]],
   ['issystemtablenameallowed',['isSystemTableNameAllowed',['../classTx__Phpunit__Framework.html#a89f56fcd7b3c532d50481455dc02f64a',1,'Tx_Phpunit_Framework']]],
   ['istablenameallowed',['isTableNameAllowed',['../classTx__Phpunit__Framework.html#a7b316892999810a85ca74a5b8bfceb59',1,'Tx_Phpunit_Framework']]],
   ['istestcasefilename',['isTestCaseFileName',['../classTx__Phpunit__Service__TestCaseService.html#a2eb7a85e5d56979e6dfd6ba25899d4d2',1,'Tx_Phpunit_Service_TestCaseService']]],
