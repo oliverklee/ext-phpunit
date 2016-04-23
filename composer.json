@@ -1,7 +1,7 @@
 {
     "name": "oliverklee/phpunit",
     "type": "typo3-cms-extension",
-    "version": "4.7.7",
+    "version": "4.8.24",
     "description": "Unit testing for TYPO3. Includes PHPUnit 4.8, Selenium, a BE test runner module, a CLI test runner, PhpStorm integration and a testing framework.",
     "keywords": ["TYPO3", "TDD", "PHPUnit"],
     "homepage": "https://forge.typo3.org/projects/extension-phpunit",

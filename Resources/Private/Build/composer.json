@@ -3,7 +3,7 @@
     "description": "PHPUnit as library in PHAR file",
     "require": {
         "phpunit/phpunit": "^4.8",
-        "phpunit/phpunit-selenium": "^1",
+        "phpunit/phpunit-selenium": "^2",
         "mikey179/vfsStream": "^1"
     },
     "bin": ["bootstrap.php"],

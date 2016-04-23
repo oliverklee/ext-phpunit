@@ -10,12 +10,12 @@
  * writing. "version" and "dependencies" must not be touched!
  ***************************************************************/
 
-$EM_CONF[$_EXTKEY] = array(
+$EM_CONF[$_EXTKEY] = [
     'title' => 'PHPUnit',
     'description' => 'Unit testing for TYPO3. Includes PHPUnit 4.8, Selenium, a BE test runner module, a CLI test runner, PhpStorm integration and a testing framework.',
     'category' => 'module',
     'shy' => 0,
-    'version' => '4.7.7',
+    'version' => '4.8.24',
     'dependencies' => '',
     'conflicts' => '',
     'priority' => '',
@@ -33,20 +33,20 @@ $EM_CONF[$_EXTKEY] = array(
     'doNotLoadInFE' => 1,
     'CGLcompliance' => '',
     'CGLcompliance_note' => '',
-    'constraints' => array(
-        'depends' => array(
-            'php' => '5.4.0-7.0.99',
+    'constraints' => [
+        'depends' => [
+            'php' => '5.5.0-7.0.99',
             'typo3' => '6.2.4-7.6.99',
-        ),
-        'conflicts' => array(),
-        'suggests' => array(),
-    ),
-    'suggests' => array(),
-    'autoload' => array(
-        'classmap' => array(
+        ],
+        'conflicts' => [],
+        'suggests' => [],
+    ],
+    'suggests' => [],
+    'autoload' => [
+        'classmap' => [
             'Classes',
             'Tests',
-        ),
-    ),
+        ],
+    ],
     '_md5_values_when_last_written' => '',
-);
+];
