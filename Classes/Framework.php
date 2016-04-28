@@ -12,6 +12,7 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Utility\File\BasicFileUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -205,10 +206,11 @@ class Tx_Phpunit_Framework
 
         /** @var array $rootLineCacheConfiguration */
         $rootLineCacheConfiguration = (array)$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['cache_rootline'];
-        $rootLineCacheConfiguration['backend'] = 'TYPO3\\CMS\\Core\\Cache\\Backend\\NullBackend';
-        $cacheConfigurations = array('cache_rootline' => $rootLineCacheConfiguration);
+        $rootLineCacheConfiguration['backend'] = NullBackend::class;
+        $rootLineCacheConfiguration['options'] = [];
+        $cacheConfigurations = ['cache_rootline' => $rootLineCacheConfiguration];
         /** @var CacheManager $cacheManager */
-        $cacheManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Cache\\CacheManager');
+        $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
         $cacheManager->setCacheConfigurations($cacheConfigurations);
     }
 
