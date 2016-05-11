@@ -14,12 +14,11 @@
 
 use TYPO3\CMS\Backend\Module\BaseScriptClass;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Backend\Utility\IconUtility;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Lang\LanguageService;
-use TYPO3\CMS\Core\Messaging\FlashMessageService;;
 
 /**
  * Back-end module "PHPUnit".
@@ -666,6 +665,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         $this->testStatistics->stop();
         $this->renderTestStatistics($testResult);
 
+        $this->renderTestsFinishedMarker();
         $this->renderReRunButton();
 
         if ($this->shouldCollectCodeCoverageInformation()) {
@@ -971,8 +971,18 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
             Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE . ']" type="hidden" value="' .
             htmlspecialchars($this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE)) . '" />
             </p>
-            </form>' .
-            '<div id="testsHaveFinished"></div>');
+            </form>'
+        );
+    }
+
+    /**
+     * Renders and output the marker that communicates that the tests have finished.
+     *
+     * @return void
+     */
+    protected function renderTestsFinishedMarker()
+    {
+        $this->outputService->output('<div id="testsHaveFinished"></div>');
     }
 
     /**
