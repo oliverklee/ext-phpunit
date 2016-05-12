@@ -14,9 +14,9 @@
 
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
+use TYPO3\CMS\Core\Exception;
 use TYPO3\CMS\Core\Utility\File\BasicFileUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Exception;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -1231,12 +1231,12 @@ class Tx_Phpunit_Framework
      */
     public function getUniqueFileOrFolderPath($path)
     {
-        if (empty($path)) {
+        if ($path === '') {
             throw new \InvalidArgumentException('The first parameter $path must not be empty.', 1334439457);
         }
 
-        if (!self::$fileNameProcessor) {
-            self::$fileNameProcessor = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Utility\\File\\BasicFileUtility');
+        if (self::$fileNameProcessor === null) {
+            self::$fileNameProcessor = GeneralUtility::makeInstance(BasicFileUtility::class);
         }
 
         return self::$fileNameProcessor->getUniqueName(

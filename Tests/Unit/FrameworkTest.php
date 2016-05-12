@@ -14,6 +14,7 @@ namespace OliverKlee\Phpunit\Tests\Unit;
  * The TYPO3 project - inspiring people to share!
  */
 
+use org\bovigo\vfs\vfsStream;
 use TYPO3\CMS\Core\Exception;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -32,15 +33,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      * @var \Tx_Phpunit_Framework
      */
     protected $subject = null;
-
-    /**
-     * absolute path to a "foreign" file which was created for test purposes and
-     * which should be deleted in tearDown(); this is needed for
-     * deleteDummyFileWithForeignFileThrowsException
-     *
-     * @var string
-     */
-    private $foreignFileToDelete = '';
 
     /**
      * absolute path to a "foreign" folder which was created for test purposes
@@ -81,7 +73,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->setResetAutoIncrementThreshold(1);
         $this->subject->purgeHooks();
         $this->subject->cleanUp();
-        $this->deleteForeignFile();
         $this->deleteForeignFolder();
     }
 
@@ -143,21 +134,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
                 'Please install it from EXT:phpunit/TestExtensions/user_phpunittest2/.'
             );
         }
-    }
-
-    /**
-     * Deletes a "foreign" file which was created for test purposes.
-     *
-     * @return void
-     */
-    private function deleteForeignFile()
-    {
-        if ($this->foreignFileToDelete == '') {
-            return;
-        }
-
-        @unlink($this->foreignFileToDelete);
-        $this->foreignFileToDelete = '';
     }
 
     /**
@@ -3817,11 +3793,10 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function deleteDummyFileWithForeignFileThrowsException()
     {
-        $uniqueFileName = $this->subject->getUniqueFileOrFolderPath('test.txt');
-        GeneralUtility::writeFile($uniqueFileName, '');
-        $this->foreignFileToDelete = $uniqueFileName;
+        vfsStream::setup('root/');
+        $testFileUrl = vfsStream::url('root/test.txt');
 
-        $this->subject->deleteDummyFile(basename($uniqueFileName));
+        $this->subject->deleteDummyFile($testFileUrl);
     }
 
 

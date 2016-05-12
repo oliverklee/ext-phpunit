@@ -14,6 +14,7 @@ namespace OliverKlee\Phpunit\Tests\Unit\Service;
  * The TYPO3 project - inspiring people to share!
  */
 
+use org\bovigo\vfs\vfsStream;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
@@ -90,9 +91,12 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
      */
     public function findTestCaseFilesInDirectoryForEmptyDirectoryReturnsEmptyArray()
     {
+        vfsStream::setup('root/');
+        $emptyDirectoryUrl = vfsStream::url('root/');
+
         self::assertSame(
-            array(),
-            $this->subject->findTestCaseFilesInDirectory($this->fixturesPath . 'Empty/')
+            [],
+            $this->subject->findTestCaseFilesInDirectory($emptyDirectoryUrl)
         );
     }
 
