@@ -1,74 +1,92 @@
 <?php
 defined('TYPO3_MODE') or die('Access denied.');
 
-$GLOBALS['TCA']['tx_phpunit_test'] = array(
-    'ctrl' => $GLOBALS['TCA']['tx_phpunit_test']['ctrl'],
-    'interface' => array(
+return [
+    'ctrl' => [
+        'title' => 'LLL:EXT:phpunit/Resource/Private/Language/locallang_backend.xlf:tx_phpunit_test',
+        'readOnly' => 1,
+        'adminOnly' => 1,
+        'rootLevel' => 1,
+        'label' => 'title',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'cruser_id' => 'cruser_id',
+        'versioningWS' => false,
+        'default_sortby' => 'ORDER BY uid',
+        'delete' => 'deleted',
+        'enablecolumns' => [
+            'disabled' => 'hidden',
+            'starttime' => 'starttime',
+            'endtime' => 'endtime',
+        ],
+        'iconfile' => 'EXT:phpunit/ext_icon.png',
+    ],
+    'interface' => [
         'showRecordFieldList' => 'hidden,starttime,endtime,title,related_records',
-    ),
-    'columns' => array(
-        'hidden' => array(
+    ],
+    'columns' => [
+        'hidden' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
-            'config' => array(
+            'config' => [
                 'type' => 'check',
                 'default' => '0',
-            ),
-        ),
-        'starttime' => array(
+            ],
+        ],
+        'starttime' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.starttime',
-            'config' => array(
+            'config' => [
                 'type' => 'none',
                 'size' => '8',
                 'max' => '20',
                 'eval' => 'date',
                 'default' => '0',
                 'checkbox' => '0',
-            ),
-        ),
-        'endtime' => array(
+            ],
+        ],
+        'endtime' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.endtime',
-            'config' => array(
+            'config' => [
                 'type' => 'none',
                 'size' => '8',
                 'max' => '20',
                 'eval' => 'date',
                 'checkbox' => '0',
                 'default' => '0',
-                'range' => array(
+                'range' => [
                     'upper' => mktime(0, 0, 0, 12, 31, 2020),
                     'lower' => mktime(0, 0, 0, date('m') - 1, date('d'), date('Y')),
-                ),
-            ),
-        ),
-        'title' => array(
+                ],
+            ],
+        ],
+        'title' => [
             'exclude' => 0,
             'label' => 'LLL:EXT:phpunit/Resource/Private/Language/locallang_backend.xlf:tx_phpunit_test.title',
-            'config' => array(
+            'config' => [
                 'type' => 'none',
                 'size' => '30',
-            ),
-        ),
-        'related_records' => array(
+            ],
+        ],
+        'related_records' => [
             'l10n_mode' => 'exclude',
             'exclude' => 1,
             'label' => 'Related records (m:n relation using an m:n table)',
-            'config' => array(
+            'config' => [
                 'type' => 'select',
                 'foreign_table' => 'tx_phpunit_test',
                 'size' => 4,
                 'minitems' => 0,
                 'maxitems' => 99,
                 'MM' => 'tx_phpunit_test_article_mm',
-            ),
-        ),
-        'bidirectional' => array(
+            ],
+        ],
+        'bidirectional' => [
             'l10n_mode' => 'exclude',
             'exclude' => 1,
             'label' => 'Related records (m:n relation using an m:n table)',
-            'config' => array(
+            'config' => [
                 'type' => 'select',
                 'foreign_table' => 'tx_phpunit_test',
                 'size' => 4,
@@ -76,13 +94,13 @@ $GLOBALS['TCA']['tx_phpunit_test'] = array(
                 'maxitems' => 99,
                 'MM' => 'tx_phpunit_test_article_mm',
                 'MM_opposite_field' => 'related_records',
-            ),
-        ),
-    ),
-    'types' => array(
-        '0' => array('showitem' => 'title;;;;2-2-2, related_records'),
-    ),
-    'palettes' => array(
-        '1' => array('showitem' => 'starttime, endtime'),
-    ),
-);
+            ],
+        ],
+    ],
+    'types' => [
+        '0' => ['showitem' => 'title;;;;2-2-2, related_records'],
+    ],
+    'palettes' => [
+        '1' => ['showitem' => 'starttime, endtime'],
+    ],
+];
