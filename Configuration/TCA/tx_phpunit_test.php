@@ -75,6 +75,7 @@ return [
             'label' => 'Related records (m:n relation using an m:n table)',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectSingleBox',
                 'foreign_table' => 'tx_phpunit_test',
                 'size' => 4,
                 'minitems' => 0,
@@ -88,6 +89,7 @@ return [
             'label' => 'Related records (m:n relation using an m:n table)',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectSingleBox',
                 'foreign_table' => 'tx_phpunit_test',
                 'size' => 4,
                 'minitems' => 0,
@@ -98,7 +100,7 @@ return [
         ],
     ],
     'types' => [
-        '0' => ['showitem' => 'title;;;;2-2-2, related_records'],
+        '0' => ['showitem' => 'title, related_records'],
     ],
     'palettes' => [
         '1' => ['showitem' => 'starttime, endtime'],
