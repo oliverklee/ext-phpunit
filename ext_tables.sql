@@ -13,7 +13,7 @@ CREATE TABLE tx_phpunit_test (
 	hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
 	starttime int(11) unsigned DEFAULT '0' NOT NULL,
 	endtime int(11) unsigned DEFAULT '0' NOT NULL,
-	title tinytext,
+	title varchar(255) DEFAULT '' NOT NULL,
 	related_records int(11) unsigned DEFAULT '0' NOT NULL,
 	bidirectional int(11) unsigned DEFAULT '0' NOT NULL,
 
