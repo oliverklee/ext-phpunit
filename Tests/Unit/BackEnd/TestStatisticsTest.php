@@ -97,7 +97,7 @@ class TestStatisticsTest extends \Tx_Phpunit_TestCase
             0.1,
             $this->subject->getTime(),
             '',
-            0.02
+            0.09
         );
     }
 
@@ -114,7 +114,7 @@ class TestStatisticsTest extends \Tx_Phpunit_TestCase
             0.1,
             $this->subject->getTime(),
             '',
-            0.02
+            0.09
         );
     }
 }
