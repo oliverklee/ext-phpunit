@@ -38,6 +38,7 @@ return [
             'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.starttime',
             'config' => [
                 'type' => 'none',
+                'renderType' => 'inputDateTime',
                 'size' => '8',
                 'max' => '20',
                 'eval' => 'date',

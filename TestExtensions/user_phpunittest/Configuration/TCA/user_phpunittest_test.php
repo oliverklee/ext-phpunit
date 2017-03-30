@@ -24,12 +24,14 @@ return [
         'starttime' => [
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'eval' => 'date',
             ],
         ],
         'endtime' => [
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'eval' => 'date',
             ],
         ],
