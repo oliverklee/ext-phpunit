@@ -301,7 +301,6 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         } while ($hasMoreBuffers);
     }
 
-
     /*********************************************************
      *
      * Screen render functions
@@ -456,7 +455,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         }
 
         // testCaseFile
-        $testCaseFileOptionsArray = array();
+        $testCaseFileOptionsArray = [];
         /** @var PHPUnit_Framework_TestCase $testCase */
         foreach ($testSuite->tests() as $testCase) {
             $selected = ($testCase->toString() === $this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE))
@@ -514,7 +513,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         }
 
         // single test case
-        $testsOptionsArr = array();
+        $testsOptionsArr = [];
         $testCaseFile = $this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE);
         $useHumanReadableOptionLabels = $this->userSettingsService->getAsBoolean('testdox');
 
@@ -683,7 +682,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
      */
     protected function setPhpUnitErrorHandler()
     {
-        set_error_handler(array('PHPUnit_Util_ErrorHandler', 'handleError'), E_ALL | E_STRICT);
+        set_error_handler(['PHPUnit_Util_ErrorHandler', 'handleError'], E_ALL | E_STRICT);
     }
 
     /**
@@ -716,7 +715,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         if ($testableKey === Tx_Phpunit_Testable::ALL_EXTENSIONS) {
             $testablesToProcess = $this->testFinder->getTestablesForEverything();
         } else {
-            $testablesToProcess = array($this->testFinder->getTestableForKey($testableKey));
+            $testablesToProcess = [$this->testFinder->getTestableForKey($testableKey)];
         }
 
         return $testablesToProcess;
@@ -946,7 +945,6 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
             $this->translate('tests_seconds') . '">' . round($this->testStatistics->getTime(), 3) . '&nbsp;' .
             $this->translate('tests_seconds') . '</span></p>';
         $this->outputService->output($testStatistics);
-
     }
 
     /**
@@ -1047,12 +1045,12 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     protected function findTestCasesInDir($directory)
     {
         if (!is_dir($directory)) {
-            return array();
+            return [];
         }
 
         $testCaseFileNames = $this->testCaseService->findTestCaseFilesInDirectory($directory);
 
-        $extensionsArr = array();
+        $extensionsArr = [];
         if (!empty($testCaseFileNames)) {
             $extensionsArr[$directory] = $testCaseFileNames;
         }

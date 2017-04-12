@@ -180,7 +180,7 @@ class TestableTest extends \Tx_Phpunit_TestCase
     public function getBlacklistInitiallyReturnsEmptyArray()
     {
         self::assertSame(
-            array(),
+            [],
             $this->subject->getBlacklist()
         );
     }
@@ -190,7 +190,7 @@ class TestableTest extends \Tx_Phpunit_TestCase
      */
     public function setBlacklistSetsBlacklist()
     {
-        $fileNames = array('one file', 'another file');
+        $fileNames = ['one file', 'another file'];
         $this->subject->setBlacklist($fileNames);
 
         self::assertSame(
@@ -204,10 +204,10 @@ class TestableTest extends \Tx_Phpunit_TestCase
      */
     public function setBlacklistCanSetEmptyBlacklist()
     {
-        $this->subject->setBlacklist(array());
+        $this->subject->setBlacklist([]);
 
         self::assertSame(
-            array(),
+            [],
             $this->subject->getBlacklist()
         );
     }
@@ -218,7 +218,7 @@ class TestableTest extends \Tx_Phpunit_TestCase
     public function getWhitelistInitiallyReturnsEmptyArray()
     {
         self::assertSame(
-            array(),
+            [],
             $this->subject->getWhitelist()
         );
     }
@@ -228,7 +228,7 @@ class TestableTest extends \Tx_Phpunit_TestCase
      */
     public function setWhitelistSetsWhitelist()
     {
-        $fileNames = array('one file', 'another file');
+        $fileNames = ['one file', 'another file'];
         $this->subject->setWhitelist($fileNames);
 
         self::assertSame(
@@ -242,10 +242,10 @@ class TestableTest extends \Tx_Phpunit_TestCase
      */
     public function setWhitelistCanSetEmptyWhitelist()
     {
-        $this->subject->setWhitelist(array());
+        $this->subject->setWhitelist([]);
 
         self::assertSame(
-            array(),
+            [],
             $this->subject->getWhitelist()
         );
     }

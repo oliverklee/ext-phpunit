@@ -36,7 +36,7 @@ class Tx_Phpunit_BackEnd_Ajax
     /**
      * @var string[]
      */
-    protected $validCheckboxKeys = array(
+    protected $validCheckboxKeys = [
         'failure',
         'success',
         'error',
@@ -46,7 +46,7 @@ class Tx_Phpunit_BackEnd_Ajax
         'codeCoverage',
         'showTime',
         'runSeleniumTests',
-    );
+    ];
 
     /**
      * The constructor.

@@ -29,21 +29,21 @@ class Tx_Phpunit_Service_Database
      *
      * @var PageRepository
      */
-    static private $pageForEnableFields = null;
+    private static $pageForEnableFields = null;
 
     /**
      * cached results for the enableFields function
      *
      * @var array[]
      */
-    static private $enableFieldsCache = array();
+    private static $enableFieldsCache = [];
 
     /**
      * @var array[] cache for the results of existsTable with the table names
      *            as keys and the table SHOW STATUS information (in an array)
      *            as values
      */
-    static private $tableNameCache = array();
+    private static $tableNameCache = [];
 
     /**
      * cache for the results of hasTableColumn with the column names as keys and
@@ -51,14 +51,14 @@ class Tx_Phpunit_Service_Database
      *
      * @var array[]
      */
-    static private $tableColumnCache = array();
+    private static $tableColumnCache = [];
 
     /**
      * cache for all TCA arrays
      *
      * @var array[]
      */
-    static private $tcaCache = array();
+    private static $tcaCache = [];
 
     /**
      * Enables query logging in TYPO3's DB class.
@@ -103,10 +103,10 @@ class Tx_Phpunit_Service_Database
     public static function enableFields(
         $tableName,
         $showHidden = -1,
-        array $ignoreArray = array(),
+        array $ignoreArray = [],
         $noVersionPreview = false
     ) {
-        if (!in_array($showHidden, array(-1, 0, 1))) {
+        if (!in_array($showHidden, [-1, 0, 1])) {
             throw new InvalidArgumentException(
                 '$showHidden may only be -1, 0 or 1, but actually is ' . $showHidden,
                 1331315445
@@ -190,7 +190,7 @@ class Tx_Phpunit_Service_Database
             'pid IN (' . $startPages . ')' . self::enableFields('pages')
         );
 
-        $subPages = array();
+        $subPages = [];
         $databaseConnection = self::getDatabaseConnection();
         while (($row = $databaseConnection->sql_fetch_assoc($dbResult))) {
             $subPages[] = $row['uid'];
@@ -205,7 +205,6 @@ class Tx_Phpunit_Service_Database
 
         return $result;
     }
-
 
     /*
      * Wrappers for common queries
@@ -440,7 +439,7 @@ class Tx_Phpunit_Service_Database
         $orderBy = '',
         $limit = ''
     ) {
-        $result = array();
+        $result = [];
         $dbResult = self::select(
             $fieldNames,
             $tableNames,
@@ -501,7 +500,7 @@ class Tx_Phpunit_Service_Database
             $limit
         );
 
-        $result = array();
+        $result = [];
         foreach ($rows as $row) {
             $result[] = $row[$fieldName];
         }
@@ -558,7 +557,7 @@ class Tx_Phpunit_Service_Database
      */
     public static function existsRecord($tableName, $whereClause = '')
     {
-        return (self::count($tableName, $whereClause) > 0);
+        return self::count($tableName, $whereClause) > 0;
     }
 
     /**
@@ -576,7 +575,7 @@ class Tx_Phpunit_Service_Database
      */
     public static function existsExactlyOneRecord($tableName, $whereClause = '')
     {
-        return (self::count($tableName, $whereClause) == 1);
+        return self::count($tableName, $whereClause) == 1;
     }
 
     /**
@@ -607,11 +606,8 @@ class Tx_Phpunit_Service_Database
             throw new InvalidArgumentException('$uid must be > 0.', 1331315624);
         }
 
-        return (
-            self::count($tableName, 'uid = ' . $uid . $additionalWhereClause) > 0
-        );
+        return self::count($tableName, 'uid = ' . $uid . $additionalWhereClause) > 0;
     }
-
 
     /*
      * Functions concerning table names
@@ -668,7 +664,6 @@ class Tx_Phpunit_Service_Database
 
         return isset(self::$tableNameCache[$tableName]);
     }
-
 
     /*
      * Functions concerning the columns of a table
@@ -774,7 +769,6 @@ class Tx_Phpunit_Service_Database
     {
         return self::tableHasColumn($tableName, 'uid');
     }
-
 
     /*
      * Functions concerning the TCA

@@ -37,7 +37,7 @@ abstract class Tx_Phpunit_ViewHelpers_AbstractTagViewHelper extends Tx_Phpunit_V
      *
      * @throws InvalidArgumentException if the given tagName is empty
      */
-    protected function renderTag($tagName, array $attributes = array(), $content = '')
+    protected function renderTag($tagName, array $attributes = [], $content = '')
     {
         if (empty($tagName)) {
             throw new InvalidArgumentException('$tagName must not be NULL or empty.', 1343763729);

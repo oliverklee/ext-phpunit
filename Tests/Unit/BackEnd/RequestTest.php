@@ -35,7 +35,7 @@ class RequestTest extends \Tx_Phpunit_TestCase
      *
      * @var string[]
      */
-    protected $backupGlobalsBlacklist = array('TYPO3_DB', 'TYPO3_CONF_VARS');
+    protected $backupGlobalsBlacklist = ['TYPO3_DB', 'TYPO3_CONF_VARS'];
 
     /**
      * @var \Tx_Phpunit_BackEnd_Request
@@ -45,7 +45,7 @@ class RequestTest extends \Tx_Phpunit_TestCase
     /**
      * @var array
      */
-    protected $testData = array(
+    protected $testData = [
         'testValueString' => 'Hello world!',
         'testValueEmptyString' => '',
         'testValuePositiveInteger' => 42,
@@ -54,12 +54,12 @@ class RequestTest extends \Tx_Phpunit_TestCase
         'testValueNegativeInteger' => -1,
         'testValueTrue' => true,
         'testValueFalse' => false,
-    );
+    ];
 
     protected function setUp()
     {
-        $GLOBALS['_GET'] = array();
-        $GLOBALS['_POST'] = array();
+        $GLOBALS['_GET'] = [];
+        $GLOBALS['_POST'] = [];
 
         $this->subject = new \Tx_Phpunit_BackEnd_Request();
     }
@@ -382,8 +382,8 @@ class RequestTest extends \Tx_Phpunit_TestCase
      */
     public function postHasPrecedenceOverGet()
     {
-        $GLOBALS['_GET']['tx_phpunit'] = array('foo' => 'getValue');
-        $GLOBALS['_POST']['tx_phpunit'] = array('foo' => 'postValue');
+        $GLOBALS['_GET']['tx_phpunit'] = ['foo' => 'getValue'];
+        $GLOBALS['_POST']['tx_phpunit'] = ['foo' => 'postValue'];
 
         self::assertSame(
             'postValue',

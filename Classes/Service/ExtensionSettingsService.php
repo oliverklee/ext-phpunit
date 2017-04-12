@@ -29,7 +29,7 @@ class Tx_Phpunit_Service_ExtensionSettingsService extends Tx_Phpunit_AbstractDat
     /**
      * @var array
      */
-    private $cachedSettings = array();
+    private $cachedSettings = [];
 
     /**
      * @var bool
@@ -66,7 +66,7 @@ class Tx_Phpunit_Service_ExtensionSettingsService extends Tx_Phpunit_AbstractDat
         if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][self::EXTENSION_KEY])) {
             $this->cachedSettings = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][self::EXTENSION_KEY]);
         } else {
-            $this->cachedSettings = array();
+            $this->cachedSettings = [];
         }
 
         $this->settingsHaveBeenRetrieved = true;

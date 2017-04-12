@@ -53,12 +53,12 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
         require_once(ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Fixtures/ProtectedClass.php');
 
         $this->protectedClassInstance = new ProtectedClass();
-        $this->mock = $this->getMock('OliverKlee\\Phpunit\\Tests\\Unit\\Fixtures\\ProtectedClass', array('dummy'));
+        $this->mock = $this->getMock('OliverKlee\\Phpunit\\Tests\\Unit\\Fixtures\\ProtectedClass', ['dummy']);
         $this->accessibleMock = $this->getAccessibleMock(
             'OliverKlee\\Phpunit\\Tests\\Unit\\Fixtures\\ProtectedClass',
-            array('dummy')
+            ['dummy']
         );
-            $this->staticProperty = ProtectedClass::getStaticProperty();
+        $this->staticProperty = ProtectedClass::getStaticProperty();
     }
 
     protected function tearDown()
@@ -176,7 +176,7 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
     public function protectedMethodForFixtureIsNotDirectlyCallable()
     {
         self::assertFalse(
-            is_callable(array($this->protectedClassInstance, 'protectedMethod'))
+            is_callable([$this->protectedClassInstance, 'protectedMethod'])
         );
     }
 
@@ -186,7 +186,7 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
     public function publicMethodForFixtureIsDirectlyCallable()
     {
         self::assertTrue(
-            is_callable(array($this->protectedClassInstance, 'publicMethod'))
+            is_callable([$this->protectedClassInstance, 'publicMethod'])
         );
     }
 
@@ -227,7 +227,7 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
     public function protectedMethodForMockObjectIsNotDirectlyCallable()
     {
         self::assertFalse(
-            is_callable(array($this->mock, 'protectedMethod'))
+            is_callable([$this->mock, 'protectedMethod'])
         );
     }
 
@@ -237,7 +237,7 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
     public function publicMethodForMockObjectIsDirectlyCallable()
     {
         self::assertTrue(
-            is_callable(array($this->mock, 'publicMethod'))
+            is_callable([$this->mock, 'publicMethod'])
         );
     }
 

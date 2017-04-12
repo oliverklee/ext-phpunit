@@ -45,7 +45,7 @@ class Tx_Phpunit_TestRunner_CliTestRunner extends Tx_Phpunit_TestRunner_Abstract
      */
     protected function removeClosures(array &$variables)
     {
-        $backup = array();
+        $backup = [];
         foreach ($variables as $key => &$value) {
             if (!is_array($value) && !$value instanceof Closure) {
                 continue;

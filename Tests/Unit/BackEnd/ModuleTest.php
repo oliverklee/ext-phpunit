@@ -78,7 +78,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
     /**
      * @var SingletonInterface[]
      */
-    protected $singletonInstances = array();
+    protected $singletonInstances = [];
 
     /**
      * @var DocumentTemplate|\PHPUnit_Framework_MockObject_MockObject
@@ -92,9 +92,9 @@ class ModuleTest extends \Tx_Phpunit_TestCase
         $this->getLanguageService()->includeLLFile('EXT:phpunit/Resources/Private/Language/locallang_backend.xlf');
 
         if (!isset($GLOBALS['MCONF'])) {
-            $GLOBALS['MCONF'] = array(
+            $GLOBALS['MCONF'] = [
                 'name' => $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['GLOBAL']['cliKeys']['phpunit'][1],
-            );
+            ];
         }
         $subjectClassName = $this->createAccessibleProxy();
         $this->subject = new $subjectClassName();
@@ -120,7 +120,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
         $this->progressBarViewHelper = $this->getMock('Tx_Phpunit_ViewHelpers_ProgressBarViewHelper');
         GeneralUtility::addInstance('Tx_Phpunit_ViewHelpers_ProgressBarViewHelper', $this->progressBarViewHelper);
 
-        $this->documentTemplate = $this->getMock('TYPO3\\CMS\\Backend\\Template\\DocumentTemplate', array('startPage'));
+        $this->documentTemplate = $this->getMock('TYPO3\\CMS\\Backend\\Template\\DocumentTemplate', ['startPage']);
         GeneralUtility::addInstance('TYPO3\\CMS\\Backend\\Template\\DocumentTemplate', $this->documentTemplate);
 
         $this->singletonInstances = GeneralUtility::getSingletonInstances();
@@ -230,7 +230,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
     {
         $GLOBALS['BE_USER']->user['admin'] = false;
 
-        $subject = $this->getMock($this->createAccessibleProxy(), array('renderRunTests'));
+        $subject = $this->getMock($this->createAccessibleProxy(), ['renderRunTests']);
         $subject->injectOutputService($this->outputService);
 
         $subject->expects(self::never())->method('renderRunTests');
@@ -246,7 +246,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
         $GLOBALS['BE_USER']->user['admin'] = true;
 
         /** @var \Tx_Phpunit_BackEnd_Module|\PHPUnit_Framework_MockObject_MockObject $subject */
-        $subject = $this->getMock($this->createAccessibleProxy(), array('renderRunTests'));
+        $subject = $this->getMock($this->createAccessibleProxy(), ['renderRunTests']);
         $subject->injectRequest($this->request);
         $subject->injectOutputService($this->outputService);
         $subject->injectUserSettingsService($this->userSettingsService);
@@ -261,7 +261,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
     public function renderRunTestsForEmptyCommandRendersIntro()
     {
         /** @var \Tx_Phpunit_BackEnd_Module|\PHPUnit_Framework_MockObject_MockObject $subject */
-        $subject = $this->getMock($this->createAccessibleProxy(), array('renderRunTestsIntro', 'renderRunningTest'));
+        $subject = $this->getMock($this->createAccessibleProxy(), ['renderRunTestsIntro', 'renderRunningTest']);
         $subject->injectRequest($this->request);
         $subject->injectOutputService($this->outputService);
         $subject->injectTestFinder($this->testFinder);
@@ -282,7 +282,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
     public function renderRunTestsForEmptyCommandNotRunsTests()
     {
         /** @var \Tx_Phpunit_BackEnd_Module|\PHPUnit_Framework_MockObject_MockObject $subject */
-        $subject = $this->getMock($this->createAccessibleProxy(), array('renderRunTestsIntro', 'renderRunningTest'));
+        $subject = $this->getMock($this->createAccessibleProxy(), ['renderRunTestsIntro', 'renderRunningTest']);
         $subject->injectRequest($this->request);
         $subject->injectOutputService($this->outputService);
         $subject->injectTestFinder($this->testFinder);
@@ -303,7 +303,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
     public function renderRunTestsForInvalidCommandRendersIntro()
     {
         /** @var \Tx_Phpunit_BackEnd_Module|\PHPUnit_Framework_MockObject_MockObject $subject */
-        $subject = $this->getMock($this->createAccessibleProxy(), array('renderRunTestsIntro', 'renderRunningTest'));
+        $subject = $this->getMock($this->createAccessibleProxy(), ['renderRunTestsIntro', 'renderRunningTest']);
         $subject->injectRequest($this->request);
         $subject->injectOutputService($this->outputService);
         $subject->injectTestFinder($this->testFinder);
@@ -324,7 +324,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
     public function renderRunTestsForInvalidCommandNotRunsTests()
     {
         /** @var \Tx_Phpunit_BackEnd_Module|\PHPUnit_Framework_MockObject_MockObject $subject */
-        $subject = $this->getMock($this->createAccessibleProxy(), array('renderRunTestsIntro', 'renderRunningTest'));
+        $subject = $this->getMock($this->createAccessibleProxy(), ['renderRunTestsIntro', 'renderRunningTest']);
         $subject->injectRequest($this->request);
         $subject->injectOutputService($this->outputService);
         $subject->injectTestFinder($this->testFinder);
@@ -345,7 +345,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
     public function renderRunTestsForRunAllTestsCommandRendersIntroAndTests()
     {
         /** @var \Tx_Phpunit_BackEnd_Module|\PHPUnit_Framework_MockObject_MockObject $subject */
-        $subject = $this->getMock($this->createAccessibleProxy(), array('renderRunTestsIntro', 'renderRunningTest'));
+        $subject = $this->getMock($this->createAccessibleProxy(), ['renderRunTestsIntro', 'renderRunningTest']);
         $subject->injectRequest($this->request);
         $subject->injectOutputService($this->outputService);
         $subject->injectTestFinder($this->testFinder);
@@ -367,7 +367,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
     public function renderRunTestsForRunTestCaseFileCommandRendersIntroAndTests()
     {
         /** @var \Tx_Phpunit_BackEnd_Module|\PHPUnit_Framework_MockObject_MockObject $subject */
-        $subject = $this->getMock($this->createAccessibleProxy(), array('renderRunTestsIntro', 'renderRunningTest'));
+        $subject = $this->getMock($this->createAccessibleProxy(), ['renderRunTestsIntro', 'renderRunningTest']);
         $subject->injectRequest($this->request);
         $subject->injectOutputService($this->outputService);
         $subject->injectTestFinder($this->testFinder);
@@ -389,7 +389,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
     public function renderRunTestsForRunSingleTestCommandRendersIntroAndTests()
     {
         /** @var \Tx_Phpunit_BackEnd_Module|\PHPUnit_Framework_MockObject_MockObject $subject */
-        $subject = $this->getMock($this->createAccessibleProxy(), array('renderRunTestsIntro', 'renderRunningTest'));
+        $subject = $this->getMock($this->createAccessibleProxy(), ['renderRunTestsIntro', 'renderRunningTest']);
         $subject->injectRequest($this->request);
         $subject->injectOutputService($this->outputService);
         $subject->injectTestFinder($this->testFinder);
@@ -413,7 +413,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
         /** @var \Tx_Phpunit_BackEnd_Module|\PHPUnit_Framework_MockObject_MockObject $subject */
         $subject = $this->getMock(
             $this->createAccessibleProxy(),
-            array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector')
+            ['createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector']
         );
         $subject->injectRequest($this->request);
         $subject->injectOutputService($this->outputService);
@@ -442,7 +442,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
         /** @var \Tx_Phpunit_BackEnd_Module|\PHPUnit_Framework_MockObject_MockObject $subject */
         $subject = $this->getMock(
             $this->createAccessibleProxy(),
-            array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector')
+            ['createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector']
         );
         $subject->injectRequest($this->request);
         $subject->injectOutputService($this->outputService);
@@ -469,7 +469,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
         /** @var \Tx_Phpunit_BackEnd_Module|\PHPUnit_Framework_MockObject_MockObject $subject */
         $subject = $this->getMock(
             $this->createAccessibleProxy(),
-            array('createExtensionSelector')
+            ['createExtensionSelector']
         );
         $subject->injectRequest($this->request);
         $subject->injectOutputService($this->outputService);
@@ -494,7 +494,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
         /** @var \Tx_Phpunit_BackEnd_Module|\PHPUnit_Framework_MockObject_MockObject $subject */
         $subject = $this->getMock(
             $this->createAccessibleProxy(),
-            array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector')
+            ['createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector']
         );
         $subject->injectRequest($this->request);
         $subject->injectOutputService($this->outputService);
@@ -524,7 +524,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
         /** @var \Tx_Phpunit_BackEnd_Module|\PHPUnit_Framework_MockObject_MockObject $subject */
         $subject = $this->getMock(
             $this->createAccessibleProxy(),
-            array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector')
+            ['createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector']
         );
         $subject->injectRequest($this->request);
         $subject->injectOutputService($this->outputService);
@@ -554,7 +554,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
         /** @var \Tx_Phpunit_BackEnd_Module|\PHPUnit_Framework_MockObject_MockObject $subject */
         $subject = $this->getMock(
             $this->createAccessibleProxy(),
-            array('createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector')
+            ['createExtensionSelector', 'createTestCaseSelector', 'createCheckboxes', 'createTestSelector']
         );
         $subject->injectRequest($this->request);
         $subject->injectOutputService($this->outputService);
@@ -584,7 +584,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
         $notExistingDirectory = 'vfs://Foo/bar';
 
         self::assertSame(
-            array(),
+            [],
             $this->subject->findTestCasesInDir($notExistingDirectory)
         );
     }
@@ -599,7 +599,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
         $directory = 'vfs://Foo/';
 
         /** @var \Tx_Phpunit_Service_TestCaseService|\PHPUnit_Framework_MockObject_MockObject $testCaseService */
-        $testCaseService = $this->getMock('Tx_Phpunit_Service_TestCaseService', array('findTestCaseFilesInDirectory'));
+        $testCaseService = $this->getMock('Tx_Phpunit_Service_TestCaseService', ['findTestCaseFilesInDirectory']);
         $testCaseService->expects(self::once())->method('findTestCaseFilesInDirectory')->with($directory);
         $this->subject->injectTestCaseService($testCaseService);
 
@@ -614,15 +614,15 @@ class ModuleTest extends \Tx_Phpunit_TestCase
         vfsStreamWrapper::register();
         vfsStreamWrapper::setRoot(new vfsStreamDirectory('Foo'));
         $directory = 'vfs://Foo/';
-        $testFiles = array('class.testOneTest.php', 'class.testTwoTest.php');
+        $testFiles = ['class.testOneTest.php', 'class.testTwoTest.php'];
 
         /** @var \Tx_Phpunit_Service_TestCaseService|\PHPUnit_Framework_MockObject_MockObject $testCaseService */
-        $testCaseService = $this->getMock('Tx_Phpunit_Service_TestCaseService', array('findTestCaseFilesInDirectory'));
+        $testCaseService = $this->getMock('Tx_Phpunit_Service_TestCaseService', ['findTestCaseFilesInDirectory']);
         $testCaseService->expects(self::once())->method('findTestCaseFilesInDirectory')->will(self::returnValue($testFiles));
         $this->subject->injectTestCaseService($testCaseService);
 
         self::assertSame(
-            array($directory => $testFiles),
+            [$directory => $testFiles],
             $this->subject->findTestCasesInDir($directory)
         );
     }
@@ -633,11 +633,11 @@ class ModuleTest extends \Tx_Phpunit_TestCase
     public function loadRequiredTestClassesLoadsFileInFirstPath()
     {
         $this->subject->loadRequiredTestClasses(
-            array(
-                ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/BackEnd/Fixtures/' => array(
+            [
+                ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/BackEnd/Fixtures/' => [
                     'LoadMe.php',
-                ),
-            )
+                ],
+            ]
         );
 
         self::assertTrue(
@@ -651,12 +651,12 @@ class ModuleTest extends \Tx_Phpunit_TestCase
     public function loadRequiredTestClassesLoadsSecondFileInFirstPath()
     {
         $this->subject->loadRequiredTestClasses(
-            array(
-                ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/BackEnd/Fixtures/' => array(
+            [
+                ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/BackEnd/Fixtures/' => [
                     'LoadMe.php',
                     'LoadMeToo.php',
-                ),
-            )
+                ],
+            ]
         );
 
         self::assertTrue(
@@ -670,14 +670,14 @@ class ModuleTest extends \Tx_Phpunit_TestCase
     public function loadRequiredTestClassesLoadsFileInSecondPath()
     {
         $this->subject->loadRequiredTestClasses(
-            array(
-                ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/BackEnd/Fixtures/' => array(
+            [
+                ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/BackEnd/Fixtures/' => [
                     'LoadMe.php',
-                ),
-                ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Fixtures/' => array(
+                ],
+                ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Fixtures/' => [
                     'LoadMe.php',
-                ),
-            )
+                ],
+            ]
         );
 
         self::assertTrue(
@@ -715,7 +715,6 @@ class ModuleTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->createIconStyle('');
     }
-
 
     /*
      * Tests concerning createTestCaseSelector

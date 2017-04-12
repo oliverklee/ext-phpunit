@@ -65,9 +65,9 @@ class CheckboxViewHelperTest extends \Tx_Phpunit_TestCase
     {
         $subject = new \Tx_Phpunit_ViewHelpers_CheckboxViewHelper(
             '',
-            array(
-                'foo' => 'bar'
-            )
+            [
+                'foo' => 'bar',
+            ]
         );
 
         self::assertRegExp(
@@ -83,15 +83,15 @@ class CheckboxViewHelperTest extends \Tx_Phpunit_TestCase
     {
         $subject = new \Tx_Phpunit_ViewHelpers_CheckboxViewHelper(
             '',
-            array(
-                'some' => 'attribute'
-            )
+            [
+                'some' => 'attribute',
+            ]
         );
 
         $subject->addAdditionalAttributes(
-            array(
-                'foo' => 'bar'
-            )
+            [
+                'foo' => 'bar',
+            ]
         );
 
         self::assertRegExp(
@@ -109,9 +109,9 @@ class CheckboxViewHelperTest extends \Tx_Phpunit_TestCase
 
         // This should have no effect on the rendered tag:
         $subject->setAdditionalAttributes(
-            array(
-                'type' => 'will be overridden'
-            )
+            [
+                'type' => 'will be overridden',
+            ]
         );
 
         self::assertRegExp(
@@ -129,9 +129,9 @@ class CheckboxViewHelperTest extends \Tx_Phpunit_TestCase
 
         // This should have no effect on the rendered tag:
         $subject->setAdditionalAttributes(
-            array(
-                'value' => 'will be overridden'
-            )
+            [
+                'value' => 'will be overridden',
+            ]
         );
 
         self::assertRegExp(
@@ -148,9 +148,9 @@ class CheckboxViewHelperTest extends \Tx_Phpunit_TestCase
         $subject = new \Tx_Phpunit_ViewHelpers_CheckboxViewHelper('test');
 
         $subject->setAdditionalAttributes(
-            array(
-                'value' => 'another'
-            )
+            [
+                'value' => 'another',
+            ]
         );
 
         // Only one match should be found
@@ -167,15 +167,15 @@ class CheckboxViewHelperTest extends \Tx_Phpunit_TestCase
     {
         $subject = new \Tx_Phpunit_ViewHelpers_CheckboxViewHelper(
             '',
-            array(
-                'mustBe' => 'preserved'
-            )
+            [
+                'mustBe' => 'preserved',
+            ]
         );
 
         $subject->addAdditionalAttributes(
-            array(
-                'foo' => 'bar'
-            )
+            [
+                'foo' => 'bar',
+            ]
         );
 
         self::assertContains(

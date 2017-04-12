@@ -37,7 +37,7 @@ class SeleniumServiceTest extends \Tx_Phpunit_TestCase
         $this->subject = $this->getMock(
             'Tx_Phpunit_Service_SeleniumService',
             null,
-            array($this->extensionSettingsService)
+            [$this->extensionSettingsService]
         );
     }
 

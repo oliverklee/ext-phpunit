@@ -309,7 +309,7 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
      */
     protected function getFirstNonPhpUnitTrace(array $traceData)
     {
-        $testCaseTraceData = array();
+        $testCaseTraceData = [];
 
         foreach ($traceData as $singleTraceArr) {
             if (!stristr(GeneralUtility::fixWindowsFilePath($singleTraceArr['file']), 'Framework/Assert.php')) {
@@ -553,14 +553,14 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
      */
     protected function createReRunUrl(PHPUnit_Framework_TestCase $test)
     {
-        $urlParameters = array(
+        $urlParameters = [
             Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE .
             '[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND . ']' => 'runsingletest',
             Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE .
             '[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE . ']' => $this->getTestCaseName(),
             Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE .
             '[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST . ']' => $this->createTestId($test),
-        );
+        ];
 
         return htmlspecialchars(BackendUtility::getModuleUrl(
             Tx_Phpunit_BackEnd_Module::MODULE_NAME,

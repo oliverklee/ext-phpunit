@@ -37,22 +37,22 @@ class Tx_Phpunit_Service_TestCaseService implements SingletonInterface
      *
      * @var string[]
      */
-    static protected $testCaseFileSuffixes = array(
+    protected static $testCaseFileSuffixes = [
         'Test.php',
         'test.php',
         '_testcase.php',
         'testcase.php',
-    );
+    ];
 
     /**
      * class name suffixes that indicate that a class is a test case
      *
      * @var string[]
      */
-    static protected $testCaseClassNameSuffixes = array(
+    protected static $testCaseClassNameSuffixes = [
         'Test',
         '_testcase',
-    );
+    ];
 
     /**
      * @var Tx_Phpunit_Interface_UserSettingsService
@@ -109,8 +109,8 @@ class Tx_Phpunit_Service_TestCaseService implements SingletonInterface
 
         $directoryLength = strlen($directory);
 
-        $testFiles = array();
-        $allPhpFiles = GeneralUtility::getAllFilesAndFoldersInPath(array(), $directory, 'php');
+        $testFiles = [];
+        $allPhpFiles = GeneralUtility::getAllFilesAndFoldersInPath([], $directory, 'php');
         foreach ($allPhpFiles as $filePath) {
             if ($this->isNotFixturesPath($filePath) && $this->isTestCaseFileName($filePath)) {
                 $testFiles[] = substr($filePath, $directoryLength);
@@ -131,7 +131,7 @@ class Tx_Phpunit_Service_TestCaseService implements SingletonInterface
      */
     protected function isNotFixturesPath($path)
     {
-        return (stristr($path, '/fixtures/') === false);
+        return stristr($path, '/fixtures/') === false;
     }
 
     /**
@@ -168,7 +168,7 @@ class Tx_Phpunit_Service_TestCaseService implements SingletonInterface
      */
     protected function isHiddenMacFile($fileName)
     {
-        return (substr($fileName, 0, 2) === '._');
+        return substr($fileName, 0, 2) === '._';
     }
 
     /**

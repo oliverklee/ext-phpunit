@@ -343,7 +343,7 @@ class UserSettingsServiceTest extends \Tx_Phpunit_TestCase
     public function getAsArrayForMissingValueReturnsEmptyArray()
     {
         self::assertSame(
-            array(),
+            [],
             $this->subject->getAsArray('foo')
         );
     }
@@ -354,7 +354,7 @@ class UserSettingsServiceTest extends \Tx_Phpunit_TestCase
     public function getAsArrayForExistingValueReturnsValueFromUserSettings()
     {
         $key = 'foo';
-        $value = array('foo', 'bar');
+        $value = ['foo', 'bar'];
         $this->getBackEndUserMock()->uc['Tx_Phpunit_BackEndSettings'][$key] = $value;
 
         self::assertSame(
@@ -372,7 +372,7 @@ class UserSettingsServiceTest extends \Tx_Phpunit_TestCase
         $this->getBackEndUserMock()->uc['Tx_Phpunit_BackEndSettings'][$key] = 42;
 
         self::assertSame(
-            array(),
+            [],
             $this->subject->getAsArray($key)
         );
     }
@@ -383,7 +383,7 @@ class UserSettingsServiceTest extends \Tx_Phpunit_TestCase
     public function setCanSetArrayValue()
     {
         $key = 'foo';
-        $value = array('hello', 'world');
+        $value = ['hello', 'world'];
         $this->subject->set($key, $value);
 
         self::assertSame(

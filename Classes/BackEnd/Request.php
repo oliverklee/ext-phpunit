@@ -25,7 +25,7 @@ class Tx_Phpunit_BackEnd_Request extends Tx_Phpunit_AbstractDataContainer implem
     /**
      * @var array
      */
-    private $cachedRequestData = array();
+    private $cachedRequestData = [];
 
     /**
      * @var bool

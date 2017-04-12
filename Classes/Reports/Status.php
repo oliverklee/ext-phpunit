@@ -62,14 +62,14 @@ class Tx_Phpunit_Reports_Status implements StatusProviderInterface
      */
     public function getStatus()
     {
-        return array(
+        return [
             $this->getReflectionStatus(),
             $this->getEacceleratorStatus(),
             $this->getXdebugStatus(),
             $this->getMemoryLimitStatus(),
             $this->getIncludePathStatus(),
             $this->getExcludedExtensionsStatus(),
-        );
+        ];
     }
 
     /**
@@ -263,7 +263,7 @@ class Tx_Phpunit_Reports_Status implements StatusProviderInterface
     {
         $paths = explode(PATH_SEPARATOR, get_include_path());
 
-        $escapedPaths = array();
+        $escapedPaths = [];
         foreach ($paths as $path) {
             $escapedPaths[] = htmlspecialchars($path);
         }

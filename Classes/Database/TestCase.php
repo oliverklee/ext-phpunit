@@ -15,7 +15,6 @@
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Install\Service\SqlExpectedSchemaService;
 
 /**
  * Database testcase base class.
@@ -39,7 +38,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
      * @param array $data ?
      * @param string $dataName ?
      */
-    public function __construct($name = null, array $data = array(), $dataName = '')
+    public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
         $this->testDatabase = strtolower(TYPO3_db . '_test');
@@ -127,7 +126,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
 
         $this->selectDatabase($this->testDatabase, $db);
 
-        return ($db->admin_query('DROP DATABASE `' . $this->testDatabase . '`') !== false);
+        return $db->admin_query('DROP DATABASE `' . $this->testDatabase . '`') !== false;
     }
 
     /**
@@ -196,7 +195,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
     protected function importExtensions(
         array $extensions,
         $importDependencies = false,
-        array &$skipDependencies = array()
+        array &$skipDependencies = []
     ) {
         $this->useTestDatabase();
 
@@ -210,7 +209,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
                 continue;
             }
 
-            $skipDependencies = array_merge($skipDependencies, array($extensionName));
+            $skipDependencies = array_merge($skipDependencies, [$extensionName]);
 
             if ($importDependencies) {
                 $dependencies = $this->findDependencies($extensionName);
@@ -250,7 +249,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
     {
         $db = $this->useTestDatabase($databaseName);
 
-        $tableNames = array();
+        $tableNames = [];
 
         $res = $db->sql_query('show tables');
         while (($row = $db->sql_fetch_row($res))) {
@@ -299,7 +298,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
         if (TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 7006000) {
             $cacheTables = \TYPO3\CMS\Core\Cache\Cache::getDatabaseTableDefinitions();
         } else {
-       	    $cacheTables = \TYPO3\CMS\Core\Cache\DatabaseSchemaService::getCachingFrameworkRequiredDatabaseSchema();
+            $cacheTables = \TYPO3\CMS\Core\Cache\DatabaseSchemaService::getCachingFrameworkRequiredDatabaseSchema();
         }
         $this->importDatabaseDefinitions($cacheTables);
 
@@ -336,7 +335,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
         $diff = $install->getDatabaseExtra($fieldDefinitionsFile, $fieldDefinitionsDatabase);
         $updateStatements = $install->getUpdateSuggestions($diff);
 
-        $updateTypes = array('add', 'change', 'create_table');
+        $updateTypes = ['add', 'change', 'create_table'];
 
         $databaseConnection = Tx_Phpunit_Service_Database::getDatabaseConnection();
         foreach ($updateTypes as $updateType) {
@@ -387,7 +386,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
      *
      * @param string $extKey the key of an installed extension, must not be empty
      *
-     * @return string[]|NULL
+     * @return string[]|null
      *         the keys of all extensions on which the given extension depends,
      *         will be NULL if the dependencies could not be determined
      */
@@ -426,11 +425,11 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
     {
         $xml = simplexml_load_file($path);
         $db = $this->useTestDatabase();
-        $foreignKeys = array();
+        $foreignKeys = [];
 
         /** @var SimpleXMLElement $table */
         foreach ($xml->children() as $table) {
-            $insertArray = array();
+            $insertArray = [];
 
             /** @var SimpleXMLElement $column */
             foreach ($table->children() as $column) {

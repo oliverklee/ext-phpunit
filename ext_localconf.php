@@ -12,12 +12,12 @@ if (TYPO3_MODE === 'BE') {
         'PHPUnitAJAX::saveCheckbox',
         'Tx_Phpunit_BackEnd_Ajax->ajaxBroker'
     );
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['GLOBAL']['cliKeys']['phpunit'] = array(
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['GLOBAL']['cliKeys']['phpunit'] = [
         'EXT:' . $_EXTKEY . '/Scripts/ManualCliTestRunner.php',
         '_CLI_phpunit',
-    );
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['GLOBAL']['cliKeys']['phpunit_ide_testrunner'] = array(
+    ];
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['GLOBAL']['cliKeys']['phpunit_ide_testrunner'] = [
         'EXT:' . $_EXTKEY . '/Scripts/IdeTestRunner.php',
         '_CLI_phpunit',
-    );
+    ];
 }

@@ -48,21 +48,21 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      *
      * @var array
      */
-    private $extConfBackup = array();
+    private $extConfBackup = [];
 
     /**
      * backed-up T3_VAR configuration
      *
      * @var array
      */
-    private $t3VarBackup = array();
+    private $t3VarBackup = [];
 
     protected function setUp()
     {
         $this->extConfBackup = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'];
         $this->t3VarBackup = $GLOBALS['T3_VAR']['getUserObj'];
 
-        $this->subject = new \Tx_Phpunit_Framework('tx_phpunit', array('user_phpunittest'));
+        $this->subject = new \Tx_Phpunit_Framework('tx_phpunit', ['user_phpunittest']);
     }
 
     protected function tearDown()
@@ -75,7 +75,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->cleanUp();
         $this->deleteForeignFolder();
     }
-
 
     // ---------------------------------------------------------------------
     // Utility functions.
@@ -166,7 +165,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         }
     }
 
-
     // ---------------------------------------------------------------------
     // Tests regarding markTableAsDirty()
     // ---------------------------------------------------------------------
@@ -177,15 +175,15 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     public function markTableAsDirty()
     {
         self::assertSame(
-            array(),
+            [],
             $this->subject->getListOfDirtyTables()
         );
 
-        $this->subject->createRecord('tx_phpunit_test', array());
+        $this->subject->createRecord('tx_phpunit_test', []);
         self::assertSame(
-            array(
+            [
                 'tx_phpunit_test' => 'tx_phpunit_test',
-            ),
+            ],
             $this->subject->getListOfDirtyTables()
         );
     }
@@ -197,7 +195,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $uid = \Tx_Phpunit_Service_Database::insert(
             'tx_phpunit_test',
-            array('is_dummy_record' => 1)
+            ['is_dummy_record' => 1]
         );
 
         $this->subject->markTableAsDirty('tx_phpunit_test');
@@ -215,7 +213,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $uid = \Tx_Phpunit_Service_Database::insert(
             'pages',
-            array('tx_phpunit_is_dummy_record' => 1)
+            ['tx_phpunit_is_dummy_record' => 1]
         );
 
         $this->subject->markTableAsDirty('pages');
@@ -235,7 +233,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
         $uid = \Tx_Phpunit_Service_Database::insert(
             'user_phpunittest_test',
-            array('tx_phpunit_is_dummy_record' => 1)
+            ['tx_phpunit_is_dummy_record' => 1]
         );
 
         $this->subject->markTableAsDirty('user_phpunittest_test');
@@ -293,14 +291,13 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->markTableAsDirty('tx_phpunit_test,tx_phpunit_test_article_mm');
         self::assertSame(
-            array(
+            [
                 'tx_phpunit_test' => 'tx_phpunit_test',
                 'tx_phpunit_test_article_mm' => 'tx_phpunit_test_article_mm',
-            ),
+            ],
             $this->subject->getListOfDirtyTables()
         );
     }
-
 
     // ---------------------------------------------------------------------
     // Tests regarding createRecord()
@@ -313,7 +310,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         self::assertNotEquals(
             0,
-            $this->subject->createRecord('tx_phpunit_test', array())
+            $this->subject->createRecord('tx_phpunit_test', [])
         );
     }
 
@@ -325,9 +322,9 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $title = 'TEST record';
         $uid = $this->subject->createRecord(
             'tx_phpunit_test',
-            array(
+            [
                 'title' => $title,
-            )
+            ]
         );
         self::assertNotEquals(
             0,
@@ -353,7 +350,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function createRecordOnInvalidTable()
     {
-        $this->subject->createRecord('tx_phpunit_DOESNOTEXIST', array());
+        $this->subject->createRecord('tx_phpunit_DOESNOTEXIST', []);
     }
 
     /**
@@ -363,7 +360,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function createRecordWithEmptyTableName()
     {
-        $this->subject->createRecord('', array());
+        $this->subject->createRecord('', []);
     }
 
     /**
@@ -375,7 +372,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->createRecord(
             'tx_phpunit_test',
-            array('uid' => 99999)
+            ['uid' => 99999]
         );
     }
 
@@ -389,12 +386,11 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $title = 'TEST record';
         $this->subject->createRecord(
             'user_phpunittest_test',
-            array(
+            [
                 'title' => $title,
-            )
+            ]
         );
     }
-
 
     // ---------------------------------------------------------------------
     // Tests regarding changeRecord()
@@ -407,13 +403,13 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $uid = $this->subject->createRecord(
             'tx_phpunit_test',
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
 
         $this->subject->changeRecord(
             'tx_phpunit_test',
             $uid,
-            array('title' => 'bar')
+            ['title' => 'bar']
         );
 
         $row = \Tx_Phpunit_Service_Database::selectSingle(
@@ -438,7 +434,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->changeRecord(
             'tx_seminars_seminars',
             99999,
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
     }
 
@@ -452,7 +448,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->changeRecord(
             'tx_phpunit_DOESNOTEXIST',
             99999,
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
     }
 
@@ -461,12 +457,12 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function changeRecordOnAllowedSystemTableForPages()
     {
-        $pid = $this->subject->createFrontEndPage(0, array('title' => 'foo'));
+        $pid = $this->subject->createFrontEndPage(0, ['title' => 'foo']);
 
         $this->subject->changeRecord(
             'pages',
             $pid,
-            array('title' => 'bar')
+            ['title' => 'bar']
         );
 
         self::assertSame(
@@ -480,16 +476,16 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function changeRecordOnAllowedSystemTableForContent()
     {
-        $pid = $this->subject->createFrontEndPage(0, array('title' => 'foo'));
+        $pid = $this->subject->createFrontEndPage(0, ['title' => 'foo']);
         $uid = $this->subject->createContentElement(
             $pid,
-            array('header' => 'foo')
+            ['header' => 'foo']
         );
 
         $this->subject->changeRecord(
             'tt_content',
             $uid,
-            array('header' => 'bar')
+            ['header' => 'bar']
         );
 
         self::assertSame(
@@ -508,7 +504,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->changeRecord(
             'sys_domain',
             1,
-            array('title' => 'bar')
+            ['title' => 'bar']
         );
     }
 
@@ -521,13 +517,13 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
         $uid = $this->subject->createRecord(
             'user_phpunittest_test',
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
 
         $this->subject->changeRecord(
             'user_phpunittest_test',
             $uid,
-            array('title' => 'bar')
+            ['title' => 'bar']
         );
     }
 
@@ -538,7 +534,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function changeRecordFailsWithUidZero()
     {
-        $this->subject->changeRecord('tx_phpunit_test', 0, array('title' => 'foo'));
+        $this->subject->changeRecord('tx_phpunit_test', 0, ['title' => 'foo']);
     }
 
     /**
@@ -548,12 +544,12 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function changeRecordFailsWithEmptyData()
     {
-        $uid = $this->subject->createRecord('tx_phpunit_test', array());
+        $uid = $this->subject->createRecord('tx_phpunit_test', []);
 
         $this->subject->changeRecord(
             'tx_phpunit_test',
             $uid,
-            array()
+            []
         );
     }
 
@@ -564,12 +560,12 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function changeRecordFailsWithUidFieldInRecordData()
     {
-        $uid = $this->subject->createRecord('tx_phpunit_test', array());
+        $uid = $this->subject->createRecord('tx_phpunit_test', []);
 
         $this->subject->changeRecord(
             'tx_phpunit_test',
             $uid,
-            array('uid' => '55742')
+            ['uid' => '55742']
         );
     }
 
@@ -580,12 +576,12 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function changeRecordFailsWithDummyRecordFieldInRecordData()
     {
-        $uid = $this->subject->createRecord('tx_phpunit_test', array());
+        $uid = $this->subject->createRecord('tx_phpunit_test', []);
 
         $this->subject->changeRecord(
             'tx_phpunit_test',
             $uid,
-            array('is_dummy_record' => 0)
+            ['is_dummy_record' => 0]
         );
     }
 
@@ -596,15 +592,14 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function changeRecordFailsOnInexistentRecord()
     {
-        $uid = $this->subject->createRecord('tx_phpunit_test', array());
+        $uid = $this->subject->createRecord('tx_phpunit_test', []);
 
         $this->subject->changeRecord(
             'tx_phpunit_test',
             $uid + 1,
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
     }
-
 
     // ---------------------------------------------------------------------
     // Tests regarding deleteRecord()
@@ -616,7 +611,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     public function deleteRecordOnValidDummyRecord()
     {
         // Creates and directly destroys a dummy record.
-        $uid = $this->subject->createRecord('tx_phpunit_test', array());
+        $uid = $this->subject->createRecord('tx_phpunit_test', []);
         $this->subject->deleteRecord('tx_phpunit_test', $uid);
 
         // Checks whether the record really was removed from the database.
@@ -634,7 +629,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->checkIfExtensionUserPhpUnittestIsLoaded();
 
         // Creates and directly destroys a dummy record.
-        $uid = $this->subject->createRecord('user_phpunittest_test', array());
+        $uid = $this->subject->createRecord('user_phpunittest_test', []);
         $this->subject->deleteRecord('user_phpunittest_test', $uid);
     }
 
@@ -704,10 +699,10 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         // is_dummy_record flag is set to 0.
         $uid = \Tx_Phpunit_Service_Database::insert(
             'tx_phpunit_test',
-            array(
+            [
                 'title' => 'TEST',
                 'is_dummy_record' => 0,
-            )
+            ]
         );
 
         // Runs our delete method which should NOT affect the record created
@@ -729,7 +724,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
             $counter
         );
     }
-
 
     // ---------------------------------------------------------------------
     // Tests regarding createRelation()
@@ -897,7 +891,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         );
     }
 
-
     // ---------------------------------------------------------------------
     // Tests regarding createRelationFromTca()
     // ---------------------------------------------------------------------
@@ -936,7 +929,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $firstRecordUid = $this->subject->createRecord(
             'tx_phpunit_test',
-            array('related_records' => 1)
+            ['related_records' => 1]
         );
         $secondRecordUid = $this->subject->createRecord('tx_phpunit_test');
 
@@ -1062,7 +1055,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
             $count
         );
     }
-
 
     // ---------------------------------------------------------------------
     // Tests regarding removeRelation()
@@ -1202,11 +1194,11 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         // is_dummy_record flag is set to 0.
         \Tx_Phpunit_Service_Database::insert(
             'tx_phpunit_test_article_mm',
-            array(
+            [
                 'uid_local' => $uidLocal,
                 'uid_foreign' => $uidForeign,
                 'is_dummy_record' => 0,
-            )
+            ]
         );
 
         // Runs our delete method which should NOT affect the record created
@@ -1241,7 +1233,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         );
     }
 
-
     // ---------------------------------------------------------------------
     // Tests regarding cleanUp()
     // ---------------------------------------------------------------------
@@ -1258,7 +1249,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         // table name to the list of dirty tables.
         \Tx_Phpunit_Service_Database::insert(
             'tx_phpunit_test_article_mm',
-            array('is_dummy_record' => 1)
+            ['is_dummy_record' => 1]
         );
 
         // Runs a regular clean up. This should now delete only the first record
@@ -1297,7 +1288,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         // table name to the list of dirty tables.
         \Tx_Phpunit_Service_Database::insert(
             'tx_phpunit_test_article_mm',
-            array('is_dummy_record' => 1)
+            ['is_dummy_record' => 1]
         );
 
         // Deletes all dummy records.
@@ -1379,7 +1370,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->purgeHooks();
 
-        $cleanUpHookMock = $this->getMock('Tx_Phpunit_Interface_FrameworkCleanupHook', array('cleanUp'));
+        $cleanUpHookMock = $this->getMock('Tx_Phpunit_Interface_FrameworkCleanupHook', ['cleanUp']);
         $cleanUpHookMock->expects(self::atLeastOnce())->method('cleanUp');
 
         $hookClassName = get_class($cleanUpHookMock);
@@ -1400,14 +1391,13 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->purgeHooks();
 
         $hookClassName = uniqid('cleanUpHook');
-        $cleanUpHookMock = $this->getMock($hookClassName, array('cleanUp'));
+        $cleanUpHookMock = $this->getMock($hookClassName, ['cleanUp']);
 
         $GLOBALS['T3_VAR']['getUserObj'][$hookClassName] = $cleanUpHookMock;
         $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['FrameworkCleanUp']['phpunit_tests'] = $hookClassName;
 
         $this->subject->cleanUp();
     }
-
 
     // ---------------------------------------------------------------------
     // Tests regarding createListOfAllowedTables()
@@ -1437,7 +1427,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
             $allowedTables
         );
     }
-
 
     // ---------------------------------------------------------------------
     // Tests regarding createListOfAdditionalAllowedTables()
@@ -1480,7 +1469,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
         $subject = new \Tx_Phpunit_Framework(
             'tx_phpunit',
-            array('user_phpunittest', 'user_phpunittest2')
+            ['user_phpunittest', 'user_phpunittest2']
         );
 
         $allowedTables = $subject->getListOfAdditionalAllowedTableNames();
@@ -1493,7 +1482,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
             $allowedTables
         );
     }
-
 
     /*
      * Tests regarding getAutoIncrement()
@@ -1648,7 +1636,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->getAutoIncrement('tx_phpunit_test_article_mm');
     }
 
-
     // ---------------------------------------------------------------------
     // Tests regarding countRecords()
     // ---------------------------------------------------------------------
@@ -1794,7 +1781,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->createRecord(
             'tx_phpunit_test',
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
 
         self::assertSame(
@@ -1810,7 +1797,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->createRecord(
             'tx_phpunit_test',
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
 
         self::assertSame(
@@ -1826,11 +1813,11 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->createRecord(
             'tx_phpunit_test',
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
         $this->subject->createRecord(
             'tx_phpunit_test',
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
 
         self::assertSame(
@@ -1854,7 +1841,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         \Tx_Phpunit_Service_Database::insert(
             'tx_phpunit_test',
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
 
         $testResult = $this->subject->countRecords(
@@ -1875,7 +1862,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
             $testResult
         );
     }
-
 
     // ---------------------------------------------------------------------
     // Tests regarding existsRecord()
@@ -1935,7 +1921,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->createRecord(
             'tx_phpunit_test',
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
 
         self::assertTrue(
@@ -1950,11 +1936,11 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->createRecord(
             'tx_phpunit_test',
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
         $this->subject->createRecord(
             'tx_phpunit_test',
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
 
         self::assertTrue(
@@ -1969,7 +1955,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         \Tx_Phpunit_Service_Database::insert(
             'tx_phpunit_test',
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
 
         $testResult = $this->subject->existsRecord(
@@ -1989,7 +1975,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
             $testResult
         );
     }
-
 
     // ---------------------------------------------------------------------
     // Tests regarding existsRecordWithUid()
@@ -2071,7 +2056,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $uid = \Tx_Phpunit_Service_Database::insert(
             'tx_phpunit_test',
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
 
         $testResult = $this->subject->existsRecordWithUid(
@@ -2091,7 +2076,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
             $testResult
         );
     }
-
 
     // ---------------------------------------------------------------------
     // Tests regarding existsExactlyOneRecord()
@@ -2154,7 +2138,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->createRecord(
             'tx_phpunit_test',
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
 
         self::assertTrue(
@@ -2172,11 +2156,11 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->createRecord(
             'tx_phpunit_test',
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
         $this->subject->createRecord(
             'tx_phpunit_test',
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
 
         self::assertFalse(
@@ -2191,7 +2175,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         \Tx_Phpunit_Service_Database::insert(
             'tx_phpunit_test',
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
 
         $testResult = $this->subject->existsExactlyOneRecord(
@@ -2211,7 +2195,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
             $testResult
         );
     }
-
 
     // ---------------------------------------------------------------------
     // Tests regarding resetAutoIncrement()
@@ -2368,7 +2351,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->resetAutoIncrement('tx_phpunit_DOESNOTEXIST');
     }
-
 
     // ---------------------------------------------------------------------
     // Tests regarding resetAutoIncrementLazily() and
@@ -2569,7 +2551,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->setResetAutoIncrementThreshold(-1);
     }
 
-
     // ---------------------------------------------------------------------
     // Tests regarding createFrontEndPage()
     // ---------------------------------------------------------------------
@@ -2736,7 +2717,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $uid = $this->subject->createFrontEndPage(
             0,
-            array('title' => 'Test title')
+            ['title' => 'Test title']
         );
 
         $row = \Tx_Phpunit_Service_Database::selectSingle(
@@ -2758,7 +2739,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function frontEndPageMustHaveNoZeroPid()
     {
-        $this->subject->createFrontEndPage(0, array('pid' => 0));
+        $this->subject->createFrontEndPage(0, ['pid' => 0]);
     }
 
     /**
@@ -2768,7 +2749,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function frontEndPageMustHaveNoNonZeroPid()
     {
-        $this->subject->createFrontEndPage(0, array('pid' => 99999));
+        $this->subject->createFrontEndPage(0, ['pid' => 99999]);
     }
 
     /**
@@ -2778,7 +2759,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function frontEndPageMustHaveNoZeroUid()
     {
-        $this->subject->createFrontEndPage(0, array('uid' => 0));
+        $this->subject->createFrontEndPage(0, ['uid' => 0]);
     }
 
     /**
@@ -2788,7 +2769,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function frontEndPageMustHaveNoNonZeroUid()
     {
-        $this->subject->createFrontEndPage(0, array('uid' => 99999));
+        $this->subject->createFrontEndPage(0, ['uid' => 99999]);
     }
 
     /**
@@ -2798,7 +2779,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function frontEndPageMustHaveNoZeroDoktype()
     {
-        $this->subject->createFrontEndPage(0, array('doktype' => 0));
+        $this->subject->createFrontEndPage(0, ['doktype' => 0]);
     }
 
     /**
@@ -2808,9 +2789,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function frontEndPageMustHaveNoNonZeroDoktype()
     {
-        $this->subject->createFrontEndPage(0, array('doktype' => 99999));
+        $this->subject->createFrontEndPage(0, ['doktype' => 99999]);
     }
-
 
     // ---------------------------------------------------------------------
     // Tests regarding createSystemFolder()
@@ -2978,7 +2958,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $uid = $this->subject->createSystemFolder(
             0,
-            array('title' => 'Test title')
+            ['title' => 'Test title']
         );
 
         $row = \Tx_Phpunit_Service_Database::selectSingle(
@@ -3000,7 +2980,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function systemFolderMustHaveNoZeroPid()
     {
-        $this->subject->createSystemFolder(0, array('pid' => 0));
+        $this->subject->createSystemFolder(0, ['pid' => 0]);
     }
 
     /**
@@ -3010,7 +2990,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function systemFolderMustHaveNoNonZeroPid()
     {
-        $this->subject->createSystemFolder(0, array('pid' => 99999));
+        $this->subject->createSystemFolder(0, ['pid' => 99999]);
     }
 
     /**
@@ -3020,7 +3000,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function systemFolderMustHaveNoZeroUid()
     {
-        $this->subject->createSystemFolder(0, array('uid' => 0));
+        $this->subject->createSystemFolder(0, ['uid' => 0]);
     }
 
     /**
@@ -3030,7 +3010,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function systemFolderMustHaveNoNonZeroUid()
     {
-        $this->subject->createSystemFolder(0, array('uid' => 99999));
+        $this->subject->createSystemFolder(0, ['uid' => 99999]);
     }
 
     /**
@@ -3040,7 +3020,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function systemFolderMustHaveNoZeroDoktype()
     {
-        $this->subject->createSystemFolder(0, array('doktype' => 0));
+        $this->subject->createSystemFolder(0, ['doktype' => 0]);
     }
 
     /**
@@ -3050,9 +3030,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function systemFolderMustHaveNoNonZeroDoktype()
     {
-        $this->subject->createSystemFolder(0, array('doktype' => 99999));
+        $this->subject->createSystemFolder(0, ['doktype' => 99999]);
     }
-
 
     // ---------------------------------------------------------------------
     // Tests regarding createContentElement()
@@ -3196,7 +3175,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $uid = $this->subject->createContentElement(
             0,
-            array('header' => 'Test header')
+            ['header' => 'Test header']
         );
 
         $row = \Tx_Phpunit_Service_Database::selectSingle(
@@ -3237,7 +3216,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $uid = $this->subject->createContentElement(
             0,
-            array('CType' => 'list')
+            ['CType' => 'list']
         );
 
         $row = \Tx_Phpunit_Service_Database::selectSingle(
@@ -3259,7 +3238,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function contentElementMustHaveNoZeroPid()
     {
-        $this->subject->createContentElement(0, array('pid' => 0));
+        $this->subject->createContentElement(0, ['pid' => 0]);
     }
 
     /**
@@ -3269,7 +3248,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function contentElementMustHaveNoNonZeroPid()
     {
-        $this->subject->createContentElement(0, array('pid' => 99999));
+        $this->subject->createContentElement(0, ['pid' => 99999]);
     }
 
     /**
@@ -3279,7 +3258,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function contentElementMustHaveNoZeroUid()
     {
-        $this->subject->createContentElement(0, array('uid' => 0));
+        $this->subject->createContentElement(0, ['uid' => 0]);
     }
 
     /**
@@ -3289,9 +3268,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function contentElementMustHaveNoNonZeroUid()
     {
-        $this->subject->createContentElement(0, array('uid' => 99999));
+        $this->subject->createContentElement(0, ['uid' => 99999]);
     }
-
 
     // ---------------------------------------------------------------------
     // Tests regarding createTemplate()
@@ -3410,7 +3388,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $pageId = $this->subject->createFrontEndPage();
         $uid = $this->subject->createTemplate(
             $pageId,
-            array('config' => 'plugin.tx_phpunit.test = 1')
+            ['config' => 'plugin.tx_phpunit.test = 1']
         );
         $row = \Tx_Phpunit_Service_Database::selectSingle(
             'config',
@@ -3450,7 +3428,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $pageId = $this->subject->createFrontEndPage();
         $uid = $this->subject->createTemplate(
             $pageId,
-            array('constants' => 'plugin.tx_phpunit.test = 1')
+            ['constants' => 'plugin.tx_phpunit.test = 1']
         );
         $row = \Tx_Phpunit_Service_Database::selectSingle(
             'constants',
@@ -3471,7 +3449,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function templateMustNotHaveZeroPid()
     {
-        $this->subject->createTemplate(42, array('pid' => 0));
+        $this->subject->createTemplate(42, ['pid' => 0]);
     }
 
     /**
@@ -3481,7 +3459,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function templateMustNotHaveNonZeroPid()
     {
-        $this->subject->createTemplate(42, array('pid' => 99999));
+        $this->subject->createTemplate(42, ['pid' => 99999]);
     }
 
     /**
@@ -3491,7 +3469,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function templateMustHaveNoZeroUid()
     {
-        $this->subject->createTemplate(42, array('uid' => 0));
+        $this->subject->createTemplate(42, ['uid' => 0]);
     }
 
     /**
@@ -3501,7 +3479,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function templateMustNotHaveNonZeroUid()
     {
-        $this->subject->createTemplate(42, array('uid' => 99999));
+        $this->subject->createTemplate(42, ['uid' => 99999]);
     }
 
     /*
@@ -3626,7 +3604,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
         $dummyFile = $this->subject->createDummyZipArchive(
             'foo.zip',
-            array($this->subject->createDummyFile('bar.txt'))
+            [$this->subject->createDummyFile('bar.txt')]
         );
         $zip = new \ZipArchive();
         $zip->open($dummyFile);
@@ -3648,10 +3626,10 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
         $dummyFile = $this->subject->createDummyZipArchive(
             'foo.zip',
-            array($this->subject->createDummyFile(
+            [$this->subject->createDummyFile(
                 'bar.txt',
                 'foo bar'
-            ))
+            )]
         );
         $zip = new \ZipArchive();
         $zip->open($dummyFile);
@@ -3674,10 +3652,10 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
         $dummyFile = $this->subject->createDummyZipArchive(
             'foo.zip',
-            array(
+            [
             $this->subject->createDummyFile('foo.txt'),
             $this->subject->createDummyFile('bar.txt'),
-            )
+            ]
         );
         $zip = new \ZipArchive();
         $zip->open($dummyFile);
@@ -3703,7 +3681,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->createDummyFolder('sub-folder');
         $dummyFile = $this->subject->createDummyZipArchive(
             'foo.zip',
-            array($this->subject->createDummyFile('sub-folder/foo.txt'))
+            [$this->subject->createDummyFile('sub-folder/foo.txt')]
         );
         $zip = new \ZipArchive();
         $zip->open($dummyFile);
@@ -3740,7 +3718,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
         self::assertTrue(file_exists($dummyFile));
     }
-
 
     // ---------------------------------------------------------------------
     // Tests regarding deleteDummyFile()
@@ -3793,7 +3770,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->deleteDummyFile($testFileUrl);
     }
 
-
     // ---------------------------------------------------------------------
     // Tests regarding createDummyFolder()
     // ---------------------------------------------------------------------
@@ -3843,7 +3819,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
         self::assertTrue(is_dir($dummyFolder));
     }
-
 
     // ---------------------------------------------------------------------
     // Tests regarding deleteDummyFolder()
@@ -3939,7 +3914,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         );
     }
 
-
     // ---------------------------------------------------------------------
     // Tests regarding set- and getUploadFolderPath()
     // ---------------------------------------------------------------------
@@ -3978,7 +3952,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->createDummyFile();
         $this->subject->setUploadFolderPath('/foo/bar/');
     }
-
 
     // ---------------------------------------------------------------------
     // Tests regarding getPathRelativeToUploadDirectory()
@@ -4233,7 +4206,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     public function frontEndUserGroupCanHaveTitle()
     {
         $uid = $this->subject->createFrontEndUserGroup(
-            array('title' => 'Test title')
+            ['title' => 'Test title']
         );
 
         $row = \Tx_Phpunit_Service_Database::selectSingle(
@@ -4255,7 +4228,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function frontEndUserGroupMustHaveNoZeroUid()
     {
-        $this->subject->createFrontEndUserGroup(array('uid' => 0));
+        $this->subject->createFrontEndUserGroup(['uid' => 0]);
     }
 
     /**
@@ -4265,9 +4238,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function frontEndUserGroupMustHaveNoNonZeroUid()
     {
-        $this->subject->createFrontEndUserGroup(array('uid' => 99999));
+        $this->subject->createFrontEndUserGroup(['uid' => 99999]);
     }
-
 
     // ---------------------------------------------------------------------
     // Tests regarding createFrontEndUser()
@@ -4362,7 +4334,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $uid = $this->subject->createFrontEndUser(
             '',
-            array('username' => 'Test name')
+            ['username' => 'Test name']
         );
 
         $row = \Tx_Phpunit_Service_Database::selectSingle(
@@ -4410,7 +4382,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function frontEndUserMustHaveNoZeroUid()
     {
-        $this->subject->createFrontEndUser('', array('uid' => 0));
+        $this->subject->createFrontEndUser('', ['uid' => 0]);
     }
 
     /**
@@ -4420,7 +4392,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function frontEndUserMustHaveNoNonZeroUid()
     {
-        $this->subject->createFrontEndUser('', array('uid' => 99999));
+        $this->subject->createFrontEndUser('', ['uid' => 99999]);
     }
 
     /**
@@ -4430,7 +4402,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function frontEndUserMustHaveNoZeroUserGroupInTheDataArray()
     {
-        $this->subject->createFrontEndUser('', array('usergroup' => 0));
+        $this->subject->createFrontEndUser('', ['usergroup' => 0]);
     }
 
     /**
@@ -4440,7 +4412,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function frontEndUserMustHaveNoNonZeroUserGroupInTheDataArray()
     {
-        $this->subject->createFrontEndUser('', array('usergroup' => 99999));
+        $this->subject->createFrontEndUser('', ['usergroup' => 99999]);
     }
 
     /**
@@ -4452,7 +4424,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->createFrontEndUser(
             '',
-            array('usergroup' => '1,2,4,5')
+            ['usergroup' => '1,2,4,5']
         );
     }
 
@@ -4497,7 +4469,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
             $feUserGroupUid . ', abc'
         );
     }
-
 
     // ---------------------------------------------------------------------
     // Tests regarding createBackEndUser()
@@ -4579,7 +4550,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function createBackEndUserForUserNameProvidedCreatesRecordWithUserName()
     {
-        $uid = $this->subject->createBackEndUser(array('username' => 'Test name'));
+        $uid = $this->subject->createBackEndUser(['username' => 'Test name']);
 
         $row = \Tx_Phpunit_Service_Database::selectSingle('username', 'be_users', 'uid = ' . $uid);
 
@@ -4596,7 +4567,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function createBackEndUserWithZeroUidProvidedInRecordDataThrowsExeption()
     {
-        $this->subject->createBackEndUser(array('uid' => 0));
+        $this->subject->createBackEndUser(['uid' => 0]);
     }
 
     /**
@@ -4606,9 +4577,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function createBackEndUserWithNonZeroUidProvidedInRecordDataThrowsExeption()
     {
-        $this->subject->createBackEndUser(array('uid' => 999999));
+        $this->subject->createBackEndUser(['uid' => 999999]);
     }
-
 
     // ---------------------------------------------------------------------
     // Tests concerning fakeFrontend
@@ -4739,7 +4709,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $pageUid = $this->subject->createFrontEndPage();
         $this->subject->createTemplate(
             $pageUid,
-            array('config' => 'foo = bar')
+            ['config' => 'foo = bar']
         );
 
         $this->subject->createFakeFrontEnd($pageUid);
@@ -4758,7 +4728,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $pageUid = $this->subject->createFrontEndPage();
         $this->subject->createTemplate(
             $pageUid,
-            array('config' => 'foo = 42')
+            ['config' => 'foo = 42']
         );
 
         $this->subject->createFakeFrontEnd($pageUid);
@@ -4936,7 +4906,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->createFakeFrontEnd(-1);
     }
 
-
     // ---------------------------------------------------------------------
     // Tests regarding user login and logout
     // ---------------------------------------------------------------------
@@ -5007,7 +4976,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
         $feUserId = $this->subject->createFrontEndUser(
             '',
-            array('name' => 'John Doe')
+            ['name' => 'John Doe']
         );
         $this->subject->loginFrontEndUser($feUserId);
 
@@ -5050,13 +5019,13 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->createFakeFrontEnd();
 
         $feUserGroupUid = $this->subject->createFrontEndUserGroup(
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
         $feUserId = $this->subject->createFrontEndUser($feUserGroupUid);
         $this->subject->loginFrontEndUser($feUserId);
 
         self::assertSame(
-            array($feUserGroupUid => 'foo'),
+            [$feUserGroupUid => 'foo'],
             $GLOBALS['TSFE']->fe_user->groupData['title']
         );
     }
@@ -5140,7 +5109,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->createFakeFrontEnd();
         $this->subject->createAndLoginFrontEndUser(
             '',
-            array('name' => 'John Doe')
+            ['name' => 'John Doe']
         );
 
         self::assertSame(
@@ -5236,7 +5205,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         );
     }
 
-
     // ---------------------------------------------------------------------
     // Tests regarding increaseRelationCounter()
     // ---------------------------------------------------------------------
@@ -5248,7 +5216,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $uid = $this->subject->createRecord(
             'tx_phpunit_test',
-            array('related_records' => 41)
+            ['related_records' => 41]
         );
 
         $this->subject->increaseRelationCounter(
@@ -5348,14 +5316,13 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
         $testingFramework = new \Tx_Phpunit_Framework(
             'user_phpunittest',
-            array('user_phpunittest2')
+            ['user_phpunittest2']
         );
         self::assertSame(
             'user_phpunittest_is_dummy_record',
             $testingFramework->getDummyColumnName('user_phpunittest2_test')
         );
     }
-
 
     /*
      * Tests concerning createBackEndUserGroup
@@ -5366,7 +5333,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function createBackEndUserGroupForNoDataGivenCreatesBackEndGroup()
     {
-        $this->subject->createBackEndUserGroup(array());
+        $this->subject->createBackEndUserGroup([]);
 
         self::assertTrue(
             $this->subject->existsRecord('be_groups')
@@ -5378,7 +5345,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function createBackEndUserGroupForNoDataGivenReturnsUidOfCreatedBackEndGroup()
     {
-        $backendGroupUid = $this->subject->createBackEndUserGroup(array());
+        $backendGroupUid = $this->subject->createBackEndUserGroup([]);
 
         self::assertTrue(
             $this->subject->existsRecord(
@@ -5394,7 +5361,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     public function createBackEndUserGroupForTitleGivenStoresTitleInGroupRecord()
     {
         $this->subject->createBackEndUserGroup(
-            array('title' => 'foo group')
+            ['title' => 'foo group']
         );
 
         self::assertTrue(

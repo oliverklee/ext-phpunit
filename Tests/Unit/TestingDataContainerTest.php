@@ -219,7 +219,7 @@ class TestingDataContainerTest extends \Tx_Phpunit_TestCase
     public function getAsArrayForMissingValueReturnsEmptyArray()
     {
         self::assertSame(
-            array(),
+            [],
             $this->subject->getAsArray('foo')
         );
     }
@@ -230,7 +230,7 @@ class TestingDataContainerTest extends \Tx_Phpunit_TestCase
     public function setCanSetArrayValue()
     {
         $key = 'foo';
-        $value = array('foo', 'foobar');
+        $value = ['foo', 'foobar'];
         $this->subject->set($key, $value);
 
         self::assertSame(

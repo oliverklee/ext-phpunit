@@ -2,7 +2,7 @@
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 $extensionPath = ExtensionManagementUtility::extPath('phpunit');
-return array(
+return [
     'tx_phpunit_abstractdatacontainer' => $extensionPath . 'Classes/AbstractDataContainer.php',
     'tx_phpunit_backend_ajax' => $extensionPath . 'Classes/BackEnd/Ajax.php',
     'tx_phpunit_backend_module' => $extensionPath . 'Classes/BackEnd/Module.php',
@@ -40,5 +40,5 @@ return array(
     'tx_phpunit_viewhelpers_abstractselectorviewhelper' => $extensionPath . '/Classes/ViewHelpers/AbstractSelectorViewHelper.php',
     'tx_phpunit_viewhelpers_abstractviewhelper' => $extensionPath . 'Classes/ViewHelpers/AbstractViewHelper.php',
     'tx_phpunit_viewhelpers_extensionselectorviewhelper' => $extensionPath . 'Classes/ViewHelpers/ExtensionSelectorViewHelper.php',
-    'tx_phpunit_viewhelpers_progressbarviewhelper' => $extensionPath . 'Classes/ViewHelpers/ProgressBarViewHelper.php'
-);
+    'tx_phpunit_viewhelpers_progressbarviewhelper' => $extensionPath . 'Classes/ViewHelpers/ProgressBarViewHelper.php',
+];

@@ -101,7 +101,7 @@ class TestCaseTest extends \Tx_Phpunit_Database_TestCase
      */
     public function cleaningDatabase()
     {
-        $this->importExtensions(array('extbase'));
+        $this->importExtensions(['extbase']);
 
         /** @var \mysqli_result|resource $res */
         $res = $this->db->sql_query('show tables');
@@ -126,7 +126,7 @@ class TestCaseTest extends \Tx_Phpunit_Database_TestCase
      */
     public function importingExtension()
     {
-        $this->importExtensions(array('extbase'));
+        $this->importExtensions(['extbase']);
 
         /** @var \mysqli_result|resource $res */
         $res = $this->db->sql_query('show tables');
@@ -150,7 +150,7 @@ class TestCaseTest extends \Tx_Phpunit_Database_TestCase
             );
         }
 
-        $this->importExtensions(array('bbb'), true);
+        $this->importExtensions(['bbb'], true);
 
         $tableNames = $this->getDatabaseTables();
         self::assertContains(
@@ -187,7 +187,7 @@ class TestCaseTest extends \Tx_Phpunit_Database_TestCase
             );
         }
 
-        $this->importExtensions(array('ccc', 'aaa'), true);
+        $this->importExtensions(['ccc', 'aaa'], true);
 
         $tableNames = $this->getDatabaseTables();
 
@@ -222,8 +222,8 @@ class TestCaseTest extends \Tx_Phpunit_Database_TestCase
             );
         }
 
-        $toSkip = array('bbb');
-        $this->importExtensions(array('ccc', 'ddd'), true, $toSkip);
+        $toSkip = ['bbb'];
+        $this->importExtensions(['ccc', 'ddd'], true, $toSkip);
 
         $tableNames = $this->getDatabaseTables();
 
@@ -257,7 +257,7 @@ class TestCaseTest extends \Tx_Phpunit_Database_TestCase
             );
         }
 
-        $this->importExtensions(array('ccc'));
+        $this->importExtensions(['ccc']);
         $this->importDataSet(ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Database/Fixtures/DataSet.xml');
 
         $result = $this->db->exec_SELECTgetRows('*', 'tx_ccc_test', null);

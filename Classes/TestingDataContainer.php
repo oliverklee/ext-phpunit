@@ -25,7 +25,7 @@ class Tx_Phpunit_TestingDataContainer extends Tx_Phpunit_AbstractDataContainer i
     /**
      * @var array
      */
-    protected $data = array();
+    protected $data = [];
 
     /**
      * Returns the value stored for the key $key.

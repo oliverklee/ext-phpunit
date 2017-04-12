@@ -23,7 +23,6 @@ use OliverKlee\Phpunit\Tests\Unit\ViewHelpers\Fixtures\TestingTagViewHelper;
  */
 class AbstractTagViewHelperTest extends \Tx_Phpunit_TestCase
 {
-
     /**
      * @test
      */
@@ -31,7 +30,7 @@ class AbstractTagViewHelperTest extends \Tx_Phpunit_TestCase
     {
         $subject = new TestingTagViewHelper(
             'tag',
-            array(),
+            [],
             ''
         );
 
@@ -48,7 +47,7 @@ class AbstractTagViewHelperTest extends \Tx_Phpunit_TestCase
     {
         $subject = new TestingTagViewHelper(
             'tag',
-            array(),
+            [],
             ''
         );
 
@@ -65,7 +64,7 @@ class AbstractTagViewHelperTest extends \Tx_Phpunit_TestCase
     {
         $subject = new TestingTagViewHelper(
             'tag',
-            array(),
+            [],
             ''
         );
 
@@ -82,7 +81,7 @@ class AbstractTagViewHelperTest extends \Tx_Phpunit_TestCase
     {
         $subject = new TestingTagViewHelper(
             'tag',
-            array(),
+            [],
             'Test'
         );
 
@@ -99,10 +98,10 @@ class AbstractTagViewHelperTest extends \Tx_Phpunit_TestCase
     {
         $subject = new TestingTagViewHelper(
             'tag',
-            array(
+            [
                 'value' => 'test',
-                'empty' => ''
-            ),
+                'empty' => '',
+            ],
             ''
         );
 
@@ -119,10 +118,10 @@ class AbstractTagViewHelperTest extends \Tx_Phpunit_TestCase
     {
         $subject = new TestingTagViewHelper(
             'tag',
-            array(
+            [
                 'value' => 'test',
-                'empty' => ''
-            ),
+                'empty' => '',
+            ],
             'Test'
         );
 
@@ -140,7 +139,7 @@ class AbstractTagViewHelperTest extends \Tx_Phpunit_TestCase
     {
         $subject = new TestingTagViewHelper(
             '',
-            array(),
+            [],
             ''
         );
 
@@ -155,12 +154,12 @@ class AbstractTagViewHelperTest extends \Tx_Phpunit_TestCase
     {
         $subject = new TestingTagViewHelper(
             'tag',
-            array(
+            [
                 // This is a valid key
                 'thisIsAValidKey' => 'value',
                 // This is an invalid key
-                4711 => 'value'
-            ),
+                4711 => 'value',
+            ],
             ''
         );
 
@@ -175,12 +174,12 @@ class AbstractTagViewHelperTest extends \Tx_Phpunit_TestCase
     {
         $subject = new TestingTagViewHelper(
             'tag',
-            array(
+            [
                 // This is a valid key
                 'thisIsAValidKey' => 'value',
                 // This is an invalid key
-                '' => 'value'
-            ),
+                '' => 'value',
+            ],
             ''
         );
 

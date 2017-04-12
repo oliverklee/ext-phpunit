@@ -28,21 +28,21 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface
      *
      * @var string[]
      */
-    static protected $allowedTestDirectoryNames = array('Tests/', 'tests/');
+    protected static $allowedTestDirectoryNames = ['Tests/', 'tests/'];
 
     /**
      * keys of the dummy extensions of the phpunit extension
      *
      * @var string[]
      */
-    static protected $dummyExtensionKeys = array('aaa', 'bbb', 'ccc', 'ddd');
+    protected static $dummyExtensionKeys = ['aaa', 'bbb', 'ccc', 'ddd'];
 
     /**
      * the cached result of findTestableForEverything
      *
      * @var Tx_Phpunit_Testable[]
      */
-    protected $allTestables = array();
+    protected $allTestables = [];
 
     /**
      * indicates whether $allTestables already has been filled
@@ -165,7 +165,7 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface
      */
     public function getTestablesForExtensions()
     {
-        $result = array();
+        $result = [];
 
         $extensionKeysToExamine = array_diff(
             $this->getLoadedExtensionKeys(),
@@ -181,7 +181,7 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface
             }
         }
 
-        uasort($result, array($this, 'sortTestablesByKey'));
+        uasort($result, [$this, 'sortTestablesByKey']);
 
         return $result;
     }
@@ -256,7 +256,7 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface
         $testable->setTitle($extensionKey);
         $testable->setCodePath(ExtensionManagementUtility::extPath($extensionKey));
         $testable->setTestsPath($testsPath);
-        $possibleIconFileNames = array('ext_icon.gif', 'ext_icon.png');
+        $possibleIconFileNames = ['ext_icon.gif', 'ext_icon.png'];
         foreach ($possibleIconFileNames as $fileNameCandidate) {
             if (file_exists(ExtensionManagementUtility::extPath($extensionKey) . $fileNameCandidate)) {
                 $testable->setIconPath(ExtensionManagementUtility::extRelPath($extensionKey) . $fileNameCandidate);

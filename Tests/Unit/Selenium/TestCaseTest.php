@@ -47,12 +47,12 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
         $this->seleniumService = $this->getMock(
             'Tx_Phpunit_Service_SeleniumService',
             null,
-            array($this->extensionSettingsService)
+            [$this->extensionSettingsService]
         );
         $this->subject = $this->getMock(
             $this->createAccessibleProxyClass(),
-            array('isSeleniumServerRunning'),
-            array(null, array(), '', $this->extensionSettingsService, $this->seleniumService)
+            ['isSeleniumServerRunning'],
+            [null, [], '', $this->extensionSettingsService, $this->seleniumService]
         );
         $this->subject->expects(self::any())->method('isSeleniumServerRunning')->will(self::returnValue(true));
     }
@@ -100,7 +100,6 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
         return $className;
     }
 
-
     /*
      * Tests for the utility functions
      */
@@ -114,7 +113,7 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
 
         self::assertInstanceOf(
             'Tx_Phpunit_Selenium_TestCase',
-            new $className(null, array(), '', $this->extensionSettingsService)
+            new $className(null, [], '', $this->extensionSettingsService)
         );
     }
 
@@ -188,7 +187,7 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
         $this->extensionSettingsService->set('selenium_host', 'http://example.invalid');
 
         $className = $this->createAccessibleProxyClass();
-        $subject = new $className(null, array(), '', $this->extensionSettingsService);
+        $subject = new $className(null, [], '', $this->extensionSettingsService);
 
         /** @var \Tx_Phpunit_Selenium_TestCase $subject */
         self::assertFalse(
@@ -203,7 +202,7 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
     {
         $this->extensionSettingsService->set('selenium_host', 'http://example.invalid');
 
-        $subject = new \Tx_Phpunit_Selenium_TestCase(null, array(), '', $this->extensionSettingsService);
+        $subject = new \Tx_Phpunit_Selenium_TestCase(null, [], '', $this->extensionSettingsService);
 
         try {
             $subject->runTest();

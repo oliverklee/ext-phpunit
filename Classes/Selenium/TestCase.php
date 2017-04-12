@@ -24,7 +24,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_Selenium2TestCase
 {
-
     /**
      * @var Tx_Phpunit_Interface_ExtensionSettingsService
      */
@@ -46,7 +45,7 @@ class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_Selenium2TestCase
      */
     public function __construct(
         $name = null,
-        array $data = array(),
+        array $data = [],
         $dataName = '',
         Tx_Phpunit_Interface_ExtensionSettingsService $extensionSettingsService = null,
         Tx_Phpunit_Interface_SeleniumService $seleniumService = null

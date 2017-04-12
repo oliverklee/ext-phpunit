@@ -52,7 +52,7 @@ abstract class Tx_Phpunit_AbstractDataContainer
      */
     public function hasInteger($key)
     {
-        return ($this->getAsInteger($key) !== 0);
+        return $this->getAsInteger($key) !== 0;
     }
 
     /**
@@ -64,7 +64,7 @@ abstract class Tx_Phpunit_AbstractDataContainer
      */
     public function getAsString($key)
     {
-        return strval($this->get($key));
+        return (string)$this->get($key);
     }
 
     /**
@@ -76,7 +76,7 @@ abstract class Tx_Phpunit_AbstractDataContainer
      */
     public function hasString($key)
     {
-        return ($this->getAsString($key) !== '');
+        return $this->getAsString($key) !== '';
     }
 
     /**
@@ -90,7 +90,7 @@ abstract class Tx_Phpunit_AbstractDataContainer
     {
         $rawValue = $this->get($key);
         if (!is_array($rawValue)) {
-            $rawValue = array();
+            $rawValue = [];
         }
 
         return $rawValue;

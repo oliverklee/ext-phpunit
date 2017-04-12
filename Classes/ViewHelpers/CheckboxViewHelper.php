@@ -31,7 +31,7 @@ class Tx_Phpunit_ViewHelpers_CheckboxViewHelper extends Tx_Phpunit_ViewHelpers_A
      *
      * @var string[]|int[]
      */
-    protected $additionalAttributes = array();
+    protected $additionalAttributes = [];
 
     /**
      * @var string
@@ -51,7 +51,7 @@ class Tx_Phpunit_ViewHelpers_CheckboxViewHelper extends Tx_Phpunit_ViewHelpers_A
      * @param string $value
      * @param string[]|int[] $additionalAttributes
      */
-    public function __construct($value = '', array $additionalAttributes = array())
+    public function __construct($value = '', array $additionalAttributes = [])
     {
         $this->value = $value;
         $this->additionalAttributes = $additionalAttributes;
@@ -66,10 +66,10 @@ class Tx_Phpunit_ViewHelpers_CheckboxViewHelper extends Tx_Phpunit_ViewHelpers_A
     {
         $attributes = array_merge(
             $this->additionalAttributes,
-            array(
+            [
                 'type' => $this->type,
                 'value' => $this->value,
-            )
+            ]
         );
 
         return $this->renderTag(

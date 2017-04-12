@@ -63,7 +63,6 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
         );
     }
 
-
     /**
      * @test
      *
@@ -110,7 +109,7 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
         /** @var \Tx_Phpunit_Service_TestCaseService|\PHPUnit_Framework_MockObject_MockObject $subject */
         $subject = $this->getMock(
             'Tx_Phpunit_Service_TestCaseService',
-            array('isNotFixturesPath', 'isTestCaseFileName')
+            ['isNotFixturesPath', 'isTestCaseFileName']
         );
         $subject->expects(self::any())->method('isNotFixturesPath')->will((self::returnValue(true)));
         $subject->expects(self::at(1))->method('isTestCaseFileName')
@@ -132,7 +131,7 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
         /** @var \Tx_Phpunit_Service_TestCaseService|\PHPUnit_Framework_MockObject_MockObject $subject */
         $subject = $this->getMock(
             'Tx_Phpunit_Service_TestCaseService',
-            array('isNotFixturesPath', 'isTestCaseFileName')
+            ['isNotFixturesPath', 'isTestCaseFileName']
         );
         $subject->expects(self::any())->method('isNotFixturesPath')->will((self::returnValue(true)));
         $subject->expects(self::at(1))->method('isTestCaseFileName')
@@ -231,7 +230,6 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
         );
     }
 
-
     /*
      * Tests concerning isTestCaseFileName
      */
@@ -310,7 +308,6 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
         );
     }
 
-
     /*
      * Tests concerning isValidTestCaseClassName
      */
@@ -334,9 +331,9 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
     {
         // Note: This currently does not contain any other classes as loading any other valid test case classes would
         // cause them to be listed as valid test cases in the user interface.
-        $classNames = array(
-            'subclass of Tx_Phpunit_TestCase' => array(get_class($this)),
-        );
+        $classNames = [
+            'subclass of Tx_Phpunit_TestCase' => [get_class($this)],
+        ];
 
         return $classNames;
     }
@@ -364,32 +361,32 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
     {
         $this->createDummyInvalidTestCaseClasses();
 
-        $invalidClassNames = array(
-            'stdClass' => array('stdClass'),
-            'inexistent class without valid suffix' => array('InexistentClassWithoutValidSuffix'),
-            'inexistent class with valid Test suffix' => array('InexistentClassTest'),
-            'inexistent class with valid _testcase suffix' => array('InexistentClass_testcase'),
-            'existing class with valid Test suffix without valid base class' => array('SomeDummyInvalidTest'),
-            'existing class with valid _testcase suffix without valid base class' => array('SomeDummyInvalid_testcase'),
-            'PHPUnit extension base test class' => array('Tx_Phpunit_TestCase'),
-            'PHPUnit framework base test class' => array('PHPUnit_Framework_TestCase'),
-            'PHPUnit extension selenium base test class' => array('Tx_Phpunit_Selenium_TestCase'),
-            'PHPUnit framework selenium base test class' => array('PHPUnit_Extensions_Selenium2TestCase'),
-            'PHPUnit extension database base test class' => array('Tx_Phpunit_Database_TestCase'),
-            'abstract subclass of PHPUnit extension base test class' => array('Tx_Phpunit_TestCase'),
-        );
+        $invalidClassNames = [
+            'stdClass' => ['stdClass'],
+            'inexistent class without valid suffix' => ['InexistentClassWithoutValidSuffix'],
+            'inexistent class with valid Test suffix' => ['InexistentClassTest'],
+            'inexistent class with valid _testcase suffix' => ['InexistentClass_testcase'],
+            'existing class with valid Test suffix without valid base class' => ['SomeDummyInvalidTest'],
+            'existing class with valid _testcase suffix without valid base class' => ['SomeDummyInvalid_testcase'],
+            'PHPUnit extension base test class' => ['Tx_Phpunit_TestCase'],
+            'PHPUnit framework base test class' => ['PHPUnit_Framework_TestCase'],
+            'PHPUnit extension selenium base test class' => ['Tx_Phpunit_Selenium_TestCase'],
+            'PHPUnit framework selenium base test class' => ['PHPUnit_Extensions_Selenium2TestCase'],
+            'PHPUnit extension database base test class' => ['Tx_Phpunit_Database_TestCase'],
+            'abstract subclass of PHPUnit extension base test class' => ['Tx_Phpunit_TestCase'],
+        ];
 
-        $classNamesThatMightNotExist = array(
-            'extbase selenium base test class (before 6.0)' => array('Tx_Extbase_SeleniumBaseTestCase'),
-            'extbase selenium base test class (since 6.0)' => array('\\TYPO3\\CMS\\Extbase\\Tests\\SeleniumBaseTestCase'),
-            'extbase base test class (before 1.3)' => array('Tx_Extbase_BaseTestCase'),
-            'extbase base test class (1.3-4.7)' => array('Tx_Extbase_Tests_Unit_BaseTestCase'),
-            'extbase unit base test class (since 6.0)' => array('TYPO3\\CMS\\Extbase\\Tests\\Unit\\BaseTestCase'),
-            'extbase functional base test class (since 6.0)' => array('Tx_Extbase_Tests_Functional_BaseTestCase'),
-            'Core base test class (since 6.0)' => array('TYPO3\\CMS\\Core\\Tests\\BaseTestCase'),
-            'Core unit base test class (since 6.0)' => array('TYPO3\\CMS\\Core\\Tests\\UnitTestCase'),
-            'Core functional base test class (since 6.0)' => array('TYPO3\\CMS\\Core\\Tests\\FunctionalTestCase'),
-        );
+        $classNamesThatMightNotExist = [
+            'extbase selenium base test class (before 6.0)' => ['Tx_Extbase_SeleniumBaseTestCase'],
+            'extbase selenium base test class (since 6.0)' => ['\\TYPO3\\CMS\\Extbase\\Tests\\SeleniumBaseTestCase'],
+            'extbase base test class (before 1.3)' => ['Tx_Extbase_BaseTestCase'],
+            'extbase base test class (1.3-4.7)' => ['Tx_Extbase_Tests_Unit_BaseTestCase'],
+            'extbase unit base test class (since 6.0)' => ['TYPO3\\CMS\\Extbase\\Tests\\Unit\\BaseTestCase'],
+            'extbase functional base test class (since 6.0)' => ['Tx_Extbase_Tests_Functional_BaseTestCase'],
+            'Core base test class (since 6.0)' => ['TYPO3\\CMS\\Core\\Tests\\BaseTestCase'],
+            'Core unit base test class (since 6.0)' => ['TYPO3\\CMS\\Core\\Tests\\UnitTestCase'],
+            'Core functional base test class (since 6.0)' => ['TYPO3\\CMS\\Core\\Tests\\FunctionalTestCase'],
+        ];
         foreach ($classNamesThatMightNotExist as $key => $className) {
             if (class_exists($className[0], true)) {
                 $invalidClassNames[$key] = $className;
@@ -406,7 +403,7 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
      */
     protected function createDummyInvalidTestCaseClasses()
     {
-        $classNamesWithoutBaseClasses = array('SomeDummyInvalidTest', 'SomeDummyInvalid_testcase');
+        $classNamesWithoutBaseClasses = ['SomeDummyInvalidTest', 'SomeDummyInvalid_testcase'];
         foreach ($classNamesWithoutBaseClasses as $className) {
             if (!class_exists($className, false)) {
                 eval('class ' . $className . ' {}');

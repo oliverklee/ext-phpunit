@@ -49,14 +49,14 @@ class Tx_Phpunit_Testable
      *
      * @var string[]
      */
-    protected $blacklist = array();
+    protected $blacklist = [];
 
     /**
      * files that should be included in code coverage
      *
      * @var string[]
      */
-    protected $whitelist = array();
+    protected $whitelist = [];
 
     /**
      * @var string

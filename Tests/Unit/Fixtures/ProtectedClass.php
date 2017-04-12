@@ -32,7 +32,7 @@ class ProtectedClass
     /**
      * @var string
      */
-    static protected $protectedStaticProperty = 'This is a protected static property.';
+    protected static $protectedStaticProperty = 'This is a protected static property.';
 
     /**
      * Protected test function which returns TRUE when processed.

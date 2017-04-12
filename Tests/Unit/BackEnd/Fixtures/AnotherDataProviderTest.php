@@ -44,11 +44,11 @@ class AnotherDataProviderTest extends \Tx_Phpunit_TestCase
      */
     public function dataProvider()
     {
-        return array(
-            'some data' => array(),
-            'more data' => array(),
-            'and even more data' => array(),
-        );
+        return [
+            'some data' => [],
+            'more data' => [],
+            'and even more data' => [],
+        ];
     }
 
     /**

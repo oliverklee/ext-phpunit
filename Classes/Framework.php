@@ -49,7 +49,7 @@ class Tx_Phpunit_Framework
      *
      * @var string[]
      */
-    protected $additionalTablePrefixes = array();
+    protected $additionalTablePrefixes = [];
 
     /**
      * all own DB table names to which this instance of the testing framework
@@ -57,7 +57,7 @@ class Tx_Phpunit_Framework
      *
      * @var string[]
      */
-    protected $ownAllowedTables = array();
+    protected $ownAllowedTables = [];
 
     /**
      * all additional DB table names to which this instance of the testing
@@ -65,7 +65,7 @@ class Tx_Phpunit_Framework
      *
      * @var string[]
      */
-    protected $additionalAllowedTables = array();
+    protected $additionalAllowedTables = [];
 
     /**
      * all system table names to which this instance of the testing framework
@@ -73,7 +73,7 @@ class Tx_Phpunit_Framework
      *
      * @var string[]
      */
-    protected $allowedSystemTables = array(
+    protected $allowedSystemTables = [
         'be_users',
         'fe_groups',
         'fe_users',
@@ -85,8 +85,8 @@ class Tx_Phpunit_Framework
         'sys_file_collection',
         'sys_file_reference',
         'sys_category',
-        'sys_category_record_mm'
-    );
+        'sys_category_record_mm',
+    ];
 
     /**
      * all "dirty" non-system tables (i.e. all tables that were used for testing
@@ -94,7 +94,7 @@ class Tx_Phpunit_Framework
      *
      * @var string[]
      */
-    protected $dirtyTables = array();
+    protected $dirtyTables = [];
 
     /**
      * all "dirty" system tables (i.e. all tables that were used for testing and
@@ -102,14 +102,14 @@ class Tx_Phpunit_Framework
      *
      * @var string[]
      */
-    protected $dirtySystemTables = array();
+    protected $dirtySystemTables = [];
 
     /**
      * sorting values of all relation tables
      *
      * @var array[]
      */
-    protected $relationSorting = array();
+    protected $relationSorting = [];
 
     /**
      * The number of unusable UIDs after the maximum UID in a table before the auto increment value will be reset by
@@ -129,7 +129,7 @@ class Tx_Phpunit_Framework
      *
      * @var string[]
      */
-    protected $dummyFiles = array();
+    protected $dummyFiles = [];
 
     /**
      * the names of the created dummy folders relative to the upload folder of
@@ -137,7 +137,7 @@ class Tx_Phpunit_Framework
      *
      * @var string[]
      */
-    protected $dummyFolders = array();
+    protected $dummyFolders = [];
 
     /**
      * the absolute path to the upload folder of the extension to test (with the trailing slash)
@@ -158,14 +158,14 @@ class Tx_Phpunit_Framework
      *
      * @var Tx_Phpunit_Interface_FrameworkCleanupHook[]
      */
-    static protected $hooks = array();
+    protected static $hooks = [];
 
     /**
      * whether the hooks in self::hooks have been retrieved
      *
      * @var bool
      */
-    static protected $hooksHaveBeenRetrieved = false;
+    protected static $hooksHaveBeenRetrieved = false;
 
     /**
      * The constructor for this class.
@@ -189,7 +189,7 @@ class Tx_Phpunit_Framework
      *
      * @throws \UnexpectedValueException if PATH_site is not defined
      */
-    public function __construct($tablePrefix, array $additionalTablePrefixes = array())
+    public function __construct($tablePrefix, array $additionalTablePrefixes = [])
     {
         if (!defined('PATH_site')) {
             throw new \UnexpectedValueException('PATH_site is not set.', 1476054703615);
@@ -245,7 +245,7 @@ class Tx_Phpunit_Framework
      *
      * @throws \InvalidArgumentException
      */
-    public function createRecord($tableName, array $recordData = array())
+    public function createRecord($tableName, array $recordData = [])
     {
         if (!$this->isNoneSystemTableNameAllowed($tableName)) {
             throw new \InvalidArgumentException('The table name "' . $tableName . '" is not allowed.', 1334438817);
@@ -300,7 +300,7 @@ class Tx_Phpunit_Framework
      *
      * @return int the UID of the new page, will be > 0
      */
-    public function createFrontEndPage($parentId = 0, array $recordData = array())
+    public function createFrontEndPage($parentId = 0, array $recordData = [])
     {
         return $this->createGeneralPageRecord(1, $parentId, $recordData);
     }
@@ -317,7 +317,7 @@ class Tx_Phpunit_Framework
      *
      * @return int the UID of the new system folder, will be > 0
      */
-    public function createSystemFolder($parentId = 0, array $recordData = array())
+    public function createSystemFolder($parentId = 0, array $recordData = [])
     {
         return $this->createGeneralPageRecord(254, $parentId, $recordData);
     }
@@ -378,7 +378,7 @@ class Tx_Phpunit_Framework
      *
      * @throws \InvalidArgumentException
      */
-    public function createContentElement($pageId = 0, array $recordData = array())
+    public function createContentElement($pageId = 0, array $recordData = [])
     {
         if (isset($recordData['uid'])) {
             throw new \InvalidArgumentException('The column "uid" must not be set in $recordData.', 1334439000);
@@ -410,7 +410,7 @@ class Tx_Phpunit_Framework
      *
      * @throws \InvalidArgumentException
      */
-    public function createTemplate($pageId, array $recordData = array())
+    public function createTemplate($pageId, array $recordData = [])
     {
         if ($pageId <= 0) {
             throw new \InvalidArgumentException('$pageId must be > 0.', 1334439016);
@@ -439,7 +439,7 @@ class Tx_Phpunit_Framework
      *
      * @throws \InvalidArgumentException
      */
-    public function createFrontEndUserGroup(array $recordData = array())
+    public function createFrontEndUserGroup(array $recordData = [])
     {
         if (isset($recordData['uid'])) {
             throw new \InvalidArgumentException('The column "uid" must not be set in $recordData.', 1334439042);
@@ -466,7 +466,7 @@ class Tx_Phpunit_Framework
      */
     public function createFrontEndUser(
         $frontEndUserGroups = '',
-        array $recordData = array()
+        array $recordData = []
     ) {
         $frontEndUserGroupsWithoutSpaces = str_replace(' ', '', $frontEndUserGroups);
 
@@ -507,7 +507,7 @@ class Tx_Phpunit_Framework
      *
      * @return int the UID of the new FE user, will be > 0
      */
-    public function createAndLoginFrontEndUser($frontEndUserGroups = '', array $recordData = array())
+    public function createAndLoginFrontEndUser($frontEndUserGroups = '', array $recordData = [])
     {
         $frontEndUserUid = $this->createFrontEndUser($frontEndUserGroups, $recordData);
 
@@ -527,7 +527,7 @@ class Tx_Phpunit_Framework
      *
      * @throws \InvalidArgumentException
      */
-    public function createBackEndUser(array $recordData = array())
+    public function createBackEndUser(array $recordData = [])
     {
         if (isset($recordData['uid'])) {
             throw new \InvalidArgumentException('The column "uid" must not be set in $recordData.', 1334439081);
@@ -547,7 +547,7 @@ class Tx_Phpunit_Framework
      *
      * @throws \InvalidArgumentException
      */
-    public function createBackEndUserGroup(array $recordData = array())
+    public function createBackEndUserGroup(array $recordData = [])
     {
         if (isset($recordData['uid'])) {
             throw new \InvalidArgumentException('The column "uid" must not be set in $recordData.', 1334439090);
@@ -690,12 +690,12 @@ class Tx_Phpunit_Framework
 
         $this->markTableAsDirty($tableName);
 
-        $recordData = array(
+        $recordData = [
             'uid_local' => $uidLocal,
             'uid_foreign' => $uidForeign,
             'sorting' => (($sorting > 0) ? $sorting : $this->getRelationSorting($tableName, $uidLocal)),
             $this->getDummyColumnName($tableName) => 1,
-        );
+        ];
 
         Tx_Phpunit_Service_Database::insert($tableName, $recordData);
     }
@@ -886,7 +886,7 @@ class Tx_Phpunit_Framework
         }
 
         // Resets the list of dirty tables.
-        $this->dirtyTables = array();
+        $this->dirtyTables = [];
     }
 
     /**
@@ -900,8 +900,8 @@ class Tx_Phpunit_Framework
         // removed at once.
         if (isset($this->dummyFolders['uploadFolder'])) {
             GeneralUtility::rmdir($this->getUploadFolderPath(), true);
-            $this->dummyFolders = array();
-            $this->dummyFiles = array();
+            $this->dummyFolders = [];
+            $this->dummyFiles = [];
         } else {
             foreach ($this->dummyFiles as $dummyFile) {
                 $this->deleteDummyFile($dummyFile);
@@ -911,7 +911,6 @@ class Tx_Phpunit_Framework
             }
         }
     }
-
 
     // ----------------------------------------------------------------------
     // File creation and deletion
@@ -967,7 +966,7 @@ class Tx_Phpunit_Framework
      *
      * @throws Exception if the PHP installation does not provide ZIPArchive
      */
-    public function createDummyZipArchive($fileName = 'test.zip', array $filesToAddToArchive = array())
+    public function createDummyZipArchive($fileName = 'test.zip', array $filesToAddToArchive = [])
     {
         $this->checkForZipArchive();
 
@@ -979,7 +978,7 @@ class Tx_Phpunit_Framework
             throw new Exception('The new ZIP archive "' . $fileName . '" could not be created.', 1334439299);
         }
 
-        $contents = !empty($filesToAddToArchive) ? $filesToAddToArchive : array($this->createDummyFile());
+        $contents = !empty($filesToAddToArchive) ? $filesToAddToArchive : [$this->createDummyFile()];
 
         foreach ($contents as $pathToFile) {
             if (!file_exists($pathToFile)) {
@@ -1073,7 +1072,7 @@ class Tx_Phpunit_Framework
         // Adds the created dummy folder to the top of $this->dummyFolders so
         // it gets deleted before previously created folders through
         // $this->cleanUpFolders(). This is needed for nested dummy folders.
-        $this->dummyFolders = array($relativeUniqueFolderName => $relativeUniqueFolderName) + $this->dummyFolders;
+        $this->dummyFolders = [$relativeUniqueFolderName => $relativeUniqueFolderName] + $this->dummyFolders;
 
         return $uniqueFolderName;
     }
@@ -1301,7 +1300,7 @@ class Tx_Phpunit_Framework
         $frontEnd->initFEuser();
         $frontEnd->determineId();
         $frontEnd->initTemplate();
-        $frontEnd->config = array();
+        $frontEnd->config = [];
 
         $frontEnd->tmpl->getFileName_backPath = PATH_site;
 
@@ -1393,7 +1392,6 @@ class Tx_Phpunit_Framework
             = ['className' => \Tx_Phpunit_FrontEnd_UserWithoutCookies::class];
     }
 
-
     // ----------------------------------------------------------------------
     // FE user activities
     // ----------------------------------------------------------------------
@@ -1432,9 +1430,9 @@ class Tx_Phpunit_Framework
         $this->suppressFrontEndCookies();
 
         // With current TYPO3 versions we have to ensure an user id
-        $tempUser = array(
+        $tempUser = [
             $GLOBALS['TSFE']->fe_user->userid_column => $userId,
-        );
+        ];
         $GLOBALS['TSFE']->fe_user->createUserSession($tempUser);
         $GLOBALS['TSFE']->fe_user->user = $GLOBALS['TSFE']->fe_user->getRawUserByUid($userId);
         $GLOBALS['TSFE']->fe_user->fetchGroupData();
@@ -1482,7 +1480,6 @@ class Tx_Phpunit_Framework
             && is_array($GLOBALS['TSFE']->fe_user->user);
     }
 
-
     // ----------------------------------------------------------------------
     // Various helper functions
     // ----------------------------------------------------------------------
@@ -1502,7 +1499,7 @@ class Tx_Phpunit_Framework
      */
     protected function createListOfOwnAllowedTables()
     {
-        $this->ownAllowedTables = array();
+        $this->ownAllowedTables = [];
         $allTables = Tx_Phpunit_Service_Database::getAllTableNames();
         $length = strlen($this->tablePrefix);
 
@@ -1531,7 +1528,7 @@ class Tx_Phpunit_Framework
         $allTables = implode(',', Tx_Phpunit_Service_Database::getAllTableNames());
         $additionalTablePrefixes = implode('|', $this->additionalTablePrefixes);
 
-        $matches = array();
+        $matches = [];
 
         preg_match_all(
             '/((' . $additionalTablePrefixes . ')_[a-z0-9]+[a-z0-9_]*)(,|$)/',
@@ -1699,7 +1696,7 @@ class Tx_Phpunit_Framework
      */
     public function existsRecord($tableName, $whereClause = '')
     {
-        return ($this->countRecords($tableName, $whereClause) > 0);
+        return $this->countRecords($tableName, $whereClause) > 0;
     }
 
     /**
@@ -1721,7 +1718,7 @@ class Tx_Phpunit_Framework
             throw new \InvalidArgumentException('$uid must be > 0.', 1334439512);
         }
 
-        return ($this->countRecords($tableName, 'uid = ' . $uid) > 0);
+        return $this->countRecords($tableName, 'uid = ' . $uid) > 0;
     }
 
     /**
@@ -1739,7 +1736,7 @@ class Tx_Phpunit_Framework
      */
     public function existsExactlyOneRecord($tableName, $whereClause = '')
     {
-        return ($this->countRecords($tableName, $whereClause) === 1);
+        return $this->countRecords($tableName, $whereClause) === 1;
     }
 
     /**
@@ -2116,7 +2113,7 @@ class Tx_Phpunit_Framework
      */
     public function purgeHooks()
     {
-        self::$hooks = array();
+        self::$hooks = [];
         self::$hooksHaveBeenRetrieved = false;
     }
 

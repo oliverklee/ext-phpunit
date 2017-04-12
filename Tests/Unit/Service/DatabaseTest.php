@@ -54,15 +54,14 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
     private function sortExplode($valueList)
     {
         if ($valueList == '') {
-            return array();
+            return [];
         }
 
         $numbers = GeneralUtility::intExplode(',', $valueList);
         sort($numbers, SORT_NUMERIC);
 
-        return ($numbers);
+        return $numbers;
     }
-
 
     /*
      * Tests for the utility functions
@@ -74,7 +73,7 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
     public function sortExplodeWithEmptyStringReturnsEmptyArray()
     {
         self::assertSame(
-            array(),
+            [],
             $this->sortExplode('')
         );
     }
@@ -85,7 +84,7 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
     public function sortExplodeWithOneNumberReturnsArrayWithNumber()
     {
         self::assertSame(
-            array(42),
+            [42],
             $this->sortExplode('42')
         );
     }
@@ -96,7 +95,7 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
     public function sortExplodeWithTwoAscendingNumbersReturnsArrayWithBothNumbers()
     {
         self::assertSame(
-            array(1, 2),
+            [1, 2],
             $this->sortExplode('1,2')
         );
     }
@@ -107,11 +106,10 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
     public function sortExplodeWithTwoDescendingNumbersReturnsSortedArrayWithBothNumbers()
     {
         self::assertSame(
-            array(1, 2),
+            [1, 2],
             $this->sortExplode('2,1')
         );
     }
-
 
     /*
      * Tests for enableFields
@@ -187,11 +185,11 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
     public function enableFieldsCanBeDifferentForDifferentIgnores()
     {
         self::assertNotEquals(
-            \Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', 0, array()),
+            \Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', 0, []),
             \Tx_Phpunit_Service_Database::enableFields(
                 'tx_phpunit_test',
                 0,
-                array('endtime' => true)
+                ['endtime' => true]
             )
         );
     }
@@ -374,7 +372,6 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
         );
     }
 
-
     /*
      * Tests concerning getColumnsInTable
      */
@@ -423,7 +420,6 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
         );
     }
 
-
     /*
      * Tests concerning getColumnDefinition
      */
@@ -449,7 +445,6 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
             $definition['Field'] == 'title'
         );
     }
-
 
     /*
      * Tests regarding tableHasColumnUid()
@@ -495,7 +490,6 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
             \Tx_Phpunit_Service_Database::tableHasColumnUid('tx_phpunit_test_article_mm')
         );
     }
-
 
     /*
      * Tests regarding tableHasColumn()
@@ -552,7 +546,6 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
             )
         );
     }
-
 
     /*
      * Tests for delete
@@ -638,7 +631,6 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
         );
     }
 
-
     /*
      * Tests for update
      */
@@ -653,7 +645,7 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
         \Tx_Phpunit_Service_Database::update(
             '',
             'uid = 0',
-            array()
+            []
         );
     }
 
@@ -667,7 +659,7 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
         \Tx_Phpunit_Service_Database::update(
             'tx_phpunit_test',
             'uid = ' . $uid,
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
 
         self::assertTrue(
@@ -688,7 +680,7 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
             \Tx_Phpunit_Service_Database::update(
                 'tx_phpunit_test',
                 'uid = 0',
-                array('title' => 'foo')
+                ['title' => 'foo']
             )
         );
     }
@@ -705,7 +697,7 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
             \Tx_Phpunit_Service_Database::update(
                 'tx_phpunit_test',
                 'uid = ' . $uid,
-                array('title' => 'foo')
+                ['title' => 'foo']
             )
         );
     }
@@ -723,11 +715,10 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
             \Tx_Phpunit_Service_Database::update(
                 'tx_phpunit_test',
                 'uid IN(' . $uid1 . ',' . $uid2 . ')',
-                array('title' => 'foo')
+                ['title' => 'foo']
             )
         );
     }
-
 
     /*
      * Tests for insert
@@ -742,7 +733,7 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
     {
         \Tx_Phpunit_Service_Database::insert(
             '',
-            array('is_dummy_record' => 1)
+            ['is_dummy_record' => 1]
         );
     }
 
@@ -755,7 +746,7 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
     {
         \Tx_Phpunit_Service_Database::insert(
             'tx_phpunit_test',
-            array()
+            []
         );
     }
 
@@ -766,8 +757,8 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
     {
         \Tx_Phpunit_Service_Database::insert(
             'tx_phpunit_test',
-            array('title' => 'foo',
-            'is_dummy_record' => 1)
+            ['title' => 'foo',
+            'is_dummy_record' => 1, ]
         );
         $this->testingFramework->markTableAsDirty('tx_phpunit_test');
 
@@ -786,7 +777,7 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
     {
         $uid = \Tx_Phpunit_Service_Database::insert(
             'tx_phpunit_test',
-            array('is_dummy_record' => 1)
+            ['is_dummy_record' => 1]
         );
         $this->testingFramework->markTableAsDirty('tx_phpunit_test');
 
@@ -809,11 +800,10 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
             0,
             \Tx_Phpunit_Service_Database::insert(
                 'tx_phpunit_test_article_mm',
-                array('is_dummy_record' => 1)
+                ['is_dummy_record' => 1]
             )
         );
     }
-
 
     /*
      * Tests concerning select, selectSingle, selectMultiple
@@ -880,7 +870,7 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
         );
 
         self::assertSame(
-            array('uid' => (string)$uid),
+            ['uid' => (string)$uid],
             \Tx_Phpunit_Service_Database::selectSingle('uid', 'tx_phpunit_test', 'uid = ' . $uid)
         );
     }
@@ -902,15 +892,15 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
     {
         $this->testingFramework->createRecord(
             'tx_phpunit_test',
-            array('title' => 'Title A')
+            ['title' => 'Title A']
         );
         $uid = $this->testingFramework->createRecord(
             'tx_phpunit_test',
-            array('title' => 'Title B')
+            ['title' => 'Title B']
         );
 
         self::assertSame(
-            array('uid' => (string)$uid),
+            ['uid' => (string)$uid],
             \Tx_Phpunit_Service_Database::selectSingle('uid', 'tx_phpunit_test', '', '', 'title DESC')
         );
     }
@@ -922,19 +912,18 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
     {
         $this->testingFramework->createRecord(
             'tx_phpunit_test',
-            array('title' => 'Title A')
+            ['title' => 'Title A']
         );
         $uid = $this->testingFramework->createRecord(
             'tx_phpunit_test',
-            array('title' => 'Title B')
+            ['title' => 'Title B']
         );
 
         self::assertSame(
-            array('uid' => (string)$uid),
+            ['uid' => (string)$uid],
             \Tx_Phpunit_Service_Database::selectSingle('uid', 'tx_phpunit_test', '', '', 'title', 1)
         );
     }
-
 
     /**
      * @test
@@ -962,7 +951,7 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
     public function selectMultipleForNoResultsReturnsEmptyArray()
     {
         self::assertSame(
-            array(),
+            [],
             \Tx_Phpunit_Service_Database::selectMultiple(
                 'uid',
                 'tx_phpunit_test',
@@ -981,7 +970,7 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
         );
 
         self::assertSame(
-            array(array('uid' => (string)$uid)),
+            [['uid' => (string)$uid]],
             \Tx_Phpunit_Service_Database::selectMultiple('uid', 'tx_phpunit_test', 'uid = ' . $uid)
         );
     }
@@ -993,18 +982,18 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
     {
         $this->testingFramework->createRecord(
             'tx_phpunit_test',
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
         $this->testingFramework->createRecord(
             'tx_phpunit_test',
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
 
         self::assertSame(
-            array(
-                array('title' => 'foo'),
-                array('title' => 'foo'),
-            ),
+            [
+                ['title' => 'foo'],
+                ['title' => 'foo'],
+            ],
             \Tx_Phpunit_Service_Database::selectMultiple(
                 'title',
                 'tx_phpunit_test',
@@ -1019,7 +1008,7 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
     public function selectColumnForMultipleForNoMatchesReturnsEmptyArray()
     {
         self::assertSame(
-            array(),
+            [],
             \Tx_Phpunit_Service_Database::selectColumnForMultiple(
                 'title',
                 'tx_phpunit_test',
@@ -1035,11 +1024,11 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
     {
         $uid = $this->testingFramework->createRecord(
             'tx_phpunit_test',
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
 
         self::assertSame(
-            array('foo'),
+            ['foo'],
             \Tx_Phpunit_Service_Database::selectColumnForMultiple(
                 'title',
                 'tx_phpunit_test',
@@ -1055,11 +1044,11 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
     {
         $uid1 = $this->testingFramework->createRecord(
             'tx_phpunit_test',
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
         $uid2 = $this->testingFramework->createRecord(
             'tx_phpunit_test',
-            array('title' => 'bar')
+            ['title' => 'bar']
         );
 
         $result = \Tx_Phpunit_Service_Database::selectColumnForMultiple(
@@ -1069,11 +1058,10 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
         );
         sort($result);
         self::assertSame(
-            array('bar', 'foo'),
+            ['bar', 'foo'],
             $result
         );
     }
-
 
     /*
      * Tests concerning getAllTableNames
@@ -1098,7 +1086,6 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
             in_array('tx_phpunit_doesnotexist', \Tx_Phpunit_Service_Database::getAllTableNames())
         );
     }
-
 
     /*
      * Tests concerning existsTable
@@ -1133,7 +1120,6 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
             \Tx_Phpunit_Service_Database::existsTable('tx_phpunit_doesnotexist')
         );
     }
-
 
     /*
      * Tests concerning getTcaForTable
@@ -1194,7 +1180,6 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
             isset($tca['columns']['tx_phpunit_is_dummy_record'])
         );
     }
-
 
     /*
      * Tests concerning count
@@ -1325,7 +1310,6 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
         \Tx_Phpunit_Service_Database::count('JOIN tx_phpunit_test');
     }
 
-
     /*
      * Tests regarding existsRecord
      */
@@ -1397,18 +1381,17 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
     {
         $this->testingFramework->createRecord(
             'tx_phpunit_test',
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
         $this->testingFramework->createRecord(
             'tx_phpunit_test',
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
 
         self::assertTrue(
             \Tx_Phpunit_Service_Database::existsRecord('tx_phpunit_test', 'title = "foo"')
         );
     }
-
 
     /*
      * Tests regarding existsExactlyOneRecord
@@ -1481,18 +1464,17 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
     {
         $this->testingFramework->createRecord(
             'tx_phpunit_test',
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
         $this->testingFramework->createRecord(
             'tx_phpunit_test',
-            array('title' => 'foo')
+            ['title' => 'foo']
         );
 
         self::assertFalse(
             \Tx_Phpunit_Service_Database::existsExactlyOneRecord('tx_phpunit_test', 'title = "foo"')
         );
     }
-
 
     /*
      * Tests regarding existsRecordWithUid
@@ -1569,7 +1551,7 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
     {
         $uid = $this->testingFramework->createRecord(
             'tx_phpunit_test',
-            array('deleted' => 1)
+            ['deleted' => 1]
         );
 
         self::assertFalse(

@@ -30,7 +30,7 @@ class Tx_Phpunit_Service_OutputService implements SingletonInterface
      */
     public function output($output)
     {
-        echo($output);
+        echo $output;
     }
 
     /**

@@ -32,7 +32,7 @@ class TestingTagViewHelper extends \Tx_Phpunit_ViewHelpers_AbstractTagViewHelper
     /**
      * @var string[]
      */
-    protected $attributes = array();
+    protected $attributes = [];
 
     /**
      * @var string
@@ -48,7 +48,7 @@ class TestingTagViewHelper extends \Tx_Phpunit_ViewHelpers_AbstractTagViewHelper
      * @param string[] $attributes
      * @param string $content
      */
-    public function __construct($tagName = 'tag', array $attributes = array(), $content = '')
+    public function __construct($tagName = 'tag', array $attributes = [], $content = '')
     {
         $this->tagName = $tagName;
         $this->attributes = $attributes;

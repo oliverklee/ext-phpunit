@@ -28,7 +28,7 @@ class TestSuite extends \PHPUnit_Framework_TestSuite
      */
     public function __construct()
     {
-        $this->addTestFile(dirname(__FILE__) . '/tx_phpunit_test_testcase.php');
-        $this->addTestFile(dirname(__FILE__) . '/database_testcase.php');
+        $this->addTestFile(__DIR__ . '/tx_phpunit_test_testcase.php');
+        $this->addTestFile(__DIR__ . '/database_testcase.php');
     }
 }

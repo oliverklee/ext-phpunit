@@ -35,7 +35,7 @@ class ExtensionSettingsServiceTest extends \Tx_Phpunit_TestCase
     /**
      * @var array
      */
-    protected $testConfiguration = array(
+    protected $testConfiguration = [
         'testValueString' => 'Hello world!',
         'testValueEmptyString' => '',
         'testValuePositiveInteger' => 42,
@@ -44,8 +44,8 @@ class ExtensionSettingsServiceTest extends \Tx_Phpunit_TestCase
         'testValueNegativeInteger' => -1,
         'testValueTrue' => true,
         'testValueFalse' => false,
-        'testValueArray' => array('foo', 'bar'),
-    );
+        'testValueArray' => ['foo', 'bar'],
+    ];
 
     protected function setUp()
     {
@@ -233,7 +233,7 @@ class ExtensionSettingsServiceTest extends \Tx_Phpunit_TestCase
     public function getAsArrayForMissingValueReturnsEmptyArray()
     {
         self::assertSame(
-            array(),
+            [],
             $this->subject->getAsArray('foo')
         );
     }
@@ -244,7 +244,7 @@ class ExtensionSettingsServiceTest extends \Tx_Phpunit_TestCase
     public function getAsArrayForExistingValueReturnsValueFromExtensionSettings()
     {
         self::assertSame(
-            array('foo', 'bar'),
+            ['foo', 'bar'],
             $this->subject->getAsArray('testValueArray')
         );
     }
@@ -255,7 +255,7 @@ class ExtensionSettingsServiceTest extends \Tx_Phpunit_TestCase
     public function getAsArrayForExistingIntegerValueReturnsEmptyArray()
     {
         self::assertSame(
-            array(),
+            [],
             $this->subject->getAsArray('testValuePositiveInteger')
         );
     }

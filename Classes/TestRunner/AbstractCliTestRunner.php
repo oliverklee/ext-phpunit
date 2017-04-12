@@ -30,7 +30,7 @@ abstract class Tx_Phpunit_TestRunner_AbstractCliTestRunner extends CommandLineCo
      *
      * @var string[]
      */
-    protected $additionalHelp = array();
+    protected $additionalHelp = [];
 
     /**
      * definition of the extension name
