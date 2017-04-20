@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['importextensions',['importExtensions',['../classTx__Phpunit__Database__TestCase.html#a4ebd627110ae109ff305a739229b23bf',1,'Tx_Phpunit_Database_TestCase']]],
+  ['importextensions',['importExtensions',['../classTx__Phpunit__Database__TestCase.html#a68653f12b63ec4515b0b8b0eb599f789',1,'Tx_Phpunit_Database_TestCase']]],
   ['increaserelationcounter',['increaseRelationCounter',['../classTx__Phpunit__Framework.html#aad7baf61409c58de485b487c92ed8fdd',1,'Tx_Phpunit_Framework']]],
   ['injectextensionsettingsservice',['injectExtensionSettingsService',['../classTx__Phpunit__Service__TestFinder.html#a8fd3690f89c66bd5b54e2b632eb41147',1,'Tx_Phpunit_Service_TestFinder']]],
   ['injectnameprettifier',['injectNamePrettifier',['../classTx__Phpunit__BackEnd__Module.html#abf56d530c50889ae630c5b6e49b21c8e',1,'Tx_Phpunit_BackEnd_Module\injectNamePrettifier()'],['../classTx__Phpunit__BackEnd__TestListener.html#a7e69bf820bb9701c7492263b481f67e8',1,'Tx_Phpunit_BackEnd_TestListener\injectNamePrettifier()']]],

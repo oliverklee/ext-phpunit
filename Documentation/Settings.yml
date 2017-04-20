@@ -4,10 +4,10 @@
 
 ---
 conf.py:
-  copyright: 2016
+  copyright: 2017
   project: PHPUnit
-  version: 4.7
-  release: 4.7.7
+  version: 4.8
+  release: 4.8.35
   latex_documents:
   - - Index
     - phpunit.tex
