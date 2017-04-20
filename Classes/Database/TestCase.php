@@ -295,11 +295,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
     protected function importStdDb()
     {
         // make sure missing caching framework tables do not get into the way
-        if (TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 7006000) {
-            $cacheTables = \TYPO3\CMS\Core\Cache\Cache::getDatabaseTableDefinitions();
-        } else {
-            $cacheTables = \TYPO3\CMS\Core\Cache\DatabaseSchemaService::getCachingFrameworkRequiredDatabaseSchema();
-        }
+        $cacheTables = \TYPO3\CMS\Core\Cache\DatabaseSchemaService::getCachingFrameworkRequiredDatabaseSchema();
         $this->importDatabaseDefinitions($cacheTables);
 
         /* @var TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
