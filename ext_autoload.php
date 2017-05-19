@@ -21,7 +21,6 @@ return [
     'tx_phpunit_interface_frameworkcleanuphook' => $extensionPath . 'Classes/Interface/FrameworkCleanupHook.php',
     'tx_phpunit_interface_request' => $extensionPath . 'Classes/Interface/Request.php',
     'tx_phpunit_interface_usersettingsservice' => $extensionPath . 'Classes/Interface/UserSettingsService.php',
-    'tx_phpunit_reports_status' => $extensionPath . 'Classes/Reports/Status.php',
     'tx_phpunit_selenium_testcase' => $extensionPath . 'Classes/Selenium/TestCase.php',
     'tx_phpunit_service_database' => $extensionPath . 'Classes/Service/Database.php',
     'tx_phpunit_service_extensionsettingsservice' => $extensionPath . 'Classes/Service/ExtensionSettingsService.php',
