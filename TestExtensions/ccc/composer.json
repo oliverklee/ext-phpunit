@@ -1,7 +1,7 @@
 {
     "name": "oliverklee/ccc",
     "type": "typo3-cms-extension",
-    "version": "4.8.35",
+    "version": "4.8.36",
     "license": "GPL-2.0+",
     "replace": {
         "ccc": "self.version",
