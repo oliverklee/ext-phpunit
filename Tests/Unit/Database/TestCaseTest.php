@@ -146,7 +146,7 @@ class TestCaseTest extends \Tx_Phpunit_Database_TestCase
         if (!ExtensionManagementUtility::isLoaded('aaa') || !ExtensionManagementUtility::isLoaded('bbb')) {
             self::markTestSkipped(
                 'This test can only be run if the extensions aaa and bbb ' .
-                'from tests/res are installed.'
+                'from TestExtensions/ are installed.'
             );
         }
 
@@ -183,7 +183,7 @@ class TestCaseTest extends \Tx_Phpunit_Database_TestCase
         ) {
             self::markTestSkipped(
                 'This test can only be run if the extensions aaa, bbb and ccc ' .
-                'from tests/res are installed.'
+                'from TestExtensions/ are installed.'
             );
         }
 
@@ -218,7 +218,7 @@ class TestCaseTest extends \Tx_Phpunit_Database_TestCase
         ) {
             self::markTestSkipped(
                 'This test can only be run if the extensions aaa, bbb, ccc ' .
-                'and ddd from tests/res are installed.'
+                'and ddd from TestExtensions/ are installed.'
             );
         }
 
@@ -252,8 +252,7 @@ class TestCaseTest extends \Tx_Phpunit_Database_TestCase
     {
         if (!ExtensionManagementUtility::isLoaded('ccc')) {
             self::markTestSkipped(
-                'This test can only be run if the extension ccc from ' .
-                'tests/res is installed.'
+                'This test can only be run if the extension ccc from TestExtensions/ is installed.'
             );
         }
 
