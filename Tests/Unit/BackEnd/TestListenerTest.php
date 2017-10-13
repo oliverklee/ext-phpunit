@@ -17,6 +17,7 @@ namespace OliverKlee\Phpunit\Tests\Unit\BackEnd;
 use SebastianBergmann\Comparator\ComparisonFailure;
 use TYPO3\CMS\Core\Utility\CommandUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
  * Test case.
@@ -37,6 +38,10 @@ class TestListenerTest extends \Tx_Phpunit_TestCase
 
     protected function setUp()
     {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8000000) {
+            self::markTestSkipped('The BE module is not available in TYPO3 CMS >= 8.');
+        }
+
         $namePrettifier = new \PHPUnit_Util_TestDox_NamePrettifier();
         $this->outputService = new \Tx_Phpunit_Service_FakeOutputService();
 

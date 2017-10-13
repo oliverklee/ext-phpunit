@@ -15,6 +15,7 @@ namespace OliverKlee\Phpunit\Tests\Unit\ViewHelpers;
  */
 
 use OliverKlee\Phpunit\Tests\Unit\ViewHelpers\Fixtures\TestingTagViewHelper;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
  * Testcase.
@@ -23,6 +24,13 @@ use OliverKlee\Phpunit\Tests\Unit\ViewHelpers\Fixtures\TestingTagViewHelper;
  */
 class AbstractTagViewHelperTest extends \Tx_Phpunit_TestCase
 {
+    protected function setUp()
+    {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8000000) {
+            self::markTestSkipped('The BE module is not available in TYPO3 CMS >= 8.');
+        }
+    }
+
     /**
      * @test
      */

@@ -21,6 +21,7 @@ use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Lang\LanguageService;
 
 /**
@@ -88,6 +89,10 @@ class ModuleTest extends \Tx_Phpunit_TestCase
     protected function setUp()
     {
         $this->backEndUserBackup = $GLOBALS['BE_USER'];
+
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8000000) {
+            self::markTestSkipped('The BE module is not available in TYPO3 CMS >= 8.');
+        }
 
         $this->getLanguageService()->includeLLFile('EXT:phpunit/Resources/Private/Language/locallang_backend.xlf');
 

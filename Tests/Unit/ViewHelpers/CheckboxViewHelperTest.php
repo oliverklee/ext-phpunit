@@ -14,6 +14,8 @@ namespace OliverKlee\Phpunit\Tests\Unit\ViewHelpers;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
+
 /**
  * Test case for Tx_Phpunit_ViewHelpers_CheckboxViewHelper.
  *
@@ -21,6 +23,13 @@ namespace OliverKlee\Phpunit\Tests\Unit\ViewHelpers;
  */
 class CheckboxViewHelperTest extends \Tx_Phpunit_TestCase
 {
+    protected function setUp()
+    {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8000000) {
+            self::markTestSkipped('The BE module is not available in TYPO3 CMS >= 8.');
+        }
+    }
+
     /**
      * @test
      */

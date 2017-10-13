@@ -15,6 +15,7 @@ namespace OliverKlee\Phpunit\Tests\Unit\ViewHelpers;
  */
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Lang\LanguageService;
 
 /**
@@ -56,9 +57,14 @@ class ExtensionSelectorViewHelperTest extends \Tx_Phpunit_TestCase
 
     protected function setUp()
     {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8000000) {
+            self::markTestSkipped('The BE module is not available in TYPO3 CMS >= 8.');
+        }
+
         if (!empty($GLOBALS['LANG'])) {
             $this->languageServiceBackup = $GLOBALS['LANG'];
         }
+
         /** @var LanguageService|\PHPUnit_Framework_MockObject_MockObject $languageServiceMock */
         $languageServiceMock = $this->getMock('TYPO3\\CMS\\Lang\\LanguageService');
         $languageServiceMock->expects($this->any())->method('getLL')->willReturn('translatedLabel');

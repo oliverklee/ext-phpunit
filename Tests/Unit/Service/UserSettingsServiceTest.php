@@ -15,6 +15,7 @@ namespace OliverKlee\Phpunit\Tests\Unit\Service;
  */
 
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
  * Test case.
@@ -38,6 +39,11 @@ class UserSettingsServiceTest extends \Tx_Phpunit_TestCase
     protected function setUp()
     {
         $this->backEndUserBackup = $GLOBALS['BE_USER'];
+
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8000000) {
+            self::markTestSkipped('The BE module is not available in TYPO3 CMS >= 8.');
+        }
+
         $GLOBALS['BE_USER'] = $this->getMock('TYPO3\\CMS\\Core\\Authentication\\BackendUserAuthentication');
 
         $this->subject = new \Tx_Phpunit_Service_UserSettingsService();

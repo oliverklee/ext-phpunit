@@ -14,6 +14,7 @@ namespace OliverKlee\Phpunit\Tests\Unit\BackEnd;
  * The TYPO3 project - inspiring people to share!
  */
 use TYPO3\CMS\Core\Http\AjaxRequestHandler;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
  * Test case.
@@ -42,6 +43,11 @@ class AjaxTest extends \Tx_Phpunit_TestCase
     protected function setUp()
     {
         $this->postBackup = $GLOBALS['_POST'];
+
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8000000) {
+            self::markTestSkipped('The BE module is not available in TYPO3 CMS >= 8.');
+        }
+
         $GLOBALS['_POST'] = [];
 
         $this->subject = new \Tx_Phpunit_BackEnd_Ajax(false);
