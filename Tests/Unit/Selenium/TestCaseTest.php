@@ -176,38 +176,4 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
             $this->subject->getSeleniumHost()
         );
     }
-
-    /**
-     * @test
-     */
-    public function isSeleniumServerRunningWhenHostIsInvalidReturnsFalse()
-    {
-        // We will use 'example.invalid' as an invalid host
-        // (according to RFC 2606 the TLD '.invalid' should be used to test for invalid hosts).
-        $this->extensionSettingsService->set('selenium_host', 'http://example.invalid');
-
-        $className = $this->createAccessibleProxyClass();
-        $subject = new $className(null, [], '', $this->extensionSettingsService);
-
-        /** @var \Tx_Phpunit_Selenium_TestCase $subject */
-        self::assertFalse(
-            $subject->isSeleniumServerRunning()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function runTestWhenServerIsNotRunningMarksTestAsSkipped()
-    {
-        $this->extensionSettingsService->set('selenium_host', 'http://example.invalid');
-
-        $subject = new \Tx_Phpunit_Selenium_TestCase(null, [], '', $this->extensionSettingsService);
-
-        try {
-            $subject->runTest();
-        } catch (\PHPUnit_Framework_SkippedTestError $e) {
-            self::assertTrue(true);
-        }
-    }
 }
