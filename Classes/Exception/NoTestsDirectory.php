@@ -15,8 +15,7 @@
 use TYPO3\CMS\Core\Exception;
 
 /**
- * This class represents an exception indicating that there no tests directory
- * has been found (for an extension or the TYPO3 Core,
+ * This class represents an exception indicating that there no Tests/ directory has been found.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */

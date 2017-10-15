@@ -68,9 +68,7 @@ class Tx_Phpunit_Testable
      *
      * The key is intended to be used e.g., for drop-downs.
      *
-     * For extensions, this will be the extension key. For the TYPO3 core, this
-     * will be "typo3". For out-of-line tests, this will be full path to the
-     * tested code.
+     * For extensions, this will be the extension key. For out-of-line tests, this will be full path to the tested code.
      *
      * @return string the key, will not be empty
      */
@@ -84,9 +82,7 @@ class Tx_Phpunit_Testable
      *
      * The key is intended to be used e.g., for drop-downs.
      *
-     * For extensions, this must be the extension key. For the TYPO3 core, this
-     * must be "typo3". For out-of-line tests, this must be full path to the
-     * tested code.
+     * For extensions, this must be the extension key. For out-of-line tests, this must be full path to the tested code.
      *
      * @param string $key the key, must not be empty
      *

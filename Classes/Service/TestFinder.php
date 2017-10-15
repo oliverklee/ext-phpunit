@@ -80,8 +80,7 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface
      * Checks whether there is testable code for a key.
      *
      * @param string $key
-     *        the key to check, might be an extension key, the core key or
-     *        any other string (even an empty string)
+     *        the key to check, might be an extension key or any other string (even an empty string)
      *
      * @return bool TRUE if there is testable code with the given key, FALSE otherwise
      */
@@ -97,8 +96,7 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface
     }
 
     /**
-     * Checks whether there is at least one tests directory in at least one
-     * extension or in the TYPO3 Core.
+     * Checks whether there is at least one tests directory in at least one extension.
      *
      * @return bool
      *         TRUE if there ist at least one test directory, FALSE otherwise
@@ -114,7 +112,7 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface
      * Returns the testable code for the given key.
      *
      * @param string $key
-     *        the key for which to get the testable, must an extension key or the core key, must not be empty
+     *        the key for which to get the testable, must an extension key, must not be empty
      *
      * @return Tx_Phpunit_Testable the testable for the given key
      *
@@ -135,12 +133,10 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface
     }
 
     /**
-     * Returns the testable code instance for everything, i.e., the core and
-     * all installed extensions.
+     * Returns the testable code instance for everything, i.e.,  all installed extensions.
      *
      * @return Tx_Phpunit_Testable[]
-     *         testable code for everything using the extension keys or the core key
-     *         as array keys, might be empty
+     *         testable code for everything using the extension keys  as array keys, might be empty
      */
     public function getTestablesForEverything()
     {
