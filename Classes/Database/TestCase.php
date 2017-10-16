@@ -55,7 +55,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
      */
     protected function switchToTypo3Database()
     {
-        $this->selectDatabase(TYPO3_db, Tx_Phpunit_Service_Database::getDatabaseConnection());
+        $this->switchToOriginalTypo3Database(Tx_Phpunit_Service_Database::getDatabaseConnection());
     }
 
     /**
@@ -176,7 +176,15 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
      */
     protected function switchToOriginalTypo3Database($databaseObject)
     {
-        $this->selectDatabase($GLOBALS['TYPO3_CONF_VARS']['DB']['database'], $databaseObject);
+        /** @var array $databaseConfiguration */
+        $databaseConfiguration = $GLOBALS['TYPO3_CONF_VARS']['DB'];
+        if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8001000) {
+            $databaseName = $databaseConfiguration['Connections']['Default']['dbname'];
+        } else {
+            $databaseName = $databaseConfiguration['database'];
+        }
+
+        $this->selectDatabase($databaseName, $databaseObject);
     }
 
     /**
