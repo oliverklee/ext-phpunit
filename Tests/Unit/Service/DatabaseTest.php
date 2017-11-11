@@ -19,7 +19,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * Test case.
  *
- *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class DatabaseTest extends \Tx_PhpUnit_TestCase
@@ -192,6 +191,86 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
                 ['endtime' => true]
             )
         );
+    }
+
+    /**
+     * @test
+     */
+    public function enableFieldsWithHiddenNotAllowedFindsDefaultRecord()
+    {
+        $this->testingFramework->createRecord('tx_phpunit_test');
+
+        $result = \Tx_Phpunit_Service_Database::selectMultiple(
+            '*',
+            'tx_phpunit_test',
+            '1 = 1' . \Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test')
+        );
+
+        self::assertCount(1, $result);
+    }
+
+    /**
+     * @test
+     */
+    public function enableFieldsWithHiddenAllowedFindsDefaultRecord()
+    {
+        $this->testingFramework->createRecord('tx_phpunit_test');
+
+        $result = \Tx_Phpunit_Service_Database::selectMultiple(
+            '*',
+            'tx_phpunit_test',
+            '1 = 1' . \Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', 1)
+        );
+
+        self::assertCount(1, $result);
+    }
+
+    /**
+     * @return int[][]
+     */
+    public function hiddenRecordDataProvider()
+    {
+        return [
+            'hidden' => [['hidden' => 1]],
+            'start time in future' => [['starttime' => $GLOBALS['SIM_EXEC_TIME'] + 1000]],
+            'end time in past' => [['endtime' => $GLOBALS['SIM_EXEC_TIME'] - 1000]],
+        ];
+    }
+
+    /**
+     * @test
+     * @param array $recordData
+     * @dataProvider hiddenRecordDataProvider
+     */
+    public function enableFieldsWithHiddenNotAllowedIgnoresHiddenRecord(array $recordData)
+    {
+        $this->testingFramework->createRecord('tx_phpunit_test', $recordData);
+
+        $result = \Tx_Phpunit_Service_Database::selectMultiple(
+            '*',
+            'tx_phpunit_test',
+            '1 = 1' . \Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test')
+        );
+
+        self::assertCount(0, $result);
+    }
+
+    /**
+     * @test
+     * @param array $recordData
+     * @dataProvider hiddenRecordDataProvider
+     */
+    public function enableFieldsWithHiddenAllowedFindsHiddenRecord(array $recordData)
+    {
+        $this->testingFramework->createRecord('tx_phpunit_test', $recordData);
+
+        $result = \Tx_Phpunit_Service_Database::selectMultiple(
+            '*',
+            'tx_phpunit_test',
+            '1 = 1' . \Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', 1)
+        );
+
+        self::assertCount(1, $result);
     }
 
     /*

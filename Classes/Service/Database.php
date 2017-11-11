@@ -106,26 +106,27 @@ class Tx_Phpunit_Service_Database
         array $ignoreArray = [],
         $noVersionPreview = false
     ) {
-        if (!in_array($showHidden, [-1, 0, 1])) {
-            throw new InvalidArgumentException(
-                '$showHidden may only be -1, 0 or 1, but actually is ' . $showHidden,
-                1331315445
-            );
+        $intShowHidden = (int)$showHidden;
+
+        if (!in_array($intShowHidden, [-1, 0, 1], true)) {
+            throw new InvalidArgumentException('$showHidden may only be -1, 0 or 1, but actually is ' . $showHidden, 1331315445);
         }
 
         // maps $showHidden (-1..1) to (0..2) which ensures valid array keys
-        $showHiddenKey = $showHidden + 1;
-        $ignoresKey = serialize($ignoreArray);
+        $showHiddenKey = (string)($intShowHidden + 1);
+        $enrichedIgnores = $ignoreArray;
+        if ($showHidden > 0) {
+            $enrichedIgnores['starttime'] = true;
+            $enrichedIgnores['endtime'] = true;
+            $enrichedIgnores['fe_group'] = true;
+        }
+
+        $ignoresKey = serialize($enrichedIgnores);
         $previewKey = (int)$noVersionPreview;
         if (!isset(self::$enableFieldsCache[$tableName][$showHiddenKey][$ignoresKey][$previewKey])) {
             self::retrievePageForEnableFields();
             self::$enableFieldsCache[$tableName][$showHiddenKey][$ignoresKey][$previewKey]
-                = self::$pageForEnableFields->enableFields(
-                    $tableName,
-                    $showHidden,
-                    $ignoreArray,
-                    $noVersionPreview
-                );
+                = self::$pageForEnableFields->enableFields($tableName, $showHidden, $enrichedIgnores, $noVersionPreview);
         }
 
         return self::$enableFieldsCache[$tableName][$showHiddenKey][$ignoresKey][$previewKey];
