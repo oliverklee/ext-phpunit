@@ -1370,13 +1370,12 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->purgeHooks();
 
-        $cleanUpHookMock = $this->getMock('Tx_Phpunit_Interface_FrameworkCleanupHook', ['cleanUp']);
+        $cleanUpHookMock = $this->getMock(\Tx_Phpunit_Interface_FrameworkCleanupHook::class, ['cleanUp']);
         $cleanUpHookMock->expects(self::atLeastOnce())->method('cleanUp');
 
         $hookClassName = get_class($cleanUpHookMock);
-
-        $GLOBALS['T3_VAR']['getUserObj'][$hookClassName] = $cleanUpHookMock;
         $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['FrameworkCleanUp']['phpunit_tests'] = $hookClassName;
+        GeneralUtility::addInstance($hookClassName, $cleanUpHookMock);
 
         $this->subject->cleanUp();
     }
