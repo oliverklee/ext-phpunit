@@ -12,6 +12,8 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Cache\Frontend\VariableFrontend;
+use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Exception;
@@ -1282,15 +1284,11 @@ class Tx_Phpunit_Framework
         $this->suppressFrontEndCookies();
         $this->discardFakeFrontEnd();
 
-        $GLOBALS['TT'] = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\TimeTracker\\NullTimeTracker');
+        $this->registerNullPageCache();
+        $GLOBALS['TT'] = GeneralUtility::makeInstance(NullTimeTracker::class);
 
         /** @var TypoScriptFrontendController $frontEnd */
-        $frontEnd = GeneralUtility::makeInstance(
-            'TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController',
-            $GLOBALS['TYPO3_CONF_VARS'],
-            $pageUid,
-            0
-        );
+        $frontEnd = GeneralUtility::makeInstance(TypoScriptFrontendController::class, $GLOBALS['TYPO3_CONF_VARS'], $pageUid, 0);
         $GLOBALS['TSFE'] = $frontEnd;
 
         // simulates a normal FE without any logged-in FE or BE user
@@ -1301,8 +1299,6 @@ class Tx_Phpunit_Framework
         $frontEnd->determineId();
         $frontEnd->initTemplate();
         $frontEnd->config = [];
-
-        $frontEnd->tmpl->getFileName_backPath = PATH_site;
 
         if (($pageUid > 0) && in_array('sys_template', $this->dirtySystemTables, true)) {
             $frontEnd->tmpl->runThroughTemplates($frontEnd->sys_page->getRootLine($pageUid), 0);
@@ -2127,5 +2123,23 @@ class Tx_Phpunit_Framework
     protected function getFrontEnd()
     {
         return $GLOBALS['TSFE'];
+    }
+
+    /**
+     * @return void
+     */
+    private function registerNullPageCache()
+    {
+        /** @var CacheManager $cacheManager */
+        $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
+        if ($cacheManager->hasCache('cache_pages')) {
+            return;
+        }
+
+        /** @var NullBackend $backEnd */
+        $backEnd = GeneralUtility::makeInstance(NullBackend::class, 'Testing');
+        /** @var VariableFrontend $cache */
+        $frontEnd = GeneralUtility::makeInstance(VariableFrontend::class, 'cache_pages', $backEnd);
+        $cacheManager->registerCache($frontEnd);
     }
 }
