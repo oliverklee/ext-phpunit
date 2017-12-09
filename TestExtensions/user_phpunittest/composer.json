@@ -1,7 +1,6 @@
 {
     "name": "oliverklee/user-phpunittest",
     "type": "typo3-cms-extension",
-    "version": "4.8.36",
     "license": "GPL-2.0+",
     "replace": {
         "user-phpunittest": "self.version",
