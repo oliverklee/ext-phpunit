@@ -4,7 +4,7 @@ excludeextensions = lib, div
 selenium_host = localhost
   # cat=selenium; type=int+; label=Port of the Selenium RC server
 selenium_port = 4444
-  # cat=selenium; type=small; label=Browser that should be used to run Selenium tests, e.g., firefox, mock, firefoxproxy, pifirefox, chrome, iexploreproxy, *iexplore, *firefox3, *safariproxy, *googlechrome, *konqueror, safari, piiexplore, firefoxchrome, opera, iehta, custom
-selenium_browser = firefox
+  # cat=selenium; type=small; label=Browser that should be used to run Selenium tests, e.g., chrome, firefox
+selenium_browser = chrome
   # cat=selenium; type=small; label=Default Selenium Browser URL: Leave empty to use domain of this TYPO3 installation (TYPO3_SITE_URL)
 selenium_browserurl =

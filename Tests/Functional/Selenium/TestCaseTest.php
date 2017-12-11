@@ -24,13 +24,10 @@ class TestCaseTest extends \Tx_Phpunit_Selenium_TestCase
     /**
      * @test
      */
-    public function typo3SiteHasTypo3Title()
+    public function exampleSiteHasTitle()
     {
-        $this->url('http://typo3.org/');
+        $this->url('http://www.example.com/');
 
-        self::assertContains(
-            'TYPO3',
-            $this->title()
-        );
+        self::assertContains('Example', $this->title());
     }
 }
