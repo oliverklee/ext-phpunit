@@ -296,8 +296,6 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @see http://forge.typo3.org/issues/9094
      */
     public function isTestCaseFileNameForHiddenMacFileReturnsFalse()
     {

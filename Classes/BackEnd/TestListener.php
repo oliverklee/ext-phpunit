@@ -580,7 +580,6 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
         $testNameParts = explode(' ', $test->getName());
 
         // This is quite a hack.
-        // @see http://forge.typo3.org/issues/11735
         if (strpos($this->currentTestCaseName, '::') !== false) {
             $result = $testNameParts[0] . '(' . $this->getTestCaseName() . ')';
         } else {

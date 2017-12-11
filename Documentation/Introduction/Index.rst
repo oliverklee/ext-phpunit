@@ -26,7 +26,6 @@ Introduction
 
    WhatDoesItDo/Index
    Credits/Index
-   FoundABugWantToReportAFeatureWish/Index
    History/Index
    Screenshots/Index
 

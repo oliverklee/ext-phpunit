@@ -49,9 +49,8 @@ Running a single test (with a data provider for three data sets)
 The test case is Tx\_Phpunit\_BackEnd\_Fixtures\_DataProviderTest, and
 the test name is “dataProviderTest”.
 
-Note: That the data provider keys are not displayed might be a
-`bug/regression <http://forge.typo3.org/issues/12091>`_ either in the
-PHPUnit package or the phpunit extension.
+Note: That the data provider keys are not displayed might be a bug
+either in the PHPUnit package or the phpunit extension.
 
 #. startTestSuite(PHPUnit\_Framework\_TestSuite\_DataProvider, name=”Tx\_
    Phpunit\_BackEnd\_Fixtures\_DataProviderTest::dataProviderTest”)
