@@ -12,10 +12,10 @@
             "name": "Oliver Klee",
             "email": "typo3-coding@oliverklee.de",
             "role": "Developer",
-            "homepage": "http://www.oliverklee.de"
+            "homepage": "https://www.oliverklee.de"
         }
     ],
-    "license": "GPL-2.0+",
+    "license": "GPL-3.0+",
     "require": {
         "php": ">=5.5.0,<8.0",
         "typo3/cms-core": "^7.6 || ^8.7"
