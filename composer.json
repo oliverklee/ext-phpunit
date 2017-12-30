@@ -2,7 +2,11 @@
     "name": "oliverklee/phpunit",
     "type": "typo3-cms-extension",
     "description": "Unit testing for TYPO3. Includes PHPUnit 4.8, Selenium, a BE test runner module, a CLI test runner, PhpStorm integration and a testing framework.",
-    "keywords": ["TYPO3", "TDD", "PHPUnit"],
+    "keywords": [
+        "TYPO3",
+        "TDD",
+        "PHPUnit"
+    ],
     "homepage": "https://forge.typo3.org/projects/extension-phpunit",
     "authors": [
         {
@@ -27,7 +31,10 @@
         "mikey179/vfsStream": "^1"
     },
     "autoload": {
-        "classmap": ["Classes", "Tests"]
+        "classmap": [
+            "Classes",
+            "Tests"
+        ]
     },
     "replace": {
         "phpunit": "self.version",
