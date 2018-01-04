@@ -1,55 +1,48 @@
+sudo: false
+
 language: php
 
 matrix:
   include:
     - php: 5.5
-      env: TYPO3=^7.6.0
     - php: 5.6
-      env: TYPO3=^7.6.0
     - php: 7
-      env: TYPO3=^7.6.0
-    - php: 5.4
-      env: TYPO3=^6.2.0
-    - php: 5.5
-      env: TYPO3=^6.2.0
-    - php: 5.6
-      env: TYPO3=^6.2.0
 
-addons:
-  apt:
-    packages:
-      - parallel
-
+#addons:
+#  apt:
+#    packages:
+#      - parallel
+#
 cache:
   directories:
     - $HOME/.composer/cache
 
-sudo: false
-
-before_install:
-  - composer self-update
-  - composer --version
-
-before_script:
-  - phpenv config-rm xdebug.ini
-  - cd ..
-  - mkdir typo3.cms
-  - cd typo3.cms
-  - cp ../phpunit/Tests/Build/composer.json .
-  - composer require typo3/cms="$TYPO3"
-  - ./typo3cms install:setup --non-interactive --database-user-name="root" --database-host-name="localhost" --database-port="3306" --database-name="travis_test" --admin-user-name="admin" --admin-password="password" --site-name="Travis Install"
-  - ln -s ../../../phpunit typo3conf/ext/phpunit
-  - ./typo3cms extension:install phpunit
-  - >
-    for extension in aaa bbb ccc ddd user_phpunittest user_phpunittest2; do
-      ln -s ../../../phpunit/TestExtensions/$extension typo3conf/ext/$extension
-      ./typo3cms extension:install $extension
-    done
-  # This is needed as long as 7.6.1 isn't released due to wrong slot settings within the core
-  # This can be removed with the release of 7.6.1
-  - ./typo3cms extension:dumpclassloadinginformation || echo "FAILED"
-  - mysql -u root travis_test -e "INSERT INTO be_users (username, password) VALUES ('_cli_phpunit', 'password')"
-
+#before_install:
+#  - composer self-update
+#  - composer --version
+#
+#before_script:
+#  - phpenv config-rm xdebug.ini
+#  - cd ..
+#  - mkdir typo3.cms
+#  - cd typo3.cms
+#  - cp ../phpunit/Tests/Build/composer.json .
+#  - composer require typo3/cms="$TYPO3"
+#  - ./typo3cms install:setup --non-interactive --database-user-name="root" --database-host-name="localhost" --database-port="3306" --database-name="travis_test" --admin-user-name="admin" --admin-password="password" --site-name="Travis Install"
+#  - ln -s ../../../phpunit typo3conf/ext/phpunit
+#  - ./typo3cms extension:install phpunit
+#  - >
+#    for extension in aaa bbb ccc ddd user_phpunittest user_phpunittest2; do
+#      ln -s ../../../phpunit/TestExtensions/$extension typo3conf/ext/$extension
+#      ./typo3cms extension:install $extension
+#    done
+#  # This is needed as long as 7.6.1 isn't released due to wrong slot settings within the core
+#  # This can be removed with the release of 7.6.1
+#  - ./typo3cms extension:dumpclassloadinginformation || echo "FAILED"
+#  - mysql -u root travis_test -e "INSERT INTO be_users (username, password) VALUES ('_cli_phpunit', 'password')"
+#
 script:
-  - php typo3/cli_dispatch.phpsh phpunit -c typo3conf/ext/phpunit/Tests/Build/UnitTests.xml
-  - find ../phpunit -name \*.php | parallel --gnu php -d display_errors=stderr -l {} > /dev/null \;
+  # Run PHP lint on all PHP files.
+  - find Classes/ Tests/ -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
+#  - php typo3/cli_dispatch.phpsh phpunit -c typo3conf/ext/phpunit/Tests/Build/UnitTests.xml
+#  - find ../phpunit -name \*.php | parallel --gnu php -d display_errors=stderr -l {} > /dev/null \;
