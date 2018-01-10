@@ -47,6 +47,10 @@
     },
     "repositories": [
         {
+            "type": "path",
+            "url": "TestExtensions/*"
+        },
+        {
             "type": "composer",
             "url": "https://composer.typo3.org/"
         }
