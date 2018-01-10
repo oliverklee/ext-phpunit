@@ -20,9 +20,6 @@ Installation
 
 These are basic requirements for using this extension:
 
-#. Make sure you are running TYPO3 >= 4.5.0 and PHP >= 5.3.0 (PHP >=
-   5.3.9 is recommended).
-
 #. On rpm based systems, like Fedora and RHEL, you need the packages php-
    process and php-posix in addition to the normal list of PHP
    extensions.
