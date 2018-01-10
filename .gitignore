@@ -1,24 +1,5 @@
-#########################
-# global ignore file
-########################
-# ignoring temporary files (left by e.g. vim)
-# ignoring by common IDE's used directories/files
-# dont ignore .rej and .orig as we want to see/clean files after conflict resolution
-#
-# for local exclude patterns please edit .git/info/exclude
-#
-*~
-*.bak
+/.Build/*
 *.idea
-*.project
-*.swp
-.buildpath
-.cache
-.php_cs.cache
-.project
-.session
-.settings
-.TemporaryItems
-.webprj
-nbproject
+/composer.lock
+/nbproject
 /Resources/Private/Build/vendor

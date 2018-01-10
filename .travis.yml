@@ -2,27 +2,23 @@ sudo: false
 
 language: php
 
-matrix:
-  include:
-    - php: 5.5
-    - php: 5.6
-    - php: 7.0
+php:
+- 5.5
+- 5.6
+- 7.0
 
-#addons:
-#  apt:
-#    packages:
-#      - parallel
-#
 cache:
   directories:
-    - $HOME/.composer/cache
+  - .Build/vendor
+  - $HOME/.composer/cache
 
-#before_install:
-#  - composer self-update
-#  - composer --version
-#
+before_install:
+- phpenv config-rm xdebug.ini
+
+install:
+- composer install
+
 #before_script:
-#  - phpenv config-rm xdebug.ini
 #  - cd ..
 #  - mkdir typo3.cms
 #  - cd typo3.cms
