@@ -6,5 +6,5 @@
 [![Latest Unstable Version](https://poser.pugx.org/oliverklee/phpunit/v/unstable.svg)](https://packagist.org/packages/oliverklee/phpunit)
 [![License](https://poser.pugx.org/oliverklee/phpunit/license.svg)](https://packagist.org/packages/oliverklee/phpunit)
 
-Unit testing for TYPO3. Includes PHPUnit 4.8, Selenium, a BE test runner
-module, a CLI test runner, PhpStorm integration and a testing framework.
+Unit testing for TYPO3. Includes PHPUnit, Selenium, a CLI test runner and
+a testing framework.

@@ -1,20 +1,21 @@
 {
     "name": "oliverklee/phpunit",
-    "description": "Unit testing for TYPO3. Includes PHPUnit 4.8, Selenium, a BE test runner module, a CLI test runner, PhpStorm integration and a testing framework.",
+    "description": "Unit testing for TYPO3. Includes PHPUnit, Selenium, a CLI test runner and a testing framework.",
     "type": "typo3-cms-extension",
     "keywords": [
-        "TYPO3",
-        "TDD",
-        "PHPUnit"
+        "tdd",
+        "unit testing",
+        "phpunit",
+        "typo3"
     ],
     "homepage": "https://www.oliverklee.de/typo3-services/typo3-extensions/phpunit.html",
-    "license": "GPL-3.0+",
+    "license": "GPL-3.0-or-later",
     "authors": [
         {
             "name": "Oliver Klee",
             "email": "typo3-coding@oliverklee.de",
-            "role": "Developer",
-            "homepage": "https://www.oliverklee.de"
+            "homepage": "https://www.oliverklee.de",
+            "role": "developer"
         }
     ],
     "support": {
@@ -22,7 +23,7 @@
         "source": "https://github.com/oliverklee/ext-phpunit"
     },
     "require": {
-        "php": ">=5.5.0,<8.0",
+        "php": "^5.5.0 || ~7.0.0 || ~7.1.0 || ~7.2.0",
         "typo3/cms-core": "^7.6 || ^8.7"
     },
     "require-dev": {
@@ -43,5 +44,17 @@
         "classmap": [
             "Tests"
         ]
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://composer.typo3.org/"
+        }
+    ],
+    "config": {
+    },
+    "scripts": {
+    },
+    "extra": {
     }
 }
