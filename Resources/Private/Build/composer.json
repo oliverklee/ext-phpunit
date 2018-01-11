@@ -2,9 +2,9 @@
     "name": "helhum/phpunit-library",
     "description": "PHPUnit as library in PHAR file",
     "require": {
-        "phpunit/phpunit": "^4.8",
-        "phpunit/phpunit-selenium": "^2",
-        "mikey179/vfsStream": "^1"
+        "phpunit/phpunit": "^4.8.0",
+        "phpunit/phpunit-selenium": "^2.0.0",
+        "mikey179/vfsStream": "^1.0.0"
     },
     "bin": ["bootstrap.php"],
     "extra": {
