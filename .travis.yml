@@ -38,7 +38,14 @@ install:
 #  - mysql -u root travis_test -e "INSERT INTO be_users (username, password) VALUES ('_cli_phpunit', 'password')"
 #
 script:
-  # Run PHP lint on all PHP files.
-  - find Classes/ Tests/ -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
+- >
+  echo;
+  echo "Validating the composer.json";
+  composer validate --no-check-all --no-check-lock --strict;
+
+- >
+  echo;
+  echo "Linting all PHP files";
+  find Classes/ Tests/ -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l;
+
 #  - php typo3/cli_dispatch.phpsh phpunit -c typo3conf/ext/phpunit/Tests/Build/UnitTests.xml
-#  - find ../phpunit -name \*.php | parallel --gnu php -d display_errors=stderr -l {} > /dev/null \;
