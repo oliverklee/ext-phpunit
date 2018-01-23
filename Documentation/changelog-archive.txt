@@ -1,6 +1,6 @@
 1875d948 [TASK] Release version 4.8.36
 a25cdc0f [TASK] Update the dependencies to PHPUnit 4.8.36
-6b526ff8 [TASK] Set 8.7.x as mamximum compatible TYPO3 version
+6b526ff8 [TASK] Set 8.7.x as maximum compatible TYPO3 version
 eb0cb746 [TASK] Remove the Reports class
 ce2c438a [TASK] Require TYPO3 >= 7.6
 77925a79 [TASK] Release version 4.8.35
