@@ -3,9 +3,14 @@ sudo: false
 language: php
 
 php:
-- 5.5
-- 5.6
 - 7.0
+
+env:
+- TYPO3_VERSION="^7.6"
+- TYPO3_VERSION="^8.7"
+
+matrix:
+  exclude:
 
 cache:
   directories:
@@ -16,9 +21,11 @@ before_install:
 - phpenv config-rm xdebug.ini
 
 install:
-- composer install
+- composer require-typo3-version "$TYPO3_VERSION"
+- git checkout .
+- export TYPO3_PATH_ROOT=$PWD/.Build/public
 
-#before_script:
+before_script:
 #  - cd ..
 #  - mkdir typo3.cms
 #  - cd typo3.cms
@@ -36,13 +43,8 @@ install:
 #  # This can be removed with the release of 7.6.1
 #  - ./typo3cms extension:dumpclassloadinginformation || echo "FAILED"
 #  - mysql -u root travis_test -e "INSERT INTO be_users (username, password) VALUES ('_cli_phpunit', 'password')"
-#
-script:
-- >
-  echo;
-  echo "Validating the composer.json";
-  composer validate --no-check-all --no-check-lock --strict;
 
+script:
 - >
   echo;
   echo "Linting all PHP files";
