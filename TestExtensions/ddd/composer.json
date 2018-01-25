@@ -2,6 +2,10 @@
     "name": "oliverklee/ddd",
     "type": "typo3-cms-extension",
     "license": "GPL-3.0+",
+    "require": {
+        "oliverklee/phpunit": "@dev",
+        "oliverklee/bbb": "@dev"
+    },
     "replace": {
         "ddd": "self.version",
         "typo3-ter/ddd": "self.version"
