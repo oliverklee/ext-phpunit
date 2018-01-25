@@ -2,6 +2,9 @@
     "name": "oliverklee/aaa",
     "type": "typo3-cms-extension",
     "license": "GPL-3.0+",
+    "require": {
+        "oliverklee/phpunit": "@dev"
+    },
     "replace": {
         "aaa": "self.version",
         "typo3-ter/aaa": "self.version"

@@ -18,6 +18,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - remove the generated API documentation
 
 ### Fixed
+- fix the "replace" section in the composer.json of the test extensions
 
 ## 4.8.36
 
