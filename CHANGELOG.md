@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
-- validate the composer.json
+- Composer script for PHP linting
 - add TravisCI builds
 
 ### Changed
