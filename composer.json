@@ -24,10 +24,10 @@
     },
     "require": {
         "php": "^5.5.0 || ~7.0.0",
-        "typo3/cms-core": "^7.6 || ^8.7"
+        "typo3/cms-core": "^7.6.23 || ^8.7.9"
     },
     "require-dev": {
-        "typo3/cms-frontend": "^7.6 || ^8.7",
+        "typo3/cms-frontend": "^7.6.23 || ^8.7.9",
         "helhum/typo3-composer-setup": "^0.5.1",
         "phpunit/phpunit": "^4.8.0",
         "phpunit/phpunit-selenium": "^2.0.0",
