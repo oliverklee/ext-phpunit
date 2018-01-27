@@ -33,8 +33,10 @@
         "oliverklee/ddd": "@dev",
         "oliverklee/user-phpunittest": "@dev",
         "oliverklee/user-phpunittest2": "@dev",
+
         "typo3/cms-frontend": "^7.6.23 || ^8.7.9",
-        "helhum/typo3-composer-setup": "^0.5.1",
+        "helhum/typo3-console": "^4.6.1",
+
         "phpunit/phpunit": "^4.8.0",
         "phpunit/phpunit-selenium": "^2.0.0",
         "mikey179/vfsStream": "^1.0.0"
@@ -68,11 +70,21 @@
     },
     "scripts": {
         "ci:php:lint": "find *.php Classes/ Configuration/ Scripts/ TestExtensions/ Tests/ -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
+        "ci:tests:unit": ".Build/public/typo3/cli_dispatch.phpsh phpunit Tests/Unit/",
+        "ci:tests:functional": ".Build/public/typo3/cli_dispatch.phpsh phpunit Tests/Functional/",
+        "ci:tests": [
+            "@ci:tests:unit",
+            "@ci:tests:functional"
+        ],
+        "ci:dynamic": [
+            "@ci:tests"
+        ],
         "ci:static": [
             "@ci:php:lint"
         ],
         "ci": [
-            "@ci:static"
+            "@ci:static",
+            "@ci:dynamic"
         ],
         "require-typo3-version": [
             "@php -r '$conf=json_decode(file_get_contents(__DIR__.\"/composer.json\"),true);$conf[\"require\"][\"typo3/cms-core\"]=$_SERVER[\"argv\"][1];file_put_contents(__DIR__.\"/composer.json\",json_encode($conf,JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT).chr(10));'",
@@ -93,6 +105,9 @@
         "typo3/cms": {
             "cms-package-dir": "{$vendor-dir}/typo3/cms",
             "web-dir": ".Build/public"
+        },
+        "helhum/typo3-console": {
+            "install-extension-dummy": "0"
         }
     }
 }
