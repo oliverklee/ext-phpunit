@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## 5.x.y
 
 ### Added
+- Install TYPO3 8.7 on Travis (#41)
 
 ### Changed
 - Upgrade to PHPUnit 5.3.x (#38)
