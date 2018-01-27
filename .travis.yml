@@ -48,6 +48,6 @@ script:
 - >
   echo;
   echo "Linting all PHP files";
-  composer php-lint;
+  composer ci:php:lint;
 
 #  - php typo3/cli_dispatch.phpsh phpunit -c typo3conf/ext/phpunit/Tests/Build/UnitTests.xml
