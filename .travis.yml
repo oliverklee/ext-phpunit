@@ -6,8 +6,11 @@ php:
 - 7.0
 
 env:
-- TYPO3_VERSION="^7.6"
-- TYPO3_VERSION="^8.7"
+  global:
+  - DATABASE_USER=travis DATABASE_HOST=localhost DATABASE_PORT=3306 DATABASE_NAME=typo3 DATABASE_PASSWORD=''
+  - TYPO3_PATH_ROOT=$PWD/.Build/public
+  matrix:
+  - TYPO3_VERSION="^7.6"
 
 matrix:
   exclude:
@@ -21,33 +24,29 @@ before_install:
 - phpenv config-rm xdebug.ini
 
 install:
-- composer require-typo3-version "$TYPO3_VERSION"
-- git checkout .
-- export TYPO3_PATH_ROOT=$PWD/.Build/public
+- >
+  composer require-typo3-version "$TYPO3_VERSION";
+- >
+  .Build/vendor/bin/typo3cms install:setup --non-interactive --site-setup-type="site"
+  --database-user-name="${DATABASE_USER}" --database-host-name="${DATABASE_HOST}"
+  --database-port="${DATABASE_PORT}" --database-name="${DATABASE_NAME}"
+  --admin-user-name="admin" --admin-password="password" --site-name="Test installation";
+- >
+  git checkout .;
 
 before_script:
-#  - cd ..
-#  - mkdir typo3.cms
-#  - cd typo3.cms
-#  - cp ../phpunit/Tests/Build/composer.json .
-#  - composer require typo3/cms="$TYPO3"
-#  - ./typo3cms install:setup --non-interactive --database-user-name="root" --database-host-name="localhost" --database-port="3306" --database-name="travis_test" --admin-user-name="admin" --admin-password="password" --site-name="Travis Install"
-#  - ln -s ../../../phpunit typo3conf/ext/phpunit
-#  - ./typo3cms extension:install phpunit
-#  - >
-#    for extension in aaa bbb ccc ddd user_phpunittest user_phpunittest2; do
-#      ln -s ../../../phpunit/TestExtensions/$extension typo3conf/ext/$extension
-#      ./typo3cms extension:install $extension
-#    done
-#  # This is needed as long as 7.6.1 isn't released due to wrong slot settings within the core
-#  # This can be removed with the release of 7.6.1
-#  - ./typo3cms extension:dumpclassloadinginformation || echo "FAILED"
-#  - mysql -u root travis_test -e "INSERT INTO be_users (username, password) VALUES ('_cli_phpunit', 'password')"
+- mysql -u ${DATABASE_USER} ${DATABASE_NAME} -e "INSERT INTO be_users (username, password) VALUES ('_cli_phpunit', 'password')"
 
 script:
 - >
   echo;
   echo "Linting all PHP files";
   composer ci:php:lint;
-
-#  - php typo3/cli_dispatch.phpsh phpunit -c typo3conf/ext/phpunit/Tests/Build/UnitTests.xml
+- >
+  echo;
+  echo "Running the unit tests";
+  composer ci:tests:unit;
+- >
+  echo;
+  echo "Running the functional tests";
+  composer ci:tests:functional;
