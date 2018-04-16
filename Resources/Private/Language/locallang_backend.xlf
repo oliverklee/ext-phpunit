@@ -78,12 +78,6 @@
 			<trans-unit id="run_selenium_tests">
 				<source>Run Selenium Tests</source>
 			</trans-unit>
-			<trans-unit id="tx_phpunit_test">
-				<source>PHPUnit test records</source>
-			</trans-unit>
-			<trans-unit id="tx_phpunit_test.title">
-				<source>Title</source>
-			</trans-unit>
 			<trans-unit id="test_are_run_in_current_backend_context.title">
 				<source>Tests run in the current back-end context</source>
 			</trans-unit>

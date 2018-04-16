@@ -78,12 +78,6 @@
 			<trans-unit id="run_selenium_tests">
 				<target>Selenium-Tests ausführen</target>
 			</trans-unit>
-			<trans-unit id="tx_phpunit_test">
-				<target>PHPUnit-Testdatensätze</target>
-			</trans-unit>
-			<trans-unit id="tx_phpunit_test.title">
-				<target>Titel</target>
-			</trans-unit>
 			<trans-unit id="test_are_run_in_current_backend_context.title">
 				<target>Tests werden im aktuellen Backend-Kontext ausgeführt</target>
 			</trans-unit>

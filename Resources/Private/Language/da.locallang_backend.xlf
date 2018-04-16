@@ -63,12 +63,6 @@
 			<trans-unit id="testing_failure">
 				<target>Mislykkedes!</target>
 			</trans-unit>
-			<trans-unit id="tx_phpunit_test">
-				<target>PHPUnit-Test optegnelser</target>
-			</trans-unit>
-			<trans-unit id="tx_phpunit_test.title">
-				<target>Titel</target>
-			</trans-unit>
 			<trans-unit id="test_are_run_in_current_backend_context.title">
 				<target>Tests bliver udført i kontekst af Backend</target>
 			</trans-unit>
