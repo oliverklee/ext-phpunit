@@ -22,6 +22,11 @@ namespace OliverKlee\Phpunit\Tests\Functional\Selenium;
 class TestCaseTest extends \Tx_Phpunit_Selenium_TestCase
 {
     /**
+     * @var bool
+     */
+    protected $backupGlobals = false;
+
+    /**
      * @test
      */
     public function exampleSiteHasTitle()
