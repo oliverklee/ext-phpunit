@@ -10,7 +10,7 @@
  * writing. "version" and "dependencies" must not be touched!
  ***************************************************************/
 
-$EM_CONF[$_EXTKEY] = array(
+$EM_CONF[$_EXTKEY] = [
     'title' => 'Second test extension for tx_phpunit',
     'description' => 'A test extension used for running the phpunit unit tests.',
     'category' => 'example',
@@ -30,13 +30,13 @@ $EM_CONF[$_EXTKEY] = array(
     'lockType' => '',
     'author_company' => 'oliverklee.de',
     'version' => '4.8.36',
-    'constraints' => array(
-        'depends' => array(
+    'constraints' => [
+        'depends' => [
             'user_phpunittest' => '',
-        ),
-        'conflicts' => array(),
-        'suggests' => array(),
-    ),
+        ],
+        'conflicts' => [],
+        'suggests' => [],
+    ],
     '_md5_values_when_last_written' => '',
-    'suggests' => array(),
-);
+    'suggests' => [],
+];

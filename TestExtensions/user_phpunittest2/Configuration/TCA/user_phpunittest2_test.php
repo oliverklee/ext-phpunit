@@ -32,7 +32,7 @@ return [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
                 'eval' => 'date',
-            ]
+            ],
         ],
         'title' => [
             'config' => [
