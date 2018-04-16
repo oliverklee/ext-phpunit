@@ -3,56 +3,44 @@ defined('TYPO3_MODE') or die('Access denied.');
 
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:phpunit/Resource/Private/Language/locallang_backend.xlf:tx_phpunit_test',
-        'readOnly' => 1,
-        'adminOnly' => 1,
-        'rootLevel' => 1,
-        'label' => 'title',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
         'versioningWS' => false,
-        'default_sortby' => 'ORDER BY uid',
         'delete' => 'deleted',
+        'hideTable' => true,
         'enablecolumns' => [
             'disabled' => 'hidden',
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'iconfile' => 'EXT:phpunit/ext_icon.png',
     ],
     'interface' => [
-        'showRecordFieldList' => 'hidden,starttime,endtime,title,related_records',
+        'showRecordFieldList' => '',
     ],
     'columns' => [
         'hidden' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
             'config' => [
                 'type' => 'check',
                 'default' => '0',
             ],
         ],
         'starttime' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.starttime',
             'config' => [
                 'type' => 'none',
                 'renderType' => 'inputDateTime',
-                'size' => '8',
-                'max' => '20',
+                'size' => 8,
+                'max' => 20,
                 'eval' => 'date',
                 'default' => '0',
                 'checkbox' => '0',
             ],
         ],
         'endtime' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.endtime',
             'config' => [
                 'type' => 'none',
-                'size' => '8',
-                'max' => '20',
+                'size' => 8,
+                'max' => 20,
                 'eval' => 'date',
                 'checkbox' => '0',
                 'default' => '0',
@@ -63,16 +51,13 @@ return [
             ],
         ],
         'title' => [
-            'exclude' => 0,
-            'label' => 'LLL:EXT:phpunit/Resource/Private/Language/locallang_backend.xlf:tx_phpunit_test.title',
             'config' => [
                 'type' => 'none',
-                'size' => '30',
+                'size' => 30,
             ],
         ],
         'related_records' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
             'label' => 'Related records (m:n relation using an m:n table)',
             'config' => [
                 'type' => 'select',
@@ -86,7 +71,6 @@ return [
         ],
         'bidirectional' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
             'label' => 'Related records (m:n relation using an m:n table)',
             'config' => [
                 'type' => 'select',
@@ -101,9 +85,9 @@ return [
         ],
     ],
     'types' => [
-        '0' => ['showitem' => 'title, related_records'],
+        '0' => ['showitem' => ''],
     ],
     'palettes' => [
-        '1' => ['showitem' => 'starttime, endtime'],
+        '1' => ['showitem' => ''],
     ],
 ];
