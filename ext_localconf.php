@@ -10,8 +10,10 @@ if (!class_exists('PHPUnit_Framework_TestCase') || !class_exists('PHPUnit_Extens
 
 if (TYPO3_MODE === 'BE'
     && \TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) <= 8000000) {
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::registerAjaxHandler('PHPUnitAJAX::saveCheckbox',
-        'Tx_Phpunit_BackEnd_Ajax->ajaxBroker');
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::registerAjaxHandler(
+        'PHPUnitAJAX::saveCheckbox',
+        'Tx_Phpunit_BackEnd_Ajax->ajaxBroker'
+    );
 }
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['GLOBAL']['cliKeys']['phpunit'] = [

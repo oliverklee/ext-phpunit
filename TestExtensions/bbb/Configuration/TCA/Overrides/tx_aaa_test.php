@@ -5,7 +5,7 @@ $tempColumns = [
     'tx_bbb_test' => [
         'config' => [
             'type' => 'input',
-        ]
+        ],
     ],
 ];
 

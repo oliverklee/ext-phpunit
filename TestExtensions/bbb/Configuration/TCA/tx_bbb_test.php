@@ -16,7 +16,7 @@ return [
         'hidden' => [
             'config' => [
                 'type' => 'check',
-            ]
+            ],
         ],
     ],
 ];
