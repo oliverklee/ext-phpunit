@@ -19,6 +19,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - remove the generated API documentation
 
 ### Fixed
+- Avoid serialization error in the Selenium tests (#11)
 - fix the "replace" section in the composer.json of the test extensions
 
 ## 4.8.36
