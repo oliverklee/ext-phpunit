@@ -515,6 +515,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         }
 
         // single test case
+        /** @var string[][] $testsOptionsArr */
         $testsOptionsArr = [];
         $testCaseFile = $this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE);
         $useHumanReadableOptionLabels = $this->userSettingsService->getAsBoolean('testdox');

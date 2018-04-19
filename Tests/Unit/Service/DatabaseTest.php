@@ -52,7 +52,7 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
      */
     private function sortExplode($valueList)
     {
-        if ($valueList == '') {
+        if ($valueList === '') {
             return [];
         }
 
@@ -523,7 +523,7 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
         $definition = \Tx_Phpunit_Service_Database::getColumnDefinition('tx_phpunit_test', 'title');
 
         self::assertTrue(
-            $definition['Field'] == 'title'
+            $definition['Field'] === 'title'
         );
     }
 

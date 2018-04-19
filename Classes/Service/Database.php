@@ -178,10 +178,10 @@ class Tx_Phpunit_Service_Database
         if ($recursionDepth < 0) {
             throw new InvalidArgumentException('$recursionDepth must be >= 0.', 1331315492);
         }
-        if ($recursionDepth == 0) {
+        if ($recursionDepth === 0) {
             return (string)$startPages;
         }
-        if ($startPages == '') {
+        if ($startPages === '') {
             return '';
         }
 
@@ -226,7 +226,7 @@ class Tx_Phpunit_Service_Database
      */
     public static function delete($tableName, $whereClause)
     {
-        if ($tableName == '') {
+        if ($tableName === '') {
             throw new InvalidArgumentException('The table name must not be empty.', 1331315508);
         }
 
@@ -259,7 +259,7 @@ class Tx_Phpunit_Service_Database
      */
     public static function update($tableName, $whereClause, array $fields)
     {
-        if ($tableName == '') {
+        if ($tableName === '') {
             throw new InvalidArgumentException('The table name must not be empty.', 1331315523);
         }
 
@@ -293,7 +293,7 @@ class Tx_Phpunit_Service_Database
      */
     public static function insert($tableName, array $recordData)
     {
-        if ($tableName == '') {
+        if ($tableName === '') {
             throw new InvalidArgumentException('The table name must not be empty.', 1331315544);
         }
         if (empty($recordData)) {
@@ -341,10 +341,10 @@ class Tx_Phpunit_Service_Database
         $orderBy = '',
         $limit = ''
     ) {
-        if ($tableNames == '') {
+        if ($tableNames === '') {
             throw new InvalidArgumentException('The table names must not be empty.', 1331315600);
         }
-        if ($fields == '') {
+        if ($fields === '') {
             throw new InvalidArgumentException('$fields must not be empty.', 1331315609);
         }
 
@@ -576,7 +576,7 @@ class Tx_Phpunit_Service_Database
      */
     public static function existsExactlyOneRecord($tableName, $whereClause = '')
     {
-        return self::count($tableName, $whereClause) == 1;
+        return self::count($tableName, $whereClause) === 1;
     }
 
     /**
@@ -657,7 +657,7 @@ class Tx_Phpunit_Service_Database
      */
     public static function existsTable($tableName)
     {
-        if ($tableName == '') {
+        if ($tableName === '') {
             throw new InvalidArgumentException('The table name must not be empty.', 1331315636);
         }
 
@@ -749,7 +749,7 @@ class Tx_Phpunit_Service_Database
      */
     public static function tableHasColumn($tableName, $column)
     {
-        if ($column == '') {
+        if ($column === '') {
             return false;
         }
 
