@@ -50,7 +50,7 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
 
     protected function setUp()
     {
-        require_once(ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Fixtures/ProtectedClass.php');
+        require_once ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Fixtures/ProtectedClass.php';
 
         $this->protectedClassInstance = new ProtectedClass();
         $this->mock = $this->getMock(ProtectedClass::class, ['dummy']);
