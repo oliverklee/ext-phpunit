@@ -14,6 +14,7 @@ namespace OliverKlee\Phpunit\Tests\Unit\Service;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
@@ -111,7 +112,7 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
      */
     public function classIsSingleton()
     {
-        self::assertInstanceOf('TYPO3\\CMS\\Core\\SingletonInterface', $this->subject);
+        self::assertInstanceOf(SingletonInterface::class, $this->subject);
     }
 
     /**

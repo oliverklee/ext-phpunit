@@ -145,7 +145,7 @@ class Tx_Phpunit_Service_Database
             ) {
                 self::$pageForEnableFields = $GLOBALS['TSFE']->sys_page;
             } else {
-                self::$pageForEnableFields = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\Page\\PageRepository');
+                self::$pageForEnableFields = GeneralUtility::makeInstance(PageRepository::class);
             }
         }
     }

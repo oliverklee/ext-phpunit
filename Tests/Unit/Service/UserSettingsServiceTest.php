@@ -15,6 +15,7 @@ namespace OliverKlee\Phpunit\Tests\Unit\Service;
  */
 
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
@@ -44,7 +45,7 @@ class UserSettingsServiceTest extends \Tx_Phpunit_TestCase
             self::markTestSkipped('The BE module is not available in TYPO3 CMS >= 8.');
         }
 
-        $GLOBALS['BE_USER'] = $this->getMock('TYPO3\\CMS\\Core\\Authentication\\BackendUserAuthentication');
+        $GLOBALS['BE_USER'] = $this->getMock(BackendUserAuthentication::class);
 
         $this->subject = new \Tx_Phpunit_Service_UserSettingsService();
     }
@@ -70,7 +71,7 @@ class UserSettingsServiceTest extends \Tx_Phpunit_TestCase
     public function classIsSingleton()
     {
         self::assertInstanceOf(
-            'TYPO3\\CMS\\Core\\SingletonInterface',
+            SingletonInterface::class,
             $this->subject
         );
     }

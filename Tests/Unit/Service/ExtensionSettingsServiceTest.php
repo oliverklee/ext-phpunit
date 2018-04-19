@@ -14,9 +14,10 @@ namespace OliverKlee\Phpunit\Tests\Unit\Service;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\SingletonInterface;
+
 /**
  * Test case.
- *
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
@@ -66,7 +67,7 @@ class ExtensionSettingsServiceTest extends \Tx_Phpunit_TestCase
     public function classIsSingleton()
     {
         self::assertInstanceOf(
-            'TYPO3\\CMS\\Core\\SingletonInterface',
+            SingletonInterface::class,
             $this->subject
         );
     }

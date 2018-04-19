@@ -15,6 +15,9 @@
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Install\Service\SqlExpectedSchemaService;
+use TYPO3\CMS\Install\Service\SqlSchemaMigrationService;
 
 /**
  * Database testcase base class.
@@ -306,10 +309,10 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
         $cacheTables = \TYPO3\CMS\Core\Cache\DatabaseSchemaService::getCachingFrameworkRequiredDatabaseSchema();
         $this->importDatabaseDefinitions($cacheTables);
 
-        /* @var TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
-        $objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-        /** @var TYPO3\CMS\Install\Service\SqlExpectedSchemaService $sqlExpectedSchemaService */
-        $sqlExpectedSchemaService = $objectManager->get('TYPO3\\CMS\\Install\\Service\\SqlExpectedSchemaService');
+        /* @var ObjectManager $objectManager */
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        /** @var SqlExpectedSchemaService $sqlExpectedSchemaService */
+        $sqlExpectedSchemaService = $objectManager->get(SqlExpectedSchemaService::class);
 
         $databaseDefinitions = $sqlExpectedSchemaService->getTablesDefinitionString(true);
 
@@ -326,8 +329,8 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
      */
     private function importDatabaseDefinitions($definitionContent)
     {
-        /* @var \TYPO3\CMS\Install\Service\SqlSchemaMigrationService $install */
-        $install = GeneralUtility::makeInstance('TYPO3\\CMS\\Install\\Service\\SqlSchemaMigrationService');
+        /* @var SqlSchemaMigrationService $install */
+        $install = GeneralUtility::makeInstance(SqlSchemaMigrationService::class);
 
         $fieldDefinitionsFile = $install->getFieldDefinitions_fileContent($definitionContent);
         if (empty($fieldDefinitionsFile)) {

@@ -15,6 +15,10 @@ namespace OliverKlee\Phpunit\Tests\Unit\Service;
  */
 
 use org\bovigo\vfs\vfsStream;
+use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Tests\BaseTestCase;
+use TYPO3\CMS\Core\Tests\FunctionalTestCase;
+use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
@@ -58,7 +62,7 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
     public function classIsSingleton()
     {
         self::assertInstanceOf(
-            'TYPO3\\CMS\\Core\\SingletonInterface',
+            SingletonInterface::class,
             $this->subject
         );
     }
@@ -381,9 +385,9 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
             'extbase base test class (1.3-4.7)' => ['Tx_Extbase_Tests_Unit_BaseTestCase'],
             'extbase unit base test class (since 6.0)' => ['TYPO3\\CMS\\Extbase\\Tests\\Unit\\BaseTestCase'],
             'extbase functional base test class (since 6.0)' => ['Tx_Extbase_Tests_Functional_BaseTestCase'],
-            'Core base test class (since 6.0)' => ['TYPO3\\CMS\\Core\\Tests\\BaseTestCase'],
-            'Core unit base test class (since 6.0)' => ['TYPO3\\CMS\\Core\\Tests\\UnitTestCase'],
-            'Core functional base test class (since 6.0)' => ['TYPO3\\CMS\\Core\\Tests\\FunctionalTestCase'],
+            'Core base test class (since 6.0)' => [BaseTestCase::class],
+            'Core unit base test class (since 6.0)' => [UnitTestCase::class],
+            'Core functional base test class (since 6.0)' => [FunctionalTestCase::class],
         ];
         foreach ($classNamesThatMightNotExist as $key => $className) {
             if (class_exists($className[0], true)) {

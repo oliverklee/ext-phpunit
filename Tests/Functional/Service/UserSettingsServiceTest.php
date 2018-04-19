@@ -55,7 +55,7 @@ class UserSettingsServiceTest extends \Tx_Phpunit_TestCase
             self::markTestSkipped('The BE module is not available in TYPO3 CMS >= 8.');
         }
 
-        $GLOBALS['BE_USER'] = $this->getMock('TYPO3\\CMS\\Core\\Authentication\\BackendUserAuthentication');
+        $GLOBALS['BE_USER'] = $this->getMock(BackendUserAuthentication::class);
 
         $this->subject = new \Tx_Phpunit_Service_UserSettingsService();
 
