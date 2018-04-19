@@ -125,8 +125,8 @@ class ModuleTest extends \Tx_Phpunit_TestCase
         $this->testCaseService->injectUserSettingsService($this->userSettingsService);
         $this->subject->injectTestCaseService($this->testCaseService);
 
-        $this->progressBarViewHelper = $this->getMock('Tx_Phpunit_ViewHelpers_ProgressBarViewHelper');
-        GeneralUtility::addInstance('Tx_Phpunit_ViewHelpers_ProgressBarViewHelper', $this->progressBarViewHelper);
+        $this->progressBarViewHelper = $this->getMock(\Tx_Phpunit_ViewHelpers_ProgressBarViewHelper::class);
+        GeneralUtility::addInstance(\Tx_Phpunit_ViewHelpers_ProgressBarViewHelper::class, $this->progressBarViewHelper);
 
         $this->documentTemplate = $this->getMock(DocumentTemplate::class, ['startPage']);
         GeneralUtility::addInstance(DocumentTemplate::class, $this->documentTemplate);
@@ -427,7 +427,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
         $subject->injectOutputService($this->outputService);
 
         /** @var \Tx_Phpunit_Service_TestFinder|\PHPUnit_Framework_MockObject_MockObject $testFinder */
-        $testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder');
+        $testFinder = $this->getMock(\Tx_Phpunit_Service_TestFinder::class);
         $testFinder->expects(self::any())->method('existsTestableForAnything')->will(self::returnValue(false));
         $subject->injectTestFinder($testFinder);
 
@@ -457,7 +457,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
         $subject->injectTestFinder($this->testFinder);
 
         /** @var \Tx_Phpunit_Service_TestFinder|\PHPUnit_Framework_MockObject_MockObject $testFinder */
-        $testFinder = $this->getMock('Tx_Phpunit_Service_TestFinder');
+        $testFinder = $this->getMock(\Tx_Phpunit_Service_TestFinder::class);
         $testFinder->expects(self::any())->method('existsTestableForAnything')->will(self::returnValue(false));
         $subject->injectTestFinder($testFinder);
 
@@ -607,7 +607,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
         $directory = 'vfs://Foo/';
 
         /** @var \Tx_Phpunit_Service_TestCaseService|\PHPUnit_Framework_MockObject_MockObject $testCaseService */
-        $testCaseService = $this->getMock('Tx_Phpunit_Service_TestCaseService', ['findTestCaseFilesInDirectory']);
+        $testCaseService = $this->getMock(\Tx_Phpunit_Service_TestCaseService::class, ['findTestCaseFilesInDirectory']);
         $testCaseService->expects(self::once())->method('findTestCaseFilesInDirectory')->with($directory);
         $this->subject->injectTestCaseService($testCaseService);
 
@@ -625,7 +625,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
         $testFiles = ['class.testOneTest.php', 'class.testTwoTest.php'];
 
         /** @var \Tx_Phpunit_Service_TestCaseService|\PHPUnit_Framework_MockObject_MockObject $testCaseService */
-        $testCaseService = $this->getMock('Tx_Phpunit_Service_TestCaseService', ['findTestCaseFilesInDirectory']);
+        $testCaseService = $this->getMock(\Tx_Phpunit_Service_TestCaseService::class, ['findTestCaseFilesInDirectory']);
         $testCaseService->expects(self::once())->method('findTestCaseFilesInDirectory')->will(self::returnValue($testFiles));
         $this->subject->injectTestCaseService($testCaseService);
 

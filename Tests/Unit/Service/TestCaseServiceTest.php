@@ -20,6 +20,7 @@ use TYPO3\CMS\Core\Tests\BaseTestCase;
 use TYPO3\CMS\Core\Tests\FunctionalTestCase;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Tests\SeleniumBaseTestCase;
 
 /**
  * Test case.
@@ -112,7 +113,7 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
 
         /** @var \Tx_Phpunit_Service_TestCaseService|\PHPUnit_Framework_MockObject_MockObject $subject */
         $subject = $this->getMock(
-            'Tx_Phpunit_Service_TestCaseService',
+            \Tx_Phpunit_Service_TestCaseService::class,
             ['isNotFixturesPath', 'isTestCaseFileName']
         );
         $subject->expects(self::any())->method('isNotFixturesPath')->will((self::returnValue(true)));
@@ -134,7 +135,7 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
 
         /** @var \Tx_Phpunit_Service_TestCaseService|\PHPUnit_Framework_MockObject_MockObject $subject */
         $subject = $this->getMock(
-            'Tx_Phpunit_Service_TestCaseService',
+            \Tx_Phpunit_Service_TestCaseService::class,
             ['isNotFixturesPath', 'isTestCaseFileName']
         );
         $subject->expects(self::any())->method('isNotFixturesPath')->will((self::returnValue(true)));
@@ -372,16 +373,16 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
             'existing class with valid _testcase suffix without valid base class' => ['SomeDummyInvalid_testcase'],
             'PHPUnit extension base test class' => ['Tx_Phpunit_TestCase'],
             'PHPUnit framework base test class' => ['PHPUnit_Framework_TestCase'],
-            'PHPUnit extension selenium base test class' => ['Tx_Phpunit_Selenium_TestCase'],
-            'PHPUnit framework selenium base test class' => ['PHPUnit_Extensions_Selenium2TestCase'],
-            'PHPUnit extension database base test class' => ['Tx_Phpunit_Database_TestCase'],
-            'abstract subclass of PHPUnit extension base test class' => ['Tx_Phpunit_TestCase'],
+            'PHPUnit extension selenium base test class' => [\Tx_Phpunit_Selenium_TestCase::class],
+            'PHPUnit framework selenium base test class' => [\PHPUnit_Extensions_Selenium2TestCase::class],
+            'PHPUnit extension database base test class' => [\Tx_Phpunit_Database_TestCase::class],
+            'abstract subclass of PHPUnit extension base test class' => [Tx_Phpunit_TestCase::class],
         ];
 
         $classNamesThatMightNotExist = [
-            'extbase selenium base test class' => ['\\TYPO3\\CMS\\Extbase\\Tests\\SeleniumBaseTestCase'],
-            'extbase unit base test class' => ['TYPO3\\CMS\\Extbase\\Tests\\Unit\\BaseTestCase'],
-            'extbase functional base test class' => ['Tx_Extbase_Tests_Functional_BaseTestCase'],
+            'extbase selenium base test class' => [SeleniumBaseTestCase::class],
+            'extbase unit base test class' => [\TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase::class],
+            'extbase functional base test class' => [\Tx_Extbase_Tests_Functional_BaseTestCase::class],
             'Core base test class' => [BaseTestCase::class],
             'Core unit base test class' => [UnitTestCase::class],
             'Core functional base test class' => [FunctionalTestCase::class],

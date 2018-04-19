@@ -45,7 +45,7 @@ class Tx_Phpunit_Service_UserSettingsService extends Tx_Phpunit_AbstractDataCont
         if ($seleniumService !== null) {
             $this->seleniumService = $seleniumService;
         } else {
-            $this->seleniumService = GeneralUtility::makeInstance('Tx_Phpunit_Service_SeleniumService');
+            $this->seleniumService = GeneralUtility::makeInstance(\Tx_Phpunit_Service_SeleniumService::class);
         }
     }
 

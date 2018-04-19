@@ -45,7 +45,7 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
 
         $this->extensionSettingsService = new \Tx_Phpunit_TestingDataContainer();
         $this->seleniumService = $this->getMock(
-            'Tx_Phpunit_Service_SeleniumService',
+            \Tx_Phpunit_Service_SeleniumService::class,
             null,
             [$this->extensionSettingsService]
         );

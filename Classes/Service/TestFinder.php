@@ -247,7 +247,7 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface
         $testsPath = $this->findTestsPathForExtension($extensionKey);
 
         /** @var Tx_Phpunit_Testable $testable */
-        $testable = GeneralUtility::makeInstance('Tx_Phpunit_Testable');
+        $testable = GeneralUtility::makeInstance(\Tx_Phpunit_Testable::class);
         $testable->setKey($extensionKey);
         $testable->setTitle($extensionKey);
         $testable->setCodePath(ExtensionManagementUtility::extPath($extensionKey));
