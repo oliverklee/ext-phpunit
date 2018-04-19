@@ -334,7 +334,7 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
         // Note: This currently does not contain any other classes as loading any other valid test case classes would
         // cause them to be listed as valid test cases in the user interface.
         $classNames = [
-            'subclass of Tx_Phpunit_TestCase' => [get_class($this)],
+            'subclass of \\Tx_Phpunit_TestCase' => [get_class($this)],
         ];
 
         return $classNames;
@@ -408,7 +408,7 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
 
         $abstractSubclassTestcaseName = 'AbstractDummyTestcase';
         if (!class_exists($abstractSubclassTestcaseName, false)) {
-            eval('class ' . $abstractSubclassTestcaseName . ' extends Tx_Phpunit_TestCase {}');
+            eval('class ' . $abstractSubclassTestcaseName . ' extends \\Tx_Phpunit_TestCase {}');
         }
     }
 

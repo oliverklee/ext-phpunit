@@ -14,7 +14,7 @@
 
 /**
  * This interface should be used for classes that should get called by a hook
- * when Tx_Phpunit_Framework::cleanUp() is called.
+ * when \Tx_Phpunit_Framework::cleanUp() is called.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */

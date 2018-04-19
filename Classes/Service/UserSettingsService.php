@@ -23,7 +23,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Service_UserSettingsService extends Tx_Phpunit_AbstractDataContainer implements Tx_Phpunit_Interface_UserSettingsService, SingletonInterface
+class Tx_Phpunit_Service_UserSettingsService extends \Tx_Phpunit_AbstractDataContainer implements \Tx_Phpunit_Interface_UserSettingsService, SingletonInterface
 {
     /**
      * @var string
@@ -31,16 +31,16 @@ class Tx_Phpunit_Service_UserSettingsService extends Tx_Phpunit_AbstractDataCont
     const PHPUNIT_SETTINGS_KEY = 'Tx_Phpunit_BackEndSettings';
 
     /**
-     * @var Tx_Phpunit_Interface_SeleniumService
+     * @var \Tx_Phpunit_Interface_SeleniumService
      */
     protected $seleniumService = null;
 
     /**
      * Constructor.
      *
-     * @param Tx_Phpunit_Interface_SeleniumService|null $seleniumService
+     * @param \Tx_Phpunit_Interface_SeleniumService|null $seleniumService
      */
-    public function __construct(Tx_Phpunit_Interface_SeleniumService $seleniumService = null)
+    public function __construct(\Tx_Phpunit_Interface_SeleniumService $seleniumService = null)
     {
         if ($seleniumService !== null) {
             $this->seleniumService = $seleniumService;

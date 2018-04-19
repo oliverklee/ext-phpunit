@@ -20,7 +20,7 @@
  *
  * @author Felix Rauch <rauch@skaiamail.de>
  */
-abstract class Tx_Phpunit_ViewHelpers_AbstractTagViewHelper extends Tx_Phpunit_ViewHelpers_AbstractViewHelper
+abstract class Tx_Phpunit_ViewHelpers_AbstractTagViewHelper extends \Tx_Phpunit_ViewHelpers_AbstractViewHelper
 {
     /**
      * Renders any HTML tag with its own parameter either around some content.
@@ -35,19 +35,19 @@ abstract class Tx_Phpunit_ViewHelpers_AbstractTagViewHelper extends Tx_Phpunit_V
      *
      * @return string the rendered HTML tag
      *
-     * @throws InvalidArgumentException if the given tagName is empty
+     * @throws \InvalidArgumentException if the given tagName is empty
      */
     protected function renderTag($tagName, array $attributes = [], $content = '')
     {
         if (empty($tagName)) {
-            throw new InvalidArgumentException('$tagName must not be NULL or empty.', 1343763729);
+            throw new \InvalidArgumentException('$tagName must not be NULL or empty.', 1343763729);
         }
 
         $output = '<' . htmlspecialchars($tagName);
 
         foreach ($attributes as $key => $value) {
             if (!is_string($key) || $key === '') {
-                throw new InvalidArgumentException('Attribute key must not be empty.', 1448657422);
+                throw new \InvalidArgumentException('Attribute key must not be empty.', 1448657422);
             }
             $output .= ' ' . htmlspecialchars($key) . '="' . htmlspecialchars($value) . '"';
         }

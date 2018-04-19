@@ -41,12 +41,12 @@ class Tx_Phpunit_BackEnd_TestStatistics
      *
      * @return void
      *
-     * @throws BadMethodCallException
+     * @throws \BadMethodCallException
      */
     public function start()
     {
         if ($this->isRunning) {
-            throw new BadMethodCallException('start may only be called once.', 1335895180);
+            throw new \BadMethodCallException('start may only be called once.', 1335895180);
         }
 
         $this->startTime = microtime(true);
@@ -60,12 +60,12 @@ class Tx_Phpunit_BackEnd_TestStatistics
      *
      * @return void
      *
-     * @throws BadMethodCallException
+     * @throws \BadMethodCallException
      */
     public function stop()
     {
         if (!$this->isRunning) {
-            throw new BadMethodCallException('stop may only be called once after start has been called.', 1335895297);
+            throw new \BadMethodCallException('stop may only be called once after start has been called.', 1335895297);
         }
 
         $this->currentTime = microtime(true);

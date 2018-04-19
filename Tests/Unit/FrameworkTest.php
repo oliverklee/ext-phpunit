@@ -1389,7 +1389,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException \Exception
+     * @expectedException \TYPO3\CMS\Core\Exception
      */
     public function cleanUpForHookWithoutHookInterfaceThrowsException()
     {
@@ -3889,7 +3889,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException \Exception
+     * @expectedException \TYPO3\CMS\Core\Exception
      */
     public function deleteDummyFolderWithNonEmptyDummyFolderThrowsException()
     {
@@ -3947,7 +3947,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException \Exception
+     * @expectedException \TYPO3\CMS\Core\Exception
      */
     public function setUploadFolderPathAfterCreatingDummyFileThrowsException()
     {
@@ -4928,7 +4928,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException \Exception
+     * @expectedException \TYPO3\CMS\Core\Exception
      */
     public function isLoggedThrowsExceptionWithoutFrontEnd()
     {
@@ -5004,7 +5004,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException \Exception
+     * @expectedException \TYPO3\CMS\Core\Exception
      */
     public function loginFrontEndUserWithoutFrontEndThrowsException()
     {
@@ -5067,7 +5067,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException \Exception
+     * @expectedException \TYPO3\CMS\Core\Exception
      */
     public function logoutFrontEndUserWithoutFrontEndThrowsException()
     {

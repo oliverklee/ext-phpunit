@@ -147,7 +147,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
      */
 
     /**
-     * Creates a subclass Tx_Phpunit_BackEnd_Module with the protected functions
+     * Creates a subclass \Tx_Phpunit_BackEnd_Module with the protected functions
      * made public.
      *
      * @return string the name of the accessible proxy class
@@ -157,7 +157,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
         $className = 'Tx_Phpunit_BackEnd_ModuleAccessibleProxy';
         if (!class_exists($className, false)) {
             eval(
-                'class ' . $className . ' extends Tx_Phpunit_BackEnd_Module {' .
+                'class ' . $className . ' extends \\Tx_Phpunit_BackEnd_Module {' .
                 '  public function renderRunTests() {' .
                 '    parent::renderRunTests();' .
                 '  }' .

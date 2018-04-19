@@ -62,7 +62,7 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
      */
 
     /**
-     * This function creates a subclass of Tx_Phpunit_Selenium_TestCase with
+     * This function creates a subclass of \Tx_Phpunit_Selenium_TestCase with
      * some attributes and methods made public.
      *
      * @return string class name, will not be empty
@@ -73,7 +73,7 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
 
         if (!class_exists($className, false)) {
             eval(
-                'class ' . $className . ' extends Tx_Phpunit_Selenium_TestCase {' .
+                'class ' . $className . ' extends \\Tx_Phpunit_Selenium_TestCase {' .
                 '  ' .
                 '  public function getSeleniumBrowser() {' .
                 '    return parent::getSeleniumBrowser();' .

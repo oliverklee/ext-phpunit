@@ -14,7 +14,7 @@
 
 /**
  * This class provides helper functions that might be convenient when testing in
- * TYPO3. It extends PHPUnit_Framework_TestCase, so you have access to all of
+ * TYPO3. It extends \PHPUnit_Framework_TestCase, so you have access to all of
  * that class as well.
  *
  * @author Robert Lemke <robert@typo3.org>
@@ -24,7 +24,7 @@
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  * @author Nicole Cordes <nicole.cordes@googlemail.com>
  */
-abstract class Tx_Phpunit_TestCase extends PHPUnit_Framework_TestCase
+abstract class Tx_Phpunit_TestCase extends \PHPUnit_Framework_TestCase
 {
     /**
      * whether global variables should be backuped
@@ -51,12 +51,10 @@ abstract class Tx_Phpunit_TestCase extends PHPUnit_Framework_TestCase
      * @param bool $callOriginalClone whether to call the __clone method
      * @param bool $callAutoload whether to call any autoload function
      *
-     * @return PHPUnit_Framework_MockObject_MockObject|Tx_Phpunit_Interface_AccessibleObject
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Tx_Phpunit_Interface_AccessibleObject
      *         a mock of $originalClassName with access methods added
      *
-     * @throws InvalidArgumentException
-     *
-     * @see Tx_Extbase_Tests_Unit_BaseTestCase::getAccessibleMock
+     * @throws \InvalidArgumentException
      */
     protected function getAccessibleMock(
         $originalClassName,
@@ -68,7 +66,7 @@ abstract class Tx_Phpunit_TestCase extends PHPUnit_Framework_TestCase
         $callAutoload = true
     ) {
         if ($originalClassName === '') {
-            throw new InvalidArgumentException('$originalClassName must not be empty.', 1334701880);
+            throw new \InvalidArgumentException('$originalClassName must not be empty.', 1334701880);
         }
 
         return $this->getMock(
@@ -89,8 +87,6 @@ abstract class Tx_Phpunit_TestCase extends PHPUnit_Framework_TestCase
      * @param string $className name of class to make available, must not be empty
      *
      * @return string full qualified name of the built class, will not be empty
-     *
-     * @see Tx_Extbase_Tests_Unit_BaseTestCase::buildAccessibleProxy
      */
     protected function buildAccessibleProxy($className)
     {
@@ -100,10 +96,10 @@ abstract class Tx_Phpunit_TestCase extends PHPUnit_Framework_TestCase
 
         eval(
             $abstractModifier . 'class ' . $accessibleClassName .
-            ' extends ' . $className . ' implements Tx_Phpunit_Interface_AccessibleObject {' .
+            ' extends ' . $className . ' implements \\Tx_Phpunit_Interface_AccessibleObject {' .
             'public function _call($methodName) {' .
             'if ($methodName === \'\') {' .
-            'throw new InvalidArgumentException(\'$methodName must not be empty.\', 1334663993);' .
+            'throw new \\InvalidArgumentException(\'$methodName must not be empty.\', 1334663993);' .
             '}' .
             '$args = func_get_args();' .
             'return call_user_func_array(array($this, $methodName), array_slice($args, 1));' .
@@ -113,11 +109,11 @@ abstract class Tx_Phpunit_TestCase extends PHPUnit_Framework_TestCase
             '&$arg7 = NULL, &$arg8 = NULL, &$arg9 = NULL' .
             ') {' .
             'if ($methodName === \'\') {' .
-            'throw new InvalidArgumentException(\'$methodName must not be empty.\', 1334664210);' .
+            'throw new \\InvalidArgumentException(\'$methodName must not be empty.\', 1334664210);' .
             '}' .
             'switch (func_num_args()) {' .
             'case 0:' .
-            'throw new RuntimeException(\'The case of 0 arguments is not supposed to happen.\', 1334703124);' .
+            'throw new \\RuntimeException(\'The case of 0 arguments is not supposed to happen.\', 1334703124);' .
             'break;' .
             'case 1:' .
             '$returnValue = $this->$methodName();' .
@@ -152,7 +148,7 @@ abstract class Tx_Phpunit_TestCase extends PHPUnit_Framework_TestCase
             ');' .
             'break;' .
             'default:' .
-            'throw new InvalidArgumentException(' .
+            'throw new \\InvalidArgumentException(' .
             '\'_callRef currently only allows calls to methods with no more than 9 parameters.\'' .
             ');' .
             '}' .
@@ -160,31 +156,31 @@ abstract class Tx_Phpunit_TestCase extends PHPUnit_Framework_TestCase
             '}' .
             'public function _set($propertyName, $value) {' .
             'if ($propertyName === \'\') {' .
-            'throw new InvalidArgumentException(\'$propertyName must not be empty.\', 1334664355);' .
+            'throw new \\InvalidArgumentException(\'$propertyName must not be empty.\', 1334664355);' .
             '}' .
             '$this->$propertyName = $value;' .
             '}' .
             'public function _setRef($propertyName, &$value) {' .
             'if ($propertyName === \'\') {' .
-            'throw new InvalidArgumentException(\'$propertyName must not be empty.\', 1334664545);' .
+            'throw new \\InvalidArgumentException(\'$propertyName must not be empty.\', 1334664545);' .
             '}' .
             '$this->$propertyName = $value;' .
             '}' .
             'public function _setStatic($propertyName, $value) {' .
             'if ($propertyName === \'\') {' .
-            'throw new InvalidArgumentException(\'$propertyName must not be empty.\', 1344242602);' .
+            'throw new \\InvalidArgumentException(\'$propertyName must not be empty.\', 1344242602);' .
             '}' .
             'self::$$propertyName = $value;' .
             '}' .
             'public function _get($propertyName) {' .
             'if ($propertyName === \'\') {' .
-            'throw new InvalidArgumentException(\'$propertyName must not be empty.\', 1334664967);' .
+            'throw new \\InvalidArgumentException(\'$propertyName must not be empty.\', 1334664967);' .
             '}' .
             'return $this->$propertyName;' .
             '}' .
             'public function _getStatic($propertyName) {' .
             'if ($propertyName === \'\') {' .
-            'throw new InvalidArgumentException(\'$propertyName must not be empty.\', 1344242603);' .
+            'throw new \\InvalidArgumentException(\'$propertyName must not be empty.\', 1344242603);' .
             '}' .
             'return self::$$propertyName;' .
             '}' .

@@ -16,21 +16,21 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This class provides helper functions that might be convenient when testing in
- * TYPO3. It extends PHPUnit_Extensions_SeleniumTestCase, so you have access to
+ * TYPO3. It extends \PHPUnit_Extensions_SeleniumTestCase, so you have access to
  * all of that class too.
  *
  * @author Bastian Waidelich <bastian@typo3.org>
  * @author Carsten Koenig <ck@carsten-koenig.de>
  */
-class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_Selenium2TestCase
+class Tx_Phpunit_Selenium_TestCase extends \PHPUnit_Extensions_Selenium2TestCase
 {
     /**
-     * @var Tx_Phpunit_Interface_ExtensionSettingsService
+     * @var \Tx_Phpunit_Interface_ExtensionSettingsService
      */
     protected $extensionSettingsService = null;
 
     /**
-     * @var Tx_Phpunit_Interface_SeleniumService
+     * @var \Tx_Phpunit_Interface_SeleniumService
      */
     protected $seleniumService = null;
 
@@ -40,15 +40,15 @@ class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_Selenium2TestCase
      * @param string $name
      * @param array $data
      * @param string $dataName
-     * @param Tx_Phpunit_Interface_ExtensionSettingsService|null $extensionSettingsService
-     * @param Tx_Phpunit_Interface_SeleniumService|null $seleniumService
+     * @param \Tx_Phpunit_Interface_ExtensionSettingsService|null $extensionSettingsService
+     * @param \Tx_Phpunit_Interface_SeleniumService|null $seleniumService
      */
     public function __construct(
         $name = null,
         array $data = [],
         $dataName = '',
-        Tx_Phpunit_Interface_ExtensionSettingsService $extensionSettingsService = null,
-        Tx_Phpunit_Interface_SeleniumService $seleniumService = null
+        \Tx_Phpunit_Interface_ExtensionSettingsService $extensionSettingsService = null,
+        \Tx_Phpunit_Interface_SeleniumService $seleniumService = null
     ) {
         parent::__construct($name, $data, $dataName);
 
@@ -79,7 +79,7 @@ class Tx_Phpunit_Selenium_TestCase extends PHPUnit_Extensions_Selenium2TestCase
      * a message will be displayed giving a hint on which host/port the client
      * was looking for the Selenium server.
      *
-     * @see PHPUnit_Extensions_SeleniumTestCase::runTest()
+     * @see \PHPUnit_Extensions_SeleniumTestCase::runTest()
      *
      * @return void
      */

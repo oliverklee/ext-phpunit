@@ -98,7 +98,7 @@ class Tx_Phpunit_Service_Database
      *
      * @return string the WHERE clause starting like " AND ...=... AND ...=..."
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public static function enableFields(
         $tableName,
@@ -109,7 +109,7 @@ class Tx_Phpunit_Service_Database
         $intShowHidden = (int)$showHidden;
 
         if (!in_array($intShowHidden, [-1, 0, 1], true)) {
-            throw new InvalidArgumentException('$showHidden may only be -1, 0 or 1, but actually is ' . $showHidden, 1331315445);
+            throw new \InvalidArgumentException('$showHidden may only be -1, 0 or 1, but actually is ' . $showHidden, 1331315445);
         }
 
         // maps $showHidden (-1..1) to (0..2) which ensures valid array keys
@@ -171,12 +171,12 @@ class Tx_Phpunit_Service_Database
      *         comma-separated list of subpage UIDs including the  UIDs provided
      *         in $startPages, will be empty if $startPages is empty
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public static function createRecursivePageList($startPages, $recursionDepth = 0)
     {
         if ($recursionDepth < 0) {
-            throw new InvalidArgumentException('$recursionDepth must be >= 0.', 1331315492);
+            throw new \InvalidArgumentException('$recursionDepth must be >= 0.', 1331315492);
         }
         if ($recursionDepth === 0) {
             return (string)$startPages;
@@ -221,13 +221,13 @@ class Tx_Phpunit_Service_Database
      *
      * @return int the number of affected rows, might be 0
      *
-     * @throws InvalidArgumentException
-     * @throws Tx_Phpunit_Exception_Database if an error has occurred
+     * @throws \InvalidArgumentException
+     * @throws \Tx_Phpunit_Exception_Database if an error has occurred
      */
     public static function delete($tableName, $whereClause)
     {
         if ($tableName === '') {
-            throw new InvalidArgumentException('The table name must not be empty.', 1331315508);
+            throw new \InvalidArgumentException('The table name must not be empty.', 1331315508);
         }
 
         self::enableQueryLogging();
@@ -236,7 +236,7 @@ class Tx_Phpunit_Service_Database
             $whereClause
         );
         if (!$dbResult) {
-            throw new Tx_Phpunit_Exception_Database(1334439746);
+            throw new \Tx_Phpunit_Exception_Database(1334439746);
         }
 
         return self::getDatabaseConnection()->sql_affected_rows();
@@ -254,13 +254,13 @@ class Tx_Phpunit_Service_Database
      *
      * @return int the number of affected rows, might be 0
      *
-     * @throws InvalidArgumentException
-     * @throws Tx_Phpunit_Exception_Database if an error has occurred
+     * @throws \InvalidArgumentException
+     * @throws \Tx_Phpunit_Exception_Database if an error has occurred
      */
     public static function update($tableName, $whereClause, array $fields)
     {
         if ($tableName === '') {
-            throw new InvalidArgumentException('The table name must not be empty.', 1331315523);
+            throw new \InvalidArgumentException('The table name must not be empty.', 1331315523);
         }
 
         self::enableQueryLogging();
@@ -270,7 +270,7 @@ class Tx_Phpunit_Service_Database
             $fields
         );
         if (!$dbResult) {
-            throw new Tx_Phpunit_Exception_Database(1334439755);
+            throw new \Tx_Phpunit_Exception_Database(1334439755);
         }
 
         return self::getDatabaseConnection()->sql_affected_rows();
@@ -288,16 +288,16 @@ class Tx_Phpunit_Service_Database
      * @return int
      *         the UID of the created record, will be 0 if the table has no UID column
      *
-     * @throws InvalidArgumentException
-     * @throws Tx_Phpunit_Exception_Database if an error has occurred
+     * @throws \InvalidArgumentException
+     * @throws \Tx_Phpunit_Exception_Database if an error has occurred
      */
     public static function insert($tableName, array $recordData)
     {
         if ($tableName === '') {
-            throw new InvalidArgumentException('The table name must not be empty.', 1331315544);
+            throw new \InvalidArgumentException('The table name must not be empty.', 1331315544);
         }
         if (empty($recordData)) {
-            throw new InvalidArgumentException('$recordData must not be empty.', 1331315553);
+            throw new \InvalidArgumentException('$recordData must not be empty.', 1331315553);
         }
 
         self::enableQueryLogging();
@@ -306,7 +306,7 @@ class Tx_Phpunit_Service_Database
             $recordData
         );
         if (!$dbResult) {
-            throw new Tx_Phpunit_Exception_Database(1334439765);
+            throw new \Tx_Phpunit_Exception_Database(1334439765);
         }
 
         return self::getDatabaseConnection()->sql_insert_id();
@@ -330,8 +330,8 @@ class Tx_Phpunit_Service_Database
      *
      * @return \mysqli_result MySQLi result object
      *
-     * @throws InvalidArgumentException
-     * @throws Tx_Phpunit_Exception_Database if an error has occurred
+     * @throws \InvalidArgumentException
+     * @throws \Tx_Phpunit_Exception_Database if an error has occurred
      */
     public static function select(
         $fields,
@@ -342,10 +342,10 @@ class Tx_Phpunit_Service_Database
         $limit = ''
     ) {
         if ($tableNames === '') {
-            throw new InvalidArgumentException('The table names must not be empty.', 1331315600);
+            throw new \InvalidArgumentException('The table names must not be empty.', 1331315600);
         }
         if ($fields === '') {
-            throw new InvalidArgumentException('$fields must not be empty.', 1331315609);
+            throw new \InvalidArgumentException('$fields must not be empty.', 1331315609);
         }
 
         self::enableQueryLogging();
@@ -358,7 +358,7 @@ class Tx_Phpunit_Service_Database
             $limit
         );
         if (!$dbResult) {
-            throw new Tx_Phpunit_Exception_Database(1334439769);
+            throw new \Tx_Phpunit_Exception_Database(1334439769);
         }
 
         return $dbResult;
@@ -385,7 +385,7 @@ class Tx_Phpunit_Service_Database
      *
      * @return string[] the single result row, will not be empty
      *
-     * @throws Tx_Phpunit_Exception_EmptyQueryResult if there is no matching record
+     * @throws \Tx_Phpunit_Exception_EmptyQueryResult if there is no matching record
      */
     public static function selectSingle(
         $fields,
@@ -404,7 +404,7 @@ class Tx_Phpunit_Service_Database
             $offset . ',' . 1
         );
         if (empty($result)) {
-            throw new Tx_Phpunit_Exception_EmptyQueryResult(1334439777);
+            throw new \Tx_Phpunit_Exception_EmptyQueryResult(1334439777);
         }
 
         return $result[0];
@@ -430,7 +430,7 @@ class Tx_Phpunit_Service_Database
      * @return array[]
      *         the query result rows, will be empty if there are no matching records
      *
-     * @throws Tx_Phpunit_Exception_Database if an error has occurred
+     * @throws \Tx_Phpunit_Exception_Database if an error has occurred
      */
     public static function selectMultiple(
         $fieldNames,
@@ -482,7 +482,7 @@ class Tx_Phpunit_Service_Database
      *         one column from the the query result rows, will be empty if there
      *         are no matching records
      *
-     * @throws Tx_Phpunit_Exception_Database if an error has occurred
+     * @throws \Tx_Phpunit_Exception_Database if an error has occurred
      */
     public static function selectColumnForMultiple(
         $fieldName,
@@ -521,7 +521,7 @@ class Tx_Phpunit_Service_Database
      *
      * @return int the number of matching records, will be >= 0
      *
-     * @throws Tx_Phpunit_Exception_Database if an error has occurred
+     * @throws \Tx_Phpunit_Exception_Database if an error has occurred
      */
     public static function count($tableNames, $whereClause = '')
     {
@@ -596,7 +596,7 @@ class Tx_Phpunit_Service_Database
      *
      * @return bool TRUE if there is a matching record, FALSE otherwise
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public static function existsRecordWithUid(
         $tableName,
@@ -604,7 +604,7 @@ class Tx_Phpunit_Service_Database
         $additionalWhereClause = ''
     ) {
         if ($uid <= 0) {
-            throw new InvalidArgumentException('$uid must be > 0.', 1331315624);
+            throw new \InvalidArgumentException('$uid must be > 0.', 1331315624);
         }
 
         return self::count($tableName, 'uid = ' . $uid . $additionalWhereClause) > 0;
@@ -653,12 +653,12 @@ class Tx_Phpunit_Service_Database
      *
      * @return bool TRUE if the table $tableName exists, FALSE otherwise
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public static function existsTable($tableName)
     {
         if ($tableName === '') {
-            throw new InvalidArgumentException('The table name must not be empty.', 1331315636);
+            throw new \InvalidArgumentException('The table name must not be empty.', 1331315636);
         }
 
         self::retrieveTableNames();
@@ -720,13 +720,13 @@ class Tx_Phpunit_Service_Database
      *
      * @return void
      *
-     * @throws BadMethodCallException
+     * @throws \BadMethodCallException
      */
     private static function retrieveColumnsForTable($tableName)
     {
         if (!isset(self::$tableColumnCache[$tableName])) {
             if (!self::existsTable($tableName)) {
-                throw new BadMethodCallException('The table "' . $tableName . '" does not exist.', 1331315659);
+                throw new \BadMethodCallException('The table "' . $tableName . '" does not exist.', 1331315659);
             }
 
             self::$tableColumnCache[$tableName] = self::getDatabaseConnection()->admin_get_fields($tableName);
@@ -783,7 +783,7 @@ class Tx_Phpunit_Service_Database
      *
      * @return array[] associative array with the TCA description for this table
      *
-     * @throws BadMethodCallException
+     * @throws \BadMethodCallException
      */
     public static function getTcaForTable($tableName)
     {
@@ -792,11 +792,11 @@ class Tx_Phpunit_Service_Database
         }
 
         if (!self::existsTable($tableName)) {
-            throw new BadMethodCallException('The table "' . $tableName . '" does not exist.', 1331315679);
+            throw new \BadMethodCallException('The table "' . $tableName . '" does not exist.', 1331315679);
         }
 
         if (!isset($GLOBALS['TCA'][$tableName])) {
-            throw new BadMethodCallException('The table "' . $tableName . '" has no TCA.', 1331315694);
+            throw new \BadMethodCallException('The table "' . $tableName . '" has no TCA.', 1331315694);
         }
         self::$tcaCache[$tableName] = $GLOBALS['TCA'][$tableName];
 

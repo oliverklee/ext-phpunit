@@ -17,7 +17,7 @@
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_ViewHelpers_ProgressBarViewHelper extends Tx_Phpunit_ViewHelpers_AbstractViewHelper
+class Tx_Phpunit_ViewHelpers_ProgressBarViewHelper extends \Tx_Phpunit_ViewHelpers_AbstractViewHelper
 {
     /**
      * Renders and outputs this view helper.

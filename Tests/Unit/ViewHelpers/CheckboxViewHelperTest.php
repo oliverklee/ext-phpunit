@@ -17,7 +17,7 @@ namespace OliverKlee\Phpunit\Tests\Unit\ViewHelpers;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
- * Test case for Tx_Phpunit_ViewHelpers_CheckboxViewHelper.
+ * Test case.
  *
  * @author Felix Rauch <rauch@skaiamail.de>
  */
