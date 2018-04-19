@@ -137,7 +137,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
      *
      * Note: This function does not back up the currenty TYPO3 database instance.
      *
-     * @param string $databaseName
+     * @param string|null $databaseName
      *        the name of the test database to use; if none is provided, the
      *        name of the current TYPO3 database plus a suffix "_test" is used
      *
@@ -147,7 +147,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
     {
         $db = Tx_Phpunit_Service_Database::getDatabaseConnection();
 
-        if ($this->selectDatabase($databaseName ? $databaseName : $this->testDatabase, $db) !== true) {
+        if (!$this->selectDatabase($databaseName ?: $this->testDatabase, $db)) {
             $this->markTestSkipped('This test is skipped because the test database is not available.');
         }
 
