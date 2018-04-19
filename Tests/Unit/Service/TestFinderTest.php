@@ -639,9 +639,9 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
         $testFinder->expects(self::at(3))->method('createTestableForSingleExtension')
             ->with('bar')->will(self::returnValue(new \Tx_Phpunit_Testable()));
 
-        self::assertSame(
+        self::assertCount(
             2,
-            count($testFinder->getTestablesForExtensions())
+            $testFinder->getTestablesForExtensions()
         );
     }
 

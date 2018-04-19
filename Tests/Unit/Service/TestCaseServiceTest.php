@@ -168,8 +168,8 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
     {
         $result = $this->subject->findTestCaseFilesInDirectory(ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Service');
 
-        self::assertFalse(
-            empty($result)
+        self::assertNotEmpty(
+            $result
         );
     }
 
@@ -182,8 +182,8 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
             ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Service'
         );
 
-        self::assertFalse(
-            empty($result)
+        self::assertNotEmpty(
+            $result
         );
     }
 

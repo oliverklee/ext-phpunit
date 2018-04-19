@@ -144,8 +144,9 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
      */
     public function protectedPropertyForFixtureIsNotDirectlyAccessible()
     {
-        self::assertFalse(
-            in_array('protectedProperty', get_object_vars($this->protectedClassInstance), true)
+        self::assertNotContains(
+            'protectedProperty',
+            get_object_vars($this->protectedClassInstance)
         );
     }
 
@@ -175,8 +176,9 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
      */
     public function protectedMethodForFixtureIsNotDirectlyCallable()
     {
-        self::assertFalse(
-            is_callable([$this->protectedClassInstance, 'protectedMethod'])
+        self::assertNotInternalType(
+            'callable',
+            [$this->protectedClassInstance, 'protectedMethod']
         );
     }
 
@@ -185,8 +187,9 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
      */
     public function publicMethodForFixtureIsDirectlyCallable()
     {
-        self::assertTrue(
-            is_callable([$this->protectedClassInstance, 'publicMethod'])
+        self::assertInternalType(
+            'callable',
+            [$this->protectedClassInstance, 'publicMethod']
         );
     }
 
@@ -195,8 +198,9 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
      */
     public function protectedPropertyForMockObjectIsNotDirectlyAccessible()
     {
-        self::assertFalse(
-            in_array('protectedProperty', get_object_vars($this->mock), true)
+        self::assertNotContains(
+            'protectedProperty',
+            get_object_vars($this->mock)
         );
     }
 
@@ -226,8 +230,9 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
      */
     public function protectedMethodForMockObjectIsNotDirectlyCallable()
     {
-        self::assertFalse(
-            is_callable([$this->mock, 'protectedMethod'])
+        self::assertNotInternalType(
+            'callable',
+            [$this->mock, 'protectedMethod']
         );
     }
 
@@ -236,8 +241,9 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
      */
     public function publicMethodForMockObjectIsDirectlyCallable()
     {
-        self::assertTrue(
-            is_callable([$this->mock, 'publicMethod'])
+        self::assertInternalType(
+            'callable',
+            [$this->mock, 'publicMethod']
         );
     }
 
