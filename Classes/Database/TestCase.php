@@ -373,11 +373,11 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
             // modifies statement to be accepted by TYPO3
             $createStatement = preg_replace('/ENGINE.*$/', '', $row[1]);
             $createStatement = preg_replace(
-                '/(CREATE TABLE.*\()/',
+                '/(CREATE TABLE.*\\()/',
                 $linefeed . '\\1' . $linefeed,
                 $createStatement
             );
-            $createStatement = preg_replace('/\) $/', $linefeed . ')', $createStatement);
+            $createStatement = preg_replace('/\\) $/', $linefeed . ')', $createStatement);
 
             $schema .= $createStatement . ';';
         }

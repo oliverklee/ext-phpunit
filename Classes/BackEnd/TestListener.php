@@ -215,7 +215,6 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
             );
         }
         /** @var PHPUnit_Framework_TestCase $test */
-
         $fileName = str_replace(PATH_site, '', $e->getFile());
         $lineNumber = $e->getLine();
 
@@ -237,6 +236,7 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
      * @param PHPUnit_Framework_Test $test
      * @param Exception $e
      * @param float $time
+     *
      * @return void
      */
     public function addRiskyTest(PHPUnit_Framework_Test $test, Exception $e, $time)
@@ -264,7 +264,6 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
             );
         }
         /** @var PHPUnit_Framework_TestCase $test */
-
         $testCaseTraceArr = $this->getFirstNonPhpUnitTrace($e->getTrace());
         $fileName = str_replace(PATH_site, '', $testCaseTraceArr['file']);
 
@@ -341,7 +340,6 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
             );
         }
         /** @var PHPUnit_Framework_TestCase $test */
-
         $this->outputService->output(
             '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadIncomplete");/*]]>*/</script>' .
             '<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
@@ -372,7 +370,6 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
             );
         }
         /** @var PHPUnit_Framework_TestCase $test */
-
         $this->outputService->output(
             '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadSkipped");/*]]>*/</script>' .
             '<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
@@ -642,7 +639,7 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
             return $testClassName;
         }
 
-        $testClassNameWithoutPrefixOrSuffix = preg_replace('/(tx_|Tx_)?(.+)(Test|_testcase)$/', '\2', $testClassName);
+        $testClassNameWithoutPrefixOrSuffix = preg_replace('/(tx_|Tx_)?(.+)(Test|_testcase)$/', '\\2', $testClassName);
         $testClassNameWithoutUnderScores = str_replace('_', ' ', $testClassNameWithoutPrefixOrSuffix);
 
         $this->namePrettifier->setPrefix(null);

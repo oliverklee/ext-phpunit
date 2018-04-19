@@ -20,7 +20,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @author Kasper Ligaard <kasperligaard@gmail.com>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-
 defined('TYPO3_MODE') or die('Access denied.');
 
 /** @var \TYPO3\CMS\Lang\LanguageService $languageService */

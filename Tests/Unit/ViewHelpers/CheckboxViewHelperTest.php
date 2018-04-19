@@ -49,7 +49,7 @@ class CheckboxViewHelperTest extends \Tx_Phpunit_TestCase
         $subject = new \Tx_Phpunit_ViewHelpers_CheckboxViewHelper();
 
         self::assertRegExp(
-            '/^<input[^$]+type="checkbox"[^$]*\/>$/',
+            '/^<input[^$]+type="checkbox"[^$]*\\/>$/',
             $subject->render()
         );
     }
@@ -62,7 +62,7 @@ class CheckboxViewHelperTest extends \Tx_Phpunit_TestCase
         $subject = new \Tx_Phpunit_ViewHelpers_CheckboxViewHelper('test');
 
         self::assertRegExp(
-            '/^<input[^$]+value="test"[^$]*\/>$/',
+            '/^<input[^$]+value="test"[^$]*\\/>$/',
             $subject->render()
         );
     }
@@ -80,7 +80,7 @@ class CheckboxViewHelperTest extends \Tx_Phpunit_TestCase
         );
 
         self::assertRegExp(
-            '/^<input[^$]+foo="bar"[^$]*\/>$/',
+            '/^<input[^$]+foo="bar"[^$]*\\/>$/',
             $subject->render()
         );
     }
@@ -104,7 +104,7 @@ class CheckboxViewHelperTest extends \Tx_Phpunit_TestCase
         );
 
         self::assertRegExp(
-            '/^<input[^$]+foo="bar"[^$]*\/>$/',
+            '/^<input[^$]+foo="bar"[^$]*\\/>$/',
             $subject->render()
         );
     }
@@ -124,7 +124,7 @@ class CheckboxViewHelperTest extends \Tx_Phpunit_TestCase
         );
 
         self::assertRegExp(
-            '/^<input[^$]+type="checkbox"[^$]*\/>$/',
+            '/^<input[^$]+type="checkbox"[^$]*\\/>$/',
             $subject->render()
         );
     }
@@ -144,7 +144,7 @@ class CheckboxViewHelperTest extends \Tx_Phpunit_TestCase
         );
 
         self::assertRegExp(
-            '/^<input[^$]+value="test"[^$]*\/>$/',
+            '/^<input[^$]+value="test"[^$]*\\/>$/',
             $subject->render()
         );
     }

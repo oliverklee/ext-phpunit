@@ -239,6 +239,7 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
 
     /**
      * @test
+     *
      * @param array $recordData
      * @dataProvider hiddenRecordDataProvider
      */
@@ -257,6 +258,7 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
 
     /**
      * @test
+     *
      * @param array $recordData
      * @dataProvider hiddenRecordDataProvider
      */
