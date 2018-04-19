@@ -13,9 +13,11 @@
  */
 
 use TYPO3\CMS\Backend\Module\BaseScriptClass;
+use TYPO3\CMS\Backend\Template\DocumentTemplate;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
+use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Lang\LanguageService;
@@ -235,7 +237,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
      */
     public function main()
     {
-        $this->doc = GeneralUtility::makeInstance('TYPO3\\CMS\\Backend\\Template\\DocumentTemplate');
+        $this->doc = GeneralUtility::makeInstance(DocumentTemplate::class);
         $this->doc->backPath = $GLOBALS['BACK_PATH'];
 
         if ($GLOBALS['BE_USER']->user['admin']) {
@@ -281,8 +283,8 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
      */
     protected function addAdditionalHeaderData()
     {
-        /** @var TYPO3\CMS\Core\Page\PageRenderer $pageRenderer */
-        $pageRenderer = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Page\\PageRenderer');
+        /** @var PageRenderer $pageRenderer */
+        $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
         $pageRenderer->loadJquery();
         $publicResourcesPath = $this->extensionPath . 'Resources/Public/';
         $pageRenderer->addJsFile($publicResourcesPath . 'JavaScript/BackEnd.js', 'text/javascript', false);

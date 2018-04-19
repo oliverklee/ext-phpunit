@@ -16,8 +16,14 @@ namespace OliverKlee\Phpunit\Tests\Unit;
 
 use org\bovigo\vfs\vfsStream;
 use TYPO3\CMS\Core\Exception;
+use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
+use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\CMS\Frontend\Page\PageRepository;
 
 /**
  * Test case.
@@ -4590,7 +4596,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->createFakeFrontEnd();
 
         self::assertInstanceOf(
-            'TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController',
+            TypoScriptFrontendController::class,
             $GLOBALS['TSFE']
         );
     }
@@ -4632,7 +4638,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->createFakeFrontEnd();
 
         self::assertInstanceOf(
-            'TYPO3\\CMS\\Core\\TimeTracker\\NullTimeTracker',
+            NullTimeTracker::class,
             $GLOBALS['TT']
         );
     }
@@ -4647,7 +4653,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->createFakeFrontEnd();
 
         self::assertInstanceOf(
-            'TYPO3\\CMS\\Frontend\\Page\\PageRepository',
+            PageRepository::class,
             $GLOBALS['TSFE']->sys_page
         );
     }
@@ -4662,7 +4668,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->createFakeFrontEnd();
 
         self::assertInstanceOf(
-            'TYPO3\\CMS\\Frontend\\Authentication\\FrontendUserAuthentication',
+            FrontendUserAuthentication::class,
             $GLOBALS['TSFE']->fe_user
         );
     }
@@ -4677,7 +4683,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->createFakeFrontEnd();
 
         self::assertInstanceOf(
-            'TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer',
+            ContentObjectRenderer::class,
             $GLOBALS['TSFE']->cObj
         );
     }
@@ -4692,7 +4698,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->createFakeFrontEnd();
 
         self::assertInstanceOf(
-            'TYPO3\\CMS\\Core\\TypoScript\\TemplateService',
+            TemplateService::class,
             $GLOBALS['TSFE']->tmpl
         );
     }

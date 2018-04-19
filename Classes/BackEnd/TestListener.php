@@ -292,7 +292,7 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
                 $actual = $comparisonFailure->getActualAsString();
 
                 /** @var DiffUtility $diff */
-                $diff = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Utility\\DiffUtility');
+                $diff = GeneralUtility::makeInstance(DiffUtility::class);
                 $this->outputService->output('<code>' . $diff->makeDiffDisplay($actual, $expected) . '</code>');
             }
         }

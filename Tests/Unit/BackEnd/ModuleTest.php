@@ -14,6 +14,9 @@ namespace OliverKlee\Phpunit\Tests\Unit\BackEnd;
  * The TYPO3 project - inspiring people to share!
  */
 
+use OliverKlee\Phpunit\Tests\Unit\BackEnd\Fixtures\LoadMe;
+use OliverKlee\Phpunit\Tests\Unit\BackEnd\Fixtures\LoadMeToo;
+use OliverKlee\Phpunit\Tests\Unit\Service\TestFinderTest;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStreamWrapper;
 use TYPO3\CMS\Backend\Template\DocumentTemplate;
@@ -23,9 +26,6 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Lang\LanguageService;
-use OliverKlee\Phpunit\Tests\Unit\BackEnd\Fixtures\LoadMe;
-use OliverKlee\Phpunit\Tests\Unit\BackEnd\Fixtures\LoadMeToo;
-use OliverKlee\Phpunit\Tests\Unit\Service\TestFinderTest;
 
 /**
  * Test case.
@@ -128,8 +128,8 @@ class ModuleTest extends \Tx_Phpunit_TestCase
         $this->progressBarViewHelper = $this->getMock('Tx_Phpunit_ViewHelpers_ProgressBarViewHelper');
         GeneralUtility::addInstance('Tx_Phpunit_ViewHelpers_ProgressBarViewHelper', $this->progressBarViewHelper);
 
-        $this->documentTemplate = $this->getMock('TYPO3\\CMS\\Backend\\Template\\DocumentTemplate', ['startPage']);
-        GeneralUtility::addInstance('TYPO3\\CMS\\Backend\\Template\\DocumentTemplate', $this->documentTemplate);
+        $this->documentTemplate = $this->getMock(DocumentTemplate::class, ['startPage']);
+        GeneralUtility::addInstance(DocumentTemplate::class, $this->documentTemplate);
 
         $this->singletonInstances = GeneralUtility::getSingletonInstances();
     }
