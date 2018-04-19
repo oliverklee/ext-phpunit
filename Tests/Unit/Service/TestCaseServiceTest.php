@@ -20,7 +20,6 @@ use TYPO3\CMS\Core\Tests\BaseTestCase;
 use TYPO3\CMS\Core\Tests\FunctionalTestCase;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Extbase\Tests\SeleniumBaseTestCase;
 
 /**
  * Test case.
@@ -376,13 +375,10 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
             'PHPUnit extension selenium base test class' => [\Tx_Phpunit_Selenium_TestCase::class],
             'PHPUnit framework selenium base test class' => [\PHPUnit_Extensions_Selenium2TestCase::class],
             'PHPUnit extension database base test class' => [\Tx_Phpunit_Database_TestCase::class],
-            'abstract subclass of PHPUnit extension base test class' => [Tx_Phpunit_TestCase::class],
+            'abstract subclass of PHPUnit extension base test class' => [\Tx_Phpunit_TestCase::class],
         ];
 
         $classNamesThatMightNotExist = [
-            'extbase selenium base test class' => [SeleniumBaseTestCase::class],
-            'extbase unit base test class' => [\TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase::class],
-            'extbase functional base test class' => [\Tx_Extbase_Tests_Functional_BaseTestCase::class],
             'Core base test class' => [BaseTestCase::class],
             'Core unit base test class' => [UnitTestCase::class],
             'Core functional base test class' => [FunctionalTestCase::class],
