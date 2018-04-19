@@ -53,9 +53,9 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
         require_once(ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Fixtures/ProtectedClass.php');
 
         $this->protectedClassInstance = new ProtectedClass();
-        $this->mock = $this->getMock('OliverKlee\\Phpunit\\Tests\\Unit\\Fixtures\\ProtectedClass', ['dummy']);
+        $this->mock = $this->getMock(ProtectedClass::class, ['dummy']);
         $this->accessibleMock = $this->getAccessibleMock(
-            'OliverKlee\\Phpunit\\Tests\\Unit\\Fixtures\\ProtectedClass',
+            ProtectedClass::class,
             ['dummy']
         );
         $this->staticProperty = ProtectedClass::getStaticProperty();

@@ -23,6 +23,9 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Lang\LanguageService;
+use OliverKlee\Phpunit\Tests\Unit\BackEnd\Fixtures\LoadMe;
+use OliverKlee\Phpunit\Tests\Unit\BackEnd\Fixtures\LoadMeToo;
+use OliverKlee\Phpunit\Tests\Unit\Service\TestFinderTest;
 
 /**
  * Test case.
@@ -646,7 +649,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
         );
 
         self::assertTrue(
-            class_exists('OliverKlee\\Phpunit\\Tests\\Unit\\BackEnd\\Fixtures\\LoadMe', false)
+            class_exists(LoadMe::class, false)
         );
     }
 
@@ -665,7 +668,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
         );
 
         self::assertTrue(
-            class_exists('OliverKlee\\Phpunit\\Tests\\Unit\\BackEnd\\Fixtures\\LoadMeToo', false)
+            class_exists(LoadMeToo::class, false)
         );
     }
 
@@ -686,7 +689,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
         );
 
         self::assertTrue(
-            class_exists('OliverKlee\\Phpunit\\Tests\\Unit\\Fixtures\\LoadMe', false)
+            class_exists(LoadMe::class, false)
         );
     }
 
@@ -816,7 +819,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
     {
         $selectedExtension = 'phpunit';
         $this->userSettingsService->set('extSel', $selectedExtension);
-        $this->request->set('testCaseFile', 'OliverKlee\\Phpunit\\Tests\\Unit\\Service\\TestFinderTest');
+        $this->request->set('testCaseFile', TestFinderTest::class);
 
         self::assertRegExp(
             '#<option [^>]* selected="selected">OliverKlee\\\\Phpunit\\\\Tests\\\\Unit\\\\Service\\\\TestFinderTest</option>#',
@@ -831,7 +834,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
     {
         $selectedExtension = 'phpunit';
         $this->userSettingsService->set('extSel', $selectedExtension);
-        $this->request->set('testCaseFile', 'OliverKlee\\Phpunit\\Tests\\Unit\\Service\\TestFinderTest');
+        $this->request->set('testCaseFile', TestFinderTest::class);
 
         self::assertNotRegExp(
             '#<option [^>]* selected="selected">OliverKlee\\\\Phpunit\\\\Tests\\\\Unit\\\\BackEnd\\\\ModuleTest</option>#',
