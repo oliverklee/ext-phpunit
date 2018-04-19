@@ -379,15 +379,12 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
         ];
 
         $classNamesThatMightNotExist = [
-            'extbase selenium base test class (before 6.0)' => ['Tx_Extbase_SeleniumBaseTestCase'],
-            'extbase selenium base test class (since 6.0)' => ['\\TYPO3\\CMS\\Extbase\\Tests\\SeleniumBaseTestCase'],
-            'extbase base test class (before 1.3)' => ['Tx_Extbase_BaseTestCase'],
-            'extbase base test class (1.3-4.7)' => ['Tx_Extbase_Tests_Unit_BaseTestCase'],
-            'extbase unit base test class (since 6.0)' => ['TYPO3\\CMS\\Extbase\\Tests\\Unit\\BaseTestCase'],
-            'extbase functional base test class (since 6.0)' => ['Tx_Extbase_Tests_Functional_BaseTestCase'],
-            'Core base test class (since 6.0)' => [BaseTestCase::class],
-            'Core unit base test class (since 6.0)' => [UnitTestCase::class],
-            'Core functional base test class (since 6.0)' => [FunctionalTestCase::class],
+            'extbase selenium base test class' => ['\\TYPO3\\CMS\\Extbase\\Tests\\SeleniumBaseTestCase'],
+            'extbase unit base test class' => ['TYPO3\\CMS\\Extbase\\Tests\\Unit\\BaseTestCase'],
+            'extbase functional base test class' => ['Tx_Extbase_Tests_Functional_BaseTestCase'],
+            'Core base test class' => [BaseTestCase::class],
+            'Core unit base test class' => [UnitTestCase::class],
+            'Core functional base test class' => [FunctionalTestCase::class],
         ];
         foreach ($classNamesThatMightNotExist as $key => $className) {
             if (class_exists($className[0], true)) {
