@@ -145,7 +145,7 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
     public function protectedPropertyForFixtureIsNotDirectlyAccessible()
     {
         self::assertFalse(
-            in_array('protectedProperty', get_object_vars($this->protectedClassInstance))
+            in_array('protectedProperty', get_object_vars($this->protectedClassInstance), true)
         );
     }
 
@@ -196,7 +196,7 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
     public function protectedPropertyForMockObjectIsNotDirectlyAccessible()
     {
         self::assertFalse(
-            in_array('protectedProperty', get_object_vars($this->mock))
+            in_array('protectedProperty', get_object_vars($this->mock), true)
         );
     }
 

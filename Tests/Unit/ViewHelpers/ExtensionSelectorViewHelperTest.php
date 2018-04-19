@@ -87,7 +87,7 @@ class ExtensionSelectorViewHelperTest extends \Tx_Phpunit_TestCase
 
     protected function tearDown()
     {
-        if (!empty($this->languageServiceBackup)) {
+        if ($this->languageServiceBackup !== null) {
             $GLOBALS['LANG'] = $this->languageServiceBackup;
         }
     }

@@ -60,7 +60,7 @@ abstract class Tx_Phpunit_TestCase extends PHPUnit_Framework_TestCase
      */
     protected function getAccessibleMock(
         $originalClassName,
-        $methods = [],
+        array $methods = [],
         array $arguments = [],
         $mockClassName = '',
         $callOriginalConstructor = true,

@@ -148,7 +148,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     private function deleteForeignFolder()
     {
-        if ($this->foreignFolderToDelete == '') {
+        if ($this->foreignFolderToDelete === '') {
             return;
         }
 

@@ -2076,7 +2076,7 @@ class Tx_Phpunit_Framework
      */
     public function checkForZipArchive()
     {
-        if (!in_array('zip', get_loaded_extensions())) {
+        if (!in_array('zip', get_loaded_extensions(), true)) {
             throw new Exception('This PHP installation does not provide the ZIPArchive class.', 1334439642);
         }
     }

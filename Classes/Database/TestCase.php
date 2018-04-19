@@ -79,7 +79,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
         $databaseNames = $db->admin_get_dbs();
         $this->switchToOriginalTypo3Database($db);
 
-        if (!in_array($this->testDatabase, $databaseNames)) {
+        if (!in_array($this->testDatabase, $databaseNames, true)) {
             if ($db->admin_query('CREATE DATABASE `' . $this->testDatabase . '`') === false) {
                 $success = false;
             }
@@ -99,7 +99,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
         $databaseNames = $db->admin_get_dbs();
         $this->switchToOriginalTypo3Database($db);
 
-        if (!in_array($this->testDatabase, $databaseNames)) {
+        if (!in_array($this->testDatabase, $databaseNames, true)) {
             return;
         }
 
@@ -123,7 +123,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
         $databaseNames = $db->admin_get_dbs();
         $this->switchToOriginalTypo3Database($db);
 
-        if (!in_array($this->testDatabase, $databaseNames)) {
+        if (!in_array($this->testDatabase, $databaseNames, true)) {
             return true;
         }
 
@@ -216,7 +216,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
                     'This test is skipped because the extension ' . $extensionName .
                     ' which was marked for import is not loaded on your system!'
                 );
-            } elseif (in_array($extensionName, $skipDependencies)) {
+            } elseif (in_array($extensionName, $skipDependencies, true)) {
                 continue;
             }
 
