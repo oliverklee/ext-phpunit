@@ -17,15 +17,15 @@
  *
  * @author Nicole Cordes <nicole.cordes@googlemail.com>
  */
-abstract class Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper extends Tx_Phpunit_ViewHelpers_AbstractTagViewHelper
+abstract class Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper extends \Tx_Phpunit_ViewHelpers_AbstractTagViewHelper
 {
     /**
-     * @var Tx_Phpunit_Interface_UserSettingsService
+     * @var \Tx_Phpunit_Interface_UserSettingsService
      */
     protected $userSettingService = null;
 
     /**
-     * @var Tx_Phpunit_Service_TestFinder
+     * @var \Tx_Phpunit_Service_TestFinder
      */
     protected $testFinder = null;
 
@@ -46,11 +46,11 @@ abstract class Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper extends Tx_Phpu
     /**
      * Injects the user setting service.
      *
-     * @param Tx_Phpunit_Interface_UserSettingsService $userSettingService
+     * @param \Tx_Phpunit_Interface_UserSettingsService $userSettingService
      *
      * @return void
      */
-    public function injectUserSettingService(Tx_Phpunit_Interface_UserSettingsService $userSettingService)
+    public function injectUserSettingService(\Tx_Phpunit_Interface_UserSettingsService $userSettingService)
     {
         $this->userSettingService = $userSettingService;
     }
@@ -58,7 +58,7 @@ abstract class Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper extends Tx_Phpu
     /**
      * Injects the test finder.
      *
-     * @param Tx_Phpunit_Service_TestFinder $testFinder
+     * @param \Tx_Phpunit_Service_TestFinder $testFinder
      *
      * @return void
      */
@@ -93,11 +93,11 @@ abstract class Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper extends Tx_Phpu
      * Creates the CSS style attribute content for an icon for the testable with the key $testableKey.
      *
      * @param string $testableKey
-     *        the key of a Tx_Phpunit_Testable object, may also be "typo3", must not be empty
+     *        the key of a \Tx_Phpunit_Testable object, may also be "typo3", must not be empty
      *
      * @return string the content for the "style" attribute, will not be empty
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      *         if there is no extension with tests for the given key
      */
     protected function createIconStyle($testableKey)

@@ -40,7 +40,7 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface
     /**
      * the cached result of findTestableForEverything
      *
-     * @var Tx_Phpunit_Testable[]
+     * @var \Tx_Phpunit_Testable[]
      */
     protected $allTestables = [];
 
@@ -52,18 +52,18 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface
     protected $allTestablesAreCached = false;
 
     /**
-     * @var Tx_Phpunit_Interface_ExtensionSettingsService
+     * @var \Tx_Phpunit_Interface_ExtensionSettingsService
      */
     protected $extensionSettingsService = null;
 
     /**
      * Injects the extension settings service.
      *
-     * @param Tx_Phpunit_Interface_ExtensionSettingsService $service the service to inject
+     * @param \Tx_Phpunit_Interface_ExtensionSettingsService $service the service to inject
      *
      * @return void
      */
-    public function injectExtensionSettingsService(Tx_Phpunit_Interface_ExtensionSettingsService $service)
+    public function injectExtensionSettingsService(\Tx_Phpunit_Interface_ExtensionSettingsService $service)
     {
         $this->extensionSettingsService = $service;
     }
@@ -114,18 +114,18 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface
      * @param string $key
      *        the key for which to get the testable, must an extension key, must not be empty
      *
-     * @return Tx_Phpunit_Testable the testable for the given key
+     * @return \Tx_Phpunit_Testable the testable for the given key
      *
-     * @throws InvalidArgumentException
-     * @throws BadMethodCallException
+     * @throws \InvalidArgumentException
+     * @throws \BadMethodCallException
      */
     public function getTestableForKey($key)
     {
         if ($key === '') {
-            throw new InvalidArgumentException('$key must not be empty.', 1334664441);
+            throw new \InvalidArgumentException('$key must not be empty.', 1334664441);
         }
         if (!$this->existsTestableForKey($key)) {
-            throw new BadMethodCallException('There is no testable for this key: ' . $key, 1334664552);
+            throw new \BadMethodCallException('There is no testable for this key: ' . $key, 1334664552);
         }
 
         $allTestables = $this->getTestablesForEverything();
@@ -135,7 +135,7 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface
     /**
      * Returns the testable code instance for everything, i.e.,  all installed extensions.
      *
-     * @return Tx_Phpunit_Testable[]
+     * @return \Tx_Phpunit_Testable[]
      *         testable code for everything using the extension keys  as array keys, might be empty
      */
     public function getTestablesForEverything()
@@ -155,7 +155,7 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface
      * Extensions without a test directory and extensions in the "exclude list"
      * will be skipped.
      *
-     * @return Tx_Phpunit_Testable[]
+     * @return \Tx_Phpunit_Testable[]
      *         testable code for the installed extensions using the extension keys
      *         as array keys, might be empty
      */
@@ -172,7 +172,7 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface
         foreach ($extensionKeysToExamine as $extensionKey) {
             try {
                 $result[$extensionKey] = $this->createTestableForSingleExtension($extensionKey);
-            } catch (Tx_Phpunit_Exception_NoTestsDirectory $exception) {
+            } catch (\Tx_Phpunit_Exception_NoTestsDirectory $exception) {
                 // Just skip extensions without a tests directory.
             }
         }
@@ -185,14 +185,14 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface
     /**
      * Callback function for comparing the keys of $testable1 and $testable2.
      *
-     * @param Tx_Phpunit_Testable $testable1 the first item to compare
-     * @param Tx_Phpunit_Testable $testable2 the second item to compare
+     * @param \Tx_Phpunit_Testable $testable1 the first item to compare
+     * @param \Tx_Phpunit_Testable $testable2 the second item to compare
      *
      * @return int
      *         1 if both items need to be swapped, 0 if they have the same key,
      *         and -1 if the order is okay.
      */
-    public function sortTestablesByKey(Tx_Phpunit_Testable $testable1, Tx_Phpunit_Testable $testable2)
+    public function sortTestablesByKey(\Tx_Phpunit_Testable $testable1, \Tx_Phpunit_Testable $testable2)
     {
         return strcmp($testable1->getKey(), $testable2->getKey());
     }
@@ -238,15 +238,15 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface
      *
      * @param string $extensionKey the key of an installed extension, must not be empty
      *
-     * @return Tx_Phpunit_Testable the test-relevant data of the installed extension
+     * @return \Tx_Phpunit_Testable the test-relevant data of the installed extension
      *
-     * @throws Tx_Phpunit_Exception_NoTestsDirectory if the given extension has no tests directory
+     * @throws \Tx_Phpunit_Exception_NoTestsDirectory if the given extension has no tests directory
      */
     protected function createTestableForSingleExtension($extensionKey)
     {
         $testsPath = $this->findTestsPathForExtension($extensionKey);
 
-        /** @var Tx_Phpunit_Testable $testable */
+        /** @var \Tx_Phpunit_Testable $testable */
         $testable = GeneralUtility::makeInstance(\Tx_Phpunit_Testable::class);
         $testable->setKey($extensionKey);
         $testable->setTitle($extensionKey);
@@ -273,13 +273,13 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface
      *         (might differ in case from the actual tests directory on case-insensitive
      *         file systems)
      *
-     * @throws InvalidArgumentException
-     * @throws Tx_Phpunit_Exception_NoTestsDirectory if the given extension has no tests directory
+     * @throws \InvalidArgumentException
+     * @throws \Tx_Phpunit_Exception_NoTestsDirectory if the given extension has no tests directory
      */
     protected function findTestsPathForExtension($extensionKey)
     {
         if ($extensionKey === '') {
-            throw new InvalidArgumentException('$extensionKey must not be empty.', 1334439819);
+            throw new \InvalidArgumentException('$extensionKey must not be empty.', 1334439819);
         }
 
         $testsPath = '';
@@ -292,12 +292,12 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface
                     break;
                 }
             }
-        } catch (BadFunctionCallException $e) {
+        } catch (\BadFunctionCallException $e) {
             // Silently ignore missing extensions (e.g. extension directory does not exist)
         }
 
         if ($testsPath === '') {
-            throw new Tx_Phpunit_Exception_NoTestsDirectory(
+            throw new \Tx_Phpunit_Exception_NoTestsDirectory(
                 'The extension "' . $extensionKey . '" does not have a tests directory.',
                 1334439826
             );

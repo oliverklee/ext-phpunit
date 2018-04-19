@@ -12,6 +12,7 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -19,20 +20,20 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Felix Rauch <rauch@skaiamail.de>
  */
-class Tx_Phpunit_Service_SeleniumService implements Tx_Phpunit_Interface_SeleniumService, \TYPO3\CMS\Core\SingletonInterface
+class Tx_Phpunit_Service_SeleniumService implements \Tx_Phpunit_Interface_SeleniumService, SingletonInterface
 {
     /**
-     * @var Tx_Phpunit_Interface_ExtensionSettingsService
+     * @var \Tx_Phpunit_Interface_ExtensionSettingsService
      */
     protected $extensionSettingsService = null;
 
     /**
      * The constructor.
      *
-     * @param Tx_Phpunit_Interface_ExtensionSettingsService|null $extensionSettingsService
+     * @param \Tx_Phpunit_Interface_ExtensionSettingsService|null $extensionSettingsService
      */
     public function __construct(
-        Tx_Phpunit_Interface_ExtensionSettingsService $extensionSettingsService = null
+        \Tx_Phpunit_Interface_ExtensionSettingsService $extensionSettingsService = null
     ) {
         if ($extensionSettingsService !== null) {
             $this->extensionSettingsService = $extensionSettingsService;

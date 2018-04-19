@@ -53,37 +53,37 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     /**
      * a name prettifier for creating readable test and test case names
      *
-     * @var PHPUnit_Util_TestDox_NamePrettifier
+     * @var \PHPUnit_Util_TestDox_NamePrettifier
      */
     protected $namePrettifier = null;
 
     /**
-     * @var Tx_Phpunit_Interface_Request
+     * @var \Tx_Phpunit_Interface_Request
      */
     protected $request = null;
 
     /**
-     * @var Tx_Phpunit_Service_TestFinder
+     * @var \Tx_Phpunit_Service_TestFinder
      */
     protected $testFinder = null;
 
     /**
-     * @var Tx_Phpunit_Service_TestCaseService
+     * @var \Tx_Phpunit_Service_TestCaseService
      */
     protected $testCaseService = null;
 
     /**
-     * @var Tx_Phpunit_BackEnd_TestListener
+     * @var \Tx_Phpunit_BackEnd_TestListener
      */
     protected $testListener = null;
 
     /**
-     * @var Tx_Phpunit_Service_OutputService
+     * @var \Tx_Phpunit_Service_OutputService
      */
     protected $outputService = null;
 
     /**
-     * @var Tx_Phpunit_Interface_UserSettingsService
+     * @var \Tx_Phpunit_Interface_UserSettingsService
      */
     protected $userSettingsService = null;
 
@@ -93,7 +93,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     protected $coverage = null;
 
     /**
-     * @var Tx_Phpunit_BackEnd_TestStatistics
+     * @var \Tx_Phpunit_BackEnd_TestStatistics
      */
     protected $testStatistics = null;
 
@@ -127,11 +127,11 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     /**
      * Injects the request.
      *
-     * @param Tx_Phpunit_Interface_Request $request the request to inject
+     * @param \Tx_Phpunit_Interface_Request $request the request to inject
      *
      * @return void
      */
-    public function injectRequest(Tx_Phpunit_Interface_Request $request)
+    public function injectRequest(\Tx_Phpunit_Interface_Request $request)
     {
         $this->request = $request;
     }
@@ -139,11 +139,11 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     /**
      * Injects the test listener.
      *
-     * @param Tx_Phpunit_BackEnd_TestListener $testListener the test listener to inject
+     * @param \Tx_Phpunit_BackEnd_TestListener $testListener the test listener to inject
      *
      * @return void
      */
-    public function injectTestListener(Tx_Phpunit_BackEnd_TestListener $testListener)
+    public function injectTestListener(\Tx_Phpunit_BackEnd_TestListener $testListener)
     {
         $this->testListener = $testListener;
     }
@@ -151,11 +151,11 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     /**
      * Injects the name prettifier.
      *
-     * @param PHPUnit_Util_TestDox_NamePrettifier $namePrettifier the name prettifier to inject
+     * @param \PHPUnit_Util_TestDox_NamePrettifier $namePrettifier the name prettifier to inject
      *
      * @return void
      */
-    public function injectNamePrettifier(PHPUnit_Util_TestDox_NamePrettifier $namePrettifier)
+    public function injectNamePrettifier(\PHPUnit_Util_TestDox_NamePrettifier $namePrettifier)
     {
         $this->namePrettifier = $namePrettifier;
     }
@@ -163,11 +163,11 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     /**
      * Injects the output service.
      *
-     * @param Tx_Phpunit_Service_OutputService $service the service to inject
+     * @param \Tx_Phpunit_Service_OutputService $service the service to inject
      *
      * @return void
      */
-    public function injectOutputService(Tx_Phpunit_Service_OutputService $service)
+    public function injectOutputService(\Tx_Phpunit_Service_OutputService $service)
     {
         $this->outputService = $service;
     }
@@ -175,11 +175,11 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     /**
      * Injects the user settings service.
      *
-     * @param Tx_Phpunit_Interface_UserSettingsService $service the service to inject
+     * @param \Tx_Phpunit_Interface_UserSettingsService $service the service to inject
      *
      * @return void
      */
-    public function injectUserSettingsService(Tx_Phpunit_Interface_UserSettingsService $service)
+    public function injectUserSettingsService(\Tx_Phpunit_Interface_UserSettingsService $service)
     {
         $this->userSettingsService = $service;
     }
@@ -187,11 +187,11 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     /**
      * Injects the test finder.
      *
-     * @param Tx_Phpunit_Service_TestFinder $testFinder the test finder to inject
+     * @param \Tx_Phpunit_Service_TestFinder $testFinder the test finder to inject
      *
      * @return void
      */
-    public function injectTestFinder(Tx_Phpunit_Service_TestFinder $testFinder)
+    public function injectTestFinder(\Tx_Phpunit_Service_TestFinder $testFinder)
     {
         $this->testFinder = $testFinder;
     }
@@ -199,11 +199,11 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     /**
      * Injects the test case service.
      *
-     * @param Tx_Phpunit_Service_TestCaseService $testCaseService the test case service to inject
+     * @param \Tx_Phpunit_Service_TestCaseService $testCaseService the test case service to inject
      *
      * @return void
      */
-    public function injectTestCaseService(Tx_Phpunit_Service_TestCaseService $testCaseService)
+    public function injectTestCaseService(\Tx_Phpunit_Service_TestCaseService $testCaseService)
     {
         $this->testCaseService = $testCaseService;
     }
@@ -249,7 +249,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
             $this->cleanOutputBuffers();
             $this->outputService->output(
                 $this->doc->startPage($this->translate('title')) .
-                $this->doc->header(PHPUnit_Runner_Version::getVersionString())
+                $this->doc->header(\PHPUnit_Runner_Version::getVersionString())
             );
 
             $this->renderRunTests();
@@ -316,7 +316,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
      */
     protected function renderRunTests()
     {
-        $command = $this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND);
+        $command = $this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND);
         switch ($command) {
             case 'runalltests':
                 // The fallthrough is intentional.
@@ -338,15 +338,15 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
      */
     protected function getAndSaveSelectedTestableKey()
     {
-        $testableKeyFromSettings = $this->userSettingsService->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE);
+        $testableKeyFromSettings = $this->userSettingsService->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE);
 
-        if ($this->request->hasString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE)) {
-            $selectedTestableKey = $this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE);
+        if ($this->request->hasString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE)) {
+            $selectedTestableKey = $this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE);
         } else {
             $selectedTestableKey = $testableKeyFromSettings;
         }
 
-        if (($selectedTestableKey !== Tx_Phpunit_Testable::ALL_EXTENSIONS)
+        if (($selectedTestableKey !== \Tx_Phpunit_Testable::ALL_EXTENSIONS)
             && !$this->testFinder->existsTestableForKey($selectedTestableKey)
         ) {
             // We know that phpunit must be loaded.
@@ -354,7 +354,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         }
 
         if ($selectedTestableKey !== $testableKeyFromSettings) {
-            $this->userSettingsService->set(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE, $selectedTestableKey);
+            $this->userSettingsService->set(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE, $selectedTestableKey);
         }
 
         return $selectedTestableKey;
@@ -399,7 +399,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         $selectedExtensionKey = $this->getAndSaveSelectedTestableKey();
 
         $output = '';
-        if ($selectedExtensionKey !== Tx_Phpunit_Testable::ALL_EXTENSIONS) {
+        if ($selectedExtensionKey !== \Tx_Phpunit_Testable::ALL_EXTENSIONS) {
             $output .= $this->createTestCaseSelector($selectedExtensionKey) . $this->createTestSelector($selectedExtensionKey);
         }
         $output .= $this->createCheckboxes();
@@ -416,7 +416,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     {
         $this->getAndSaveSelectedTestableKey();
 
-        /** @var Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper $extensionSelectorViewHelper */
+        /** @var \Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper $extensionSelectorViewHelper */
         $extensionSelectorViewHelper = GeneralUtility::makeInstance(\Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper::class);
         $extensionSelectorViewHelper->injectOutputService($this->outputService);
         $extensionSelectorViewHelper->injectUserSettingService($this->userSettingsService);
@@ -449,7 +449,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
             require_once $testsPathOfExtension . $fileName;
         }
 
-        $testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
+        $testSuite = new \PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
         foreach (get_declared_classes() as $className) {
             if ($this->testCaseService->isValidTestCaseClassName($className)) {
                 $testSuite->addTestSuite($className);
@@ -458,9 +458,9 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
 
         // testCaseFile
         $testCaseFileOptionsArray = [];
-        /** @var PHPUnit_Framework_TestCase $testCase */
+        /** @var \PHPUnit_Framework_TestCase $testCase */
         foreach ($testSuite->tests() as $testCase) {
-            $selected = ($testCase->toString() === $this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE))
+            $selected = ($testCase->toString() === $this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE))
                 ? ' selected="selected"' : '';
             $testCaseFileOptionsArray[] = '<option value="' . $testCase->toString() . '"' . $selected . '>' .
                 htmlspecialchars($testCase->getName()) . '</option>';
@@ -470,16 +470,16 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
 
         return '<form action="' . htmlspecialchars(BackendUtility::getModuleUrl('tools_txphpunitbeM1')) . '" method="post">' .
         '<p>' .
-        '<select style="' . $currentStyle . '" name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
-        Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE . ']" onchange="document.location=\'' . BackendUtility::getModuleUrl('tools_txphpunitbeM1') . '&' .
-        Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE . ']=\'+this.options[this.selectedIndex].value;">' .
+        '<select style="' . $currentStyle . '" name="' . \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
+        \Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE . ']" onchange="document.location=\'' . BackendUtility::getModuleUrl('tools_txphpunitbeM1') . '&' .
+        \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' . \Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE . ']=\'+this.options[this.selectedIndex].value;">' .
         '<option value="">' . htmlspecialchars($this->translate('select_tests')) . '</option>' .
         implode(LF, $testCaseFileOptionsArray) . '</select>' .
-        '<button type="submit" name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
-        Tx_Phpunit_Interface_Request::PARAMETER_KEY_EXECUTE . ']" value="run" accesskey="c">' .
+        '<button type="submit" name="' . \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
+        \Tx_Phpunit_Interface_Request::PARAMETER_KEY_EXECUTE . ']" value="run" accesskey="c">' .
         $this->translate('runTestCaseFile') . '</button>' .
-        '<input type="hidden" name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
-        Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND . ']" value="runTestCaseFile" />' .
+        '<input type="hidden" name="' . \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
+        \Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND . ']" value="runTestCaseFile" />' .
         '</p>' .
         '</form>';
     }
@@ -499,7 +499,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
             return '';
         }
 
-        $testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
+        $testSuite = new \PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
 
         $testsPathOfExtension = $this->testFinder->getTestableForKey($extensionKey)->getTestsPath();
         $testSuites = $this->testCaseService->findTestCaseFilesInDirectory($testsPathOfExtension);
@@ -517,17 +517,17 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         // single test case
         /** @var string[][] $testsOptionsArr */
         $testsOptionsArr = [];
-        $testCaseFile = $this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE);
+        $testCaseFile = $this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE);
         $useHumanReadableOptionLabels = $this->userSettingsService->getAsBoolean('testdox');
 
-        /** @var PHPUnit_Framework_TestSuite $testCase */
+        /** @var \PHPUnit_Framework_TestSuite $testCase */
         foreach ($testSuite->tests() as $testCase) {
             if (($testCaseFile !== null) && ($testCase->getName() !== $testCaseFile)) {
                 continue;
             }
-            /** @var PHPUnit_Framework_TestCase $test */
+            /** @var \PHPUnit_Framework_TestCase $test */
             foreach ($testCase->tests() as $test) {
-                if ($test instanceof PHPUnit_Framework_TestSuite) {
+                if ($test instanceof \PHPUnit_Framework_TestSuite) {
                     list($testSuiteName, $testName) = explode('::', $test->getName());
                     $testIdentifier = $testName . '(' . $testSuiteName . ')';
                 } else {
@@ -536,7 +536,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
                     $testSuiteName = strstr($testIdentifier, '(');
                     $testSuiteName = trim($testSuiteName, '()');
                 }
-                $selected = ($testIdentifier === $this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST))
+                $selected = ($testIdentifier === $this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST))
                     ? ' selected="selected"' : '';
                 $testCaption = $useHumanReadableOptionLabels ? $this->namePrettifier->prettifyTestMethod($testName) : $testName;
                 $testsOptionsArr[$testSuiteName][] .= '<option value="' . $testIdentifier . '"' . $selected . '>' .
@@ -562,17 +562,17 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
 
         return '<form action="' . htmlspecialchars(BackendUtility::getModuleUrl('tools_txphpunitbeM1')) . '" method="post">
             <p>
-            <select style="' . $currentStyle . '" name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
-            Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST . ']">
+            <select style="' . $currentStyle . '" name="' . \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
+            \Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST . ']">
             <option value="">' . $this->translate('select_tests') . '</option>' . $testOptionsHtml . '</select>
-            <button type="submit" name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
-            Tx_Phpunit_Interface_Request::PARAMETER_KEY_EXECUTE .
+            <button type="submit" name="' . \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
+            \Tx_Phpunit_Interface_Request::PARAMETER_KEY_EXECUTE .
             ']" value="run" accesskey="s">' . $this->translate('run_single_test') . '</button>
-            <input type="hidden" name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
-            Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND .
+            <input type="hidden" name="' . \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
+            \Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND .
             ']" value="runsingletest" />
-            <input type="hidden" name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
-            Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE .
+            <input type="hidden" name="' . \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
+            \Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE .
             ']" value="' . $testCaseFile . '" />
             </p>
             </form>';
@@ -644,7 +644,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
 
         $testSuite = $this->createTestSuiteWithAllTestCases();
 
-        $testResult = new PHPUnit_Framework_TestResult();
+        $testResult = new \PHPUnit_Framework_TestResult();
 
         $this->configureTestListener();
         $testResult->addListener($this->testListener);
@@ -657,9 +657,9 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
             $this->coverage->start('phpunit');
         }
 
-        if ($this->request->hasString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST)) {
+        if ($this->request->hasString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST)) {
             $this->runSingleTest($testSuite, $testResult);
-        } elseif ($this->request->hasString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE)) {
+        } elseif ($this->request->hasString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE)) {
             $this->runTestCase($testSuite, $testResult);
         } else {
             $this->runAllTests($testSuite, $testResult);
@@ -677,7 +677,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     }
 
     /**
-     * Sets the PHPUnit error handler to catch all errors.
+     * Sets the \PHPUnit error handler to catch all errors.
      * This is important as PHPUnit only sets its error handler if nothing has been set before,
      * but typically an error handler is set during by TYPO3 during the initialization.
      *
@@ -697,7 +697,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
      */
     protected function renderTestingHeader($testableKey)
     {
-        if ($testableKey === Tx_Phpunit_Testable::ALL_EXTENSIONS) {
+        if ($testableKey === \Tx_Phpunit_Testable::ALL_EXTENSIONS) {
             $this->outputService->output('<h1>' . $this->translate('testing_all_extensions') . '</h1>');
         } else {
             $this->outputService->output(
@@ -711,11 +711,11 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
      *
      * @param string $testableKey the key of the selected testable
      *
-     * @return Tx_Phpunit_Testable[] the testables to process
+     * @return \Tx_Phpunit_Testable[] the testables to process
      */
     protected function collectTestablesToProcess($testableKey)
     {
-        if ($testableKey === Tx_Phpunit_Testable::ALL_EXTENSIONS) {
+        if ($testableKey === \Tx_Phpunit_Testable::ALL_EXTENSIONS) {
             $testablesToProcess = $this->testFinder->getTestablesForEverything();
         } else {
             $testablesToProcess = [$this->testFinder->getTestableForKey($testableKey)];
@@ -727,13 +727,13 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     /**
      * Loads all files containing test cases for the given testables.
      *
-     * @param Tx_Phpunit_Testable[] $testables the testables for which to load all test case files
+     * @param \Tx_Phpunit_Testable[] $testables the testables for which to load all test case files
      *
      * @return void
      */
     protected function loadAllFilesContainingTestCasesForTestables(array $testables)
     {
-        /** @var Tx_Phpunit_Testable $testable */
+        /** @var \Tx_Phpunit_Testable $testable */
         foreach ($testables as $testable) {
             $this->loadAllFilesContainingTestCasesForSingleTestable($testable);
         }
@@ -742,11 +742,11 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     /**
      * Loads all files containing test cases for the given testable.
      *
-     * @param Tx_Phpunit_Testable $testable the testable for which to load all test case files
+     * @param \Tx_Phpunit_Testable $testable the testable for which to load all test case files
      *
      * @return void
      */
-    protected function loadAllFilesContainingTestCasesForSingleTestable(Tx_Phpunit_Testable $testable)
+    protected function loadAllFilesContainingTestCasesForSingleTestable(\Tx_Phpunit_Testable $testable)
     {
         $testsPath = $testable->getTestsPath();
         $testCaseFileNames = $this->testCaseService->findTestCaseFilesInDirectory($testsPath);
@@ -758,11 +758,11 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     /**
      * Creates a test suite that contains all test cases in the systems (but filters out this extension's base test cases).
      *
-     * @return PHPUnit_Framework_TestSuite the test suite with all test cases added
+     * @return \PHPUnit_Framework_TestSuite the test suite with all test cases added
      */
     protected function createTestSuiteWithAllTestCases()
     {
-        $testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
+        $testSuite = new \PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
 
         foreach (get_declared_classes() as $className) {
             if ($this->testCaseService->isValidTestCaseClassName($className)) {
@@ -792,21 +792,21 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     /**
      * Runs a single test as given in the GET/POST variable.
      *
-     * @param PHPUnit_Framework_TestSuite $testSuiteWithAllTestCases suite with all test cases
-     * @param PHPUnit_Framework_TestResult $testResult the test result (will be modified)
+     * @param \PHPUnit_Framework_TestSuite $testSuiteWithAllTestCases suite with all test cases
+     * @param \PHPUnit_Framework_TestResult $testResult the test result (will be modified)
      *
      * @return void
      */
     protected function runSingleTest(
-        PHPUnit_Framework_TestSuite $testSuiteWithAllTestCases,
-        PHPUnit_Framework_TestResult $testResult
+        \PHPUnit_Framework_TestSuite $testSuiteWithAllTestCases,
+        \PHPUnit_Framework_TestResult $testResult
     ) {
         $this->renderProgressbar();
-        /** @var PHPUnit_Framework_TestSuite $testCases */
+        /** @var \PHPUnit_Framework_TestSuite $testCases */
         foreach ($testSuiteWithAllTestCases->tests() as $testCases) {
             foreach ($testCases->tests() as $test) {
-                if ($test instanceof PHPUnit_Framework_TestSuite) {
-                    /** @var PHPUnit_Framework_TestSuite $test */
+                if ($test instanceof \PHPUnit_Framework_TestSuite) {
+                    /** @var \PHPUnit_Framework_TestSuite $test */
                     list($testSuiteName, $testName) = explode('::', $test->getName());
                     $this->testListener->setTestSuiteName($testSuiteName);
                     $testIdentifier = $testName . '(' . $testSuiteName . ')';
@@ -817,8 +817,8 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
                     $testSuiteName = $testIdentifierParts[0];
                     $this->testListener->setTestSuiteName($testSuiteName);
                 }
-                if ($testIdentifier === $this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST)) {
-                    if ($test instanceof PHPUnit_Framework_TestSuite) {
+                if ($testIdentifier === $this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST)) {
+                    if ($test instanceof \PHPUnit_Framework_TestSuite) {
                         $this->testListener->setTotalNumberOfTests($test->count());
                     } else {
                         $this->testListener->setTotalNumberOfTests(1);
@@ -831,7 +831,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         if (!is_object($testResult)) {
             $this->outputService->output(
                 '<h2 class="hadError">Error</h2><p>The test <strong> ' .
-                htmlspecialchars($this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE)) .
+                htmlspecialchars($this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE)) .
                 '</strong> could not be found.</p>'
             );
         }
@@ -840,16 +840,16 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     /**
      * Runs a testcase as given in the GET/POST variable "testCaseFile".
      *
-     * @param PHPUnit_Framework_TestSuite $testSuiteWithAllTestCases suite with all test cases
-     * @param PHPUnit_Framework_TestResult $testResult the test result (will be modified)
+     * @param \PHPUnit_Framework_TestSuite $testSuiteWithAllTestCases suite with all test cases
+     * @param \PHPUnit_Framework_TestResult $testResult the test result (will be modified)
      *
      * @return void
      */
     protected function runTestCase(
-        PHPUnit_Framework_TestSuite $testSuiteWithAllTestCases,
-        PHPUnit_Framework_TestResult $testResult
+        \PHPUnit_Framework_TestSuite $testSuiteWithAllTestCases,
+        \PHPUnit_Framework_TestResult $testResult
     ) {
-        $testCaseFileName = $this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE);
+        $testCaseFileName = $this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE);
         $this->testListener->setTestSuiteName($testCaseFileName);
 
         $suiteNameHasBeenDisplayed = false;
@@ -857,14 +857,14 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         foreach ($testSuiteWithAllTestCases->tests() as $testSuite) {
             /** @var \PHPUnit_Framework_TestSuite $testSuite */
             foreach ($testSuite->tests() as $test) {
-                if ($test instanceof PHPUnit_Framework_TestSuite) {
+                if ($test instanceof \PHPUnit_Framework_TestSuite) {
                     $testIdentifierParts = explode('::', $test->getName());
                     $testIdentifier = $testIdentifierParts[0];
                 } else {
                     $testIdentifier = get_class($test);
                 }
                 if ($testIdentifier === $testCaseFileName) {
-                    if ($test instanceof PHPUnit_Framework_TestSuite) {
+                    if ($test instanceof \PHPUnit_Framework_TestSuite) {
                         $totalNumberOfTestCases += $test->count();
                     } else {
                         $totalNumberOfTestCases++;
@@ -878,7 +878,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         foreach ($testSuiteWithAllTestCases->tests() as $testSuite) {
             /** @var \PHPUnit_Framework_TestSuite $testSuite */
             foreach ($testSuite->tests() as $test) {
-                if ($test instanceof PHPUnit_Framework_TestSuite) {
+                if ($test instanceof \PHPUnit_Framework_TestSuite) {
                     $testIdentifierParts = explode('::', $test->getName());
                     $testIdentifier = $testIdentifierParts[0];
                 } else {
@@ -896,7 +896,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         if (!is_object($testResult)) {
             $this->outputService->output(
                 '<h2 class="hadError">Error</h2><p>The test <strong> ' .
-                htmlspecialchars($this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST)) .
+                htmlspecialchars($this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST)) .
                 '</strong> could not be found.</p>'
             );
             return;
@@ -906,14 +906,14 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     /**
      * Runs all tests.
      *
-     * @param PHPUnit_Framework_TestSuite $testSuiteWithAllTestCases suite with all test cases
-     * @param PHPUnit_Framework_TestResult $testResult the test result (will be modified)
+     * @param \PHPUnit_Framework_TestSuite $testSuiteWithAllTestCases suite with all test cases
+     * @param \PHPUnit_Framework_TestResult $testResult the test result (will be modified)
      *
      * @return void
      */
     protected function runAllTests(
-        PHPUnit_Framework_TestSuite $testSuiteWithAllTestCases,
-        PHPUnit_Framework_TestResult $testResult
+        \PHPUnit_Framework_TestSuite $testSuiteWithAllTestCases,
+        \PHPUnit_Framework_TestResult $testResult
     ) {
         $this->testListener->setTotalNumberOfTests($testSuiteWithAllTestCases->count());
         $this->renderProgressbar();
@@ -923,11 +923,11 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     /**
      * Renders and output the tests statistics.
      *
-     * @param PHPUnit_Framework_TestResult $testResult the test result
+     * @param \PHPUnit_Framework_TestResult $testResult the test result
      *
      * @return void
      */
-    protected function renderTestStatistics(PHPUnit_Framework_TestResult $testResult)
+    protected function renderTestStatistics(\PHPUnit_Framework_TestResult $testResult)
     {
         if ($testResult->wasSuccessful()) {
             $testStatistics = '<h2 class="wasSuccessful">' . $this->translate('testing_success') . '</h2>';
@@ -960,18 +960,18 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         $this->outputService->output(
             '<form action="' . htmlspecialchars(BackendUtility::getModuleUrl('tools_txphpunitbeM1')) . '" method="post">
             <p>
-            <button type="submit" name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . ' [' .
-            Tx_Phpunit_Interface_Request::PARAMETER_KEY_EXECUTE . ']" value="run" accesskey="r">' .
+            <button type="submit" name="' . \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . ' [' .
+            \Tx_Phpunit_Interface_Request::PARAMETER_KEY_EXECUTE . ']" value="run" accesskey="r">' .
             $this->translate('run_again') . '</button>
-            <input name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
-            Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND . ']" type="hidden" value="' .
-            htmlspecialchars($this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND)) . '" />
-            <input name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
-            Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST . ']" type="hidden" value="' .
-            htmlspecialchars($this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST)) . '" />
-            <input name="' . Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
-            Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE . ']" type="hidden" value="' .
-            htmlspecialchars($this->request->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE)) . '" />
+            <input name="' . \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
+            \Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND . ']" type="hidden" value="' .
+            htmlspecialchars($this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND)) . '" />
+            <input name="' . \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
+            \Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST . ']" type="hidden" value="' .
+            htmlspecialchars($this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST)) . '" />
+            <input name="' . \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
+            \Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE . ']" type="hidden" value="' .
+            htmlspecialchars($this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE)) . '" />
             </p>
             </form>'
         );
@@ -1021,7 +1021,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
      */
     protected function renderProgressbar()
     {
-        /** @var Tx_Phpunit_ViewHelpers_ProgressBarViewHelper $progressBarViewHelper */
+        /** @var \Tx_Phpunit_ViewHelpers_ProgressBarViewHelper $progressBarViewHelper */
         $progressBarViewHelper = GeneralUtility::makeInstance(\Tx_Phpunit_ViewHelpers_ProgressBarViewHelper::class);
         $progressBarViewHelper->injectOutputService($this->outputService);
         $progressBarViewHelper->render();
@@ -1088,16 +1088,16 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
      *
      * @return string the content for the "style" attribute, will not be empty
      *
-     * @throws Tx_Phpunit_Exception_NoTestsDirectory
+     * @throws \Tx_Phpunit_Exception_NoTestsDirectory
      *         if there is not extension with tests with the given key
      */
     protected function createIconStyle($extensionKey)
     {
         if ($extensionKey === '') {
-            throw new Tx_Phpunit_Exception_NoTestsDirectory('$extensionKey must not be empty.', 1303503647);
+            throw new \Tx_Phpunit_Exception_NoTestsDirectory('$extensionKey must not be empty.', 1303503647);
         }
         if (!$this->testFinder->existsTestableForKey($extensionKey)) {
-            throw new Tx_Phpunit_Exception_NoTestsDirectory(
+            throw new \Tx_Phpunit_Exception_NoTestsDirectory(
                 'The extension ' . $extensionKey . ' is not loaded.',
                 1303503664
             );

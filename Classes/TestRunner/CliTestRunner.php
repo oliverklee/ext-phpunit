@@ -17,7 +17,7 @@
  *
  * @author Helmut Hummel <helmut.hummel@typo3.org>
  */
-class Tx_Phpunit_TestRunner_CliTestRunner extends Tx_Phpunit_TestRunner_AbstractCliTestRunner
+class Tx_Phpunit_TestRunner_CliTestRunner extends \Tx_Phpunit_TestRunner_AbstractCliTestRunner
 {
     /**
      * Runs PHPUnit.
@@ -33,7 +33,7 @@ class Tx_Phpunit_TestRunner_CliTestRunner extends Tx_Phpunit_TestRunner_Abstract
         // Run unit tests
         /** @var string */
         define('PHPUnit_MAIN_METHOD', 'PHPUnit_TextUI_Command::main');
-        PHPUnit_TextUI_Command::main();
+        \PHPUnit_TextUI_Command::main();
 
         // Restore configuration
         $GLOBALS['TYPO3_CONF_VARS'] = array_merge($GLOBALS['TYPO3_CONF_VARS'], $globalBackup);

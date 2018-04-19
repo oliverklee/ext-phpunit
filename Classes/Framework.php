@@ -158,7 +158,7 @@ class Tx_Phpunit_Framework
     /**
      * hook objects for this class
      *
-     * @var Tx_Phpunit_Interface_FrameworkCleanupHook[]
+     * @var \Tx_Phpunit_Interface_FrameworkCleanupHook[]
      */
     protected static $hooks = [];
 
@@ -174,7 +174,7 @@ class Tx_Phpunit_Framework
      *
      * This testing framework can be instantiated for one extension at a time.
      * Example: In your testcase, you'll have something similar to this line of code:
-     * $this->subject = new Tx_Phpunit_Framework('tx_seminars');
+     * $this->subject = new \Tx_Phpunit_Framework('tx_seminars');
      * The parameter you provide is the prefix of the table names of that particular
      * extension. Like this, we ensure that the testing framework creates and
      * deletes records only on table with this prefix.
@@ -284,7 +284,7 @@ class Tx_Phpunit_Framework
         $dummyColumnName = $this->getDummyColumnName($tableName);
         $recordData[$dummyColumnName] = 1;
 
-        $uid = Tx_Phpunit_Service_Database::insert($tableName, $recordData);
+        $uid = \Tx_Phpunit_Service_Database::insert($tableName, $recordData);
         $this->markTableAsDirty($tableName);
 
         return $uid;
@@ -578,7 +578,7 @@ class Tx_Phpunit_Framework
      * @return void
      *
      * @throws \InvalidArgumentException
-     * @throws Tx_Phpunit_Exception_Database
+     * @throws \Tx_Phpunit_Exception_Database
      */
     public function changeRecord($tableName, $uid, array $recordData)
     {
@@ -611,10 +611,10 @@ class Tx_Phpunit_Framework
             );
         }
         if (!$this->countRecords($tableName, 'uid=' . $uid)) {
-            throw new Tx_Phpunit_Exception_Database(1334439132);
+            throw new \Tx_Phpunit_Exception_Database(1334439132);
         }
 
-        Tx_Phpunit_Service_Database::update(
+        \Tx_Phpunit_Service_Database::update(
             $tableName,
             'uid = ' . $uid . ' AND ' . $dummyColumnName . ' = 1',
             $recordData
@@ -644,7 +644,7 @@ class Tx_Phpunit_Framework
             throw new \InvalidArgumentException('The table name "' . $tableName . '" is not allowed.', 1334439187);
         }
 
-        Tx_Phpunit_Service_Database::delete(
+        \Tx_Phpunit_Service_Database::delete(
             $tableName,
             'uid = ' . $uid . ' AND ' . $this->getDummyColumnName($tableName) . ' = 1'
         );
@@ -699,7 +699,7 @@ class Tx_Phpunit_Framework
             $this->getDummyColumnName($tableName) => 1,
         ];
 
-        Tx_Phpunit_Service_Database::insert($tableName, $recordData);
+        \Tx_Phpunit_Service_Database::insert($tableName, $recordData);
     }
 
     /**
@@ -745,7 +745,7 @@ class Tx_Phpunit_Framework
             );
         }
 
-        $tca = Tx_Phpunit_Service_Database::getTcaForTable($tableName);
+        $tca = \Tx_Phpunit_Service_Database::getTcaForTable($tableName);
         $relationConfiguration = $tca['columns'][$columnName];
 
         if (!isset($relationConfiguration['config']['MM']) || ($relationConfiguration['config']['MM'] === '')) {
@@ -801,7 +801,7 @@ class Tx_Phpunit_Framework
             throw new \InvalidArgumentException('The table name "' . $tableName . '" is not allowed.', 1334439276);
         }
 
-        Tx_Phpunit_Service_Database::delete(
+        \Tx_Phpunit_Service_Database::delete(
             $tableName,
             'uid_local = ' . $uidLocal . ' AND uid_foreign = ' . $uidForeign .
             ' AND ' . $this->getDummyColumnName($tableName) . ' = 1'
@@ -834,13 +834,13 @@ class Tx_Phpunit_Framework
         $this->discardFakeFrontEnd();
 
         foreach ($this->getHooks() as $hook) {
-            if (!($hook instanceof Tx_Phpunit_Interface_FrameworkCleanupHook)) {
+            if (!($hook instanceof \Tx_Phpunit_Interface_FrameworkCleanupHook)) {
                 throw new Exception(
-                    'The class ' . get_class($hook) . ' must implement Tx_Phpunit_Interface_FrameworkCleanupHook.',
+                    'The class ' . get_class($hook) . ' must implement \\Tx_Phpunit_Interface_FrameworkCleanupHook.',
                     1299257923
                 );
             }
-            /** @var Tx_Phpunit_Interface_FrameworkCleanupHook $hook */
+            /** @var \Tx_Phpunit_Interface_FrameworkCleanupHook $hook */
             $hook->cleanUp();
         }
 
@@ -881,7 +881,7 @@ class Tx_Phpunit_Framework
             // Runs a delete query for each allowed table. A
             // "one-query-deletes-them-all" approach was tested but we did not
             // find a working solution for that.
-            Tx_Phpunit_Service_Database::delete($currentTable, $dummyColumnName . ' = 1');
+            \Tx_Phpunit_Service_Database::delete($currentTable, $dummyColumnName . ' = 1');
 
             // Resets the auto increment setting of the current table.
             $this->resetAutoIncrementLazily($currentTable);
@@ -1225,12 +1225,12 @@ class Tx_Phpunit_Framework
      *
      * @return string the unique absolute path of a file or folder
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function getUniqueFileOrFolderPath($path)
     {
         if ($path === '') {
-            throw new InvalidArgumentException('The first parameter $path must not be empty.', 1476054696353);
+            throw new \InvalidArgumentException('The first parameter $path must not be empty.', 1476054696353);
         }
 
         $pathInformation = pathinfo($path);
@@ -1496,7 +1496,7 @@ class Tx_Phpunit_Framework
     protected function createListOfOwnAllowedTables()
     {
         $this->ownAllowedTables = [];
-        $allTables = Tx_Phpunit_Service_Database::getAllTableNames();
+        $allTables = \Tx_Phpunit_Service_Database::getAllTableNames();
         $length = strlen($this->tablePrefix);
 
         foreach ($allTables as $currentTable) {
@@ -1521,7 +1521,7 @@ class Tx_Phpunit_Framework
      */
     protected function createListOfAdditionalAllowedTables()
     {
-        $allTables = implode(',', Tx_Phpunit_Service_Database::getAllTableNames());
+        $allTables = implode(',', \Tx_Phpunit_Service_Database::getAllTableNames());
         $additionalTablePrefixes = implode('|', $this->additionalTablePrefixes);
 
         $matches = [];
@@ -1674,7 +1674,7 @@ class Tx_Phpunit_Framework
         $compoundWhereClause = ($whereClause !== '')
             ? '(' . $whereClause . ') AND ' . $whereForDummyColumn : $whereForDummyColumn;
 
-        return Tx_Phpunit_Service_Database::count($tableName, $compoundWhereClause);
+        return \Tx_Phpunit_Service_Database::count($tableName, $compoundWhereClause);
     }
 
     /**
@@ -1748,7 +1748,7 @@ class Tx_Phpunit_Framework
      * @return void
      *
      * @throws \InvalidArgumentException
-     * @throws Tx_Phpunit_Exception_Database
+     * @throws \Tx_Phpunit_Exception_Database
      */
     public function resetAutoIncrement($tableName)
     {
@@ -1769,14 +1769,14 @@ class Tx_Phpunit_Framework
 
         $newAutoIncrementValue = $this->getMaximumUidFromTable($tableName) + 1;
 
-        Tx_Phpunit_Service_Database::enableQueryLogging();
+        \Tx_Phpunit_Service_Database::enableQueryLogging();
         // Updates the auto increment index for this table. The index will be
         // set to one UID above the highest existing UID.
-        $dbResult = Tx_Phpunit_Service_Database::getDatabaseConnection()->sql_query(
+        $dbResult = \Tx_Phpunit_Service_Database::getDatabaseConnection()->sql_query(
             'ALTER TABLE ' . $tableName . ' AUTO_INCREMENT=' . $newAutoIncrementValue . ';'
         );
         if ($dbResult === false) {
-            throw new Tx_Phpunit_Exception_Database(1334439540);
+            throw new \Tx_Phpunit_Exception_Database(1334439540);
         }
     }
 
@@ -1855,7 +1855,7 @@ class Tx_Phpunit_Framework
      */
     protected function getMaximumUidFromTable($tableName)
     {
-        $row = Tx_Phpunit_Service_Database::selectSingle('MAX(uid) AS uid', $tableName);
+        $row = \Tx_Phpunit_Service_Database::selectSingle('MAX(uid) AS uid', $tableName);
 
         return (int)$row['uid'];
     }
@@ -1874,7 +1874,7 @@ class Tx_Phpunit_Framework
      *         the current auto_increment value of table $tableName, will be > 0
      *
      * @throws \InvalidArgumentException
-     * @throws Tx_Phpunit_Exception_Database
+     * @throws \Tx_Phpunit_Exception_Database
      */
     public function getAutoIncrement($tableName)
     {
@@ -1885,16 +1885,16 @@ class Tx_Phpunit_Framework
             );
         }
 
-        Tx_Phpunit_Service_Database::enableQueryLogging();
-        $dbResult = Tx_Phpunit_Service_Database::getDatabaseConnection()->sql_query(
+        \Tx_Phpunit_Service_Database::enableQueryLogging();
+        $dbResult = \Tx_Phpunit_Service_Database::getDatabaseConnection()->sql_query(
             'SHOW TABLE STATUS WHERE Name = \'' . $tableName . '\';'
         );
         if (!$dbResult) {
-            throw new Tx_Phpunit_Exception_Database(1334439578);
+            throw new \Tx_Phpunit_Exception_Database(1334439578);
         }
 
-        $row = Tx_Phpunit_Service_Database::getDatabaseConnection()->sql_fetch_assoc($dbResult);
-        Tx_Phpunit_Service_Database::getDatabaseConnection()->sql_free_result($dbResult);
+        $row = \Tx_Phpunit_Service_Database::getDatabaseConnection()->sql_fetch_assoc($dbResult);
+        \Tx_Phpunit_Service_Database::getDatabaseConnection()->sql_free_result($dbResult);
 
         $autoIncrement = $row['Auto_increment'];
         if ($autoIncrement === null) {
@@ -2031,7 +2031,7 @@ class Tx_Phpunit_Framework
      * @return void
      *
      * @throws \InvalidArgumentException
-     * @throws Tx_Phpunit_Exception_Database
+     * @throws \Tx_Phpunit_Exception_Database
      */
     public function increaseRelationCounter($tableName, $uid, $fieldName)
     {
@@ -2042,23 +2042,23 @@ class Tx_Phpunit_Framework
                 1334439601
             );
         }
-        if (!Tx_Phpunit_Service_Database::tableHasColumn($tableName, $fieldName)) {
+        if (!\Tx_Phpunit_Service_Database::tableHasColumn($tableName, $fieldName)) {
             throw new \InvalidArgumentException(
                 'The table ' . $tableName . ' has no column ' . $fieldName . '.',
                 1334439616
             );
         }
 
-        Tx_Phpunit_Service_Database::enableQueryLogging();
-        $dbResult = Tx_Phpunit_Service_Database::getDatabaseConnection()->sql_query(
+        \Tx_Phpunit_Service_Database::enableQueryLogging();
+        $dbResult = \Tx_Phpunit_Service_Database::getDatabaseConnection()->sql_query(
             'UPDATE ' . $tableName . ' SET ' . $fieldName . '=' . $fieldName . '+1 WHERE uid=' . $uid
         );
         if (!$dbResult) {
-            throw new Tx_Phpunit_Exception_Database(1334439623);
+            throw new \Tx_Phpunit_Exception_Database(1334439623);
         }
 
-        if (Tx_Phpunit_Service_Database::getDatabaseConnection()->sql_affected_rows() === 0) {
-            throw new Tx_Phpunit_Exception_Database(1334439632);
+        if (\Tx_Phpunit_Service_Database::getDatabaseConnection()->sql_affected_rows() === 0) {
+            throw new \Tx_Phpunit_Exception_Database(1334439632);
         }
 
         $this->markTableAsDirty($tableName);
@@ -2084,7 +2084,7 @@ class Tx_Phpunit_Framework
     /**
      * Gets all hooks for this class.
      *
-     * @return Tx_Phpunit_Interface_FrameworkCleanupHook[] the hook objects, will be empty if no hooks have been set
+     * @return \Tx_Phpunit_Interface_FrameworkCleanupHook[] the hook objects, will be empty if no hooks have been set
      */
     protected function getHooks()
     {

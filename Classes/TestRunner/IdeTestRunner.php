@@ -17,7 +17,7 @@
  *
  * @author Helmut Hummel <helmut.hummel@typo3.org>
  */
-class Tx_Phpunit_TestRunner_IdeTestRunner extends Tx_Phpunit_TestRunner_AbstractCliTestRunner
+class Tx_Phpunit_TestRunner_IdeTestRunner extends \Tx_Phpunit_TestRunner_AbstractCliTestRunner
 {
     /**
      * Additional help text for the command line

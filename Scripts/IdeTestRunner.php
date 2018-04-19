@@ -23,10 +23,10 @@ array_shift($_SERVER['argv']);
 
 $ideBootScript = array_shift($_SERVER['argv']);
 if (empty($ideBootScript) || !is_file($ideBootScript)) {
-    throw new UnexpectedValueException('IDE Boot Script not found!', 1343498915);
+    throw new \UnexpectedValueException('IDE Boot Script not found!', 1343498915);
 }
 
-/* @var Tx_Phpunit_TestRunner_IdeTestRunner $phpUnit */
+/* @var \Tx_Phpunit_TestRunner_IdeTestRunner $phpUnit */
 $phpUnit = GeneralUtility::makeInstance(\Tx_Phpunit_TestRunner_IdeTestRunner::class);
 
 require_once $ideBootScript;

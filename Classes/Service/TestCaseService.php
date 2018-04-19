@@ -55,18 +55,18 @@ class Tx_Phpunit_Service_TestCaseService implements SingletonInterface
     ];
 
     /**
-     * @var Tx_Phpunit_Interface_UserSettingsService
+     * @var \Tx_Phpunit_Interface_UserSettingsService
      */
     protected $userSettingsService = null;
 
     /**
      * Injects the user settings service.
      *
-     * @param Tx_Phpunit_Interface_UserSettingsService $service the service to inject
+     * @param \Tx_Phpunit_Interface_UserSettingsService $service the service to inject
      *
      * @return void
      */
-    public function injectUserSettingsService(Tx_Phpunit_Interface_UserSettingsService $service)
+    public function injectUserSettingsService(\Tx_Phpunit_Interface_UserSettingsService $service)
     {
         $this->userSettingsService = $service;
     }
@@ -90,18 +90,18 @@ class Tx_Phpunit_Service_TestCaseService implements SingletonInterface
      *         sorted file names of the test cases in the directory $directory relative
      *         to $directory, will be empty if no test cases have been found
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function findTestCaseFilesInDirectory($directory)
     {
         if ($directory === '') {
-            throw new InvalidArgumentException('$directory must not be empty.', 1334439798);
+            throw new \InvalidArgumentException('$directory must not be empty.', 1334439798);
         }
         if (!is_dir($directory)) {
-            throw new InvalidArgumentException('The directory ' . $directory . ' does not exist.', 1334439804);
+            throw new \InvalidArgumentException('The directory ' . $directory . ' does not exist.', 1334439804);
         }
         if (!is_readable($directory)) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'The directory ' . $directory . ' exists, but is not readable.',
                 1334439813
             );
@@ -179,12 +179,12 @@ class Tx_Phpunit_Service_TestCaseService implements SingletonInterface
      *
      * @return bool whether $className is the name of a valid test case class
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function isValidTestCaseClassName($className)
     {
         if ($className === '') {
-            throw new InvalidArgumentException('$className must not be empty.', 1354018635);
+            throw new \InvalidArgumentException('$className must not be empty.', 1354018635);
         }
         if (!$this->classNameHasTestCaseSuffix($className) || !class_exists($className, true)
             || !$this->classNameIsNonAbstractSubclassOfValidBaseTestCase($className)

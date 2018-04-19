@@ -26,7 +26,7 @@ use TYPO3\CMS\Install\Service\SqlSchemaMigrationService;
  * @author Michael Klapper <michael.klapper@aoemedia.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
+abstract class Tx_Phpunit_Database_TestCase extends \Tx_Phpunit_TestCase
 {
     /**
      * name of a test database
@@ -59,7 +59,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
      */
     protected function switchToTypo3Database()
     {
-        $this->switchToOriginalTypo3Database(Tx_Phpunit_Service_Database::getDatabaseConnection());
+        $this->switchToOriginalTypo3Database(\Tx_Phpunit_Service_Database::getDatabaseConnection());
     }
 
     /**
@@ -76,7 +76,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
         $success = true;
 
         $this->dropDatabase();
-        $db = Tx_Phpunit_Service_Database::getDatabaseConnection();
+        $db = \Tx_Phpunit_Service_Database::getDatabaseConnection();
         $databaseNames = $db->admin_get_dbs();
         $this->switchToOriginalTypo3Database($db);
 
@@ -96,7 +96,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
      */
     protected function cleanDatabase()
     {
-        $db = Tx_Phpunit_Service_Database::getDatabaseConnection();
+        $db = \Tx_Phpunit_Service_Database::getDatabaseConnection();
         $databaseNames = $db->admin_get_dbs();
         $this->switchToOriginalTypo3Database($db);
 
@@ -120,7 +120,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
      */
     protected function dropDatabase()
     {
-        $db = Tx_Phpunit_Service_Database::getDatabaseConnection();
+        $db = \Tx_Phpunit_Service_Database::getDatabaseConnection();
         $databaseNames = $db->admin_get_dbs();
         $this->switchToOriginalTypo3Database($db);
 
@@ -146,7 +146,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
      */
     protected function useTestDatabase($databaseName = null)
     {
-        $db = Tx_Phpunit_Service_Database::getDatabaseConnection();
+        $db = \Tx_Phpunit_Service_Database::getDatabaseConnection();
 
         if (!$this->selectDatabase($databaseName ?: $this->testDatabase, $db)) {
             $this->markTestSkipped('This test is skipped because the test database is not available.');
@@ -346,7 +346,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
 
         $updateTypes = ['add', 'change', 'create_table'];
 
-        $databaseConnection = Tx_Phpunit_Service_Database::getDatabaseConnection();
+        $databaseConnection = \Tx_Phpunit_Service_Database::getDatabaseConnection();
         foreach ($updateTypes as $updateType) {
             if (array_key_exists($updateType, $updateStatements)) {
                 foreach ((array)$updateStatements[$updateType] as $string) {

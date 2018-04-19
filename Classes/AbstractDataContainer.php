@@ -110,14 +110,14 @@ abstract class Tx_Phpunit_AbstractDataContainer
      *
      * @param string $key the key to check, may be empty
      *
-     * @throws InvalidArgumentException if $key is empty
+     * @throws \InvalidArgumentException if $key is empty
      *
      * @return void
      */
     protected function checkForNonEmptyKey($key)
     {
         if ($key === '') {
-            throw new InvalidArgumentException('$key must not be empty.', 1335021694);
+            throw new \InvalidArgumentException('$key must not be empty.', 1335021694);
         }
     }
 }

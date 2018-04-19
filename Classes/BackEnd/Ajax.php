@@ -29,7 +29,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class Tx_Phpunit_BackEnd_Ajax
 {
     /**
-     * @var Tx_Phpunit_Interface_UserSettingsService
+     * @var \Tx_Phpunit_Interface_UserSettingsService
      */
     protected $userSettingsService = null;
 
@@ -56,7 +56,7 @@ class Tx_Phpunit_BackEnd_Ajax
     public function __construct($initializeUserSettingsService = true)
     {
         if ($initializeUserSettingsService) {
-            /** @var Tx_Phpunit_Service_UserSettingsService $userSettingsService */
+            /** @var \Tx_Phpunit_Service_UserSettingsService $userSettingsService */
             $userSettingsService = GeneralUtility::makeInstance(\Tx_Phpunit_Service_UserSettingsService::class);
             $this->injectUserSettingsService($userSettingsService);
         }
@@ -73,11 +73,11 @@ class Tx_Phpunit_BackEnd_Ajax
     /**
      * Injects the user settings service.
      *
-     * @param Tx_Phpunit_Interface_UserSettingsService $service the service to inject
+     * @param \Tx_Phpunit_Interface_UserSettingsService $service the service to inject
      *
      * @return void
      */
-    public function injectUserSettingsService(Tx_Phpunit_Interface_UserSettingsService $service)
+    public function injectUserSettingsService(\Tx_Phpunit_Interface_UserSettingsService $service)
     {
         $this->userSettingsService = $service;
     }

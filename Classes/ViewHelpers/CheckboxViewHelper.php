@@ -17,7 +17,7 @@
  *
  * @author Felix Rauch <rauch@skaiamail.de>
  */
-class Tx_Phpunit_ViewHelpers_CheckboxViewHelper extends Tx_Phpunit_ViewHelpers_AbstractTagViewHelper
+class Tx_Phpunit_ViewHelpers_CheckboxViewHelper extends \Tx_Phpunit_ViewHelpers_AbstractTagViewHelper
 {
     /**
      * @var string
@@ -46,7 +46,7 @@ class Tx_Phpunit_ViewHelpers_CheckboxViewHelper extends Tx_Phpunit_ViewHelpers_A
     protected $value = '';
 
     /**
-     * Tx_Phpunit_ViewHelpers_CheckboxViewHelper constructor.
+     * Constructor.
      *
      * @param string $value
      * @param string[]|int[] $additionalAttributes

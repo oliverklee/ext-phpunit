@@ -65,7 +65,7 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
      */
 
     /**
-     * Creates a subclass Tx_Phpunit_Service_TestFinder with the protected
+     * Creates a subclass \Tx_Phpunit_Service_TestFinder with the protected
      * functions made public.
      *
      * @return \Tx_Phpunit_Service_TestFinder an accessible proxy
@@ -75,7 +75,7 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
         $className = 'Tx_Phpunit_Service_TestFinderAccessibleProxy';
         if (!class_exists($className, false)) {
             eval(
-                'class ' . $className . ' extends Tx_Phpunit_Service_TestFinder {' .
+                'class ' . $className . ' extends \\Tx_Phpunit_Service_TestFinder {' .
                 '  public function getLoadedExtensionKeys() {' .
                 '    return parent::getLoadedExtensionKeys();' .
                 '  }' .

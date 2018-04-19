@@ -26,10 +26,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @author Michael Klapper <michael.klapper@aoemedia.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
+class Tx_Phpunit_BackEnd_TestListener implements \PHPUnit_Framework_TestListener
 {
     /**
-     * @var Tx_Phpunit_Service_OutputService
+     * @var \Tx_Phpunit_Service_OutputService
      */
     protected $outputService = null;
 
@@ -112,7 +112,7 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
     /**
      * a name prettifier for creating readable test and test case names
      *
-     * @var PHPUnit_Util_TestDox_NamePrettifier
+     * @var \PHPUnit_Util_TestDox_NamePrettifier
      */
     protected $namePrettifier = null;
 
@@ -127,11 +127,11 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
     /**
      * Injects the name prettifier.
      *
-     * @param PHPUnit_Util_TestDox_NamePrettifier $namePrettifier the name prettifier to inject
+     * @param \PHPUnit_Util_TestDox_NamePrettifier $namePrettifier the name prettifier to inject
      *
      * @return void
      */
-    public function injectNamePrettifier(PHPUnit_Util_TestDox_NamePrettifier $namePrettifier)
+    public function injectNamePrettifier(\PHPUnit_Util_TestDox_NamePrettifier $namePrettifier)
     {
         $this->namePrettifier = $namePrettifier;
     }
@@ -139,11 +139,11 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
     /**
      * Injects the output service.
      *
-     * @param Tx_Phpunit_Service_OutputService $outputService the output service to inject
+     * @param \Tx_Phpunit_Service_OutputService $outputService the output service to inject
      *
      * @return void
      */
-    public function injectOutputService(Tx_Phpunit_Service_OutputService $outputService)
+    public function injectOutputService(\Tx_Phpunit_Service_OutputService $outputService)
     {
         $this->outputService = $outputService;
     }
@@ -198,23 +198,23 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
     /**
      * An error has occurred, i.e. an exception has been thrown when running $test.
      *
-     * @param PHPUnit_Framework_Test $test the test that had an error
+     * @param \PHPUnit_Framework_Test $test the test that had an error
      * @param Exception $e the exception that has caused the error
      * @param float $time ?
      *
      * @return void
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
-    public function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
+    public function addError(\PHPUnit_Framework_Test $test, Exception $e, $time)
     {
-        if (!$test instanceof PHPUnit_Framework_TestCase) {
-            throw new InvalidArgumentException(
-                'addError needs $test to be a PHPUnit_Framework_TestCase.',
+        if (!$test instanceof \PHPUnit_Framework_TestCase) {
+            throw new \InvalidArgumentException(
+                'addError needs $test to be a \\PHPUnit_Framework_TestCase.',
                 1334308922
             );
         }
-        /** @var PHPUnit_Framework_TestCase $test */
+        /** @var \PHPUnit_Framework_TestCase $test */
         $fileName = str_replace(PATH_site, '', $e->getFile());
         $lineNumber = $e->getLine();
 
@@ -233,13 +233,13 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
     /**
      * A risky test has been detected.
      *
-     * @param PHPUnit_Framework_Test $test
-     * @param Exception $e
+     * @param \PHPUnit_Framework_Test $test
+     * @param \Exception $e
      * @param float $time
      *
      * @return void
      */
-    public function addRiskyTest(PHPUnit_Framework_Test $test, Exception $e, $time)
+    public function addRiskyTest(\PHPUnit_Framework_Test $test, \Exception $e, $time)
     {
         // We don't treat those kind of tests yet.
     }
@@ -247,23 +247,23 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
     /**
      * A test has failed.
      *
-     * @param PHPUnit_Framework_Test $test the test that has failed
-     * @param PHPUnit_Framework_AssertionFailedError $e the failed assertion
+     * @param \PHPUnit_Framework_Test $test the test that has failed
+     * @param \PHPUnit_Framework_AssertionFailedError $e the failed assertion
      * @param float $time ?
      *
      * @return void
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
-    public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
+    public function addFailure(\PHPUnit_Framework_Test $test, \PHPUnit_Framework_AssertionFailedError $e, $time)
     {
-        if (!$test instanceof PHPUnit_Framework_TestCase) {
-            throw new InvalidArgumentException(
-                'addFailure needs $test to be a PHPUnit_Framework_TestCase.',
+        if (!$test instanceof \PHPUnit_Framework_TestCase) {
+            throw new \InvalidArgumentException(
+                'addFailure needs $test to be a \\PHPUnit_Framework_TestCase.',
                 1334308954
             );
         }
-        /** @var PHPUnit_Framework_TestCase $test */
+        /** @var \PHPUnit_Framework_TestCase $test */
         $testCaseTraceArr = $this->getFirstNonPhpUnitTrace($e->getTrace());
         $fileName = str_replace(PATH_site, '', $testCaseTraceArr['file']);
 
@@ -283,8 +283,8 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
         }
         $this->outputService->output('<div class="message">' . nl2br(htmlspecialchars($message)) . '</div>');
 
-        if ($e instanceof PHPUnit_Framework_ExpectationFailedException) {
-            /** @var PHPUnit_Framework_ExpectationFailedException $e */
+        if ($e instanceof \PHPUnit_Framework_ExpectationFailedException) {
+            /** @var \PHPUnit_Framework_ExpectationFailedException $e */
             $comparisonFailure = $e->getComparisonFailure();
             if ($comparisonFailure instanceof ComparisonFailure) {
                 /** @var ComparisonFailure $comparisonFailure */
@@ -323,23 +323,23 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
     /**
      * A test has been marked as incomplete, i.e. as not implemented yet.
      *
-     * @param PHPUnit_Framework_Test $test the test that has been marked as incomplete
-     * @param Exception $e an exception about the incomplete test (?)
+     * @param \PHPUnit_Framework_Test $test the test that has been marked as incomplete
+     * @param \Exception $e an exception about the incomplete test (?)
      * @param float $time ?
      *
      * @return void
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
-    public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
+    public function addIncompleteTest(\PHPUnit_Framework_Test $test, \Exception $e, $time)
     {
-        if (!$test instanceof PHPUnit_Framework_TestCase) {
-            throw new InvalidArgumentException(
-                'addIncompleteTest needs $test to be a PHPUnit_Framework_TestCase.',
+        if (!$test instanceof \PHPUnit_Framework_TestCase) {
+            throw new \InvalidArgumentException(
+                'addIncompleteTest needs $test to be a \\PHPUnit_Framework_TestCase.',
                 1334308983
             );
         }
-        /** @var PHPUnit_Framework_TestCase $test */
+        /** @var \PHPUnit_Framework_TestCase $test */
         $this->outputService->output(
             '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadIncomplete");/*]]>*/</script>' .
             '<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
@@ -353,23 +353,23 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
     /**
      * A test has been marked as skipped.
      *
-     * @param PHPUnit_Framework_Test $test the test that has been marked as skipped
-     * @param Exception $e an exception about the skipped test (?)
+     * @param \PHPUnit_Framework_Test $test the test that has been marked as skipped
+     * @param \Exception $e an exception about the skipped test (?)
      * @param float $time ?
      *
      * @return void
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
-    public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time)
+    public function addSkippedTest(\PHPUnit_Framework_Test $test, \Exception $e, $time)
     {
-        if (!$test instanceof PHPUnit_Framework_TestCase) {
-            throw new InvalidArgumentException(
-                'addSkippedTest needs $test to be a PHPUnit_Framework_TestCase.',
+        if (!$test instanceof \PHPUnit_Framework_TestCase) {
+            throw new \InvalidArgumentException(
+                'addSkippedTest needs $test to be a \\PHPUnit_Framework_TestCase.',
                 1334309006
             );
         }
-        /** @var PHPUnit_Framework_TestCase $test */
+        /** @var \PHPUnit_Framework_TestCase $test */
         $this->outputService->output(
             '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadSkipped");/*]]>*/</script>' .
             '<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
@@ -386,14 +386,14 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
      * Note: This function also gets called when a test that uses a data provider
      * has started.
      *
-     * @param PHPUnit_Framework_TestSuite $suite the test suite/case that has started
+     * @param \PHPUnit_Framework_TestSuite $suite the test suite/case that has started
      *
      * @return void
      */
-    public function startTestSuite(PHPUnit_Framework_TestSuite $suite)
+    public function startTestSuite(\PHPUnit_Framework_TestSuite $suite)
     {
         $this->setTestSuiteName($suite->getName());
-        if (($suite instanceof PHPUnit_Framework_TestSuite_DataProvider)
+        if (($suite instanceof \PHPUnit_Framework_TestSuite_DataProvider)
             || ($suite->getName() === 'tx_phpunit_basetestsuite')
         ) {
             return;
@@ -424,32 +424,32 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
      * Note: This function also gets called when a test that uses a data provider
      * has ended.
      *
-     * @param PHPUnit_Framework_TestSuite $suite the test suite/case that has ended
+     * @param \PHPUnit_Framework_TestSuite $suite the test suite/case that has ended
      *
      * @return void
      */
-    public function endTestSuite(PHPUnit_Framework_TestSuite $suite)
+    public function endTestSuite(\PHPUnit_Framework_TestSuite $suite)
     {
     }
 
     /**
      * A test has started.
      *
-     * @param PHPUnit_Framework_Test $test the test that has started
+     * @param \PHPUnit_Framework_Test $test the test that has started
      *
      * @return void
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
-    public function startTest(PHPUnit_Framework_Test $test)
+    public function startTest(\PHPUnit_Framework_Test $test)
     {
-        if (!$test instanceof PHPUnit_Framework_TestCase) {
-            throw new InvalidArgumentException(
-                'For startTest, $test needs to be a PHPUnit_Framework_TestCase.',
+        if (!$test instanceof \PHPUnit_Framework_TestCase) {
+            throw new \InvalidArgumentException(
+                'For startTest, $test needs to be a \\PHPUnit_Framework_TestCase.',
                 1334305913
             );
         }
-        /** @var PHPUnit_Framework_TestCase $test */
+        /** @var \PHPUnit_Framework_TestCase $test */
 
         // A single test has to take less than this or else PHP will time out.
         $this->setTimeLimit(240);
@@ -477,17 +477,17 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
     /**
      * A test has ended.
      *
-     * @param PHPUnit_Framework_Test $test the test that has ended
+     * @param \PHPUnit_Framework_Test $test the test that has ended
      * @param float $time ?
      *
      * @return void
      */
-    public function endTest(PHPUnit_Framework_Test $test, $time)
+    public function endTest(\PHPUnit_Framework_Test $test, $time)
     {
         $this->memoryUsageEndOfTest = memory_get_usage();
 
-        if ($test instanceof PHPUnit_Framework_TestCase) {
-            /** @var  PHPUnit_Framework_TestCase $test */
+        if ($test instanceof \PHPUnit_Framework_TestCase) {
+            /** @var \PHPUnit_Framework_TestCase $test */
             // Tests with the same name are a sign of data provider usage.
             $testNameParts = explode(' ', $test->getName());
             $testName = get_class($test) . ':' . $testNameParts[0];
@@ -508,7 +508,7 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
             $percentDone = 0.0;
         }
 
-        if ($test instanceof PHPUnit_Framework_TestCase) {
+        if ($test instanceof \PHPUnit_Framework_TestCase) {
             $this->testAssertions += $test->getNumAssertions();
         }
 
@@ -528,12 +528,12 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
     /**
      * Creates the link (including an icon) to re-run the given single test.
      *
-     * @param PHPUnit_Framework_TestCase $test
+     * @param \PHPUnit_Framework_TestCase $test
      *        the test for which to create the re-run link
      *
      * @return string the link to re-run the given test, will not be empty
      */
-    protected function createReRunLink(PHPUnit_Framework_TestCase $test)
+    protected function createReRunLink(\PHPUnit_Framework_TestCase $test)
     {
         $iconImageTag = '<img class="runner" src="' .
             ExtensionManagementUtility::extRelPath('phpunit') . 'Resources/Public/Icons/Runner.gif" alt="" />';
@@ -543,24 +543,24 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
     /**
      * Creates the URL to re-run the given test.
      *
-     * @param PHPUnit_Framework_TestCase $test
+     * @param \PHPUnit_Framework_TestCase $test
      *        the test for which to create the re-run URL
      *
      * @return string the htmlspecialchared URL to re-run the given test, will not be empty
      */
-    protected function createReRunUrl(PHPUnit_Framework_TestCase $test)
+    protected function createReRunUrl(\PHPUnit_Framework_TestCase $test)
     {
         $urlParameters = [
-            Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE .
-            '[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND . ']' => 'runsingletest',
-            Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE .
-            '[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE . ']' => $this->getTestCaseName(),
-            Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE .
-            '[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST . ']' => $this->createTestId($test),
+            \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE .
+            '[' . \Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND . ']' => 'runsingletest',
+            \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE .
+            '[' . \Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE . ']' => $this->getTestCaseName(),
+            \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE .
+            '[' . \Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST . ']' => $this->createTestId($test),
         ];
 
         return htmlspecialchars(BackendUtility::getModuleUrl(
-            Tx_Phpunit_BackEnd_Module::MODULE_NAME,
+            \Tx_Phpunit_BackEnd_Module::MODULE_NAME,
             $urlParameters
         ));
     }
@@ -568,11 +568,11 @@ class Tx_Phpunit_BackEnd_TestListener implements PHPUnit_Framework_TestListener
     /**
      * Creates a unique string ID for $test that can be used in URLs.
      *
-     * @param PHPUnit_Framework_TestCase $test a test for which to create an ID
+     * @param \PHPUnit_Framework_TestCase $test a test for which to create an ID
      *
      * @return string a unique ID for $test, not htmlspecialchared or URL-encoded yet
      */
-    protected function createTestId(PHPUnit_Framework_TestCase $test)
+    protected function createTestId(\PHPUnit_Framework_TestCase $test)
     {
         $testNameParts = explode(' ', $test->getName());
 

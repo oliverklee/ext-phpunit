@@ -29,6 +29,6 @@
  *
  * @author Nicole Cordes <nicole.cordes@googlemail.com>
  */
-class Tx_Aaa_Tests_OneTest extends Tx_Phpunit_TestCase
+class Tx_Aaa_Tests_OneTest extends \Tx_Phpunit_TestCase
 {
 }

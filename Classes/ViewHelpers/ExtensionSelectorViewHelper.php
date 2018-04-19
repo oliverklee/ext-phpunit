@@ -17,7 +17,7 @@
  *
  * @author Nicole Cordes <nicole.cordes@googlemail.com>
  */
-class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper extends Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper
+class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper extends \Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper
 {
     /**
      * Renders the content of the view helper and pushes it to the output service.
@@ -65,8 +65,8 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper extends Tx_Phpunit_View
         return $this->renderTag(
             'input',
             [
-                'name' => Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE .
-                    '[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND . ']',
+                'name' => \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE .
+                    '[' . \Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND . ']',
                 'type' => 'hidden',
                 'value' => 'runalltests',
             ]
@@ -86,8 +86,8 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper extends Tx_Phpunit_View
             'button',
             [
                 'accesskey' => 'a',
-                'name' => Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE .
-                    '[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_EXECUTE . ']',
+                'name' => \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE .
+                    '[' . \Tx_Phpunit_Interface_Request::PARAMETER_KEY_EXECUTE . ']',
                 'type' => 'submit',
                 'value' => 'run',
             ],
@@ -111,7 +111,7 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper extends Tx_Phpunit_View
             if (isset($option['selected']) && $option['selected'] === 'selected') {
                 $selectedExtensionStyle = $option['style'];
             }
-            if ($option['value'] === Tx_Phpunit_Testable::ALL_EXTENSIONS) {
+            if ($option['value'] === \Tx_Phpunit_Testable::ALL_EXTENSIONS) {
                 $optionValue = $this->translate('all_extensions');
             } else {
                 $optionValue = $option['value'];
@@ -122,11 +122,11 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper extends Tx_Phpunit_View
         return $this->renderTag(
             'select',
             [
-                'name' => Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE .
-                    '[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE . ']',
+                'name' => \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE .
+                    '[' . \Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE . ']',
                 'onchange' => 'document.location = \'' . $this->action . '&' .
-                    Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE .
-                    '[' . Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE . ']=' .
+                    \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE .
+                    '[' . \Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE . ']=' .
                     '\'+this.options[this.selectedIndex].value;',
                 'style' => $selectedExtensionStyle,
             ],
@@ -145,14 +145,14 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper extends Tx_Phpunit_View
 
         $allExtensionOption = [
             'class' => 'alltests',
-            'value' => Tx_Phpunit_Testable::ALL_EXTENSIONS,
+            'value' => \Tx_Phpunit_Testable::ALL_EXTENSIONS,
         ];
-        if ($this->isOptionSelected(Tx_Phpunit_Testable::ALL_EXTENSIONS)) {
+        if ($this->isOptionSelected(\Tx_Phpunit_Testable::ALL_EXTENSIONS)) {
             $allExtensionOption['selected'] = 'selected';
         }
         $options[] = $allExtensionOption;
 
-        /** @var Tx_Phpunit_Testable $testable */
+        /** @var \Tx_Phpunit_Testable $testable */
         foreach ($this->testFinder->getTestablesForEverything() as $testable) {
             $extensionOption = [
                 'style' => $this->createIconStyle($testable->getKey()),
@@ -177,6 +177,6 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper extends Tx_Phpunit_View
      */
     protected function isOptionSelected($option)
     {
-        return $this->userSettingService->getAsString(Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE) === $option;
+        return $this->userSettingService->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE) === $option;
     }
 }

@@ -15,10 +15,9 @@ namespace OliverKlee\Phpunit\Tests\Unit\ViewHelpers\Fixtures;
  */
 
 /**
- * Fixture class for Tx_Phpunit_ViewHelpers_AbstractTagViewHelper.
+ * Fixture class.
  *
  * This testing view helper renders a tag with the given arguments (see the parent class)
- *
  *
  * @author Felix Rauch <rauch@skaiamail.de>
  */

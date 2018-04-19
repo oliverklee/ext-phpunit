@@ -56,7 +56,7 @@ class TestListenerTest extends \Tx_Phpunit_TestCase
      */
 
     /**
-     * Creates a subclass Tx_Phpunit_BackEnd_TestListener with the protected
+     * Creates a subclass \Tx_Phpunit_BackEnd_TestListener with the protected
      * functions made public.
      *
      * @return string the name of the accessible proxy class
@@ -66,11 +66,11 @@ class TestListenerTest extends \Tx_Phpunit_TestCase
         $className = 'Tx_Phpunit_BackEnd_TestListenerAccessibleProxy';
         if (!class_exists($className, false)) {
             eval(
-                'class ' . $className . ' extends Tx_Phpunit_BackEnd_TestListener {' .
-                '  public function createReRunLink(PHPUnit_Framework_TestCase $test) {' .
+                'class ' . $className . ' extends \\Tx_Phpunit_BackEnd_TestListener {' .
+                '  public function createReRunLink(\\PHPUnit_Framework_TestCase $test) {' .
                 '    return parent::createReRunLink($test);' .
                 '  }' .
-                '  public function createReRunUrl(PHPUnit_Framework_TestCase $test) {' .
+                '  public function createReRunUrl(\\PHPUnit_Framework_TestCase $test) {' .
                 '    return parent::createReRunUrl($test);' .
                 '  }' .
                 '  public function prettifyTestMethod($testClass) {' .

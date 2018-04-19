@@ -88,12 +88,12 @@ class Tx_Phpunit_Testable
      *
      * @return void
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function setKey($key)
     {
         if ($key === '') {
-            throw new InvalidArgumentException('$key must not be empty.', 1334439650);
+            throw new \InvalidArgumentException('$key must not be empty.', 1334439650);
         }
 
         $this->key = $key;
@@ -142,12 +142,12 @@ class Tx_Phpunit_Testable
      *
      * @return void
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function setCodePath($codePath)
     {
         if ($codePath === '') {
-            throw new InvalidArgumentException('$codePath must not be empty.', 1334439668);
+            throw new \InvalidArgumentException('$codePath must not be empty.', 1334439668);
         }
 
         $this->codePath = $codePath;
@@ -176,12 +176,12 @@ class Tx_Phpunit_Testable
      *
      * @return void
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function setTestsPath($testsPath)
     {
         if ($testsPath === '') {
-            throw new InvalidArgumentException('$testsPath must not be empty.', 1334439674);
+            throw new \InvalidArgumentException('$testsPath must not be empty.', 1334439674);
         }
 
         $this->testsPath = $testsPath;
@@ -256,12 +256,12 @@ class Tx_Phpunit_Testable
      *
      * @return void
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function setIconPath($iconPath)
     {
         if ($iconPath === '') {
-            throw new InvalidArgumentException('$iconPath must not be empty.', 1334439681);
+            throw new \InvalidArgumentException('$iconPath must not be empty.', 1334439681);
         }
 
         $this->iconPath = $iconPath;

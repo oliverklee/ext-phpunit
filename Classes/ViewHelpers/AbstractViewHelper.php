@@ -21,7 +21,7 @@ use TYPO3\CMS\Lang\LanguageService;
 abstract class Tx_Phpunit_ViewHelpers_AbstractViewHelper
 {
     /**
-     * @var Tx_Phpunit_Service_OutputService
+     * @var \Tx_Phpunit_Service_OutputService
      */
     protected $outputService = null;
 
@@ -36,11 +36,11 @@ abstract class Tx_Phpunit_ViewHelpers_AbstractViewHelper
     /**
      * Injects the output service.
      *
-     * @param Tx_Phpunit_Service_OutputService $service the service to inject
+     * @param \Tx_Phpunit_Service_OutputService $service the service to inject
      *
      * @return void
      */
-    public function injectOutputService(Tx_Phpunit_Service_OutputService $service)
+    public function injectOutputService(\Tx_Phpunit_Service_OutputService $service)
     {
         $this->outputService = $service;
     }
