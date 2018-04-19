@@ -417,7 +417,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         $this->getAndSaveSelectedTestableKey();
 
         /** @var Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper $extensionSelectorViewHelper */
-        $extensionSelectorViewHelper = GeneralUtility::makeInstance('Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper');
+        $extensionSelectorViewHelper = GeneralUtility::makeInstance(\Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper::class);
         $extensionSelectorViewHelper->injectOutputService($this->outputService);
         $extensionSelectorViewHelper->injectUserSettingService($this->userSettingsService);
         $extensionSelectorViewHelper->injectTestFinder($this->testFinder);
@@ -648,11 +648,11 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         $this->configureTestListener();
         $testResult->addListener($this->testListener);
 
-        $this->testStatistics = GeneralUtility::makeInstance('Tx_Phpunit_BackEnd_TestStatistics');
+        $this->testStatistics = GeneralUtility::makeInstance(\Tx_Phpunit_BackEnd_TestStatistics::class);
         $this->testStatistics->start();
 
         if ($this->shouldCollectCodeCoverageInformation()) {
-            $this->coverage = GeneralUtility::makeInstance('PHP_CodeCoverage');
+            $this->coverage = GeneralUtility::makeInstance(\PHP_CodeCoverage::class);
             $this->coverage->start('phpunit');
         }
 
@@ -1021,7 +1021,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     protected function renderProgressbar()
     {
         /** @var Tx_Phpunit_ViewHelpers_ProgressBarViewHelper $progressBarViewHelper */
-        $progressBarViewHelper = GeneralUtility::makeInstance('Tx_Phpunit_ViewHelpers_ProgressBarViewHelper');
+        $progressBarViewHelper = GeneralUtility::makeInstance(\Tx_Phpunit_ViewHelpers_ProgressBarViewHelper::class);
         $progressBarViewHelper->injectOutputService($this->outputService);
         $progressBarViewHelper->render();
     }
