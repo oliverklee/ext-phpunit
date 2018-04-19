@@ -113,4 +113,4 @@ fi
 cd ${TYPO3_SITE_PATH}
 
 # Let's dance!
-eval $PHP ${COMPLETE_PARAMS}
+eval ${PHP} ${COMPLETE_PARAMS}
