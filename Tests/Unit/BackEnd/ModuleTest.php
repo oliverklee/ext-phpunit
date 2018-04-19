@@ -238,7 +238,8 @@ class ModuleTest extends \Tx_Phpunit_TestCase
     {
         $GLOBALS['BE_USER']->user['admin'] = false;
 
-        $subject = $this->getMock($this->createAccessibleProxy(), ['renderRunTests']);
+        /** @var \Tx_Phpunit_BackEnd_Module $subject */
+        $subject = $this->getMock(\Tx_Phpunit_BackEnd_Module::class, ['renderRunTests']);
         $subject->injectOutputService($this->outputService);
 
         $subject->expects(self::never())->method('renderRunTests');
