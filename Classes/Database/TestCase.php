@@ -12,6 +12,7 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Cache\DatabaseSchemaService;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -306,7 +307,8 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
     protected function importStdDb()
     {
         // make sure missing caching framework tables do not get into the way
-        $cacheTables = \TYPO3\CMS\Core\Cache\DatabaseSchemaService::getCachingFrameworkRequiredDatabaseSchema();
+        $databaseSchemaService = GeneralUtility::makeInstance(DatabaseSchemaService::class);
+        $cacheTables = $databaseSchemaService->getCachingFrameworkRequiredDatabaseSchema();
         $this->importDatabaseDefinitions($cacheTables);
 
         /* @var ObjectManager $objectManager */
