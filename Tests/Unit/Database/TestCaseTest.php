@@ -78,7 +78,7 @@ class TestCaseTest extends \Tx_Phpunit_Database_TestCase
     protected function createDatabaseAndCheckResult()
     {
         if (!$this->createDatabase()) {
-            self::markTestAsSkipped();
+            $this->markTestAsSkipped();
         }
     }
 
@@ -92,7 +92,7 @@ class TestCaseTest extends \Tx_Phpunit_Database_TestCase
     protected function dropDatabasedAndCheckResult()
     {
         if (!$this->dropDatabase()) {
-            self::markTestAsSkipped();
+            $this->markTestAsSkipped();
         }
     }
 
