@@ -522,9 +522,7 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
     {
         $definition = \Tx_Phpunit_Service_Database::getColumnDefinition('tx_phpunit_test', 'title');
 
-        self::assertTrue(
-            $definition['Field'] === 'title'
-        );
+        self::assertSame($definition['Field'], 'title');
     }
 
     /*
@@ -1153,8 +1151,9 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
      */
     public function getAllTableNamesContainsExistingTable()
     {
-        self::assertTrue(
-            in_array('tx_phpunit_test', \Tx_Phpunit_Service_Database::getAllTableNames())
+        self::assertContains(
+            'tx_phpunit_test',
+            \Tx_Phpunit_Service_Database::getAllTableNames()
         );
     }
 
@@ -1163,8 +1162,9 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
      */
     public function getAllTableNamesNotContainsInexistentTable()
     {
-        self::assertFalse(
-            in_array('tx_phpunit_doesnotexist', \Tx_Phpunit_Service_Database::getAllTableNames())
+        self::assertNotContains(
+            'tx_phpunit_doesnotexist',
+            \Tx_Phpunit_Service_Database::getAllTableNames()
         );
     }
 
@@ -1213,11 +1213,11 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
     {
         $tca = \Tx_Phpunit_Service_Database::getTcaForTable('tx_phpunit_test');
 
-        self::assertTrue(is_array($tca['ctrl']));
-        self::assertTrue(is_array($tca['interface']));
-        self::assertTrue(is_array($tca['columns']));
-        self::assertTrue(is_array($tca['types']));
-        self::assertTrue(is_array($tca['palettes']));
+        self::assertInternalType('array', $tca['ctrl']);
+        self::assertInternalType('array', $tca['interface']);
+        self::assertInternalType('array', $tca['columns']);
+        self::assertInternalType('array', $tca['types']);
+        self::assertInternalType('array', $tca['palettes']);
     }
 
     /**

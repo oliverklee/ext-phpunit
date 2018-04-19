@@ -260,9 +260,9 @@ class TestCaseTest extends \Tx_Phpunit_Database_TestCase
         $this->importDataSet(ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Database/Fixtures/DataSet.xml');
 
         $result = $this->db->exec_SELECTgetRows('*', 'tx_ccc_test', null);
-        self::assertSame(
+        self::assertCount(
             2,
-            count($result),
+            $result,
             self::DB_PERMISSIONS_MESSAGE
         );
         self::assertSame(
@@ -275,9 +275,9 @@ class TestCaseTest extends \Tx_Phpunit_Database_TestCase
         );
 
         $result = $this->db->exec_SELECTgetRows('*', 'tx_ccc_data', null);
-        self::assertSame(
+        self::assertCount(
             1,
-            count($result)
+            $result
         );
         self::assertSame(
             '1',
@@ -285,9 +285,9 @@ class TestCaseTest extends \Tx_Phpunit_Database_TestCase
         );
 
         $result = $this->db->exec_SELECTgetRows('*', 'tx_ccc_data_test_mm', null);
-        self::assertSame(
+        self::assertCount(
             2,
-            count($result)
+            $result
         );
         self::assertSame(
             '1',

@@ -1321,7 +1321,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
         $this->subject->cleanUp();
 
-        self::assertFalse(file_exists($fileName));
+        self::assertFileNotExists($fileName);
     }
 
     /**
@@ -1333,7 +1333,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
         $this->subject->cleanUp();
 
-        self::assertFalse(file_exists($folderName));
+        self::assertFileNotExists($folderName);
     }
 
     /**
@@ -2656,9 +2656,9 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function frontEndPageCanBeDirty()
     {
-        self::assertSame(
+        self::assertCount(
             0,
-            count($this->subject->getListOfDirtySystemTables())
+            $this->subject->getListOfDirtySystemTables()
         );
         $uid = $this->subject->createFrontEndPage();
         self::assertNotEquals(
@@ -2666,9 +2666,9 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
             $uid
         );
 
-        self::assertNotEquals(
+        self::assertNotCount(
             0,
-            count($this->subject->getListOfDirtySystemTables())
+            $this->subject->getListOfDirtySystemTables()
         );
     }
 
@@ -2897,9 +2897,9 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function systemFolderCanBeDirty()
     {
-        self::assertSame(
+        self::assertCount(
             0,
-            count($this->subject->getListOfDirtySystemTables())
+            $this->subject->getListOfDirtySystemTables()
         );
         $uid = $this->subject->createSystemFolder();
         self::assertNotEquals(
@@ -2907,9 +2907,9 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
             $uid
         );
 
-        self::assertNotEquals(
+        self::assertNotCount(
             0,
-            count($this->subject->getListOfDirtySystemTables())
+            $this->subject->getListOfDirtySystemTables()
         );
     }
 
@@ -3114,9 +3114,9 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function contentElementCanBeDirty()
     {
-        self::assertSame(
+        self::assertCount(
             0,
-            count($this->subject->getListOfDirtySystemTables())
+            $this->subject->getListOfDirtySystemTables()
         );
         $uid = $this->subject->createContentElement();
         self::assertNotEquals(
@@ -3124,9 +3124,9 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
             $uid
         );
 
-        self::assertNotEquals(
+        self::assertNotCount(
             0,
-            count($this->subject->getListOfDirtySystemTables())
+            $this->subject->getListOfDirtySystemTables()
         );
     }
 
@@ -3324,9 +3324,9 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function templateCanBeDirty()
     {
-        self::assertSame(
+        self::assertCount(
             0,
-            count($this->subject->getListOfDirtySystemTables())
+            $this->subject->getListOfDirtySystemTables()
         );
 
         $pageId = $this->subject->createFrontEndPage();
@@ -3336,9 +3336,9 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
             $uid
         );
 
-        self::assertNotEquals(
+        self::assertNotCount(
             0,
-            count($this->subject->getListOfDirtySystemTables())
+            $this->subject->getListOfDirtySystemTables()
         );
     }
 
@@ -3556,7 +3556,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
         $dummyFile = $this->subject->createDummyZipArchive();
 
-        self::assertTrue(file_exists($dummyFile));
+        self::assertFileExists($dummyFile);
     }
 
     /**
@@ -3572,8 +3572,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         );
         $this->subject->createDummyZipArchive($dummyFolder . 'foo.zip');
 
-        self::assertTrue(
-            file_exists($this->subject->getUploadFolderPath() . $dummyFolder . 'foo.zip')
+        self::assertFileExists(
+            $this->subject->getUploadFolderPath() . $dummyFolder . 'foo.zip'
         );
     }
 
@@ -3591,8 +3591,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $zip->extractTo($this->subject->getUploadFolderPath());
         $zip->close();
 
-        self::assertTrue(
-            file_exists($this->subject->getUploadFolderPath() . 'test.txt')
+        self::assertFileExists(
+            $this->subject->getUploadFolderPath() . 'test.txt'
         );
     }
 
@@ -3613,8 +3613,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $zip->extractTo($this->subject->getUploadFolderPath());
         $zip->close();
 
-        self::assertTrue(
-            file_exists($this->subject->getUploadFolderPath() . 'bar.txt')
+        self::assertFileExists(
+            $this->subject->getUploadFolderPath() . 'bar.txt'
         );
     }
 
@@ -3664,11 +3664,11 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $zip->extractTo($this->subject->getUploadFolderPath());
         $zip->close();
 
-        self::assertTrue(
-            file_exists($this->subject->getUploadFolderPath() . 'foo.txt')
+        self::assertFileExists(
+            $this->subject->getUploadFolderPath() . 'foo.txt'
         );
-        self::assertTrue(
-            file_exists($this->subject->getUploadFolderPath() . 'bar.txt')
+        self::assertFileExists(
+            $this->subject->getUploadFolderPath() . 'bar.txt'
         );
     }
 
@@ -3690,8 +3690,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $zip->extractTo($this->subject->getUploadFolderPath());
         $zip->close();
 
-        self::assertTrue(
-            file_exists($this->subject->getUploadFolderPath() . 'sub-folder/foo.txt')
+        self::assertFileExists(
+            $this->subject->getUploadFolderPath() . 'sub-folder/foo.txt'
         );
     }
 
@@ -3718,7 +3718,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
         $dummyFile = $this->subject->createDummyZipArchive();
 
-        self::assertTrue(file_exists($dummyFile));
+        self::assertFileExists($dummyFile);
     }
 
     // ---------------------------------------------------------------------
@@ -3733,7 +3733,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $dummyFile = $this->subject->createDummyFile();
         $this->subject->deleteDummyFile(basename($dummyFile));
 
-        self::assertFalse(file_exists($dummyFile));
+        self::assertFileNotExists($dummyFile);
     }
 
     /**
@@ -3882,8 +3882,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
             $this->subject->getPathRelativeToUploadDirectory($innerDummyFolder)
         );
 
-        self::assertFalse(file_exists($innerDummyFolder));
-        self::assertTrue(file_exists($outerDummyFolder));
+        self::assertFileNotExists($innerDummyFolder);
+        self::assertFileExists($outerDummyFolder);
     }
 
     /**
@@ -4146,9 +4146,9 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function frontEndUserGroupTableCanBeDirty()
     {
-        self::assertSame(
+        self::assertCount(
             0,
-            count($this->subject->getListOfDirtySystemTables())
+            $this->subject->getListOfDirtySystemTables()
         );
         $uid = $this->subject->createFrontEndUserGroup();
         self::assertNotEquals(
@@ -4156,9 +4156,9 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
             $uid
         );
 
-        self::assertNotEquals(
+        self::assertNotCount(
             0,
-            count($this->subject->getListOfDirtySystemTables())
+            $this->subject->getListOfDirtySystemTables()
         );
     }
 
@@ -4273,9 +4273,9 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function frontEndUserTableCanBeDirty()
     {
-        self::assertSame(
+        self::assertCount(
             0,
-            count($this->subject->getListOfDirtySystemTables())
+            $this->subject->getListOfDirtySystemTables()
         );
         $uid = $this->subject->createFrontEndUser();
         self::assertNotEquals(
@@ -4506,9 +4506,9 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function createBackEndUserMarksBackEndUserTableAsDirty()
     {
-        self::assertSame(
+        self::assertCount(
             0,
-            count($this->subject->getListOfDirtySystemTables())
+            $this->subject->getListOfDirtySystemTables()
         );
         $this->subject->createBackEndUser();
 
@@ -4750,8 +4750,9 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
 
-        self::assertTrue(
-            is_array($GLOBALS['TSFE']->config)
+        self::assertInternalType(
+            'array',
+            $GLOBALS['TSFE']->config
         );
     }
 
