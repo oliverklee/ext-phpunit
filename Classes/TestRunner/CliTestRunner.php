@@ -41,6 +41,7 @@ class Tx_Phpunit_TestRunner_CliTestRunner extends Tx_Phpunit_TestRunner_Abstract
 
     /**
      * @param array $variables
+     *
      * @return array
      */
     protected function removeClosures(array &$variables)

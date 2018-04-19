@@ -1383,7 +1383,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException Exception
+     * @expectedException \Exception
      */
     public function cleanUpForHookWithoutHookInterfaceThrowsException()
     {
@@ -2288,7 +2288,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
      */
     public function resetAutoIncrementForSysFileCollectionTableIsAllowed()
     {
@@ -2297,7 +2296,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
      */
     public function resetAutoIncrementForSysFileReferenceTableIsAllowed()
     {
@@ -2314,7 +2312,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
      */
     public function resetAutoIncrementForSysCategoryRecordMmTableIsAllowed()
     {
@@ -3886,7 +3883,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException Exception
+     * @expectedException \Exception
      */
     public function deleteDummyFolderWithNonEmptyDummyFolderThrowsException()
     {
@@ -3923,7 +3920,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     public function getUploadFolderPathReturnsUploadFolderPathIncludingTablePrefix()
     {
         self::assertRegExp(
-            '/\/uploads\/tx_phpunit\/$/',
+            '/\\/uploads\\/tx_phpunit\\/$/',
             $this->subject->getUploadFolderPath()
         );
     }
@@ -3944,7 +3941,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException Exception
+     * @expectedException \Exception
      */
     public function setUploadFolderPathAfterCreatingDummyFileThrowsException()
     {
@@ -4000,7 +3997,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $result = $this->subject->getUniqueFileOrFolderPath('foo');
 
-        self::assertRegExp('/\/foo(\\-\\d+})?$/', $result);
+        self::assertRegExp('/\\/foo(\\-\\d+})?$/', $result);
     }
 
     /**
@@ -4030,7 +4027,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $result = $this->subject->getUniqueFileOrFolderPath('foo/bar.txt');
 
-        self::assertRegExp('/foo\\/bar.*\.txt$/', $result);
+        self::assertRegExp('/foo\\/bar.*\\.txt$/', $result);
     }
 
     /**
@@ -4695,7 +4692,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->createFakeFrontEnd();
 
         self::assertInstanceOf(
-            'TYPO3\\CMS\Core\\TypoScript\\TemplateService',
+            'TYPO3\\CMS\\Core\\TypoScript\\TemplateService',
             $GLOBALS['TSFE']->tmpl
         );
     }
@@ -4760,8 +4757,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
 
-        self::assertSame(
-            false,
+        self::assertFalse(
             $GLOBALS['TSFE']->loginUser
         );
     }
@@ -4925,7 +4921,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException Exception
+     * @expectedException \Exception
      */
     public function isLoggedThrowsExceptionWithoutFrontEnd()
     {
@@ -5001,7 +4997,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException Exception
+     * @expectedException \Exception
      */
     public function loginFrontEndUserWithoutFrontEndThrowsException()
     {
@@ -5056,8 +5052,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
         $this->subject->logoutFrontEndUser();
 
-        self::assertSame(
-            false,
+        self::assertFalse(
             $GLOBALS['TSFE']->loginUser
         );
     }
@@ -5065,7 +5060,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      *
-     * @expectedException Exception
+     * @expectedException \Exception
      */
     public function logoutFrontEndUserWithoutFrontEndThrowsException()
     {

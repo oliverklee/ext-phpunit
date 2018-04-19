@@ -1,5 +1,6 @@
 /.Build/*
 *.idea
+/.php_cs.cache
 /composer.lock
 /nbproject
 /Resources/Private/Build/vendor
