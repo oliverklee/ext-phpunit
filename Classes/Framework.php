@@ -695,7 +695,7 @@ class Tx_Phpunit_Framework
         $recordData = [
             'uid_local' => $uidLocal,
             'uid_foreign' => $uidForeign,
-            'sorting' => (($sorting > 0) ? $sorting : $this->getRelationSorting($tableName, $uidLocal)),
+            'sorting' => ($sorting > 0) ? $sorting : $this->getRelationSorting($tableName, $uidLocal),
             $this->getDummyColumnName($tableName) => 1,
         ];
 

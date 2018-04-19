@@ -446,7 +446,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         $testSuites = $this->testCaseService->findTestCaseFilesInDirectory($testsPathOfExtension);
 
         foreach ($testSuites as $fileName) {
-            require_once($testsPathOfExtension . $fileName);
+            require_once $testsPathOfExtension . $fileName;
         }
 
         $testSuite = new PHPUnit_Framework_TestSuite('tx_phpunit_basetestsuite');
@@ -505,7 +505,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         $testSuites = $this->testCaseService->findTestCaseFilesInDirectory($testsPathOfExtension);
 
         foreach ($testSuites as $fileName) {
-            require_once($testsPathOfExtension . $fileName);
+            require_once $testsPathOfExtension . $fileName;
         }
 
         foreach (get_declared_classes() as $className) {
@@ -751,7 +751,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         $testsPath = $testable->getTestsPath();
         $testCaseFileNames = $this->testCaseService->findTestCaseFilesInDirectory($testsPath);
         foreach ($testCaseFileNames as $testCaseFileName) {
-            require_once(realpath($testsPath . $testCaseFileName));
+            require_once realpath($testsPath . $testCaseFileName);
         }
     }
 
@@ -1074,7 +1074,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     {
         foreach ($paths as $path => $fileNames) {
             foreach ($fileNames as $fileName) {
-                require_once(realpath($path . '/' . $fileName));
+                require_once realpath($path . '/' . $fileName);
             }
         }
     }

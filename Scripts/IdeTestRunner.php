@@ -29,4 +29,4 @@ if (empty($ideBootScript) || !is_file($ideBootScript)) {
 /* @var Tx_Phpunit_TestRunner_IdeTestRunner $phpUnit */
 $phpUnit = GeneralUtility::makeInstance(\Tx_Phpunit_TestRunner_IdeTestRunner::class);
 
-require_once($ideBootScript);
+require_once $ideBootScript;

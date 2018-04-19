@@ -5,7 +5,7 @@ $extPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('phpunit'
 
 if (!class_exists('PHPUnit_Framework_TestCase') || !class_exists('PHPUnit_Extensions_SeleniumTestCase')
     || !class_exists('org\\bovigo\\vfs\\vfsStream')) {
-    require_once($extPath . 'Resources/Private/Libraries/phpunit-library.phar');
+    require_once $extPath . 'Resources/Private/Libraries/phpunit-library.phar';
 }
 
 if (TYPO3_MODE === 'BE'

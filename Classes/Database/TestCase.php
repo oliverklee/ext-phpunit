@@ -402,7 +402,7 @@ abstract class Tx_Phpunit_Database_TestCase extends Tx_Phpunit_TestCase
         $path = GeneralUtility::getFileAbsFileName(ExtensionManagementUtility::extPath($extKey) . 'ext_emconf.php');
         $_EXTKEY = $extKey;
         // This include is allowed. This is an exception in the TYPO3CMS standard.
-        include($path);
+        include $path;
 
         $dependencies = $EM_CONF[$_EXTKEY]['constraints']['depends'];
         if (!is_array($dependencies)) {

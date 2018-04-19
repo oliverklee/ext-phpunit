@@ -870,7 +870,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         );
         $nextSorting = $this->getSortingOfRelation($uidLocal, $uidForeign);
         self::assertSame(
-            ($previousSorting + 1),
+            $previousSorting + 1,
             $nextSorting
         );
     }

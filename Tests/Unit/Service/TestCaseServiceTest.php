@@ -116,7 +116,7 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
             \Tx_Phpunit_Service_TestCaseService::class,
             ['isNotFixturesPath', 'isTestCaseFileName']
         );
-        $subject->expects(self::any())->method('isNotFixturesPath')->will((self::returnValue(true)));
+        $subject->expects(self::any())->method('isNotFixturesPath')->will(self::returnValue(true));
         $subject->expects(self::at(1))->method('isTestCaseFileName')
             ->with($this->fixturesPath . $path)->will(self::returnValue(true));
 
@@ -138,7 +138,7 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
             \Tx_Phpunit_Service_TestCaseService::class,
             ['isNotFixturesPath', 'isTestCaseFileName']
         );
-        $subject->expects(self::any())->method('isNotFixturesPath')->will((self::returnValue(true)));
+        $subject->expects(self::any())->method('isNotFixturesPath')->will(self::returnValue(true));
         $subject->expects(self::at(1))->method('isTestCaseFileName')
             ->with($this->fixturesPath . $path)->will(self::returnValue(false));
 
