@@ -80,10 +80,9 @@ abstract class Tx_Phpunit_Database_TestCase extends \Tx_Phpunit_TestCase
         $databaseNames = $db->admin_get_dbs();
         $this->switchToOriginalTypo3Database($db);
 
-        if (!in_array($this->testDatabase, $databaseNames, true)) {
-            if ($db->admin_query('CREATE DATABASE `' . $this->testDatabase . '`') === false) {
-                $success = false;
-            }
+        if (!in_array($this->testDatabase, $databaseNames, true)
+            && $db->admin_query('CREATE DATABASE `' . $this->testDatabase . '`') === false) {
+            $success = false;
         }
 
         return $success;
@@ -166,9 +165,8 @@ abstract class Tx_Phpunit_Database_TestCase extends \Tx_Phpunit_TestCase
     protected function selectDatabase($databaseName, DatabaseConnection $database)
     {
         $database->setDatabaseName($databaseName);
-        $result = $database->sql_select_db();
 
-        return $result;
+        return $database->sql_select_db();
     }
 
     /**
@@ -432,7 +430,7 @@ abstract class Tx_Phpunit_Database_TestCase extends \Tx_Phpunit_TestCase
      */
     protected function importDataSet($path)
     {
-        $xml = simplexml_load_file($path);
+        $xml = simplexml_load_string(file_get_contents($path));
         $db = $this->useTestDatabase();
         $foreignKeys = [];
 

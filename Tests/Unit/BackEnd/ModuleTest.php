@@ -238,7 +238,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
     {
         $GLOBALS['BE_USER']->user['admin'] = false;
 
-        /** @var \Tx_Phpunit_BackEnd_Module $subject */
+        /** @var \Tx_Phpunit_BackEnd_Module|\PHPUnit_Framework_MockObject_MockObject $subject */
         $subject = $this->getMock(\Tx_Phpunit_BackEnd_Module::class, ['renderRunTests']);
         $subject->injectOutputService($this->outputService);
 
