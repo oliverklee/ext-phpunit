@@ -15,6 +15,8 @@
 /**
  * This view helper renders an input field of type checkbox.
  *
+ * @deprecated will be removed for PHPUnit 6.
+ *
  * @author Felix Rauch <rauch@skaiamail.de>
  */
 class Tx_Phpunit_ViewHelpers_CheckboxViewHelper extends \Tx_Phpunit_ViewHelpers_AbstractTagViewHelper

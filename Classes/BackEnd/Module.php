@@ -25,6 +25,8 @@ use TYPO3\CMS\Lang\LanguageService;
 /**
  * Back-end module "PHPUnit".
  *
+ * @deprecated will be removed for PHPUnit 6.
+ *
  * @author Kasper Ligaard <kasperligaard@gmail.com>
  * @author Michael Klapper <michael.klapper@aoemedia.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>

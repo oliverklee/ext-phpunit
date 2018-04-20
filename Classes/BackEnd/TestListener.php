@@ -21,6 +21,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * This class renders the output of the single tests in the phpunit BE module.
  *
+ * @deprecated will be removed for PHPUnit 6.
+ *
  * @author Robert Lemke <robert@typo3.org>
  * @author Kasper Ligaard <kasperligaard@gmail.com>
  * @author Michael Klapper <michael.klapper@aoemedia.de>

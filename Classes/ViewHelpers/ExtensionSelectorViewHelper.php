@@ -15,6 +15,8 @@
 /**
  * This view helper renders the extension selector box.
  *
+ * @deprecated will be removed for PHPUnit 6.
+ *
  * @author Nicole Cordes <nicole.cordes@googlemail.com>
  */
 class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper extends \Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper

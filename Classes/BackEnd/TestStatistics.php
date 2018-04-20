@@ -15,6 +15,8 @@
 /**
  * This class provides functions for measuring the time and memory usage of tests.
  *
+ * @deprecated will be removed for PHPUnit 6.
+ *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Phpunit_BackEnd_TestStatistics

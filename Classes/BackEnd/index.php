@@ -17,6 +17,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * Module "PHPUnit".
  *
+ * @deprecated will be removed for PHPUnit 6.
+ *
  * @author Kasper Ligaard <kasperligaard@gmail.com>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */

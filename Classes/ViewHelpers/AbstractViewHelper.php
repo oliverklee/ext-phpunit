@@ -16,6 +16,8 @@ use TYPO3\CMS\Lang\LanguageService;
 /**
  * This class is the base class for all view helpers.
  *
+ * @deprecated will be removed for PHPUnit 6.
+ *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 abstract class Tx_Phpunit_ViewHelpers_AbstractViewHelper

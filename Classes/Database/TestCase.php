@@ -23,6 +23,8 @@ use TYPO3\CMS\Install\Service\SqlSchemaMigrationService;
 /**
  * Database testcase base class.
  *
+ * @deprecated will be removed for PHPUnit 6.
+ *
  * @author Michael Klapper <michael.klapper@aoemedia.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */

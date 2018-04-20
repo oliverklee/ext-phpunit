@@ -18,6 +18,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * This class provides functions for using Selenium RC.
  *
+ * @deprecated will be removed for PHPUnit 6.
+ *
  * @author Felix Rauch <rauch@skaiamail.de>
  */
 class Tx_Phpunit_Service_SeleniumService implements \Tx_Phpunit_Interface_SeleniumService, SingletonInterface
