@@ -1,11 +1,10 @@
 <?php
 defined('TYPO3_MODE') or die('Access denied.');
 
-$extPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('phpunit');
-
 if (!class_exists('PHPUnit_Framework_TestCase') || !class_exists('PHPUnit_Extensions_SeleniumTestCase')
     || !class_exists('org\\bovigo\\vfs\\vfsStream')) {
-    require_once $extPath . 'Resources/Private/Libraries/phpunit-library.phar';
+    require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('phpunit')
+        . 'Resources/Private/Libraries/phpunit-library.phar';
 }
 
 if (TYPO3_MODE === 'BE'
@@ -17,10 +16,10 @@ if (TYPO3_MODE === 'BE'
 }
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['GLOBAL']['cliKeys']['phpunit'] = [
-    'EXT:' . $_EXTKEY . '/Scripts/ManualCliTestRunner.php',
+    'EXT:phpunit/Scripts/ManualCliTestRunner.php',
     '_CLI_phpunit',
 ];
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['GLOBAL']['cliKeys']['phpunit_ide_testrunner'] = [
-    'EXT:' . $_EXTKEY . '/Scripts/IdeTestRunner.php',
+    'EXT:phpunit/Scripts/IdeTestRunner.php',
     '_CLI_phpunit',
 ];

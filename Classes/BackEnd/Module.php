@@ -241,7 +241,6 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         $this->doc->backPath = $GLOBALS['BACK_PATH'];
 
         if ($GLOBALS['BE_USER']->user['admin']) {
-            $this->doc->docType = 'xhtml_strict';
             $this->doc->bodyTagAdditions = 'id="doc3"';
 
             $this->addAdditionalHeaderData();

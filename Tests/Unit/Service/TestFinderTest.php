@@ -714,8 +714,9 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
         $testFinder->expects(self::once())->method('findTestsPathForExtension')
             ->with('phpunit')->will(self::returnValue(ExtensionManagementUtility::extPath('phpunit') . 'Tests/'));
 
+        $testables = $testFinder->getTestablesForExtensions();
         /** @var \Tx_Phpunit_Testable $testable */
-        $testable = array_pop($testFinder->getTestablesForExtensions());
+        $testable = array_pop($testables);
         self::assertSame(
             'phpunit',
             $testable->getKey()
@@ -737,8 +738,9 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
         $testFinder->expects(self::once())->method('findTestsPathForExtension')
             ->with('phpunit')->will(self::returnValue(ExtensionManagementUtility::extPath('phpunit') . 'Tests/'));
 
+        $testables = $testFinder->getTestablesForExtensions();
         /** @var \Tx_Phpunit_Testable $testable */
-        $testable = array_pop($testFinder->getTestablesForExtensions());
+        $testable = array_pop($testables);
         self::assertSame(
             'phpunit',
             $testable->getTitle()
@@ -760,8 +762,9 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
         $testFinder->expects(self::once())->method('findTestsPathForExtension')
             ->with('phpunit')->will(self::returnValue(ExtensionManagementUtility::extPath('phpunit') . 'Tests/'));
 
+        $testables = $testFinder->getTestablesForExtensions();
         /** @var \Tx_Phpunit_Testable $testable */
-        $testable = array_pop($testFinder->getTestablesForExtensions());
+        $testable = array_pop($testables);
         self::assertSame(
             ExtensionManagementUtility::extPath('phpunit'),
             $testable->getCodePath()
@@ -783,8 +786,9 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
         $testFinder->expects(self::once())->method('findTestsPathForExtension')
             ->with('phpunit')->will(self::returnValue(ExtensionManagementUtility::extPath('phpunit') . 'Tests/'));
 
+        $testables = $testFinder->getTestablesForExtensions();
         /** @var \Tx_Phpunit_Testable $testable */
-        $testable = array_pop($testFinder->getTestablesForExtensions());
+        $testable = array_pop($testables);
         self::assertSame(
             ExtensionManagementUtility::extPath('phpunit') . 'Tests/',
             $testable->getTestsPath()
@@ -813,8 +817,9 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
         $testFinder->expects(self::once())->method('findTestsPathForExtension')
             ->with('user_phpunittest')->will(self::returnValue(ExtensionManagementUtility::extPath('user_phpunittest') . 'Tests/'));
 
+        $testables = $testFinder->getTestablesForExtensions();
         /** @var \Tx_Phpunit_Testable $testable */
-        $testable = array_pop($testFinder->getTestablesForExtensions());
+        $testable = array_pop($testables);
         self::assertSame(
             ExtensionManagementUtility::extRelPath('user_phpunittest') . 'ext_icon.gif',
             $testable->getIconPath()
@@ -836,8 +841,9 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
         $testFinder->expects(self::once())->method('findTestsPathForExtension')
             ->with('phpunit')->will(self::returnValue(ExtensionManagementUtility::extPath('phpunit') . 'Tests/'));
 
+        $testables = $testFinder->getTestablesForExtensions();
         /** @var \Tx_Phpunit_Testable $testable */
-        $testable = array_pop($testFinder->getTestablesForExtensions());
+        $testable = array_pop($testables);
         self::assertSame(
             ExtensionManagementUtility::extRelPath('phpunit') . 'ext_icon.png',
             $testable->getIconPath()

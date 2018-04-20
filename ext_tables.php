@@ -7,6 +7,6 @@ if (TYPO3_MODE === 'BE'
         'tools',
         'txphpunitbeM1',
         '',
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Classes/BackEnd/'
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('phpunit') . 'Classes/BackEnd/'
     );
 }

@@ -15,7 +15,6 @@ namespace OliverKlee\Phpunit\Tests\Unit;
  */
 
 use OliverKlee\Phpunit\Tests\Unit\Fixtures\ProtectedClass;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
  * Test case.
@@ -50,7 +49,7 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
 
     protected function setUp()
     {
-        require_once ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Fixtures/ProtectedClass.php';
+        require_once __DIR__ . '/Fixtures/ProtectedClass.php';
 
         $this->protectedClassInstance = new ProtectedClass();
         $this->mock = $this->getMock(ProtectedClass::class, ['dummy']);

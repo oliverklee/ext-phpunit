@@ -131,7 +131,7 @@ class Tx_Phpunit_Service_TestCaseService implements SingletonInterface
      */
     protected function isNotFixturesPath($path)
     {
-        return stristr($path, '/fixtures/') === false;
+        return stripos($path, '/fixtures/') === false;
     }
 
     /**
@@ -168,7 +168,7 @@ class Tx_Phpunit_Service_TestCaseService implements SingletonInterface
      */
     protected function isHiddenMacFile($fileName)
     {
-        return substr($fileName, 0, 2) === '._';
+        return strpos($fileName, '._') === 0;
     }
 
     /**
@@ -186,13 +186,9 @@ class Tx_Phpunit_Service_TestCaseService implements SingletonInterface
         if ($className === '') {
             throw new \InvalidArgumentException('$className must not be empty.', 1354018635);
         }
-        if (!$this->classNameHasTestCaseSuffix($className) || !class_exists($className, true)
-            || !$this->classNameIsNonAbstractSubclassOfValidBaseTestCase($className)
-        ) {
-            return false;
-        }
 
-        return true;
+        return $this->classNameHasTestCaseSuffix($className) && class_exists($className, true)
+            && $this->classNameIsNonAbstractSubclassOfValidBaseTestCase($className);
     }
 
     /**
@@ -230,10 +226,9 @@ class Tx_Phpunit_Service_TestCaseService implements SingletonInterface
         $classReflection = new ReflectionClass($className);
         $result = !$classReflection->isAbstract() && $classReflection->isSubclassOf(self::BASE_TEST_CASE_CLASS_NAME);
 
-        if (!$this->userSettingsService->getAsBoolean('runSeleniumTests')) {
-            if (class_exists(self::SELENIUM_BASE_TEST_CASE_CLASS_NAME, true)) {
-                $result = $result && !$classReflection->isSubclassOf(self::SELENIUM_BASE_TEST_CASE_CLASS_NAME);
-            }
+        if (!$this->userSettingsService->getAsBoolean('runSeleniumTests')
+            && class_exists(self::SELENIUM_BASE_TEST_CASE_CLASS_NAME, true)) {
+            $result = $result && !$classReflection->isSubclassOf(self::SELENIUM_BASE_TEST_CASE_CLASS_NAME);
         }
 
         return $result;

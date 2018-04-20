@@ -475,7 +475,7 @@ class Tx_Phpunit_Framework
         if ($frontEndUserGroupsWithoutSpaces === '') {
             $frontEndUserGroupsWithoutSpaces = $this->createFrontEndUserGroup();
         }
-        if (!preg_match('/^(?:[1-9]+[0-9]*,?)+$/', $frontEndUserGroupsWithoutSpaces)
+        if (!preg_match('/^(?:[1-9]+\\d*,?)+$/', $frontEndUserGroupsWithoutSpaces)
         ) {
             throw new \InvalidArgumentException(
                 '$frontEndUserGroups must contain a comma-separated list of UIDs. Each UID must be > 0.',

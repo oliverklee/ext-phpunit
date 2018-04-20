@@ -57,7 +57,7 @@ class Tx_Phpunit_TestRunner_CliTestRunner extends \Tx_Phpunit_TestRunner_Abstrac
                     $backup[$key] = $valueBackup;
                 }
             } elseif ($value instanceof Closure) {
-                $backup[$key] = $value;
+                $backup[$key] =&$value;
                 unset($variables[$key]);
             }
         }
