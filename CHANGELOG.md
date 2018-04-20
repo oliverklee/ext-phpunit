@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
-## x.y.z
+## 4.8.37
 
 ### Added
 - run the unit tests on TravisCI
@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - move the extension to GitHub
 
 ### Deprecated
+- Deprecate a bunch of classes (#31)
 
 ### Removed
 - remove the generated API documentation

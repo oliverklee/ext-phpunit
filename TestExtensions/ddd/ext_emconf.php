@@ -1,15 +1,5 @@
 <?php
 
-/***************************************************************
- * Extension Manager/Repository config file for ext "ddd".
- *
- * Auto generated 07-07-2013 16:41
- *
- * Manual updates:
- * Only the data in the array - everything else is removed by next
- * writing. "version" and "dependencies" must not be touched!
- ***************************************************************/
-
 $EM_CONF[$_EXTKEY] = [
     'title' => 'DDD',
     'description' => 'A test extension used for running the phpunit unit tests.',
@@ -29,7 +19,7 @@ $EM_CONF[$_EXTKEY] = [
     'clearCacheOnLoad' => 0,
     'lockType' => '',
     'author_company' => 'oliverklee.de',
-    'version' => '4.8.36',
+    'version' => '4.8.37',
     'constraints' => [
         'depends' => [
             'bbb' => '',
