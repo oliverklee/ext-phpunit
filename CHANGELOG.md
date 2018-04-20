@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## 5.x.y
+
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+- Provide cli_dispatch.phpsh for 8.7 on Travis (#33)
+
 ## 4.8.37
 
 ### Added

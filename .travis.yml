@@ -26,6 +26,10 @@ before_install:
 install:
 - >
   composer require typo3/minimal=$TYPO3_VERSION;
+  if [ "$TYPO3_VERSION" == "^8.7" ]; then
+    composer require pagemachine/typo3-composer-legacy-cli;
+  fi;
+  composer show;
 - >
   .Build/vendor/bin/typo3cms install:setup --non-interactive --site-setup-type="site"
   --database-user-name="${DATABASE_USER}" --database-host-name="${DATABASE_HOST}"
