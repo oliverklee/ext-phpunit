@@ -25,13 +25,15 @@ before_install:
 
 install:
 - >
-  composer require-typo3-version "$TYPO3_VERSION";
+  composer require typo3/minimal=$TYPO3_VERSION;
 - >
   .Build/vendor/bin/typo3cms install:setup --non-interactive --site-setup-type="site"
   --database-user-name="${DATABASE_USER}" --database-host-name="${DATABASE_HOST}"
   --database-port="${DATABASE_PORT}" --database-name="${DATABASE_NAME}"
   --admin-user-name="admin" --admin-password="password" --site-name="Test installation";
 - >
+  echo;
+  echo "Restoring the composer.json";
   git checkout .;
 
 before_script:
