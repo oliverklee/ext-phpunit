@@ -1,21 +1,11 @@
 <?php
 
-/***************************************************************
- * Extension Manager/Repository config file for ext "phpunit".
- *
- * Auto generated 27-11-2014 01:28
- *
- * Manual updates:
- * Only the data in the array - everything else is removed by next
- * writing. "version" and "dependencies" must not be touched!
- ***************************************************************/
-
 $EM_CONF[$_EXTKEY] = [
     'title' => 'PHPUnit',
     'description' => 'Unit testing for TYPO3. Includes PHPUnit, Selenium, a CLI test runner and a testing framework.',
     'category' => 'module',
     'shy' => 0,
-    'version' => '4.8.36',
+    'version' => '4.8.37',
     'dependencies' => '',
     'conflicts' => '',
     'priority' => '',

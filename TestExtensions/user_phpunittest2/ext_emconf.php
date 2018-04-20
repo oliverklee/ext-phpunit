@@ -1,15 +1,5 @@
 <?php
 
-/***************************************************************
- * Extension Manager/Repository config file for ext "user_phpunittest2".
- *
- * Auto generated 07-07-2013 16:38
- *
- * Manual updates:
- * Only the data in the array - everything else is removed by next
- * writing. "version" and "dependencies" must not be touched!
- ***************************************************************/
-
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Second test extension for tx_phpunit',
     'description' => 'A test extension used for running the phpunit unit tests.',
@@ -29,7 +19,7 @@ $EM_CONF[$_EXTKEY] = [
     'clearCacheOnLoad' => 0,
     'lockType' => '',
     'author_company' => 'oliverklee.de',
-    'version' => '4.8.36',
+    'version' => '4.8.37',
     'constraints' => [
         'depends' => [
             'user_phpunittest' => '',
