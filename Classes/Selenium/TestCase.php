@@ -19,6 +19,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * TYPO3. It extends \PHPUnit_Extensions_SeleniumTestCase, so you have access to
  * all of that class too.
  *
+ * @deprecated will be removed for PHPUnit 6.
+ *
  * @author Bastian Waidelich <bastian@typo3.org>
  * @author Carsten Koenig <ck@carsten-koenig.de>
  */

@@ -18,6 +18,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * This class provides functions for reading data from a POST/GET request.
  *
+ * @deprecated will be removed for PHPUnit 6.
+ *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Phpunit_BackEnd_Request extends \Tx_Phpunit_AbstractDataContainer implements \Tx_Phpunit_Interface_Request, SingletonInterface

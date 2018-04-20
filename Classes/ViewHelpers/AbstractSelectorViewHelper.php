@@ -15,6 +15,8 @@
 /**
  * This class is the base class for all view helpers which render some select boxes.
  *
+ * @deprecated will be removed for PHPUnit 6.
+ *
  * @author Nicole Cordes <nicole.cordes@googlemail.com>
  */
 abstract class Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper extends \Tx_Phpunit_ViewHelpers_AbstractTagViewHelper

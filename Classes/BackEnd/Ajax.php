@@ -18,7 +18,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * This class uses the new AJAX broker in TYPO3 4.2.
  *
- * @see http://bugs.typo3.org/view.php?id=7096
+ * @deprecated will be removed for PHPUnit 6.
  *
  * @author Kasper Ligaard <kasperligaard@gmail.com>
  * @author Michael Klapper <michael.klapper@aoemedia.de>

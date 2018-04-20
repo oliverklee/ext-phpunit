@@ -15,6 +15,8 @@
 /**
  * This class serves as a stand-in for the real output service, e.g., for unit testing.
  *
+ * @deprecated will be removed for PHPUnit 6.
+ *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Phpunit_Service_FakeOutputService extends \Tx_Phpunit_Service_OutputService

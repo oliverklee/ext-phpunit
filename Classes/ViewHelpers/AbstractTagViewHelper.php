@@ -18,6 +18,8 @@
  * Should be used as the base class for all view helpers which output simple tags, as it provides some useful
  * convenience methods.
  *
+ * @deprecated will be removed for PHPUnit 6.
+ *
  * @author Felix Rauch <rauch@skaiamail.de>
  */
 abstract class Tx_Phpunit_ViewHelpers_AbstractTagViewHelper extends \Tx_Phpunit_ViewHelpers_AbstractViewHelper
