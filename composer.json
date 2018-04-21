@@ -51,9 +51,9 @@
         ]
     },
     "autoload-dev": {
-        "classmap": [
-            "Tests"
-        ]
+        "psr-4": {
+            "OliverKlee\\Phpunit\\Tests\\": "Tests/"
+        }
     },
     "repositories": [
         {
