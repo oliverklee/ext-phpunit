@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Drop the incorrect TYPO3 Core license headers (#34)
 
 ### Fixed
 - Provide cli_dispatch.phpsh for 8.7 on Travis (#33)
