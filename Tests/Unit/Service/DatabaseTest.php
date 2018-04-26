@@ -17,6 +17,7 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
 
     protected function setUp()
     {
+        $GLOBALS['SIM_EXEC_TIME'] = 1524751343;
         $this->testingFramework = new \Tx_Phpunit_Framework('tx_phpunit');
     }
 
