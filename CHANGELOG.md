@@ -16,6 +16,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop the incorrect TYPO3 Core license headers (#34)
 
 ### Fixed
+- Make the unit tests not depend on the current time of day (#36)
 - Provide cli_dispatch.phpsh for 8.7 on Travis (#33)
 
 ## 4.8.37
