@@ -26,7 +26,7 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
 
     protected function setUp()
     {
-        if (!class_exists('PHPUnit_Extensions_Selenium2TestCase', true)) {
+        if (!class_exists('PHPUnit_Extensions_Selenium2TestCase')) {
             self::markTestSkipped('PHPUnit Selenium is not installed.');
         }
 

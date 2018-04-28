@@ -1289,7 +1289,7 @@ class Tx_Phpunit_Framework
         $frontEnd->config = [];
 
         if (($pageUid > 0) && in_array('sys_template', $this->dirtySystemTables, true)) {
-            $frontEnd->tmpl->runThroughTemplates($frontEnd->sys_page->getRootLine($pageUid), 0);
+            $frontEnd->tmpl->runThroughTemplates($frontEnd->sys_page->getRootLine($pageUid));
             $frontEnd->tmpl->generateConfig();
             $frontEnd->tmpl->loaded = 1;
             $frontEnd->settingLanguage();
