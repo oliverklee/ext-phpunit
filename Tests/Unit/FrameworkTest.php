@@ -239,41 +239,41 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function markTableAsDirtyFailsOnInexistentTable()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->markTableAsDirty('tx_phpunit_DOESNOTEXIST');
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function markTableAsDirtyFailsOnNotAllowedSystemTable()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->markTableAsDirty('sys_domain');
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function markTableAsDirtyFailsOnForeignTable()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->markTableAsDirty('tx_seminars_seminars');
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function markTableAsDirtyFailsWithEmptyTableName()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->markTableAsDirty('');
     }
 
@@ -338,35 +338,32 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function createRecordOnInvalidTable()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createRecord('tx_phpunit_DOESNOTEXIST', []);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function createRecordWithEmptyTableName()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createRecord('', []);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function createRecordWithUidFails()
     {
-        $this->subject->createRecord(
-            'tx_phpunit_test',
-            ['uid' => 99999]
-        );
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->subject->createRecord('tx_phpunit_test', ['uid' => 99999]);
     }
 
     /**
@@ -419,11 +416,11 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function changeRecordFailsOnForeignTable()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->changeRecord(
             'tx_seminars_seminars',
             99999,
@@ -433,11 +430,11 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function changeRecordFailsOnInexistentTable()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->changeRecord(
             'tx_phpunit_DOESNOTEXIST',
             99999,
@@ -489,11 +486,11 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function changeRecordFailsOnOtherSystemTable()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->changeRecord(
             'sys_domain',
             1,
@@ -522,22 +519,22 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function changeRecordFailsWithUidZero()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->changeRecord('tx_phpunit_test', 0, ['title' => 'foo']);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function changeRecordFailsWithEmptyData()
     {
         $uid = $this->subject->createRecord('tx_phpunit_test', []);
+
+        $this->expectException(\InvalidArgumentException::class);
 
         $this->subject->changeRecord(
             'tx_phpunit_test',
@@ -548,12 +545,12 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function changeRecordFailsWithUidFieldInRecordData()
     {
         $uid = $this->subject->createRecord('tx_phpunit_test', []);
+
+        $this->expectException(\InvalidArgumentException::class);
 
         $this->subject->changeRecord(
             'tx_phpunit_test',
@@ -564,12 +561,12 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function changeRecordFailsWithDummyRecordFieldInRecordData()
     {
         $uid = $this->subject->createRecord('tx_phpunit_test', []);
+
+        $this->expectException(\InvalidArgumentException::class);
 
         $this->subject->changeRecord(
             'tx_phpunit_test',
@@ -580,12 +577,12 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \Tx_Phpunit_Exception_Database
      */
     public function changeRecordFailsOnInexistentRecord()
     {
         $uid = $this->subject->createRecord('tx_phpunit_test', []);
+
+        $this->expectException(\Tx_Phpunit_Exception_Database::class);
 
         $this->subject->changeRecord(
             'tx_phpunit_test',
@@ -646,39 +643,39 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function deleteRecordOnForeignTable()
     {
         $table = 'tx_seminars_seminars';
         $uid = 99999;
 
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->deleteRecord($table, $uid);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function deleteRecordOnInexistentTable()
     {
         $table = 'tx_phpunit_DOESNOTEXIST';
         $uid = 99999;
 
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->deleteRecord($table, $uid);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function deleteRecordWithEmptyTableName()
     {
         $table = '';
         $uid = 99999;
+
+        $this->expectException(\InvalidArgumentException::class);
 
         $this->subject->deleteRecord($table, $uid);
     }
@@ -765,8 +762,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function createRelationWithInvalidTable()
     {
@@ -774,60 +769,66 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $uidLocal = 99999;
         $uidForeign = 199999;
 
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createRelation($table, $uidLocal, $uidForeign);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function createRelationWithEmptyTableName()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createRelation('', 99999, 199999);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function createRelationWithZeroFirstUid()
     {
         $uid = $this->subject->createRecord('tx_phpunit_test');
+
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createRelation('tx_phpunit_test_article_mm', 0, $uid);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function createRelationWithZeroSecondUid()
     {
         $uid = $this->subject->createRecord('tx_phpunit_test');
+
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createRelation('tx_phpunit_test_article_mm', $uid, 0);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function createRelationWithNegativeFirstUid()
     {
         $uid = $this->subject->createRecord('tx_phpunit_test');
+
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createRelation('tx_phpunit_test_article_mm', -1, $uid);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function createRelationWithNegativeSecondUid()
     {
         $uid = $this->subject->createRecord('tx_phpunit_test');
+
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createRelation('tx_phpunit_test_article_mm', $uid, -1);
     }
 
@@ -1135,8 +1136,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function removeRelationOnForeignTable()
     {
@@ -1144,13 +1143,13 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $uidLocal = 99999;
         $uidForeign = 199999;
 
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->removeRelation($table, $uidLocal, $uidForeign);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function removeRelationOnInexistentTable()
     {
@@ -1158,19 +1157,21 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $uidLocal = 99999;
         $uidForeign = 199999;
 
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->removeRelation($table, $uidLocal, $uidForeign);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function removeRelationWithEmptyTableName()
     {
         $table = '';
         $uidLocal = 99999;
         $uidForeign = 199999;
+
+        $this->expectException(\InvalidArgumentException::class);
 
         $this->subject->removeRelation($table, $uidLocal, $uidForeign);
     }
@@ -1375,8 +1376,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \TYPO3\CMS\Core\Exception
      */
     public function cleanUpForHookWithoutHookInterfaceThrowsException()
     {
@@ -1387,6 +1386,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
         $GLOBALS['T3_VAR']['getUserObj'][$hookClassName] = $cleanUpHookMock;
         $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['FrameworkCleanUp']['phpunit_tests'] = $hookClassName;
+
+        $this->expectException(Exception::class);
 
         $this->subject->cleanUp();
     }
@@ -1539,10 +1540,11 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function getAutoIncrementWithOtherSystemTableFails()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->getAutoIncrement('sys_domains');
     }
 
@@ -1580,51 +1582,51 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function getAutoIncrementForSysCategoryRecordMmFails()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->getAutoIncrement('sys_category_record_mm');
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function getAutoIncrementWithEmptyTableNameFails()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->getAutoIncrement('');
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function getAutoIncrementWithForeignTableFails()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->getAutoIncrement('tx_seminars_seminars');
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function getAutoIncrementWithInexistentTableFails()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->getAutoIncrement('tx_phpunit_DOESNOTEXIST');
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function getAutoIncrementWithTableWithoutUidFails()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->getAutoIncrement('tx_phpunit_test_article_mm');
     }
 
@@ -1650,22 +1652,23 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function countRecordsWithEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->countRecords('');
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function countRecordsWithInvalidTableNameThrowsException()
     {
         $table = 'foo_bar';
+
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->countRecords($table);
     }
 
@@ -1747,11 +1750,11 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function countRecordsWithOtherTableThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->countRecords('sys_domain');
     }
 
@@ -1877,22 +1880,23 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function existsRecordWithEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->existsRecord('');
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function existsRecordWithInvalidTableNameThrowsException()
     {
         $table = 'foo_bar';
+
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->existsRecord($table);
     }
 
@@ -1974,42 +1978,43 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function existsRecordWithUidWithZeroUidThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->existsRecordWithUid('tx_phpunit_test', 0);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function existsRecordWithUidWithNegativeUidThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->existsRecordWithUid('tx_phpunit_test', -1);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function existsRecordWithUidWithEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->existsRecordWithUid('', 1);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function existsRecordWithUidWithInvalidTableNameThrowsException()
     {
         $table = 'foo_bar';
+
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->existsRecordWithUid($table, 1);
     }
 
@@ -2091,22 +2096,23 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function existsExactlyOneRecordWithEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->existsExactlyOneRecord('');
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function existsExactlyOneRecordWithInvalidTableNameThrowsException()
     {
         $table = 'foo_bar';
+
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->existsExactlyOneRecord($table);
     }
 
@@ -2264,10 +2270,11 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function resetAutoIncrementWithOtherSystemTableFails()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->resetAutoIncrement('sys_domains');
     }
 
@@ -2313,31 +2320,31 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function resetAutoIncrementWithEmptyTableNameFails()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->resetAutoIncrement('');
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function resetAutoIncrementWithForeignTableFails()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->resetAutoIncrement('tx_seminars_seminars');
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function resetAutoIncrementWithInexistentTableFails()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->resetAutoIncrement('tx_phpunit_DOESNOTEXIST');
     }
 
@@ -2388,10 +2395,11 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function resetAutoIncrementLazilyWithOtherSystemTableFails()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->resetAutoIncrementLazily('sys_domains');
     }
 
@@ -2437,31 +2445,31 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function resetAutoIncrementLazilyWithEmptyTableNameFails()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->resetAutoIncrementLazily('');
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function resetAutoIncrementLazilyWithForeignTableFails()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->resetAutoIncrementLazily('tx_seminars_seminars');
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function resetAutoIncrementLazilyWithInexistentTableFails()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->resetAutoIncrementLazily('tx_phpunit_DOESNOTEXIST');
     }
 
@@ -2522,21 +2530,21 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function setResetAutoIncrementThresholdForZeroFails()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->setResetAutoIncrementThreshold(0);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function setResetAutoIncrementThresholdForMinus1Fails()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->setResetAutoIncrementThreshold(-1);
     }
 
@@ -2723,61 +2731,61 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function frontEndPageMustHaveNoZeroPid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createFrontEndPage(0, ['pid' => 0]);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function frontEndPageMustHaveNoNonZeroPid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createFrontEndPage(0, ['pid' => 99999]);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function frontEndPageMustHaveNoZeroUid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createFrontEndPage(0, ['uid' => 0]);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function frontEndPageMustHaveNoNonZeroUid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createFrontEndPage(0, ['uid' => 99999]);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function frontEndPageMustHaveNoZeroDoktype()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createFrontEndPage(0, ['doktype' => 0]);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function frontEndPageMustHaveNoNonZeroDoktype()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createFrontEndPage(0, ['doktype' => 99999]);
     }
 
@@ -2964,61 +2972,61 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function systemFolderMustHaveNoZeroPid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createSystemFolder(0, ['pid' => 0]);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function systemFolderMustHaveNoNonZeroPid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createSystemFolder(0, ['pid' => 99999]);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function systemFolderMustHaveNoZeroUid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createSystemFolder(0, ['uid' => 0]);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function systemFolderMustHaveNoNonZeroUid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createSystemFolder(0, ['uid' => 99999]);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function systemFolderMustHaveNoZeroDoktype()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createSystemFolder(0, ['doktype' => 0]);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function systemFolderMustHaveNoNonZeroDoktype()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createSystemFolder(0, ['doktype' => 99999]);
     }
 
@@ -3222,41 +3230,41 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function contentElementMustHaveNoZeroPid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createContentElement(0, ['pid' => 0]);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function contentElementMustHaveNoNonZeroPid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createContentElement(0, ['pid' => 99999]);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function contentElementMustHaveNoZeroUid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createContentElement(0, ['uid' => 0]);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function contentElementMustHaveNoNonZeroUid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createContentElement(0, ['uid' => 99999]);
     }
 
@@ -3288,21 +3296,21 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function templateCannotBeCreatedOnRootPage()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createTemplate(0);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function templateCannotBeCreatedWithNegativePageNumber()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createTemplate(-1);
     }
 
@@ -3433,41 +3441,41 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function templateMustNotHaveZeroPid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createTemplate(42, ['pid' => 0]);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function templateMustNotHaveNonZeroPid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createTemplate(42, ['pid' => 99999]);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function templateMustHaveNoZeroUid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createTemplate(42, ['uid' => 0]);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function templateMustNotHaveNonZeroUid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createTemplate(42, ['uid' => 99999]);
     }
 
@@ -3736,25 +3744,25 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function deleteDummyFileWithInexistentFileThrowsException()
     {
         $uniqueFileName = $this->subject->getUniqueFileOrFolderPath('test.txt');
+
+        $this->expectException(\InvalidArgumentException::class);
 
         $this->subject->deleteDummyFile(basename($uniqueFileName));
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function deleteDummyFileWithForeignFileThrowsException()
     {
         vfsStream::setup('root/');
         $testFileUrl = vfsStream::url('root/test.txt');
+
+        $this->expectException(\InvalidArgumentException::class);
 
         $this->subject->deleteDummyFile($testFileUrl);
     }
@@ -3828,28 +3836,26 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function deleteDummyFolderWithInexistentFolderThrowsException()
     {
         $uniqueFolderName = $this->subject->getUniqueFileOrFolderPath('test_folder');
 
-        $this->subject->deleteDummyFolder(
-            $this->subject->getPathRelativeToUploadDirectory($uniqueFolderName)
-        );
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->subject->deleteDummyFolder($this->subject->getPathRelativeToUploadDirectory($uniqueFolderName));
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function deleteDummyFolderWithForeignFolderThrowsException()
     {
         $uniqueFolderName = $this->subject->getUniqueFileOrFolderPath('test_folder');
         GeneralUtility::mkdir($uniqueFolderName);
         $this->foreignFolderToDelete = $uniqueFolderName;
+
+        $this->expectException(\InvalidArgumentException::class);
 
         $this->subject->deleteDummyFolder(basename($uniqueFolderName));
     }
@@ -3875,8 +3881,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \TYPO3\CMS\Core\Exception
      */
     public function deleteDummyFolderWithNonEmptyDummyFolderThrowsException()
     {
@@ -3885,6 +3889,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
             $this->subject->getPathRelativeToUploadDirectory($dummyFolder) .
             '/test.txt'
         );
+
+        $this->expectException(Exception::class);
 
         $this->subject->deleteDummyFolder(
             $this->subject->getPathRelativeToUploadDirectory($dummyFolder)
@@ -3933,12 +3939,13 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \TYPO3\CMS\Core\Exception
      */
     public function setUploadFolderPathAfterCreatingDummyFileThrowsException()
     {
         $this->subject->createDummyFile();
+
+        $this->expectException(Exception::class);
+
         $this->subject->setUploadFolderPath('/foo/bar/');
     }
 
@@ -3948,11 +3955,11 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function getPathRelativeToUploadDirectoryWithPathOutsideUploadDirectoryThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->getPathRelativeToUploadDirectory(PATH_site);
     }
 
@@ -3965,10 +3972,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function getUniqueFileOrFolderPathWithEmptyPathThrowsException()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
-            'The first parameter $path must not be empty.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
 
         $this->subject->getUniqueFileOrFolderPath('');
     }
@@ -4212,21 +4216,21 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function frontEndUserGroupMustHaveNoZeroUid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createFrontEndUserGroup(['uid' => 0]);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function frontEndUserGroupMustHaveNoNonZeroUid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createFrontEndUserGroup(['uid' => 99999]);
     }
 
@@ -4366,55 +4370,52 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function frontEndUserMustHaveNoZeroUid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createFrontEndUser('', ['uid' => 0]);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function frontEndUserMustHaveNoNonZeroUid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createFrontEndUser('', ['uid' => 99999]);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function frontEndUserMustHaveNoZeroUserGroupInTheDataArray()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createFrontEndUser('', ['usergroup' => 0]);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function frontEndUserMustHaveNoNonZeroUserGroupInTheDataArray()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createFrontEndUser('', ['usergroup' => 99999]);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function frontEndUserMustHaveNoUserGroupListInTheDataArray()
     {
-        $this->subject->createFrontEndUser(
-            '',
-            ['usergroup' => '1,2,4,5']
-        );
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->subject->createFrontEndUser('', ['usergroup' => '1,2,4,5']);
     }
 
     /**
@@ -4431,14 +4432,14 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function frontEndUserMustHaveNoZeroUserGroupEvenIfSeveralGroupsAreProvided()
     {
         $feUserGroupUidOne = $this->subject->createFrontEndUserGroup();
         $feUserGroupUidTwo = $this->subject->createFrontEndUserGroup();
         $feUserGroupUidThree = $this->subject->createFrontEndUserGroup();
+
+        $this->expectException(\InvalidArgumentException::class);
 
         $this->subject->createFrontEndUser(
             $feUserGroupUidOne . ', ' . $feUserGroupUidTwo . ', 0, ' . $feUserGroupUidThree
@@ -4447,16 +4448,14 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function frontEndUserMustHaveNoAlphabeticalCharactersInTheUserGroupList()
     {
         $feUserGroupUid = $this->subject->createFrontEndUserGroup();
 
-        $this->subject->createFrontEndUser(
-            $feUserGroupUid . ', abc'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->subject->createFrontEndUser($feUserGroupUid . ', abc');
     }
 
     // ---------------------------------------------------------------------
@@ -4551,21 +4550,21 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function createBackEndUserWithZeroUidProvidedInRecordDataThrowsExeption()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createBackEndUser(['uid' => 0]);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function createBackEndUserWithNonZeroUidProvidedInRecordDataThrowsExeption()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createBackEndUser(['uid' => 999999]);
     }
 
@@ -4887,11 +4886,11 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function createFakeFrontThrowsExceptionForNegativePageUid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->createFakeFrontEnd(-1);
     }
 
@@ -4914,11 +4913,11 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \TYPO3\CMS\Core\Exception
      */
     public function isLoggedThrowsExceptionWithoutFrontEnd()
     {
+        $this->expectException(Exception::class);
+
         $this->subject->isLoggedIn();
     }
 
@@ -4977,25 +4976,26 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function loginFrontEndUserWithZeroUidThrowsException()
     {
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
 
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->loginFrontEndUser(0);
     }
 
     /**
      * @test
-     *
-     * @expectedException \TYPO3\CMS\Core\Exception
      */
     public function loginFrontEndUserWithoutFrontEndThrowsException()
     {
         $feUserId = $this->subject->createFrontEndUser();
+
+        $this->expectException(Exception::class);
+
         $this->subject->loginFrontEndUser($feUserId);
     }
 
@@ -5053,11 +5053,11 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \TYPO3\CMS\Core\Exception
      */
     public function logoutFrontEndUserWithoutFrontEndThrowsException()
     {
+        $this->expectException(Exception::class);
+
         $this->subject->logoutFrontEndUser();
     }
 
@@ -5227,13 +5227,13 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \Tx_Phpunit_Exception_Database
      */
     public function increaseRelationCounterThrowsExceptionOnInvalidUid()
     {
         $uid = $this->subject->createRecord('tx_phpunit_test');
         $invalidUid = $uid + 1;
+
+        $this->expectException(\Tx_Phpunit_Exception_Database::class);
 
         $this->subject->increaseRelationCounter(
             'tx_phpunit_test',
@@ -5244,12 +5244,12 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function increaseRelationCounterThrowsExceptionOnInvalidTableName()
     {
         $uid = $this->subject->createRecord('tx_phpunit_test');
+
+        $this->expectException(\InvalidArgumentException::class);
 
         $this->subject->increaseRelationCounter(
             'tx_phpunit_inexistent',
@@ -5260,12 +5260,13 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function increaseRelationCounterThrowsExceptionOnInexistentFieldName()
     {
         $uid = $this->subject->createRecord('tx_phpunit_test');
+
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->increaseRelationCounter(
             'tx_phpunit_test',
             $uid,

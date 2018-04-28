@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Install TYPO3 8.7 on Travis (#41)
 
 ### Changed
+- Use expectException (#43)
 - Upgrade to PHPUnit 5.3.x (#38)
 - Use PSR-4 autoloading for the test classes (#35)
 

@@ -104,21 +104,21 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function enableFieldsThrowsExceptionForTooSmallShowHidden()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', -2);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function enableFieldsThrowsExceptionForTooBigShowHidden()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', 2);
     }
 
@@ -302,11 +302,11 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function createRecursivePageListThrowsWithNegativeRecursion()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Phpunit_Service_Database::createRecursivePageList('', -1);
     }
 
@@ -447,21 +447,21 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function getColumnsInTableForEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Phpunit_Service_Database::getColumnsInTable('');
     }
 
     /**
      * @test
-     *
-     * @expectedException \BadMethodCallException
      */
     public function getColumnsInTableForInexistentTableNameThrowsException()
     {
+        $this->expectException(\BadMethodCallException::class);
+
         \Tx_Phpunit_Service_Database::getColumnsInTable('tx_phpunit_doesnotexist');
     }
 
@@ -495,11 +495,11 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function getColumnDefinitionForEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Phpunit_Service_Database::getColumnDefinition('', 'uid');
     }
 
@@ -519,11 +519,11 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function tableHasColumnUidForEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Phpunit_Service_Database::tableHasColumnUid('');
     }
 
@@ -590,11 +590,11 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function tableHasColumnThrowsExceptionOnEmptyTableName()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Phpunit_Service_Database::tableHasColumn(
             '',
             'title'
@@ -620,11 +620,11 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function deleteForEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Phpunit_Service_Database::delete(
             '',
             'uid = 0'
@@ -704,11 +704,11 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function updateForEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Phpunit_Service_Database::update(
             '',
             'uid = 0',
@@ -793,11 +793,11 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function insertForEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Phpunit_Service_Database::insert(
             '',
             ['is_dummy_record' => 1]
@@ -806,11 +806,11 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function insertForEmptyRecordDataThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Phpunit_Service_Database::insert(
             'tx_phpunit_test',
             []
@@ -878,21 +878,21 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function selectForEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Phpunit_Service_Database::select('*', '');
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function selectForEmptyFieldListThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Phpunit_Service_Database::select('', 'tx_phpunit_test');
     }
 
@@ -909,21 +909,21 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function selectSingleForEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Phpunit_Service_Database::selectSingle('*', '');
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function selectSingleForEmptyFieldListThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Phpunit_Service_Database::selectSingle('', 'tx_phpunit_test');
     }
 
@@ -944,11 +944,11 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \Tx_Phpunit_Exception_EmptyQueryResult
      */
     public function selectSingleForNoResultsThrowsEmptyQueryResultException()
     {
+        $this->expectException(\Tx_Phpunit_Exception_EmptyQueryResult::class);
+
         \Tx_Phpunit_Service_Database::selectSingle('uid', 'tx_phpunit_test', 'title = "nothing"');
     }
 
@@ -994,21 +994,21 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function selectMultipleForEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Phpunit_Service_Database::selectMultiple('*', '');
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function selectMultipleForEmptyFieldListThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Phpunit_Service_Database::selectMultiple('', 'tx_phpunit_test');
     }
 
@@ -1162,11 +1162,11 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function existsTableWithEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Phpunit_Service_Database::existsTable('');
     }
 
@@ -1210,31 +1210,31 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function getTcaForTableWithEmptyTableNameThrowsExceptionTca()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Phpunit_Service_Database::getTcaForTable('');
     }
 
     /**
      * @test
-     *
-     * @expectedException \BadMethodCallException
      */
     public function getTcaForTableWithInexistentTableNameThrowsExceptionTca()
     {
+        $this->expectException(\BadMethodCallException::class);
+
         \Tx_Phpunit_Service_Database::getTcaForTable('tx_phpunit_doesnotexist');
     }
 
     /**
      * @test
-     *
-     * @expectedException \BadMethodCallException
      */
     public function getTcaForTableThrowsExceptionOnTableWithoutTca()
     {
+        $this->expectException(\BadMethodCallException::class);
+
         \Tx_Phpunit_Service_Database::getTcaForTable('tx_phpunit_test_article_mm');
     }
 
@@ -1333,11 +1333,11 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \BadMethodCallException
      */
     public function countWithInvalidTableNameThrowsException()
     {
+        $this->expectException(\BadMethodCallException::class);
+
         \Tx_Phpunit_Service_Database::count('tx_phpunit_doesnotexist', 'uid = 42');
     }
 
@@ -1351,31 +1351,31 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \BadMethodCallException
      */
     public function countDoesNotAllowJoinWithoutTables()
     {
+        $this->expectException(\BadMethodCallException::class);
+
         \Tx_Phpunit_Service_Database::count('JOIN');
     }
 
     /**
      * @test
-     *
-     * @expectedException \BadMethodCallException
      */
     public function countDoesNotAllowJoinWithOnlyOneTableOnTheLeft()
     {
+        $this->expectException(\BadMethodCallException::class);
+
         \Tx_Phpunit_Service_Database::count('tx_phpunit_test JOIN ');
     }
 
     /**
      * @test
-     *
-     * @expectedException \BadMethodCallException
      */
     public function countDoesNotAllowJoinWithOnlyOneTableOnTheRight()
     {
+        $this->expectException(\BadMethodCallException::class);
+
         \Tx_Phpunit_Service_Database::count('JOIN tx_phpunit_test');
     }
 
@@ -1401,21 +1401,21 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function existsRecordWithEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Phpunit_Service_Database::existsRecord('');
     }
 
     /**
      * @test
-     *
-     * @expectedException \BadMethodCallException
      */
     public function existsRecordWithInvalidTableNameThrowsException()
     {
+        $this->expectException(\BadMethodCallException::class);
+
         \Tx_Phpunit_Service_Database::existsRecord('tx_phpunit_doesnotexist');
     }
 
@@ -1484,21 +1484,21 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function existsExactlyOneRecordWithEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Phpunit_Service_Database::existsExactlyOneRecord('');
     }
 
     /**
      * @test
-     *
-     * @expectedException \BadMethodCallException
      */
     public function existsExactlyOneRecordWithInvalidTableNameThrowsException()
     {
+        $this->expectException(\BadMethodCallException::class);
+
         \Tx_Phpunit_Service_Database::existsExactlyOneRecord('tx_phpunit_doesnotexist');
     }
 
@@ -1551,41 +1551,41 @@ class DatabaseTest extends \Tx_PhpUnit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function existsRecordWithUidWithZeroUidThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Phpunit_Service_Database::existsRecordWithUid('tx_phpunit_test', 0);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function existsRecordWithUidWithNegativeUidThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Phpunit_Service_Database::existsRecordWithUid('tx_phpunit_test', -1);
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function existsRecordWithUidWithEmptyTableNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \Tx_Phpunit_Service_Database::existsRecordWithUid('', 42);
     }
 
     /**
      * @test
-     *
-     * @expectedException \BadMethodCallException
      */
     public function existsRecordWithUidWithInvalidTableNameThrowsException()
     {
+        $this->expectException(\BadMethodCallException::class);
+
         \Tx_Phpunit_Service_Database::existsRecordWithUid('tx_phpunit_doesnotexist', 42);
     }
 

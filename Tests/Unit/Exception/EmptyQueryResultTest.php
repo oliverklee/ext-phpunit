@@ -41,13 +41,11 @@ class EmptyQueryResultTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \Tx_Phpunit_Exception_EmptyQueryResult
-     *
-     * @throws \Tx_Phpunit_Exception_EmptyQueryResult
      */
     public function exceptionCanBeThrown()
     {
+        $this->expectException(\Tx_Phpunit_Exception_EmptyQueryResult::class);
+
         throw new \Tx_Phpunit_Exception_EmptyQueryResult(1334438911);
     }
 

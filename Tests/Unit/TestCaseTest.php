@@ -54,74 +54,83 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function getAccessibleMockWithEmptyClassNameThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->getAccessibleMock('');
     }
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function callForEmptyMethodNameInAccessibleMockObjectThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->accessibleMock->_call('');
     }
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function callRefForEmptyMethodNameInAccessibleMockObjectThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->accessibleMock->_callRef('');
     }
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function setForEmptyPropertyNameInAccessibleMockObjectThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->accessibleMock->_set('', '');
     }
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function setRefForEmptyPropertyNameInAccessibleMockObjectThrowsException()
     {
         $value = '';
+
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->accessibleMock->_setRef('', $value);
     }
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function setStaticForEmptyPropertyNameInAccessibleMockObjectThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->accessibleMock->_setStatic('', '');
     }
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function getForEmptyPropertyNameInAccessibleMockObjectThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->accessibleMock->_get('');
     }
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function getStaticForEmptyPropertyNameInAccessibleMockObjectThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->accessibleMock->_getStatic('');
     }
 
@@ -533,10 +542,11 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function callRefForTenParametersThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->accessibleMock->_callRef(
             'argumentChecker',
             $parameter,
