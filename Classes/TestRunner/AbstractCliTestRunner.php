@@ -10,6 +10,8 @@ use TYPO3\CMS\Core\Controller\CommandLineController;
  *
  * Currently only CliTestRunner and IdeTestRunner are implemented.
  *
+ * @deprecated Will be removed in PHPUnit 6.
+ *
  * @author Michael Klapper <michael.klapper@aoemedia.de>
  */
 abstract class Tx_Phpunit_TestRunner_AbstractCliTestRunner extends CommandLineController

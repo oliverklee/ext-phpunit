@@ -15,10 +15,21 @@
 .. role::   php(code)
 
 
-Running the unit tests on the command line
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Running the unit tests on the command line in TYPO3 8.7
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-#. Create a non-admin back-end usernamed “\_cli\_phpunit”. This is the
+#. Make sure that there is at least one front-end page in your TYPO3
+   installation.
+
+#. Execute
+   <path-to-your-typo3-installation>/typo3/sysext/core/bin/typo3
+   phpunit:run <path-to-your-tests>
+
+
+Running the unit tests on the command line in TYPO3 7.6
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+#. Create a non-admin back-end user named “\_cli\_phpunit”. This is the
    user which then will be used to run the tests.
 
 #. Make sure that there is at least one front-end page in your TYPO3
@@ -27,18 +38,15 @@ Running the unit tests on the command line
 #. Make sure that your testcase files end with “\*Test.php”, not with
    “\*\_testcase.php”.
 
-#. Execute<path-to-your-typo3-installation>/typo3/cli\_dispatch.phpsh
-   phpunit <path-to-your-extension>
+#. Execute <path-to-your-typo3-installation>/typo3/cli\_dispatch.phpsh
+   phpunit <path-to-your-tests>
 
 As the CLI BE user must not have administrator privileges, you might
 need to write your unit tests to accommodate to that. This might
 include the following things:
 
 - If you need a logged-in BE user with certain data or with
-  administrator privileges: create a mock BE user in$GLOBALS['BE\_USER']
-
-- if you are testing a back-end module, include template.php like
-  this:require\_once(PATH\_typo3 .'template.php');
+  administrator privileges: create a mock BE user in $GLOBALS['BE\_USER']
 
 
 Running the tests on the command line on MAMP/XAMPP etc.
