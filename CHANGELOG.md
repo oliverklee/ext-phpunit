@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Remove the FunctionalTestCaseTrait (#39)
 - Drop support for PHP 5.5 (#37)
 - Drop the incorrect TYPO3 Core license headers (#34)
 
