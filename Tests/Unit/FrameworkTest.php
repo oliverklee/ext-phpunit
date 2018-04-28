@@ -4,9 +4,11 @@ namespace OliverKlee\Phpunit\Tests\Unit;
 use org\bovigo\vfs\vfsStream;
 use TYPO3\CMS\Core\Exception;
 use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
+use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -4617,16 +4619,33 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function createFakeFrontEndCreatesNullTimeTrackInstance()
+    public function createFakeFrontEndCreatesNullTimeTrackerInstance()
     {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8000000) {
+            static::markTestSkipped('This test is not applicable for TYPO3 >= 8.');
+        }
+
         $GLOBALS['TT'] = null;
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
 
-        self::assertInstanceOf(
-            NullTimeTracker::class,
-            $GLOBALS['TT']
-        );
+        self::assertInstanceOf(NullTimeTracker::class, $GLOBALS['TT']);
+    }
+
+    /**
+     * @test
+     */
+    public function createFakeFrontEndCreatesTimeTrackerInstance()
+    {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 8000000) {
+            static::markTestSkipped('This test is not applicable for TYPO3 < 8.');
+        }
+
+        $GLOBALS['TT'] = null;
+        $this->subject->createFrontEndPage();
+        $this->subject->createFakeFrontEnd();
+
+        self::assertInstanceOf(TimeTracker::class, $GLOBALS['TT']);
     }
 
     /**

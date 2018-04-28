@@ -5,6 +5,7 @@ use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Cache\Frontend\VariableFrontend;
 use TYPO3\CMS\Core\Exception;
 use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
+use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
@@ -1273,7 +1274,11 @@ class Tx_Phpunit_Framework
         $this->discardFakeFrontEnd();
 
         $this->registerNullPageCache();
-        $GLOBALS['TT'] = GeneralUtility::makeInstance(NullTimeTracker::class);
+        if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) <= 8000000) {
+            $GLOBALS['TT'] = GeneralUtility::makeInstance(NullTimeTracker::class);
+        } else {
+            $GLOBALS['TT'] = GeneralUtility::makeInstance(TimeTracker::class, false);
+        }
 
         /** @var TypoScriptFrontendController $frontEnd */
         $frontEnd = GeneralUtility::makeInstance(TypoScriptFrontendController::class, $GLOBALS['TYPO3_CONF_VARS'], $pageUid, 0);
@@ -1281,7 +1286,6 @@ class Tx_Phpunit_Framework
 
         // simulates a normal FE without any logged-in FE or BE user
         $frontEnd->beUserLogin = false;
-        $frontEnd->renderCharset = 'utf-8';
         $frontEnd->workspacePreview = '';
         $frontEnd->initFEuser();
         $frontEnd->determineId();
@@ -1334,7 +1338,6 @@ class Tx_Phpunit_Framework
             $GLOBALS['TSFE']->TCAcachedExtras,
             $GLOBALS['TSFE']->imagesOnPage,
             $GLOBALS['TSFE']->cObj,
-            $GLOBALS['TSFE']->csConvObj,
             $GLOBALS['TSFE']->pagesection_lockObj,
             $GLOBALS['TSFE']->pages_lockObj
         );
