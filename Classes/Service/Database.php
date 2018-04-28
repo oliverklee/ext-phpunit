@@ -182,14 +182,15 @@ class Tx_Phpunit_Service_Database
         $subPages = [];
         $databaseConnection = self::getDatabaseConnection();
         while (($row = $databaseConnection->sql_fetch_assoc($dbResult))) {
+            /** @var array $row */
             $subPages[] = $row['uid'];
         }
         $databaseConnection->sql_free_result($dbResult);
 
-        if (!empty($subPages)) {
-            $result = $startPages . ',' . self::createRecursivePageList(implode(',', $subPages), $recursionDepth - 1);
-        } else {
+        if (empty($subPages)) {
             $result = $startPages;
+        } else {
+            $result = $startPages . ',' . self::createRecursivePageList(implode(',', $subPages), $recursionDepth - 1);
         }
 
         return $result;

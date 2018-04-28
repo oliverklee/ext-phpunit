@@ -744,13 +744,7 @@ class Tx_Phpunit_Framework
             );
         }
 
-        if (!isset($relationConfiguration['config']['MM_opposite_field'])) {
-            $this->createRelation(
-                $relationConfiguration['config']['MM'],
-                $uidLocal,
-                $uidForeign
-            );
-        } else {
+        if (isset($relationConfiguration['config']['MM_opposite_field'])) {
             // Switches the order of $uidForeign and $uidLocal as the relation
             // is the reverse part of a bidirectional relation.
             $this->createRelationAndUpdateCounter(
@@ -758,6 +752,12 @@ class Tx_Phpunit_Framework
                 $uidForeign,
                 $uidLocal,
                 $relationConfiguration['config']['MM_opposite_field']
+            );
+        } else {
+            $this->createRelation(
+                $relationConfiguration['config']['MM'],
+                $uidLocal,
+                $uidForeign
             );
         }
 
@@ -1881,6 +1881,7 @@ class Tx_Phpunit_Framework
             throw new \Tx_Phpunit_Exception_Database(1334439578);
         }
 
+        /** @var array $row */
         $row = \Tx_Phpunit_Service_Database::getDatabaseConnection()->sql_fetch_assoc($dbResult);
         \Tx_Phpunit_Service_Database::getDatabaseConnection()->sql_free_result($dbResult);
 

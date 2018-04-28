@@ -78,7 +78,7 @@ class Tx_Phpunit_Selenium_TestCase extends \PHPUnit_Extensions_Selenium2TestCase
         if ($this->isSeleniumServerRunning()) {
             parent::runTest();
         } else {
-            $this->markTestSkipped(
+            static::markTestSkipped(
                 'Selenium RC server not reachable (host=' .
                 $this->getSeleniumHost() . ', port=' .
                 $this->getSeleniumPort() . ').'

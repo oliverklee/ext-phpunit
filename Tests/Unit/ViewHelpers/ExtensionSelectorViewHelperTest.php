@@ -54,7 +54,7 @@ class ExtensionSelectorViewHelperTest extends \Tx_Phpunit_TestCase
 
         /** @var LanguageService|\PHPUnit_Framework_MockObject_MockObject $languageServiceMock */
         $languageServiceMock = $this->getMock(LanguageService::class);
-        $languageServiceMock->expects($this->any())->method('getLL')->willReturn('translatedLabel');
+        $languageServiceMock->expects(static::any())->method('getLL')->willReturn('translatedLabel');
         $GLOBALS['LANG'] = $languageServiceMock;
 
         $this->subject = new \Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
