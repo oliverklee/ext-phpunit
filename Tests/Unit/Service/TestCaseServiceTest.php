@@ -56,21 +56,21 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function findTestCaseFilesInDirectoryForEmptyPathThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->findTestCaseFilesInDirectory('');
     }
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function findTestCaseFilesInDirectoryForInexistentPathThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->findTestCaseFilesInDirectory(
             $this->fixturesPath . 'DoesNotExist/'
         );
@@ -303,11 +303,11 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function isValidTestCaseClassNameForEmptyStringThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->isValidTestCaseClassName('');
     }
 

@@ -694,21 +694,21 @@ class ModuleTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \Tx_Phpunit_Exception_NoTestsDirectory
      */
     public function createIconStyleForNotLoadedExtensionThrowsException()
     {
+        $this->expectException(\Tx_Phpunit_Exception_NoTestsDirectory::class);
+
         $this->subject->createIconStyle('not_loaded_extension');
     }
 
     /**
      * @test
-     *
-     * @expectedException \Tx_Phpunit_Exception_NoTestsDirectory
      */
     public function createIconStyleForEmptyExtensionKeyThrowsException()
     {
+        $this->expectException(\Tx_Phpunit_Exception_NoTestsDirectory::class);
+
         $this->subject->createIconStyle('');
     }
 

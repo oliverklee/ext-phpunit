@@ -26,31 +26,36 @@ class TestStatisticsTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     * @expectedException \BadMethodCallException
      */
     public function startCalledTwoTimesThrowsException()
     {
         $this->subject->start();
+
+        $this->expectException(\BadMethodCallException::class);
+
         $this->subject->start();
     }
 
     /**
      * @test
-     * @expectedException \BadMethodCallException
      */
     public function stopWithoutStartThrowsException()
     {
+        $this->expectException(\BadMethodCallException::class);
+
         $this->subject->stop();
     }
 
     /**
      * @test
-     * @expectedException \BadMethodCallException
      */
     public function stopCalledTwoTimesAfterStartThrowsException()
     {
         $this->subject->start();
         $this->subject->stop();
+
+        $this->expectException(\BadMethodCallException::class);
+
         $this->subject->stop();
     }
 

@@ -104,7 +104,6 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function getTestableForKeyForEmptyKeyThrowsException()
     {
@@ -112,6 +111,8 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
         $subject = $this->getMock(\Tx_Phpunit_Service_TestFinder::class, ['getTestablesForEverything']);
         $subject->expects(self::any())->method('getTestablesForEverything')
             ->will(self::returnValue(['foo' => new \Tx_Phpunit_Testable()]));
+
+        $this->expectException(\InvalidArgumentException::class);
 
         $subject->getTestableForKey('');
     }
@@ -135,7 +136,6 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     * @expectedException \BadMethodCallException
      */
     public function getTestableForKeyForInexistentKeyThrowsException()
     {
@@ -143,6 +143,8 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
         $subject = $this->getMock(\Tx_Phpunit_Service_TestFinder::class, ['getTestablesForEverything']);
         $subject->expects(self::any())->method('getTestablesForEverything')
             ->will(self::returnValue(['foo' => new \Tx_Phpunit_Testable()]));
+
+        $this->expectException(\BadMethodCallException::class);
 
         $subject->getTestableForKey('bar');
     }
@@ -499,18 +501,16 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function findTestsPathForExtensionForExtensionWithEmptyExtensionKeyThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->findTestsPathForExtension('');
     }
 
     /**
      * @test
-     *
-     * @expectedException \Tx_Phpunit_Exception_NoTestsDirectory
      */
     public function findTestsPathForExtensionForExtensionWithoutTestsPathThrowsException()
     {
@@ -519,6 +519,8 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
                 'This test can only be run if the extension "ccc" from TestExtensions/ is installed.'
             );
         }
+
+        $this->expectException(\Tx_Phpunit_Exception_NoTestsDirectory::class);
 
         $this->subject->findTestsPathForExtension('ccc');
     }

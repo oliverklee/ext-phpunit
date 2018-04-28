@@ -128,7 +128,6 @@ class AbstractTagViewHelperTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function renderingTagWithAnEmptyTagNameCausesAnInvalidArgumentException()
     {
@@ -138,12 +137,13 @@ class AbstractTagViewHelperTest extends \Tx_Phpunit_TestCase
             ''
         );
 
+        $this->expectException(\InvalidArgumentException::class);
+
         $subject->render();
     }
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function renderingTagWithAnAttributeWithANonStringKeyCausesAnInvalidArgumentException()
     {
@@ -158,12 +158,13 @@ class AbstractTagViewHelperTest extends \Tx_Phpunit_TestCase
             ''
         );
 
+        $this->expectException(\InvalidArgumentException::class);
+
         $subject->render();
     }
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function renderingTagWithAnAttributeWithAnEmptyStringAsKeyCausesAnInvalidArgumentException()
     {
@@ -177,6 +178,8 @@ class AbstractTagViewHelperTest extends \Tx_Phpunit_TestCase
             ],
             ''
         );
+
+        $this->expectException(\InvalidArgumentException::class);
 
         $subject->render();
     }

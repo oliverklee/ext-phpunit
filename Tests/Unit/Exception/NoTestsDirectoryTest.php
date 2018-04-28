@@ -10,13 +10,11 @@ class NoTestsDirectoryTest extends \Tx_Phpunit_TestCase
 {
     /**
      * @test
-     *
-     * @expectedException \Tx_Phpunit_Exception_NoTestsDirectory
-     *
-     * @throws \Tx_Phpunit_Exception_NoTestsDirectory
      */
     public function exceptionCanBeThrown()
     {
+        $this->expectException(\Tx_Phpunit_Exception_NoTestsDirectory::class);
+
         throw new \Tx_Phpunit_Exception_NoTestsDirectory('some message', 12345);
     }
 }

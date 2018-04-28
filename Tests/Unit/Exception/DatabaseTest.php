@@ -10,13 +10,11 @@ class DatabaseTest extends \Tx_Phpunit_TestCase
 {
     /**
      * @test
-     *
-     * @expectedException \Tx_Phpunit_Exception_Database
-     *
-     * @throws \Tx_Phpunit_Exception_Database
      */
     public function exceptionCanBeThrown()
     {
+        $this->expectException(\Tx_Phpunit_Exception_Database::class);
+
         throw new \Tx_Phpunit_Exception_Database(1334438897);
     }
 }

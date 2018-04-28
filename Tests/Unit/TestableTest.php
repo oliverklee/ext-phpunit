@@ -46,11 +46,11 @@ class TestableTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function setKeyWithEmptyStringThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->setKey('');
     }
 
@@ -118,11 +118,11 @@ class TestableTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function setCodePathWithEmptyStringThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->setCodePath('');
     }
 
@@ -153,11 +153,11 @@ class TestableTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function setTestsPathWithEmptyStringThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->setTestsPath('');
     }
 
@@ -263,11 +263,11 @@ class TestableTest extends \Tx_Phpunit_TestCase
 
     /**
      * @test
-     *
-     * @expectedException \InvalidArgumentException
      */
     public function setIconPathWithEmptyStringThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->subject->setIconPath('');
     }
 }
