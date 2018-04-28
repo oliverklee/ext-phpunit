@@ -13,6 +13,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Drop support for PHP 5.5 (#37)
 - Drop the incorrect TYPO3 Core license headers (#34)
 
 ### Fixed
