@@ -10,11 +10,6 @@ use TYPO3\CMS\Core\SingletonInterface;
 class Tx_Phpunit_Service_ExtensionSettingsService extends \Tx_Phpunit_AbstractDataContainer implements \Tx_Phpunit_Interface_ExtensionSettingsService, SingletonInterface
 {
     /**
-     * @var string
-     */
-    const EXTENSION_KEY = 'phpunit';
-
-    /**
      * @var array
      */
     private $cachedSettings = [];
@@ -51,8 +46,8 @@ class Tx_Phpunit_Service_ExtensionSettingsService extends \Tx_Phpunit_AbstractDa
      */
     protected function retrieveSettings()
     {
-        if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][self::EXTENSION_KEY])) {
-            $this->cachedSettings = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][self::EXTENSION_KEY]);
+        if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['phpunit'])) {
+            $this->cachedSettings = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['phpunit']);
         } else {
             $this->cachedSettings = [];
         }

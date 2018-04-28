@@ -11,6 +11,7 @@ use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Lang\LanguageService;
 
@@ -687,7 +688,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
     public function createIconStyleForLoadedExtensionReturnsExtensionIcon()
     {
         self::assertContains(
-            'url(' . ExtensionManagementUtility::extRelPath('phpunit') . 'ext_icon.png)',
+            'url(' . PathUtility::getAbsoluteWebPath('../typo3conf/ext/phpunit/ext_icon.png') . ')',
             $this->subject->createIconStyle('phpunit')
         );
     }
@@ -795,7 +796,7 @@ class ModuleTest extends \Tx_Phpunit_TestCase
         $this->userSettingsService->set('extSel', $selectedExtension);
 
         self::assertContains(
-            'background: url(' . ExtensionManagementUtility::extRelPath('phpunit') . 'ext_icon.png)',
+            'background: url(' . PathUtility::getAbsoluteWebPath('../typo3conf/ext/phpunit/ext_icon.png') . ')',
             $this->subject->createTestCaseSelector($selectedExtension)
         );
     }

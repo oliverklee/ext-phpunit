@@ -3,6 +3,7 @@
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\PathUtility;
 
 /**
  * This class provides functions for finding test cases.
@@ -243,7 +244,8 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface
         $possibleIconFileNames = ['ext_icon.gif', 'ext_icon.png'];
         foreach ($possibleIconFileNames as $fileNameCandidate) {
             if (file_exists(ExtensionManagementUtility::extPath($extensionKey) . $fileNameCandidate)) {
-                $testable->setIconPath(ExtensionManagementUtility::extRelPath($extensionKey) . $fileNameCandidate);
+                $iconPath = PathUtility::getAbsoluteWebPath('../typo3conf/ext/' . $extensionKey . '/' . $fileNameCandidate);
+                $testable->setIconPath($iconPath);
                 break;
             }
         }
