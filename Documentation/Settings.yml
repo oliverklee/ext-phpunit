@@ -6,8 +6,8 @@
 conf.py:
   copyright: 2017
   project: PHPUnit
-  version: 4.8
-  release: 4.8.36
+  version: 5.3
+  release: 5.3.5
   latex_documents:
   - - Index
     - phpunit.tex

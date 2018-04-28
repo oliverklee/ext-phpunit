@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 ### Changed
+- Upgrade to PHPUnit 5.3.x (#38)
 - Use PSR-4 autoloading for the test classes (#35)
 
 ### Deprecated
