@@ -371,7 +371,7 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
             'Core functional base test class' => [FunctionalTestCase::class],
         ];
         foreach ($classNamesThatMightNotExist as $key => $className) {
-            if (class_exists($className[0], true)) {
+            if (class_exists($className[0])) {
                 $invalidClassNames[$key] = $className;
             }
         }

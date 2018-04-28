@@ -172,7 +172,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
             $this->subject->getListOfDirtyTables()
         );
 
-        $this->subject->createRecord('tx_phpunit_test', []);
+        $this->subject->createRecord('tx_phpunit_test');
         self::assertSame(
             [
                 'tx_phpunit_test' => 'tx_phpunit_test',
@@ -303,7 +303,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         self::assertNotEquals(
             0,
-            $this->subject->createRecord('tx_phpunit_test', [])
+            $this->subject->createRecord('tx_phpunit_test')
         );
     }
 
@@ -343,7 +343,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        $this->subject->createRecord('tx_phpunit_DOESNOTEXIST', []);
+        $this->subject->createRecord('tx_phpunit_DOESNOTEXIST');
     }
 
     /**
@@ -353,7 +353,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        $this->subject->createRecord('', []);
+        $this->subject->createRecord('');
     }
 
     /**
@@ -532,7 +532,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function changeRecordFailsWithEmptyData()
     {
-        $uid = $this->subject->createRecord('tx_phpunit_test', []);
+        $uid = $this->subject->createRecord('tx_phpunit_test');
 
         $this->expectException(\InvalidArgumentException::class);
 
@@ -548,7 +548,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function changeRecordFailsWithUidFieldInRecordData()
     {
-        $uid = $this->subject->createRecord('tx_phpunit_test', []);
+        $uid = $this->subject->createRecord('tx_phpunit_test');
 
         $this->expectException(\InvalidArgumentException::class);
 
@@ -564,7 +564,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function changeRecordFailsWithDummyRecordFieldInRecordData()
     {
-        $uid = $this->subject->createRecord('tx_phpunit_test', []);
+        $uid = $this->subject->createRecord('tx_phpunit_test');
 
         $this->expectException(\InvalidArgumentException::class);
 
@@ -580,7 +580,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function changeRecordFailsOnInexistentRecord()
     {
-        $uid = $this->subject->createRecord('tx_phpunit_test', []);
+        $uid = $this->subject->createRecord('tx_phpunit_test');
 
         $this->expectException(\Tx_Phpunit_Exception_Database::class);
 
@@ -601,7 +601,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     public function deleteRecordOnValidDummyRecord()
     {
         // Creates and directly destroys a dummy record.
-        $uid = $this->subject->createRecord('tx_phpunit_test', []);
+        $uid = $this->subject->createRecord('tx_phpunit_test');
         $this->subject->deleteRecord('tx_phpunit_test', $uid);
 
         // Checks whether the record really was removed from the database.
@@ -619,7 +619,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->checkIfExtensionUserPhpUnittestIsLoaded();
 
         // Creates and directly destroys a dummy record.
-        $uid = $this->subject->createRecord('user_phpunittest_test', []);
+        $uid = $this->subject->createRecord('user_phpunittest_test');
         $this->subject->deleteRecord('user_phpunittest_test', $uid);
     }
 
@@ -1639,7 +1639,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function countRecordsWithEmptyWhereClauseIsAllowed()
     {
-        $this->subject->countRecords('tx_phpunit_test', '');
+        $this->subject->countRecords('tx_phpunit_test');
     }
 
     /**
@@ -1867,7 +1867,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function existsRecordWithEmptyWhereClauseIsAllowed()
     {
-        $this->subject->existsRecord('tx_phpunit_test', '');
+        $this->subject->existsRecord('tx_phpunit_test');
     }
 
     /**
@@ -2083,7 +2083,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function existsExactlyOneRecordWithEmptyWhereClauseIsAllowed()
     {
-        $this->subject->existsExactlyOneRecord('tx_phpunit_test', '');
+        $this->subject->existsExactlyOneRecord('tx_phpunit_test');
     }
 
     /**
@@ -4086,7 +4086,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function getUniqueFileOrFolderPathWithPathOfExistingFileReturnsNewPathWithSuffix()
     {
-        $path = $this->subject->createDummyFile('test.txt');
+        $path = $this->subject->createDummyFile();
         $baseName = basename($path);
 
         $uniquePath = $this->subject->getUniqueFileOrFolderPath($baseName);
@@ -4423,7 +4423,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function createFrontEndUserWithEmptyGroupCreatesGroup()
     {
-        $this->subject->createFrontEndUser('');
+        $this->subject->createFrontEndUser();
 
         self::assertTrue(
             $this->subject->existsExactlyOneRecord('fe_groups')
@@ -5322,7 +5322,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function createBackEndUserGroupForNoDataGivenCreatesBackEndGroup()
     {
-        $this->subject->createBackEndUserGroup([]);
+        $this->subject->createBackEndUserGroup();
 
         self::assertTrue(
             $this->subject->existsRecord('be_groups')
@@ -5334,7 +5334,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
      */
     public function createBackEndUserGroupForNoDataGivenReturnsUidOfCreatedBackEndGroup()
     {
-        $backendGroupUid = $this->subject->createBackEndUserGroup([]);
+        $backendGroupUid = $this->subject->createBackEndUserGroup();
 
         self::assertTrue(
             $this->subject->existsRecord(

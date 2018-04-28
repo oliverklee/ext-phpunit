@@ -3,7 +3,7 @@
 /**
  * This is another fixture testcase.
  *
- * It should not be found by Testfinder::findTestCaseFilesInDirectory function.
+ * It should not be found by TestFinder::findTestCaseFilesInDirectory function.
  *
  * @author Nicole Cordes <nicole.cordes@googlemail.com>
  */

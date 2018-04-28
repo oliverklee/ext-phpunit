@@ -172,7 +172,7 @@ class DatabaseTest extends \Tx_Phpunit_TestCase
     public function enableFieldsCanBeDifferentForDifferentIgnores()
     {
         self::assertNotEquals(
-            \Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', 0, []),
+            \Tx_Phpunit_Service_Database::enableFields('tx_phpunit_test', 0),
             \Tx_Phpunit_Service_Database::enableFields(
                 'tx_phpunit_test',
                 0,
@@ -285,7 +285,7 @@ class DatabaseTest extends \Tx_Phpunit_TestCase
     {
         self::assertSame(
             '',
-            \Tx_Phpunit_Service_Database::createRecursivePageList('', 0)
+            \Tx_Phpunit_Service_Database::createRecursivePageList('')
         );
     }
 
@@ -320,7 +320,7 @@ class DatabaseTest extends \Tx_Phpunit_TestCase
 
         self::assertSame(
             (string)$uid,
-            \Tx_Phpunit_Service_Database::createRecursivePageList((string)$uid, 0)
+            \Tx_Phpunit_Service_Database::createRecursivePageList((string)$uid)
         );
     }
 
@@ -336,7 +336,7 @@ class DatabaseTest extends \Tx_Phpunit_TestCase
         self::assertSame(
             $this->sortExplode($uid1 . ',' . $uid2),
             $this->sortExplode(
-                \Tx_Phpunit_Service_Database::createRecursivePageList($uid1 . ',' . $uid2, 0)
+                \Tx_Phpunit_Service_Database::createRecursivePageList($uid1 . ',' . $uid2)
             )
         );
     }
@@ -366,7 +366,7 @@ class DatabaseTest extends \Tx_Phpunit_TestCase
 
         self::assertSame(
             (string)$uid,
-            \Tx_Phpunit_Service_Database::createRecursivePageList($uid, 0)
+            \Tx_Phpunit_Service_Database::createRecursivePageList($uid)
         );
     }
 
@@ -415,7 +415,7 @@ class DatabaseTest extends \Tx_Phpunit_TestCase
 
         self::assertSame(
             (string)$uid,
-            \Tx_Phpunit_Service_Database::createRecursivePageList($uid, 0)
+            \Tx_Phpunit_Service_Database::createRecursivePageList($uid)
         );
         self::assertSame(
             $this->sortExplode($uid . ',' . $subFolderUid),
@@ -437,7 +437,7 @@ class DatabaseTest extends \Tx_Phpunit_TestCase
         );
         self::assertSame(
             (string)$uid,
-            \Tx_Phpunit_Service_Database::createRecursivePageList($uid, 0)
+            \Tx_Phpunit_Service_Database::createRecursivePageList($uid)
         );
     }
 
@@ -1259,7 +1259,7 @@ class DatabaseTest extends \Tx_Phpunit_TestCase
      */
     public function countCanBeCalledWithEmptyWhereClause()
     {
-        \Tx_Phpunit_Service_Database::count('tx_phpunit_test', '');
+        \Tx_Phpunit_Service_Database::count('tx_phpunit_test');
     }
 
     /**
@@ -1388,7 +1388,7 @@ class DatabaseTest extends \Tx_Phpunit_TestCase
      */
     public function existsRecordWithEmptyWhereClauseIsAllowed()
     {
-        \Tx_Phpunit_Service_Database::existsRecord('tx_phpunit_test', '');
+        \Tx_Phpunit_Service_Database::existsRecord('tx_phpunit_test');
     }
 
     /**
@@ -1471,7 +1471,7 @@ class DatabaseTest extends \Tx_Phpunit_TestCase
      */
     public function existsExactlyOneRecordWithEmptyWhereClauseIsAllowed()
     {
-        \Tx_Phpunit_Service_Database::existsExactlyOneRecord('tx_phpunit_test', '');
+        \Tx_Phpunit_Service_Database::existsExactlyOneRecord('tx_phpunit_test');
     }
 
     /**

@@ -175,7 +175,7 @@ class Tx_Phpunit_Service_TestCaseService implements SingletonInterface
             throw new \InvalidArgumentException('$className must not be empty.', 1354018635);
         }
 
-        return $this->classNameHasTestCaseSuffix($className) && class_exists($className, true)
+        return $this->classNameHasTestCaseSuffix($className) && class_exists($className)
             && $this->classNameIsNonAbstractSubclassOfValidBaseTestCase($className);
     }
 
@@ -215,7 +215,7 @@ class Tx_Phpunit_Service_TestCaseService implements SingletonInterface
         $result = !$classReflection->isAbstract() && $classReflection->isSubclassOf(self::BASE_TEST_CASE_CLASS_NAME);
 
         if (!$this->userSettingsService->getAsBoolean('runSeleniumTests')
-            && class_exists(self::SELENIUM_BASE_TEST_CASE_CLASS_NAME, true)) {
+            && class_exists(self::SELENIUM_BASE_TEST_CASE_CLASS_NAME)) {
             $result = $result && !$classReflection->isSubclassOf(self::SELENIUM_BASE_TEST_CASE_CLASS_NAME);
         }
 
