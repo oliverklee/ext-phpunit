@@ -30,7 +30,6 @@ return [
                 'type' => 'none',
                 'renderType' => 'inputDateTime',
                 'size' => 8,
-                'max' => 20,
                 'eval' => 'date',
                 'default' => '0',
                 'checkbox' => '0',
@@ -40,7 +39,6 @@ return [
             'config' => [
                 'type' => 'none',
                 'size' => 8,
-                'max' => 20,
                 'eval' => 'date',
                 'checkbox' => '0',
                 'default' => '0',
