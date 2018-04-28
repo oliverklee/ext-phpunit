@@ -156,7 +156,7 @@ class Tx_Phpunit_Service_TestCaseService implements SingletonInterface
      */
     protected function isHiddenMacFile($fileName)
     {
-        return strpos($fileName, '._') === 0;
+        return strncmp($fileName, '._', 2) === 0;
     }
 
     /**

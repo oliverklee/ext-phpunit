@@ -8,7 +8,6 @@ use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Lang\LanguageService;
 
 /**
  * Back-end module "PHPUnit".
@@ -208,16 +207,6 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     protected function translate($key)
     {
         return $this->getLanguageService()->getLL($key);
-    }
-
-    /**
-     * Returns $GLOBALS['LANG'].
-     *
-     * @return LanguageService
-     */
-    protected function getLanguageService()
-    {
-        return $GLOBALS['LANG'];
     }
 
     /**

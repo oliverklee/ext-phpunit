@@ -8,7 +8,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class DatabaseTest extends \Tx_PhpUnit_TestCase
+class DatabaseTest extends \Tx_Phpunit_TestCase
 {
     /**
      * @var \Tx_Phpunit_Framework

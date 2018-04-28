@@ -138,7 +138,7 @@ abstract class Tx_Phpunit_Database_TestCase extends \Tx_Phpunit_TestCase
         $db = \Tx_Phpunit_Service_Database::getDatabaseConnection();
 
         if (!$this->selectDatabase($databaseName ?: $this->testDatabase, $db)) {
-            $this->markTestSkipped('This test is skipped because the test database is not available.');
+            static::markTestSkipped('This test is skipped because the test database is not available.');
         }
 
         return $db;
@@ -201,7 +201,7 @@ abstract class Tx_Phpunit_Database_TestCase extends \Tx_Phpunit_TestCase
 
         foreach ($extensions as $extensionName) {
             if (!ExtensionManagementUtility::isLoaded($extensionName)) {
-                $this->markTestSkipped(
+                static::markTestSkipped(
                     'This test is skipped because the extension ' . $extensionName .
                     ' which was marked for import is not loaded on your system!'
                 );
@@ -253,6 +253,7 @@ abstract class Tx_Phpunit_Database_TestCase extends \Tx_Phpunit_TestCase
 
         $res = $db->sql_query('show tables');
         while (($row = $db->sql_fetch_row($res))) {
+            /** @var array $row */
             $tableNames[] = $row[0];
         }
 
@@ -361,6 +362,7 @@ abstract class Tx_Phpunit_Database_TestCase extends \Tx_Phpunit_TestCase
         $db->sql_query('SET SQL_QUOTE_SHOW_CREATE = 0');
         foreach ($tables as $tableName) {
             $res = $db->sql_query('show create table `' . $tableName . '`');
+            /** @var array $row */
             $row = $db->sql_fetch_row($res);
 
             // modifies statement to be accepted by TYPO3
