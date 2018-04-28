@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## 5.x.y
 
 ### Added
+- Add a new CLI test runner and use it in 8.7 (#42)
 - Install TYPO3 8.7 on Travis (#41)
 
 ### Changed
@@ -13,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Use PSR-4 autoloading for the test classes (#35)
 
 ### Deprecated
+- The old CLI and IDE test runners will be removed in PHPUnit 6.
 
 ### Removed
 - Remove the FunctionalTestCaseTrait (#39)

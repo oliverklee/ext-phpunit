@@ -3,6 +3,8 @@
 /**
  * With this TestRunner, you can run PHPUnit manually from the command line.
  *
+ * @deprecated Will be removed in PHPUnit 6.
+ *
  * @author Helmut Hummel <helmut.hummel@typo3.org>
  */
 class Tx_Phpunit_TestRunner_CliTestRunner extends \Tx_Phpunit_TestRunner_AbstractCliTestRunner
