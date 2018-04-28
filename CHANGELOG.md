@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## 5.x.y
 
 ### Added
+- Support PHP 7.1 and 7.2 (#44)
 - Add a new CLI test runner and use it in 8.7 (#42)
 - Install TYPO3 8.7 on Travis (#41)
 
