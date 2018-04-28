@@ -3,6 +3,7 @@ namespace OliverKlee\Phpunit\Tests\Unit\Service;
 
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\PathUtility;
 
 /**
  * Test case.
@@ -810,7 +811,7 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
         /** @var \Tx_Phpunit_Testable $testable */
         $testable = array_pop($testables);
         self::assertSame(
-            ExtensionManagementUtility::extRelPath('user_phpunittest') . 'ext_icon.gif',
+            PathUtility::getAbsoluteWebPath('../typo3conf/ext/user_phpunittest/ext_icon.gif'),
             $testable->getIconPath()
         );
     }
@@ -834,7 +835,7 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
         /** @var \Tx_Phpunit_Testable $testable */
         $testable = array_pop($testables);
         self::assertSame(
-            ExtensionManagementUtility::extRelPath('phpunit') . 'ext_icon.png',
+            PathUtility::getAbsoluteWebPath('../typo3conf/ext/phpunit/ext_icon.png'),
             $testable->getIconPath()
         );
     }

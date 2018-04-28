@@ -3,8 +3,8 @@
 use SebastianBergmann\Comparator\ComparisonFailure;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\DiffUtility;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\PathUtility;
 
 /**
  * This class renders the output of the single tests in the phpunit BE module.
@@ -526,7 +526,8 @@ class Tx_Phpunit_BackEnd_TestListener implements \PHPUnit_Framework_TestListener
     protected function createReRunLink(\PHPUnit_Framework_TestCase $test)
     {
         $iconImageTag = '<img class="runner" src="' .
-            ExtensionManagementUtility::extRelPath('phpunit') . 'Resources/Public/Icons/Runner.gif" alt="" />';
+            PathUtility::getAbsoluteWebPath('../typo3conf/ext/phpunit/Resources/Public/Icons/Runner.gif')
+             . '" alt="" />';
         return '<a href="' . $this->createReRunUrl($test) . '" title="Run this test only">' . $iconImageTag . '</a> ';
     }
 

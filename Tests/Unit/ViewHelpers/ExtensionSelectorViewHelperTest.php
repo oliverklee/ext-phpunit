@@ -2,6 +2,7 @@
 namespace OliverKlee\Phpunit\Tests\Unit\ViewHelpers;
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Lang\LanguageService;
 
@@ -190,7 +191,7 @@ class ExtensionSelectorViewHelperTest extends \Tx_Phpunit_TestCase
         $extensionKey = 'phpunit';
         $testable = new \Tx_Phpunit_Testable();
         $testable->setKey($extensionKey);
-        $testable->setIconPath(ExtensionManagementUtility::extRelPath($extensionKey) . 'ext_icon.gif');
+        $testable->setIconPath(PathUtility::getAbsoluteWebPath('../typo3conf/ext/' . $extensionKey . '/ext_icon.gif'));
 
         $subject = new \Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
         $subject->injectOutputService($this->outputService);
@@ -218,7 +219,7 @@ class ExtensionSelectorViewHelperTest extends \Tx_Phpunit_TestCase
         $extensionKey = 'phpunit';
         $testable = new \Tx_Phpunit_Testable();
         $testable->setKey($extensionKey);
-        $testable->setIconPath(ExtensionManagementUtility::extRelPath($extensionKey) . 'ext_icon.gif');
+        $testable->setIconPath(PathUtility::getAbsoluteWebPath('../typo3conf/ext/' . $extensionKey . '/ext_icon.gif'));
 
         $subject = new \Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
         $subject->injectOutputService($this->outputService);
@@ -246,12 +247,12 @@ class ExtensionSelectorViewHelperTest extends \Tx_Phpunit_TestCase
         $extensionKey1 = 'phpunit';
         $testable1 = new \Tx_Phpunit_Testable();
         $testable1->setKey($extensionKey1);
-        $testable1->setIconPath(ExtensionManagementUtility::extRelPath($extensionKey1) . 'ext_icon.gif');
+        $testable1->setIconPath(PathUtility::getAbsoluteWebPath('../typo3conf/ext/' . $extensionKey1 . '/ext_icon.gif'));
 
         $extensionKey2 = 'core';
         $testable2 = new \Tx_Phpunit_Testable();
         $testable2->setKey($extensionKey2);
-        $testable1->setIconPath(ExtensionManagementUtility::extRelPath($extensionKey2) . 'ext_icon.gif');
+        $testable2->setIconPath(PathUtility::getAbsoluteWebPath('../typo3conf/ext/' . $extensionKey2 . '/ext_icon.gif'));
 
         $subject = new \Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
         $subject->injectOutputService($this->outputService);

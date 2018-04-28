@@ -6,8 +6,8 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Page\PageRenderer;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\PathUtility;
 
 /**
  * Back-end module "PHPUnit".
@@ -22,11 +22,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
 {
-    /**
-     * @var string
-     */
-    const EXTENSION_KEY = 'phpunit';
-
     /**
      * @var string
      */
@@ -93,7 +88,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     {
         $this->init();
 
-        $this->extensionPath = ExtensionManagementUtility::extRelPath(self::EXTENSION_KEY);
+        $this->extensionPath = PathUtility::getAbsoluteWebPath('../typo3conf/ext/phpunit/');
     }
 
     /**
