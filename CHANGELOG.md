@@ -24,6 +24,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop the incorrect TYPO3 Core license headers (#34)
 
 ### Fixed
+- Fix deprecation warnings in TYPO3 8.7 (#49)
 - Update the TCA for TYPO3 8.7 (#48)
 - Use getAbsoluteWebPath instead of extRelPath (#47)
 - Make the unit tests not depend on the current time of day (#36)
