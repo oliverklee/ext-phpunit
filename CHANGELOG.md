@@ -3,7 +3,19 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
-## 5.x.y
+## x.y.z
+
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## 5.3.5
 
 ### Added
 - Support PHP 7.1 and 7.2 (#44)
