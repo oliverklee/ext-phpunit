@@ -1329,18 +1329,6 @@ class Tx_Phpunit_Framework
 
         $this->logoutFrontEndUser();
 
-        unset(
-            $GLOBALS['TSFE']->tmpl,
-            $GLOBALS['TSFE']->sys_page,
-            $GLOBALS['TSFE']->fe_user,
-            $GLOBALS['TSFE']->TYPO3_CONF_VARS,
-            $GLOBALS['TSFE']->config,
-            $GLOBALS['TSFE']->TCAcachedExtras,
-            $GLOBALS['TSFE']->imagesOnPage,
-            $GLOBALS['TSFE']->cObj,
-            $GLOBALS['TSFE']->pagesection_lockObj,
-            $GLOBALS['TSFE']->pages_lockObj
-        );
         $GLOBALS['TSFE'] = null;
         $GLOBALS['TT'] = null;
         unset(
