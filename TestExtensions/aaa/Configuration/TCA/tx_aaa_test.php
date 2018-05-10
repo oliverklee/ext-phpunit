@@ -11,6 +11,7 @@ return [
             'disabled' => 'hidden',
         ],
         'hideTable' => true,
+        'adminOnly' => true,
     ],
     'columns' => [
         'hidden' => [

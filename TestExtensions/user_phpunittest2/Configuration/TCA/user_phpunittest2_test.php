@@ -13,6 +13,7 @@ return [
             'endtime' => 'endtime',
         ],
         'hideTable' => true,
+        'adminOnly' => true,
     ],
     'columns' => [
         'hidden' => [

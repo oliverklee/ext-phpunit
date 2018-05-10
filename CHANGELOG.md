@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Hide the test tables from BE user table permission lists (#52)
 - Simplify the fake frontend teardown (#51)
 
 ## 5.3.5
