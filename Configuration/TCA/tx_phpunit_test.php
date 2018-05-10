@@ -8,12 +8,13 @@ return [
         'cruser_id' => 'cruser_id',
         'versioningWS' => false,
         'delete' => 'deleted',
-        'hideTable' => true,
         'enablecolumns' => [
             'disabled' => 'hidden',
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
+        'hideTable' => true,
+        'adminOnly' => true,
     ],
     'interface' => [
         'showRecordFieldList' => '',
