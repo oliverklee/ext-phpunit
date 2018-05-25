@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Remove the obsolete ext_autoload.php (#56)
 
 ### Fixed
 - Hide the test tables from BE user table permission lists (#52)
