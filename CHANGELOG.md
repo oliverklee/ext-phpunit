@@ -15,6 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Remove the obsolete ext_autoload.php (#56)
 
 ### Fixed
+- Use the DB name from the connection pool in TYPO3 >= 8.7 (#58, #55)
 - Hide the test tables from BE user table permission lists (#52)
 - Simplify the fake frontend teardown (#51)
 
