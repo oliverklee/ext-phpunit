@@ -1,9 +1,6 @@
 <?php
 defined('TYPO3_MODE') or die('Access denied.');
 
-require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('phpunit')
-    . 'Resources/Private/Libraries/phpunit-library.phar';
-
 if (TYPO3_MODE === 'BE'
     && \TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) <= 8000000) {
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::registerAjaxHandler(

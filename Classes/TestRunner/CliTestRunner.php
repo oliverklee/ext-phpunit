@@ -20,6 +20,8 @@ class Tx_Phpunit_TestRunner_CliTestRunner extends \Tx_Phpunit_TestRunner_Abstrac
         // This is needed as the configuration might include closures which cannot be backed up
         $globalBackup = $this->removeClosures($GLOBALS['TYPO3_CONF_VARS']);
 
+        require_once __DIR__ . '/../../Resources/Private/Libraries/phpunit-library.phar';
+
         // Run unit tests
         /** @var string */
         define('PHPUnit_MAIN_METHOD', 'PHPUnit_TextUI_Command::main');
