@@ -35,7 +35,15 @@ abstract class Tx_Phpunit_Database_TestCase extends \Tx_Phpunit_TestCase
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
-        $this->testDatabase = strtolower(TYPO3_db . '_test');
+        /** @var array $databaseConfiguration */
+        $databaseConfiguration = $GLOBALS['TYPO3_CONF_VARS']['DB'];
+        if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8001000) {
+            $originalDatabaseName = $databaseConfiguration['Connections']['Default']['dbname'];
+        } else {
+            $originalDatabaseName = $databaseConfiguration['database'];
+        }
+
+        $this->testDatabase = strtolower($originalDatabaseName . '_test');
     }
 
     /**
