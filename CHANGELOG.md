@@ -15,6 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Remove the obsolete ext_autoload.php (#56)
 
 ### Fixed
+- Fix the PHAR inclusion in TYPO3 8.7.17 (#59, #60)
 - Only include the PHAR from the test runners (#57, #53)
 - Use the DB name from the connection pool in TYPO3 >= 8.7 (#58, #55)
 - Hide the test tables from BE user table permission lists (#52)

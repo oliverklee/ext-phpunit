@@ -29,6 +29,9 @@ These are basic requirements for using this extension:
 #. View the extension's options in the Extension Manager and save them at
    least once.
 
+Please note that this extension will only work if it is installed directly
+in typo3conf/ext/phpunit/. If it is symlinked, the PHAR inclusion will fail.
+
 If you would like to run the unit tests of the phpunit extension
 itself, you'll also need to install the following dummy extension
 which are located in EXT:phpunit/TestExtensions/:
