@@ -211,7 +211,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
      */
     public function main()
     {
-        require_once __DIR__ . '/../../Resources/Private/Libraries/phpunit-library.phar';
+        require_once PATH_site . 'typo3conf/ext/phpunit/Resources/Private/Libraries/phpunit-library.phar';
 
         $this->doc = GeneralUtility::makeInstance(DocumentTemplate::class);
         $this->doc->backPath = $GLOBALS['BACK_PATH'];
