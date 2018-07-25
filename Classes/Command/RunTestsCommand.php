@@ -25,7 +25,7 @@ class RunTestsCommand extends Command
     {
         $this
             ->setDescription('Runs PHPUnit tests from the command line.')
-            ->setHelp('Call it like this: typo3/sysext/core/bin/typo3 phpunit:run "--verbose -c ..."')
+            ->setHelp('Call it like this: typo3/sysext/core/bin/typo3 phpunit:run --options="--verbose -c ..."')
             ->addOption(
                 'options',
                 'o',
