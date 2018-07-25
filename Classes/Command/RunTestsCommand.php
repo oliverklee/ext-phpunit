@@ -32,7 +32,6 @@ class RunTestsCommand extends Command
                 InputOption::VALUE_OPTIONAL,
                 'The complete options string passed to phpunit'
             );
-
     }
 
     /**
