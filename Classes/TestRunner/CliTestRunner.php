@@ -1,5 +1,7 @@
 <?php
 
+use OliverKlee\Phpunit\Service\LibraryLoader;
+
 /**
  * With this TestRunner, you can run PHPUnit manually from the command line.
  *
@@ -20,7 +22,7 @@ class Tx_Phpunit_TestRunner_CliTestRunner extends \Tx_Phpunit_TestRunner_Abstrac
         // This is needed as the configuration might include closures which cannot be backed up
         $globalBackup = $this->removeClosures($GLOBALS['TYPO3_CONF_VARS']);
 
-        require_once PATH_site . 'typo3conf/ext/phpunit/Resources/Private/Libraries/phpunit-library.phar';
+        LibraryLoader::includeAll();
 
         // Run unit tests
         /** @var string */
