@@ -23,7 +23,7 @@ Running the unit tests on the command line in TYPO3 8.7
 
 #. Execute
    <path-to-your-typo3-installation>/typo3/sysext/core/bin/typo3
-   phpunit:run <path-to-your-tests>
+   phpunit:run --options="options for phpunit like --verbose -c phpunitIntegration.xml"
 
 
 Running the unit tests on the command line in TYPO3 7.6
