@@ -51,6 +51,8 @@ class RunTestsCommand extends Command
         // This is needed as the configuration might include closures which cannot be backed-up.
         $globalBackup = $this->removeClosures($GLOBALS['TYPO3_CONF_VARS']);
 
+        \OliverKlee\Phpunit\Service\LibraryLoader::includeAll();
+
         // Run unit tests
         $runner = new \PHPUnit_TextUI_Command();
         $result = (int)$runner->run(['test' => $input->getArgument('path')], true);
