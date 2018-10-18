@@ -1,4 +1,5 @@
 <?php
+
 namespace OliverKlee\Phpunit\Tests\Unit\BackEnd;
 
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;

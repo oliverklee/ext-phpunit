@@ -1,7 +1,8 @@
 <?php
 
 /**
- * This interface provides functions for reading and writing the settings of the back-end user who is currently logged in.
+ * This interface provides functions for reading and writing the settings of the back-end user who is currently logged
+ * in.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */

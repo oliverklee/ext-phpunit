@@ -1,4 +1,5 @@
 <?php
+
 namespace OliverKlee\Phpunit\Command;
 
 use Symfony\Component\Console\Command\Command;
@@ -35,7 +36,7 @@ class RunTestsCommand extends Command
     /**
      * Executes the command.
      *
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
      *
      * @return int 0 if everything went fine, or an error code

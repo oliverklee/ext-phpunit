@@ -1,4 +1,5 @@
 <?php
+
 namespace OliverKlee\Phpunit\Tests\Functional\Service;
 
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;

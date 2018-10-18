@@ -244,7 +244,8 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface
         $possibleIconFileNames = ['ext_icon.gif', 'ext_icon.png'];
         foreach ($possibleIconFileNames as $fileNameCandidate) {
             if (file_exists(ExtensionManagementUtility::extPath($extensionKey) . $fileNameCandidate)) {
-                $iconPath = PathUtility::getAbsoluteWebPath('../typo3conf/ext/' . $extensionKey . '/' . $fileNameCandidate);
+                $iconPath =
+                    PathUtility::getAbsoluteWebPath('../typo3conf/ext/' . $extensionKey . '/' . $fileNameCandidate);
                 $testable->setIconPath($iconPath);
                 break;
             }

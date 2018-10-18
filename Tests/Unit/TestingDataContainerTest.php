@@ -1,4 +1,5 @@
 <?php
+
 namespace OliverKlee\Phpunit\Tests\Unit;
 
 /**

@@ -1,4 +1,5 @@
 <?php
+
 namespace OliverKlee\Phpunit\Tests\Unit\Service;
 
 use TYPO3\CMS\Core\SingletonInterface;

@@ -233,7 +233,9 @@ abstract class Tx_Phpunit_Database_TestCase extends \Tx_Phpunit_TestCase
         // "TYPO3_CONF_VARS" in order to have a clean testing environment.
         // hook to load additional files
         if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['importExtensions_additionalDatabaseFiles'])) {
-            foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['importExtensions_additionalDatabaseFiles'] as $file) {
+            foreach (
+                $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['importExtensions_additionalDatabaseFiles'] as
+                $file) {
                 $sqlFilename = GeneralUtility::getFileAbsFileName($file);
                 $fileContent = GeneralUtility::getUrl($sqlFilename);
 
@@ -279,7 +281,8 @@ abstract class Tx_Phpunit_Database_TestCase extends \Tx_Phpunit_TestCase
      */
     private function importExtension($extensionName)
     {
-        $sqlFilename = GeneralUtility::getFileAbsFileName(ExtensionManagementUtility::extPath($extensionName) . 'ext_tables.sql');
+        $sqlFilename =
+            GeneralUtility::getFileAbsFileName(ExtensionManagementUtility::extPath($extensionName) . 'ext_tables.sql');
         $fileContent = GeneralUtility::getUrl($sqlFilename);
 
         $this->importDatabaseDefinitions($fileContent);

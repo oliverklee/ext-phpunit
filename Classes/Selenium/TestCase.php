@@ -45,7 +45,8 @@ class Tx_Phpunit_Selenium_TestCase extends \PHPUnit_Extensions_Selenium2TestCase
         if ($extensionSettingsService !== null) {
             $this->extensionSettingsService = $extensionSettingsService;
         } else {
-            $this->extensionSettingsService = GeneralUtility::makeInstance(\Tx_Phpunit_Service_ExtensionSettingsService::class);
+            $this->extensionSettingsService =
+                GeneralUtility::makeInstance(\Tx_Phpunit_Service_ExtensionSettingsService::class);
         }
 
         if ($seleniumService !== null) {

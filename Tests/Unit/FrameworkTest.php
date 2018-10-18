@@ -1,4 +1,5 @@
 <?php
+
 namespace OliverKlee\Phpunit\Tests\Unit;
 
 use org\bovigo\vfs\vfsStream;
@@ -3625,10 +3626,12 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
         $dummyFile = $this->subject->createDummyZipArchive(
             'foo.zip',
-            [$this->subject->createDummyFile(
-                'bar.txt',
-                'foo bar'
-            )]
+            [
+                $this->subject->createDummyFile(
+                    'bar.txt',
+                    'foo bar'
+                ),
+            ]
         );
         $zip = new \ZipArchive();
         $zip->open($dummyFile);
@@ -3652,8 +3655,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $dummyFile = $this->subject->createDummyZipArchive(
             'foo.zip',
             [
-            $this->subject->createDummyFile('foo.txt'),
-            $this->subject->createDummyFile('bar.txt'),
+                $this->subject->createDummyFile('foo.txt'),
+                $this->subject->createDummyFile('bar.txt'),
             ]
         );
         $zip = new \ZipArchive();

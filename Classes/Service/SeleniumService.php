@@ -28,7 +28,8 @@ class Tx_Phpunit_Service_SeleniumService implements \Tx_Phpunit_Interface_Seleni
         if ($extensionSettingsService !== null) {
             $this->extensionSettingsService = $extensionSettingsService;
         } else {
-            $this->extensionSettingsService = GeneralUtility::makeInstance(\Tx_Phpunit_Service_ExtensionSettingsService::class);
+            $this->extensionSettingsService =
+                GeneralUtility::makeInstance(\Tx_Phpunit_Service_ExtensionSettingsService::class);
         }
     }
 

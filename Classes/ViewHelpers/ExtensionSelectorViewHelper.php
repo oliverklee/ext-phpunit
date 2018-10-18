@@ -167,6 +167,7 @@ class Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper extends \Tx_Phpunit_Vie
      */
     protected function isOptionSelected($option)
     {
-        return $this->userSettingService->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE) === $option;
+        return $this->userSettingService->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE)
+            === $option;
     }
 }

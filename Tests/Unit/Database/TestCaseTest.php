@@ -1,4 +1,5 @@
 <?php
+
 namespace OliverKlee\Phpunit\Tests\Unit\Database;
 
 use TYPO3\CMS\Core\Database\DatabaseConnection;
@@ -201,7 +202,8 @@ class TestCaseTest extends \Tx_Phpunit_Database_TestCase
     public function skippingDependencyExtensions()
     {
         if (!ExtensionManagementUtility::isLoaded('aaa') || !ExtensionManagementUtility::isLoaded('bbb')
-            || !ExtensionManagementUtility::isLoaded('ccc') || !ExtensionManagementUtility::isLoaded('ddd')
+            || !ExtensionManagementUtility::isLoaded('ccc')
+            || !ExtensionManagementUtility::isLoaded('ddd')
         ) {
             self::markTestSkipped(
                 'This test can only be run if the extensions aaa, bbb, ccc ' .
@@ -244,7 +246,8 @@ class TestCaseTest extends \Tx_Phpunit_Database_TestCase
         }
 
         $this->importExtensions(['ccc']);
-        $this->importDataSet(ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Database/Fixtures/DataSet.xml');
+        $this->importDataSet(ExtensionManagementUtility::extPath('phpunit')
+            . 'Tests/Unit/Database/Fixtures/DataSet.xml');
 
         $result = $this->db->exec_SELECTgetRows('*', 'tx_ccc_test', null);
         self::assertCount(

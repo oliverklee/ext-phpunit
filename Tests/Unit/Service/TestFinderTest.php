@@ -1,4 +1,5 @@
 <?php
+
 namespace OliverKlee\Phpunit\Tests\Unit\Service;
 
 use TYPO3\CMS\Core\SingletonInterface;
@@ -127,7 +128,9 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
 
         /** @var \Tx_Phpunit_Service_TestFinder|\PHPUnit_Framework_MockObject_MockObject $subject */
         $subject = $this->getMock(\Tx_Phpunit_Service_TestFinder::class, ['getTestablesForEverything']);
-        $subject->expects(self::any())->method('getTestablesForEverything')->will(self::returnValue(['foo' => $testable]));
+        $subject->expects(self::any())
+            ->method('getTestablesForEverything')
+            ->will(self::returnValue(['foo' => $testable]));
 
         self::assertSame(
             $testable,
@@ -398,8 +401,8 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function getTestablesForExtensionsCreatesTestableForSingleExtensionForInstalledExtensionsWithoutExcludedExtensions()
-    {
+    public function getTestablesForExtensionsCreatesTestableForSingleExtensionForInstalledExtensionsWithoutExcludedExtensions(
+    ) {
         /** @var \Tx_Phpunit_Service_TestFinder|\PHPUnit_Framework_MockObject_MockObject $testFinder */
         $testFinder = $this->getMock(
             \Tx_Phpunit_Service_TestFinder::class,
@@ -431,8 +434,8 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function getTestablesForExtensionsCreatesTestableForSingleExtensionForInstalledExtensionsWithoutDummyExtensions()
-    {
+    public function getTestablesForExtensionsCreatesTestableForSingleExtensionForInstalledExtensionsWithoutDummyExtensions(
+    ) {
         /** @var \Tx_Phpunit_Service_TestFinder|\PHPUnit_Framework_MockObject_MockObject $testFinder */
         $testFinder = $this->getMock(
             \Tx_Phpunit_Service_TestFinder::class,
@@ -802,10 +805,13 @@ class TestFinderTest extends \Tx_Phpunit_TestCase
             \Tx_Phpunit_Service_TestFinder::class,
             ['getLoadedExtensionKeys', 'getExcludedExtensionKeys', 'findTestsPathForExtension']
         );
-        $testFinder->expects(self::once())->method('getLoadedExtensionKeys')->will(self::returnValue(['user_phpunittest']));
+        $testFinder->expects(self::once())
+            ->method('getLoadedExtensionKeys')
+            ->will(self::returnValue(['user_phpunittest']));
         $testFinder->expects(self::once())->method('getExcludedExtensionKeys')->will(self::returnValue([]));
         $testFinder->expects(self::once())->method('findTestsPathForExtension')
-            ->with('user_phpunittest')->will(self::returnValue(ExtensionManagementUtility::extPath('user_phpunittest') . 'Tests/'));
+            ->with('user_phpunittest')->will(self::returnValue(ExtensionManagementUtility::extPath('user_phpunittest')
+                . 'Tests/'));
 
         $testables = $testFinder->getTestablesForExtensions();
         /** @var \Tx_Phpunit_Testable $testable */
