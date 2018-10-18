@@ -29,6 +29,7 @@ class Tx_Phpunit_BackEnd_TestListener implements \PHPUnit_Framework_TestListener
      * @var int
      */
     protected $totalNumberOfTests = 0;
+
     /**
      * the total number of data provider tests detected
      *
@@ -301,7 +302,8 @@ class Tx_Phpunit_BackEnd_TestListener implements \PHPUnit_Framework_TestListener
         $testCaseTraceData = [];
 
         foreach ($traceData as $singleTraceArr) {
-            if (stripos(GeneralUtility::fixWindowsFilePath($singleTraceArr['file']), 'Framework/Assert.php') === false) {
+            if (stripos(GeneralUtility::fixWindowsFilePath($singleTraceArr['file']), 'Framework/Assert.php')
+                === false) {
                 $testCaseTraceData = $singleTraceArr;
                 break;
             }
@@ -390,7 +392,8 @@ class Tx_Phpunit_BackEnd_TestListener implements \PHPUnit_Framework_TestListener
         }
 
         $this->outputService->output(
-            '<h2 class="testSuiteName">Testsuite: ' . htmlspecialchars($this->prettifyTestClass($suite->getName())) . '</h2>' .
+            '<h2 class="testSuiteName">Testsuite: ' . htmlspecialchars($this->prettifyTestClass($suite->getName()))
+            . '</h2>' .
             '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("wasSuccessful");/*]]>*/</script>'
         );
     }
@@ -447,7 +450,8 @@ class Tx_Phpunit_BackEnd_TestListener implements \PHPUnit_Framework_TestListener
         $this->outputService->output(
             '<div id="testcaseNum-' . $this->currentTestNumber . '_' . $this->currentDataProviderNumber .
             '" class="testcaseOutput testcaseSuccess">' .
-            '<h3>' . $this->createReRunLink($test) . htmlspecialchars($this->prettifyTestMethod($test->getName())) . '</h3><div>'
+            '<h3>' . $this->createReRunLink($test) . htmlspecialchars($this->prettifyTestMethod($test->getName()))
+            . '</h3><div>'
         );
         $this->memoryUsageStartOfTest = memory_get_usage();
     }
@@ -527,7 +531,7 @@ class Tx_Phpunit_BackEnd_TestListener implements \PHPUnit_Framework_TestListener
     {
         $iconImageTag = '<img class="runner" src="' .
             PathUtility::getAbsoluteWebPath('../typo3conf/ext/phpunit/Resources/Public/Icons/Runner.gif')
-             . '" alt="" />';
+            . '" alt="" />';
         return '<a href="' . $this->createReRunUrl($test) . '" title="Run this test only">' . $iconImageTag . '</a> ';
     }
 

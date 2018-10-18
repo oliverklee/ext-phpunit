@@ -194,7 +194,8 @@ class Tx_Phpunit_Framework
         $this->determineAndSetAutoIncrementThreshold();
 
         /** @var array $rootLineCacheConfiguration */
-        $rootLineCacheConfiguration = (array)$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['cache_rootline'];
+        $rootLineCacheConfiguration =
+            (array)$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['cache_rootline'];
         $rootLineCacheConfiguration['backend'] = NullBackend::class;
         $rootLineCacheConfiguration['options'] = [];
         $cacheConfigurations = ['cache_rootline' => $rootLineCacheConfiguration];
@@ -1094,7 +1095,8 @@ class Tx_Phpunit_Framework
 
         if (!isset($this->dummyFolders[$folderName])) {
             throw new \InvalidArgumentException(
-                'The folder "' . $absolutePathToFolder . '" which you are trying to delete was not created by this instance of ' .
+                'The folder "' . $absolutePathToFolder
+                . '" which you are trying to delete was not created by this instance of ' .
                 'the testing framework.',
                 1334439387
             );
@@ -1281,7 +1283,8 @@ class Tx_Phpunit_Framework
         }
 
         /** @var TypoScriptFrontendController $frontEnd */
-        $frontEnd = GeneralUtility::makeInstance(TypoScriptFrontendController::class, $GLOBALS['TYPO3_CONF_VARS'], $pageUid, 0);
+        $frontEnd =
+            GeneralUtility::makeInstance(TypoScriptFrontendController::class, $GLOBALS['TYPO3_CONF_VARS'], $pageUid, 0);
         $GLOBALS['TSFE'] = $frontEnd;
 
         // simulates a normal FE without any logged-in FE or BE user
@@ -1578,7 +1581,7 @@ class Tx_Phpunit_Framework
     protected function isNoneSystemTableNameAllowed($tableName)
     {
         return $this->isOwnTableNameAllowed($tableName)
-        || $this->isAdditionalTableNameAllowed($tableName);
+            || $this->isAdditionalTableNameAllowed($tableName);
     }
 
     /**
@@ -1595,7 +1598,7 @@ class Tx_Phpunit_Framework
     protected function isTableNameAllowed($tableName)
     {
         return $this->isNoneSystemTableNameAllowed($tableName)
-        || $this->isSystemTableNameAllowed($tableName);
+            || $this->isSystemTableNameAllowed($tableName);
     }
 
     /**
@@ -1794,7 +1797,8 @@ class Tx_Phpunit_Framework
             return;
         }
 
-        if ($this->getAutoIncrement($tableName) > ($this->getMaximumUidFromTable($tableName) + $this->resetAutoIncrementThreshold)) {
+        if ($this->getAutoIncrement($tableName) > ($this->getMaximumUidFromTable($tableName)
+                + $this->resetAutoIncrementThreshold)) {
             $this->resetAutoIncrement($tableName);
         }
     }

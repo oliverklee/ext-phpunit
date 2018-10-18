@@ -1,4 +1,5 @@
 <?php
+
 namespace OliverKlee\Phpunit\Tests\Unit\BackEnd;
 
 use SebastianBergmann\Comparator\ComparisonFailure;
@@ -502,7 +503,10 @@ class TestListenerTest extends \Tx_Phpunit_TestCase
 
         /** @var \PHPUnit_Framework_TestCase|\PHPUnit_Framework_MockObject_MockObject $testCase */
         $testCase = $this->getMock(\PHPUnit_Framework_TestCase::class, ['run'], [$testName]);
-        $subject->expects(self::once())->method('prettifyTestMethod')->with($testName)->will(self::returnValue($testName));
+        $subject->expects(self::once())
+            ->method('prettifyTestMethod')
+            ->with($testName)
+            ->will(self::returnValue($testName));
 
         $subject->startTest($testCase);
 
@@ -795,8 +799,8 @@ class TestListenerTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function prettifyTestMethodForTestPrefixAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTestPrefix()
-    {
+    public function prettifyTestMethodForTestPrefixAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTestPrefix(
+    ) {
         $this->subject->useHumanReadableTextFormat();
 
         self::assertSame(
@@ -821,8 +825,8 @@ class TestListenerTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function prettifyTestMethodForTestPrefixWithUnderscoreAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTestPrefix()
-    {
+    public function prettifyTestMethodForTestPrefixWithUnderscoreAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTestPrefix(
+    ) {
         $this->subject->useHumanReadableTextFormat();
 
         self::assertSame(
@@ -873,8 +877,8 @@ class TestListenerTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function prettifyTestClassForTestSuffixAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTxPrefix()
-    {
+    public function prettifyTestClassForTestSuffixAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTxPrefix(
+    ) {
         $this->subject->useHumanReadableTextFormat();
 
         self::assertSame(
@@ -886,8 +890,8 @@ class TestListenerTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function prettifyTestClassForTestcaseSuffixAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTxPrefix()
-    {
+    public function prettifyTestClassForTestcaseSuffixAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTxPrefix(
+    ) {
         $this->subject->useHumanReadableTextFormat();
 
         self::assertSame(
@@ -912,8 +916,8 @@ class TestListenerTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function prettifyTestClassForExtbaseClassNameAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTestSuffix()
-    {
+    public function prettifyTestClassForExtbaseClassNameAfterUseHumanReadableTextFormatConvertCamelCaseToWordsAndDropsTestSuffix(
+    ) {
         $this->subject->useHumanReadableTextFormat();
 
         self::assertSame(

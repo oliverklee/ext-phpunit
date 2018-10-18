@@ -1,4 +1,5 @@
 <?php
+
 namespace OliverKlee\Phpunit\Tests\Unit\Service;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -229,6 +230,7 @@ class DatabaseTest extends \Tx_Phpunit_TestCase
      * @test
      *
      * @param array $recordData
+     *
      * @dataProvider hiddenRecordDataProvider
      */
     public function enableFieldsWithHiddenNotAllowedIgnoresHiddenRecord(array $recordData)
@@ -248,6 +250,7 @@ class DatabaseTest extends \Tx_Phpunit_TestCase
      * @test
      *
      * @param array $recordData
+     *
      * @dataProvider hiddenRecordDataProvider
      */
     public function enableFieldsWithHiddenAllowedFindsHiddenRecord(array $recordData)
@@ -824,8 +827,10 @@ class DatabaseTest extends \Tx_Phpunit_TestCase
     {
         \Tx_Phpunit_Service_Database::insert(
             'tx_phpunit_test',
-            ['title' => 'foo',
-            'is_dummy_record' => 1, ]
+            [
+                'title' => 'foo',
+                'is_dummy_record' => 1,
+            ]
         );
         $this->testingFramework->markTableAsDirty('tx_phpunit_test');
 

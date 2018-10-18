@@ -69,8 +69,8 @@ abstract class Tx_Phpunit_TestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Creates a proxy class of the specified class which allows for calling even protected methods and access of protected
-     * properties.
+     * Creates a proxy class of the specified class which allows for calling even protected methods and access of
+     * protected properties.
      *
      * @param string $className name of class to make available, must not be empty
      *

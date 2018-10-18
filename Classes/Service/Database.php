@@ -97,7 +97,10 @@ class Tx_Phpunit_Service_Database
         $intShowHidden = (int)$showHidden;
 
         if (!in_array($intShowHidden, [-1, 0, 1], true)) {
-            throw new \InvalidArgumentException('$showHidden may only be -1, 0 or 1, but actually is ' . $showHidden, 1331315445);
+            throw new \InvalidArgumentException(
+                '$showHidden may only be -1, 0 or 1, but actually is ' . $showHidden,
+                1331315445
+            );
         }
 
         // maps $showHidden (-1..1) to (0..2) which ensures valid array keys
@@ -114,7 +117,8 @@ class Tx_Phpunit_Service_Database
         if (!isset(self::$enableFieldsCache[$tableName][$showHiddenKey][$ignoresKey][$previewKey])) {
             self::retrievePageForEnableFields();
             self::$enableFieldsCache[$tableName][$showHiddenKey][$ignoresKey][$previewKey]
-                = self::$pageForEnableFields->enableFields($tableName, $showHidden, $enrichedIgnores, $noVersionPreview);
+                =
+                self::$pageForEnableFields->enableFields($tableName, $showHidden, $enrichedIgnores, $noVersionPreview);
         }
 
         return self::$enableFieldsCache[$tableName][$showHiddenKey][$ignoresKey][$previewKey];

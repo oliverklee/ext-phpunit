@@ -1,4 +1,5 @@
 <?php
+
 namespace OliverKlee\Phpunit\Tests\Unit;
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;

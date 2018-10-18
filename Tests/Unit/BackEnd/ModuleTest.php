@@ -1,4 +1,5 @@
 <?php
+
 namespace OliverKlee\Phpunit\Tests\Unit\BackEnd;
 
 use OliverKlee\Phpunit\Tests\Unit\BackEnd\Fixtures\LoadMe;
@@ -615,7 +616,9 @@ class ModuleTest extends \Tx_Phpunit_TestCase
 
         /** @var \Tx_Phpunit_Service_TestCaseService|\PHPUnit_Framework_MockObject_MockObject $testCaseService */
         $testCaseService = $this->getMock(\Tx_Phpunit_Service_TestCaseService::class, ['findTestCaseFilesInDirectory']);
-        $testCaseService->expects(self::once())->method('findTestCaseFilesInDirectory')->will(self::returnValue($testFiles));
+        $testCaseService->expects(self::once())
+            ->method('findTestCaseFilesInDirectory')
+            ->will(self::returnValue($testFiles));
         $this->subject->injectTestCaseService($testCaseService);
 
         self::assertSame(

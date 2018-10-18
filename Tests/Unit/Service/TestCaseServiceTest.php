@@ -1,4 +1,5 @@
 <?php
+
 namespace OliverKlee\Phpunit\Tests\Unit\Service;
 
 use org\bovigo\vfs\vfsStream;
@@ -152,7 +153,9 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
      */
     public function findTestCaseFilesInDirectoryAcceptsPathWithTrailingSlash()
     {
-        $result = $this->subject->findTestCaseFilesInDirectory(ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Service');
+        $result =
+            $this->subject->findTestCaseFilesInDirectory(ExtensionManagementUtility::extPath('phpunit')
+                . 'Tests/Unit/Service');
 
         self::assertNotEmpty(
             $result
@@ -178,7 +181,9 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
      */
     public function findTestCaseFilesInDirectorySortsFileNamesInAscendingOrder()
     {
-        $result = $this->subject->findTestCaseFilesInDirectory(ExtensionManagementUtility::extPath('phpunit') . 'Tests/Unit/Service/');
+        $result =
+            $this->subject->findTestCaseFilesInDirectory(ExtensionManagementUtility::extPath('phpunit')
+                . 'Tests/Unit/Service/');
 
         $fileName1 = 'DatabaseTest.php';
         $fileName2 = 'TestFinderTest.php';

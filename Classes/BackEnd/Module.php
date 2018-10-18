@@ -314,7 +314,8 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
      */
     protected function getAndSaveSelectedTestableKey()
     {
-        $testableKeyFromSettings = $this->userSettingsService->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE);
+        $testableKeyFromSettings =
+            $this->userSettingsService->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE);
 
         if ($this->request->hasString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE)) {
             $selectedTestableKey = $this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE);
@@ -330,7 +331,10 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         }
 
         if ($selectedTestableKey !== $testableKeyFromSettings) {
-            $this->userSettingsService->set(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE, $selectedTestableKey);
+            $this->userSettingsService->set(
+                \Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTABLE,
+                $selectedTestableKey
+            );
         }
 
         return $selectedTestableKey;
@@ -376,7 +380,8 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
 
         $output = '';
         if ($selectedExtensionKey !== \Tx_Phpunit_Testable::ALL_EXTENSIONS) {
-            $output .= $this->createTestCaseSelector($selectedExtensionKey) . $this->createTestSelector($selectedExtensionKey);
+            $output .= $this->createTestCaseSelector($selectedExtensionKey)
+                . $this->createTestSelector($selectedExtensionKey);
         }
         $output .= $this->createCheckboxes();
 
@@ -393,7 +398,8 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         $this->getAndSaveSelectedTestableKey();
 
         /** @var \Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper $extensionSelectorViewHelper */
-        $extensionSelectorViewHelper = GeneralUtility::makeInstance(\Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper::class);
+        $extensionSelectorViewHelper =
+            GeneralUtility::makeInstance(\Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper::class);
         $extensionSelectorViewHelper->injectOutputService($this->outputService);
         $extensionSelectorViewHelper->injectUserSettingService($this->userSettingsService);
         $extensionSelectorViewHelper->injectTestFinder($this->testFinder);
@@ -436,28 +442,33 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         $testCaseFileOptionsArray = [];
         /** @var \PHPUnit_Framework_TestCase $testCase */
         foreach ($testSuite->tests() as $testCase) {
-            $selected = ($testCase->toString() === $this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE))
-                ? ' selected="selected"' : '';
+            $selected =
+                ($testCase->toString()
+                    === $this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE))
+                    ? ' selected="selected"' : '';
             $testCaseFileOptionsArray[] = '<option value="' . $testCase->toString() . '"' . $selected . '>' .
                 htmlspecialchars($testCase->getName()) . '</option>';
         }
 
         $currentStyle = $this->createIconStyle($extensionKey);
 
-        return '<form action="' . htmlspecialchars(BackendUtility::getModuleUrl('tools_txphpunitbeM1')) . '" method="post">' .
-        '<p>' .
-        '<select style="' . $currentStyle . '" name="' . \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
-        \Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE . ']" onchange="document.location=\'' . BackendUtility::getModuleUrl('tools_txphpunitbeM1') . '&' .
-        \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' . \Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE . ']=\'+this.options[this.selectedIndex].value;">' .
-        '<option value="">' . htmlspecialchars($this->translate('select_tests')) . '</option>' .
-        implode(LF, $testCaseFileOptionsArray) . '</select>' .
-        '<button type="submit" name="' . \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
-        \Tx_Phpunit_Interface_Request::PARAMETER_KEY_EXECUTE . ']" value="run" accesskey="c">' .
-        $this->translate('runTestCaseFile') . '</button>' .
-        '<input type="hidden" name="' . \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
-        \Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND . ']" value="runTestCaseFile" />' .
-        '</p>' .
-        '</form>';
+        return '<form action="' . htmlspecialchars(BackendUtility::getModuleUrl('tools_txphpunitbeM1'))
+            . '" method="post">' .
+            '<p>' .
+            '<select style="' . $currentStyle . '" name="' . \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
+            \Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE . ']" onchange="document.location=\''
+            . BackendUtility::getModuleUrl('tools_txphpunitbeM1') . '&' .
+            \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '['
+            . \Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE . ']=\'+this.options[this.selectedIndex].value;">' .
+            '<option value="">' . htmlspecialchars($this->translate('select_tests')) . '</option>' .
+            implode(LF, $testCaseFileOptionsArray) . '</select>' .
+            '<button type="submit" name="' . \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
+            \Tx_Phpunit_Interface_Request::PARAMETER_KEY_EXECUTE . ']" value="run" accesskey="c">' .
+            $this->translate('runTestCaseFile') . '</button>' .
+            '<input type="hidden" name="' . \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
+            \Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND . ']" value="runTestCaseFile" />' .
+            '</p>' .
+            '</form>';
     }
 
     /**
@@ -512,9 +523,11 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
                     $testSuiteName = strstr($testIdentifier, '(');
                     $testSuiteName = trim($testSuiteName, '()');
                 }
-                $selected = ($testIdentifier === $this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST))
-                    ? ' selected="selected"' : '';
-                $testCaption = $useHumanReadableOptionLabels ? $this->namePrettifier->prettifyTestMethod($testName) : $testName;
+                $selected =
+                    ($testIdentifier === $this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST))
+                        ? ' selected="selected"' : '';
+                $testCaption =
+                    $useHumanReadableOptionLabels ? $this->namePrettifier->prettifyTestMethod($testName) : $testName;
                 $testsOptionsArr[$testSuiteName][] .= '<option value="' . $testIdentifier . '"' . $selected . '>' .
                     htmlspecialchars($testCaption) . '</option>';
             }
@@ -562,7 +575,9 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
      */
     protected function createCheckboxes()
     {
-        $output = '<form action="' . htmlspecialchars(BackendUtility::getModuleUrl('tools_txphpunitbeM1')) . '" method="post">';
+        $output =
+            '<form action="' . htmlspecialchars(BackendUtility::getModuleUrl('tools_txphpunitbeM1'))
+            . '" method="post">';
         $output .= '<div class="phpunit-controls">';
         $failureState = $this->userSettingsService->getAsBoolean('failure') ? 'checked="checked"' : '';
         $errorState = $this->userSettingsService->getAsBoolean('error') ? 'checked="checked"' : '';
@@ -571,10 +586,14 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         $incompleteState = $this->userSettingsService->getAsBoolean('incomplete') ? 'checked="checked"' : '';
         $showTime = $this->userSettingsService->getAsBoolean('showTime') ? 'checked="checked"' : '';
         $testdoxState = $this->userSettingsService->getAsBoolean('testdox') ? 'checked="checked"' : '';
-        $output .= '<input type="checkbox" id="SET_success" ' . $successState . ' /><label for="SET_success">' . $this->translate('success') . '</label>';
-        $output .= ' <input type="checkbox" id="SET_failure" ' . $failureState . ' /><label for="SET_failure">' . $this->translate('failure') . '</label>';
-        $output .= ' <input type="checkbox" id="SET_skipped" ' . $skippedState . ' /><label for="SET_skipped">' . $this->translate('skipped') . '</label>';
-        $output .= ' <input type="checkbox" id="SET_error" ' . $errorState . ' /><label for="SET_error">' . $this->translate('error') . '</label>';
+        $output .= '<input type="checkbox" id="SET_success" ' . $successState . ' /><label for="SET_success">'
+            . $this->translate('success') . '</label>';
+        $output .= ' <input type="checkbox" id="SET_failure" ' . $failureState . ' /><label for="SET_failure">'
+            . $this->translate('failure') . '</label>';
+        $output .= ' <input type="checkbox" id="SET_skipped" ' . $skippedState . ' /><label for="SET_skipped">'
+            . $this->translate('skipped') . '</label>';
+        $output .= ' <input type="checkbox" id="SET_error" ' . $errorState . ' /><label for="SET_error">'
+            . $this->translate('error') . '</label>';
         $output .= ' <input type="checkbox" id="SET_testdox" ' . $testdoxState .
             ' /><label for="SET_testdox">' . $this->translate('show_as_human_readable') . '</label>';
         $output .= ' <input type="checkbox" id="SET_incomplete" ' . $incompleteState .
@@ -593,7 +612,8 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
             ' /><label for="SET_codeCoverage"' . $codecoverageForLabelWhenDisabled .
             '>' . $this->translate('collect_code_coverage_data') . '</label>';
         $runSeleniumTests = $this->userSettingsService->getAsBoolean('runSeleniumTests') ? 'checked="checked"' : '';
-        $output .= ' <input type="checkbox" id="SET_runSeleniumTests" ' . $runSeleniumTests . '/><label for="SET_runSeleniumTests">' . $this->translate('run_selenium_tests') . '</label>';
+        $output .= ' <input type="checkbox" id="SET_runSeleniumTests" ' . $runSeleniumTests
+            . '/><label for="SET_runSeleniumTests">' . $this->translate('run_selenium_tests') . '</label>';
         $output .= '</div>';
         $output .= '</form>';
 
@@ -732,7 +752,8 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     }
 
     /**
-     * Creates a test suite that contains all test cases in the systems (but filters out this extension's base test cases).
+     * Creates a test suite that contains all test cases in the systems (but filters out this extension's base test
+     * cases).
      *
      * @return \PHPUnit_Framework_TestSuite the test suite with all test cases added
      */
@@ -793,13 +814,15 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
                     $testSuiteName = $testIdentifierParts[0];
                     $this->testListener->setTestSuiteName($testSuiteName);
                 }
-                if ($testIdentifier === $this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST)) {
+                if ($testIdentifier
+                    === $this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST)) {
                     if ($test instanceof \PHPUnit_Framework_TestSuite) {
                         $this->testListener->setTotalNumberOfTests($test->count());
                     } else {
                         $this->testListener->setTotalNumberOfTests(1);
                     }
-                    $this->outputService->output('<h2 class="testSuiteName">Testsuite: ' . $testCases->getName() . '</h2>');
+                    $this->outputService->output('<h2 class="testSuiteName">Testsuite: ' . $testCases->getName()
+                        . '</h2>');
                     $test->run($testResult);
                 }
             }
@@ -862,7 +885,8 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
                 }
                 if ($testIdentifier === $testCaseFileName) {
                     if (!$suiteNameHasBeenDisplayed) {
-                        $this->outputService->output('<h2 class="testSuiteName">Testsuite: ' . $testCaseFileName . '</h2>');
+                        $this->outputService->output('<h2 class="testSuiteName">Testsuite: ' . $testCaseFileName
+                            . '</h2>');
                         $suiteNameHasBeenDisplayed = true;
                     }
                     $test->run($testResult);
@@ -916,10 +940,13 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
                     <h2 class="hadFailure">' . $this->translate('testing_failure') . '</h2>';
             }
         }
-        $testStatistics .= '<p>' . $testResult->count() . ' ' . $this->translate('tests_total') . ', ' . $this->testListener->assertionCount() . ' ' .
-            $this->translate('assertions_total') . ', ' . $testResult->failureCount() . ' ' . $this->translate('tests_failures') .
+        $testStatistics .= '<p>' . $testResult->count() . ' ' . $this->translate('tests_total') . ', '
+            . $this->testListener->assertionCount() . ' ' .
+            $this->translate('assertions_total') . ', ' . $testResult->failureCount() . ' '
+            . $this->translate('tests_failures') .
             ', ' . $testResult->skippedCount() . ' ' . $this->translate('tests_skipped') . ', ' .
-            $testResult->notImplementedCount() . ' ' . $this->translate('tests_incomplete') . ', ' . $testResult->errorCount() .
+            $testResult->notImplementedCount() . ' ' . $this->translate('tests_incomplete') . ', '
+            . $testResult->errorCount() .
             ' ' . $this->translate('tests_errors') . ', <span title="' . $this->testStatistics->getTime() . '&nbsp;' .
             $this->translate('tests_seconds') . '">' . round($this->testStatistics->getTime(), 3) . '&nbsp;' .
             $this->translate('tests_seconds') . '</span></p>';

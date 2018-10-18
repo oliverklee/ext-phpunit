@@ -57,8 +57,8 @@ class Tx_Phpunit_Service_UserSettingsService extends \Tx_Phpunit_AbstractDataCon
     /**
      * Sets the value for the key $key.
      *
-     * @param string $key   the key of the value to set, must not be empty
-     * @param mixed  $value the value to set
+     * @param string $key the key of the value to set, must not be empty
+     * @param mixed $value the value to set
      *
      * @return void
      */
