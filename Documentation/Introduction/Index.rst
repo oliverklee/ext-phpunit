@@ -18,7 +18,6 @@
 Introduction
 ------------
 
-
 .. toctree::
    :maxdepth: 5
    :titlesonly:
@@ -29,3 +28,5 @@ Introduction
    History/Index
    Screenshots/Index
 
+This extension is part of the service level agreements (SLAs) offered
+by the `coders.care project <https://coders.care/>`_.
