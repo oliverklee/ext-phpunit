@@ -55,6 +55,7 @@
             "OliverKlee\\Phpunit\\Tests\\": "Tests/"
         }
     },
+    "prefer-stable": true,
     "repositories": [
         {
             "type": "path",
@@ -66,6 +67,9 @@
         }
     ],
     "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
         "vendor-dir": ".Build/vendor"
     },
     "scripts": {
