@@ -23,7 +23,7 @@ return [
         'hidden' => [
             'config' => [
                 'type' => 'check',
-                'default' => '0',
+                'default' => 0,
             ],
         ],
         'starttime' => [
@@ -32,8 +32,7 @@ return [
                 'renderType' => 'inputDateTime',
                 'size' => 8,
                 'eval' => 'date',
-                'default' => '0',
-                'checkbox' => '0',
+                'default' => 0,
             ],
         ],
         'endtime' => [
@@ -41,8 +40,7 @@ return [
                 'type' => 'none',
                 'size' => 8,
                 'eval' => 'date',
-                'checkbox' => '0',
-                'default' => '0',
+                'default' => 0,
                 'range' => [
                     'upper' => mktime(0, 0, 0, 12, 31, 2020),
                     'lower' => mktime(0, 0, 0, date('m') - 1, date('d'), date('Y')),
