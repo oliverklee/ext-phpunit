@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Auto-release to the TER (#67)
 
 ### Changed
+- Streamline ext_emconf.php (#74)
 - Move the inclusion of the PHPUnit library to a single location (#65)
 
 ### Deprecated
