@@ -13,6 +13,10 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Move the inclusion of the PHPUnit library to a single location (#65)
 
 ### Deprecated
+- Deprecate Tx_Phpunit_Framework (#76)
+- Deprecate Tx_Phpunit_Selenium_TestCase (#76)
+- Deprecate Tx_Phpunit_Database_TestCase (#76)
+- Deprecate Tx_Phpunit_Service_Database (#76)
 
 ### Removed
 - Remove the unused PHPUnit configuration file (#76)

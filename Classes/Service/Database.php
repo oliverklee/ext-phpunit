@@ -8,6 +8,8 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
  * This class provides some static database-related functions (mostly convenience
  * wrappers).
  *
+ * @deprecated will be removed for PHPUnit 6.
+ *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Phpunit_Service_Database

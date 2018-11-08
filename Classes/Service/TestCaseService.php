@@ -6,6 +6,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * This class provides functions for checking test cases.
  *
+ * @deprecated will be removed for PHPUnit 6.
+ *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Phpunit_Service_TestCaseService implements SingletonInterface

@@ -3,6 +3,8 @@
 /**
  * This class provides functions for reading and writing data, e.g., from settings or from a request.
  *
+ * @deprecated will be removed for PHPUnit 6.
+ *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 abstract class Tx_Phpunit_AbstractDataContainer

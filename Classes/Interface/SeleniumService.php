@@ -3,6 +3,8 @@
 /**
  * This interface provides functions for using Selenium RC.
  *
+ * @deprecated will be removed for PHPUnit 6.
+ *
  * @author Felix Rauch <rauch@skaiamail.de>
  */
 interface Tx_Phpunit_Interface_SeleniumService

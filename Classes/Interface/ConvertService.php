@@ -3,6 +3,8 @@
 /**
  * This interface provides functions for converting values into different types.
  *
+ * @deprecated will be removed for PHPUnit 6.
+ *
  * @author Nicole Cordes <nicole.cordes@googlemail.com>
  * @author Oliver Klee <typo3-coding@oliverklee,de>
  */

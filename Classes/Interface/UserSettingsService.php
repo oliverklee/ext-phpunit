@@ -4,6 +4,8 @@
  * This interface provides functions for reading and writing the settings of the back-end user who is currently logged
  * in.
  *
+ * @deprecated will be removed for PHPUnit 6.
+ *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 interface Tx_Phpunit_Interface_UserSettingsService extends \Tx_Phpunit_Interface_ConvertService

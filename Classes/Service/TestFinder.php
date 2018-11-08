@@ -8,6 +8,8 @@ use TYPO3\CMS\Core\Utility\PathUtility;
 /**
  * This class provides functions for finding test cases.
  *
+ * @deprecated will be removed for PHPUnit 6.
+ *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Phpunit_Service_TestFinder implements SingletonInterface
