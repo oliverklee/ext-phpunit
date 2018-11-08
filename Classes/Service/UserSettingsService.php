@@ -9,6 +9,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * This class may only be used when a back-end user is logged in.
  *
+ * @deprecated will be removed for PHPUnit 6.
+ *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Phpunit_Service_UserSettingsService extends \Tx_Phpunit_AbstractDataContainer implements \Tx_Phpunit_Interface_UserSettingsService, SingletonInterface

@@ -3,6 +3,8 @@
 /**
  * This class represents some code that can be tested.
  *
+ * @deprecated will be removed for PHPUnit 6.
+ *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Phpunit_Testable

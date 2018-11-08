@@ -8,6 +8,8 @@ use TYPO3\CMS\Core\Exception;
  *
  * The exception automatically will use an error message and the last query.
  *
+ * @deprecated will be removed for PHPUnit 6.
+ *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 class Tx_Phpunit_Exception_EmptyQueryResult extends Exception

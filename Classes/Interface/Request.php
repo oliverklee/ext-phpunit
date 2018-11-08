@@ -3,6 +3,8 @@
 /**
  * This interface provides functions for reading data from a POST/GET request.
  *
+ * @deprecated will be removed for PHPUnit 6.
+ *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 interface Tx_Phpunit_Interface_Request extends \Tx_Phpunit_Interface_ConvertService

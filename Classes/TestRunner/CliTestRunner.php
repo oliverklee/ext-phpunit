@@ -5,7 +5,7 @@ use OliverKlee\Phpunit\Service\LibraryLoader;
 /**
  * With this TestRunner, you can run PHPUnit manually from the command line.
  *
- * @deprecated Will be removed in PHPUnit 6.
+ * @deprecated Will be removed in PHPUnit 7.
  *
  * @author Helmut Hummel <helmut.hummel@typo3.org>
  */
