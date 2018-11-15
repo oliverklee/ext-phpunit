@@ -2,24 +2,24 @@
 # Table structure for table 'tx_phpunit_test'
 #
 CREATE TABLE tx_phpunit_test (
-	uid int(11) unsigned NOT NULL auto_increment,
-	pid int(11) unsigned DEFAULT '0' NOT NULL,
-	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-	crdate int(11) unsigned DEFAULT '0' NOT NULL,
-	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-	sorting int(11) unsigned DEFAULT '0' NOT NULL,
-	deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
-	hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	starttime int(11) unsigned DEFAULT '0' NOT NULL,
-	endtime int(11) unsigned DEFAULT '0' NOT NULL,
-	title varchar(255) DEFAULT '' NOT NULL,
-	related_records int(11) unsigned DEFAULT '0' NOT NULL,
-	bidirectional int(11) unsigned DEFAULT '0' NOT NULL,
+    uid int(11) unsigned NOT NULL auto_increment,
+    pid int(11) unsigned DEFAULT '0' NOT NULL,
+    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
+    crdate int(11) unsigned DEFAULT '0' NOT NULL,
+    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
+    sorting int(11) unsigned DEFAULT '0' NOT NULL,
+    deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
+    is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
+    hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
+    starttime int(11) unsigned DEFAULT '0' NOT NULL,
+    endtime int(11) unsigned DEFAULT '0' NOT NULL,
+    title varchar(255) DEFAULT '' NOT NULL,
+    related_records int(11) unsigned DEFAULT '0' NOT NULL,
+    bidirectional int(11) unsigned DEFAULT '0' NOT NULL,
 
-	PRIMARY KEY (uid),
-	KEY parent (pid),
-	KEY phpunit_dummy (is_dummy_record)
+    PRIMARY KEY (uid),
+    KEY parent (pid),
+    KEY phpunit_dummy (is_dummy_record)
 );
 
 
@@ -27,18 +27,18 @@ CREATE TABLE tx_phpunit_test (
 # Table structure for table 'tx_phpunit_testchild'
 #
 CREATE TABLE tx_phpunit_testchild (
-	uid int(11) unsigned NOT NULL auto_increment,
-	pid int(11) unsigned DEFAULT '0' NOT NULL,
-	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-	crdate int(11) unsigned DEFAULT '0' NOT NULL,
-	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-	sorting int(11) unsigned DEFAULT '0' NOT NULL,
-	deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
+    uid int(11) unsigned NOT NULL auto_increment,
+    pid int(11) unsigned DEFAULT '0' NOT NULL,
+    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
+    crdate int(11) unsigned DEFAULT '0' NOT NULL,
+    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
+    sorting int(11) unsigned DEFAULT '0' NOT NULL,
+    deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
+    is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
 
-	PRIMARY KEY (uid),
-	KEY parent (pid),
-	KEY phpunit_dummy (is_dummy_record)
+    PRIMARY KEY (uid),
+    KEY parent (pid),
+    KEY phpunit_dummy (is_dummy_record)
 );
 
 
@@ -46,14 +46,14 @@ CREATE TABLE tx_phpunit_testchild (
 # Table structure for table 'tx_phpunit_test_article_mm'
 #
 CREATE TABLE tx_phpunit_test_article_mm (
-	uid_local int(11) unsigned DEFAULT '0' NOT NULL,
-	uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
-	sorting int(11) unsigned DEFAULT '0' NOT NULL,
-	is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
+    uid_local int(11) unsigned DEFAULT '0' NOT NULL,
+    uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+    sorting int(11) unsigned DEFAULT '0' NOT NULL,
+    is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
 
-	KEY uid_local (uid_local),
-	KEY uid_foreign (uid_foreign),
-	KEY phpunit_dummy (is_dummy_record)
+    KEY uid_local (uid_local),
+    KEY uid_foreign (uid_foreign),
+    KEY phpunit_dummy (is_dummy_record)
 );
 
 
@@ -61,8 +61,8 @@ CREATE TABLE tx_phpunit_test_article_mm (
 # Table structure for table 'be_users'
 #
 CREATE TABLE be_users (
-	tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
-	KEY phpunit_dummy (tx_phpunit_is_dummy_record)
+    tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
+    KEY phpunit_dummy (tx_phpunit_is_dummy_record)
 );
 
 
@@ -70,8 +70,8 @@ CREATE TABLE be_users (
 # Table structure for table 'be_groups'
 #
 CREATE TABLE be_groups (
-	tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
-	KEY phpunit_dummy (tx_phpunit_is_dummy_record)
+    tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
+    KEY phpunit_dummy (tx_phpunit_is_dummy_record)
 );
 
 
@@ -79,8 +79,8 @@ CREATE TABLE be_groups (
 # Table structure for table 'fe_groups'
 #
 CREATE TABLE fe_groups (
-	tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
-	KEY phpunit_dummy (tx_phpunit_is_dummy_record)
+    tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
+    KEY phpunit_dummy (tx_phpunit_is_dummy_record)
 );
 
 
@@ -88,8 +88,8 @@ CREATE TABLE fe_groups (
 # Table structure for table 'fe_users'
 #
 CREATE TABLE fe_users (
-	tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
-	KEY phpunit_dummy (tx_phpunit_is_dummy_record)
+    tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
+    KEY phpunit_dummy (tx_phpunit_is_dummy_record)
 );
 
 
@@ -97,8 +97,8 @@ CREATE TABLE fe_users (
 # Table structure for table 'pages'
 #
 CREATE TABLE pages (
-	tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
-	KEY phpunit_dummy (tx_phpunit_is_dummy_record)
+    tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
+    KEY phpunit_dummy (tx_phpunit_is_dummy_record)
 );
 
 
@@ -106,8 +106,8 @@ CREATE TABLE pages (
 # Table structure for table 'sys_template'
 #
 CREATE TABLE sys_template (
-	tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
-	KEY phpunit_dummy (tx_phpunit_is_dummy_record)
+    tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
+    KEY phpunit_dummy (tx_phpunit_is_dummy_record)
 );
 
 
@@ -115,8 +115,8 @@ CREATE TABLE sys_template (
 # Table structure for table 'tt_content'
 #
 CREATE TABLE tt_content (
-	tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
-	KEY phpunit_dummy (tx_phpunit_is_dummy_record)
+    tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
+    KEY phpunit_dummy (tx_phpunit_is_dummy_record)
 );
 
 
@@ -124,8 +124,8 @@ CREATE TABLE tt_content (
 # Table structure for table 'sys_file'
 #
 CREATE TABLE sys_file (
-	tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
-	KEY phpunit_dummy (tx_phpunit_is_dummy_record)
+    tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
+    KEY phpunit_dummy (tx_phpunit_is_dummy_record)
 );
 
 
@@ -133,8 +133,8 @@ CREATE TABLE sys_file (
 # Table structure for table 'sys_file_collection'
 #
 CREATE TABLE sys_file_collection (
-	tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
-	KEY phpunit_dummy (tx_phpunit_is_dummy_record)
+    tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
+    KEY phpunit_dummy (tx_phpunit_is_dummy_record)
 );
 
 
@@ -142,8 +142,8 @@ CREATE TABLE sys_file_collection (
 # Table structure for table 'sys_file_reference'
 #
 CREATE TABLE sys_file_reference (
-	tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
-	KEY phpunit_dummy (tx_phpunit_is_dummy_record)
+    tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
+    KEY phpunit_dummy (tx_phpunit_is_dummy_record)
 );
 
 
@@ -151,8 +151,8 @@ CREATE TABLE sys_file_reference (
 # Table structure for table 'sys_category'
 #
 CREATE TABLE sys_category (
-	tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
-	KEY phpunit_dummy (tx_phpunit_is_dummy_record)
+    tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
+    KEY phpunit_dummy (tx_phpunit_is_dummy_record)
 );
 
 
@@ -160,6 +160,6 @@ CREATE TABLE sys_category (
 # Table structure for table 'sys_category_record_mm'
 #
 CREATE TABLE sys_category_record_mm (
-	tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
-	KEY phpunit_dummy (tx_phpunit_is_dummy_record)
+    tx_phpunit_is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
+    KEY phpunit_dummy (tx_phpunit_is_dummy_record)
 );
