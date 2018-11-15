@@ -24,6 +24,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Remove the obsolete ext_autoload.php (#56)
 
 ### Fixed
+- Only clean up tables that have a dummy column (#79)
 - Fix the PHAR inclusion in TYPO3 8.7.17 (#59, #60)
 - Only include the PHAR from the test runners (#57, #53)
 - Use the DB name from the connection pool in TYPO3 >= 8.7 (#58, #55)

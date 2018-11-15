@@ -852,8 +852,8 @@ class Tx_Phpunit_Framework
      * issue.
      *
      * @param bool $useSystemTables
-     *        whether to clean up the system tables (TRUE) or the non-system
-     *        test tables (FALSE)
+     *        whether to clean up the system tables (true) or the non-system
+     *        test tables (false)
      * @param bool $performDeepCleanUp
      *        whether a deep clean up should be performed
      *
@@ -869,17 +869,17 @@ class Tx_Phpunit_Framework
 
         foreach ($tablesToCleanUp as $currentTable) {
             $dummyColumnName = $this->getDummyColumnName($currentTable);
+            if (!\Tx_Phpunit_Service_Database::tableHasColumn($currentTable, $dummyColumnName)) {
+                continue;
+            }
 
-            // Runs a delete query for each allowed table. A
-            // "one-query-deletes-them-all" approach was tested but we did not
-            // find a working solution for that.
+            // Runs a delete query for each allowed table. A "one-query-deletes-them-all" approach was tested,
+            // but we didn't find a working solution for that.
             \Tx_Phpunit_Service_Database::delete($currentTable, $dummyColumnName . ' = 1');
 
-            // Resets the auto increment setting of the current table.
             $this->resetAutoIncrementLazily($currentTable);
         }
 
-        // Resets the list of dirty tables.
         $this->dirtyTables = [];
     }
 
