@@ -3,7 +3,7 @@
 /**
  * This class runs PHPUnit in CLI mode and includes the PHP boot script of an IDE.
  *
- * @deprecated Will be removed in PHPUnit 7.
+ * @deprecated Will be removed in PHPUnit 6.
  *
  * @author Helmut Hummel <helmut.hummel@typo3.org>
  */

@@ -5,7 +5,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * This runs PHPUnit in CLI mode, and includes the PHP boot script of an IDE.
  *
- * @deprecated Will be removed in PHPUnit 7.
+ * @deprecated Will be removed in PHPUnit 6.
  */
 
 // Shift away myself

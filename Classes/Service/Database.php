@@ -8,7 +8,8 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
  * This class provides some static database-related functions (mostly convenience
  * wrappers).
  *
- * @deprecated will be removed for PHPUnit 6.
+ * @deprecated will be removed for PHPUnit 6. Please use the Tx_Oelib_Db class from the "oelib" extension or Doctrine
+ * DBAL instead.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
