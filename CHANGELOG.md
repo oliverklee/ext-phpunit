@@ -25,6 +25,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Remove the obsolete ext_autoload.php (#56)
 
 ### Fixed
+- Also have the extension icon in Resources/ (#81)
 - Only clean up tables that have a dummy column (#79)
 - Fix the PHAR inclusion in TYPO3 8.7.17 (#59, #60)
 - Only include the PHAR from the test runners (#57, #53)
