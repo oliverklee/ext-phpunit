@@ -14,7 +14,8 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 /**
  * This class provides various functions to handle dummy records in unit tests.
  *
- * @deprecated will be removed for PHPUnit 6.
+ * @deprecated will be removed for PHPUnit 6. Please use the Tx_Oelib_TestingFramework class from the "oelib" extension
+ * or nimut/testing-framework instead.
  *
  * @author Mario Rimann <typo3-coding@rimann.org>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
