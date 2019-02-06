@@ -39,7 +39,7 @@
 
         "phpunit/phpunit": "~5.3.0",
         "phpunit/phpunit-selenium": "^3.0.0",
-        "mikey179/vfsStream": "^1.6"
+        "mikey179/vfsstream": "^1.6"
     },
     "replace": {
         "phpunit": "self.version",
