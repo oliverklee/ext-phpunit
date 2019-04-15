@@ -1,5 +1,4 @@
 <?php
-
 namespace OliverKlee\Phpunit\Command;
 
 use Symfony\Component\Console\Command\Command;
@@ -7,6 +6,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use TYPO3\CMS\Core\Core\Bootstrap;
+use Symfony\Component\Console\Input\InputOption;
 
 /**
  * CLI test runner Symfony console command.
@@ -25,18 +25,19 @@ class RunTestsCommand extends Command
     {
         $this
             ->setDescription('Runs PHPUnit tests from the command line.')
-            ->setHelp('Call it like this: typo3/sysext/core/bin/typo3 phpunit:run --task=13 -f')
-            ->setDefinition(
-                [
-                    new InputArgument('path', InputArgument::REQUIRED, 'The path of the tests to execute'),
-                ]
+            ->setHelp('Call it like this: typo3/sysext/core/bin/typo3 phpunit:run --options="--verbose -c ..."')
+            ->addOption(
+                'options',
+                'o',
+                InputOption::VALUE_OPTIONAL,
+                'The complete options string passed to phpunit'
             );
     }
 
     /**
      * Executes the command.
      *
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      *
      * @return int 0 if everything went fine, or an error code
@@ -54,7 +55,9 @@ class RunTestsCommand extends Command
 
         // Run unit tests
         $runner = new \PHPUnit_TextUI_Command();
-        $result = (int)$runner->run(['test' => $input->getArgument('path')], true);
+        // the first array key is always ignored
+        $optionsForPhpunit = array_merge([0 => ''], explode(' ', $input->getOption('options')));
+        $result = (int)$runner->run($optionsForPhpunit, true);
 
         // Restore configuration
         $GLOBALS['TYPO3_CONF_VARS'] = array_merge($GLOBALS['TYPO3_CONF_VARS'], $globalBackup);
