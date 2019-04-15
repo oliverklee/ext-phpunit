@@ -6,8 +6,8 @@ use OliverKlee\Phpunit\Service\LibraryLoader;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use TYPO3\CMS\Core\Core\Bootstrap;
 
 /**
  * CLI test runner Symfony console command.
@@ -26,11 +26,17 @@ class RunTestsCommand extends Command
     {
         $this
             ->setDescription('Runs PHPUnit tests from the command line.')
-            ->setHelp('Call it like this: typo3/sysext/core/bin/typo3 phpunit:run --task=13 -f')
-            ->setDefinition(
-                [
-                    new InputArgument('path', InputArgument::REQUIRED, 'The path of the tests to execute'),
-                ]
+            ->setHelp('Call it like this: typo3/sysext/core/bin/typo3 phpunit:run --options="--verbose -c ..."')
+            ->addOption(
+                'options',
+                'o',
+                InputOption::VALUE_OPTIONAL,
+                'The complete options string passed to PHPUnit'
+            )
+            ->addArgument(
+                'path',
+                InputArgument::OPTIONAL,
+                'The path of the tests to execute (deprecated)'
             );
     }
 
@@ -40,14 +46,11 @@ class RunTestsCommand extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      *
-     * @return int 0 if everything went fine, or an error code
+     * @return int 0 if everything went fine, an error code otherwise
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         setlocale(LC_NUMERIC, 'C');
-
-        // Make sure the _cli_ user is loaded
-        Bootstrap::getInstance()->initializeBackendAuthentication();
 
         // Store current TYPO3 configuration and set the default one.
         // This is needed as the configuration might include closures which cannot be backed-up.
@@ -55,11 +58,23 @@ class RunTestsCommand extends Command
 
         LibraryLoader::includeAll();
 
-        // Run unit tests
+        // run unit tests
         $runner = new \PHPUnit_TextUI_Command();
-        $result = (int)$runner->run(['test' => $input->getArgument('path')], true);
+        // The first array key is always ignored.
+        $optionsForPhpunit = array_merge([0 => ''], explode(' ', $input->getOption('options')));
 
-        // Restore configuration
+        // set default printer only if no specific is set over CLI
+        if (!in_array('--printer', $optionsForPhpunit, true)) {
+            $optionsForPhpunit[] = '--printer';
+            $optionsForPhpunit[] = ResultPrinter::class;
+        }
+        if ($input->hasArgument('path')) {
+            $optionsForPhpunit[] = $input->getArgument('path');
+        }
+
+        $result = (int)$runner->run($optionsForPhpunit, true);
+
+        // restore configuration
         $GLOBALS['TYPO3_CONF_VARS'] = array_merge($GLOBALS['TYPO3_CONF_VARS'], $globalBackup);
 
         return $result;
