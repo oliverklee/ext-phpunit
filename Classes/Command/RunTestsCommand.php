@@ -57,6 +57,13 @@ class RunTestsCommand extends Command
         $runner = new \PHPUnit_TextUI_Command();
         // the first array key is always ignored
         $optionsForPhpunit = array_merge([0 => ''], explode(' ', $input->getOption('options')));
+
+        // Set default printer only if no specific is set over cli
+        if (!in_array('--printer', $optionsForPhpunit)) {
+            $optionsForPhpunit[] = '--printer';
+            $optionsForPhpunit[] = \OliverKlee\Phpunit\Command\ResultPrinter::class;
+        }
+
         $result = (int)$runner->run($optionsForPhpunit, true);
 
         // Restore configuration
