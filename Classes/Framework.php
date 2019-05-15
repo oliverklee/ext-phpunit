@@ -1257,7 +1257,7 @@ class Tx_Phpunit_Framework
      * If $pageUid is zero, the UID of the start page of the current domain
      * will be used as page UID.
      *
-     * This function creates $GLOBALS['TSFE'] and $GLOBALS['TT'].
+     * This function creates $GLOBALS['TSFE'].
      *
      * Note: This function does not set TYPO3_MODE to "FE" (because the value of
      * a constant cannot be changed after it has once been set).
@@ -1279,11 +1279,6 @@ class Tx_Phpunit_Framework
         $this->discardFakeFrontEnd();
 
         $this->registerNullPageCache();
-        if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) <= 8000000) {
-            $GLOBALS['TT'] = GeneralUtility::makeInstance(NullTimeTracker::class);
-        } else {
-            $GLOBALS['TT'] = GeneralUtility::makeInstance(TimeTracker::class, false);
-        }
 
         /** @var TypoScriptFrontendController $frontEnd */
         $frontEnd =
@@ -1317,7 +1312,7 @@ class Tx_Phpunit_Framework
     /**
      * Discards the fake front end.
      *
-     * This function nulls out $GLOBALS['TSFE'] and $GLOBALS['TT']. In addition,
+     * This function nulls out $GLOBALS['TSFE']. In addition,
      * any logged-in front-end user will be logged out.
      *
      * The page record for the current front end will _not_ be deleted by this
@@ -1336,7 +1331,6 @@ class Tx_Phpunit_Framework
         $this->logoutFrontEndUser();
 
         $GLOBALS['TSFE'] = null;
-        $GLOBALS['TT'] = null;
         unset(
             $GLOBALS['TYPO3_CONF_VARS']['FE']['dontSetCookie'],
             $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][FrontendUserAuthentication::class]

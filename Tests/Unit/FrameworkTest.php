@@ -4622,38 +4622,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     /**
      * @test
      */
-    public function createFakeFrontEndCreatesNullTimeTrackerInstance()
-    {
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8000000) {
-            static::markTestSkipped('This test is not applicable for TYPO3 >= 8.');
-        }
-
-        $GLOBALS['TT'] = null;
-        $this->subject->createFrontEndPage();
-        $this->subject->createFakeFrontEnd();
-
-        self::assertInstanceOf(NullTimeTracker::class, $GLOBALS['TT']);
-    }
-
-    /**
-     * @test
-     */
-    public function createFakeFrontEndCreatesTimeTrackerInstance()
-    {
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 8000000) {
-            static::markTestSkipped('This test is not applicable for TYPO3 < 8.');
-        }
-
-        $GLOBALS['TT'] = null;
-        $this->subject->createFrontEndPage();
-        $this->subject->createFakeFrontEnd();
-
-        self::assertInstanceOf(TimeTracker::class, $GLOBALS['TT']);
-    }
-
-    /**
-     * @test
-     */
     public function createFakeFrontEndCreatesSysPage()
     {
         $GLOBALS['TSFE'] = null;
@@ -4813,10 +4781,6 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->createFrontEndPage();
         $this->subject->createFakeFrontEnd();
         $this->subject->discardFakeFrontEnd();
-
-        self::assertNull(
-            $GLOBALS['TT']
-        );
     }
 
     /**

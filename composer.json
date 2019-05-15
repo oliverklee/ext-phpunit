@@ -24,7 +24,7 @@
     },
     "require": {
         "php": "^5.6.0 || ~7.0.0 || ~7.1.0 || ~7.2.0",
-        "typo3/cms-core": "^7.6.23 || ^8.7.9"
+        "typo3/cms-core": "^8.7"
     },
     "require-dev": {
         "oliverklee/aaa": "@dev",
@@ -34,7 +34,7 @@
         "oliverklee/user-phpunittest": "@dev",
         "oliverklee/user-phpunittest2": "@dev",
 
-        "typo3/cms-frontend": "^7.6.23 || ^8.7.9",
+        "typo3/cms-frontend": "^8.7",
         "helhum/typo3-console": "^4.9",
 
         "phpunit/phpunit": "~5.3.0",
