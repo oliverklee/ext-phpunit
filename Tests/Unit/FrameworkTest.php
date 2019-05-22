@@ -3,9 +3,8 @@
 namespace OliverKlee\Phpunit\Tests\Unit;
 
 use org\bovigo\vfs\vfsStream;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Exception;
-use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
-use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -59,6 +58,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->t3VarBackup = $GLOBALS['T3_VAR']['getUserObj'];
 
         $this->subject = new \Tx_Phpunit_Framework('tx_phpunit', ['user_phpunittest']);
+
+        $this->setUpTestDatabase();
     }
 
     protected function tearDown()
@@ -5345,5 +5346,35 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
                 'title = "foo group"'
             )
         );
+    }
+
+    /**
+     * Populate $GLOBALS['TYPO3_DB'] and create test database
+     *
+     * @see https://github.com/Nimut/testing-framework/blob/master/src/TestingFramework/TestSystem/TestSystem.php
+     *
+     * @throws Exception
+     * @throws \ReflectionException
+     * @return void
+     */
+    protected function setUpTestDatabase()
+    {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8001000) {
+            // The TYPO3 core misses to reset its internal connection state
+            // This means we need to reset all connections to ensure database connection can be initialized
+            $closure = \Closure::bind(function () {
+                foreach (ConnectionPool::$connections as $connection) {
+                    $connection->close();
+                }
+                ConnectionPool::$connections = [];
+            }, null, ConnectionPool::class);
+            $closure();
+
+            // get database name from $GLOBALS['TYPO3_DB']
+            $dbName = $this->getProtectedProperty($GLOBALS['TYPO3_DB'], 'databaseName');
+
+            // set correct database name for doctrine
+            $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['dbname'] = $dbName;
+        }
     }
 }
