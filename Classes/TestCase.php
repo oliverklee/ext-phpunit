@@ -177,4 +177,18 @@ abstract class Tx_Phpunit_TestCase extends \PHPUnit_Framework_TestCase
 
         return $accessibleClassName;
     }
+
+    /**
+     * @param $obj
+     * @param $prop
+     * @return mixed
+     * @throws ReflectionException
+     */
+    protected function getProtectedProperty($obj, $prop)
+    {
+        $reflection = new ReflectionClass($obj);
+        $property = $reflection->getProperty($prop);
+        $property->setAccessible(true);
+        return $property->getValue($obj);
+    }
 }
