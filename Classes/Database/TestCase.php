@@ -481,6 +481,8 @@ abstract class Tx_Phpunit_Database_TestCase extends \Tx_Phpunit_TestCase
     /**
      * Populate $GLOBALS['TYPO3_DB'] and create test database
      *
+     * @see https://github.com/Nimut/testing-framework/blob/master/src/TestingFramework/TestSystem/TestSystem.php
+     *
      * @throws Exception
      * @return void
      */
