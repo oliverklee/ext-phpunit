@@ -38,7 +38,7 @@
         "oliverklee/user-phpunittest2": "@dev",
 
         "typo3/cms-frontend": "^8.7",
-        "helhum/typo3-console": "^4.9",
+        "helhum/typo3-console": "^4.9"
     },
     "replace": {
         "phpunit": "self.version",
