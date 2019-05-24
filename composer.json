@@ -24,7 +24,10 @@
     },
     "require": {
         "php": "^5.6.0 || ~7.0.0 || ~7.1.0 || ~7.2.0",
-        "typo3/cms-core": "^8.7"
+        "typo3/cms-core": "^8.7",
+        "phpunit/phpunit": "~5.3.0",
+        "phpunit/phpunit-selenium": "^3.0.0",
+        "mikey179/vfsstream": "^1.6"
     },
     "require-dev": {
         "oliverklee/aaa": "@dev",
@@ -36,10 +39,6 @@
 
         "typo3/cms-frontend": "^8.7",
         "helhum/typo3-console": "^4.9",
-
-        "phpunit/phpunit": "~5.3.0",
-        "phpunit/phpunit-selenium": "^3.0.0",
-        "mikey179/vfsstream": "^1.6"
     },
     "replace": {
         "phpunit": "self.version",
