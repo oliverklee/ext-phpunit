@@ -46,7 +46,7 @@ abstract class Tx_Phpunit_Database_TestCase extends \Tx_Phpunit_TestCase
         /** @var array $databaseConfiguration */
         $databaseConfiguration = $GLOBALS['TYPO3_CONF_VARS']['DB'];
         if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8001000) {
-            $this->originalDatabaseName = $databaseConfiguration['Connections']['Default']['dbname'];
+            $this->originalDatabaseName = $databaseConfiguration['Connections'][ConnectionPool::DEFAULT_CONNECTION_NAME]['dbname'];
         } else {
             $this->originalDatabaseName = $databaseConfiguration['database'];
         }
@@ -155,7 +155,7 @@ abstract class Tx_Phpunit_Database_TestCase extends \Tx_Phpunit_TestCase
         $db = \Tx_Phpunit_Service_Database::getDatabaseConnection();
 
         if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8001000) {
-            $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['dbname'] = $this->testDatabase;
+            $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections'][ConnectionPool::DEFAULT_CONNECTION_NAME]['dbname'] = $this->testDatabase;
         } else {
             $GLOBALS['TYPO3_CONF_VARS']['DB']['database'] = $this->testDatabase;
         }

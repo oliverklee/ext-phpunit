@@ -5374,7 +5374,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
             $dbName = $this->getProtectedProperty($GLOBALS['TYPO3_DB'], 'databaseName');
 
             // set correct database name for doctrine
-            $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['dbname'] = $dbName;
+            $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections'][ConnectionPool::DEFAULT_CONNECTION_NAME]['dbname'] = $dbName;
         }
     }
 }
