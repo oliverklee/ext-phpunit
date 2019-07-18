@@ -103,6 +103,7 @@
             "*": "5.3.x-dev"
         },
         "typo3/cms": {
+            "extension-key": "phpunit",
             "cms-package-dir": "{$vendor-dir}/typo3/cms",
             "web-dir": ".Build/public"
         },

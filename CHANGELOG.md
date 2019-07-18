@@ -25,6 +25,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Remove the obsolete ext_autoload.php (#56)
 
 ### Fixed
+- Explicitly provide the extension name in the composer.json (#84)
 - Fix the casing of the vfsstream package (#82)
 - Also have the extension icon in Resources/ (#81)
 - Only clean up tables that have a dummy column (#79)
