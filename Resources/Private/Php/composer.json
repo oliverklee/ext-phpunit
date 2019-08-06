@@ -1,0 +1,25 @@
+{
+    "name": "helhum/phpunit-library",
+    "description": "PHPUnit as library",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "phpunit/phpunit": "~5.3.0",
+        "phpunit/phpunit-selenium": "^3.0",
+        "mikey179/vfsstream": "^1.6"
+    },
+    "bin": ["../Build/bootstrap.php"],
+    "prefer-stable": true,
+    "config": {
+        "platform": {
+            "php": "5.6.20"
+        },
+        "preferred-install": {
+            "*": "dist"
+        }
+    },
+    "extra": {
+        "phar": {
+            "library": true
+        }
+    }
+}

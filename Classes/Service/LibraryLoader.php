@@ -16,6 +16,6 @@ class LibraryLoader
      */
     public static function includeAll()
     {
-        require_once PATH_site . 'typo3conf/ext/phpunit/Resources/Private/Libraries/phpunit-library.phar';
+        require_once PATH_site . 'typo3conf/ext/phpunit/Resources/Private/Php/vendor/autoload.php';
     }
 }
