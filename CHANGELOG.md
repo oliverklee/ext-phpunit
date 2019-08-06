@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Auto-release to the TER (#67)
 
 ### Changed
+- Stop using a PHAR for including libraries (#87)
 - Use spaces for indenting SQL and .htaccess files (#78)
 - Streamline ext_emconf.php (#74, #75)
 - Move the inclusion of the PHPUnit library to a single location (#65)
