@@ -25,6 +25,8 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Remove the obsolete ext_autoload.php (#56)
 
 ### Fixed
+- Drop the deprecated "replace" from composer.json (#86)
+- Explicitly require MySQL on Travis CI (#85)
 - Explicitly provide the extension name in the composer.json (#84)
 - Fix the casing of the vfsstream package (#82)
 - Also have the extension icon in Resources/ (#81)
