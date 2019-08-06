@@ -1,6 +1,5 @@
 <?php
 
-use OliverKlee\Phpunit\Service\LibraryLoader;
 use TYPO3\CMS\Backend\Module\BaseScriptClass;
 use TYPO3\CMS\Backend\Template\DocumentTemplate;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
@@ -212,8 +211,6 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
      */
     public function main()
     {
-        LibraryLoader::includeAll();
-
         $this->doc = GeneralUtility::makeInstance(DocumentTemplate::class);
         $this->doc->backPath = $GLOBALS['BACK_PATH'];
 
