@@ -42,7 +42,6 @@
         "mikey179/vfsstream": "^1.6"
     },
     "replace": {
-        "phpunit": "self.version",
         "typo3-ter/phpunit": "self.version"
     },
     "autoload": {
