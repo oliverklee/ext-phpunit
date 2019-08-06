@@ -22,6 +22,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Deprecate Tx_Phpunit_Service_Database (#76)
 
 ### Removed
+- Drop the direct phpunit/phpunit dependency (#90)
 - Remove the unused PHPUnit configuration file (#76)
 - Remove the obsolete ext_autoload.php (#56)
 
