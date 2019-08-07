@@ -24,9 +24,6 @@ PHPUnit is a TYPO3 extension which provides:
    <https://github.com/sebastianbergmann/phpunit/>`_ by Sebastian
    Bergmann
 
-#. a framework for creating database records, faking a front end,
-   creating dummy files and many more useful things
-
 #. `vfsStream <http://code.google.com/p/bovigo/wiki/vfsStream>`_ (a
    virtual file system)
 
