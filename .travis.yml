@@ -20,7 +20,7 @@ before_install:
 
 install:
 - >
-  composer require typo3/minimal:"$TYPO3";
+  composer require typo3/minimal:"$TYPO3" $SYMFONY_CONSOLE $DEPENDENCIES_PREFERENCE;
   composer show;
 - >
   .Build/vendor/bin/typo3cms install:setup --non-interactive --site-setup-type="site"
@@ -52,11 +52,20 @@ jobs:
     php: "7.2"
     env: TYPO3=^8.7 RUN_TESTS_COMMAND=".Build/vendor/bin/typo3 phpunit:run"
   - stage: test
+    php: "7.2"
+    env: TYPO3=^8.7 DEPENDENCIES_PREFERENCE="--prefer-lowest" SYMFONY_CONSOLE="symfony/console:^3.2" RUN_TESTS_COMMAND=".Build/vendor/bin/typo3 phpunit:run"
+  - stage: test
     php: "7.1"
     env: TYPO3=^8.7 RUN_TESTS_COMMAND=".Build/vendor/bin/typo3 phpunit:run"
   - stage: test
+    php: "7.1"
+    env: TYPO3=^8.7 DEPENDENCIES_PREFERENCE="--prefer-lowest" SYMFONY_CONSOLE="symfony/console:^3.2" RUN_TESTS_COMMAND=".Build/vendor/bin/typo3 phpunit:run"
+  - stage: test
     php: "7.0"
     env: TYPO3=^8.7 RUN_TESTS_COMMAND=".Build/vendor/bin/typo3 phpunit:run"
+  - stage: test
+    php: "7.0"
+    env: TYPO3=^8.7 DEPENDENCIES_PREFERENCE="--prefer-lowest" SYMFONY_CONSOLE="symfony/console:^3.2" RUN_TESTS_COMMAND=".Build/vendor/bin/typo3 phpunit:run"
   - stage: release to ter
     if: tag IS present AND env(TYPO3_ORG_USERNAME) IS present AND env(TYPO3_ORG_PASSWORD) IS present
     php: "7.0"

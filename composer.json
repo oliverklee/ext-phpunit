@@ -37,6 +37,9 @@
         "typo3/cms-frontend": "^7.6.23 || ^8.7.9",
         "helhum/typo3-console": "^4.9"
     },
+    "conflict": {
+        "typo3/cms-composer-installers": "<1.4.6"
+    },
     "replace": {
         "typo3-ter/phpunit": "self.version"
     },
