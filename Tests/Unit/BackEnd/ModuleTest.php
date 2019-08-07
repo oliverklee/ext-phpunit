@@ -2,6 +2,7 @@
 
 namespace OliverKlee\Phpunit\Tests\Unit\BackEnd;
 
+use OliverKlee\PhpUnit\TestCase;
 use OliverKlee\Phpunit\Tests\Unit\BackEnd\Fixtures\LoadMe;
 use OliverKlee\Phpunit\Tests\Unit\BackEnd\Fixtures\LoadMeToo;
 use OliverKlee\Phpunit\Tests\Unit\Service\TestFinderTest;
@@ -21,7 +22,7 @@ use TYPO3\CMS\Lang\LanguageService;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class ModuleTest extends \Tx_Phpunit_TestCase
+class ModuleTest extends TestCase
 {
     /**
      * @var \Tx_Phpunit_BackEnd_Module

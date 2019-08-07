@@ -2,6 +2,7 @@
 
 namespace OliverKlee\Phpunit\Tests\Unit\ViewHelpers;
 
+use OliverKlee\PhpUnit\TestCase;
 use OliverKlee\Phpunit\Tests\Unit\ViewHelpers\Fixtures\TestingTagViewHelper;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
@@ -10,7 +11,7 @@ use TYPO3\CMS\Core\Utility\VersionNumberUtility;
  *
  * @author Felix Rauch <rauch@skaiamail.de>
  */
-class AbstractTagViewHelperTest extends \Tx_Phpunit_TestCase
+class AbstractTagViewHelperTest extends TestCase
 {
     protected function setUp()
     {

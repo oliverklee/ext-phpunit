@@ -33,16 +33,16 @@ There is an example of this in the TestFinder test:
 ::
 
   /**
-    * Creates a subclass Tx\_Phpunit\_Service\_TestFinder with some protected
+    * Creates a subclass TestFinder with some protected
     * functions made public.
     *
-    * @return Tx_Phpunit_Servic\_TestFinder an accessible proxy
+    * @return TestFinder an accessible proxy
     */
   protected function** createAccessibleProxy() {
-    $className ='Tx\_Phpunit\_Service\_TestFinderAccessibleProxy';
+    $className = 'TestFinderAccessibleProxy';
     if (!class_exists($className, FALSE)) {
       eval (
-        'class '. $className .' extends Tx_Phpunit_Service_TestFinder {' .
+        'class '. $className .' extends TestFinder {' .
         '  public function isTestCaseFileName($path) {' .
         '    return parent::isTestCaseFileName($path);' .
         '  }' .

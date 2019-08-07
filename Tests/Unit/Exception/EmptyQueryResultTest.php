@@ -2,12 +2,14 @@
 
 namespace OliverKlee\Phpunit\Tests\Unit\Exception;
 
+use OliverKlee\PhpUnit\TestCase;
+
 /**
  * Test case.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class EmptyQueryResultTest extends \Tx_Phpunit_TestCase
+class EmptyQueryResultTest extends TestCase
 {
     /**
      * the saved content of $GLOBALS['TYPO3_DB']->debugOutput

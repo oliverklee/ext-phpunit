@@ -2,6 +2,7 @@
 
 namespace OliverKlee\Phpunit\Tests\Unit;
 
+use OliverKlee\PhpUnit\TestCase;
 use org\bovigo\vfs\vfsStream;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Exception;
@@ -24,7 +25,7 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
  * @author Saskia Metzler <saskia@merlin.owl.de>
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class FrameworkTest extends \Tx_Phpunit_TestCase
+class FrameworkTest extends TestCase
 {
     /**
      * @var \Tx_Phpunit_Framework

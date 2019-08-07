@@ -2,6 +2,7 @@
 
 namespace OliverKlee\Phpunit\Tests\Unit\BackEnd;
 
+use OliverKlee\PhpUnit\TestCase;
 use SebastianBergmann\Comparator\ComparisonFailure;
 use TYPO3\CMS\Core\Utility\CommandUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -12,7 +13,7 @@ use TYPO3\CMS\Core\Utility\VersionNumberUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class TestListenerTest extends \Tx_Phpunit_TestCase
+class TestListenerTest extends TestCase
 {
     /**
      * @var \Tx_Phpunit_BackEnd_TestListener

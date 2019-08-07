@@ -2,6 +2,7 @@
 
 namespace OliverKlee\Phpunit\Tests\Unit;
 
+use OliverKlee\PhpUnit\TestCase;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
@@ -9,7 +10,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class TestableTest extends \Tx_Phpunit_TestCase
+class TestableTest extends TestCase
 {
     /**
      * @var \Tx_Phpunit_Testable

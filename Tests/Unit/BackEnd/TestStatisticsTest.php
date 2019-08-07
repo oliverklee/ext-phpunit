@@ -2,6 +2,7 @@
 
 namespace OliverKlee\Phpunit\Tests\Unit\BackEnd;
 
+use OliverKlee\PhpUnit\TestCase;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
@@ -9,7 +10,7 @@ use TYPO3\CMS\Core\Utility\VersionNumberUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class TestStatisticsTest extends \Tx_Phpunit_TestCase
+class TestStatisticsTest extends TestCase
 {
     /**
      * @var \Tx_Phpunit_BackEnd_TestStatistics

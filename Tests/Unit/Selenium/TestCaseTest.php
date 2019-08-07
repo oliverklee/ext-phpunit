@@ -2,13 +2,15 @@
 
 namespace OliverKlee\Phpunit\Tests\Unit\Selenium;
 
+use OliverKlee\PhpUnit\TestCase;
+
 /**
  * Test case.
  *
  * @author Carsten Koenig <ck@carsten-koenig.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class TestCaseTest extends \Tx_Phpunit_TestCase
+class TestCaseTest extends TestCase
 {
     /**
      * @var \Tx_Phpunit_Selenium_TestCase|\PHPUnit_Framework_MockObject_MockObject

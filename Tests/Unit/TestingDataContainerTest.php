@@ -2,12 +2,14 @@
 
 namespace OliverKlee\Phpunit\Tests\Unit;
 
+use OliverKlee\PhpUnit\TestCase;
+
 /**
  * Test case.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class TestingDataContainerTest extends \Tx_Phpunit_TestCase
+class TestingDataContainerTest extends TestCase
 {
     /**
      * @var \Tx_Phpunit_TestingDataContainer

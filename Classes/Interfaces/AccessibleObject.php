@@ -1,11 +1,13 @@
 <?php
 
+namespace OliverKlee\Phpunit\Interfaces;
+
 /**
- * This interface defines the methods provided by \Tx_Phpunit_TestCase::getAccessibleMock.
+ * This interface defines the methods provided by TestCase::getAccessibleMock.
  *
  * @author Nicole Cordes <nicole.cordes@googlemail.com>
  */
-interface Tx_Phpunit_Interface_AccessibleObject
+interface AccessibleObject
 {
     /**
      * Calls the method $method using call_user_func* and returns its return value.

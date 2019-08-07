@@ -2,6 +2,7 @@
 
 namespace OliverKlee\Phpunit\Tests\Unit\Service;
 
+use OliverKlee\PhpUnit\TestCase;
 use TYPO3\CMS\Core\SingletonInterface;
 
 /**
@@ -9,7 +10,7 @@ use TYPO3\CMS\Core\SingletonInterface;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class ExtensionSettingsServiceTest extends \Tx_Phpunit_TestCase
+class ExtensionSettingsServiceTest extends TestCase
 {
     /**
      * @var \Tx_Phpunit_Service_ExtensionSettingsService

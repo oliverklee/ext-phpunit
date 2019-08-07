@@ -2,12 +2,14 @@
 
 namespace OliverKlee\Phpunit\Tests\Unit\Service;
 
+use OliverKlee\PhpUnit\TestCase;
+
 /**
  * Test case.
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class FakeOutputServiceTest extends \Tx_Phpunit_TestCase
+class FakeOutputServiceTest extends TestCase
 {
     /**
      * @var \Tx_Phpunit_Service_FakeOutputService

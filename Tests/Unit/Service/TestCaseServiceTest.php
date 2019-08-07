@@ -2,6 +2,7 @@
 
 namespace OliverKlee\Phpunit\Tests\Unit\Service;
 
+use OliverKlee\PhpUnit\TestCase;
 use org\bovigo\vfs\vfsStream;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Tests\BaseTestCase;
@@ -15,7 +16,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class TestCaseServiceTest extends \Tx_Phpunit_TestCase
+class TestCaseServiceTest extends TestCase
 {
     /**
      * @var \Tx_Phpunit_Service_TestCaseService
@@ -322,7 +323,7 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
         // Note: This currently does not contain any other classes as loading any other valid test case classes would
         // cause them to be listed as valid test cases in the user interface.
         $classNames = [
-            'subclass of \\Tx_Phpunit_TestCase' => [get_class($this)],
+            'subclass of \\OliverKlee\\PhpUnit\\TestCase' => [get_class($this)],
         ];
 
         return $classNames;
@@ -358,12 +359,11 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
             'inexistent class with valid _testcase suffix' => ['InexistentClass_testcase'],
             'existing class with valid Test suffix without valid base class' => ['SomeDummyInvalidTest'],
             'existing class with valid _testcase suffix without valid base class' => ['SomeDummyInvalid_testcase'],
-            'PHPUnit extension base test class' => ['Tx_Phpunit_TestCase'],
-            'PHPUnit framework base test class' => ['PHPUnit_Framework_TestCase'],
+            'PHPUnit extension base test class' => [TestCase::class],
+            'PHPUnit framework base test class' => [\PHPUnit_Framework_TestCase::class],
             'PHPUnit extension selenium base test class' => [\Tx_Phpunit_Selenium_TestCase::class],
             'PHPUnit framework selenium base test class' => [\PHPUnit_Extensions_Selenium2TestCase::class],
             'PHPUnit extension database base test class' => [\Tx_Phpunit_Database_TestCase::class],
-            'abstract subclass of PHPUnit extension base test class' => [\Tx_Phpunit_TestCase::class],
         ];
 
         $classNamesThatMightNotExist = [
@@ -396,7 +396,7 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
 
         $abstractSubclassTestcaseName = 'AbstractDummyTestcase';
         if (!class_exists($abstractSubclassTestcaseName, false)) {
-            eval('class ' . $abstractSubclassTestcaseName . ' extends \\Tx_Phpunit_TestCase {}');
+            eval('class ' . $abstractSubclassTestcaseName . ' extends \\OliverKlee\\PhpUnit\\TestCase {}');
         }
     }
 

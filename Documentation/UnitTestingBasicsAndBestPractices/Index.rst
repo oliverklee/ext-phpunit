@@ -25,7 +25,6 @@ Unit testing basics and best practices
    :glob:
 
    CreatingUnitTestsForYourExtension/Index
-   WritingTestsForExtensionsWithExtbase/Index
    TestingPrivateMethods/Index
    TestingProtectedMethods/Index
 
