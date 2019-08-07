@@ -98,7 +98,7 @@
     },
     "extra": {
         "branch-alias": {
-            "*": "5.7.x-dev"
+            "*": "6.0.x-dev"
         },
         "typo3/class-alias-loader": {
             "class-alias-maps": [

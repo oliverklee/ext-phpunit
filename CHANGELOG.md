@@ -6,6 +6,18 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## 5.7.27
+
+### Added
 - Run Travis CI with highest and lowest dependencies (#107)
 - Add option to pass CLI options to PHPUnit (#102)
 - Add TestCase::getProtectedProperty (#91)
