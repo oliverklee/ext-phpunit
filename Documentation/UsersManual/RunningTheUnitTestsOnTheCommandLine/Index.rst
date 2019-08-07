@@ -1,5 +1,3 @@
-
-
 .. ==================================================
 .. FOR YOUR INFORMATION
 .. --------------------------------------------------
@@ -53,7 +51,7 @@ Running the tests on the command line on MAMP/XAMPP etc.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 If you are using  **MAMP** , you need to edit your localconf.php. (The
-problem is that MAMP uses another mysql socket than the default
+problem is that MAMP uses another MySQL socket than the default
 socket.) To fix this, edit your localconf.php and add the socket
 behind the typo3\_db host, e.g.:
 
@@ -61,7 +59,7 @@ behind the typo3\_db host, e.g.:
 
    $typo_db_host = 'localhost:/Applications/MAMP/tmp/mysql/mysql.sock';
 
-Applications like Xampp/Mamp on (Mac os X) provide their own PHP
+Applications like Xampp/MAMP on (Mac OS) provide their own PHP
 binary which is needed to execute the CLi dispatcher. Example:
 
 Won't work:
@@ -75,4 +73,3 @@ Works:
 ::
 
    $ /Applications/XAMPP/xamppfiles/bin/php-5.3.1 ./typo3/cli_dispatch.phpsh phpunit typo3conf/ext/coffee/Tests/
-

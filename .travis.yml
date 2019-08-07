@@ -32,9 +32,6 @@ install:
   echo "Restoring the composer.json";
   git checkout .;
 
-before_script:
-- mysql -u ${DATABASE_USER} ${DATABASE_NAME} -e "INSERT INTO be_users (username, password) VALUES ('_cli_phpunit', 'password')"
-
 script:
 - >
   echo;
