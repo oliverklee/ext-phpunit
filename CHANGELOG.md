@@ -22,6 +22,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop the Selenium integration (#110)
 
 ### Fixed
+- Stop requesting an upload folder (#121)
 
 ## 5.7.27
 
