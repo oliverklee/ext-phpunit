@@ -10,7 +10,7 @@ namespace {
     /**
      * @deprecated since 5.7, will be removed in 8.x
      */
-    interface Tx_Phpunit_Interface_AccessibleObject extends \OliverKlee\Phpunit\Interfaces\AccessibleObject
+    interface Tx_Phpunit_Interface_AccessibleObject extends \OliverKlee\PhpUnit\Interfaces\AccessibleObject
     {
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace OliverKlee\Phpunit\Tests\Unit;
+namespace OliverKlee\PhpUnit\Tests\Unit;
 
 use OliverKlee\PhpUnit\TestCase;
 use org\bovigo\vfs\vfsStream;
@@ -1325,10 +1325,8 @@ class FrameworkTest extends TestCase
         // Deletes all dummy records.
         $this->subject->cleanUp(true);
 
-        // Checks whether ALL dummy records were deleted (independent of the
-        // list of dirty tables).
-        $allowedTables = $this->subject->getListOfDirtyTables();
-        foreach ($allowedTables as $currentTable) {
+        // Checks whether ALL dummy records were deleted (independent of the list of dirty tables).
+        foreach ($this->subject->getListOfDirtyTables() as $currentTable) {
             self::assertSame(
                 0,
                 $this->subject->countRecords($currentTable),

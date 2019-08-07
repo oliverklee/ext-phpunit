@@ -1,10 +1,10 @@
 <?php
 
-namespace OliverKlee\Phpunit\Tests\Unit;
+namespace OliverKlee\PhpUnit\Tests\Unit;
 
-use OliverKlee\Phpunit\Interfaces\AccessibleObject;
+use OliverKlee\PhpUnit\Interfaces\AccessibleObject;
 use OliverKlee\PhpUnit\TestCase;
-use OliverKlee\Phpunit\Tests\Unit\Fixtures\ProtectedClass;
+use OliverKlee\PhpUnit\Tests\Unit\Fixtures\ProtectedClass;
 
 /**
  * Test case.

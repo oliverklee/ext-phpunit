@@ -1,6 +1,6 @@
 <?php
 
-namespace OliverKlee\Phpunit\Tests\Unit\Service;
+namespace OliverKlee\PhpUnit\Tests\Unit\Service;
 
 use OliverKlee\PhpUnit\TestCase;
 
@@ -42,10 +42,8 @@ class FakeOutputServiceTest extends TestCase
 
         self::assertSame(
             '',
-            ob_get_contents()
+            ob_get_clean()
         );
-
-        ob_end_clean();
     }
 
     /**

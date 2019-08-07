@@ -206,9 +206,9 @@ class Tx_Phpunit_BackEnd_TestListener implements \PHPUnit_Framework_TestListener
             '<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
             $this->currentDataProviderNumber . '","testcaseError");/*]]>*/</script>' .
             '<strong><span class="hadError">!</span> Error</strong> in test case <em>' .
-            htmlspecialchars($test->getName()) . '</em><br />File: <em>' . $fileName . '</em>' .
+            htmlspecialchars($test->getName(), ENT_HTML5 | ENT_QUOTES) . '</em><br />File: <em>' . $fileName . '</em>' .
             '<br />Line: <em>' . $lineNumber . '</em>' .
-            '<div class="message">' . nl2br(htmlspecialchars($e->getMessage())) . '</div>'
+            '<div class="message">' . nl2br(htmlspecialchars($e->getMessage(), ENT_HTML5 | ENT_QUOTES)) . '</div>'
         );
         $this->outputService->flushOutputBuffer();
     }
@@ -254,7 +254,7 @@ class Tx_Phpunit_BackEnd_TestListener implements \PHPUnit_Framework_TestListener
             '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadFailure");/*]]>*/</script>' .
             '<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
             $this->currentDataProviderNumber . '","testcaseFailure");/*]]>*/</script>' .
-            '<strong>Failure</strong> in test case <em>' . htmlspecialchars($test->getName()) . '</em>' .
+            '<strong>Failure</strong> in test case <em>' . htmlspecialchars($test->getName(), ENT_HTML5 | ENT_QUOTES) . '</em>' .
             '<br />File: <em>' . $fileName . '</em>' .
             '<br />Line: <em>' . $testCaseTraceArr['line'] . '</em>'
         );
@@ -264,7 +264,7 @@ class Tx_Phpunit_BackEnd_TestListener implements \PHPUnit_Framework_TestListener
         } else {
             $message = $e->getMessage();
         }
-        $this->outputService->output('<div class="message">' . nl2br(htmlspecialchars($message)) . '</div>');
+        $this->outputService->output('<div class="message">' . nl2br(htmlspecialchars($message, ENT_HTML5 | ENT_QUOTES)) . '</div>');
 
         if ($e instanceof \PHPUnit_Framework_ExpectationFailedException) {
             /** @var \PHPUnit_Framework_ExpectationFailedException $e */
@@ -328,9 +328,9 @@ class Tx_Phpunit_BackEnd_TestListener implements \PHPUnit_Framework_TestListener
             '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadIncomplete");/*]]>*/</script>' .
             '<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
             $this->currentDataProviderNumber . '","testcaseIncomplete");/*]]>*/</script>' .
-            '<strong>Incomplete test</strong> <em>' . htmlspecialchars($test->getName()) .
+            '<strong>Incomplete test</strong> <em>' . htmlspecialchars($test->getName(), ENT_HTML5 | ENT_QUOTES) .
             '</em> in file <em>' . $e->getFile() . '</em> line <em>' . $e->getLine() . '</em>:<br />' .
-            htmlspecialchars($e->getMessage()) . '<br />'
+            htmlspecialchars($e->getMessage(), ENT_HTML5 | ENT_QUOTES) . '<br />'
         );
     }
 
@@ -358,9 +358,9 @@ class Tx_Phpunit_BackEnd_TestListener implements \PHPUnit_Framework_TestListener
             '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadSkipped");/*]]>*/</script>' .
             '<script type="text/javascript">/*<![CDATA[*/setClass("testcaseNum-' . $this->currentTestNumber . '_' .
             $this->currentDataProviderNumber . '","testcaseSkipped");/*]]>*/</script>' .
-            '<strong>Skipped test</strong> <em>' . htmlspecialchars($test->getName()) . '</em> in file <em>' .
+            '<strong>Skipped test</strong> <em>' . htmlspecialchars($test->getName(), ENT_HTML5 | ENT_QUOTES) . '</em> in file <em>' .
             $e->getFile() . '</em> line <em>' . $e->getLine() . '</em>:<br />' .
-            htmlspecialchars($e->getMessage()) . '<br />'
+            htmlspecialchars($e->getMessage(), ENT_HTML5 | ENT_QUOTES) . '<br />'
         );
     }
 
@@ -384,7 +384,7 @@ class Tx_Phpunit_BackEnd_TestListener implements \PHPUnit_Framework_TestListener
         }
 
         $this->outputService->output(
-            '<h2 class="testSuiteName">Testsuite: ' . htmlspecialchars($this->prettifyTestClass($suite->getName()))
+            '<h2 class="testSuiteName">Testsuite: ' . htmlspecialchars($this->prettifyTestClass($suite->getName()), ENT_HTML5 | ENT_QUOTES)
             . '</h2>' .
             '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("wasSuccessful");/*]]>*/</script>'
         );
@@ -442,7 +442,7 @@ class Tx_Phpunit_BackEnd_TestListener implements \PHPUnit_Framework_TestListener
         $this->outputService->output(
             '<div id="testcaseNum-' . $this->currentTestNumber . '_' . $this->currentDataProviderNumber .
             '" class="testcaseOutput testcaseSuccess">' .
-            '<h3>' . $this->createReRunLink($test) . htmlspecialchars($this->prettifyTestMethod($test->getName()))
+            '<h3>' . $this->createReRunLink($test) . htmlspecialchars($this->prettifyTestMethod($test->getName()), ENT_HTML5 | ENT_QUOTES)
             . '</h3><div>'
         );
         $this->memoryUsageStartOfTest = memory_get_usage();
@@ -546,10 +546,13 @@ class Tx_Phpunit_BackEnd_TestListener implements \PHPUnit_Framework_TestListener
             '[' . \Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST . ']' => $this->createTestId($test),
         ];
 
-        return htmlspecialchars(BackendUtility::getModuleUrl(
-            \Tx_Phpunit_BackEnd_Module::MODULE_NAME,
-            $urlParameters
-        ));
+        return htmlspecialchars(
+            BackendUtility::getModuleUrl(
+                \Tx_Phpunit_BackEnd_Module::MODULE_NAME,
+                $urlParameters
+        ),
+            ENT_HTML5 | ENT_QUOTES
+        );
     }
 
     /**

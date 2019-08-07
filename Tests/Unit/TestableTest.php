@@ -1,6 +1,6 @@
 <?php
 
-namespace OliverKlee\Phpunit\Tests\Unit;
+namespace OliverKlee\PhpUnit\Tests\Unit;
 
 use OliverKlee\PhpUnit\TestCase;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;

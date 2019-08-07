@@ -1,6 +1,6 @@
 <?php
 
-namespace OliverKlee\Phpunit\Tests\Functional\Service;
+namespace OliverKlee\PhpUnit\Tests\Functional\Service;
 
 use OliverKlee\PhpUnit\TestCase;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;

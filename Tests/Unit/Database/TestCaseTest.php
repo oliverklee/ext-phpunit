@@ -1,6 +1,6 @@
 <?php
 
-namespace OliverKlee\Phpunit\Tests\Unit\Database;
+namespace OliverKlee\PhpUnit\Tests\Unit\Database;
 
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;

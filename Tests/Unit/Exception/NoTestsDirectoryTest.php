@@ -1,6 +1,6 @@
 <?php
 
-namespace OliverKlee\Phpunit\Tests\Unit\Exception;
+namespace OliverKlee\PhpUnit\Tests\Unit\Exception;
 
 use OliverKlee\PhpUnit\TestCase;
 

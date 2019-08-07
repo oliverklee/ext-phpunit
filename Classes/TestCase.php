@@ -2,7 +2,7 @@
 
 namespace OliverKlee\PhpUnit;
 
-use OliverKlee\Phpunit\Interfaces\AccessibleObject;
+use OliverKlee\PhpUnit\Interfaces\AccessibleObject;
 use ReflectionClass;
 
 /**
@@ -86,7 +86,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 
         eval(
             $abstractModifier . 'class ' . $accessibleClassName .
-            ' extends ' . $className . ' implements \\OliverKlee\\Phpunit\\Interfaces\\AccessibleObject {' .
+            ' extends ' . $className . ' implements \\OliverKlee\\PhpUnit\\Interfaces\\AccessibleObject {' .
             'public function _call($methodName) {' .
             'if ($methodName === \'\') {' .
             'throw new \\InvalidArgumentException(\'$methodName must not be empty.\', 1334663993);' .
@@ -198,8 +198,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
             );
         }
 
-        $reflection = new \ReflectionClass($object);
-        $property = $reflection->getProperty($propertyName);
+        $property = (new \ReflectionClass($object))->getProperty($propertyName);
         $property->setAccessible(true);
 
         return $property->getValue($object);

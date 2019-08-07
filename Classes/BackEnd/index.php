@@ -1,6 +1,6 @@
 <?php
 
-use OliverKlee\Phpunit\Service\LibraryLoader;
+use OliverKlee\PhpUnit\Service\LibraryLoader;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**

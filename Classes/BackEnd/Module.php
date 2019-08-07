@@ -427,12 +427,12 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
                     === $this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE))
                     ? ' selected="selected"' : '';
             $testCaseFileOptionsArray[] = '<option value="' . $testCase->toString() . '"' . $selected . '>' .
-                htmlspecialchars($testCase->getName()) . '</option>';
+                htmlspecialchars($testCase->getName(), ENT_HTML5 | ENT_QUOTES) . '</option>';
         }
 
         $currentStyle = $this->createIconStyle($extensionKey);
 
-        return '<form action="' . htmlspecialchars(BackendUtility::getModuleUrl('tools_txphpunitbeM1'))
+        return '<form action="' . htmlspecialchars(BackendUtility::getModuleUrl('tools_txphpunitbeM1'), ENT_HTML5 | ENT_QUOTES)
             . '" method="post">' .
             '<p>' .
             '<select style="' . $currentStyle . '" name="' . \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
@@ -440,7 +440,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
             . BackendUtility::getModuleUrl('tools_txphpunitbeM1') . '&' .
             \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '['
             . \Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE . ']=\'+this.options[this.selectedIndex].value;">' .
-            '<option value="">' . htmlspecialchars($this->translate('select_tests')) . '</option>' .
+            '<option value="">' . htmlspecialchars($this->translate('select_tests'), ENT_HTML5 | ENT_QUOTES) . '</option>' .
             implode(LF, $testCaseFileOptionsArray) . '</select>' .
             '<button type="submit" name="' . \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
             \Tx_Phpunit_Interface_Request::PARAMETER_KEY_EXECUTE . ']" value="run" accesskey="c">' .
@@ -509,7 +509,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
                 $testCaption =
                     $useHumanReadableOptionLabels ? $this->namePrettifier->prettifyTestMethod($testName) : $testName;
                 $testsOptionsArr[$testSuiteName][] .= '<option value="' . $testIdentifier . '"' . $selected . '>' .
-                    htmlspecialchars($testCaption) . '</option>';
+                    htmlspecialchars($testCaption, ENT_HTML5 | ENT_QUOTES) . '</option>';
             }
         }
 
@@ -529,7 +529,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
 
         $currentStyle = $this->createIconStyle($extensionKey);
 
-        return '<form action="' . htmlspecialchars(BackendUtility::getModuleUrl('tools_txphpunitbeM1')) . '" method="post">
+        return '<form action="' . htmlspecialchars(BackendUtility::getModuleUrl('tools_txphpunitbeM1'), ENT_HTML5 | ENT_QUOTES) . '" method="post">
             <p>
             <select style="' . $currentStyle . '" name="' . \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
             \Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST . ']">
@@ -556,7 +556,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     protected function createCheckboxes()
     {
         $output =
-            '<form action="' . htmlspecialchars(BackendUtility::getModuleUrl('tools_txphpunitbeM1'))
+            '<form action="' . htmlspecialchars(BackendUtility::getModuleUrl('tools_txphpunitbeM1'), ENT_HTML5 | ENT_QUOTES)
             . '" method="post">';
         $output .= '<div class="phpunit-controls">';
         $failureState = $this->userSettingsService->getAsBoolean('failure') ? 'checked="checked"' : '';
@@ -677,7 +677,7 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
             $this->outputService->output('<h1>' . $this->translate('testing_all_extensions') . '</h1>');
         } else {
             $this->outputService->output(
-                '<h1>' . $this->translate('testing_extension') . ': ' . htmlspecialchars($testableKey) . '</h1>'
+                '<h1>' . $this->translate('testing_extension') . ': ' . htmlspecialchars($testableKey, ENT_HTML5 | ENT_QUOTES) . '</h1>'
             );
         }
     }
@@ -807,13 +807,6 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
                 }
             }
         }
-        if (!is_object($testResult)) {
-            $this->outputService->output(
-                '<h2 class="hadError">Error</h2><p>The test <strong> ' .
-                htmlspecialchars($this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE)) .
-                '</strong> could not be found.</p>'
-            );
-        }
     }
 
     /**
@@ -873,14 +866,6 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
                 }
             }
         }
-        if (!is_object($testResult)) {
-            $this->outputService->output(
-                '<h2 class="hadError">Error</h2><p>The test <strong> ' .
-                htmlspecialchars($this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST)) .
-                '</strong> could not be found.</p>'
-            );
-            return;
-        }
     }
 
     /**
@@ -911,14 +896,12 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     {
         if ($testResult->wasSuccessful()) {
             $testStatistics = '<h2 class="wasSuccessful">' . $this->translate('testing_success') . '</h2>';
+        } elseif ($testResult->errorCount() > 0) {
+            $testStatistics = '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadError");/*]]>*/</script>
+                <h2 class="hadError">' . $this->translate('testing_failure') . '</h2>';
         } else {
-            if ($testResult->errorCount() > 0) {
-                $testStatistics = '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadError");/*]]>*/</script>
-                    <h2 class="hadError">' . $this->translate('testing_failure') . '</h2>';
-            } else {
-                $testStatistics = '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadFailure");/*]]>*/</script>
-                    <h2 class="hadFailure">' . $this->translate('testing_failure') . '</h2>';
-            }
+            $testStatistics = '<script type="text/javascript">/*<![CDATA[*/setProgressBarClass("hadFailure");/*]]>*/</script>
+                <h2 class="hadFailure">' . $this->translate('testing_failure') . '</h2>';
         }
         $testStatistics .= '<p>' . $testResult->count() . ' ' . $this->translate('tests_total') . ', '
             . $this->testListener->assertionCount() . ' ' .
@@ -941,20 +924,20 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     protected function renderReRunButton()
     {
         $this->outputService->output(
-            '<form action="' . htmlspecialchars(BackendUtility::getModuleUrl('tools_txphpunitbeM1')) . '" method="post">
+            '<form action="' . htmlspecialchars(BackendUtility::getModuleUrl('tools_txphpunitbeM1'), ENT_HTML5 | ENT_QUOTES) . '" method="post">
             <p>
             <button type="submit" name="' . \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . ' [' .
             \Tx_Phpunit_Interface_Request::PARAMETER_KEY_EXECUTE . ']" value="run" accesskey="r">' .
             $this->translate('run_again') . '</button>
             <input name="' . \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
             \Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND . ']" type="hidden" value="' .
-            htmlspecialchars($this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND)) . '" />
+            htmlspecialchars($this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_COMMAND), ENT_HTML5 | ENT_QUOTES) . '" />
             <input name="' . \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
             \Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST . ']" type="hidden" value="' .
-            htmlspecialchars($this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST)) . '" />
+            htmlspecialchars($this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST), ENT_HTML5 | ENT_QUOTES) . '" />
             <input name="' . \Tx_Phpunit_Interface_Request::PARAMETER_NAMESPACE . '[' .
             \Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE . ']" type="hidden" value="' .
-            htmlspecialchars($this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE)) . '" />
+            htmlspecialchars($this->request->getAsString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE), ENT_HTML5 | ENT_QUOTES) . '" />
             </p>
             </form>'
         );

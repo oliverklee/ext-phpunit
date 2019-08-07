@@ -110,8 +110,7 @@ abstract class Tx_Phpunit_Database_TestCase extends TestCase
 
         $this->selectDatabase($this->testDatabaseName, $db);
 
-        $tables = $this->getDatabaseTables();
-        foreach ($tables as $tableName) {
+        foreach ($this->getDatabaseTables() as $tableName) {
             $db->admin_query('DROP TABLE `' . $tableName . '`');
         }
     }
@@ -230,7 +229,7 @@ abstract class Tx_Phpunit_Database_TestCase extends TestCase
                 continue;
             }
 
-            $skipDependencies = array_merge($skipDependencies, [$extensionName]);
+            \array_push($skipDependencies, $extensionName);
 
             if ($importDependencies) {
                 $dependencies = $this->findDependencies($extensionName);
@@ -451,7 +450,7 @@ abstract class Tx_Phpunit_Database_TestCase extends TestCase
         foreach ($xml->children() as $table) {
             $insertArray = [];
 
-            /** @var SimpleXMLElement $column */
+            /** @var \SimpleXMLElement $column */
             foreach ($table->children() as $column) {
                 $columnName = $column->getName();
                 $columnValue = null;
@@ -462,7 +461,7 @@ abstract class Tx_Phpunit_Database_TestCase extends TestCase
                 } elseif (isset($column['is-NULL']) && ($column['is-NULL'] === 'yes')) {
                     $columnValue = null;
                 } else {
-                    $columnValue = $table->$columnName;
+                    $columnValue = $table->{$columnName};
                 }
 
                 $insertArray[$columnName] = $columnValue;
@@ -509,7 +508,7 @@ abstract class Tx_Phpunit_Database_TestCase extends TestCase
     /**
      * @param array $coreExtensions
      *
-     * @return
+     * @return void
      */
     protected function importCoreExtensionDefinitions(array $coreExtensions)
     {

@@ -1,6 +1,6 @@
 <?php
 
-use OliverKlee\Phpunit\Service\LibraryLoader;
+use OliverKlee\PhpUnit\Service\LibraryLoader;
 
 /**
  * With this TestRunner, you can run PHPUnit manually from the command line.

@@ -1,6 +1,6 @@
 <?php
 
-namespace OliverKlee\Phpunit\Interfaces;
+namespace OliverKlee\PhpUnit\Interfaces;
 
 /**
  * This interface defines the methods provided by TestCase::getAccessibleMock.

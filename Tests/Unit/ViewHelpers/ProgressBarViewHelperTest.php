@@ -1,6 +1,6 @@
 <?php
 
-namespace OliverKlee\Phpunit\Tests\Unit\ViewHelpers;
+namespace OliverKlee\PhpUnit\Tests\Unit\ViewHelpers;
 
 use OliverKlee\PhpUnit\TestCase;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
