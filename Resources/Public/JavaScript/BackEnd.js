@@ -77,9 +77,6 @@ function setProgressBarClass(className) {
 			case 'SET_testdox':
 				checkbox = 'testdox';
 				break;
-			case 'SET_showTime':
-				checkbox = 'showTime';
-				break;
 			default:
 		}
 
@@ -150,9 +147,6 @@ function setProgressBarClass(className) {
 		case 'SET_testdox':
 			className = 'testdox';
 			break;
-		case 'SET_showTime':
-			className = 'showTime';
-			break;
 		default:
 			className = '';
 		}
@@ -166,7 +160,7 @@ function setProgressBarClass(className) {
 	jQuery(function () {
 		var checkboxes = jQuery([
 			'#SET_failure', '#SET_success', '#SET_error', '#SET_skipped', '#SET_incomplete',
-			'#SET_testdox', '#SET_showTime',
+			'#SET_testdox'
 		].join(','));
 		var numberOfCheckboxes = checkboxes.length;
 		for (var i = 0; i < numberOfCheckboxes; i++) {

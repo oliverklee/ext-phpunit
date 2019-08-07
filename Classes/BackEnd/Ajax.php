@@ -32,7 +32,6 @@ class Tx_Phpunit_BackEnd_Ajax
         'incomplete',
         'testdox',
         'codeCoverage',
-        'showTime',
     ];
 
     /**

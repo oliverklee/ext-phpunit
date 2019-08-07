@@ -105,9 +105,6 @@
 			<trans-unit id="incomplete">
 				<target>Ufuldførte</target>
 			</trans-unit>
-			<trans-unit id="show_time">
-				<target>Vis tid</target>
-			</trans-unit>
 			<trans-unit id="collect_code_coverage_data">
 				<target>Indsammel code-coverage data</target>
 			</trans-unit>
