@@ -27,8 +27,5 @@ PHPUnit is a TYPO3 extension which provides:
 #. `vfsStream <http://code.google.com/p/bovigo/wiki/vfsStream>`_ (a
    virtual file system)
 
-#. a back-end module to run unit tests for extensions of a TYPO3
-   installation
-
 #. a CLI test runner which can be used to run the tests from the command
-   line, in a continuous-integration environment, or from within an IDE like PhpStorm
+   line or in a continuous-integration environment

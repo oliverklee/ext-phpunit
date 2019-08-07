@@ -8,7 +8,6 @@
         "phpunit",
         "typo3"
     ],
-    "homepage": "https://www.oliverklee.de/typo3-services/typo3-extensions/phpunit.html",
     "license": "GPL-2.0-or-later",
     "authors": [
         {
@@ -27,13 +26,6 @@
         "typo3/cms-core": "^7.6.23 || ^8.7.9"
     },
     "require-dev": {
-        "oliverklee/aaa": "@dev",
-        "oliverklee/bbb": "@dev",
-        "oliverklee/ccc": "@dev",
-        "oliverklee/ddd": "@dev",
-        "oliverklee/user-phpunittest": "@dev",
-        "oliverklee/user-phpunittest2": "@dev",
-
         "typo3/cms-frontend": "^7.6.23 || ^8.7.9",
         "helhum/typo3-console": "^4.9"
     },
@@ -56,10 +48,6 @@
     "prefer-stable": true,
     "repositories": [
         {
-            "type": "path",
-            "url": "TestExtensions/*"
-        },
-        {
             "type": "composer",
             "url": "https://composer.typo3.org/"
         }
@@ -71,7 +59,7 @@
         "vendor-dir": ".Build/vendor"
     },
     "scripts": {
-        "ci:php:lint": "find *.php Classes Configuration Migrations Scripts TestExtensions Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
+        "ci:php:lint": "find *.php Classes Configuration Migrations Scripts Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
         "ci:tests:unit": "$RUN_TESTS_COMMAND --options=\"Tests/Unit\"",
         "ci:tests": [
             "@ci:tests:unit"
