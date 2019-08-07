@@ -47,7 +47,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "OliverKlee\\Phpunit\\Tests\\": "Tests/"
+            "OliverKlee\\PhpUnit\\Tests\\": "Tests/"
         }
     },
     "prefer-stable": true,

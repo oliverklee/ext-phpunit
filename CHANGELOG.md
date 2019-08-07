@@ -34,6 +34,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Remove the obsolete ext_autoload.php (#56)
 
 ### Fixed
+- Fix code inspection warnings (#105)
 - Fix the casing of the RunTestsCommand namespace (#101)
 - Stop using the Core base exception class (#100)
 - Fix the autoloading in RunTestsCommand (#95)

@@ -1,6 +1,6 @@
 <?php
 
-namespace OliverKlee\Phpunit\Service;
+namespace OliverKlee\PhpUnit\Service;
 
 /**
  * This class includes the necessary libraries.

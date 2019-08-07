@@ -1,11 +1,11 @@
 <?php
 
-namespace OliverKlee\Phpunit\Tests\Unit\BackEnd;
+namespace OliverKlee\PhpUnit\Tests\Unit\BackEnd;
 
 use OliverKlee\PhpUnit\TestCase;
-use OliverKlee\Phpunit\Tests\Unit\BackEnd\Fixtures\LoadMe;
-use OliverKlee\Phpunit\Tests\Unit\BackEnd\Fixtures\LoadMeToo;
-use OliverKlee\Phpunit\Tests\Unit\Service\TestFinderTest;
+use OliverKlee\PhpUnit\Tests\Unit\BackEnd\Fixtures\LoadMe;
+use OliverKlee\PhpUnit\Tests\Unit\BackEnd\Fixtures\LoadMeToo;
+use OliverKlee\PhpUnit\Tests\Unit\Service\TestFinderTest;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStreamWrapper;
 use TYPO3\CMS\Backend\Template\DocumentTemplate;
@@ -780,7 +780,7 @@ class ModuleTest extends TestCase
         $this->userSettingsService->set('extSel', $selectedExtension);
 
         self::assertRegExp(
-            '/<option[^>]*value="OliverKlee\\\\Phpunit\\\\Tests\\\\Unit\\\\BackEnd\\\\ModuleTest"/',
+            '/<option[^>]*value="OliverKlee\\\\PhpUnit\\\\Tests\\\\Unit\\\\BackEnd\\\\ModuleTest"/',
             $this->subject->createTestCaseSelector($selectedExtension)
         );
     }
@@ -823,7 +823,7 @@ class ModuleTest extends TestCase
         $this->request->set('testCaseFile', TestFinderTest::class);
 
         self::assertRegExp(
-            '#<option [^>]* selected="selected">OliverKlee\\\\Phpunit\\\\Tests\\\\Unit\\\\Service\\\\TestFinderTest</option>#',
+            '#<option [^>]* selected="selected">OliverKlee\\\\PhpUnit\\\\Tests\\\\Unit\\\\Service\\\\TestFinderTest</option>#',
             $this->subject->createTestCaseSelector($selectedExtension)
         );
     }
@@ -838,7 +838,7 @@ class ModuleTest extends TestCase
         $this->request->set('testCaseFile', TestFinderTest::class);
 
         self::assertNotRegExp(
-            '#<option [^>]* selected="selected">OliverKlee\\\\Phpunit\\\\Tests\\\\Unit\\\\BackEnd\\\\ModuleTest</option>#',
+            '#<option [^>]* selected="selected">OliverKlee\\\\PhpUnit\\\\Tests\\\\Unit\\\\BackEnd\\\\ModuleTest</option>#',
             $this->subject->createTestCaseSelector($selectedExtension)
         );
     }
@@ -853,7 +853,7 @@ class ModuleTest extends TestCase
         $this->request->set('testCaseFile', '');
 
         self::assertNotRegExp(
-            '#<option [^>]* selected="selected">OliverKlee\\\\Phpunit\\\\Tests\\\\Unit\\\\BackEnd\\\\ModuleTest</option>#',
+            '#<option [^>]* selected="selected">OliverKlee\\\\PhpUnit\\\\Tests\\\\Unit\\\\BackEnd\\\\ModuleTest</option>#',
             $this->subject->createTestCaseSelector($selectedExtension)
         );
     }

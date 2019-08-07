@@ -32,17 +32,18 @@ abstract class Tx_Phpunit_ViewHelpers_AbstractTagViewHelper extends \Tx_Phpunit_
             throw new \InvalidArgumentException('$tagName must not be NULL or empty.', 1343763729);
         }
 
-        $output = '<' . htmlspecialchars($tagName);
+        $output = '<' . htmlspecialchars($tagName, ENT_HTML5 | ENT_QUOTES);
 
         foreach ($attributes as $key => $value) {
             if (!is_string($key) || $key === '') {
                 throw new \InvalidArgumentException('Attribute key must not be empty.', 1448657422);
             }
-            $output .= ' ' . htmlspecialchars($key) . '="' . htmlspecialchars($value) . '"';
+            $output .= ' ' . htmlspecialchars($key, ENT_HTML5 | ENT_QUOTES) . '="' .
+                htmlspecialchars($value, ENT_HTML5 | ENT_QUOTES) . '"';
         }
 
         if ($content !== '') {
-            $output .= '>' . $content . '</' . htmlspecialchars($tagName) . '>';
+            $output .= '>' . $content . '</' . htmlspecialchars($tagName, ENT_HTML5 | ENT_QUOTES) . '>';
         } else {
             $output .= ' />';
         }

@@ -1,6 +1,6 @@
 <?php
 
-namespace OliverKlee\Phpunit\Tests\Functional\Selenium;
+namespace OliverKlee\PhpUnit\Tests\Functional\Selenium;
 
 /**
  * Test case.

@@ -1,9 +1,9 @@
 <?php
 
-namespace OliverKlee\Phpunit\Tests\Unit\ViewHelpers;
+namespace OliverKlee\PhpUnit\Tests\Unit\ViewHelpers;
 
 use OliverKlee\PhpUnit\TestCase;
-use OliverKlee\Phpunit\Tests\Unit\ViewHelpers\Fixtures\TestingTagViewHelper;
+use OliverKlee\PhpUnit\Tests\Unit\ViewHelpers\Fixtures\TestingTagViewHelper;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace OliverKlee\Phpunit\Tests\Unit\Service;
+namespace OliverKlee\PhpUnit\Tests\Unit\Service;
 
 use OliverKlee\PhpUnit\TestCase;
 use TYPO3\CMS\Core\SingletonInterface;
@@ -25,7 +25,7 @@ class ExtensionSettingsServiceTest extends TestCase
     /**
      * @var array
      */
-    protected $testConfiguration = [
+    protected static $testConfiguration = [
         'testValueString' => 'Hello world!',
         'testValueEmptyString' => '',
         'testValuePositiveInteger' => 42,
@@ -40,7 +40,7 @@ class ExtensionSettingsServiceTest extends TestCase
     protected function setUp()
     {
         $this->extensionConfigurationBackup = $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'];
-        $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['phpunit'] = serialize($this->testConfiguration);
+        $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['phpunit'] = serialize(self::$testConfiguration);
 
         $this->subject = new \Tx_Phpunit_Service_ExtensionSettingsService();
     }

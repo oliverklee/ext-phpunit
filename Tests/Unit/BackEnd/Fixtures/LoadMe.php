@@ -1,6 +1,6 @@
 <?php
 
-namespace OliverKlee\Phpunit\Tests\Unit\BackEnd\Fixtures;
+namespace OliverKlee\PhpUnit\Tests\Unit\BackEnd\Fixtures;
 
 /**
  * Test class.

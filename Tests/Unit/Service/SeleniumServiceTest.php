@@ -1,6 +1,6 @@
 <?php
 
-namespace OliverKlee\Phpunit\Tests\Unit\Service;
+namespace OliverKlee\PhpUnit\Tests\Unit\Service;
 
 use OliverKlee\PhpUnit\TestCase;
 

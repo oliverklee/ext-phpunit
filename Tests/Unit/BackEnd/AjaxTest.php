@@ -1,6 +1,6 @@
 <?php
 
-namespace OliverKlee\Phpunit\Tests\Unit\BackEnd;
+namespace OliverKlee\PhpUnit\Tests\Unit\BackEnd;
 
 use OliverKlee\PhpUnit\TestCase;
 use TYPO3\CMS\Core\Http\AjaxRequestHandler;

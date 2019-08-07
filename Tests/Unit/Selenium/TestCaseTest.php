@@ -1,6 +1,6 @@
 <?php
 
-namespace OliverKlee\Phpunit\Tests\Unit\Selenium;
+namespace OliverKlee\PhpUnit\Tests\Unit\Selenium;
 
 use OliverKlee\PhpUnit\TestCase;
 

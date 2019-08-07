@@ -1,6 +1,6 @@
 <?php
 
-namespace OliverKlee\Phpunit\Tests\Unit\Service;
+namespace OliverKlee\PhpUnit\Tests\Unit\Service;
 
 use OliverKlee\PhpUnit\TestCase;
 use TYPO3\CMS\Core\SingletonInterface;
@@ -45,9 +45,7 @@ class OutputServiceTest extends TestCase
 
         self::assertSame(
             $output,
-            ob_get_contents()
+            ob_get_clean()
         );
-
-        ob_end_clean();
     }
 }

@@ -67,7 +67,7 @@ class Tx_Phpunit_Framework
      *
      * @var string[]
      */
-    protected $allowedSystemTables = [
+    protected static $allowedSystemTables = [
         'be_users',
         'fe_groups',
         'fe_users',
@@ -864,7 +864,7 @@ class Tx_Phpunit_Framework
     protected function cleanUpTableSet($useSystemTables, $performDeepCleanUp)
     {
         if ($useSystemTables) {
-            $tablesToCleanUp = $performDeepCleanUp ? $this->allowedSystemTables : $this->dirtySystemTables;
+            $tablesToCleanUp = $performDeepCleanUp ? static::$allowedSystemTables : $this->dirtySystemTables;
         } else {
             $tablesToCleanUp = $performDeepCleanUp ? $this->ownAllowedTables : $this->dirtyTables;
         }
@@ -1577,7 +1577,7 @@ class Tx_Phpunit_Framework
      */
     protected function isSystemTableNameAllowed($tableName)
     {
-        return in_array($tableName, $this->allowedSystemTables);
+        return in_array($tableName, static::$allowedSystemTables);
     }
 
     /**

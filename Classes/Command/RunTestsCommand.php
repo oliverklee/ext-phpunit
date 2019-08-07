@@ -2,7 +2,7 @@
 
 namespace OliverKlee\PhpUnit\Command;
 
-use OliverKlee\Phpunit\Service\LibraryLoader;
+use OliverKlee\PhpUnit\Service\LibraryLoader;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -72,7 +72,7 @@ class RunTestsCommand extends Command
             $optionsForPhpunit[] = $input->getArgument('path');
         }
 
-        $result = (int)$runner->run($optionsForPhpunit, true);
+        $result = (int)$runner->run($optionsForPhpunit);
 
         // restore configuration
         $GLOBALS['TYPO3_CONF_VARS'] = array_merge($GLOBALS['TYPO3_CONF_VARS'], $globalBackup);

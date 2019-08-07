@@ -1,6 +1,6 @@
 <?php
 
-namespace OliverKlee\Phpunit\Tests\Unit\ViewHelpers\Fixtures;
+namespace OliverKlee\PhpUnit\Tests\Unit\ViewHelpers\Fixtures;
 
 /**
  * Fixture class.

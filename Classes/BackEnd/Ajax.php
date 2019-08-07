@@ -24,7 +24,7 @@ class Tx_Phpunit_BackEnd_Ajax
     /**
      * @var string[]
      */
-    protected $validCheckboxKeys = [
+    protected static $validCheckboxKeys = [
         'failure',
         'success',
         'error',
@@ -76,7 +76,7 @@ class Tx_Phpunit_BackEnd_Ajax
         $state = (bool)GeneralUtility::_POST('state');
         $checkbox = GeneralUtility::_POST('checkbox');
 
-        if (in_array($checkbox, $this->validCheckboxKeys, true)) {
+        if (in_array($checkbox, self::$validCheckboxKeys, true)) {
             $ajax->setContentFormat('json');
             $this->userSettingsService->set($checkbox, $state);
             $ajax->addContent('success', true);
