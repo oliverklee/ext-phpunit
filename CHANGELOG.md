@@ -13,7 +13,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Removed
 - Drop the IDE test runner (#114)
-- Drop the testing framework (#113)
+- Drop the testing framework (#113, #115)
 - Drop the time statistics (#112)
 - Drop DatabaseTestCase (#111)
 - Drop the Selenium integration (#110)
