@@ -37,7 +37,6 @@ abstract class Tx_Phpunit_TestCase extends \PHPUnit_Framework_TestCase
      * @param string $mockClassName the class name to use for the mock class
      * @param bool $callOriginalConstructor whether to call the constructor
      * @param bool $callOriginalClone whether to call the __clone method
-     * @param bool $callAutoload whether to call any autoload function
      *
      * @return \PHPUnit_Framework_MockObject_MockObject|\Tx_Phpunit_Interface_AccessibleObject
      *         a mock of $originalClassName with access methods added
@@ -50,22 +49,22 @@ abstract class Tx_Phpunit_TestCase extends \PHPUnit_Framework_TestCase
         array $arguments = [],
         $mockClassName = '',
         $callOriginalConstructor = true,
-        $callOriginalClone = true,
-        $callAutoload = true
+        $callOriginalClone = true
     ) {
         if ($originalClassName === '') {
             throw new \InvalidArgumentException('$originalClassName must not be empty.', 1334701880);
         }
 
-        return $this->getMock(
-            $this->buildAccessibleProxy($originalClassName),
-            $methods,
-            $arguments,
-            $mockClassName,
-            $callOriginalConstructor,
-            $callOriginalClone,
-            $callAutoload
-        );
+        $mockBuilder = $this->getMockBuilder($this->buildAccessibleProxy($originalClassName))
+            ->setMethods($methods)->setConstructorArgs($arguments)->setMockClassName($mockClassName);
+        if (!$callOriginalConstructor) {
+            $mockBuilder->disableOriginalConstructor();
+        }
+        if (!$callOriginalClone) {
+            $mockBuilder->disableOriginalClone();
+        }
+
+        return $mockBuilder->getMock();
     }
 
     /**

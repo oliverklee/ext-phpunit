@@ -10,7 +10,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Auto-release to the TER (#67)
 
 ### Changed
-- Update PHPUnit to 5.7 (#93)
+- Update PHPUnit to 5.7 (#93, #94)
 - Stop using a PHAR for including libraries (#87)
 - Use spaces for indenting SQL and .htaccess files (#78)
 - Streamline ext_emconf.php (#74, #75)

@@ -32,17 +32,13 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
         }
 
         $this->extensionSettingsService = new \Tx_Phpunit_TestingDataContainer();
-        $this->seleniumService = $this->getMock(
-            \Tx_Phpunit_Service_SeleniumService::class,
-            null,
-            [$this->extensionSettingsService]
-        );
-        $this->subject = $this->getMock(
-            $this->createAccessibleProxyClass(),
-            ['isSeleniumServerRunning'],
-            [null, [], '', $this->extensionSettingsService, $this->seleniumService]
-        );
-        $this->subject->expects(self::any())->method('isSeleniumServerRunning')->will(self::returnValue(true));
+        $this->seleniumService = $this->getMockBuilder(\Tx_Phpunit_Service_SeleniumService::class)
+            ->setMethods(null)->setConstructorArgs([$this->extensionSettingsService])->getMock();
+        $this->subject = $this->getMockBuilder($this->createAccessibleProxyClass())
+            ->setMethods(['isSeleniumServerRunning'])
+            ->setConstructorArgs([null, [], '', $this->extensionSettingsService, $this->seleniumService])
+            ->getMock();
+        $this->subject->method('isSeleniumServerRunning')->willReturn(true);
     }
 
     /*

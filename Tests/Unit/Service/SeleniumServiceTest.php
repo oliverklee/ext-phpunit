@@ -22,11 +22,8 @@ class SeleniumServiceTest extends \Tx_Phpunit_TestCase
     protected function setUp()
     {
         $this->extensionSettingsService = new \Tx_Phpunit_TestingDataContainer();
-        $this->subject = $this->getMock(
-            \Tx_Phpunit_Service_SeleniumService::class,
-            null,
-            [$this->extensionSettingsService]
-        );
+        $this->subject = $this->getMockBuilder(\Tx_Phpunit_Service_SeleniumService::class)
+            ->setMethods(null)->setConstructorArgs([$this->extensionSettingsService])->getMock();
     }
 
     /**
