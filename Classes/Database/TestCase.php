@@ -147,8 +147,6 @@ abstract class Tx_Phpunit_Database_TestCase extends TestCase
      *        name of the current TYPO3 database plus a suffix "_test" is used
      *
      * @return DatabaseConnection the test database
-     *
-     * @throws Exception
      */
     protected function useTestDatabase($databaseName = null)
     {

@@ -1,7 +1,5 @@
 <?php
 
-use TYPO3\CMS\Core\Exception;
-
 /**
  * This class represents an exception that should be thrown when a database
  * query has an empty result, but should not have.
@@ -12,7 +10,7 @@ use TYPO3\CMS\Core\Exception;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Exception_EmptyQueryResult extends Exception
+class Tx_Phpunit_Exception_EmptyQueryResult extends \Exception
 {
     /**
      * The constructor.

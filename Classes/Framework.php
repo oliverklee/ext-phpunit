@@ -713,6 +713,7 @@ class Tx_Phpunit_Framework
      * @return void
      *
      * @throws \InvalidArgumentException
+     * @throws \UnexpectedValueException
      * @throws Exception
      */
     public function createRelationAndUpdateCounter(
@@ -742,7 +743,7 @@ class Tx_Phpunit_Framework
         $relationConfiguration = $tca['columns'][$columnName];
 
         if (!isset($relationConfiguration['config']['MM']) || ($relationConfiguration['config']['MM'] === '')) {
-            throw new Exception(
+            throw new \UnexpectedValueException(
                 'The column ' . $columnName . ' in the table ' . $tableName .
                 ' is not configured to contain m:n relations using a m:n table.',
                 1334439257
@@ -817,7 +818,7 @@ class Tx_Phpunit_Framework
      *
      * @return void
      *
-     * @throws Exception
+     * @throws \InvalidArgumentException
      */
     public function cleanUp($performDeepCleanUp = false)
     {
@@ -828,7 +829,7 @@ class Tx_Phpunit_Framework
 
         foreach ($this->getHooks() as $hook) {
             if (!($hook instanceof \Tx_Phpunit_Interface_FrameworkCleanupHook)) {
-                throw new Exception(
+                throw new \InvalidArgumentException(
                     'The class ' . get_class($hook) . ' must implement \\Tx_Phpunit_Interface_FrameworkCleanupHook.',
                     1299257923
                 );
@@ -924,7 +925,7 @@ class Tx_Phpunit_Framework
      * @return string
      *         the absolute path of the created dummy file, will not be empty
      *
-     * @throws Exception
+     * @throws \RuntimeException
      */
     public function createDummyFile($fileName = 'test.txt', $content = '')
     {
@@ -932,7 +933,7 @@ class Tx_Phpunit_Framework
         $uniqueFileName = $this->getUniqueFileOrFolderPath($fileName);
 
         if (!GeneralUtility::writeFile($uniqueFileName, $content)) {
-            throw new Exception('The file ' . $uniqueFileName . ' could not be created.', 1334439291);
+            throw new \RuntimeException('The file ' . $uniqueFileName . ' could not be created.', 1334439291);
         }
 
         $this->addToDummyFileList($uniqueFileName);
@@ -959,7 +960,8 @@ class Tx_Phpunit_Framework
      * @return string
      *         the absolute path of the created dummy ZIP archive, will not be empty
      *
-     * @throws Exception if the PHP installation does not provide ZIPArchive
+     * @throws \BadMethodCallException if the PHP installation does not provide ZIPArchive
+     * @throws \InvalidArgumentException
      */
     public function createDummyZipArchive($fileName = 'test.zip', array $filesToAddToArchive = [])
     {
@@ -970,14 +972,16 @@ class Tx_Phpunit_Framework
         $zip = new ZipArchive();
 
         if ($zip->open($uniqueFileName, ZipArchive::CREATE) !== true) {
-            throw new Exception('The new ZIP archive "' . $fileName . '" could not be created.', 1334439299);
+            throw new \BadMethodCallException(
+                'The new ZIP archive "' . $fileName . '" could not be created.',
+                1334439299
+            );
         }
 
         $contents = !empty($filesToAddToArchive) ? $filesToAddToArchive : [$this->createDummyFile()];
-
         foreach ($contents as $pathToFile) {
             if (!file_exists($pathToFile)) {
-                throw new Exception(
+                throw new \InvalidArgumentException(
                     'The provided path "' . $pathToFile . '" does not point to an existing file.',
                     1334439306
                 );
@@ -1017,7 +1021,7 @@ class Tx_Phpunit_Framework
      * @return void
      *
      * @throws \InvalidArgumentException
-     * @throws Exception
+     * @throws \RuntimeException
      */
     public function deleteDummyFile($fileName)
     {
@@ -1034,7 +1038,7 @@ class Tx_Phpunit_Framework
         }
 
         if ($fileExists && !unlink($absolutePathToFile)) {
-            throw new Exception('The file "' . $absolutePathToFile . '" could not be deleted.', 1334439327);
+            throw new \RuntimeException('The file "' . $absolutePathToFile . '" could not be deleted.', 1334439327);
         }
 
         unset($this->dummyFiles[$fileName]);
@@ -1051,7 +1055,7 @@ class Tx_Phpunit_Framework
      * @return string
      *         the absolute path of the created dummy folder, will not be empty
      *
-     * @throws Exception
+     * @throws \RuntimeException
      */
     public function createDummyFolder($folderName)
     {
@@ -1059,7 +1063,7 @@ class Tx_Phpunit_Framework
         $uniqueFolderName = $this->getUniqueFileOrFolderPath($folderName);
 
         if (!GeneralUtility::mkdir($uniqueFolderName)) {
-            throw new Exception('The folder ' . $uniqueFolderName . ' could not be created.', 1334439333);
+            throw new \RuntimeException('The folder ' . $uniqueFolderName . ' could not be created.', 1334439333);
         }
 
         $relativeUniqueFolderName = $this->getPathRelativeToUploadDirectory($uniqueFolderName);
@@ -1083,7 +1087,7 @@ class Tx_Phpunit_Framework
      * @return void
      *
      * @throws \InvalidArgumentException
-     * @throws Exception
+     * @throws \RuntimeException
      */
     public function deleteDummyFolder($folderName)
     {
@@ -1106,7 +1110,7 @@ class Tx_Phpunit_Framework
         }
 
         if (!GeneralUtility::rmdir($absolutePathToFolder)) {
-            throw new Exception('The folder "' . $absolutePathToFolder . '" could not be deleted.', 1334439393);
+            throw new \RuntimeException('The folder "' . $absolutePathToFolder . '" could not be deleted.', 1334439393);
         }
 
         unset($this->dummyFolders[$folderName]);
@@ -1148,7 +1152,7 @@ class Tx_Phpunit_Framework
      *
      * @return void
      *
-     * @throws Exception
+     * @throws \BadMethodCallException
      *         if there are dummy files within the current upload folder as
      *         these files could not be deleted if the upload folder path has
      *         changed
@@ -1156,7 +1160,7 @@ class Tx_Phpunit_Framework
     public function setUploadFolderPath($absolutePath)
     {
         if (!empty($this->dummyFiles) || !empty($this->dummyFolders)) {
-            throw new Exception(
+            throw new \BadMethodCallException(
                 'The upload folder path must not be changed if there are already dummy files or folders.',
                 1334439424
             );
@@ -1392,7 +1396,7 @@ class Tx_Phpunit_Framework
      *
      * @return void
      *
-     * @throws Exception if no front end has been created
+     * @throws \BadMethodCallException if no front end has been created
      * @throws \InvalidArgumentException
      */
     public function loginFrontEndUser($userId)
@@ -1401,7 +1405,10 @@ class Tx_Phpunit_Framework
             throw new \InvalidArgumentException('The user ID must be > 0.', 1334439475);
         }
         if (!$this->hasFakeFrontEnd()) {
-            throw new Exception('Please create a front end before calling loginFrontEndUser.', 1334439483);
+            throw new \BadMethodCallException(
+                'Please create a front end before calling loginFrontEndUser.',
+                1334439483
+            );
         }
 
         if ($this->isLoggedIn()) {
@@ -1425,14 +1432,17 @@ class Tx_Phpunit_Framework
      *
      * If no front-end user is logged in, this function does nothing.
      *
-     * @throws Exception if no front end has been created
+     * @throws \BadMethodCallException if no front end has been created
      *
      * @return void
      */
     public function logoutFrontEndUser()
     {
         if (!$this->hasFakeFrontEnd()) {
-            throw new Exception('Please create a front end before calling logoutFrontEndUser.', 1334439488);
+            throw new \BadMethodCallException(
+                'Please create a front end before calling logoutFrontEndUser.',
+                1334439488
+            );
         }
         if (!$this->isLoggedIn()) {
             return;
@@ -1447,14 +1457,14 @@ class Tx_Phpunit_Framework
     /**
      * Checks whether a FE user is logged in.
      *
-     * @throws Exception if no front end has been created
+     * @throws \BadMethodCallException if no front end has been created
      *
      * @return bool TRUE if a FE user is logged in, FALSE otherwise
      */
     public function isLoggedIn()
     {
         if (!$this->hasFakeFrontEnd()) {
-            throw new Exception('Please create a front end before calling isLoggedIn.', 1334439494);
+            throw new \BadMethodCallException('Please create a front end before calling isLoggedIn.', 1334439494);
         }
 
         return isset($GLOBALS['TSFE']) && is_object($GLOBALS['TSFE'])
@@ -2057,14 +2067,14 @@ class Tx_Phpunit_Framework
      * Note: This function can be used to mark tests as skipped if this class is
      *       not available but required for a test to pass succesfully.
      *
-     * @throws Exception if the PHP installation does not provide ZIPArchive
+     * @throws \RuntimeException if the PHP installation does not provide ZIPArchive
      *
      * @return void
      */
     public function checkForZipArchive()
     {
         if (!in_array('zip', get_loaded_extensions(), true)) {
-            throw new Exception('This PHP installation does not provide the ZIPArchive class.', 1334439642);
+            throw new \RuntimeException('This PHP installation does not provide the ZIPArchive class.', 1334439642);
         }
     }
 

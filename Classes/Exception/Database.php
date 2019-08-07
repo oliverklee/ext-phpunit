@@ -1,7 +1,6 @@
 <?php
 
 use TYPO3\CMS\Core\Database\DatabaseConnection;
-use TYPO3\CMS\Core\Exception;
 
 /**
  * This class represents an exception that should be thrown when a database
@@ -14,7 +13,7 @@ use TYPO3\CMS\Core\Exception;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Phpunit_Exception_Database extends Exception
+class Tx_Phpunit_Exception_Database extends \Exception
 {
     /**
      * The constructor.
