@@ -108,14 +108,6 @@ class Tx_Phpunit_BackEnd_TestListener implements \PHPUnit_Framework_TestListener
     protected $namePrettifier = null;
 
     /**
-     * The destructor.
-     */
-    public function __destruct()
-    {
-        unset($this->namePrettifier, $this->outputService);
-    }
-
-    /**
      * Injects the name prettifier.
      *
      * @param \PHPUnit_Util_TestDox_NamePrettifier $namePrettifier the name prettifier to inject

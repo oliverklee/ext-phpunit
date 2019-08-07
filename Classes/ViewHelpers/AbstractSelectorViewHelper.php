@@ -25,15 +25,6 @@ abstract class Tx_Phpunit_ViewHelpers_AbstractSelectorViewHelper extends \Tx_Php
     protected $action = '';
 
     /**
-     * The destructor.
-     */
-    public function __destruct()
-    {
-        unset($this->userSettingService, $this->testFinder);
-        parent::__destruct();
-    }
-
-    /**
      * Injects the user setting service.
      *
      * @param \Tx_Phpunit_Interface_UserSettingsService $userSettingService

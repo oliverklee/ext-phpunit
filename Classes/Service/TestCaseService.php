@@ -62,14 +62,6 @@ class Tx_Phpunit_Service_TestCaseService implements SingletonInterface
     }
 
     /**
-     * The destructor.
-     */
-    public function __destruct()
-    {
-        unset($this->userSettingsService);
-    }
-
-    /**
      * Finds all files that are named like test files in the directory $directory
      * and recursively all its subdirectories.
      *
