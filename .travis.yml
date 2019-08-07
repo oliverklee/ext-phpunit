@@ -41,10 +41,6 @@ script:
   echo;
   echo "Running the unit tests";
   composer ci:tests:unit;
-- >
-  echo;
-  echo "Running the functional tests";
-  composer ci:tests:functional;
 
 jobs:
   include:

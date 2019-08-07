@@ -31,7 +31,6 @@ class Tx_Phpunit_BackEnd_Ajax
         'skipped',
         'incomplete',
         'testdox',
-        'codeCoverage',
     ];
 
     /**

@@ -114,12 +114,6 @@
 			<trans-unit id="incomplete">
 				<source>Incomplete</source>
 			</trans-unit>
-			<trans-unit id="collect_code_coverage_data">
-				<source>Collect code-coverage data</source>
-			</trans-unit>
-			<trans-unit id="code_coverage_requires_xdebug">
-				<source>Code coverage requires Xdebug to be installed</source>
-			</trans-unit>
 		</body>
 	</file>
 </xliff>

@@ -72,11 +72,6 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     protected $userSettingsService = null;
 
     /**
-     * @var PHP_CodeCoverage
-     */
-    protected $coverage = null;
-
-    /**
      * The constructor.
      */
     public function __construct()
@@ -573,16 +568,6 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         $output .= ' <input type="checkbox" id="SET_incomplete" ' . $incompleteState .
             ' /><label for="SET_incomplete">' . $this->translate('incomplete') . '</label>';
 
-        $codecoverageDisable = '';
-        $codecoverageForLabelWhenDisabled = '';
-        if (!extension_loaded('xdebug')) {
-            $codecoverageDisable = ' disabled="disabled"';
-            $codecoverageForLabelWhenDisabled = ' title="' . $this->translate('code_coverage_requires_xdebug') . '"';
-        }
-        $codeCoverageState = $this->userSettingsService->getAsBoolean('codeCoverage') ? 'checked="checked"' : '';
-        $output .= ' <input type="checkbox" id="SET_codeCoverage" ' . $codecoverageDisable . ' ' . $codeCoverageState .
-            ' /><label for="SET_codeCoverage"' . $codecoverageForLabelWhenDisabled .
-            '>' . $this->translate('collect_code_coverage_data') . '</label>';
         $output .= '</div>';
         $output .= '</form>';
 
@@ -614,11 +599,6 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         $this->configureTestListener();
         $testResult->addListener($this->testListener);
 
-        if ($this->shouldCollectCodeCoverageInformation()) {
-            $this->coverage = GeneralUtility::makeInstance(\PHP_CodeCoverage::class);
-            $this->coverage->start('phpunit');
-        }
-
         if ($this->request->hasString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TEST)) {
             $this->runSingleTest($testSuite, $testResult);
         } elseif ($this->request->hasString(\Tx_Phpunit_Interface_Request::PARAMETER_KEY_TESTCASE)) {
@@ -631,10 +611,6 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
 
         $this->renderTestsFinishedMarker();
         $this->renderReRunButton();
-
-        if ($this->shouldCollectCodeCoverageInformation()) {
-            $this->renderCodeCoverage();
-        }
     }
 
     /**
@@ -933,29 +909,6 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     }
 
     /**
-     * Renders and outputs the code coverage report.
-     *
-     * @return void
-     */
-    protected function renderCodeCoverage()
-    {
-        $this->coverage->stop();
-
-        $codeCoverageDirectory = PATH_site . 'typo3temp/codecoverage/';
-        if (!is_readable($codeCoverageDirectory) && !is_dir($codeCoverageDirectory)) {
-            GeneralUtility::mkdir($codeCoverageDirectory);
-        }
-
-        $coverageReport = new PHP_CodeCoverage_Report_HTML();
-        $coverageReport->process($this->coverage, $codeCoverageDirectory);
-        $this->outputService->output(
-            '<p><a target="_blank" href="../typo3temp/codecoverage/index.html">' .
-            'Click here to access the Code Coverage report</a></p>' .
-            '<p>Memory peak usage: ' . GeneralUtility::formatSize(memory_get_peak_usage()) . 'B</p>'
-        );
-    }
-
-    /**
      * Renders DIVs which contain information and a progressbar to visualize
      * the running tests.
      *
@@ -1051,15 +1004,5 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         $testable = $this->testFinder->getTestableForKey($extensionKey);
 
         return 'background: url(' . $testable->getIconPath() . ') 3px 50% white no-repeat; padding: 1px 1px 1px 24px;';
-    }
-
-    /**
-     * Checks whether code coverage information should be collected.
-     *
-     * @return bool whether code coverage information should be collected
-     */
-    protected function shouldCollectCodeCoverageInformation()
-    {
-        return $this->userSettingsService->getAsBoolean('codeCoverage') && extension_loaded('xdebug');
     }
 }

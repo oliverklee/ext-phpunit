@@ -62,9 +62,6 @@ class Tx_Phpunit_Service_UserSettingsService extends \Tx_Phpunit_AbstractDataCon
     public function isActive($key)
     {
         switch ($key) {
-            case 'codeCoverage':
-                $isActive = extension_loaded('xdebug');
-                break;
             case 'thisSettingIsAlwaysInactive':
                 $isActive = false;
                 break;

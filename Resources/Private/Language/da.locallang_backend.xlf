@@ -105,12 +105,6 @@
 			<trans-unit id="incomplete">
 				<target>Ufuldførte</target>
 			</trans-unit>
-			<trans-unit id="collect_code_coverage_data">
-				<target>Indsammel code-coverage data</target>
-			</trans-unit>
-			<trans-unit id="code_coverage_requires_xdebug">
-				<target>Code coverage kræver Xdebug er installeret</target>
-			</trans-unit>
 		</body>
 	</file>
 </xliff>
