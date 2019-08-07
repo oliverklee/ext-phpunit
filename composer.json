@@ -1,6 +1,6 @@
 {
     "name": "oliverklee/phpunit",
-    "description": "Unit testing for TYPO3. Includes PHPUnit, Selenium, a CLI test runner and a testing framework.",
+    "description": "Unit testing for TYPO3. Includes PHPUnit, a CLI test runner and a testing framework.",
     "type": "typo3-cms-extension",
     "keywords": [
         "tdd",

@@ -10,7 +10,7 @@ namespace OliverKlee\PhpUnit\Service;
 class LibraryLoader
 {
     /**
-     * Includes PHPUnit, Selenium and vfsStream.
+     * Includes PHPUnit and vfsStream.
      *
      * @return void
      */

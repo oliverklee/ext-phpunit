@@ -31,11 +31,6 @@ class UserSettingsServiceTest extends TestCase
      */
     protected $extensionSettingsService = null;
 
-    /**
-     * @var \Tx_Phpunit_Service_SeleniumService|null
-     */
-    protected $seleniumService = null;
-
     protected function setUp()
     {
         $this->backEndUserBackup = $GLOBALS['BE_USER'];
@@ -51,57 +46,11 @@ class UserSettingsServiceTest extends TestCase
         $this->extensionSettingsService = GeneralUtility::makeInstance(
             'Tx_Phpunit_Service_ExtensionSettingsService'
         );
-
-        $this->seleniumService = GeneralUtility::makeInstance(
-            'Tx_Phpunit_Service_SeleniumService',
-            $this->extensionSettingsService
-        );
     }
 
     protected function tearDown()
     {
         $GLOBALS['BE_USER'] = $this->backEndUserBackup;
-    }
-
-    /**
-     * @test
-     */
-    public function isActiveForRunSeleniumTestsReturnsTrueIfSeleniumServerIsReachable()
-    {
-        if (!$this->seleniumService->isSeleniumServerRunning()) {
-            self::markTestSkipped(
-                'Selenium RC server not reachable (host=' .
-                $this->seleniumService->getSeleniumHost() . ', port=' .
-                $this->seleniumService->getSeleniumPort() . ').'
-            );
-        }
-
-        $key = 'runSeleniumTests';
-
-        self::assertTrue(
-            $this->subject->isActive($key)
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function isActiveForRunSeleniumTestsReturnsFalseIfSeleniumServerIsNotReachable()
-    {
-        if ($this->seleniumService->isSeleniumServerRunning()) {
-            self::markTestSkipped(
-                'Skipping test because Selenium RC server (host=' .
-                $this->seleniumService->getSeleniumHost() . ', port=' .
-                $this->seleniumService->getSeleniumPort() . ') ' .
-                'is reachable.'
-            );
-        }
-
-        $key = 'runSeleniumTests';
-
-        self::assertFalse(
-            $this->subject->isActive($key)
-        );
     }
 
     /**

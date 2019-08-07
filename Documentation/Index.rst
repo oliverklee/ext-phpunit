@@ -37,6 +37,5 @@ The content of this document is related to TYPO3 - a GNU/GPL CMS/Framework avail
    UsersManual/Index
    UnitTestingBasicsAndBestPractices/Index
    TheIncludedTestingFrameworkClass/Index
-   AcceptanceTestingUsingPhpunitAndSelenium/Index
    TechnicalDocumentation/Index
 

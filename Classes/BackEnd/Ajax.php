@@ -33,7 +33,6 @@ class Tx_Phpunit_BackEnd_Ajax
         'testdox',
         'codeCoverage',
         'showTime',
-        'runSeleniumTests',
     ];
 
     /**

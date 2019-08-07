@@ -75,9 +75,6 @@
 			<trans-unit id="testing_failure">
 				<source>Failures!</source>
 			</trans-unit>
-			<trans-unit id="run_selenium_tests">
-				<source>Run Selenium Tests</source>
-			</trans-unit>
 			<trans-unit id="test_are_run_in_current_backend_context.title">
 				<source>Tests run in the current back-end context</source>
 			</trans-unit>
