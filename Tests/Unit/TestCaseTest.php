@@ -21,12 +21,12 @@ class TestCaseTest extends TestCase
     private $protectedClassInstance = null;
 
     /**
-     * @var \Tx_Phpunit_BackEnd_Module|\PHPUnit_Framework_MockObject_MockObject|ProtectedClass
+     * @var ProtectedClass|\PHPUnit_Framework_MockObject_MockObject|ProtectedClass
      */
     private $mock = null;
 
     /**
-     * @var \Tx_Phpunit_BackEnd_Module|\PHPUnit_Framework_MockObject_MockObject|AccessibleObject
+     * @var ProtectedClass|\PHPUnit_Framework_MockObject_MockObject|AccessibleObject
      */
     private $accessibleMock = null;
 

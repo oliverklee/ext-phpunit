@@ -24,39 +24,7 @@ These are basic requirements for using this extension:
    process and php-posix in addition to the normal list of PHP
    extensions.
 
-#. Use the Extension Manager to download and install phpunit.
-
-#. View the extension's options in the Extension Manager and save them at
-   least once.
-
-If you would like to run the unit tests of the phpunit extension
-itself, you'll also need to install the following dummy extension
-which are located in EXT:phpunit/TestExtensions/:
-
-- aaa
-
-- bbb
-
-- ccc
-
-- ddd
-
-- user\_phpunittest
-
-- user\_phpunittest2
-
-For running database tests, you'll also need to provide the TYPO3
-MySQL user with the following global permissions:
-
-- SELECT
-
-- INSERT
-
-- CREATE
-
-- DROP
-
-- ALTER
+#. Use the Extension Manager or Composer to download and install phpunit.
 
 If you would like to use a different PHPUnit version, make sure you install TYPO3 and the phpunit extension
 via composer and specify the desired PHPUnit version in your root composer.json file.
