@@ -92,23 +92,6 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
     }
 
     /**
-     * The destructor.
-     */
-    public function __destruct()
-    {
-        unset(
-            $this->request,
-            $this->testFinder,
-            $this->coverage,
-            $this->testListener,
-            $this->outputService,
-            $this->userSettingsService,
-            $this->testStatistics,
-            $this->testCaseService
-        );
-    }
-
-    /**
      * Injects the request.
      *
      * @param \Tx_Phpunit_Interface_Request $request the request to inject

@@ -51,14 +51,6 @@ class Tx_Phpunit_BackEnd_Ajax
     }
 
     /**
-     * The destructor.
-     */
-    public function __destruct()
-    {
-        unset($this->userSettingsService);
-    }
-
-    /**
      * Injects the user settings service.
      *
      * @param \Tx_Phpunit_Interface_UserSettingsService $service the service to inject

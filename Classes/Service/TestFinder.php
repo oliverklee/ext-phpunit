@@ -60,14 +60,6 @@ class Tx_Phpunit_Service_TestFinder implements SingletonInterface
     }
 
     /**
-     * The destructor.
-     */
-    public function __destruct()
-    {
-        unset($this->extensionSettingsService);
-    }
-
-    /**
      * Checks whether there is testable code for a key.
      *
      * @param string $key

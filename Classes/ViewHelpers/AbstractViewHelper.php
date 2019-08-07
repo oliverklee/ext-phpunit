@@ -17,14 +17,6 @@ abstract class Tx_Phpunit_ViewHelpers_AbstractViewHelper
     protected $outputService = null;
 
     /**
-     * The destructor.
-     */
-    public function __destruct()
-    {
-        unset($this->outputService);
-    }
-
-    /**
      * Injects the output service.
      *
      * @param \Tx_Phpunit_Service_OutputService $service the service to inject
