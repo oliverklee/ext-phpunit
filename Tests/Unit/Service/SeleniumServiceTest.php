@@ -2,12 +2,14 @@
 
 namespace OliverKlee\Phpunit\Tests\Unit\Service;
 
+use OliverKlee\PhpUnit\TestCase;
+
 /**
  * Test case.
  *
  * @author Felix Rauch <rauch@skaiamail.de>
  */
-class SeleniumServiceTest extends \Tx_Phpunit_TestCase
+class SeleniumServiceTest extends TestCase
 {
     /**
      * @var \Tx_Phpunit_Service_SeleniumService|\PHPUnit_Framework_MockObject_MockObject

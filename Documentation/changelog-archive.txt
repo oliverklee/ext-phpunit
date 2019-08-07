@@ -248,7 +248,7 @@ c5c57d6c [TASK] Add a .gitignore file
 96bca9f0 Fixed Bug #36314: Add failure messages for the DB tests mentioning the required DB permissions (thanks to Nicole Cordes)
 9d7cbf38 Fixed Bug #36205: Move the page header stuff from BackEndModule::main() to a a separate function (thanks to Nicole Cordes)
 1f96bee6 Fixed Bug #36163: Rename the fixtures under Tests-Root to reflect proper path (thanks to Nicole Cordes)
-e385e206 Fixed Bug #36650: Fix Tx_Phpunit_Interface_AccessibleObject (thanks to Nicole Cordes)
+e385e206 Fixed Bug #36650: Fix AccessibleObject (thanks to Nicole Cordes)
 7d7f3bd9 Fixed Bug #36763: Label for incomplete tests is missing in the summary (thanks to Nicole Cordes)
 65834d76 Update the manual.
 fa5572c6 Fixed Bug #36471: Add and use a TestStatistics model

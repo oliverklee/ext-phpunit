@@ -18,7 +18,7 @@
 What can the framework do for you?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This extension provides a class :code:`Tx_Phpunit_Framework` which provides
+This extension provides a class :code:`\OliverKlee\PhpUnit\Framework` which provides
 lots of useful helper functions that can do things like these for you:
 
 - simulate a front-end environment

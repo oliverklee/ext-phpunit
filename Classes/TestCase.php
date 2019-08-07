@@ -1,9 +1,12 @@
 <?php
 
+namespace OliverKlee\PhpUnit;
+
+use OliverKlee\Phpunit\Interfaces\AccessibleObject;
+use ReflectionClass;
+
 /**
- * This class provides helper functions that might be convenient when testing in
- * TYPO3. It extends \PHPUnit_Framework_TestCase, so you have access to all of
- * that class as well.
+ * This base class provides helper functions that might be convenient when testing in TYPO3.
  *
  * @author Robert Lemke <robert@typo3.org>
  * @author Kasper Ligaard <kasperligaard@gmail.com>
@@ -12,7 +15,7 @@
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  * @author Nicole Cordes <nicole.cordes@googlemail.com>
  */
-abstract class Tx_Phpunit_TestCase extends \PHPUnit_Framework_TestCase
+abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
     /**
      * whether global variables should be backuped
@@ -38,7 +41,7 @@ abstract class Tx_Phpunit_TestCase extends \PHPUnit_Framework_TestCase
      * @param bool $callOriginalConstructor whether to call the constructor
      * @param bool $callOriginalClone whether to call the __clone method
      *
-     * @return \PHPUnit_Framework_MockObject_MockObject|\Tx_Phpunit_Interface_AccessibleObject
+     * @return \PHPUnit_Framework_MockObject_MockObject|AccessibleObject
      *         a mock of $originalClassName with access methods added
      *
      * @throws \InvalidArgumentException
@@ -83,7 +86,7 @@ abstract class Tx_Phpunit_TestCase extends \PHPUnit_Framework_TestCase
 
         eval(
             $abstractModifier . 'class ' . $accessibleClassName .
-            ' extends ' . $className . ' implements \\Tx_Phpunit_Interface_AccessibleObject {' .
+            ' extends ' . $className . ' implements \\OliverKlee\\Phpunit\\Interfaces\\AccessibleObject {' .
             'public function _call($methodName) {' .
             'if ($methodName === \'\') {' .
             'throw new \\InvalidArgumentException(\'$methodName must not be empty.\', 1334663993);' .

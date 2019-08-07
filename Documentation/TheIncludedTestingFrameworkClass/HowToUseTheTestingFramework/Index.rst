@@ -30,12 +30,12 @@ tests:
 ::
 
    /**
-    * @var Tx_Phpunit_Framework
+    * @var Framework
     */
    private $testingFramework;
 
    protected function setUp() {
-     $this->testingFramework = new Tx_Phpunit_Framework('tx_news2');
+     $this->testingFramework = new Framework('tx_news2');
 
      $this->fixture = new ...;
    }
@@ -78,7 +78,7 @@ for the framework:
 
 ::
 
-   $this->testingFramework = new Tx_Phpunit_Framework('tx_news2', array('tx_foo', 'tx_bar'));
+   $this->testingFramework = new Framework('tx_news2', array('tx_foo', 'tx_bar'));
 
 For system tables, the  *phpunit* extension already provides the
 correct “is\_dummy” columns, so you so not need to add them yourself.

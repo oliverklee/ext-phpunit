@@ -2,6 +2,8 @@
 
 namespace OliverKlee\Phpunit\Tests\Unit;
 
+use OliverKlee\Phpunit\Interfaces\AccessibleObject;
+use OliverKlee\PhpUnit\TestCase;
 use OliverKlee\Phpunit\Tests\Unit\Fixtures\ProtectedClass;
 
 /**
@@ -11,7 +13,7 @@ use OliverKlee\Phpunit\Tests\Unit\Fixtures\ProtectedClass;
  * @author Nicole Cordes <nicole.cordes@googlemail.com>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class TestCaseTest extends \Tx_Phpunit_TestCase
+class TestCaseTest extends TestCase
 {
     /**
      * @var ProtectedClass
@@ -24,7 +26,7 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
     private $mock = null;
 
     /**
-     * @var \Tx_Phpunit_BackEnd_Module|\PHPUnit_Framework_MockObject_MockObject|\Tx_Phpunit_Interface_AccessibleObject
+     * @var \Tx_Phpunit_BackEnd_Module|\PHPUnit_Framework_MockObject_MockObject|AccessibleObject
      */
     private $accessibleMock = null;
 

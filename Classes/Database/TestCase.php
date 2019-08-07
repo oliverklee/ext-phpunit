@@ -1,5 +1,6 @@
 <?php
 
+use OliverKlee\PhpUnit\TestCase;
 use TYPO3\CMS\Core\Cache\DatabaseSchemaService;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
@@ -18,7 +19,7 @@ use TYPO3\CMS\Install\Service\SqlSchemaMigrationService;
  * @author Michael Klapper <michael.klapper@aoemedia.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-abstract class Tx_Phpunit_Database_TestCase extends \Tx_Phpunit_TestCase
+abstract class Tx_Phpunit_Database_TestCase extends TestCase
 {
     /**
      * @var string

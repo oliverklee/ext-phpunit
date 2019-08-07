@@ -2,6 +2,7 @@
 
 namespace OliverKlee\Phpunit\Tests\Functional\Service;
 
+use OliverKlee\PhpUnit\TestCase;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
@@ -11,7 +12,7 @@ use TYPO3\CMS\Core\Utility\VersionNumberUtility;
  *
  * @author Felix Rauch <rauch@skaiamail.de>
  */
-class UserSettingsServiceTest extends \Tx_Phpunit_TestCase
+class UserSettingsServiceTest extends TestCase
 {
     /**
      * @var \Tx_Phpunit_Service_UserSettingsService

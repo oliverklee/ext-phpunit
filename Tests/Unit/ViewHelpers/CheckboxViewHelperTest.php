@@ -2,6 +2,7 @@
 
 namespace OliverKlee\Phpunit\Tests\Unit\ViewHelpers;
 
+use OliverKlee\PhpUnit\TestCase;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
@@ -9,7 +10,7 @@ use TYPO3\CMS\Core\Utility\VersionNumberUtility;
  *
  * @author Felix Rauch <rauch@skaiamail.de>
  */
-class CheckboxViewHelperTest extends \Tx_Phpunit_TestCase
+class CheckboxViewHelperTest extends TestCase
 {
     protected function setUp()
     {
