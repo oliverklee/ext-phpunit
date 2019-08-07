@@ -3,6 +3,7 @@
 namespace OliverKlee\Phpunit\Tests\Unit;
 
 use org\bovigo\vfs\vfsStream;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Exception;
 use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
@@ -59,6 +60,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->t3VarBackup = $GLOBALS['T3_VAR']['getUserObj'];
 
         $this->subject = new \Tx_Phpunit_Framework('tx_phpunit', ['user_phpunittest']);
+        $this->setUpTestDatabase();
     }
 
     protected function tearDown()
@@ -159,6 +161,38 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         } catch (Exception $exception) {
             self::markTestSkipped($exception->getMessage());
         }
+    }
+
+    /**
+     * Populates $GLOBALS['TYPO3_DB'] and creates a test database.
+     *
+     * @see https://github.com/Nimut/testing-framework/blob/master/src/TestingFramework/TestSystem/TestSystem.php
+     *
+     * @return void
+     */
+    protected function setUpTestDatabase()
+    {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 8001000) {
+            return;
+        }
+
+        // The TYPO3 core misses functionality to reset its internal connection state.
+        // This means we need to reset all connections to ensure database connection can be initialized.
+        $closure = \Closure::bind(
+            static function () {
+                foreach (ConnectionPool::$connections as $connection) {
+                    $connection->close();
+                }
+                ConnectionPool::$connections = [];
+            },
+            null,
+            ConnectionPool::class
+        );
+        $closure();
+
+        $databaseName = $this->getProtectedProperty($GLOBALS['TYPO3_DB'], 'databaseName');
+        $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections'][ConnectionPool::DEFAULT_CONNECTION_NAME]['dbname']
+            = $databaseName;
     }
 
     // ---------------------------------------------------------------------
