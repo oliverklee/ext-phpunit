@@ -21,7 +21,7 @@ PHPUnit
 
 :Extension Key: phpunit
 :Language:      en
-:Copyright:     `2000-2013, Kasper Ligaard, kasperligaard@gmail.com`
+:Copyright:     `2000-2019, Kasper Ligaard, kasperligaard@gmail.com`
 :Maintainer:    `Oliver Klee, typo3-coding@oliverklee.de`
 :License:       `CC BY-SA 3.0 <http://creativecommons.org/licenses/by-sa/3.0/>`_
 :Rendered:      |today|
