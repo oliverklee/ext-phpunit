@@ -1,6 +1,6 @@
 <?php
 
-namespace OliverKlee\Phpunit\Command;
+namespace OliverKlee\PhpUnit\Command;
 
 use OliverKlee\Phpunit\Service\LibraryLoader;
 use Symfony\Component\Console\Command\Command;

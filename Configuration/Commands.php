@@ -7,6 +7,6 @@
  */
 return [
     'phpunit:run' => [
-        'class' => \OliverKlee\Phpunit\Command\RunTestsCommand::class,
+        'class' => \OliverKlee\PhpUnit\Command\RunTestsCommand::class,
     ],
 ];
