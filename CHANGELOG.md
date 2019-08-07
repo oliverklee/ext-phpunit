@@ -11,6 +11,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Auto-release to the TER (#67)
 
 ### Changed
+- Change the license from GPL V3+ to GPL V2+ (#108)
 - Streamline ext_localconf.php and ext_tables.php (#103, #105)
 - Namespace the non-deprecated classes and interfaces (#96)
 - Update PHPUnit to 5.7 (#93, #94)
