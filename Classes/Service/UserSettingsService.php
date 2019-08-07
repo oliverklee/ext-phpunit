@@ -2,7 +2,6 @@
 
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\SingletonInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This class provides functions for reading and writing the settings of the back-end user who is currently logged in.
@@ -19,25 +18,6 @@ class Tx_Phpunit_Service_UserSettingsService extends \Tx_Phpunit_AbstractDataCon
      * @var string
      */
     const PHPUNIT_SETTINGS_KEY = 'Tx_Phpunit_BackEndSettings';
-
-    /**
-     * @var \Tx_Phpunit_Interface_SeleniumService
-     */
-    protected $seleniumService = null;
-
-    /**
-     * Constructor.
-     *
-     * @param \Tx_Phpunit_Interface_SeleniumService|null $seleniumService
-     */
-    public function __construct(\Tx_Phpunit_Interface_SeleniumService $seleniumService = null)
-    {
-        if ($seleniumService !== null) {
-            $this->seleniumService = $seleniumService;
-        } else {
-            $this->seleniumService = GeneralUtility::makeInstance(\Tx_Phpunit_Service_SeleniumService::class);
-        }
-    }
 
     /**
      * Returns the value stored for the key $key.
@@ -84,9 +64,6 @@ class Tx_Phpunit_Service_UserSettingsService extends \Tx_Phpunit_AbstractDataCon
         switch ($key) {
             case 'codeCoverage':
                 $isActive = extension_loaded('xdebug');
-                break;
-            case 'runSeleniumTests':
-                $isActive = $this->seleniumService->isSeleniumServerRunning();
                 break;
             case 'thisSettingIsAlwaysInactive':
                 $isActive = false;

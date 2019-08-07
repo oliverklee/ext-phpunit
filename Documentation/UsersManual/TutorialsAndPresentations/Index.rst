@@ -35,6 +35,4 @@ Example projects
 ^^^^^^^^^^^^^^^^
 
 - `Tea example extension for unit-testing extbase extensions
-  <https://github.com/oliverklee/ext_tea>`_
-
-- `Selenium demo <https://github.com/oliverklee/selenium-demo>`_
+  <https://github.com/oliverklee/ext-tea>`_

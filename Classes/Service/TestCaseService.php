@@ -18,11 +18,6 @@ class Tx_Phpunit_Service_TestCaseService implements SingletonInterface
     const BASE_TEST_CASE_CLASS_NAME = 'PHPUnit_Framework_TestCase';
 
     /**
-     * @var string
-     */
-    const SELENIUM_BASE_TEST_CASE_CLASS_NAME = 'PHPUnit_Extensions_Selenium2TestCase';
-
-    /**
      * suffixes that indicate that a file is a test case
      *
      * @var string[]
@@ -197,22 +192,14 @@ class Tx_Phpunit_Service_TestCaseService implements SingletonInterface
     /**
      * Checks whether $className is the name of a non-abstract subclass of the test case base class.
      *
-     * This function also checks for Selenium test cases whether Selenium tests are enabled in the user settings.
-     *
      * @param string $className the class name to check, must not be empty
      *
      * @return bool whether the corresponding class is both non-abstract and a subclass of the test case base class
      */
     protected function classNameIsNonAbstractSubclassOfValidBaseTestCase($className)
     {
-        $classReflection = new ReflectionClass($className);
-        $result = !$classReflection->isAbstract() && $classReflection->isSubclassOf(self::BASE_TEST_CASE_CLASS_NAME);
+        $classReflection = new \ReflectionClass($className);
 
-        if (!$this->userSettingsService->getAsBoolean('runSeleniumTests')
-            && class_exists(self::SELENIUM_BASE_TEST_CASE_CLASS_NAME)) {
-            $result = $result && !$classReflection->isSubclassOf(self::SELENIUM_BASE_TEST_CASE_CLASS_NAME);
-        }
-
-        return $result;
+        return !$classReflection->isAbstract() && $classReflection->isSubclassOf(self::BASE_TEST_CASE_CLASS_NAME);
     }
 }

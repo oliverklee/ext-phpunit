@@ -591,9 +591,6 @@ class Tx_Phpunit_BackEnd_Module extends BaseScriptClass
         $output .= ' <input type="checkbox" id="SET_codeCoverage" ' . $codecoverageDisable . ' ' . $codeCoverageState .
             ' /><label for="SET_codeCoverage"' . $codecoverageForLabelWhenDisabled .
             '>' . $this->translate('collect_code_coverage_data') . '</label>';
-        $runSeleniumTests = $this->userSettingsService->getAsBoolean('runSeleniumTests') ? 'checked="checked"' : '';
-        $output .= ' <input type="checkbox" id="SET_runSeleniumTests" ' . $runSeleniumTests
-            . '/><label for="SET_runSeleniumTests">' . $this->translate('run_selenium_tests') . '</label>';
         $output .= '</div>';
         $output .= '</form>';
 
