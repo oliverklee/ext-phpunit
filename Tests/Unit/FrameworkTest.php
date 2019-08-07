@@ -5,7 +5,6 @@ namespace OliverKlee\Phpunit\Tests\Unit;
 use OliverKlee\PhpUnit\TestCase;
 use org\bovigo\vfs\vfsStream;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Exception;
 use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
@@ -159,7 +158,7 @@ class FrameworkTest extends TestCase
     {
         try {
             $this->subject->checkForZipArchive();
-        } catch (Exception $exception) {
+        } catch (\RuntimeException $exception) {
             self::markTestSkipped($exception->getMessage());
         }
     }
@@ -1426,7 +1425,7 @@ class FrameworkTest extends TestCase
         $GLOBALS['T3_VAR']['getUserObj'][$hookClassName] = $cleanUpHookMock;
         $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['FrameworkCleanUp']['phpunit_tests'] = $hookClassName;
 
-        $this->expectException(Exception::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         $this->subject->cleanUp();
     }
@@ -3931,7 +3930,7 @@ class FrameworkTest extends TestCase
             '/test.txt'
         );
 
-        $this->expectException(Exception::class);
+        $this->expectException(\RuntimeException::class);
 
         $this->subject->deleteDummyFolder(
             $this->subject->getPathRelativeToUploadDirectory($dummyFolder)
@@ -3985,7 +3984,7 @@ class FrameworkTest extends TestCase
     {
         $this->subject->createDummyFile();
 
-        $this->expectException(Exception::class);
+        $this->expectException(\BadMethodCallException::class);
 
         $this->subject->setUploadFolderPath('/foo/bar/');
     }
@@ -4974,7 +4973,7 @@ class FrameworkTest extends TestCase
      */
     public function isLoggedThrowsExceptionWithoutFrontEnd()
     {
-        $this->expectException(Exception::class);
+        $this->expectException(\BadMethodCallException::class);
 
         $this->subject->isLoggedIn();
     }
@@ -5052,7 +5051,7 @@ class FrameworkTest extends TestCase
     {
         $feUserId = $this->subject->createFrontEndUser();
 
-        $this->expectException(Exception::class);
+        $this->expectException(\BadMethodCallException::class);
 
         $this->subject->loginFrontEndUser($feUserId);
     }
@@ -5114,7 +5113,7 @@ class FrameworkTest extends TestCase
      */
     public function logoutFrontEndUserWithoutFrontEndThrowsException()
     {
-        $this->expectException(Exception::class);
+        $this->expectException(\BadMethodCallException::class);
 
         $this->subject->logoutFrontEndUser();
     }

@@ -182,14 +182,14 @@ class Tx_Phpunit_BackEnd_TestListener implements \PHPUnit_Framework_TestListener
      * An error has occurred, i.e. an exception has been thrown when running $test.
      *
      * @param \PHPUnit_Framework_Test $test the test that had an error
-     * @param Exception $e the exception that has caused the error
+     * @param \Exception $e the exception that has caused the error
      * @param float $time ?
      *
      * @return void
      *
      * @throws \InvalidArgumentException
      */
-    public function addError(\PHPUnit_Framework_Test $test, Exception $e, $time)
+    public function addError(\PHPUnit_Framework_Test $test, \Exception $e, $time)
     {
         if (!$test instanceof \PHPUnit_Framework_TestCase) {
             throw new \InvalidArgumentException(

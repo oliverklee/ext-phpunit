@@ -32,6 +32,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Remove the obsolete ext_autoload.php (#56)
 
 ### Fixed
+- Stop using the Core base exception class (#100)
 - Fix the autoloading in RunTestsCommand (#95)
 - Use the DB connection pool in TYPO3 8LTS (#92)
 - Fix PHPUnit inclusion in the BE module (#89)
