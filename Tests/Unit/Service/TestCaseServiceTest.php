@@ -361,7 +361,6 @@ class TestCaseServiceTest extends TestCase
             'existing class with valid _testcase suffix without valid base class' => ['SomeDummyInvalid_testcase'],
             'PHPUnit extension base test class' => [TestCase::class],
             'PHPUnit framework base test class' => [\PHPUnit_Framework_TestCase::class],
-            'PHPUnit extension database base test class' => [\Tx_Phpunit_Database_TestCase::class],
         ];
 
         $classNamesThatMightNotExist = [
