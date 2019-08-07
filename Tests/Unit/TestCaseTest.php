@@ -562,4 +562,91 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
             $parameter
         );
     }
+
+    /**
+     * @test
+     */
+    public function getProtectedPropertyReturnsValueOfPublicProperty()
+    {
+        $object = new ProtectedClass();
+        $result = $this->getProtectedProperty($object, 'publicProperty');
+
+        self::assertSame('This is a public property.', $result);
+    }
+
+    /**
+     * @test
+     */
+    public function getProtectedPropertyReturnsValueOfProtectedProperty()
+    {
+        $object = new ProtectedClass();
+        $result = $this->getProtectedProperty($object, 'protectedProperty');
+
+        self::assertSame('This is a protected property.', $result);
+    }
+
+    /**
+     * @test
+     */
+    public function getProtectedPropertyReturnsValueOfPrivateProperty()
+    {
+        $object = new ProtectedClass();
+        $result = $this->getProtectedProperty($object, 'privateProperty');
+
+        self::assertSame('This is a private property.', $result);
+    }
+
+    /**
+     * @test
+     * @expectedException \ReflectionException
+     */
+    public function getProtectedPropertyForEmptyPropertyNameThrowsException()
+    {
+        $object = new ProtectedClass();
+        $result = $this->getProtectedProperty($object, '');
+
+        self::assertSame('This is a private property.', $result);
+    }
+
+    /**
+     * @test
+     * @expectedException \ReflectionException
+     */
+    public function getProtectedPropertyForInexistentPropertyThrowsException()
+    {
+        $object = new ProtectedClass();
+        $result = $this->getProtectedProperty($object, 'doesNotExist');
+
+        self::assertSame('This is a private property.', $result);
+    }
+
+    /**
+     * @return array[]
+     */
+    public function nonObjectDataProvider()
+    {
+        return [
+            'null' => [null],
+            'bool' => [true],
+            'int' => [1],
+            'float' => [3.14159],
+            'string' => ['Hello!'],
+        ];
+    }
+
+    /**
+     * @test
+     *
+     * @param mixed $nonObject
+     *
+     * @dataProvider nonObjectDataProvider
+     *
+     * @expectedException \InvalidArgumentException
+     */
+    public function getProtectedPropertyOnNonObjectThrowsException($nonObject)
+    {
+        $result = $this->getProtectedProperty($nonObject, 'someProperty');
+
+        self::assertSame('This is a private property.', $result);
+    }
 }

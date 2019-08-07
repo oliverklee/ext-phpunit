@@ -10,12 +10,17 @@ class ProtectedClass
     /**
      * @var string
      */
+    public $publicProperty = 'This is a public property.';
+
+    /**
+     * @var string
+     */
     protected $protectedProperty = 'This is a protected property.';
 
     /**
      * @var string
      */
-    public $publicProperty = 'This is a public property.';
+    private $privateProperty = 'This is a private property.';
 
     /**
      * @var string
