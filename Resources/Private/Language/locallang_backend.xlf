@@ -63,9 +63,6 @@
 			<trans-unit id="assertions_total">
 				<source>assertions</source>
 			</trans-unit>
-			<trans-unit id="tests_seconds">
-				<source>seconds</source>
-			</trans-unit>
 			<trans-unit id="title">
 				<source>PHPUnit BE</source>
 			</trans-unit>
@@ -116,9 +113,6 @@
 			</trans-unit>
 			<trans-unit id="incomplete">
 				<source>Incomplete</source>
-			</trans-unit>
-			<trans-unit id="show_time">
-				<source>Show time</source>
 			</trans-unit>
 			<trans-unit id="collect_code_coverage_data">
 				<source>Collect code-coverage data</source>

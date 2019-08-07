@@ -94,13 +94,6 @@ class Tx_Phpunit_BackEnd_TestListener implements \PHPUnit_Framework_TestListener
     protected $useHumanReadableTextFormat = false;
 
     /**
-     * whether to display the used time of each test
-     *
-     * @var bool
-     */
-    protected $showTime = false;
-
-    /**
      * a name prettifier for creating readable test and test case names
      *
      * @var \PHPUnit_Util_TestDox_NamePrettifier
@@ -156,16 +149,6 @@ class Tx_Phpunit_BackEnd_TestListener implements \PHPUnit_Framework_TestListener
     public function getTotalNumberOfDetectedDataProviderTests()
     {
         return $this->totalNumberOfDetectedDataProviderTests;
-    }
-
-    /**
-     * Enables the option to show the time usage of the single tests.
-     *
-     * @return void
-     */
-    public function enableShowTime()
-    {
-        $this->showTime = true;
     }
 
     /**
@@ -499,10 +482,6 @@ class Tx_Phpunit_BackEnd_TestListener implements \PHPUnit_Framework_TestListener
         }
 
         $output = '</div>';
-        if ($this->showTime) {
-            $output .= '<span class="time-usages small-font"><strong>Time:</strong> ' . sprintf('%.4f', $time) .
-                ' sec.</span><br />';
-        }
         $output .= '</div>' .
             '<script type="text/javascript">/*<![CDATA[*/document.getElementById("progress-bar").style.width = "' .
             $percentDone . '%";/*]]>*/</script>';
