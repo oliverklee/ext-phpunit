@@ -6,7 +6,6 @@
         "phpunit/phpunit": "^5.7",
         "mikey179/vfsstream": "^1.6"
     },
-    "bin": ["../Build/bootstrap.php"],
     "prefer-stable": true,
     "config": {
         "platform": {
