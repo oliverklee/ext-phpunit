@@ -1,9 +1,11 @@
 <?php
 
 use TYPO3\CMS\Core\Cache\DatabaseSchemaService;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Install\Service\SqlExpectedSchemaService;
 use TYPO3\CMS\Install\Service\SqlSchemaMigrationService;
@@ -19,11 +21,14 @@ use TYPO3\CMS\Install\Service\SqlSchemaMigrationService;
 abstract class Tx_Phpunit_Database_TestCase extends \Tx_Phpunit_TestCase
 {
     /**
-     * name of a test database
-     *
      * @var string
      */
-    protected $testDatabase = '';
+    protected $testDatabaseName = '';
+
+    /**
+     * @var string
+     */
+    protected $originalDatabaseName = '';
 
     /**
      * Constructs a test case with the given name.
@@ -38,12 +43,13 @@ abstract class Tx_Phpunit_Database_TestCase extends \Tx_Phpunit_TestCase
         /** @var array $databaseConfiguration */
         $databaseConfiguration = $GLOBALS['TYPO3_CONF_VARS']['DB'];
         if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8001000) {
-            $originalDatabaseName = $databaseConfiguration['Connections']['Default']['dbname'];
+            $this->originalDatabaseName
+                = $databaseConfiguration['Connections'][ConnectionPool::DEFAULT_CONNECTION_NAME]['dbname'];
         } else {
-            $originalDatabaseName = $databaseConfiguration['database'];
+            $this->originalDatabaseName = $databaseConfiguration['database'];
         }
 
-        $this->testDatabase = strtolower($originalDatabaseName . '_test');
+        $this->testDatabaseName = strtolower($this->originalDatabaseName . '_test');
     }
 
     /**
@@ -78,8 +84,8 @@ abstract class Tx_Phpunit_Database_TestCase extends \Tx_Phpunit_TestCase
         $databaseNames = $db->admin_get_dbs();
         $this->switchToOriginalTypo3Database($db);
 
-        if (!in_array($this->testDatabase, $databaseNames, true)
-            && $db->admin_query('CREATE DATABASE `' . $this->testDatabase . '`') === false) {
+        if (!in_array($this->testDatabaseName, $databaseNames, true)
+            && $db->admin_query('CREATE DATABASE `' . $this->testDatabaseName . '`') === false) {
             $success = false;
         }
 
@@ -97,11 +103,11 @@ abstract class Tx_Phpunit_Database_TestCase extends \Tx_Phpunit_TestCase
         $databaseNames = $db->admin_get_dbs();
         $this->switchToOriginalTypo3Database($db);
 
-        if (!in_array($this->testDatabase, $databaseNames, true)) {
+        if (!in_array($this->testDatabaseName, $databaseNames, true)) {
             return;
         }
 
-        $this->selectDatabase($this->testDatabase, $db);
+        $this->selectDatabase($this->testDatabaseName, $db);
 
         $tables = $this->getDatabaseTables();
         foreach ($tables as $tableName) {
@@ -121,13 +127,13 @@ abstract class Tx_Phpunit_Database_TestCase extends \Tx_Phpunit_TestCase
         $databaseNames = $db->admin_get_dbs();
         $this->switchToOriginalTypo3Database($db);
 
-        if (!in_array($this->testDatabase, $databaseNames, true)) {
+        if (!in_array($this->testDatabaseName, $databaseNames, true)) {
             return true;
         }
 
-        $this->selectDatabase($this->testDatabase, $db);
+        $this->selectDatabase($this->testDatabaseName, $db);
 
-        return $db->admin_query('DROP DATABASE `' . $this->testDatabase . '`') !== false;
+        return $db->admin_query('DROP DATABASE `' . $this->testDatabaseName . '`') !== false;
     }
 
     /**
@@ -140,13 +146,29 @@ abstract class Tx_Phpunit_Database_TestCase extends \Tx_Phpunit_TestCase
      *        name of the current TYPO3 database plus a suffix "_test" is used
      *
      * @return DatabaseConnection the test database
+     *
+     * @throws Exception
      */
     protected function useTestDatabase($databaseName = null)
     {
         $db = \Tx_Phpunit_Service_Database::getDatabaseConnection();
 
-        if (!$this->selectDatabase($databaseName ?: $this->testDatabase, $db)) {
+        if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8001000) {
+            $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections'][ConnectionPool::DEFAULT_CONNECTION_NAME]['dbname'] =
+                $this->testDatabaseName;
+        } else {
+            $GLOBALS['TYPO3_CONF_VARS']['DB']['database'] = $this->testDatabaseName;
+        }
+
+        if (!$this->selectDatabase($databaseName ?: $this->testDatabaseName, $db)) {
             static::markTestSkipped('This test is skipped because the test database is not available.');
+        }
+
+        $this->setUpTestDatabase();
+        if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8001000) {
+            /** @var ConnectionPool $connectionPool */
+            $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
+            $connectionPool->getConnectionByName(ConnectionPool::DEFAULT_CONNECTION_NAME);
         }
 
         return $db;
@@ -176,15 +198,7 @@ abstract class Tx_Phpunit_Database_TestCase extends \Tx_Phpunit_TestCase
      */
     protected function switchToOriginalTypo3Database($databaseObject)
     {
-        /** @var array $databaseConfiguration */
-        $databaseConfiguration = $GLOBALS['TYPO3_CONF_VARS']['DB'];
-        if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 8001000) {
-            $databaseName = $databaseConfiguration['Connections']['Default']['dbname'];
-        } else {
-            $databaseName = $databaseConfiguration['database'];
-        }
-
-        $this->selectDatabase($databaseName, $databaseObject);
+        $this->selectDatabase($this->originalDatabaseName, $databaseObject);
     }
 
     /**
@@ -229,13 +243,10 @@ abstract class Tx_Phpunit_Database_TestCase extends \Tx_Phpunit_TestCase
             $this->importExtension($extensionName);
         }
 
-        // TODO: The hook should be replaced by real clean up and rebuild the whole
-        // "TYPO3_CONF_VARS" in order to have a clean testing environment.
-        // hook to load additional files
-        if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['importExtensions_additionalDatabaseFiles'])) {
-            foreach (
-                $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['importExtensions_additionalDatabaseFiles'] as
-                $file) {
+        // "TYPO3_CONF_VARS" in order to have a clean testing environment. Hook to load additional files.
+        $hooks = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['importExtensions_additionalDatabaseFiles'];
+        if (\is_array($hooks)) {
+            foreach ($hooks as $file) {
                 $sqlFilename = GeneralUtility::getFileAbsFileName($file);
                 $fileContent = GeneralUtility::getUrl($sqlFilename);
 
@@ -466,5 +477,48 @@ abstract class Tx_Phpunit_Database_TestCase extends \Tx_Phpunit_TestCase
                 $foreignKeys[$tableName][$elementId] = $db->sql_insert_id();
             }
         }
+    }
+
+    /**
+     * Populates $GLOBALS['TYPO3_DB'] and creates the test database
+     *
+     * @see https://github.com/Nimut/testing-framework/blob/master/src/TestingFramework/TestSystem/TestSystem.php
+     *
+     * @return void
+     */
+    protected function setUpTestDatabase()
+    {
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 8001000) {
+            return;
+        }
+
+        // The TYPO3 core misses functionality to reset its internal connection state.
+        // This means we need to reset all connections to ensure database connection can be initialized.
+        $closure = \Closure::bind(
+            static function () {
+                foreach (ConnectionPool::$connections as $connection) {
+                    $connection->close();
+                }
+                ConnectionPool::$connections = [];
+            },
+            null,
+            ConnectionPool::class
+        );
+        $closure();
+    }
+
+    /**
+     * @param array $coreExtensions
+     *
+     * @return
+     */
+    protected function importCoreExtensionDefinitions(array $coreExtensions)
+    {
+        foreach ($coreExtensions as $coreExtension) {
+            $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['importExtensions_additionalDatabaseFiles'][]
+                = PATH_typo3 . 'sysext/' . $coreExtension . '/ext_tables.sql';
+        }
+
+        $this->importExtensions([]);
     }
 }
