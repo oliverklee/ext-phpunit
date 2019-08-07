@@ -40,7 +40,7 @@ class TestCaseTest extends \Tx_Phpunit_TestCase
         require_once __DIR__ . '/Fixtures/ProtectedClass.php';
 
         $this->protectedClassInstance = new ProtectedClass();
-        $this->mock = $this->getMock(ProtectedClass::class, ['dummy']);
+        $this->mock = $this->getMockBuilder(ProtectedClass::class)->setMethods(['dummy'])->getMock();
         $this->accessibleMock = $this->getAccessibleMock(
             ProtectedClass::class,
             ['dummy']

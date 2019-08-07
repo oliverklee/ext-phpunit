@@ -59,7 +59,7 @@ class AjaxTest extends \Tx_Phpunit_TestCase
         $GLOBALS['_POST']['state'] = '1';
 
         /** @var AjaxRequestHandler|\PHPUnit_Framework_MockObject_MockObject $ajax */
-        $ajax = $this->getMock(AjaxRequestHandler::class, [], ['']);
+        $ajax = $this->createMock(AjaxRequestHandler::class);
         $this->subject->ajaxBroker([], $ajax);
 
         self::assertTrue(
@@ -75,7 +75,7 @@ class AjaxTest extends \Tx_Phpunit_TestCase
         $GLOBALS['_POST']['checkbox'] = 'failure';
 
         /** @var AjaxRequestHandler|\PHPUnit_Framework_MockObject_MockObject $ajax */
-        $ajax = $this->getMock(AjaxRequestHandler::class, [], ['']);
+        $ajax = $this->createMock(AjaxRequestHandler::class);
         $this->subject->ajaxBroker([], $ajax);
 
         self::assertFalse(
@@ -91,7 +91,7 @@ class AjaxTest extends \Tx_Phpunit_TestCase
         $GLOBALS['_POST']['checkbox'] = 'failure';
 
         /** @var AjaxRequestHandler|\PHPUnit_Framework_MockObject_MockObject $ajax */
-        $ajax = $this->getMock(AjaxRequestHandler::class, [], ['']);
+        $ajax = $this->createMock(AjaxRequestHandler::class);
         $ajax->expects(self::once())->method('addContent')->with('success', true);
         $ajax->expects(self::never())->method('setError');
 
@@ -106,7 +106,7 @@ class AjaxTest extends \Tx_Phpunit_TestCase
         $GLOBALS['_POST']['checkbox'] = 'success';
 
         /** @var AjaxRequestHandler|\PHPUnit_Framework_MockObject_MockObject $ajax */
-        $ajax = $this->getMock(AjaxRequestHandler::class, [], ['']);
+        $ajax = $this->createMock(AjaxRequestHandler::class);
         $ajax->expects(self::once())->method('addContent')->with('success', true);
         $ajax->expects(self::never())->method('setError');
 
@@ -121,7 +121,7 @@ class AjaxTest extends \Tx_Phpunit_TestCase
         $GLOBALS['_POST']['checkbox'] = 'error';
 
         /** @var AjaxRequestHandler|\PHPUnit_Framework_MockObject_MockObject $ajax */
-        $ajax = $this->getMock(AjaxRequestHandler::class, [], ['']);
+        $ajax = $this->createMock(AjaxRequestHandler::class);
         $ajax->expects(self::once())->method('addContent')->with('success', true);
         $ajax->expects(self::never())->method('setError');
 
@@ -136,7 +136,7 @@ class AjaxTest extends \Tx_Phpunit_TestCase
         $GLOBALS['_POST']['checkbox'] = 'skipped';
 
         /** @var AjaxRequestHandler|\PHPUnit_Framework_MockObject_MockObject $ajax */
-        $ajax = $this->getMock(AjaxRequestHandler::class, [], ['']);
+        $ajax = $this->createMock(AjaxRequestHandler::class);
         $ajax->expects(self::once())->method('addContent')->with('success', true);
         $ajax->expects(self::never())->method('setError');
 
@@ -151,7 +151,7 @@ class AjaxTest extends \Tx_Phpunit_TestCase
         $GLOBALS['_POST']['checkbox'] = 'incomplete';
 
         /** @var AjaxRequestHandler|\PHPUnit_Framework_MockObject_MockObject $ajax */
-        $ajax = $this->getMock(AjaxRequestHandler::class, [], ['']);
+        $ajax = $this->createMock(AjaxRequestHandler::class);
         $ajax->expects(self::once())->method('addContent')->with('success', true);
         $ajax->expects(self::never())->method('setError');
 
@@ -166,7 +166,7 @@ class AjaxTest extends \Tx_Phpunit_TestCase
         $GLOBALS['_POST']['checkbox'] = 'testdox';
 
         /** @var AjaxRequestHandler|\PHPUnit_Framework_MockObject_MockObject $ajax */
-        $ajax = $this->getMock(AjaxRequestHandler::class, [], ['']);
+        $ajax = $this->createMock(AjaxRequestHandler::class);
         $ajax->expects(self::once())->method('addContent')->with('success', true);
         $ajax->expects(self::never())->method('setError');
 
@@ -181,7 +181,7 @@ class AjaxTest extends \Tx_Phpunit_TestCase
         $GLOBALS['_POST']['checkbox'] = 'codeCoverage';
 
         /** @var AjaxRequestHandler|\PHPUnit_Framework_MockObject_MockObject $ajax */
-        $ajax = $this->getMock(AjaxRequestHandler::class, [], ['']);
+        $ajax = $this->createMock(AjaxRequestHandler::class);
         $ajax->expects(self::once())->method('addContent')->with('success', true);
         $ajax->expects(self::never())->method('setError');
 
@@ -196,7 +196,7 @@ class AjaxTest extends \Tx_Phpunit_TestCase
         $GLOBALS['_POST']['checkbox'] = 'showTime';
 
         /** @var AjaxRequestHandler|\PHPUnit_Framework_MockObject_MockObject $ajax */
-        $ajax = $this->getMock(AjaxRequestHandler::class, [], ['']);
+        $ajax = $this->createMock(AjaxRequestHandler::class);
         $ajax->expects(self::once())->method('addContent')->with('success', true);
         $ajax->expects(self::never())->method('setError');
 
@@ -211,7 +211,7 @@ class AjaxTest extends \Tx_Phpunit_TestCase
         $GLOBALS['_POST']['checkbox'] = 'runSeleniumTests';
 
         /** @var AjaxRequestHandler|\PHPUnit_Framework_MockObject_MockObject $ajax */
-        $ajax = $this->getMock(AjaxRequestHandler::class, [], ['']);
+        $ajax = $this->createMock(AjaxRequestHandler::class);
         $ajax->expects(self::once())->method('addContent')->with('success', true);
         $ajax->expects(self::never())->method('setError');
 
@@ -224,7 +224,7 @@ class AjaxTest extends \Tx_Phpunit_TestCase
     public function ajaxBrokerForMissingCheckboxParameterSetsError()
     {
         /** @var AjaxRequestHandler|\PHPUnit_Framework_MockObject_MockObject $ajax */
-        $ajax = $this->getMock(AjaxRequestHandler::class, [], ['']);
+        $ajax = $this->createMock(AjaxRequestHandler::class);
         $ajax->expects(self::once())->method('setError');
 
         $this->subject->ajaxBroker([], $ajax);
@@ -238,7 +238,7 @@ class AjaxTest extends \Tx_Phpunit_TestCase
         $GLOBALS['_POST']['checkbox'] = 'anything else';
 
         /** @var AjaxRequestHandler|\PHPUnit_Framework_MockObject_MockObject $ajax */
-        $ajax = $this->getMock(AjaxRequestHandler::class, [], ['']);
+        $ajax = $this->createMock(AjaxRequestHandler::class);
         $ajax->expects(self::once())->method('setError');
 
         $this->subject->ajaxBroker([], $ajax);

@@ -99,13 +99,11 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
         $path = 'OneTest.php';
 
         /** @var \Tx_Phpunit_Service_TestCaseService|\PHPUnit_Framework_MockObject_MockObject $subject */
-        $subject = $this->getMock(
-            \Tx_Phpunit_Service_TestCaseService::class,
-            ['isNotFixturesPath', 'isTestCaseFileName']
-        );
-        $subject->expects(self::any())->method('isNotFixturesPath')->will(self::returnValue(true));
+        $subject = $this->getMockBuilder(\Tx_Phpunit_Service_TestCaseService::class)
+            ->setMethods(['isNotFixturesPath', 'isTestCaseFileName'])->getMock();
+        $subject->method('isNotFixturesPath')->willReturn(true);
         $subject->expects(self::at(1))->method('isTestCaseFileName')
-            ->with($this->fixturesPath . $path)->will(self::returnValue(true));
+            ->with($this->fixturesPath . $path)->willReturn(true);
 
         self::assertContains(
             $path,
@@ -121,13 +119,11 @@ class TestCaseServiceTest extends \Tx_Phpunit_TestCase
         $path = 'OneTest.php';
 
         /** @var \Tx_Phpunit_Service_TestCaseService|\PHPUnit_Framework_MockObject_MockObject $subject */
-        $subject = $this->getMock(
-            \Tx_Phpunit_Service_TestCaseService::class,
-            ['isNotFixturesPath', 'isTestCaseFileName']
-        );
-        $subject->expects(self::any())->method('isNotFixturesPath')->will(self::returnValue(true));
+        $subject = $this->getMockBuilder(\Tx_Phpunit_Service_TestCaseService::class)
+            ->setMethods(['isNotFixturesPath', 'isTestCaseFileName'])->getMock();
+        $subject->method('isNotFixturesPath')->willReturn(true);
         $subject->expects(self::at(1))->method('isTestCaseFileName')
-            ->with($this->fixturesPath . $path)->will(self::returnValue(false));
+            ->with($this->fixturesPath . $path)->willReturn(false);
 
         self::assertNotContains(
             $path,

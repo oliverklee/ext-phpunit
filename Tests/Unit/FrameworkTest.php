@@ -1387,11 +1387,11 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
         $this->subject->createDummyFile();
 
-        self::assertTrue(is_dir($this->subject->getUploadFolderPath()));
+        self::assertDirectoryExists($this->subject->getUploadFolderPath());
 
         $this->subject->cleanUp();
 
-        self::assertFalse(is_dir($this->subject->getUploadFolderPath()));
+        self::assertDirectoryNotExists($this->subject->getUploadFolderPath());
     }
 
     /**
@@ -1401,7 +1401,8 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $this->subject->purgeHooks();
 
-        $cleanUpHookMock = $this->getMock(\Tx_Phpunit_Interface_FrameworkCleanupHook::class, ['cleanUp']);
+        $cleanUpHookMock = $this->getMockBuilder(\Tx_Phpunit_Interface_FrameworkCleanupHook::class)
+            ->setMethods(['cleanUp'])->getMock();
         $cleanUpHookMock->expects(self::atLeastOnce())->method('cleanUp');
 
         $hookClassName = get_class($cleanUpHookMock);
@@ -1419,7 +1420,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->purgeHooks();
 
         $hookClassName = uniqid('cleanUpHook');
-        $cleanUpHookMock = $this->getMock($hookClassName, ['cleanUp']);
+        $cleanUpHookMock = $this->getMockBuilder($hookClassName)->setMethods(['cleanUp'])->getMock();
 
         $GLOBALS['T3_VAR']['getUserObj'][$hookClassName] = $cleanUpHookMock;
         $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['phpunit']['FrameworkCleanUp']['phpunit_tests'] = $hookClassName;
@@ -3561,7 +3562,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
         $this->subject->createDummyFile();
 
-        self::assertTrue(is_dir($this->subject->getUploadFolderPath()));
+        self::assertDirectoryExists($this->subject->getUploadFolderPath());
     }
 
     /**
@@ -3739,7 +3740,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
         $this->subject->createDummyZipArchive();
 
-        self::assertTrue(is_dir($this->subject->getUploadFolderPath()));
+        self::assertDirectoryExists($this->subject->getUploadFolderPath());
     }
 
     /**
@@ -3817,7 +3818,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
     {
         $dummyFolder = $this->subject->createDummyFolder('test_folder');
 
-        self::assertTrue(is_dir($dummyFolder));
+        self::assertDirectoryExists($dummyFolder);
     }
 
     /**
@@ -3831,7 +3832,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
             '/test_folder'
         );
 
-        self::assertTrue(is_dir($innerDummyFolder));
+        self::assertDirectoryExists($innerDummyFolder);
     }
 
     /**
@@ -3842,7 +3843,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
         $this->subject->createDummyFolder('test_folder');
 
-        self::assertTrue(is_dir($this->subject->getUploadFolderPath()));
+        self::assertDirectoryExists($this->subject->getUploadFolderPath());
     }
 
     /**
@@ -3853,7 +3854,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
         $this->subject->setUploadFolderPath(PATH_site . 'typo3temp/tx_phpunit_test/');
         $dummyFolder = $this->subject->createDummyFolder('test_folder');
 
-        self::assertTrue(is_dir($dummyFolder));
+        self::assertDirectoryExists($dummyFolder);
     }
 
     // ---------------------------------------------------------------------
@@ -3870,7 +3871,7 @@ class FrameworkTest extends \Tx_Phpunit_TestCase
             $this->subject->getPathRelativeToUploadDirectory($dummyFolder)
         );
 
-        self::assertFalse(is_dir($dummyFolder));
+        self::assertDirectoryNotExists($dummyFolder);
     }
 
     /**

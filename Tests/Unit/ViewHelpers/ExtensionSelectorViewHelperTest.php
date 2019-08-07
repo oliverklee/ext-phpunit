@@ -55,8 +55,8 @@ class ExtensionSelectorViewHelperTest extends \Tx_Phpunit_TestCase
         }
 
         /** @var LanguageService|\PHPUnit_Framework_MockObject_MockObject $languageServiceMock */
-        $languageServiceMock = $this->getMock(LanguageService::class);
-        $languageServiceMock->expects(static::any())->method('getLL')->willReturn('translatedLabel');
+        $languageServiceMock = $this->createMock(LanguageService::class);
+        $languageServiceMock->method('getLL')->willReturn('translatedLabel');
         $GLOBALS['LANG'] = $languageServiceMock;
 
         $this->subject = new \Tx_Phpunit_ViewHelpers_ExtensionSelectorViewHelper();
@@ -172,8 +172,9 @@ class ExtensionSelectorViewHelperTest extends \Tx_Phpunit_TestCase
         $subject->injectUserSettingService($this->userSettingsService);
 
         /** @var \Tx_Phpunit_Service_TestFinder|\PHPUnit_Framework_MockObject_MockObject $testFinder */
-        $testFinder = $this->getMock(\Tx_Phpunit_Service_TestFinder::class, ['getTestablesForEverything']);
-        $testFinder->expects(self::any())->method('getTestablesForEverything')->will(self::returnValue([]));
+        $testFinder = $this->getMockBuilder(\Tx_Phpunit_Service_TestFinder::class)
+            ->setMethods(['getTestablesForEverything'])->getMock();
+        $testFinder->method('getTestablesForEverything')->willReturn([]);
         $subject->injectTestFinder($testFinder);
 
         $subject->render();
@@ -199,9 +200,10 @@ class ExtensionSelectorViewHelperTest extends \Tx_Phpunit_TestCase
         $subject->injectUserSettingService($this->userSettingsService);
 
         /** @var \Tx_Phpunit_Service_TestFinder|\PHPUnit_Framework_MockObject_MockObject $testFinder */
-        $testFinder = $this->getMock(\Tx_Phpunit_Service_TestFinder::class, ['getTestablesForEverything']);
-        $testFinder->expects(self::any())->method('getTestablesForEverything')
-            ->will(self::returnValue([$extensionKey => $testable]));
+        $testFinder = $this->getMockBuilder(\Tx_Phpunit_Service_TestFinder::class)
+            ->setMethods(['getTestablesForEverything'])->getMock();
+        $testFinder->method('getTestablesForEverything')
+            ->willReturn([$extensionKey => $testable]);
         $subject->injectTestFinder($testFinder);
 
         $subject->render();
@@ -227,9 +229,10 @@ class ExtensionSelectorViewHelperTest extends \Tx_Phpunit_TestCase
         $subject->injectUserSettingService($this->userSettingsService);
 
         /** @var \Tx_Phpunit_Service_TestFinder|\PHPUnit_Framework_MockObject_MockObject $testFinder */
-        $testFinder = $this->getMock(\Tx_Phpunit_Service_TestFinder::class, ['getTestablesForEverything']);
-        $testFinder->expects(self::any())->method('getTestablesForEverything')
-            ->will(self::returnValue([$extensionKey => $testable]));
+        $testFinder = $this->getMockBuilder(\Tx_Phpunit_Service_TestFinder::class)
+            ->setMethods(['getTestablesForEverything'])->getMock();
+        $testFinder->method('getTestablesForEverything')
+            ->willReturn([$extensionKey => $testable]);
         $subject->injectTestFinder($testFinder);
 
         $subject->render();
@@ -262,9 +265,10 @@ class ExtensionSelectorViewHelperTest extends \Tx_Phpunit_TestCase
         $subject->injectUserSettingService($this->userSettingsService);
 
         /** @var \Tx_Phpunit_Service_TestFinder|\PHPUnit_Framework_MockObject_MockObject $testFinder */
-        $testFinder = $this->getMock(\Tx_Phpunit_Service_TestFinder::class, ['getTestablesForEverything']);
-        $testFinder->expects(self::any())->method('getTestablesForEverything')
-            ->will(self::returnValue([$extensionKey1 => $testable1, $extensionKey2 => $testable2]));
+        $testFinder = $this->getMockBuilder(\Tx_Phpunit_Service_TestFinder::class)
+            ->setMethods(['getTestablesForEverything'])->getMock();
+        $testFinder->method('getTestablesForEverything')
+            ->willReturn([$extensionKey1 => $testable1, $extensionKey2 => $testable2]);
         $subject->injectTestFinder($testFinder);
 
         $subject->render();
@@ -290,9 +294,10 @@ class ExtensionSelectorViewHelperTest extends \Tx_Phpunit_TestCase
         $subject->injectUserSettingService($this->userSettingsService);
 
         /** @var \Tx_Phpunit_Service_TestFinder|\PHPUnit_Framework_MockObject_MockObject $testFinder */
-        $testFinder = $this->getMock(\Tx_Phpunit_Service_TestFinder::class, ['getTestablesForEverything']);
-        $testFinder->expects(self::any())->method('getTestablesForEverything')
-            ->will(self::returnValue([$extensionKey => $testable]));
+        $testFinder = $this->getMockBuilder(\Tx_Phpunit_Service_TestFinder::class)
+            ->setMethods(['getTestablesForEverything'])->getMock();
+        $testFinder->method('getTestablesForEverything')
+            ->willReturn([$extensionKey => $testable]);
         $subject->injectTestFinder($testFinder);
 
         $subject->render();
@@ -318,9 +323,10 @@ class ExtensionSelectorViewHelperTest extends \Tx_Phpunit_TestCase
         $subject->injectUserSettingService($this->userSettingsService);
 
         /** @var \Tx_Phpunit_Service_TestFinder|\PHPUnit_Framework_MockObject_MockObject $testFinder */
-        $testFinder = $this->getMock(\Tx_Phpunit_Service_TestFinder::class, ['getTestablesForEverything']);
-        $testFinder->expects(self::any())->method('getTestablesForEverything')
-            ->will(self::returnValue([$extensionKey => $testable]));
+        $testFinder = $this->getMockBuilder(\Tx_Phpunit_Service_TestFinder::class)
+            ->setMethods(['getTestablesForEverything'])->getMock();
+        $testFinder->method('getTestablesForEverything')
+            ->willReturn([$extensionKey => $testable]);
         $subject->injectTestFinder($testFinder);
 
         $subject->render();
