@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+- Add option to pass CLI options to PHPUnit (#102)
 - Add TestCase::getProtectedProperty (#91)
 - Auto-release to the TER (#67)
 
