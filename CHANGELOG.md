@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Drop the testing framework (#112)
 - Drop the time statistics (#113)
 - Drop DatabaseTestCase (#111)
 - Drop the Selenium integration (#110)

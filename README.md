@@ -6,8 +6,7 @@
 [![Latest Unstable Version](https://poser.pugx.org/oliverklee/phpunit/v/unstable.svg)](https://packagist.org/packages/oliverklee/phpunit)
 [![License](https://poser.pugx.org/oliverklee/phpunit/license.svg)](https://packagist.org/packages/oliverklee/phpunit)
 
-Unit testing for TYPO3. Includes PHPUnit, a CLI test runner and
-a testing framework.
+Unit testing for TYPO3. Includes PHPUnit and a CLI test runner.
 
 Most of the documentation is in ReST format
 [in the Documentation/ folder](Documentation/) and is rendered
