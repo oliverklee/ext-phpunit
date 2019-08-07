@@ -85,13 +85,6 @@ function setProgressBarClass(className) {
 		toggleStyleNodeForMassHidingOfElements(className, display);
 	};
 
-	var toggleCodeCoverage = function(event) {
-		var target = event.target;
-		var state = target.checked ? '1' : '0';
-
-		jQuery.post(TYPO3.settings.ajaxUrls['PHPUnitAJAX::saveCheckbox'], { state: state, checkbox: 'codeCoverage' });
-	};
-
 	/**
 	 * Sets class to container which indicates testcases to be hidden/shown
 	 * (performance boost compared to iterative adding of inline styles)
@@ -171,7 +164,6 @@ function setProgressBarClass(className) {
 		}
 
 		jQuery(checkboxes).click(toggle);
-		jQuery('#SET_codeCoverage').click(toggleCodeCoverage);
 
 		checkForCrashedTest();
 	});

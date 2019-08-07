@@ -114,12 +114,6 @@
 			<trans-unit id="incomplete">
 				<target>Unvollständig</target>
 			</trans-unit>
-			<trans-unit id="collect_code_coverage_data">
-				<target>Sammle Code-Coverage-Daten</target>
-			</trans-unit>
-			<trans-unit id="code_coverage_requires_xdebug">
-				<target>Für die Code-Coverage-Daten muss Xdebug installiert sein</target>
-			</trans-unit>
 		</body>
 	</file>
 </xliff>

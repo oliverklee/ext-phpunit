@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Remove the UI for code coverage (#116)
 - Drop the IDE test runner (#114)
 - Drop the testing framework (#113, #115)
 - Drop the time statistics (#112)

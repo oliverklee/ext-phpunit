@@ -177,21 +177,6 @@ class AjaxTest extends TestCase
     /**
      * @test
      */
-    public function ajaxBrokerForCodeCoverageCheckboxParameterAddsSuccessContent()
-    {
-        $GLOBALS['_POST']['checkbox'] = 'codeCoverage';
-
-        /** @var AjaxRequestHandler|\PHPUnit_Framework_MockObject_MockObject $ajax */
-        $ajax = $this->createMock(AjaxRequestHandler::class);
-        $ajax->expects(self::once())->method('addContent')->with('success', true);
-        $ajax->expects(self::never())->method('setError');
-
-        $this->subject->ajaxBroker([], $ajax);
-    }
-
-    /**
-     * @test
-     */
     public function ajaxBrokerForMissingCheckboxParameterSetsError()
     {
         /** @var AjaxRequestHandler|\PHPUnit_Framework_MockObject_MockObject $ajax */
