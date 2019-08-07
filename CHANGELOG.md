@@ -13,6 +13,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 
 ### Removed
+- Drop the legacy CLI test runner (#120)
 - Drop the back-end module (#118)
 - Remove the UI for code coverage (#116)
 - Drop the IDE test runner (#114, #117)
