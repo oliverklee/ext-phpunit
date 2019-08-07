@@ -8,7 +8,7 @@ use TYPO3\CMS\Core\Controller\CommandLineController;
 /**
  * Abstract TestRunner class. Can be used to implement other TestRunners which need CLI scope.
  *
- * Currently only CliTestRunner and IdeTestRunner are implemented.
+ * Currently only CliTestRunner is implemented.
  *
  * @deprecated Will be removed in PHPUnit 6.
  *

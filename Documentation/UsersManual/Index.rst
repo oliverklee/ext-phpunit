@@ -28,6 +28,5 @@ Users manual
    Installation/Index
    UsingAnotherVersionOfPhpunitThanTheVersionProvidedWithTheExtension/Index
    RunningTheUnitTestsOnTheCommandLine/Index
-   RunningTheUnitTestsInPhpstorm/Index
    RunningTheUnitTestsInAContinuous-integrationEnvironment/Index
 
