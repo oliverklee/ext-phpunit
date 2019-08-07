@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Auto-release to the TER (#67)
 
 ### Changed
+- Update PHPUnit to 5.7 (#93)
 - Stop using a PHAR for including libraries (#87)
 - Use spaces for indenting SQL and .htaccess files (#78)
 - Streamline ext_emconf.php (#74, #75)
@@ -28,7 +29,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Remove the obsolete ext_autoload.php (#56)
 
 ### Fixed
-- Use the DB connection pool in TYPO3 8LTS (#91)
+- Use the DB connection pool in TYPO3 8LTS (#92)
 - Fix PHPUnit inclusion in the BE module (#89)
 - Add the missing vfsStream library (#88)
 - Drop the deprecated "replace" from composer.json (#86)
