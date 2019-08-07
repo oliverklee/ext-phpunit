@@ -11,7 +11,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Auto-release to the TER (#67)
 
 ### Changed
-- Streamline ext_localconf.php and ext_tables.php (#103)
+- Streamline ext_localconf.php and ext_tables.php (#103, #105)
 - Namespace the non-deprecated classes and interfaces (#96)
 - Update PHPUnit to 5.7 (#93, #94)
 - Stop using a PHAR for including libraries (#87)
