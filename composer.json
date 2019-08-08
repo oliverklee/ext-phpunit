@@ -35,9 +35,9 @@
         "typo3-ter/phpunit": "self.version"
     },
     "autoload": {
-        "classmap": [
-            "Classes"
-        ]
+        "psr-4": {
+            "OliverKlee\\PhpUnit\\": "Classes/"
+        }
     },
     "autoload-dev": {
         "psr-4": {
