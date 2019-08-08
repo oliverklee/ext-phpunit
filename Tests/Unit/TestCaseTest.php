@@ -21,7 +21,7 @@ class TestCaseTest extends TestCase
     private $protectedClassInstance = null;
 
     /**
-     * @var ProtectedClass|\PHPUnit_Framework_MockObject_MockObject|ProtectedClass
+     * @var ProtectedClass|\PHPUnit_Framework_MockObject_MockObject
      */
     private $mock = null;
 
