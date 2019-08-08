@@ -23,7 +23,8 @@
     },
     "require": {
         "php": "~7.0.0 || ~7.1.0 || ~7.2.0",
-        "typo3/cms-core": "^8.7.9"
+        "typo3/cms-core": "^8.7.9",
+        "symfony/console": "^3.2 || ^4.0"
     },
     "require-dev": {
         "helhum/typo3-console": "^4.9"

@@ -26,6 +26,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop the Selenium integration (#110)
 
 ### Fixed
+- Require symfony/console (#127)
 - Drop a removed directory from the PHP linting (#130)
 - Stop requesting an upload folder (#121)
 
