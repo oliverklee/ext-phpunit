@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace OliverKlee\PhpUnit;
 
@@ -44,7 +44,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      */
     protected function getAccessibleMock(
         string $originalClassName,
-        array $methods = [],
+        $methods = [],
         array $arguments = [],
         string $mockClassName = '',
         bool $callOriginalConstructor = true,
