@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+- Add support for PHP 7.3 (#124)
 
 ### Changed
 - Upgrade helhum/typo3-console (#129)
