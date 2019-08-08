@@ -39,8 +39,6 @@ class TestCaseTest extends TestCase
 
     protected function setUp()
     {
-        require_once __DIR__ . '/Fixtures/ProtectedClass.php';
-
         $this->protectedClassInstance = new ProtectedClass();
         $this->mock = $this->getMockBuilder(ProtectedClass::class)->setMethods(['dummy'])->getMock();
         $this->accessibleMock = $this->getAccessibleMock(
