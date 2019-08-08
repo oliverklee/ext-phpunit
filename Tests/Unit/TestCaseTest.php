@@ -599,7 +599,7 @@ class TestCaseTest extends TestCase
     /**
      * @return array[]
      */
-    public function nonObjectDataProvider()
+    public function nonObjectDataProvider(): array
     {
         return [
             'null' => [null],

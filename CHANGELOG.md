@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Add support for PHP 7.3 (#124)
 
 ### Changed
+- Upgrade PHPUnit to 6.5.14 (#135)
 - Upgrade helhum/typo3-console (#129)
 - Use PHP 7.0 language features (#131)
 - Move Tests/ from autoload-dev to autoload (#133)
