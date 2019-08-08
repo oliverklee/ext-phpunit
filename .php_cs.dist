@@ -5,6 +5,7 @@ if (PHP_SAPI !== 'cli') {
 
 $rules = [
     '@PHPUnit57Migration:risky' => true,
+    '@PHPUnit60Migration:risky' => true,
 
     'php_unit_construct' => true,
     'php_unit_dedicate_assert' => true,

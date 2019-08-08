@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @author Felix Semmler <felix.semmler@aoe.com>
  */
-class ResultPrinter extends \PHPUnit_TextUI_ResultPrinter
+class ResultPrinter extends \PHPUnit\TextUI\ResultPrinter
 {
     /**
      * @var OutputInterface

@@ -49,7 +49,7 @@ class RunTestsCommand extends Command
      *
      * @return int 0 if everything went fine, an error code otherwise
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         \setlocale(LC_NUMERIC, 'C');
 
@@ -60,7 +60,7 @@ class RunTestsCommand extends Command
         LibraryLoader::includeAll();
 
         // run unit tests
-        $runner = new \PHPUnit_TextUI_Command();
+        $runner = new \PHPUnit\TextUI\Command();
         // The first array key is always ignored.
         $optionsForPhpunit = \array_merge([0 => ''], \explode(' ', (string)$input->getOption('options')));
 
