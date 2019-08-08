@@ -15,7 +15,7 @@ use ReflectionClass;
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  * @author Nicole Cordes <nicole.cordes@googlemail.com>
  */
-abstract class TestCase extends \PHPUnit_Framework_TestCase
+abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
     /**
      * whether global variables should be backuped

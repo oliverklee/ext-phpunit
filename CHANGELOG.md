@@ -27,6 +27,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop the Selenium integration (#110)
 
 ### Fixed
+- Use more PHPUnit 5.7 features (#132)
 - Require symfony/console (#127)
 - Drop a removed directory from the PHP linting (#130)
 - Stop requesting an upload folder (#121)
