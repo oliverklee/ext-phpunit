@@ -14,13 +14,13 @@ $EM_CONF[$_EXTKEY] = [
         'suggests' => [],
     ],
     'state' => 'stable',
-    'clearCacheOnLoad' => false,
     'author' => 'Oliver Klee',
     'author_email' => 'typo3-coding@oliverklee.de',
     'author_company' => 'oliverklee.de',
     'autoload' => [
         'psr-4' => [
-            'OliverKlee\\PhpUnit\\' => 'Classes/'
+            'OliverKlee\\PhpUnit\\' => 'Classes/',
+            'OliverKlee\\PhpUnit\\Tests\\' => 'Tests/'
         ],
     ],
 ];
