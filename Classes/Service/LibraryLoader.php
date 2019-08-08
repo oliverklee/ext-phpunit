@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace OliverKlee\PhpUnit\Service;
 
@@ -16,6 +17,6 @@ class LibraryLoader
      */
     public static function includeAll()
     {
-        require_once PATH_site . 'typo3conf/ext/phpunit/Resources/Private/Php/vendor/autoload.php';
+        require_once __DIR__ . '/../../Resources/Private/Php/vendor/autoload.php';
     }
 }

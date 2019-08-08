@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace OliverKlee\PhpUnit\Tests\Unit\Fixtures;
 
@@ -28,11 +29,11 @@ class ProtectedClass
     protected static $protectedStaticProperty = 'This is a protected static property.';
 
     /**
-     * Protected test function which returns TRUE when processed.
+     * Protected test function which returns true when processed.
      *
-     * @return bool always TRUE
+     * @return bool always true
      */
-    protected function protectedMethod()
+    protected function protectedMethod(): bool
     {
         return true;
     }
@@ -42,17 +43,17 @@ class ProtectedClass
      *
      * @return string a summary of the passed arguments, will not be empty
      */
-    protected function argumentChecker()
+    protected function argumentChecker(): string
     {
-        return func_num_args() . ': ' . implode(', ', func_get_args());
+        return \func_num_args() . ': ' . \implode(', ', \func_get_args());
     }
 
     /**
-     * Public test function which returns TRUE when processed.
+     * Public test function which returns true when processed.
      *
-     * @return bool always TRUE
+     * @return bool always true
      */
-    public function publicMethod()
+    public function publicMethod(): bool
     {
         return true;
     }
@@ -62,7 +63,7 @@ class ProtectedClass
      *
      * @return string
      */
-    public static function getStaticProperty()
+    public static function getStaticProperty(): string
     {
         return self::$protectedStaticProperty;
     }
@@ -74,7 +75,7 @@ class ProtectedClass
      *
      * @return void
      */
-    public static function setStaticProperty($value)
+    public static function setStaticProperty(string $value)
     {
         self::$protectedStaticProperty = $value;
     }

@@ -1,9 +1,9 @@
 <?php
+declare(strict_types=1);
 
 namespace OliverKlee\PhpUnit;
 
 use OliverKlee\PhpUnit\Interfaces\AccessibleObject;
-use ReflectionClass;
 
 /**
  * This base class provides helper functions that might be convenient when testing in TYPO3.
@@ -18,15 +18,11 @@ use ReflectionClass;
 abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
     /**
-     * whether global variables should be backuped
-     *
      * @var bool
      */
     protected $backupGlobals = false;
 
     /**
-     * whether static attributes should be backuped
-     *
      * @var bool
      */
     protected $backupStaticAttributes = false;
@@ -47,12 +43,12 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      * @throws \InvalidArgumentException
      */
     protected function getAccessibleMock(
-        $originalClassName,
+        string $originalClassName,
         array $methods = [],
         array $arguments = [],
-        $mockClassName = '',
-        $callOriginalConstructor = true,
-        $callOriginalClone = true
+        string $mockClassName = '',
+        bool $callOriginalConstructor = true,
+        bool $callOriginalClone = true
     ) {
         if ($originalClassName === '') {
             throw new \InvalidArgumentException('$originalClassName must not be empty.', 1334701880);
@@ -78,16 +74,16 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      *
      * @return string full qualified name of the built class, will not be empty
      */
-    protected function buildAccessibleProxy($className)
+    protected function buildAccessibleProxy(string $className): string
     {
-        $accessibleClassName = str_replace('.', '', uniqid('Tx_Phpunit_AccessibleProxy', true));
-        $class = new ReflectionClass($className);
+        $accessibleClassName = \str_replace('.', '', \uniqid('Tx_Phpunit_AccessibleProxy', true));
+        $class = new \ReflectionClass($className);
         $abstractModifier = $class->isAbstract() ? 'abstract ' : '';
 
         eval(
             $abstractModifier . 'class ' . $accessibleClassName .
             ' extends ' . $className . ' implements \\OliverKlee\\PhpUnit\\Interfaces\\AccessibleObject {' .
-            'public function _call($methodName) {' .
+            'public function _call(string $methodName) {' .
             'if ($methodName === \'\') {' .
             'throw new \\InvalidArgumentException(\'$methodName must not be empty.\', 1334663993);' .
             '}' .
@@ -95,7 +91,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             'return call_user_func_array(array($this, $methodName), array_slice($args, 1));' .
             '}' .
             'public function _callRef(' .
-            '$methodName, &$arg1 = NULL, &$arg2 = NULL, &$arg3 = NULL, &$arg4 = NULL, &$arg5= NULL, &$arg6 = NULL, ' .
+            'string $methodName, &$arg1 = NULL, &$arg2 = NULL, &$arg3 = NULL, &$arg4 = NULL, &$arg5= NULL, &$arg6 = NULL, ' .
             '&$arg7 = NULL, &$arg8 = NULL, &$arg9 = NULL' .
             ') {' .
             'if ($methodName === \'\') {' .
@@ -144,31 +140,31 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             '}' .
             'return $returnValue;' .
             '}' .
-            'public function _set($propertyName, $value) {' .
+            'public function _set(string $propertyName, $value) {' .
             'if ($propertyName === \'\') {' .
             'throw new \\InvalidArgumentException(\'$propertyName must not be empty.\', 1334664355);' .
             '}' .
             '$this->$propertyName = $value;' .
             '}' .
-            'public function _setRef($propertyName, &$value) {' .
+            'public function _setRef(string $propertyName, &$value) {' .
             'if ($propertyName === \'\') {' .
             'throw new \\InvalidArgumentException(\'$propertyName must not be empty.\', 1334664545);' .
             '}' .
             '$this->$propertyName = $value;' .
             '}' .
-            'public function _setStatic($propertyName, $value) {' .
+            'public function _setStatic(string $propertyName, $value) {' .
             'if ($propertyName === \'\') {' .
             'throw new \\InvalidArgumentException(\'$propertyName must not be empty.\', 1344242602);' .
             '}' .
             'self::$$propertyName = $value;' .
             '}' .
-            'public function _get($propertyName) {' .
+            'public function _get(string $propertyName) {' .
             'if ($propertyName === \'\') {' .
             'throw new \\InvalidArgumentException(\'$propertyName must not be empty.\', 1334664967);' .
             '}' .
             'return $this->$propertyName;' .
             '}' .
-            'public function _getStatic($propertyName) {' .
+            'public function _getStatic(string $propertyName) {' .
             'if ($propertyName === \'\') {' .
             'throw new \\InvalidArgumentException(\'$propertyName must not be empty.\', 1344242603);' .
             '}' .
@@ -189,11 +185,11 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      * @throws \InvalidArgumentException
      * @throws \ReflectionException
      */
-    protected function getProtectedProperty($object, $propertyName)
+    protected function getProtectedProperty($object, string $propertyName)
     {
-        if (!is_object($object)) {
+        if (!\is_object($object)) {
             throw new \InvalidArgumentException(
-                '$object needs to be an object, but actually is of type: ' . gettype($object),
+                '$object needs to be an object, but actually is of type: ' . \gettype($object),
                 1565172509
             );
         }

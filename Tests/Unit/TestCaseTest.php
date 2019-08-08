@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace OliverKlee\PhpUnit\Tests\Unit;
 
@@ -140,10 +141,7 @@ class TestCaseTest extends TestCase
      */
     public function protectedPropertyForFixtureIsNotDirectlyAccessible()
     {
-        self::assertNotContains(
-            'protectedProperty',
-            get_object_vars($this->protectedClassInstance)
-        );
+        self::assertNotContains('protectedProperty', \get_object_vars($this->protectedClassInstance));
     }
 
     /**
@@ -195,10 +193,7 @@ class TestCaseTest extends TestCase
      */
     public function protectedPropertyForMockObjectIsNotDirectlyAccessible()
     {
-        self::assertNotContains(
-            'protectedProperty',
-            get_object_vars($this->mock)
-        );
+        self::assertNotContains('protectedProperty', \get_object_vars($this->mock));
     }
 
     /**
@@ -283,7 +278,7 @@ class TestCaseTest extends TestCase
      */
     public function protectedStaticPropertyForAccessibleMockObjectCanBeSet()
     {
-        $newValue = 'New value ' . microtime();
+        $newValue = 'New value ' . \microtime();
         $this->accessibleMock->_setStatic('protectedStaticProperty', $newValue);
 
         self::assertSame(
@@ -297,7 +292,7 @@ class TestCaseTest extends TestCase
      */
     public function protectedStaticPropertyForAccessibleMockObjectCanSetOriginal()
     {
-        $newValue = 'New value ' . microtime();
+        $newValue = 'New value ' . \microtime();
         $this->accessibleMock->_setStatic('protectedStaticProperty', $newValue);
 
         self::assertSame(
@@ -366,9 +361,7 @@ class TestCaseTest extends TestCase
     {
         self::assertSame(
             '0: ',
-            $this->accessibleMock->_callRef(
-                'argumentChecker'
-            )
+            $this->accessibleMock->_callRef('argumentChecker')
         );
     }
 
@@ -380,10 +373,7 @@ class TestCaseTest extends TestCase
         $parameter = 1;
         self::assertSame(
             '1: 1',
-            $this->accessibleMock->_callRef(
-                'argumentChecker',
-                $parameter
-            )
+            $this->accessibleMock->_callRef('argumentChecker', $parameter)
         );
     }
 
@@ -395,11 +385,7 @@ class TestCaseTest extends TestCase
         $parameter = 1;
         self::assertSame(
             '2: 1, 1',
-            $this->accessibleMock->_callRef(
-                'argumentChecker',
-                $parameter,
-                $parameter
-            )
+            $this->accessibleMock->_callRef('argumentChecker', $parameter, $parameter)
         );
     }
 
@@ -411,12 +397,7 @@ class TestCaseTest extends TestCase
         $parameter = 1;
         self::assertSame(
             '3: 1, 1, 1',
-            $this->accessibleMock->_callRef(
-                'argumentChecker',
-                $parameter,
-                $parameter,
-                $parameter
-            )
+            $this->accessibleMock->_callRef('argumentChecker', $parameter, $parameter, $parameter)
         );
     }
 
@@ -428,13 +409,7 @@ class TestCaseTest extends TestCase
         $parameter = 1;
         self::assertSame(
             '4: 1, 1, 1, 1',
-            $this->accessibleMock->_callRef(
-                'argumentChecker',
-                $parameter,
-                $parameter,
-                $parameter,
-                $parameter
-            )
+            $this->accessibleMock->_callRef('argumentChecker', $parameter, $parameter, $parameter, $parameter)
         );
     }
 
@@ -644,7 +619,6 @@ class TestCaseTest extends TestCase
      * @param mixed $nonObject
      *
      * @dataProvider nonObjectDataProvider
-     *
      */
     public function getProtectedPropertyOnNonObjectThrowsException($nonObject)
     {

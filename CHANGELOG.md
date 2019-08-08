@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 ### Changed
+- Use PHP 7.0 language features (#131)
 - Move Tests/ from autoload-dev to autoload (#133)
 - Completely switch to PSR-4 autoloading (#125)
 - Simplify the test run command configuration in .travis.yml (#123)

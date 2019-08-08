@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace OliverKlee\PhpUnit\Command;
 
@@ -50,7 +51,7 @@ class RunTestsCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        setlocale(LC_NUMERIC, 'C');
+        \setlocale(LC_NUMERIC, 'C');
 
         // Store current TYPO3 configuration and set the default one.
         // This is needed as the configuration might include closures which cannot be backed-up.
@@ -61,10 +62,10 @@ class RunTestsCommand extends Command
         // run unit tests
         $runner = new \PHPUnit_TextUI_Command();
         // The first array key is always ignored.
-        $optionsForPhpunit = array_merge([0 => ''], explode(' ', $input->getOption('options')));
+        $optionsForPhpunit = \array_merge([0 => ''], \explode(' ', (string)$input->getOption('options')));
 
         // set default printer only if no specific is set over CLI
-        if (!in_array('--printer', $optionsForPhpunit, true)) {
+        if (!\in_array('--printer', $optionsForPhpunit, true)) {
             $optionsForPhpunit[] = '--printer';
             $optionsForPhpunit[] = ResultPrinter::class;
         }
@@ -75,7 +76,7 @@ class RunTestsCommand extends Command
         $result = (int)$runner->run($optionsForPhpunit);
 
         // restore configuration
-        $GLOBALS['TYPO3_CONF_VARS'] = array_merge($GLOBALS['TYPO3_CONF_VARS'], $globalBackup);
+        $GLOBALS['TYPO3_CONF_VARS'] = \array_merge($GLOBALS['TYPO3_CONF_VARS'], $globalBackup);
 
         return $result;
     }
@@ -85,14 +86,14 @@ class RunTestsCommand extends Command
      *
      * @return array
      */
-    private function removeClosures(array &$variables)
+    private function removeClosures(array &$variables): array
     {
         $backup = [];
         foreach ($variables as $key => &$value) {
-            if (!is_array($value) && !$value instanceof \Closure) {
+            if (!\is_array($value) && !$value instanceof \Closure) {
                 continue;
             }
-            if (is_array($value) && !empty($value)) {
+            if (\is_array($value) && !empty($value)) {
                 $valueBackup = $this->removeClosures($value);
                 if (!empty($valueBackup)) {
                     $backup[$key] = $valueBackup;

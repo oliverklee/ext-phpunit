@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace OliverKlee\PhpUnit\Interfaces;
 
@@ -16,7 +17,7 @@ interface AccessibleObject
      *
      * @return mixed the return value from the method $methodName
      */
-    public function _call($methodName);
+    public function _call(string $methodName);
 
     /**
      * Calls the method $method without using call_user_func* and returns its return value.
@@ -35,7 +36,7 @@ interface AccessibleObject
      * @return mixed the return value from the method $methodName
      */
     public function _callRef(
-        $methodName,
+        string $methodName,
         &$arg1 = null,
         &$arg2 = null,
         &$arg3 = null,
@@ -55,7 +56,7 @@ interface AccessibleObject
      *
      * @return void
      */
-    public function _set($propertyName, $value);
+    public function _set(string $propertyName, $value);
 
     /**
      * Sets the value of a property by reference.
@@ -65,7 +66,7 @@ interface AccessibleObject
      *
      * @return void
      */
-    public function _setRef($propertyName, &$value);
+    public function _setRef(string $propertyName, &$value);
 
     /**
      * Sets the value of a static property.
@@ -75,7 +76,7 @@ interface AccessibleObject
      *
      * @return void
      */
-    public function _setStatic($propertyName, $value);
+    public function _setStatic(string $propertyName, $value);
 
     /**
      * Gets the value of the given property.
@@ -84,7 +85,7 @@ interface AccessibleObject
      *
      * @return mixed the value of the property $propertyName
      */
-    public function _get($propertyName);
+    public function _get(string $propertyName);
 
     /**
      * Gets the value of the given static property.
@@ -93,5 +94,5 @@ interface AccessibleObject
      *
      * @return mixed the value of the static property $propertyName
      */
-    public function _getStatic($propertyName);
+    public function _getStatic(string $propertyName);
 }
