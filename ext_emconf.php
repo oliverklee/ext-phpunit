@@ -14,8 +14,6 @@ $EM_CONF[$_EXTKEY] = [
         'suggests' => [],
     ],
     'state' => 'stable',
-    'uploadfolder' => true,
-    'createDirs' => '',
     'clearCacheOnLoad' => false,
     'author' => 'Oliver Klee',
     'author_email' => 'typo3-coding@oliverklee.de',
