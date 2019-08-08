@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 ### Changed
+- Simplify the test run command configuration in .travis.yml (#123)
 - Require PHP >= 7.0 (#121)
 - Require TYPO3 8.7 (#119)
 

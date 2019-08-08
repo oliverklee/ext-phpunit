@@ -59,7 +59,7 @@
     },
     "scripts": {
         "ci:php:lint": "find *.php Classes Configuration Migrations Scripts Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
-        "ci:tests:unit": "$RUN_TESTS_COMMAND --options=\"Tests/Unit\"",
+        "ci:tests:unit": ".Build/vendor/bin/typo3 phpunit:run --options=\"Tests/Unit\"",
         "ci:tests": [
             "@ci:tests:unit"
         ],
