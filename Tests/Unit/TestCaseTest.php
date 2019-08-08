@@ -151,8 +151,9 @@ class TestCaseTest extends TestCase
      */
     public function protectedStaticPropertyForFixtureIsNotDirectlyAccessible()
     {
-        self::assertFalse(
-            array_key_exists('protectedStaticProperty', get_class_vars(get_class($this->protectedClassInstance)))
+        self::assertArrayNotHasKey(
+            'protectedStaticProperty',
+            \get_class_vars(\get_class($this->protectedClassInstance))
         );
     }
 
@@ -205,8 +206,9 @@ class TestCaseTest extends TestCase
      */
     public function protectedStaticPropertyForMockObjectIsNotDirectlyAccessible()
     {
-        self::assertFalse(
-            array_key_exists('protectedStaticProperty', get_class_vars(get_class($this->mock)))
+        self::assertArrayNotHasKey(
+            'protectedStaticProperty',
+            \get_class_vars(\get_class($this->mock))
         );
     }
 
@@ -598,10 +600,11 @@ class TestCaseTest extends TestCase
 
     /**
      * @test
-     * @expectedException \ReflectionException
      */
     public function getProtectedPropertyForEmptyPropertyNameThrowsException()
     {
+        $this->expectException(\ReflectionException::class);
+
         $object = new ProtectedClass();
         $result = $this->getProtectedProperty($object, '');
 
@@ -610,10 +613,11 @@ class TestCaseTest extends TestCase
 
     /**
      * @test
-     * @expectedException \ReflectionException
      */
     public function getProtectedPropertyForInexistentPropertyThrowsException()
     {
+        $this->expectException(\ReflectionException::class);
+
         $object = new ProtectedClass();
         $result = $this->getProtectedProperty($object, 'doesNotExist');
 
@@ -641,10 +645,11 @@ class TestCaseTest extends TestCase
      *
      * @dataProvider nonObjectDataProvider
      *
-     * @expectedException \InvalidArgumentException
      */
     public function getProtectedPropertyOnNonObjectThrowsException($nonObject)
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $result = $this->getProtectedProperty($nonObject, 'someProperty');
 
         self::assertSame('This is a private property.', $result);

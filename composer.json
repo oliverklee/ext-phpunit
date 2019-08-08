@@ -27,7 +27,8 @@
         "symfony/console": "^3.2 || ^4.0"
     },
     "require-dev": {
-        "helhum/typo3-console": "^4.9"
+        "helhum/typo3-console": "^4.9",
+        "friendsofphp/php-cs-fixer": "^2.15"
     },
     "conflict": {
         "typo3/cms-composer-installers": "<1.4.6"
@@ -70,6 +71,7 @@
             "@ci:static",
             "@ci:dynamic"
         ],
+        "fix:php-cs": "php-cs-fixer fix",
         "link-extension": [
             "@php -r 'is_dir($extFolder=__DIR__.\"/.Build/public/typo3conf/ext/\") || mkdir($extFolder, 0777, true);'",
             "@php -r 'file_exists($extFolder=__DIR__.\"/.Build/public/typo3conf/ext/phpunit\") || symlink(__DIR__,$extFolder);'"
