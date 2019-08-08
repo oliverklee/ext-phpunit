@@ -23,11 +23,11 @@
     },
     "require": {
         "php": "~7.0.0 || ~7.1.0 || ~7.2.0 || ~7.3.0",
-        "typo3/cms-core": "^8.7.9",
+        "typo3/cms-core": "^8.7.9 || ^9.5",
         "symfony/console": "^3.2 || ^4.0"
     },
     "require-dev": {
-        "helhum/typo3-console": "^5.7",
+        "helhum/typo3-console": "^5.7.1",
         "friendsofphp/php-cs-fixer": "^2.15"
     },
     "conflict": {
