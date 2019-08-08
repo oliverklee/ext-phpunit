@@ -6,6 +6,18 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ## x.y.z
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## 6.5.14
+
+### Added
 - Add support for TYPO3 9.5 (#126)
 - Add support for PHP 7.3 (#124)
 
@@ -18,8 +30,6 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Simplify the test run command configuration in .travis.yml (#123)
 - Require PHP >= 7.0 (#121)
 - Require TYPO3 8.7 (#119)
-
-### Deprecated
 
 ### Removed
 - Drop the legacy CLI test runner (#120)
