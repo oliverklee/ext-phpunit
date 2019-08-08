@@ -38,7 +38,7 @@ class TestCaseTest extends TestCase
      */
     private $staticProperty = '';
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->protectedClassInstance = new ProtectedClass();
         $this->mock = $this->createMock(ProtectedClass::class);
@@ -46,7 +46,7 @@ class TestCaseTest extends TestCase
         $this->staticProperty = ProtectedClass::getStaticProperty();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         ProtectedClass::setStaticProperty($this->staticProperty);
     }
@@ -54,7 +54,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function getAccessibleMockWithEmptyClassNameThrowsException()
+    public function getAccessibleMockWithEmptyClassNameThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -64,7 +64,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function callForEmptyMethodNameInAccessibleMockObjectThrowsException()
+    public function callForEmptyMethodNameInAccessibleMockObjectThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -74,7 +74,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function callRefForEmptyMethodNameInAccessibleMockObjectThrowsException()
+    public function callRefForEmptyMethodNameInAccessibleMockObjectThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -84,7 +84,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function setForEmptyPropertyNameInAccessibleMockObjectThrowsException()
+    public function setForEmptyPropertyNameInAccessibleMockObjectThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -94,7 +94,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function setRefForEmptyPropertyNameInAccessibleMockObjectThrowsException()
+    public function setRefForEmptyPropertyNameInAccessibleMockObjectThrowsException(): void
     {
         $value = '';
 
@@ -106,7 +106,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function setStaticForEmptyPropertyNameInAccessibleMockObjectThrowsException()
+    public function setStaticForEmptyPropertyNameInAccessibleMockObjectThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -116,7 +116,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function getForEmptyPropertyNameInAccessibleMockObjectThrowsException()
+    public function getForEmptyPropertyNameInAccessibleMockObjectThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -126,7 +126,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function getStaticForEmptyPropertyNameInAccessibleMockObjectThrowsException()
+    public function getStaticForEmptyPropertyNameInAccessibleMockObjectThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -136,7 +136,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function protectedPropertyForFixtureIsNotDirectlyAccessible()
+    public function protectedPropertyForFixtureIsNotDirectlyAccessible(): void
     {
         self::assertNotContains('protectedProperty', \get_object_vars($this->protectedClassInstance));
     }
@@ -144,7 +144,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function protectedStaticPropertyForFixtureIsNotDirectlyAccessible()
+    public function protectedStaticPropertyForFixtureIsNotDirectlyAccessible(): void
     {
         self::assertArrayNotHasKey(
             'protectedStaticProperty',
@@ -155,7 +155,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function publicPropertyForFixtureIsDirectlyAccessible()
+    public function publicPropertyForFixtureIsDirectlyAccessible(): void
     {
         self::assertSame(
             'This is a public property.',
@@ -166,7 +166,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function protectedMethodForFixtureIsNotDirectlyCallable()
+    public function protectedMethodForFixtureIsNotDirectlyCallable(): void
     {
         self::assertNotInternalType(
             'callable',
@@ -177,7 +177,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function publicMethodForFixtureIsDirectlyCallable()
+    public function publicMethodForFixtureIsDirectlyCallable(): void
     {
         self::assertInternalType(
             'callable',
@@ -188,7 +188,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function protectedPropertyForMockObjectIsNotDirectlyAccessible()
+    public function protectedPropertyForMockObjectIsNotDirectlyAccessible(): void
     {
         self::assertNotContains('protectedProperty', \get_object_vars($this->mock));
     }
@@ -196,7 +196,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function protectedStaticPropertyForMockObjectIsNotDirectlyAccessible()
+    public function protectedStaticPropertyForMockObjectIsNotDirectlyAccessible(): void
     {
         self::assertArrayNotHasKey(
             'protectedStaticProperty',
@@ -207,7 +207,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function publicPropertyForMockObjectIsDirectlyAccessible()
+    public function publicPropertyForMockObjectIsDirectlyAccessible(): void
     {
         self::assertSame(
             'This is a public property.',
@@ -218,7 +218,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function protectedMethodForMockObjectIsNotDirectlyCallable()
+    public function protectedMethodForMockObjectIsNotDirectlyCallable(): void
     {
         self::assertNotInternalType(
             'callable',
@@ -229,7 +229,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function publicMethodForMockObjectIsDirectlyCallable()
+    public function publicMethodForMockObjectIsDirectlyCallable(): void
     {
         self::assertInternalType(
             'callable',
@@ -240,7 +240,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function protectedPropertyForAccessibleMockObjectIsDirectlyAccessible()
+    public function protectedPropertyForAccessibleMockObjectIsDirectlyAccessible(): void
     {
         self::assertSame(
             'This is a protected property.',
@@ -251,7 +251,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function publicPropertyForAccessibleMockObjectIsDirectlyAccessible()
+    public function publicPropertyForAccessibleMockObjectIsDirectlyAccessible(): void
     {
         self::assertSame(
             'This is a public property.',
@@ -262,7 +262,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function protectedStaticPropertyForAccessibleMockObjectIsDirectlyAccessible()
+    public function protectedStaticPropertyForAccessibleMockObjectIsDirectlyAccessible(): void
     {
         self::assertSame(
             'This is a protected static property.',
@@ -273,7 +273,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function protectedStaticPropertyForAccessibleMockObjectCanBeSet()
+    public function protectedStaticPropertyForAccessibleMockObjectCanBeSet(): void
     {
         $newValue = 'New value ' . \microtime();
         $this->accessibleMock->_setStatic('protectedStaticProperty', $newValue);
@@ -287,7 +287,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function protectedStaticPropertyForAccessibleMockObjectCanSetOriginal()
+    public function protectedStaticPropertyForAccessibleMockObjectCanSetOriginal(): void
     {
         $newValue = 'New value ' . \microtime();
         $this->accessibleMock->_setStatic('protectedStaticProperty', $newValue);
@@ -301,7 +301,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function protectedMethodForAccessibleMockObjectIsDirectlyCallable()
+    public function protectedMethodForAccessibleMockObjectIsDirectlyCallable(): void
     {
         self::assertTrue(
             $this->accessibleMock->_callRef('protectedMethod')
@@ -311,7 +311,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function publicMethodForAccessibleMockObjectIsDirectlyCallable()
+    public function publicMethodForAccessibleMockObjectIsDirectlyCallable(): void
     {
         self::assertTrue(
             $this->accessibleMock->_call('publicMethod')
@@ -321,7 +321,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function callCanPassEightParametersToMethod()
+    public function callCanPassEightParametersToMethod(): void
     {
         self::assertSame(
             '8: 1, 2, 3, 4, 5, 6, 7, 8',
@@ -332,7 +332,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function callCanPassNineParametersToMethod()
+    public function callCanPassNineParametersToMethod(): void
     {
         self::assertSame(
             '9: 1, 2, 3, 4, 5, 6, 7, 8, 9',
@@ -343,7 +343,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function callCanPassTenParametersToMethod()
+    public function callCanPassTenParametersToMethod(): void
     {
         self::assertSame(
             '10: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10',
@@ -354,7 +354,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function callRefCanCallMethodWithoutParameter()
+    public function callRefCanCallMethodWithoutParameter(): void
     {
         self::assertSame(
             '0: ',
@@ -365,7 +365,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function callRefCanPassOneParametersToMethod()
+    public function callRefCanPassOneParametersToMethod(): void
     {
         $parameter = 1;
         self::assertSame(
@@ -377,7 +377,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function callRefCanPassTwoParametersToMethod()
+    public function callRefCanPassTwoParametersToMethod(): void
     {
         $parameter = 1;
         self::assertSame(
@@ -389,7 +389,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function callRefCanPassThreeParametersToMethod()
+    public function callRefCanPassThreeParametersToMethod(): void
     {
         $parameter = 1;
         self::assertSame(
@@ -401,7 +401,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function callRefCanPassFourParametersToMethod()
+    public function callRefCanPassFourParametersToMethod(): void
     {
         $parameter = 1;
         self::assertSame(
@@ -413,7 +413,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function callRefCanPassFiveParametersToMethod()
+    public function callRefCanPassFiveParametersToMethod(): void
     {
         $parameter = 1;
         self::assertSame(
@@ -432,7 +432,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function callRefCanPassSixParametersToMethod()
+    public function callRefCanPassSixParametersToMethod(): void
     {
         $parameter = 1;
         self::assertSame(
@@ -452,7 +452,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function callRefCanPassSevenParametersToMethod()
+    public function callRefCanPassSevenParametersToMethod(): void
     {
         $parameter = 1;
         self::assertSame(
@@ -473,7 +473,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function callRefCanPassEightParametersToMethod()
+    public function callRefCanPassEightParametersToMethod(): void
     {
         $parameter = 1;
         self::assertSame(
@@ -495,7 +495,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function callRefCanPassNineParametersToMethod()
+    public function callRefCanPassNineParametersToMethod(): void
     {
         $parameter = 1;
         self::assertSame(
@@ -518,7 +518,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function callRefForTenParametersThrowsException()
+    public function callRefForTenParametersThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -540,7 +540,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function getProtectedPropertyReturnsValueOfPublicProperty()
+    public function getProtectedPropertyReturnsValueOfPublicProperty(): void
     {
         $object = new ProtectedClass();
         $result = $this->getProtectedProperty($object, 'publicProperty');
@@ -551,7 +551,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function getProtectedPropertyReturnsValueOfProtectedProperty()
+    public function getProtectedPropertyReturnsValueOfProtectedProperty(): void
     {
         $object = new ProtectedClass();
         $result = $this->getProtectedProperty($object, 'protectedProperty');
@@ -562,7 +562,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function getProtectedPropertyReturnsValueOfPrivateProperty()
+    public function getProtectedPropertyReturnsValueOfPrivateProperty(): void
     {
         $object = new ProtectedClass();
         $result = $this->getProtectedProperty($object, 'privateProperty');
@@ -573,7 +573,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function getProtectedPropertyForEmptyPropertyNameThrowsException()
+    public function getProtectedPropertyForEmptyPropertyNameThrowsException(): void
     {
         $this->expectException(\ReflectionException::class);
 
@@ -586,7 +586,7 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function getProtectedPropertyForInexistentPropertyThrowsException()
+    public function getProtectedPropertyForInexistentPropertyThrowsException(): void
     {
         $this->expectException(\ReflectionException::class);
 
@@ -617,7 +617,7 @@ class TestCaseTest extends TestCase
      *
      * @dataProvider nonObjectDataProvider
      */
-    public function getProtectedPropertyOnNonObjectThrowsException($nonObject)
+    public function getProtectedPropertyOnNonObjectThrowsException($nonObject): void
     {
         $this->expectException(\InvalidArgumentException::class);
 

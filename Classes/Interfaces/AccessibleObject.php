@@ -56,7 +56,7 @@ interface AccessibleObject
      *
      * @return void
      */
-    public function _set(string $propertyName, $value);
+    public function _set(string $propertyName, $value): void;
 
     /**
      * Sets the value of a property by reference.
@@ -66,7 +66,7 @@ interface AccessibleObject
      *
      * @return void
      */
-    public function _setRef(string $propertyName, &$value);
+    public function _setRef(string $propertyName, &$value): void;
 
     /**
      * Sets the value of a static property.
@@ -76,7 +76,7 @@ interface AccessibleObject
      *
      * @return void
      */
-    public function _setStatic(string $propertyName, $value);
+    public function _setStatic(string $propertyName, $value): void;
 
     /**
      * Gets the value of the given property.
