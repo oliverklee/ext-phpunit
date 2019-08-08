@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace OliverKlee\PhpUnit\Tests\Unit;
 
@@ -41,11 +41,8 @@ class TestCaseTest extends TestCase
     protected function setUp()
     {
         $this->protectedClassInstance = new ProtectedClass();
-        $this->mock = $this->getMockBuilder(ProtectedClass::class)->setMethods(['dummy'])->getMock();
-        $this->accessibleMock = $this->getAccessibleMock(
-            ProtectedClass::class,
-            ['dummy']
-        );
+        $this->mock = $this->createMock(ProtectedClass::class);
+        $this->accessibleMock = $this->getAccessibleMock(ProtectedClass::class, null);
         $this->staticProperty = ProtectedClass::getStaticProperty();
     }
 
