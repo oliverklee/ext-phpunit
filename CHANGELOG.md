@@ -1,7 +1,9 @@
 # Change log
 
 All notable changes to this project will be documented in this file.
-This project adheres to [Semantic Versioning](https://semver.org/).
+This project does **not** adhere to [Semantic Versioning](https://semver.org/).
+Instead, the version number mirrors the version number of the
+included PHPUnit package..
 
 ## x.y.z
 
@@ -17,6 +19,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Drop the TYPO3 package repository from composer.json (#139)
 
 ### Fixed
+- Mention the version numbering schema (#141)
 
 ## 6.5.14
 
