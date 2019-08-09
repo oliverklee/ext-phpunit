@@ -3,7 +3,7 @@
     "description": "PHPUnit as library",
     "license": "GPL-2.0-or-later",
     "require": {
-        "phpunit/phpunit": "^6.5.14",
+        "phpunit/phpunit": "^7.5.14",
         "mikey179/vfsstream": "^1.6.7"
     },
     "prefer-stable": true,

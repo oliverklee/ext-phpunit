@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 ### Changed
+- Upgrade PHPUnit to 7.5.14 (#138)
 - Require PHP >= 7.1 (#137)
 
 ### Deprecated
