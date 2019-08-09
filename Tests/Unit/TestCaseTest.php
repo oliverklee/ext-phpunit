@@ -168,10 +168,7 @@ class TestCaseTest extends TestCase
      */
     public function protectedMethodForFixtureIsNotDirectlyCallable(): void
     {
-        self::assertNotInternalType(
-            'callable',
-            [$this->protectedClassInstance, 'protectedMethod']
-        );
+        self::assertIsNotCallable([$this->protectedClassInstance, 'protectedMethod']);
     }
 
     /**
@@ -179,10 +176,7 @@ class TestCaseTest extends TestCase
      */
     public function publicMethodForFixtureIsDirectlyCallable(): void
     {
-        self::assertInternalType(
-            'callable',
-            [$this->protectedClassInstance, 'publicMethod']
-        );
+        self::assertIsCallable([$this->protectedClassInstance, 'publicMethod']);
     }
 
     /**
@@ -220,10 +214,7 @@ class TestCaseTest extends TestCase
      */
     public function protectedMethodForMockObjectIsNotDirectlyCallable(): void
     {
-        self::assertNotInternalType(
-            'callable',
-            [$this->mock, 'protectedMethod']
-        );
+        self::assertIsNotCallable([$this->mock, 'protectedMethod']);
     }
 
     /**
@@ -231,10 +222,7 @@ class TestCaseTest extends TestCase
      */
     public function publicMethodForMockObjectIsDirectlyCallable(): void
     {
-        self::assertInternalType(
-            'callable',
-            [$this->mock, 'publicMethod']
-        );
+        self::assertIsCallable([$this->mock, 'publicMethod']);
     }
 
     /**
