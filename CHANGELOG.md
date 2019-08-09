@@ -10,6 +10,7 @@ included PHPUnit package..
 ### Added
 
 ### Changed
+- Explain the purpose in the README (#142)
 - Upgrade PHPUnit to 7.5.14 (#138)
 - Require PHP >= 7.1 (#137)
 
