@@ -53,6 +53,15 @@ jobs:
   include:
   - stage: test
     php: "7.4"
+    env: TYPO3=^10.3
+  - stage: test
+    php: "7.3"
+    env: TYPO3=^10.3
+  - stage: test
+    php: "7.2"
+    env: TYPO3=^10.3
+  - stage: test
+    php: "7.4"
     env: TYPO3=^9.5
   - stage: test
     php: "7.3"
