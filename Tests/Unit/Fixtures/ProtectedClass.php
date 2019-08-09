@@ -75,7 +75,7 @@ class ProtectedClass
      *
      * @return void
      */
-    public static function setStaticProperty(string $value)
+    public static function setStaticProperty(string $value): void
     {
         self::$protectedStaticProperty = $value;
     }

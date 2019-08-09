@@ -15,7 +15,7 @@ class LibraryLoader
      *
      * @return void
      */
-    public static function includeAll()
+    public static function includeAll(): void
     {
         require_once __DIR__ . '/../../Resources/Private/Php/vendor/autoload.php';
     }

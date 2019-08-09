@@ -44,7 +44,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      */
     protected function getAccessibleMock(
         string $originalClassName,
-        $methods = [],
+        ?array $methods = [],
         array $arguments = [],
         string $mockClassName = '',
         bool $callOriginalConstructor = true,
@@ -72,7 +72,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      *
      * @param string $className name of class to make available, must not be empty
      *
-     * @return string full qualified name of the built class, will not be empty
+     * @return string fully-qualified name of the built class, will not be empty
      */
     protected function buildAccessibleProxy(string $className): string
     {
@@ -140,19 +140,19 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             '}' .
             'return $returnValue;' .
             '}' .
-            'public function _set(string $propertyName, $value) {' .
+            'public function _set(string $propertyName, $value): void {' .
             'if ($propertyName === \'\') {' .
             'throw new \\InvalidArgumentException(\'$propertyName must not be empty.\', 1334664355);' .
             '}' .
             '$this->$propertyName = $value;' .
             '}' .
-            'public function _setRef(string $propertyName, &$value) {' .
+            'public function _setRef(string $propertyName, &$value): void {' .
             'if ($propertyName === \'\') {' .
             'throw new \\InvalidArgumentException(\'$propertyName must not be empty.\', 1334664545);' .
             '}' .
             '$this->$propertyName = $value;' .
             '}' .
-            'public function _setStatic(string $propertyName, $value) {' .
+            'public function _setStatic(string $propertyName, $value): void {' .
             'if ($propertyName === \'\') {' .
             'throw new \\InvalidArgumentException(\'$propertyName must not be empty.\', 1344242602);' .
             '}' .

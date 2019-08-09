@@ -20,10 +20,8 @@ class RunTestsCommand extends Command
 {
     /**
      * Configures the command by defining the name, options and arguments.
-     *
-     * @return void
      */
-    public function configure()
+    public function configure(): void
     {
         $this
             ->setDescription('Runs PHPUnit tests from the command line.')
@@ -43,9 +41,6 @@ class RunTestsCommand extends Command
 
     /**
      * Executes the command.
-     *
-     * @param InputInterface $input
-     * @param OutputInterface $output
      *
      * @return int 0 if everything went fine, an error code otherwise
      */
@@ -81,11 +76,6 @@ class RunTestsCommand extends Command
         return $result;
     }
 
-    /**
-     * @param array $variables
-     *
-     * @return array
-     */
     private function removeClosures(array &$variables): array
     {
         $backup = [];

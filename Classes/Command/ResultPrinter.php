@@ -20,19 +20,14 @@ class ResultPrinter extends \PHPUnit\TextUI\ResultPrinter
 
     /**
      * @param string $buffer
-     *
-     * @return void
      */
-    public function write($buffer)
+    public function write($buffer): void
     {
         $this->buildOutput();
         $this->output->write($buffer);
     }
 
-    /**
-     * @return void
-     */
-    private function buildOutput()
+    private function buildOutput(): void
     {
         if ($this->output === null) {
             $this->output = new ConsoleOutput();

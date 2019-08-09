@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 ### Changed
+- Require PHP >= 7.1 (#137)
 
 ### Deprecated
 
