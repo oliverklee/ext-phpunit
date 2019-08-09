@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project does **not** adhere to [Semantic Versioning](https://semver.org/).
 Instead, the version number mirrors the version number of the
-included PHPUnit package..
+included PHPUnit package.
 
 ## x.y.z
 
