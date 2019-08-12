@@ -18,6 +18,7 @@ included PHPUnit package.
 ### Deprecated
 
 ### Removed
+- Stop building with the lowest Composer dependencies (#144)
 - Drop the TYPO3 package repository from composer.json (#139)
 
 ### Fixed
