@@ -41,6 +41,10 @@ script:
   echo;
   echo "Running the unit tests";
   composer ci:tests:unit;
+- >
+  echo;
+  echo "Running PHP_CodeSniffer";
+  composer ci:php:sniff;
 
 jobs:
   include:

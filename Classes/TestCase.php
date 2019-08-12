@@ -80,6 +80,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         $class = new \ReflectionClass($className);
         $abstractModifier = $class->isAbstract() ? 'abstract ' : '';
 
+        // phpcs:disable Squiz.PHP.Eval
         eval(
             $abstractModifier . 'class ' . $accessibleClassName .
             ' extends ' . $className . ' implements \\OliverKlee\\PhpUnit\\Interfaces\\AccessibleObject {' .
@@ -91,8 +92,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             'return call_user_func_array(array($this, $methodName), array_slice($args, 1));' .
             '}' .
             'public function _callRef(' .
-            'string $methodName, &$arg1 = NULL, &$arg2 = NULL, &$arg3 = NULL, &$arg4 = NULL, &$arg5= NULL, &$arg6 = NULL, ' .
-            '&$arg7 = NULL, &$arg8 = NULL, &$arg9 = NULL' .
+            'string $methodName, &$arg1 = NULL, &$arg2 = NULL, &$arg3 = NULL, &$arg4 = NULL, ' .
+            '&$arg5= NULL, &$arg6 = NULL, &$arg7 = NULL, &$arg8 = NULL, &$arg9 = NULL' .
             ') {' .
             'if ($methodName === \'\') {' .
             'throw new \\InvalidArgumentException(\'$methodName must not be empty.\', 1334664210);' .
@@ -172,6 +173,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             '}' .
             '}'
         );
+        // phpcs:enable
 
         return $accessibleClassName;
     }
@@ -183,7 +185,6 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      * @return mixed
      *
      * @throws \InvalidArgumentException
-     * @throws \ReflectionException
      */
     protected function getProtectedProperty($object, string $propertyName)
     {

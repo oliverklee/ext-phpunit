@@ -28,7 +28,8 @@
     },
     "require-dev": {
         "helhum/typo3-console": "^5.7.1",
-        "friendsofphp/php-cs-fixer": "^2.15"
+        "squizlabs/php_codesniffer": "^3.4.2",
+        "friendsofphp/php-cs-fixer": "^2.15.1"
     },
     "conflict": {
         "typo3/cms-composer-installers": "<1.4.6"
@@ -51,6 +52,7 @@
     },
     "scripts": {
         "ci:php:lint": "find *.php Classes Configuration Migrations Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
+        "ci:php:sniff": "phpcs Classes Configuration Tests",
         "ci:tests:unit": ".Build/vendor/bin/typo3 phpunit:run --options=\"Tests/Unit\"",
         "ci:tests": [
             "@ci:tests:unit"
@@ -59,7 +61,8 @@
             "@ci:tests"
         ],
         "ci:static": [
-            "@ci:php:lint"
+            "@ci:php:lint",
+            "@ci:php:sniff"
         ],
         "ci": [
             "@ci:static",
