@@ -10,6 +10,7 @@ namespace OliverKlee\PhpUnit\Interfaces;
  */
 interface AccessibleObject
 {
+    // phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
     /**
      * Calls the method $method using call_user_func* and returns its return value.
      *
@@ -95,4 +96,5 @@ interface AccessibleObject
      * @return mixed the value of the static property $propertyName
      */
     public function _getStatic(string $propertyName);
+    // phpcs:enable
 }

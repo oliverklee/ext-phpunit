@@ -8,6 +8,7 @@ included PHPUnit package.
 ## x.y.z
 
 ### Added
+- Add code sniffing to the Travis CI build (#143)
 
 ### Changed
 - Explain the purpose in the README (#142)
