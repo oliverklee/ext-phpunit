@@ -22,6 +22,7 @@ included PHPUnit package.
 - Drop the TYPO3 package repository from composer.json (#139)
 
 ### Fixed
+- Keep development-only files out of the packages (#145)
 - Mention the version numbering schema (#141)
 
 ## 6.5.14
