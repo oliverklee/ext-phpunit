@@ -20,6 +20,10 @@ $EM_CONF[$_EXTKEY] = [
     'autoload' => [
         'psr-4' => [
             'OliverKlee\\PhpUnit\\' => 'Classes/',
+        ],
+    ],
+    'autoload-dev' => [
+        'psr-4' => [
             'OliverKlee\\PhpUnit\\Tests\\' => 'Tests/'
         ],
     ],
