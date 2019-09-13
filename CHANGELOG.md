@@ -22,6 +22,7 @@ included PHPUnit package.
 - Drop the TYPO3 package repository from composer.json (#139)
 
 ### Fixed
+- Move `Tests/` to the dev autoload in `ext_emconf.php` (#146)
 - Keep development-only files out of the packages (#145)
 - Mention the version numbering schema (#141)
 
