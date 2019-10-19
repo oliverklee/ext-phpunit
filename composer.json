@@ -39,7 +39,11 @@
     },
     "autoload": {
         "psr-4": {
-            "OliverKlee\\PhpUnit\\": "Classes/",
+            "OliverKlee\\PhpUnit\\": "Classes/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
             "OliverKlee\\PhpUnit\\Tests\\": "Tests/"
         }
     },
