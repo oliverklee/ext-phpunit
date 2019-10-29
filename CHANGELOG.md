@@ -18,6 +18,7 @@ included PHPUnit package.
 ### Deprecated
 
 ### Removed
+- Drop unneeded Travis CI configuration settings (#148)
 - Stop building with the lowest Composer dependencies (#144)
 - Drop the TYPO3 package repository from composer.json (#139)
 
