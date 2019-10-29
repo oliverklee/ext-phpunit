@@ -93,6 +93,9 @@
         "typo3/cms": {
             "extension-key": "phpunit",
             "web-dir": ".Build/public"
+        },
+        "helhum/typo3-console": {
+            "install-extension-dummy": "0"
         }
     }
 }
