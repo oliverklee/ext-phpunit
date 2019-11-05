@@ -11,6 +11,7 @@ included PHPUnit package.
 - Add code sniffing to the Travis CI build (#143)
 
 ### Changed
+- Sort the Composer dependencies (#153)
 - Explain the purpose in the README (#142)
 - Upgrade PHPUnit to 7.5.14 (#138)
 - Require PHP >= 7.1 (#137)
