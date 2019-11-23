@@ -11,6 +11,7 @@ included PHPUnit package.
 - Add code sniffing to the Travis CI build (#143)
 
 ### Changed
+- Use PHP 7.2 for the TER release script (#155)
 - Sort the Composer dependencies (#153)
 - Explain the purpose in the README (#142)
 - Upgrade PHPUnit to 7.5.14 (#138)
