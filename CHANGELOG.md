@@ -8,6 +8,7 @@ included PHPUnit package.
 ## x.y.z
 
 ### Added
+- Add a code fixing check to the Travis CI build (#144)
 - Add code sniffing to the Travis CI build (#143)
 
 ### Changed
