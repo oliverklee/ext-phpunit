@@ -75,7 +75,7 @@
             "@ci:static",
             "@ci:dynamic"
         ],
-        "fix:php-cs": "php-cs-fixer fix",
+        "php:fix": "php-cs-fixer fix && phpcbf Classes Configuration Tests",
         "link-extension": [
             "@php -r 'is_dir($extFolder=__DIR__.\"/.Build/public/typo3conf/ext/\") || mkdir($extFolder, 0777, true);'",
             "@php -r 'file_exists($extFolder=__DIR__.\"/.Build/public/typo3conf/ext/phpunit\") || symlink(__DIR__,$extFolder);'"

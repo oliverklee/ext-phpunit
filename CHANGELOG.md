@@ -12,6 +12,7 @@ included PHPUnit package.
 - Add code sniffing to the Travis CI build (#143)
 
 ### Changed
+- Improve the code autoformatting (#158)
 - Sort the entries in the `.gitignore` and `.gitattributes` (#157)
 - Use PHP 7.2 for the TER release script (#155)
 - Sort the Composer dependencies (#153)
