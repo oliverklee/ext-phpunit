@@ -12,6 +12,7 @@ included PHPUnit package.
 - Add code sniffing to the Travis CI build (#143)
 
 ### Changed
+- Upgrade to PHPUnit 7.5.20 (#161)
 - Sniff only for PSR-12, not for PSR-2 anymore (#160)
 - Improve the code autoformatting (#158)
 - Sort the entries in the `.gitignore` and `.gitattributes` (#157)
