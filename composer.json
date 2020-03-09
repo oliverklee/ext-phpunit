@@ -27,8 +27,8 @@
         "symfony/console": "^3.2 || ^4.0"
     },
     "require-dev": {
-        "helhum/typo3-console": "^5.7.1",
-        "friendsofphp/php-cs-fixer": "^2.15"
+        "friendsofphp/php-cs-fixer": "^2.16.1",
+        "helhum/typo3-console": "^5.8.2"
     },
     "conflict": {
         "typo3/cms-composer-installers": "<1.4.6"
