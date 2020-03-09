@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Removed
 
 ### Fixed
+- Security: Prevent execution of `eval-stdin.php` via the web server (#165)
 
 ## 6.5.14
 
