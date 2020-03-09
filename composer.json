@@ -22,7 +22,7 @@
         "source": "https://github.com/oliverklee/ext-phpunit"
     },
     "require": {
-        "php": "~7.1 || ~7.2 || ~7.3",
+        "php": "~7.1 || ~7.2 || ~7.3 || ~7.4",
         "symfony/console": "^3.2 || ^4.0 || ^5.0",
         "typo3/cms-core": "^8.7.9 || ^9.5"
     },

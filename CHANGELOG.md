@@ -8,6 +8,7 @@ included PHPUnit package.
 ## x.y.z
 
 ### Added
+- Add PHP 7.4 compatibility (#164)
 - Add compatibility with Symfony 5 (#162)
 - Add a code fixing check to the Travis CI build (#144)
 - Add code sniffing to the Travis CI build (#143)
