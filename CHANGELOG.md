@@ -8,6 +8,18 @@ included PHPUnit package.
 ## x.y.z
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## 7.5.20
+
+### Added
 - Add support for TYPO3 10 (#140)
 - Add PHP 7.4 compatibility (#164)
 - Add compatibility with Symfony 5 (#162)
@@ -15,23 +27,20 @@ included PHPUnit package.
 - Add code sniffing to the Travis CI build (#143)
 
 ### Changed
-- Rebuild the bundled composer.lock (#168)
-- Upgrade to PHPUnit 7.5.20 (#161)
+- Rebuild the bundled `composer.lock` (#168)
+- Upgrade to PHPUnit 7.5.20 (#138, #161)
 - Sniff only for PSR-12, not for PSR-2 anymore (#160)
 - Improve the code autoformatting (#158)
 - Sort the entries in the `.gitignore` and `.gitattributes` (#157)
 - Use PHP 7.2 for the TER release script (#155)
 - Sort the Composer dependencies (#153)
 - Explain the purpose in the README (#142)
-- Upgrade PHPUnit to 7.5.14 (#138)
-- Require PHP >= 7.1 (#137)
-
-### Deprecated
 
 ### Removed
 - Drop unneeded Travis CI configuration settings (#148, #149, #150)
 - Stop building with the lowest Composer dependencies (#144)
-- Drop the TYPO3 package repository from composer.json (#139)
+- Drop the TYPO3 package repository from `composer.json` (#139)
+- Drop support for PHP <= 7.0 (#137)
 
 ### Fixed
 - Move `Tests/` to the dev autoload (#146, #147)
