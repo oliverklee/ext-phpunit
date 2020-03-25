@@ -17,6 +17,11 @@ included PHPUnit package.
 
 ### Fixed
 
+## 7.5.21
+
+### Fixed
+- Allow TYPO3 up to version 10.4.x in `ext_emconf.php` (#170)
+
 ## 7.5.20
 
 ### Added
