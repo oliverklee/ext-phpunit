@@ -16,6 +16,7 @@ included PHPUnit package.
 ### Removed
 
 ### Fixed
+- Do not cache `vendor/` on Travis CI (#171)
 
 ## 7.5.21
 
