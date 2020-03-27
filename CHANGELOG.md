@@ -10,6 +10,7 @@ included PHPUnit package.
 ### Added
 
 ### Changed
+- Stop using the TYPO3 console for the CI build (#173)
 - Update `helhum/typo3-console` (#177, #179)
 
 ### Deprecated
