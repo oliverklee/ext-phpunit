@@ -9,7 +9,7 @@
     "prefer-stable": true,
     "config": {
         "platform": {
-            "php": "7.1.20"
+            "php": "7.2.20"
         },
         "preferred-install": {
             "*": "dist"
