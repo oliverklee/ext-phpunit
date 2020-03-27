@@ -14,6 +14,7 @@ included PHPUnit package.
 ### Deprecated
 
 ### Removed
+- Drop support for TYPO3 8.7 (#174)
 
 ### Fixed
 - Fix warnings in the `travis.yml` (#172)
