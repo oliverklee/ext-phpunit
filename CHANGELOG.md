@@ -14,6 +14,7 @@ included PHPUnit package.
 ### Deprecated
 
 ### Removed
+- Drop support for PHP 7.1 (#175)
 - Drop support for TYPO3 8.7 (#174)
 
 ### Fixed
