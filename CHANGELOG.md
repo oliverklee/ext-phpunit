@@ -17,6 +17,7 @@ included PHPUnit package.
 - Drop support for TYPO3 8.7 (#174)
 
 ### Fixed
+- Fix some incomplete PHPDoc (#176)
 - Fix warnings in the `travis.yml` (#172)
 - Do not cache `vendor/` on Travis CI (#171)
 
