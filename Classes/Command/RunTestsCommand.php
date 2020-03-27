@@ -43,7 +43,12 @@ class RunTestsCommand extends Command
     /**
      * Executes the command.
      *
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     *
      * @return int 0 if everything went fine, an error code otherwise
+     *
+     * @throws \ReflectionException
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
