@@ -5,3 +5,4 @@
 /Resources/Private/Build/vendor
 /composer.lock
 /nbproject
+/var
