@@ -57,8 +57,8 @@
     },
     "scripts": {
         "ci:php:lint": "find *.php Classes Configuration Migrations Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
-        "ci:php:sniff": "phpcs Classes Configuration Tests",
-        "ci:php:fixer": "php-cs-fixer fix --dry-run -v --show-progress=dots --diff-format=udiff",
+        "ci:php:sniff": ".Build/vendor/bin/phpcs Classes Configuration Tests",
+        "ci:php:fixer": ".Build/vendor/bin/php-cs-fixer fix --dry-run -v --show-progress=dots --diff-format=udiff",
         "ci:tests:unit": ".Build/vendor/bin/typo3 phpunit:run --options=\"Tests/Unit\"",
         "ci:tests": [
             "@ci:tests:unit"
@@ -75,7 +75,7 @@
             "@ci:static",
             "@ci:dynamic"
         ],
-        "php:fix": "php-cs-fixer fix && phpcbf Classes Configuration Tests",
+        "php:fix": ".Build/vendor/bin/php-cs-fixer fix && .Build/vendor/bin/phpcbf Classes Configuration Tests",
         "link-extension": [
             "@php -r 'is_dir($extFolder=__DIR__.\"/.Build/public/typo3conf/ext/\") || mkdir($extFolder, 0777, true);'",
             "@php -r 'file_exists($extFolder=__DIR__.\"/.Build/public/typo3conf/ext/phpunit\") || symlink(__DIR__,$extFolder);'"
