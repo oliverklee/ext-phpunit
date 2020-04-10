@@ -19,6 +19,7 @@ included PHPUnit package.
 - Drop support for TYPO3 8.7 (#174)
 
 ### Fixed
+- Always use Composer-installed versions of the dev tools (#181)
 - Add `var/` to the `.gitignore` (#180)
 - Fix some incomplete PHPDoc (#176)
 - Fix warnings in the `travis.yml` (#172)
