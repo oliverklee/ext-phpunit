@@ -10,7 +10,7 @@ included PHPUnit package.
 ### Added
 
 ### Changed
-- Update `helhum/typo3-console` (#177, #179)
+- Update `helhum/typo3-console` (#177, #179, #182)
 
 ### Deprecated
 
