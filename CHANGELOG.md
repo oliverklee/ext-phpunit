@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## 6.5.16
+
+### Changed
+- Switch the CI from Travis CI to GitHub actions (#199)
+
 ## 6.5.15
 
 ### Fixed

@@ -1,6 +1,8 @@
-/.Build/*
+# Please keep the lines in this file sorted.
 *.idea
+/.Build/*
 /.php_cs.cache
+/Resources/Private/Build/vendor
 /composer.lock
 /nbproject
-/Resources/Private/Build/vendor
+/var
