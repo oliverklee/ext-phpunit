@@ -5,7 +5,7 @@ This project does **not** adhere to [Semantic Versioning](https://semver.org/).
 Instead, the version number mirrors the version number of the
 included PHPUnit package.
 
-## x.y.z
+## 7.5.22
 
 ### Added
 - Lint the code with PHP 8 (#198)
