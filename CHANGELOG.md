@@ -8,6 +8,7 @@ included PHPUnit package.
 ## x.y.z
 
 ### Added
+- Lint the code with PHP 8 (#198)
 
 ### Changed
 - Switch the CI from Travis CI to GitHub actions (#197)
