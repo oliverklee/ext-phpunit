@@ -11,6 +11,7 @@ included PHPUnit package.
 - Lint the code with PHP 8 (#198)
 
 ### Changed
+- Update the Symfony dependency to supported versions only (#209)
 - Switch the CI from Travis CI to GitHub actions (#197)
 - Switch the default branch from master to main (#196)
 - Update `helhum/typo3-console` (#177, #179, #182, #205)
