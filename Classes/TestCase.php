@@ -199,6 +199,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         $property = (new \ReflectionClass($object))->getProperty($propertyName);
         $property->setAccessible(true);
 
+        // @extensionScannerIgnoreLine
         return $property->getValue($object);
     }
 }
