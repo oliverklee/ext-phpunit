@@ -42,6 +42,5 @@ jobs:
       - name: List extension folder
         run: ls -liAsh ./
 
-      - name: Upload EXT:${{ env.TYPO3_EXTENSION_KEY }}
-          as ${{ github.event.ref }} to TER
-        run: ter-client upload $TYPO3_EXTENSION_KEY "./$TYPO3_EXTENSION_KEY" -u $TYPO3_USER -p $TYPO3_PASSWORD" -m "${{ github.event.head_commit.message }}"
+      - name: Upload EXT:${{ env.TYPO3_EXTENSION_KEY }} as ${{ github.event.ref }} to TER
+        run: ter-client upload $TYPO3_EXTENSION_KEY "./$TYPO3_EXTENSION_KEY" -u "$TYPO3_USER" -p "$TYPO3_PASSWORD" -m "new version"
