@@ -10,6 +10,7 @@ included PHPUnit package.
 ### Added
 
 ### Changed
+- Switch the default branch from master to main (#196)
 - Update `helhum/typo3-console` (#177, #179, #182)
 
 ### Deprecated

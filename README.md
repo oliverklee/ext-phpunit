@@ -1,6 +1,6 @@
 # PHPUnit TYPO3 extension
 
-[![Build Status](https://travis-ci.org/oliverklee/ext-phpunit.svg?branch=master)](https://travis-ci.org/oliverklee/ext-phpunit)
+[![Build Status](https://travis-ci.org/oliverklee/ext-phpunit.svg?branch=main)](https://travis-ci.org/oliverklee/ext-phpunit)
 [![Latest Stable Version](https://poser.pugx.org/oliverklee/phpunit/v/stable.svg)](https://packagist.org/packages/oliverklee/phpunit)
 [![Total Downloads](https://poser.pugx.org/oliverklee/phpunit/downloads.svg)](https://packagist.org/packages/oliverklee/phpunit)
 [![Latest Unstable Version](https://poser.pugx.org/oliverklee/phpunit/v/unstable.svg)](https://packagist.org/packages/oliverklee/phpunit)
