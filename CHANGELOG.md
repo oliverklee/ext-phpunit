@@ -22,6 +22,7 @@ included PHPUnit package.
 - Drop support for TYPO3 8.7 (#174)
 
 ### Fixed
+- Update the bundled packages (#207)
 - Add `.0` version suffixes to PHP version requirements (#183)
 - Always use Composer-installed versions of the dev tools (#181)
 - Add `var/` to the `.gitignore` (#180)
