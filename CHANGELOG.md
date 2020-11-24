@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ## 6.5.16
 
+### Added
+- Add support for PHP 7.4 (#200)
+
 ### Changed
 - Switch the CI from Travis CI to GitHub actions (#199)
 
