@@ -101,8 +101,6 @@ jobs:
         run: |
           composer require --no-progress typo3/minimal:"$TYPO3"
           composer show
-      - name: "Start MySQL"
-        run: "sudo /etc/init.d/mysql start"
       - name: "Set up TYPO3"
         run: >
           .Build/vendor/bin/typo3cms install:setup --no-interaction --site-setup-type="site"
