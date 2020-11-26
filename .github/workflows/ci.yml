@@ -34,30 +34,24 @@ jobs:
     name: "Code quality checks"
     runs-on: ubuntu-20.04
     steps:
-      -
-        name: "Checkout"
+      - name: "Checkout"
         uses: actions/checkout@v2
-      -
-        name: "Install PHP"
+      - name: "Install PHP"
         uses: shivammathur/setup-php@v2
         with:
           php-version: "${{ matrix.php-version }}"
           tools: composer:v2
       - name: "Show Composer version"
         run: composer --version
-      -
-        name: "Cache dependencies installed with composer"
+      - name: "Cache dependencies installed with composer"
         uses: actions/cache@v1
         with:
-          key: "php${{ matrix.php-version }}-
-          composer-${{ hashFiles('**/composer.json') }}"
+          key: "php${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.json') }}"
           path: ~/.composer/cache
           restore-keys: "php${{ matrix.php-version }}-composer-\n"
-      -
-        name: "Install Composer dependencies"
+      - name: "Install Composer dependencies"
         run: "composer install --no-progress"
-      -
-        name: "Run command"
+      - name: "Run command"
         run: "composer ci:${{ matrix.command }}"
     strategy:
       matrix:
@@ -85,11 +79,9 @@ jobs:
       DATABASE_PASSWORD: root
       DATABASE_NAME: typo3
     steps:
-      -
-        name: "Checkout"
+      - name: "Checkout"
         uses: actions/checkout@v2
-      -
-        name: "Install PHP"
+      - name: "Install PHP"
         uses: shivammathur/setup-php@v2
         with:
           php-version: "${{ matrix.php-version }}"
@@ -97,33 +89,27 @@ jobs:
           extensions: mysqli
       - name: "Show Composer version"
         run: composer --version
-      -
-        name: "Cache dependencies installed with composer"
+      - name: "Cache dependencies installed with composer"
         uses: actions/cache@v1
         with:
-          key: "php${{ matrix.php-version }}
-               -composer-${{ hashFiles('**/composer.json') }}"
+          key: "php${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.json') }}"
           path: ~/.composer/cache
           restore-keys: "php${{ matrix.php-version }}-composer-\n"
-      -
-        env:
+      - env:
           TYPO3: "${{ matrix.typo3-version }}"
         name: "Install TYPO3 Core"
         run: |
           composer require --no-progress typo3/minimal:"$TYPO3"
           composer show
-      -
-        name: "Start MySQL"
+      - name: "Start MySQL"
         run: "sudo /etc/init.d/mysql start"
-      -
-        name: "Set up TYPO3"
+      - name: "Set up TYPO3"
         run: >
           .Build/vendor/bin/typo3cms install:setup --no-interaction --site-setup-type="site"
           --database-user-name="${DATABASE_USER}" --database-host-name="${DATABASE_HOST}"
           --database-port="${{ job.services.mysql.ports[3306] }}" --database-name="${DATABASE_NAME}"
           --admin-user-name="admin" --admin-password="password" --site-name="Test installation";
-      -
-        name: "Run unit tests"
+      - name: "Run unit tests"
         run: "composer ci:tests:unit"
     strategy:
       matrix:
