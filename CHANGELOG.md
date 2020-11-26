@@ -5,6 +5,19 @@ This project does **not** adhere to [Semantic Versioning](https://semver.org/).
 Instead, the version number mirrors the version number of the
 included PHPUnit package.
 
+## x.y.z
+
+### Added
+- Add an `.editorconfig` file (#212)
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
 ## 7.5.22
 
 ### Added
@@ -15,8 +28,6 @@ included PHPUnit package.
 - Switch the CI from Travis CI to GitHub actions (#197)
 - Switch the default branch from master to main (#196)
 - Update `helhum/typo3-console` (#177, #179, #182, #205)
-
-### Deprecated
 
 ### Removed
 - Drop support for PHP 7.1 (#175)
