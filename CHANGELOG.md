@@ -8,7 +8,7 @@ included PHPUnit package.
 ## x.y.z
 
 ### Added
-- Add an `.editorconfig` file (#212)
+- Add an `.editorconfig` file (#212, #219)
 
 ### Changed
 
