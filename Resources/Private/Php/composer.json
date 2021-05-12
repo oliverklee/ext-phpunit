@@ -1,24 +1,24 @@
 {
-    "name": "helhum/phpunit-library",
-    "description": "PHPUnit as library",
-    "license": "GPL-2.0-or-later",
-    "require": {
-        "mikey179/vfsstream": "^1.6.8",
-        "phpunit/phpunit": "^7.5.20"
-    },
-    "prefer-stable": true,
-    "config": {
-        "platform": {
-            "php": "7.2.20"
-        },
-        "preferred-install": {
-            "*": "dist"
-        },
-        "sort-packages": true
-    },
-    "extra": {
-        "phar": {
-            "library": true
-        }
-    }
+	"name": "helhum/phpunit-library",
+	"description": "PHPUnit as library",
+	"license": "GPL-2.0-or-later",
+	"require": {
+		"mikey179/vfsstream": "^1.6.8",
+		"phpunit/phpunit": "^7.5.20"
+	},
+	"prefer-stable": true,
+	"config": {
+		"platform": {
+			"php": "7.2.20"
+		},
+		"preferred-install": {
+			"*": "dist"
+		},
+		"sort-packages": true
+	},
+	"extra": {
+		"phar": {
+			"library": true
+		}
+	}
 }
