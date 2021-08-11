@@ -8,6 +8,7 @@ included PHPUnit package.
 ## x.y.z
 
 ### Added
+- Allow installations with PHP 8 (#223)
 - Add an `.editorconfig` file (#212, #219)
 
 ### Changed
