@@ -61,6 +61,7 @@ jobs:
         command:
           - "php:sniff"
           - "php:fixer"
+          - "php:stan"
         php-version:
           - 7.4
   unit-tests:
