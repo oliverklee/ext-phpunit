@@ -42,6 +42,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      *         a mock of `$originalClassName` with access methods added
      *
      * @throws \InvalidArgumentException
+     *
+     * @deprecated will be removed in PHPUnit 8
      */
     protected function getAccessibleMock(
         string $originalClassName,
@@ -77,6 +79,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      * @param string $className name of class to make available, must not be empty
      *
      * @return string fully-qualified name of the built class, will not be empty
+     *
+     * @deprecated will be removed in PHPUnit 8
      */
     protected function buildAccessibleProxy(string $className): string
     {

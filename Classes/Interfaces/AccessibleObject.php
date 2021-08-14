@@ -7,6 +7,8 @@ namespace OliverKlee\PhpUnit\Interfaces;
 /**
  * This interface defines the methods provided by TestCase::getAccessibleMock.
  *
+ * @deprecated will be removed in PHPUnit 8
+ *
  * @author Nicole Cordes <nicole.cordes@googlemail.com>
  */
 interface AccessibleObject
