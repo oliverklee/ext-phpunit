@@ -1,2 +1,12 @@
 parameters:
 	ignoreErrors:
+		-
+			message: "#^Method OliverKlee\\\\PhpUnit\\\\TestCase\\:\\:getAccessibleMock\\(\\) should return OliverKlee\\\\PhpUnit\\\\Interfaces\\\\AccessibleObject&PHPUnit_Framework_MockObject_MockObject but returns PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\.$#"
+			count: 1
+			path: Classes/TestCase.php
+
+		-
+			message: "#^Property OliverKlee\\\\PhpUnit\\\\Tests\\\\Unit\\\\TestCaseTest\\:\\:\\$accessibleMock \\(OliverKlee\\\\PhpUnit\\\\Interfaces\\\\AccessibleObject&OliverKlee\\\\PhpUnit\\\\Tests\\\\Unit\\\\Fixtures\\\\ProtectedClass&PHPUnit_Framework_MockObject_MockObject\\) does not accept OliverKlee\\\\PhpUnit\\\\Interfaces\\\\AccessibleObject&PHPUnit_Framework_MockObject_MockObject\\.$#"
+			count: 1
+			path: Tests/Unit/TestCaseTest.php
+
