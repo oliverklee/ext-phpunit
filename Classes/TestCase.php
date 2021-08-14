@@ -31,9 +31,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     /**
      * Creates a mock object which allows for calling protected methods and access of protected properties.
      *
-     * @param string $originalClassName name of class to create the mock object of, must not be empty
+     * @param class-string $originalClassName name of class to create the mock object of, must not be empty
      * @param string[]|null $methods names of the methods to mock, null for "mock no methods"
-     * @param array $arguments arguments to pass to constructor
+     * @param array<int, mixed> $arguments arguments to pass to constructor
      * @param string $mockClassName the class name to use for the mock class
      * @param bool $callOriginalConstructor whether to call the constructor
      * @param bool $callOriginalClone whether to call the __clone method
@@ -53,6 +53,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         bool $callOriginalConstructor = true,
         bool $callOriginalClone = true
     ) {
+        // @phpstan-ignore-next-line We're testing a contract violation here on purpose.
         if ($originalClassName === '') {
             throw new \InvalidArgumentException('$originalClassName must not be empty.', 1334701880);
         }
@@ -76,14 +77,15 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      * Creates a proxy class of the specified class which allows for calling even protected methods and access of
      * protected properties.
      *
-     * @param string $className name of class to make available, must not be empty
+     * @param class-string $className name of class to make available, must not be empty
      *
-     * @return string fully-qualified name of the built class, will not be empty
+     * @return class-string fully-qualified name of the built class, will not be empty
      *
      * @deprecated will be removed in PHPUnit 8
      */
     protected function buildAccessibleProxy(string $className): string
     {
+        /** @var class-string $accessibleClassName */
         $accessibleClassName = \str_replace('.', '', \uniqid('Tx_Phpunit_AccessibleProxy', true));
         $class = new \ReflectionClass($className);
         $abstractModifier = $class->isAbstract() ? 'abstract ' : '';

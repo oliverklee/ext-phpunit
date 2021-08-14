@@ -61,6 +61,7 @@ class TestCaseTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
+        // @phpstan-ignore-next-line We're testing a contract violation here on purpose.
         $this->getAccessibleMock('');
     }
 
@@ -139,6 +140,7 @@ class TestCaseTest extends TestCase
      */
     public function protectedMethodForFixtureIsNotDirectlyCallable(): void
     {
+        // @phpstan-ignore-next-line We're testing a contract violation here on purpose.
         self::assertIsNotCallable([$this->protectedClassInstance, 'protectedMethod']);
     }
 
@@ -185,6 +187,7 @@ class TestCaseTest extends TestCase
      */
     public function protectedMethodForMockObjectIsNotDirectlyCallable(): void
     {
+        // @phpstan-ignore-next-line We're testing a contract violation here on purpose.
         self::assertIsNotCallable([$this->mock, 'protectedMethod']);
     }
 

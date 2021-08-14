@@ -82,6 +82,11 @@ class RunTestsCommand extends Command
         return $result;
     }
 
+    /**
+     * @param array<array-key, mixed> $variables
+     *
+     * @return array<array-key, mixed>
+     */
     private function removeClosures(array &$variables): array
     {
         $backup = [];
