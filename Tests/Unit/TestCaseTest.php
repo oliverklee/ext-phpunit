@@ -28,7 +28,7 @@ class TestCaseTest extends TestCase
     private $mock = null;
 
     /**
-     * @var ProtectedClass|\PHPUnit_Framework_MockObject_MockObject|AccessibleObject
+     * @var ProtectedClass&\PHPUnit_Framework_MockObject_MockObject&AccessibleObject
      */
     private $accessibleMock = null;
 
@@ -43,7 +43,9 @@ class TestCaseTest extends TestCase
     {
         $this->protectedClassInstance = new ProtectedClass();
         $this->mock = $this->createMock(ProtectedClass::class);
-        $this->accessibleMock = $this->getAccessibleMock(ProtectedClass::class, null);
+        /** @var ProtectedClass&\PHPUnit_Framework_MockObject_MockObject&AccessibleObject $accessibleMock */
+        $accessibleMock = $this->getAccessibleMock(ProtectedClass::class, null);
+        $this->accessibleMock = $accessibleMock;
         $this->staticProperty = ProtectedClass::getStaticProperty();
     }
 
