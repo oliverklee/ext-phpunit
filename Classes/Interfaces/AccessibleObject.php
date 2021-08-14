@@ -25,15 +25,15 @@ interface AccessibleObject
      * Calls the method $method without using call_user_func* and returns its return value.
      *
      * @param string $methodName name of method to call, must not be empty
-     * @param mixed &$arg1 first argument given to method $methodName
-     * @param mixed &$arg2 second argument given to method $methodName
-     * @param mixed &$arg3 third argument given to method $methodName
-     * @param mixed &$arg4 fourth argument given to method $methodName
-     * @param mixed &$arg5 fifth argument given to method $methodName
-     * @param mixed &$arg6 sixth argument given to method $methodName
-     * @param mixed &$arg7 seventh argument given to method $methodName
-     * @param mixed &$arg8 eighth argument given to method $methodName
-     * @param mixed &$arg9 ninth argument given to method $methodName
+     * @param mixed $arg1 first argument given to method $methodName
+     * @param mixed $arg2 second argument given to method $methodName
+     * @param mixed $arg3 third argument given to method $methodName
+     * @param mixed $arg4 fourth argument given to method $methodName
+     * @param mixed $arg5 fifth argument given to method $methodName
+     * @param mixed $arg6 sixth argument given to method $methodName
+     * @param mixed $arg7 seventh argument given to method $methodName
+     * @param mixed $arg8 eighth argument given to method $methodName
+     * @param mixed $arg9 ninth argument given to method $methodName
      *
      * @return mixed the return value from the method $methodName
      */
@@ -64,7 +64,7 @@ interface AccessibleObject
      * Sets the value of a property by reference.
      *
      * @param string $propertyName name of property to set value for, must not be empty
-     * @param mixed &$value the new value for the property defined in $propertyName
+     * @param mixed $value the new value for the property defined in $propertyName
      *
      * @return void
      */
