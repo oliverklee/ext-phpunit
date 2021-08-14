@@ -8,6 +8,18 @@ included PHPUnit package.
 ## x.y.z
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## 7.5.23
+
+### Added
 - Support TYPO3 11.3 (#244)
 - Add PHPStan to the CI pipeline (#224)
 - Allow installations with PHP 8 (#223)
@@ -22,8 +34,6 @@ included PHPUnit package.
 ### Removed
 - Drop the tutorial on testing protected methods (#246)
 - Drop `_callRef`, `_setRef`, `getStatic`, `setStatic` and `getProtectedProperty` (#237)
-
-### Fixed
 
 ## 7.5.22
 
