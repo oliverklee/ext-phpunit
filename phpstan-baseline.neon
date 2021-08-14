@@ -1,12 +1,2 @@
 parameters:
 	ignoreErrors:
-		-
-			message: "#^Method OliverKlee\\\\PhpUnit\\\\Interfaces\\\\AccessibleObject\\:\\:_call\\(\\) invoked with 10 parameters, 1 required\\.$#"
-			count: 1
-			path: Tests/Unit/TestCaseTest.php
-
-		-
-			message: "#^Method OliverKlee\\\\PhpUnit\\\\Interfaces\\\\AccessibleObject\\:\\:_call\\(\\) invoked with 9 parameters, 1 required\\.$#"
-			count: 1
-			path: Tests/Unit/TestCaseTest.php
-
