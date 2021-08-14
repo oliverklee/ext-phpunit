@@ -85,7 +85,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         eval(
             $abstractModifier . 'class ' . $accessibleClassName .
             ' extends ' . $className . ' implements \\OliverKlee\\PhpUnit\\Interfaces\\AccessibleObject {' .
-            'public function _call(string $methodName) {' .
+            'public function _call(string $methodName, $arg1 = null, $arg2 = null, $arg3 = null, $arg4 = null, ' .
+            '$arg5 = null, $arg6 = null, $arg7 = null, $arg8 = null, $arg9 = null) {' .
             'if ($methodName === \'\') {' .
             'throw new \\InvalidArgumentException(\'$methodName must not be empty.\', 1334663993);' .
             '}' .
