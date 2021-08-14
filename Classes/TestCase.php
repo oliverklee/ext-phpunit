@@ -98,8 +98,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             'return call_user_func_array(array($this, $methodName), array_slice($args, 1));' .
             '}' .
             'public function _callRef(' .
-            'string $methodName, &$arg1 = NULL, &$arg2 = NULL, &$arg3 = NULL, &$arg4 = NULL, ' .
-            '&$arg5= NULL, &$arg6 = NULL, &$arg7 = NULL, &$arg8 = NULL, &$arg9 = NULL' .
+            'string $methodName, &$arg1 = null, &$arg2 = null, &$arg3 = null, &$arg4 = null, ' .
+            '&$arg5= null, &$arg6 = null, &$arg7 = null, &$arg8 = null, &$arg9 = null' .
             ') {' .
             'if ($methodName === \'\') {' .
             'throw new \\InvalidArgumentException(\'$methodName must not be empty.\', 1334664210);' .
