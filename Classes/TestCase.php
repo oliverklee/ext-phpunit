@@ -98,73 +98,11 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             '$args = func_get_args();' .
             'return call_user_func_array(array($this, $methodName), array_slice($args, 1));' .
             '}' .
-            'public function _callRef(' .
-            'string $methodName, &$arg1 = null, &$arg2 = null, &$arg3 = null, &$arg4 = null, ' .
-            '&$arg5= null, &$arg6 = null, &$arg7 = null, &$arg8 = null, &$arg9 = null' .
-            ') {' .
-            'if ($methodName === \'\') {' .
-            'throw new \\InvalidArgumentException(\'$methodName must not be empty.\', 1334664210);' .
-            '}' .
-            'switch (func_num_args()) {' .
-            'case 0:' .
-            'throw new \\RuntimeException(\'The case of 0 arguments is not supposed to happen.\', 1334703124);' .
-            'break;' .
-            'case 1:' .
-            '$returnValue = $this->$methodName();' .
-            'break;' .
-            'case 2:' .
-            '$returnValue = $this->$methodName($arg1);' .
-            'break;' .
-            'case 3:' .
-            '$returnValue = $this->$methodName($arg1, $arg2);' .
-            'break;' .
-            'case 4:' .
-            '$returnValue = $this->$methodName($arg1, $arg2, $arg3);' .
-            'break;' .
-            'case 5:' .
-            '$returnValue = $this->$methodName($arg1, $arg2, $arg3, $arg4);' .
-            'break;' .
-            'case 6:' .
-            '$returnValue = $this->$methodName($arg1, $arg2, $arg3, $arg4, $arg5);' .
-            'break;' .
-            'case 7:' .
-            '$returnValue = $this->$methodName($arg1, $arg2, $arg3, $arg4, $arg5, $arg6);' .
-            'break;' .
-            'case 8:' .
-            '$returnValue = $this->$methodName($arg1, $arg2, $arg3, $arg4, $arg5, $arg6, $arg7);' .
-            'break;' .
-            'case 9:' .
-            '$returnValue = $this->$methodName($arg1, $arg2, $arg3, $arg4, $arg5, $arg6, $arg7, $arg8);' .
-            'break;' .
-            'case 10:' .
-            '$returnValue = $this->$methodName(' .
-            '$arg1, $arg2, $arg3, $arg4, $arg5, $arg6, $arg7, $arg8, $arg9' .
-            ');' .
-            'break;' .
-            'default:' .
-            'throw new \\InvalidArgumentException(' .
-            '\'_callRef currently only allows calls to methods with no more than 9 parameters.\'' .
-            ');' .
-            '}' .
-            'return $returnValue;' .
-            '}' .
             'public function _set(string $propertyName, $value): void {' .
             'if ($propertyName === \'\') {' .
             'throw new \\InvalidArgumentException(\'$propertyName must not be empty.\', 1334664355);' .
             '}' .
             '$this->$propertyName = $value;' .
-            '}' .
-            'public function _setRef(string $propertyName, &$value): void {' .
-            'if ($propertyName === \'\') {' .
-            'throw new \\InvalidArgumentException(\'$propertyName must not be empty.\', 1334664545);' .
-            '}' .
-            '$this->$propertyName = $value;' .
-            '}' .
-            'public function _setStatic(string $propertyName, $value): void {' .
-            'if ($propertyName === \'\') {' .
-            'throw new \\InvalidArgumentException(\'$propertyName must not be empty.\', 1344242602);' .
-            '}' .
-            'self::$$propertyName = $value;' .
             '}' .
             'public function _get(string $propertyName) {' .
             'if ($propertyName === \'\') {' .
@@ -183,29 +121,5 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         // phpcs:enable
 
         return $accessibleClassName;
-    }
-
-    /**
-     * @param object $object
-     * @param string $propertyName
-     *
-     * @return mixed
-     *
-     * @throws \InvalidArgumentException
-     */
-    protected function getProtectedProperty($object, string $propertyName)
-    {
-        if (!\is_object($object)) {
-            throw new \InvalidArgumentException(
-                '$object needs to be an object, but actually is of type: ' . \gettype($object),
-                1565172509
-            );
-        }
-
-        $property = (new \ReflectionClass($object))->getProperty($propertyName);
-        $property->setAccessible(true);
-
-        // @extensionScannerIgnoreLine
-        return $property->getValue($object);
     }
 }
