@@ -18,6 +18,7 @@ included PHPUnit package.
 ### Deprecated
 
 ### Removed
+- Drop `_callRef`, `_setRef`, `getStatic`, `setStatic` and `getProtectedProperty` (#237)
 
 ### Fixed
 
