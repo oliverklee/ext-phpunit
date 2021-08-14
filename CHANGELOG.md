@@ -13,6 +13,7 @@ included PHPUnit package.
 - Add an `.editorconfig` file (#212, #219)
 
 ### Changed
+- Limit the allowed number of arguments to `_call` to 9 (#230)
 
 ### Deprecated
 
