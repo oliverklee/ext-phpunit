@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 if (PHP_SAPI !== 'cli') {
     die('This script supports command line usage only. Please check your command.');
 }
@@ -15,12 +17,12 @@ $rules = [
     'php_unit_method_casing' => true,
     'php_unit_mock' => true,
     'php_unit_no_expectation_annotation' => true,
-    'php_unit_ordered_covers' => true,
     'php_unit_set_up_tear_down_visibility' => true,
     'php_unit_test_case_static_method_calls' => ['call_type' => 'self'],
+    'phpdoc_order_by_value' => true,
 ];
 
-$config = \PhpCsFixer\Config::create()
+$config = (new \PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules($rules);
 

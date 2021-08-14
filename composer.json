@@ -27,7 +27,7 @@
 		"typo3/cms-core": "^9.5 || ^10.3"
 	},
 	"require-dev": {
-		"friendsofphp/php-cs-fixer": "^2.16.7",
+		"friendsofphp/php-cs-fixer": "^3.0.2",
 		"helhum/typo3-console": "^5.8.6 || ^6.3.4",
 		"phpstan/extension-installer": "^1.1",
 		"phpstan/phpstan": "^0.12.94",
@@ -63,7 +63,7 @@
 		"ci:php:lint": "find *.php Classes Configuration Migrations Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
 		"ci:php:sniff": ".Build/vendor/bin/phpcs Classes Configuration Tests",
 		"ci:php:stan": ".Build/vendor/bin/phpstan",
-		"ci:php:fixer": ".Build/vendor/bin/php-cs-fixer fix --dry-run -v --show-progress=dots --diff-format=udiff",
+		"ci:php:fixer": ".Build/vendor/bin/php-cs-fixer fix --dry-run -v --show-progress=dots",
 		"ci:tests:unit": ".Build/vendor/bin/typo3 phpunit:run --options=\"Tests/Unit\"",
 		"ci:tests": [
 			"@ci:tests:unit"
