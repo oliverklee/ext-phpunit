@@ -3,7 +3,7 @@
 $EM_CONF['phpunit'] = [
     'title' => 'PHPUnit',
     'description' => 'Unit testing for TYPO3. Includes PHPUnit and a CLI test runner.',
-    'version' => '7.5.22',
+    'version' => '7.5.23',
     'category' => 'misc',
     'constraints' => [
         'depends' => [
