@@ -8,6 +8,7 @@ included PHPUnit package.
 ## x.y.z
 
 ### Added
+- Support TYPO3 11.3 (#244)
 - Add PHPStan to the CI pipeline (#224)
 - Allow installations with PHP 8 (#223)
 - Add an `.editorconfig` file (#212, #219)
