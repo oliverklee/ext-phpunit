@@ -332,17 +332,6 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function callCanPassTenParametersToMethod(): void
-    {
-        self::assertSame(
-            '10: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10',
-            $this->accessibleMock->_call('argumentChecker', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-        );
-    }
-
-    /**
-     * @test
-     */
     public function callRefCanCallMethodWithoutParameter(): void
     {
         self::assertSame(
@@ -511,6 +500,7 @@ class TestCaseTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
+        // @phpstan-ignore-next-line We test a contract violation here.
         $this->accessibleMock->_callRef(
             'argumentChecker',
             $parameter,
