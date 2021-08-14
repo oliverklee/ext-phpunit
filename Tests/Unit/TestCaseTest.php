@@ -332,12 +332,13 @@ class TestCaseTest extends TestCase
     /**
      * @test
      */
-    public function callCanPassTenParametersToMethod(): void
+    public function callWithTenParametersThrowsException(): void
     {
-        self::assertSame(
-            '10: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10',
-            $this->accessibleMock->_call('argumentChecker', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionCode(1628955407);
+        $this->expectExceptionMessage('_call currently only allows calls to methods with no more than 9 parameters.');
+
+        $this->accessibleMock->_call('argumentChecker', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
     }
 
     /**
@@ -510,6 +511,9 @@ class TestCaseTest extends TestCase
     public function callRefForTenParametersThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            '_callRef currently only allows calls to methods with no more than 9 parameters.'
+        );
 
         $this->accessibleMock->_callRef(
             'argumentChecker',

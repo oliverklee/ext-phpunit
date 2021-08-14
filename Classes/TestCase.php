@@ -89,6 +89,11 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             'if ($methodName === \'\') {' .
             'throw new \\InvalidArgumentException(\'$methodName must not be empty.\', 1334663993);' .
             '}' .
+            'if (func_num_args() > 10) {' .
+            'throw new \\InvalidArgumentException(' .
+            '\'_call currently only allows calls to methods with no more than 9 parameters.\', 1628955407' .
+            ');' .
+            '}' .
             '$args = func_get_args();' .
             'return call_user_func_array(array($this, $methodName), array_slice($args, 1));' .
             '}' .
