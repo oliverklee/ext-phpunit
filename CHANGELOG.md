@@ -16,6 +16,7 @@ included PHPUnit package.
 - Limit the allowed number of arguments to `_call` to 9 (#230)
 
 ### Deprecated
+- Deprecate `getAccessibleMock`, `buildAccessibleProxy` and `AccessibleObject` (#241)
 
 ### Removed
 - Drop `_callRef`, `_setRef`, `getStatic`, `setStatic` and `getProtectedProperty` (#237)
