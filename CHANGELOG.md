@@ -20,6 +20,7 @@ included PHPUnit package.
 - Deprecate `getAccessibleMock`, `buildAccessibleProxy` and `AccessibleObject` (#241)
 
 ### Removed
+- Drop the tutorial on testing protected methods (#246)
 - Drop `_callRef`, `_setRef`, `getStatic`, `setStatic` and `getProtectedProperty` (#237)
 
 ### Fixed
