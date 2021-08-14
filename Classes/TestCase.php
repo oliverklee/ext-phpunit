@@ -38,8 +38,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      * @param bool $callOriginalConstructor whether to call the constructor
      * @param bool $callOriginalClone whether to call the __clone method
      *
-     * @return \PHPUnit_Framework_MockObject_MockObject|AccessibleObject
-     *         a mock of $originalClassName with access methods added
+     * @return \PHPUnit_Framework_MockObject_MockObject&AccessibleObject
+     *         a mock of `$originalClassName` with access methods added
      *
      * @throws \InvalidArgumentException
      */
@@ -64,7 +64,10 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             $mockBuilder->disableOriginalClone();
         }
 
-        return $mockBuilder->getMock();
+        /** @var \PHPUnit_Framework_MockObject_MockObject&AccessibleObject $mock */
+        $mock = $mockBuilder->getMock();
+
+        return $mock;
     }
 
     /**
