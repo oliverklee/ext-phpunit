@@ -1,0 +1,6 @@
+services:
+  OliverKlee\PhpUnit\Command\RunTestsCommand:
+    tags:
+      - name: 'console.command'
+        command: 'phpunit:run'
+        description: 'Runs PHPUnit tests from the command line.'

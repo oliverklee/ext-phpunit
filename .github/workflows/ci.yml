@@ -116,10 +116,18 @@ jobs:
         run: "composer ci:tests:unit"
     strategy:
       matrix:
-        php-version:
-          - 7.2
-          - 7.3
-          - 7.4
-        typo3-version:
-          - ^9.5
-          - ^10.4
+        include:
+          - typo3-version: ^9.5
+            php-version: 7.2
+          - typo3-version: ^9.5
+            php-version: 7.3
+          - typo3-version: ^9.5
+            php-version: 7.4
+          - typo3-version: ^10.4
+            php-version: 7.2
+          - typo3-version: ^10.4
+            php-version: 7.3
+          - typo3-version: ^10.4
+            php-version: 7.4
+          - typo3-version: ^11.3
+            php-version: 7.4

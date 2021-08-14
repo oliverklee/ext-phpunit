@@ -8,7 +8,7 @@ $EM_CONF['phpunit'] = [
     'constraints' => [
         'depends' => [
             'php' => '7.2.0-',
-            'typo3' => '9.5.0-10.4.99',
+            'typo3' => '9.5.0-11.3.99',
         ],
         'conflicts' => [],
         'suggests' => [],
