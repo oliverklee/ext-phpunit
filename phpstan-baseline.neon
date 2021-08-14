@@ -6,17 +6,7 @@ parameters:
 			path: Tests/Unit/TestCaseTest.php
 
 		-
-			message: "#^Method OliverKlee\\\\PhpUnit\\\\Interfaces\\\\AccessibleObject\\:\\:_call\\(\\) invoked with 11 parameters, 1 required\\.$#"
-			count: 1
-			path: Tests/Unit/TestCaseTest.php
-
-		-
 			message: "#^Method OliverKlee\\\\PhpUnit\\\\Interfaces\\\\AccessibleObject\\:\\:_call\\(\\) invoked with 9 parameters, 1 required\\.$#"
-			count: 1
-			path: Tests/Unit/TestCaseTest.php
-
-		-
-			message: "#^Method OliverKlee\\\\PhpUnit\\\\Interfaces\\\\AccessibleObject\\:\\:_callRef\\(\\) invoked with 11 parameters, 1\\-10 required\\.$#"
 			count: 1
 			path: Tests/Unit/TestCaseTest.php
 

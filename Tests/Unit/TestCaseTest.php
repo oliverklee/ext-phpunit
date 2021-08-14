@@ -338,6 +338,7 @@ class TestCaseTest extends TestCase
         $this->expectExceptionCode(1628955407);
         $this->expectExceptionMessage('_call currently only allows calls to methods with no more than 9 parameters.');
 
+        // @phpstan-ignore-next-line We're testing a contract violation here on purpose.
         $this->accessibleMock->_call('argumentChecker', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
     }
 
@@ -515,6 +516,7 @@ class TestCaseTest extends TestCase
             '_callRef currently only allows calls to methods with no more than 9 parameters.'
         );
 
+        // @phpstan-ignore-next-line We're testing a contract violation here on purpose.
         $this->accessibleMock->_callRef(
             'argumentChecker',
             $parameter,
