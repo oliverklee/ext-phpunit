@@ -16,6 +16,7 @@ included PHPUnit package.
 ### Removed
 
 ### Fixed
+- Fix a Composer script description key (#258)
 
 ## 7.5.23
 
