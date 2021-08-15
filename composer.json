@@ -95,7 +95,7 @@
 		"ci": "Runs all dynamic and static code checks (i.e. currently, only the static checks).",
 		"ci:php:stan": "Checks the types with PHPStan.",
 		"ci:static": "Runs all static code analysis checks for the code.",
-		"phpstand:baseline": "Updates the PHPStan baseline file to match the code."
+		"phpstan:baseline": "Updates the PHPStan baseline file to match the code."
 	},
 	"extra": {
 		"branch-alias": {
