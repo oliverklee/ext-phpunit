@@ -14,6 +14,7 @@ included PHPUnit package.
 ### Deprecated
 
 ### Removed
+- Drop obsolete screenshots from the manual (#261)
 
 ### Fixed
 - Fix a Composer script description key (#258)
