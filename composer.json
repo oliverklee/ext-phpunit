@@ -62,7 +62,7 @@
 	"scripts": {
 		"ci:php:lint": "find *.php Classes Configuration Migrations Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
 		"ci:php:sniff": ".Build/vendor/bin/phpcs Classes Configuration Tests",
-		"ci:php:stan": ".Build/vendor/bin/phpstan",
+		"ci:php:stan": ".Build/vendor/bin/phpstan --no-progress",
 		"ci:php:fixer": ".Build/vendor/bin/php-cs-fixer fix --dry-run -v --show-progress=dots",
 		"ci:tests:unit": ".Build/vendor/bin/typo3 phpunit:run --options=\"Tests/Unit\"",
 		"ci:tests": [
