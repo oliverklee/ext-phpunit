@@ -17,6 +17,7 @@ included PHPUnit package.
 - Drop obsolete screenshots from the manual (#261)
 
 ### Fixed
+- Use `$_EXTKEY` in `ext_emconf.php` again (#263)
 - Fix a Composer script description key (#258)
 
 ## 7.5.23
