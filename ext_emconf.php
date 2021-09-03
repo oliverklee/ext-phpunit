@@ -1,6 +1,6 @@
 <?php
 
-$EM_CONF['phpunit'] = [
+$EM_CONF[$_EXTKEY] = [
     'title' => 'PHPUnit',
     'description' => 'Unit testing for TYPO3. Includes PHPUnit and a CLI test runner.',
     'version' => '7.5.23',
