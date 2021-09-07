@@ -8,6 +8,7 @@ included PHPUnit package.
 ## x.y.z
 
 ### Added
+- Use generics for accessible mocks (#265)
 
 ### Changed
 
