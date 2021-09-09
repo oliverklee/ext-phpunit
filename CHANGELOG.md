@@ -8,6 +8,7 @@ included PHPUnit package.
 ## x.y.z
 
 ### Added
+- Add support for TYPO3 11.4 (#266)
 - Use generics for accessible mocks (#265)
 
 ### Changed
