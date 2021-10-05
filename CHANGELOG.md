@@ -8,6 +8,7 @@ included PHPUnit package.
 ## x.y.z
 
 ### Added
+- Add support for TYPO3 11.5 (#275)
 
 ### Changed
 
