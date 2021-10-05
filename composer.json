@@ -107,7 +107,6 @@
 			]
 		},
 		"typo3/cms": {
-			"ignore-as-root": false,
 			"extension-key": "phpunit",
 			"app-dir": ".Build",
 			"web-dir": ".Build/public"
