@@ -23,7 +23,7 @@
 	},
 	"require": {
 		"php": ">= 7.2",
-		"symfony/console": "^4.4 || ^5.1",
+		"symfony/console": "^4.4 || ^5.1 || ^6.0",
 		"typo3/cms-core": "^9.5 || ^10.4 || ^11.5.1"
 	},
 	"require-dev": {
