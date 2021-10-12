@@ -8,8 +8,6 @@ included PHPUnit package.
 ## x.y.z
 
 ### Added
-- Add support for Symfony 6 (#276)
-- Add support for TYPO3 11.5 (#275)
 
 ### Changed
 
@@ -18,6 +16,12 @@ included PHPUnit package.
 ### Removed
 
 ### Fixed
+
+## 7.5.25
+
+### Added
+- Add support for Symfony 6 (#276)
+- Add support for TYPO3 11.5 (#275)
 
 ## 7.5.24
 
