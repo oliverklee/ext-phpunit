@@ -15,6 +15,7 @@ PHPUnit package this extension is intended to be used in conjunction with.
 ### Deprecated
 
 ### Removed
+- Drop `AccessibleObject`, `getAccessibleMock` and `buildAccessibleProxy` (#287)
 - Remove the non-namespaced class aliases (#286)
 - Drop support for non-Composer projects (#283)
 
