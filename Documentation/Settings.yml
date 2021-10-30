@@ -6,8 +6,8 @@
 conf.py:
   copyright: 2021
   project: PHPUnit
-  version: 7.5
-  release: 7.5.25
+  version: 8.5
+  release: 8.5.0
   latex_documents:
   - - Index
     - phpunit.tex
