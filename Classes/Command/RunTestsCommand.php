@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OliverKlee\PhpUnit\Command;
 
-use OliverKlee\PhpUnit\Service\LibraryLoader;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -57,8 +56,6 @@ class RunTestsCommand extends Command
         // Store current TYPO3 configuration and set the default one.
         // This is needed as the configuration might include closures which cannot be backed-up.
         $globalBackup = $this->removeClosures($GLOBALS['TYPO3_CONF_VARS']);
-
-        LibraryLoader::includeAll();
 
         // run unit tests
         $runner = new \PHPUnit\TextUI\Command();
