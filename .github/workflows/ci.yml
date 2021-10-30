@@ -136,3 +136,5 @@ jobs:
             php-version: 7.4
           - typo3-version: ^11.5
             php-version: 8.0
+          - typo3-version: ^11.5
+            php-version: 8.1

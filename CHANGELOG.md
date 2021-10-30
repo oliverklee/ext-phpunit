@@ -8,6 +8,7 @@ PHPUnit package this extension is intended to be used in conjunction with.
 ## x.y.z
 
 ### Added
+- Also run the tests with PHP 8.0 and 8.1 on CI (#278, #289)
 
 ### Changed
 - Upgrade to PHPUnit 8.5 (#263)
