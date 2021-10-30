@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project does **not** adhere to [Semantic Versioning](https://semver.org/).
 Instead, the version number mirrors the version number of the
-included PHPUnit package.
+PHPUnit package this extension is intended to be used in conjunction with.
 
 ## x.y.z
 
@@ -15,6 +15,7 @@ included PHPUnit package.
 ### Deprecated
 
 ### Removed
+- Drop support for non-Composer projects (#283)
 
 ### Fixed
 
