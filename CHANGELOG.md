@@ -15,6 +15,7 @@ PHPUnit package this extension is intended to be used in conjunction with.
 ### Deprecated
 
 ### Removed
+- Remove the non-namespaced class aliases (#286)
 - Drop support for non-Composer projects (#283)
 
 ### Fixed
