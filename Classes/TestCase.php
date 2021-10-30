@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace OliverKlee\PhpUnit;
 
 /**
- * This base class provides helper functions that might be convenient when testing in TYPO3.
+ * Base class for test cases.
+ *
+ * @deprecated will be removed in phpunit 9.x; directly use `\PHPUnit\Framework\TestCase` instead
  *
  * @author Robert Lemke <robert@typo3.org>
  * @author Kasper Ligaard <kasperligaard@gmail.com>

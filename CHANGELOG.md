@@ -13,6 +13,7 @@ PHPUnit package this extension is intended to be used in conjunction with.
 - Upgrade to PHPUnit 8.5 (#263)
 
 ### Deprecated
+- Deprecate the test base class (#288)
 
 ### Removed
 - Drop `AccessibleObject`, `getAccessibleMock` and `buildAccessibleProxy` (#287)
