@@ -10,6 +10,7 @@ included PHPUnit package.
 ### Added
 
 ### Changed
+- Upgrade to PHPUnit 8.5 (#263)
 
 ### Deprecated
 

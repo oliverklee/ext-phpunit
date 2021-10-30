@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OliverKlee\PhpUnit;
 
 use OliverKlee\PhpUnit\Interfaces\AccessibleObject;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * This base class provides helper functions that might be convenient when testing in TYPO3.
@@ -40,8 +41,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      * @param bool $callOriginalConstructor whether to call the constructor
      * @param bool $callOriginalClone whether to call the __clone method
      *
-     * @return \PHPUnit_Framework_MockObject_MockObject&AccessibleObject&M
-     *         a mock of `$originalClassName` with access methods added
+     * @return MockObject&AccessibleObject&M a mock of `$originalClassName` with access methods added
      *
      * @throws \InvalidArgumentException
      *
@@ -68,7 +68,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             $mockBuilder->disableOriginalClone();
         }
 
-        /** @var \PHPUnit_Framework_MockObject_MockObject&AccessibleObject&M $mock */
+        /** @var MockObject&AccessibleObject&M $mock */
         $mock = $mockBuilder->getMock();
 
         return $mock;
