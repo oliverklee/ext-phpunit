@@ -3,6 +3,7 @@
 /.Build/*
 /.php-cs-fixer.cache
 /.php_cs.cache
+/.phpunit.result.cache
 /Resources/Private/Build/vendor
 /composer.lock
 /nbproject
