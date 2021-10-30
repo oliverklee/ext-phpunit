@@ -7,6 +7,7 @@ namespace OliverKlee\PhpUnit\Tests\Unit;
 use OliverKlee\PhpUnit\Interfaces\AccessibleObject;
 use OliverKlee\PhpUnit\TestCase;
 use OliverKlee\PhpUnit\Tests\Unit\Fixtures\ProtectedClass;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * Test case.
@@ -23,12 +24,12 @@ class TestCaseTest extends TestCase
     private $protectedClassInstance = null;
 
     /**
-     * @var ProtectedClass|\PHPUnit_Framework_MockObject_MockObject
+     * @var ProtectedClass|MockObject
      */
     private $mock = null;
 
     /**
-     * @var ProtectedClass&\PHPUnit_Framework_MockObject_MockObject&AccessibleObject
+     * @var ProtectedClass&MockObject&AccessibleObject
      */
     private $accessibleMock = null;
 
@@ -43,7 +44,7 @@ class TestCaseTest extends TestCase
     {
         $this->protectedClassInstance = new ProtectedClass();
         $this->mock = $this->createMock(ProtectedClass::class);
-        /** @var ProtectedClass&\PHPUnit_Framework_MockObject_MockObject&AccessibleObject $accessibleMock */
+        /** @var ProtectedClass&MockObject&AccessibleObject $accessibleMock */
         $accessibleMock = $this->getAccessibleMock(ProtectedClass::class, null);
         $this->accessibleMock = $accessibleMock;
         $this->staticProperty = ProtectedClass::getStaticProperty();

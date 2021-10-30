@@ -9,6 +9,7 @@ $rules = [
     '@PHPUnit57Migration:risky' => true,
     '@PHPUnit60Migration:risky' => true,
     '@PHPUnit75Migration:risky' => true,
+    '@PHPUnit84Migration:risky' => true,
 
     'php_unit_construct' => true,
     'php_unit_dedicate_assert' => true,
