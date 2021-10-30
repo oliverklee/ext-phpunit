@@ -90,6 +90,13 @@
 		],
 		"post-autoload-dump": [
 			"@link-extension"
+		],
+		"prepare-release": [
+			"rm -rf Tests",
+			"rm CODE_OF_CONDUCT.md",
+			"rm phpcs.xml.dist",
+			"rm phpstan-baseline.neon",
+			"rm phpstan.neon"
 		]
 	},
 	"scripts-descriptions": {
