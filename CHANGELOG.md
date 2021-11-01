@@ -11,6 +11,7 @@ PHPUnit package this extension is intended to be used in conjunction with.
 - Also run the tests with PHP 8.0 and 8.1 on CI (#278, #289)
 
 ### Changed
+- Raise PHPStan to level 9 (#299)
 - Switch the TER release to tailor (#296)
 - Upgrade to PHPUnit 8.5 (#263)
 
