@@ -3,9 +3,21 @@
 All notable changes to this project will be documented in this file.
 This project does **not** adhere to [Semantic Versioning](https://semver.org/).
 Instead, the version number mirrors the version number of the
-PHPUnit package this extension is intended to be used in conjunction with.
+PHPUnit package this extension is intended to be used with.
 
 ## x.y.z
+
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## 8.5.0
 
 ### Added
 - Also run the tests with PHP 8.0 and 8.1 on CI (#278, #289)
@@ -22,8 +34,6 @@ PHPUnit package this extension is intended to be used in conjunction with.
 - Drop `AccessibleObject`, `getAccessibleMock` and `buildAccessibleProxy` (#287)
 - Remove the non-namespaced class aliases (#286)
 - Drop support for non-Composer projects (#283)
-
-### Fixed
 
 ## 7.5.25
 

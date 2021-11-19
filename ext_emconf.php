@@ -3,7 +3,7 @@
 $EM_CONF[$_EXTKEY] = [
     'title' => 'PHPUnit',
     'description' => 'Unit testing for TYPO3. Includes a CLI test runner.',
-    'version' => '7.5.25',
+    'version' => '8.5.0',
     'category' => 'misc',
     'constraints' => [
         'depends' => [
