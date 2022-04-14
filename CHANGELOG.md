@@ -10,6 +10,7 @@ PHPUnit package this extension is intended to be used with.
 ### Added
 
 ### Changed
+- Switch to the TYPO3 Code of Conduct (#309)
 
 ### Deprecated
 
