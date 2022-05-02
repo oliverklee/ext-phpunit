@@ -5,3 +5,18 @@ parameters:
 			count: 1
 			path: Classes/Command/RunTestsCommand.php
 
+		-
+			message: "#^Casting to int something that's already int\\.$#"
+			count: 1
+			path: Classes/Command/RunTestsCommand.php
+
+		-
+			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
+			count: 2
+			path: Classes/Command/RunTestsCommand.php
+
+		-
+			message: "#^PHPDoc type bool of property OliverKlee\\\\PhpUnit\\\\TestCase\\:\\:\\$backupGlobals is not the same as PHPDoc type bool\\|null of overridden property PHPUnit\\\\Framework\\\\TestCase\\:\\:\\$backupGlobals\\.$#"
+			count: 1
+			path: Classes/TestCase.php
+
