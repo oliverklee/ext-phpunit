@@ -59,8 +59,9 @@ class RunTestsCommand extends Command
 
         // run unit tests
         $runner = new \PHPUnit\TextUI\Command();
+        $rawOptions = \is_string($input->getOption('options')) ? $input->getOption('options') : '';
         // The first array key is always ignored.
-        $optionsForPhpunit = \array_merge([0 => ''], \explode(' ', (string)$input->getOption('options')));
+        $optionsForPhpunit = \array_merge([0 => ''], \explode(' ', $rawOptions));
 
         // set default printer only if no specific is set over CLI
         if (!\in_array('--printer', $optionsForPhpunit, true)) {
@@ -71,7 +72,7 @@ class RunTestsCommand extends Command
             $optionsForPhpunit[] = $input->getArgument('path');
         }
 
-        $result = (int)$runner->run($optionsForPhpunit);
+        $result = $runner->run($optionsForPhpunit);
 
         // restore configuration
         $GLOBALS['TYPO3_CONF_VARS'] = \array_merge($GLOBALS['TYPO3_CONF_VARS'], $globalBackup);
@@ -91,9 +92,9 @@ class RunTestsCommand extends Command
             if (!\is_array($value) && !$value instanceof \Closure) {
                 continue;
             }
-            if (\is_array($value) && !empty($value)) {
+            if (\is_array($value) && $value !== []) {
                 $valueBackup = $this->removeClosures($value);
-                if (!empty($valueBackup)) {
+                if ($valueBackup !== []) {
                     $backup[$key] = $valueBackup;
                 }
             } elseif ($value instanceof \Closure) {
