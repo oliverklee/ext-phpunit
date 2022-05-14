@@ -1,17 +1,3 @@
 parameters:
 	ignoreErrors:
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: Classes/Command/RunTestsCommand.php
-
-		-
-			message: "#^Casting to int something that's already int\\.$#"
-			count: 1
-			path: Classes/Command/RunTestsCommand.php
-
-		-
-			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
-			count: 2
-			path: Classes/Command/RunTestsCommand.php
 
