@@ -12,7 +12,7 @@ namespace OliverKlee\PhpUnit;
 abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var bool
+     * @var bool|null
      */
     protected $backupGlobals = false;
 
