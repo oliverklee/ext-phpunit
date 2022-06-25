@@ -1,3 +1,7 @@
 parameters:
 	ignoreErrors:
+		-
+			message: "#^Parameter \\#1 \\$arr1 of function array_merge expects array, mixed given\\.$#"
+			count: 1
+			path: Classes/Command/RunTestsCommand.php
 

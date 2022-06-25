@@ -1,5 +1,6 @@
 includes:
     - phpstan-baseline.neon
+    - .Build/vendor/phpstan/phpstan/conf/bleedingEdge.neon
 
 parameters:
   parallel:
