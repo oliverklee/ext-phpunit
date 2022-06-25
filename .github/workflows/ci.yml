@@ -28,11 +28,11 @@ jobs:
       fail-fast: false
       matrix:
         php-version:
-          - 7.2
-          - 7.3
-          - 7.4
-          - 8.0
-          - 8.1
+          - "7.2"
+          - "7.3"
+          - "7.4"
+          - "8.0"
+          - "8.1"
   code-quality:
     name: "Code quality checks"
     runs-on: ubuntu-22.04
@@ -65,7 +65,7 @@ jobs:
           - "php:fixer"
           - "php:stan"
         php-version:
-          - 7.4
+          - "7.4"
   unit-tests:
     name: "Unit tests"
     runs-on: ubuntu-22.04
@@ -120,21 +120,21 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - typo3-version: ^9.5
-            php-version: 7.2
-          - typo3-version: ^9.5
-            php-version: 7.3
-          - typo3-version: ^9.5
-            php-version: 7.4
-          - typo3-version: ^10.4
-            php-version: 7.2
-          - typo3-version: ^10.4
-            php-version: 7.3
-          - typo3-version: ^10.4
-            php-version: 7.4
-          - typo3-version: ^11.5
-            php-version: 7.4
-          - typo3-version: ^11.5
-            php-version: 8.0
-          - typo3-version: ^11.5
-            php-version: 8.1
+          - typo3-version: "^9.5"
+            php-version: "7.2"
+          - typo3-version: "^9.5"
+            php-version: "7.3"
+          - typo3-version: "^9.5"
+            php-version: "7.4"
+          - typo3-version: "^10.4"
+            php-version: "7.2"
+          - typo3-version: "^10.4"
+            php-version: "7.3"
+          - typo3-version: "^10.4"
+            php-version: "7.4"
+          - typo3-version: "^11.5"
+            php-version: "7.4"
+          - typo3-version: "^11.5"
+            php-version: "8.0"
+          - typo3-version: "^11.5"
+            php-version: "8.1"
