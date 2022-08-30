@@ -33,6 +33,7 @@ jobs:
           - "7.4"
           - "8.0"
           - "8.1"
+          - "8.2"
   code-quality:
     name: "Code quality checks"
     runs-on: ubuntu-22.04
@@ -138,3 +139,5 @@ jobs:
             php-version: "8.0"
           - typo3-version: "^11.5"
             php-version: "8.1"
+          - typo3-version: "^11.5"
+            php-version: "8.2"
