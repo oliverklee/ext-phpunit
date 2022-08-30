@@ -75,7 +75,8 @@ class RunTestsCommand extends Command
         $result = $runner->run($optionsForPhpunit);
 
         // restore configuration
-        $GLOBALS['TYPO3_CONF_VARS'] = \array_merge($GLOBALS['TYPO3_CONF_VARS'], $globalBackup);
+        $previousConfiguration = \is_array($GLOBALS['TYPO3_CONF_VARS']) ? $GLOBALS['TYPO3_CONF_VARS'] : [];
+        $GLOBALS['TYPO3_CONF_VARS'] = \array_merge($previousConfiguration, $globalBackup);
 
         return $result;
     }

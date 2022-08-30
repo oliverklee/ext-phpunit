@@ -18,7 +18,7 @@ PHPUnit package this extension is intended to be used with.
 ### Removed
 
 ### Fixed
-- Improve type safety (#311, #312)
+- Improve type safety (#311, #312, #351)
 
 ## 8.5.0
 
