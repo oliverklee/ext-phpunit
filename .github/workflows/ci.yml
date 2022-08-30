@@ -106,7 +106,7 @@ jobs:
           TYPO3: "${{ matrix.typo3-version }}"
         name: "Install TYPO3 Core"
         run: |
-          composer require --no-progress typo3/minimal:"$TYPO3"
+          composer require --no-progress typo3/cms-core:"$TYPO3"
           composer show
       - name: "Set up TYPO3"
         run: >
