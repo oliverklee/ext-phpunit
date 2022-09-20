@@ -52,7 +52,7 @@ jobs:
         uses: actions/cache@v3
         with:
           key: "php${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.json') }}"
-          path: ~/.composer/cache
+          path: ~/.cache/composer
           restore-keys: "php${{ matrix.php-version }}-composer-\n"
       - name: "Install Composer dependencies"
         run: "composer install --no-progress"
@@ -101,7 +101,7 @@ jobs:
         uses: actions/cache@v3
         with:
           key: "php${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.json') }}"
-          path: ~/.composer/cache
+          path: ~/.cache/composer
           restore-keys: "php${{ matrix.php-version }}-composer-\n"
       - env:
           TYPO3: "${{ matrix.typo3-version }}"
