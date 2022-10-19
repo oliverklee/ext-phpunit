@@ -19,5 +19,7 @@ updates:
         versions: [ ">= 3.4.0" ]
       - dependency-name: "phpunit/phpunit"
         versions: [ ">= 9" ]
+      - dependency-name: "saschaegerer/phpstan-typo3"
+        versions: [ ">= 1.8.0" ]
       - dependency-name: "symfony/console"
     versioning-strategy: "increase"
