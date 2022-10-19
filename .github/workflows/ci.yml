@@ -117,12 +117,21 @@ jobs:
         run: |
           composer require --no-progress typo3/cms-core:"$TYPO3"
           composer show
-      - name: "Set up TYPO3"
+      - name: "Set up TYPO3 for < 12"
+        if : ${{ matrix.typo3-version != '^12.3' }}
         run: >
           .Build/vendor/bin/typo3cms install:setup --no-interaction --site-setup-type="site"
           --database-user-name="${DATABASE_USER}" --database-host-name="${DATABASE_HOST}"
           --database-port="${{ job.services.mysql.ports[3306] }}" --database-name="${DATABASE_NAME}"
-          --admin-user-name="admin" --admin-password="password" --site-name="Test installation";
+          --admin-user-name="admin" --admin-password="334LKkq2()345d" --site-name="Test installation";
+      - name: "Set up TYPO3 for >= 12"
+        if : ${{ matrix.typo3-version == '^12.3' }}
+        run: >
+          .Build/vendor/bin/typo3 setup --no-interaction --create-site="https://example.com"
+          --username="${DATABASE_USER}" --host="${DATABASE_HOST}"
+          --port="${{ job.services.mysql.ports[3306] }}" --dbname="${DATABASE_NAME}"
+          --admin-email="admin@example.com" --driver="sqlite" --password=""
+          --admin-username="admin" --admin-user-password="334LKkq2()345d" --project-name="";
       - name: "Run unit tests"
         run: "composer ci:tests:unit"
     strategy:
@@ -148,4 +157,8 @@ jobs:
           - typo3-version: "^11.5"
             php-version: "8.1"
           - typo3-version: "^11.5"
+            php-version: "8.2"
+          - typo3-version: "^12.3"
+            php-version: "8.1"
+          - typo3-version: "^12.3"
             php-version: "8.2"

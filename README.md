@@ -3,6 +3,7 @@
 [![TYPO3 V9](https://img.shields.io/badge/TYPO3-9-orange.svg)](https://get.typo3.org/version/9)
 [![TYPO3 V10](https://img.shields.io/badge/TYPO3-10-orange.svg)](https://get.typo3.org/version/10)
 [![TYPO3 V11](https://img.shields.io/badge/TYPO3-11-orange.svg)](https://get.typo3.org/version/11)
+[![TYPO3 V12](https://img.shields.io/badge/TYPO3-12-orange.svg)](https://get.typo3.org/version/12)
 [![License](https://img.shields.io/github/license/oliverklee/ext-phpunit)](https://packagist.org/packages/oliverklee/phpunit)
 [![Total Downloads](https://poser.pugx.org/oliverklee/phpunit/downloads.svg)](https://packagist.org/packages/oliverklee/phpunit)
 [![GitHub CI Status](https://github.com/oliverklee/ext-phpunit/workflows/CI/badge.svg?branch=main)](https://github.com/oliverklee/ext-phpunit/actions)
