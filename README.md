@@ -4,7 +4,7 @@
 [![Latest Stable Version](https://poser.pugx.org/oliverklee/phpunit/v/stable.svg)](https://packagist.org/packages/oliverklee/phpunit)
 [![Total Downloads](https://poser.pugx.org/oliverklee/phpunit/downloads.svg)](https://packagist.org/packages/oliverklee/phpunit)
 [![Latest Unstable Version](https://poser.pugx.org/oliverklee/phpunit/v/unstable.svg)](https://packagist.org/packages/oliverklee/phpunit)
-[![License](https://poser.pugx.org/oliverklee/phpunit/license.svg)](https://packagist.org/packages/oliverklee/phpunit)
+[![License](https://img.shields.io/github/license/oliverklee/ext-phpunit)](https://packagist.org/packages/oliverklee/phpunit)
 
 Unit testing for TYPO3. Includes PHPUnit and a CLI test runner.
 
