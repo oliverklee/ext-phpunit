@@ -11,6 +11,7 @@ PHPUnit package this extension is intended to be used with.
 - Add support for PHP 8.2 (#349)
 
 ### Changed
+- Bump the Symfony dependencies (#380)
 - Switch to the TYPO3 Code of Conduct (#309)
 
 ### Deprecated
