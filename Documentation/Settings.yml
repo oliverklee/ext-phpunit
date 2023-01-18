@@ -4,7 +4,7 @@
 
 ---
 conf.py:
-  copyright: 2021
+  copyright: 2023
   project: PHPUnit
   version: 8.5
   release: 8.5.0
