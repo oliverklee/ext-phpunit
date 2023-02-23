@@ -149,3 +149,24 @@ jobs:
             php-version: "8.1"
           - typo3-version: "^11.5"
             php-version: "8.2"
+
+  automerge:
+    name: Dependabot auto-merge
+
+    runs-on: ubuntu-22.04
+
+    needs: [ php-lint, code-quality, unit-tests ]
+
+    if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request_target' }}
+
+    steps:
+      - name: automerge
+        uses: pascalgn/automerge-action@v0.15.6
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          MERGE_ERROR_FAIL: true
+          MERGE_LABELS: "dependencies,!blocked,!wip"
+          MERGE_METHOD: "rebase"
+          MERGE_READY_STATE: "clean,unstable"
+          MERGE_RETRIES: 0
+
