@@ -35,7 +35,8 @@
 		"phpstan/phpstan-strict-rules": "^1.5.1",
 		"phpunit/phpunit": "^8.5.33",
 		"saschaegerer/phpstan-typo3": "^1.1.2",
-		"squizlabs/php_codesniffer": "^3.7.2"
+		"squizlabs/php_codesniffer": "^3.7.2",
+		"ssch/typo3-rector": "^1.2.1"
 	},
 	"conflict": {
 		"typo3/cms-composer-installers": "<1.4.6"
@@ -103,7 +104,8 @@
 			"rm CODE_OF_CONDUCT.md",
 			"rm phpcs.xml.dist",
 			"rm phpstan-baseline.neon",
-			"rm phpstan.neon"
+			"rm phpstan.neon",
+			"rm rector.php"
 		]
 	},
 	"scripts-descriptions": {
