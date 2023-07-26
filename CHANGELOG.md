@@ -8,6 +8,7 @@ PHPUnit package this extension is intended to be used with.
 ## x.y.z
 
 ### Added
+- Add support for TYPO3 12LTS (#465)
 - Add support for PHP 8.2 (#349)
 
 ### Changed
