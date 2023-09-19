@@ -1,6 +1,6 @@
 {
 	"name": "oliverklee/phpunit",
-	"description": "Unit testing for TYPO3. Includes PHPUnit and a CLI test runner.",
+	"description": "PHPUnit test runner for TYPO3",
 	"type": "typo3-cms-extension",
 	"keywords": [
 		"phpunit",
