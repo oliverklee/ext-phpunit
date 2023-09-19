@@ -3,10 +3,11 @@
 	"description": "Unit testing for TYPO3. Includes PHPUnit and a CLI test runner.",
 	"type": "typo3-cms-extension",
 	"keywords": [
-		"tdd",
-		"unit testing",
 		"phpunit",
-		"typo3"
+		"tdd",
+		"testing",
+		"typo3",
+		"unit testing"
 	],
 	"license": "GPL-2.0-or-later",
 	"authors": [
