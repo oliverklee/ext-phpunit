@@ -17,7 +17,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     protected $backupGlobals = false;
 
     /**
-     * @var bool
+     * @var bool|null
      */
     protected $backupStaticAttributes = false;
 }
