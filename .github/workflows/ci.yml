@@ -127,7 +127,7 @@ jobs:
       - name: "Set up TYPO3 for >= 12"
         if : ${{ matrix.typo3-version == '^12.4' }}
         run: >
-          .Build/vendor/bin/typo3 setup --no-interaction --create-site="https://example.com"
+          .Build/vendor/bin/typo3 setup --no-interaction --create-site="https://example.com" --server-type="other"
           --username="${DATABASE_USER}" --host="${DATABASE_HOST}"
           --port="${{ job.services.mysql.ports[3306] }}" --dbname="${DATABASE_NAME}"
           --admin-email="admin@example.com" --driver="sqlite" --password=""
