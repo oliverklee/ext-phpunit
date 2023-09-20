@@ -9,7 +9,7 @@ PHPUnit package this extension is intended to be used with.
 
 ### Added
 - Add support for TYPO3 12LTS (#465)
-- Add support for PHP 8.2 (#349)
+- Add support for PHP 8.2 and 8.3 (#349, #485)
 
 ### Changed
 - Bump the Symfony dependencies (#380)
