@@ -8,8 +8,7 @@
 [![Total Downloads](https://poser.pugx.org/oliverklee/phpunit/downloads.svg)](https://packagist.org/packages/oliverklee/phpunit)
 [![GitHub CI Status](https://github.com/oliverklee/ext-phpunit/workflows/CI/badge.svg?branch=main)](https://github.com/oliverklee/ext-phpunit/actions)
 
-This extension should be used for old projects that already use the PHPUnit
-extension. For new projects, it is recommended to use the
+This extension is no longer useful and has been abandonded. Please use the
 [TYPO3 testing framework](https://github.com/TYPO3/testing-framework) instead.
 
 Most of the documentation is in ReST format
