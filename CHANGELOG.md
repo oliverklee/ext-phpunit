@@ -5,7 +5,7 @@ This project does **not** adhere to [Semantic Versioning](https://semver.org/).
 Instead, the version number mirrors the version number of the
 PHPUnit package this extension is intended to be used with.
 
-## x.y.z
+## 8.5.1
 
 ### Added
 - Add support for TYPO3 12LTS (#465)
@@ -14,10 +14,6 @@ PHPUnit package this extension is intended to be used with.
 ### Changed
 - Bump the Symfony dependencies (#380)
 - Switch to the TYPO3 Code of Conduct (#309)
-
-### Deprecated
-
-### Removed
 
 ### Fixed
 - Improve type safety (#311, #312, #351)
